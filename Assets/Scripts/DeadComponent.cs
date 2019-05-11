@@ -22,7 +22,8 @@ public class DeadComponent : MonoBehaviour
 	private void OnTriggerEnter2D (Collider2D collision)
 	{
 		if (collision.gameObject.name == "Hero") {
-			collision.transform.position = new Vector3 (-6.37f, -3.47f, 0);
+			LoadController load = GameObject.Find ("SavaPoint").GetComponent<LoadController> ();
+			load.Reload (collision.gameObject);
 		}
 	}
 }

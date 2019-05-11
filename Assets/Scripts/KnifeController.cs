@@ -11,18 +11,28 @@ public class KnifeController : MonoBehaviour
 
 	bool m_isFlying = false;
 
+	bool m_isPowered = true;
+
+	bool m_isStay = false;
+
 	// Use this for initialization
 	void Start ()
 	{
-
+		m_isFlying = false;
+		m_isPowered = true;
 	}
 
 	// Update is called once per frame
 	void Update ()
 	{
-		if (m_isFlying) {
+		if (m_isFlying && m_isPowered) {
 			if (InputService.Instance ().GetInput (KeyMap.Knife) == true) {
-				GameObject.Find ("Hero").transform.position = transform.position;
+				GameObject go = GameObject.Find ("Hero");
+
+				go.transform.position = transform.position;
+				go.GetComponent<Rigidbody2D> ().velocity = m_dir * m_speed * 100f;
+
+				m_isPowered = false;
 			}
 		}
 	}
@@ -37,16 +47,34 @@ public class KnifeController : MonoBehaviour
 
 	public void Shoot (Vector3 pos, Vector3 dir)
 	{
+		if (m_isFlying || !m_isPowered) return;
+
 		transform.position = pos;
 
 		m_dir = dir;
 
 		m_isFlying = true;
 
+
+	}
+
+	public void Recharge ()
+	{
+		m_isPowered = true;
+	}
+
+	public bool GetIsPowered ()
+	{
+		return m_isPowered;
 	}
 
 	private void OnTriggerEnter2D (Collider2D collision)
 	{
+		if (collision.gameObject.name == "Barrier") {
+			m_isFlying = false;
+			Disappear ();
+		}
+
 		if (collision.gameObject.name == "Wall") {
 			m_isFlying = false;
 			StartCoroutine (Disappear (5));
@@ -55,7 +83,7 @@ public class KnifeController : MonoBehaviour
 
 	IEnumerator Disappear (float time)
 	{
-
+		m_isStay = true;
 		while (time > 0) {
 			time -= Time.fixedDeltaTime;
 			yield return null;
@@ -63,10 +91,17 @@ public class KnifeController : MonoBehaviour
 		}
 		if (!m_isFlying) {
 			transform.position = new Vector3 (-100, -100, 0);
+			m_isStay = false;
+		}
+	}
+	void Disappear ()
+	{
+
+		if (!m_isFlying) {
+			transform.position = new Vector3 (-100, -100, 0);
 
 		}
 	}
-
 
 	public Vector3 GetDir ()
 	{

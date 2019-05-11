@@ -38,6 +38,8 @@ public class CharacterController : MonoBehaviour
 	bool m_isLightAttack;
 	bool m_isHeavyAttack;
 
+
+	KnifeController knifeController;
 	DoorState m_doorState = DoorState.None;
 	//bool isDoorExist = false;
 	// Use this for initialization
@@ -49,6 +51,8 @@ public class CharacterController : MonoBehaviour
 		m_rayDistance = m_boxCollider2D.bounds.extents.y + 0.1f;
 
 		m_state = WeaponState.None;
+
+		knifeController = GameObject.Find ("Knife").GetComponent<KnifeController> ();
 
 	}
 
@@ -78,7 +82,7 @@ public class CharacterController : MonoBehaviour
 
 				Vector2 dir = new Vector2 (mousePos.x - transform.position.x, mousePos.y - transform.position.y);
 				dir.Normalize ();
-				GameObject.Find ("Knife").GetComponent<KnifeController> ().Shoot (transform.position, dir);
+				knifeController.Shoot (transform.position, dir);
 			}
 
 
@@ -136,7 +140,7 @@ public class CharacterController : MonoBehaviour
 		float horizontalAxis = InputService.Instance ().GetAxis (KeyMap.Horizontal);
 		float verticalAxis = InputService.Instance ().GetAxis (KeyMap.Vertical);
 		if (horizontalAxis > 0.1f || horizontalAxis < -0.1f) {
-			Debug.Log (InputService.Instance ().GetAxis (KeyMap.Horizontal));
+			//Debug.Log (InputService.Instance ().GetAxis (KeyMap.Horizontal));
 			m_rigidbody2D.velocity = new Vector2 (horizontalAxis * m_moveSpeed, m_rigidbody2D.velocity.y);
 			//transform.localPosition = new Vector3 (
 			//transform.localPosition.x + horizontalAxis * m_moveSpeed * Time.fixedDeltaTime,
@@ -145,15 +149,26 @@ public class CharacterController : MonoBehaviour
 
 		}
 		if (verticalAxis > 0.1f) {
-			Debug.Log (InputService.Instance ().GetAxis (KeyMap.Horizontal));
+			//Debug.Log (InputService.Instance ().GetAxis (KeyMap.Horizontal));
 
 
 			RaycastHit2D hit = Physics2D.Raycast (transform.position, Vector2.down, m_rayDistance, m_layerMask);
 
 			if (hit.collider != null) {
-				Debug.Log ("Jump!");
+				//Debug.Log ("Jump!");
 
 				m_rigidbody2D.AddForce (new Vector2 (0, m_jumpForce));
+			}
+		}
+
+		if (knifeController.GetIsPowered () == false) {
+
+			RaycastHit2D hit = Physics2D.Raycast (transform.position, Vector2.down, m_rayDistance, m_layerMask);
+
+			if (hit.collider != null) {
+				//Debug.Log ("Jump!");
+
+				knifeController.Recharge ();
 			}
 		}
 

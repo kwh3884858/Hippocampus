@@ -6,7 +6,7 @@ public class DoorController : MonoBehaviour
 {
 	public float m_speed = 0.2f;
 	public LayerMask m_layerMask;
-	public int m_detectCount = 10;
+	public int m_detectCount = 20;
 
 	private Vector3 m_dir;
 	private Collider2D m_collider2D;
@@ -82,6 +82,12 @@ public class DoorController : MonoBehaviour
 
 	private void OnTriggerEnter2D (Collider2D collision)
 	{
+		if (collision.gameObject.name == "Barrier") {
+			m_isStay = true;
+			Disappear ();
+		}
+
+
 		if (collision.gameObject.name == "Wall") {
 			isFlying = false;
 			List<int> touched = new List<int> ();
@@ -90,13 +96,12 @@ public class DoorController : MonoBehaviour
 				Vector3 rotateQuaternion = Quaternion.AngleAxis (interval * i, Vector3.forward) * Vector3.up;
 
 
-
 				RaycastHit2D raycastHit2D = Physics2D.Raycast (transform.position, rotateQuaternion, m_radius, m_layerMask);
 				if (raycastHit2D.collider != null) {
 					Debug.DrawLine (transform.position, raycastHit2D.point, Color.green, 20f);
 
 					touched.Add (i);
-					Debug.Log ("Angle:" + i);
+					//Debug.Log ("Angle:" + i);
 				}
 			}
 			if (touched.Count == 0) {
@@ -110,7 +115,9 @@ public class DoorController : MonoBehaviour
 			rotate -= 90;
 			transform.localRotation = Quaternion.Euler (0, 0, rotate);
 
-			Debug.DrawRay (transform.position, transform.InverseTransformDirection (Vector3.left), Color.red, 20f);
+			//Debug.Log ("Rotate:" + rotate);
+
+			Debug.DrawRay (transform.position, transform.TransformDirection (Vector3.right), Color.red, 20f);
 
 
 			m_isStay = true;
@@ -120,12 +127,41 @@ public class DoorController : MonoBehaviour
 		if (m_isStay) {
 			if (collision.gameObject.name == "Hero") {
 				Transform hero = collision.gameObject.transform;
-				if (hero.GetComponent<Rigidbody2D> ().velocity.y <= 0.3f) {
-					float dotResult = Vector3.Dot (hero.InverseTransformDirection (Vector3.up), transform.InverseTransformDirection (Vector3.left));
+				if (hero.GetComponent<Rigidbody2D> ().velocity.sqrMagnitude >= 0.3f) {
+
+					Vector3 heroVec = hero.TransformDirection (Vector3.up);
+					Vector3 doorNormal = transform.TransformDirection (Vector3.right);
+
+					float dotResult = Vector3.Dot (heroVec, doorNormal);
+
 					if (dotResult >= 0.5f) {
+
+						Vector3 siblingNormal = m_sibline.transform.TransformDirection (Vector3.right);
+
 						bool isSiblingStay = m_sibline.GetComponent<DoorController> ().GetIsDoorStay ();
+
 						if (isSiblingStay) {
 							hero.position = m_sibline.position;
+
+							float angle = Mathf.Acos (Vector2.Dot (new Vector2 (doorNormal.x, doorNormal.y), new Vector2 (siblingNormal.x, siblingNormal.y)) / doorNormal.magnitude * siblingNormal.magnitude) * Mathf.Rad2Deg;
+							Debug.Log ("angle : " + angle);
+							Vector3 axis = Vector3.Cross (doorNormal, siblingNormal);
+							Debug.Log ("Axis : " + axis);
+							Rigidbody2D heroRigid = hero.GetComponent<Rigidbody2D> ();
+
+							//get negative
+							Vector3 velocity = heroRigid.velocity;
+							velocity.x = -velocity.x;
+							velocity.y = -velocity.y;
+							velocity.z = -velocity.z;
+
+							Debug.DrawRay (transform.position, velocity.normalized, Color.yellow, 20f);
+							Debug.Log ("Before rotation : " + velocity);
+
+							hero.GetComponent<Rigidbody2D> ().velocity = Quaternion.AngleAxis (angle, axis) * velocity;
+
+							Debug.Log ("After rotation : " + heroRigid.velocity);
+							Debug.DrawRay (m_sibline.position, heroRigid.velocity.normalized, Color.yellow, 20f);
 						}
 					}
 				}
