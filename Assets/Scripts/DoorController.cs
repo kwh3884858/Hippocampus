@@ -117,7 +117,7 @@ public class DoorController : MonoBehaviour
 
 			//Debug.Log ("Rotate:" + rotate);
 
-			Debug.DrawRay (transform.position, transform.TransformDirection (Vector3.right), Color.red, 20f);
+			Debug.DrawRay (transform.position, transform.TransformDirection (Vector2.right), Color.red, 20f);
 
 
 			m_isStay = true;
@@ -127,25 +127,46 @@ public class DoorController : MonoBehaviour
 		if (m_isStay) {
 			if (collision.gameObject.name == "Hero") {
 				Transform hero = collision.gameObject.transform;
-				if (hero.GetComponent<Rigidbody2D> ().velocity.sqrMagnitude >= 0.3f) {
+				//Debug.Log (hero.GetComponent<Rigidbody2D> ().velocity.sqrMagnitude);
+				Vector2 heroVelocity = hero.GetComponent<Rigidbody2D> ().velocity;
+				if (heroVelocity.sqrMagnitude > 1f) {
 
-					Vector3 heroVec = hero.TransformDirection (Vector3.up);
-					Vector3 doorNormal = transform.TransformDirection (Vector3.right);
+					//Vector3 heroVec = hero.TransformDirection (Vector3.up);
+					Vector2 doorNormal = transform.TransformDirection (Vector2.right);
 
-					float dotResult = Vector3.Dot (heroVec, doorNormal);
+					float dotResult = Vector2.Dot (heroVelocity, doorNormal) / heroVelocity.magnitude * doorNormal.magnitude;
 
-					if (dotResult >= 0.5f) {
+
+					if (dotResult <= -0.3f) {
 
 						Vector3 siblingNormal = m_sibline.transform.TransformDirection (Vector3.right);
 
 						bool isSiblingStay = m_sibline.GetComponent<DoorController> ().GetIsDoorStay ();
 
 						if (isSiblingStay) {
-							hero.position = m_sibline.position;
 
-							float angle = Mathf.Acos (Vector2.Dot (new Vector2 (doorNormal.x, doorNormal.y), new Vector2 (siblingNormal.x, siblingNormal.y)) / doorNormal.magnitude * siblingNormal.magnitude) * Mathf.Rad2Deg;
+							float angle;
+							float normalDotCos = Vector2.Dot (new Vector2 (doorNormal.x, doorNormal.y), new Vector2 (siblingNormal.x, siblingNormal.y)) / doorNormal.magnitude * siblingNormal.magnitude;
+
+							if (normalDotCos <= -0.9f) {
+								angle = 180;
+
+							} else if (normalDotCos >= 0.9) {
+								angle = 0;
+							} else {
+								angle = Mathf.Acos (normalDotCos) * Mathf.Rad2Deg;
+							}
+
 							Debug.Log ("angle : " + angle);
-							Vector3 axis = Vector3.Cross (doorNormal, siblingNormal);
+							Vector3 axis;
+							if (normalDotCos <= -0.9f) {
+								axis = Vector3.forward;
+							} else if (normalDotCos >= 0.9) {
+								axis = Vector3.back;
+							} else {
+								axis = Vector3.Cross (doorNormal, siblingNormal);
+							}
+
 							Debug.Log ("Axis : " + axis);
 							Rigidbody2D heroRigid = hero.GetComponent<Rigidbody2D> ();
 
@@ -158,10 +179,15 @@ public class DoorController : MonoBehaviour
 							Debug.DrawRay (transform.position, velocity.normalized, Color.yellow, 20f);
 							Debug.Log ("Before rotation : " + velocity);
 
-							hero.GetComponent<Rigidbody2D> ().velocity = Quaternion.AngleAxis (angle, axis) * velocity;
+							heroRigid.velocity = Quaternion.AngleAxis (angle, axis) * velocity;
 
 							Debug.Log ("After rotation : " + heroRigid.velocity);
 							Debug.DrawRay (m_sibline.position, heroRigid.velocity.normalized, Color.yellow, 20f);
+
+							Vector2 padding = heroRigid.velocity.normalized * m_radius;
+
+							hero.position = m_sibline.position + new Vector3 (padding.x, padding.y, 0);
+
 						}
 					}
 				}
