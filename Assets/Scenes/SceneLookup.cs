@@ -8,15 +8,15 @@
 //------------------------------------------------------------------------------
 public static class SceneLookup {
 
-public const int SceneKnifeAndTransformDoor = 0;
-public const int SceneRoot = 1;
+public const int GameRoot = 0;
+public const int SceneKnifeAndTransformDoor = 1;
 
 
     private const int TotalComponents = 2;
 
     private static readonly string[] sceneLists = {
-"SceneKnifeAndTransformDoor",
-"SceneRoot"
+"GameRoot",
+"SceneKnifeAndTransformDoor"
     };
 
     public static string Get(SceneLookupEnum eScene)
@@ -27,6 +27,6 @@ public const int SceneRoot = 1;
 
 public enum SceneLookupEnum
 {
-SceneKnifeAndTransformDoor = 0,
-SceneRoot = 1
+GameRoot = 0,
+SceneKnifeAndTransformDoor = 1
 }

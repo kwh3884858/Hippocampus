@@ -12,7 +12,7 @@ namespace Skylight
 		// Use this for initialization
 		void Start ()
 		{
-			//AddGameObject<NetService>();
+
 			//DONT CHANGE ORDER
 			//不要修改顺序，有相互依赖关系
 			AddGameObject<EventManager> ();
@@ -22,6 +22,7 @@ namespace Skylight
 
 			//依赖Poller
 			//AddGameObject<Localization> ();
+
 			//Initialize asset bundle loader and assetmanager
 			AddGameObject<AssetsManager> ();
 
@@ -46,24 +47,18 @@ namespace Skylight
 			AddGameObject<TimerService> ();
 			AddGameObject<Console> ();
 			AddGameObject<Localization> ();
-			//UIManager.Instance().ShowPanel<UIButtonPanel>();
-			//SceneManager.Instance().LoadScene()
-			// UIManager.Instance().ShowPanel<UIButtonPanel>();
-			//SceneManager.Instance ().ShowScene<SceneCave> ();
-			//UIManager.Instance ().ShowPanel<UIMainMenu> ();
-			//UIManager.Instance().ShowPanel<UIMainMenuPanel>();
 
+			//Add ECS system
 			//AddEntitas ();
 
 			SceneManager.Instance ().AddSceneLoadedEvent (Handlecallback);
 
-			//yield return null;
 			SceneManager.Instance ().LoadScene (SceneLookupEnum.SceneKnifeAndTransformDoor, SceneLoadMode.Additive);
-			//SceneManager.Instance ().LoadScene ("scene2", SceneLoadMode.Additive);
 
 
 
 		}
+
 		// Update is called once per frame
 		void Update ()
 		{
@@ -75,7 +70,7 @@ namespace Skylight
 
 		void Handlecallback (SceneLoadedEvent loadedEvent)
 		{
-
+			//Show UI, if you have
 			//if (loadedEvent.GetSceneName () == SceneLookupEnum.PrototypeA.ToString ().ToLower ()) {
 			//	UIManager.Instance ().ShowPanel<UIDirectionButtonPanel> ();
 			//	UIManager.Instance ().ShowPanel<UIControllerPanel> ();
