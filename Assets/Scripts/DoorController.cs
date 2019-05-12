@@ -14,10 +14,66 @@ public class DoorController : MonoBehaviour
 
 	private Transform m_sibline;
 
+
+
 	bool isFlying = false;
 	bool m_isStay = false;
 
 	float interval;
+
+
+	public void Disappear ()
+	{
+		if (m_isStay) {
+			transform.position = new Vector3 (-100, -100, 0);
+
+		}
+
+		m_isStay = false;
+
+	}
+
+	public bool GetIsDoorStay ()
+	{
+		return m_isStay;
+	}
+
+	public bool Shoot (Vector3 pos, Vector3 dir)
+	{
+		if (m_isStay) return false;
+
+
+
+		transform.position = pos;
+		if (dir.x <= 0.001f && dir.x >= -0.001f) {
+			if (dir.y >= 0f) {
+				transform.localRotation = Quaternion.Euler (0, 0, 0);
+
+			} else {
+				transform.localRotation = Quaternion.Euler (0, 0, 180);
+
+			}
+		}
+		float atan = dir.y / dir.x;
+		atan = Mathf.Atan (atan) * 57.2957f;
+		if (dir.y >= 0) {
+			transform.localRotation = Quaternion.Euler (0, 0, atan + 90);
+
+		} else {
+			transform.localRotation = Quaternion.Euler (0, 0, atan - 90);
+		}
+
+
+		m_dir = dir;
+
+		isFlying = true;
+
+
+
+
+		return true;
+	}
+
 
 	// Use this for initialization
 	void Start ()
@@ -49,36 +105,6 @@ public class DoorController : MonoBehaviour
 		}
 	}
 
-	public bool Shoot (Vector3 pos, Vector3 dir)
-	{
-		if (m_isStay) return false;
-		transform.position = pos;
-		if (dir.x <= 0.001f && dir.x >= -0.001f) {
-			if (dir.y >= 0f) {
-				transform.localRotation = Quaternion.Euler (0, 0, 0);
-
-			} else {
-				transform.localRotation = Quaternion.Euler (0, 0, 180);
-
-			}
-		}
-		float atan = dir.y / dir.x;
-		atan = Mathf.Atan (atan) * 57.2957f;
-		if (dir.y >= 0) {
-			transform.localRotation = Quaternion.Euler (0, 0, atan + 90);
-
-		} else {
-			transform.localRotation = Quaternion.Euler (0, 0, atan - 90);
-
-		}
-
-
-		m_dir = dir;
-
-		isFlying = true;
-
-		return true;
-	}
 
 	private void OnTriggerEnter2D (Collider2D collision)
 	{
@@ -179,6 +205,7 @@ public class DoorController : MonoBehaviour
 							Debug.DrawRay (transform.position, velocity.normalized, Color.yellow, 20f);
 							Debug.Log ("Before rotation : " + velocity);
 
+							//TODO  Adding a drag coefficient make player slow down
 							heroRigid.velocity = Quaternion.AngleAxis (angle, axis) * velocity;
 
 							Debug.Log ("After rotation : " + heroRigid.velocity);
@@ -245,19 +272,4 @@ public class DoorController : MonoBehaviour
 		}
 	}
 
-	public void Disappear ()
-	{
-		if (m_isStay) {
-			transform.position = new Vector3 (-100, -100, 0);
-
-		}
-
-		m_isStay = false;
-
-	}
-
-	public bool GetIsDoorStay ()
-	{
-		return m_isStay;
-	}
 }

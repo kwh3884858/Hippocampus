@@ -23,6 +23,9 @@ public class CharacterController : MonoBehaviour
 	public float m_moveSpeed = 5f;
 	public float m_jumpForce = 60f;
 	public LayerMask m_layerMask;
+	public LayerMask m_enemyLayerMask;
+	public float m_effectRange = 2f;
+	//public float m_stayWithKnifeTime = 3;
 
 	private WeaponState m_state;
 
@@ -60,7 +63,21 @@ public class CharacterController : MonoBehaviour
 	void Update ()
 	{
 		if (InputService.Instance ().GetInput (KeyMap.Knife) == true) {
-			m_state = WeaponState.Knife;
+
+			if (knifeController.GetIsStaying () && knifeController.GetIsPowered ()) {
+				transform.position = knifeController.transform.position;
+
+				m_rigidbody2D.simulated = false;
+
+				StartCoroutine (IsStayWithKnife (knifeController.m_stayTime));
+			} else if (m_rigidbody2D.simulated == false) {
+				m_rigidbody2D.simulated = true;
+			} else {
+
+				m_state = WeaponState.Knife;
+
+			}
+
 		}
 
 
@@ -74,9 +91,8 @@ public class CharacterController : MonoBehaviour
 
 
 		if (Input.GetKeyDown (KeyCode.Mouse0)) {
-			if (m_state == WeaponState.Knife) {
+			if (m_state == WeaponState.Knife && m_rigidbody2D.simulated == true) {
 				Debug.Log ("Shoot knife");
-
 
 				Vector3 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 
@@ -84,6 +100,19 @@ public class CharacterController : MonoBehaviour
 				dir.Normalize ();
 				knifeController.Shoot (transform.position, dir);
 			}
+
+			//if (m_state == WeaponState.Knife && m_rigidbody2D.simulated == false) {
+			//	Collider2D [] others = Physics2D.OverlapCircleAll (this.transform.position, m_effectRange, m_enemyLayerMask);   //获取指定范围所有碰撞体
+			//	foreach (var other in others) {
+			//		if (other.name == "Enemy") {
+			//			transform.position = other.transform.position;
+
+			//			Destroy (other.gameObject);
+
+			//		}
+
+			//	}
+			//}
 
 
 			if (m_state == WeaponState.SetDoor) {
@@ -132,6 +161,15 @@ public class CharacterController : MonoBehaviour
 
 	}
 
+	IEnumerator IsStayWithKnife (float time)
+	{
+		while (time >= 0) {
+			time -= Time.fixedDeltaTime;
+			yield return null;
+		}
+
+		m_rigidbody2D.simulated = true;
+	}
 
 	void FixedUpdate ()
 	{
@@ -160,8 +198,14 @@ public class CharacterController : MonoBehaviour
 				m_rigidbody2D.AddForce (new Vector2 (0, m_jumpForce));
 			}
 		}
-
-		if (knifeController.GetIsPowered () == false) {
+		if (verticalAxis < -0.1f && m_rigidbody2D.simulated == false) {
+			m_rigidbody2D.simulated = true;
+			knifeController.Disappear ();
+		}
+		if (knifeController.GetIsPowered () == false &&
+		knifeController.GetIsFlying () == false &&
+			knifeController.GetIsStaying () == false &&
+		m_rigidbody2D.simulated == true) {
 
 			RaycastHit2D hit = Physics2D.Raycast (transform.position, Vector2.down, m_rayDistance, m_layerMask);
 
