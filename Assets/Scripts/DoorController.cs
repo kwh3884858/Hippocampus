@@ -224,15 +224,89 @@ public class DoorController : MonoBehaviour
 
 			if (collision.gameObject.name == "Knife") {
 				Transform knife = collision.gameObject.transform;
+
 				KnifeController knifeController = knife.GetComponent<KnifeController> ();
 
 				if (knifeController.GetIsFlying ()) {
 
+					//Vector2 dir = knifeController.GetDir ();
+
+
 					bool isSiblingStay = m_sibline.GetComponent<DoorController> ().GetIsDoorStay ();
 					if (isSiblingStay) {
+						//Start calculate
+						Vector2 doorNormal = transform.TransformDirection (Vector2.right);
+						Vector3 siblingNormal = m_sibline.transform.TransformDirection (Vector3.right);
+
 						Vector3 dir = knifeController.GetDir ();
 						knife.position = m_sibline.position + dir * m_radius;
 					}
+
+
+					//Vector2 heroVelocity = hero.GetComponent<Rigidbody2D> ().velocity;
+					//if (heroVelocity.sqrMagnitude > 1f) {
+
+					//	//Vector3 heroVec = hero.TransformDirection (Vector3.up);
+					//	Vector2 doorNormal = transform.TransformDirection (Vector2.right);
+
+					//	float dotResult = Vector2.Dot (heroVelocity, doorNormal) / heroVelocity.magnitude * doorNormal.magnitude;
+
+
+					//	if (dotResult <= -0.3f) {
+
+					//		Vector3 siblingNormal = m_sibline.transform.TransformDirection (Vector3.right);
+
+					//		bool isSiblingStay = m_sibline.GetComponent<DoorController> ().GetIsDoorStay ();
+
+					//		if (isSiblingStay) {
+
+					//			float angle;
+					//			float normalDotCos = Vector2.Dot (new Vector2 (doorNormal.x, doorNormal.y), new Vector2 (siblingNormal.x, siblingNormal.y)) / doorNormal.magnitude * siblingNormal.magnitude;
+
+					//			if (normalDotCos <= -0.9f) {
+					//				angle = 180;
+
+					//			} else if (normalDotCos >= 0.9) {
+					//				angle = 0;
+					//			} else {
+					//				angle = Mathf.Acos (normalDotCos) * Mathf.Rad2Deg;
+					//			}
+
+					//			Debug.Log ("angle : " + angle);
+					//			Vector3 axis;
+					//			if (normalDotCos <= -0.9f) {
+					//				axis = Vector3.forward;
+					//			} else if (normalDotCos >= 0.9) {
+					//				axis = Vector3.back;
+					//			} else {
+					//				axis = Vector3.Cross (doorNormal, siblingNormal);
+					//			}
+
+					//			Debug.Log ("Axis : " + axis);
+					//			Rigidbody2D heroRigid = hero.GetComponent<Rigidbody2D> ();
+
+					//			//get negative
+					//			Vector3 velocity = heroRigid.velocity;
+					//			velocity.x = -velocity.x;
+					//			velocity.y = -velocity.y;
+					//			velocity.z = -velocity.z;
+
+					//			Debug.DrawRay (transform.position, velocity.normalized, Color.yellow, 20f);
+					//			Debug.Log ("Before rotation : " + velocity);
+
+					//			//TODO  Adding a drag coefficient make player slow down
+					//			heroRigid.velocity = Quaternion.AngleAxis (angle, axis) * velocity;
+
+					//			Debug.Log ("After rotation : " + heroRigid.velocity);
+					//			Debug.DrawRay (m_sibline.position, heroRigid.velocity.normalized, Color.yellow, 20f);
+
+					//			Vector2 padding = heroRigid.velocity.normalized * m_radius;
+
+					//			hero.position = m_sibline.position + new Vector3 (padding.x, padding.y, 0);
+
+					//		}
+					//	}
+					//}
 				}
 			}
 
