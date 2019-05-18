@@ -19,7 +19,7 @@ If you are not familiar with the framework architecture, please read this docume
 ---
 
 #### Project Introduction
-
+Unity Version: 2018.2.20f1
 
 #### Introduction to play
 
@@ -27,7 +27,7 @@ If you are not familiar with the framework architecture, please read this docume
 - At the first, you need open PorjectRoot/Tools
 - Open terminal in this path, and input:
 ```Shell
-mono -s [project root/your scenes root] -o [project root/your scene root] -t [project root/tools path] 
+mono -s [Assets/your scenes root] -o [Assets/your scene root] -t [project root/tools path] 
 ```
 - Open project by unity, check [ Editor/Always Start From Scene GameRoot ], make sure its checked.
 - Right click in [ Project ] window, click [ AssetBundles/BuildAssetbundles ].
