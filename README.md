@@ -23,6 +23,15 @@ If you are not familiar with the framework architecture, please read this docume
 
 #### Introduction to play
 
+#### Setting Project
+- At the first, you need open PorjectRoot/Tools
+- Open terminal in this path, and input:
+```Shell
+mono -s [project root/your scenes root] -o [project root/your scene root] -t [project root/tools path] 
+```
+- Open project by unity, check [ Editor/Always Start From Scene GameRoot ], make sure its checked.
+- Right click in [ Project ] window, click [ AssetBundles/BuildAssetbundles ].
+- Good job! Now click play to start play demo game!
 
 #### Collaborative Instructions
 
