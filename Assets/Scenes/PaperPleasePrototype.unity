@@ -212,91 +212,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1601909559924710, guid: ff6ee560e3d0141cdb00412ce43263ce, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff6ee560e3d0141cdb00412ce43263ce, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &209494004
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 209494005}
-  - component: {fileID: 209494007}
-  - component: {fileID: 209494006}
-  m_Layer: 5
-  m_Name: Data
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &209494005
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 209494004}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 283866647}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -60.869995, y: -57.190002}
-  m_SizeDelta: {x: 121.75, y: 113.869995}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &209494006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 209494004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 21
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 2
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: New Text
---- !u!222 &209494007
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 209494004}
-  m_CullTransparentMesh: 0
---- !u!224 &283866647 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 224773073569012220, guid: ff6ee560e3d0141cdb00412ce43263ce,
-    type: 2}
-  m_PrefabInternal: {fileID: 93732381}
 --- !u!1001 &338155279
 Prefab:
   m_ObjectHideFlags: 0
@@ -392,6 +312,10 @@ Prefab:
     - target: {fileID: 224520596256692540, guid: e1994fa708b2a450f9fcfea74677092c,
         type: 2}
       propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1421907801327444, guid: e1994fa708b2a450f9fcfea74677092c, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -660,9 +584,9 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1018174806616842, guid: 89d3d00a6a3114f3bb1f418c0fd04259, type: 2}
-      propertyPath: m_Name
-      value: InfoContent
+    - target: {fileID: 1839891088860938, guid: 89d3d00a6a3114f3bb1f418c0fd04259, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89d3d00a6a3114f3bb1f418c0fd04259, type: 2}
@@ -802,6 +726,10 @@ Prefab:
     - target: {fileID: 224728338564502392, guid: de0d0a52f189d452bbda2b8a6abbea97,
         type: 2}
       propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877094846379338, guid: de0d0a52f189d452bbda2b8a6abbea97, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
