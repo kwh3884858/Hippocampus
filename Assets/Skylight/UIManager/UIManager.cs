@@ -227,10 +227,7 @@ namespace Skylight
 					t.PanelInit ();
 
 					OpenUIPanel<T> (uiObject);
-					if (callback != null) {
-						callback ();
-
-					}
+					callback?.Invoke ();
 				});
 				//if (perfb == null) {
 				//	Debug.Log ("UIPanel Can`t Find Perfab");
@@ -245,7 +242,7 @@ namespace Skylight
 			} else {
 				uiObject = panelTran.gameObject;
 				OpenUIPanel<T> (uiObject);
-				callback ();
+				callback?.Invoke ();
 			}
 
 			return;

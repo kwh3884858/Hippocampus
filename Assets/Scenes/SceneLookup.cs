@@ -9,13 +9,15 @@
 public static class SceneLookup {
 
 public const int GameRoot = 0;
-public const int SceneKnifeAndTransformDoor = 1;
+public const int PaperPleasePrototype = 1;
+public const int SceneKnifeAndTransformDoor = 2;
 
 
-    private const int TotalComponents = 2;
+    private const int TotalComponents = 3;
 
     private static readonly string[] sceneLists = {
 "GameRoot",
+"PaperPleasePrototype",
 "SceneKnifeAndTransformDoor"
     };
 
@@ -28,5 +30,6 @@ public const int SceneKnifeAndTransformDoor = 1;
 public enum SceneLookupEnum
 {
 GameRoot = 0,
-SceneKnifeAndTransformDoor = 1
+PaperPleasePrototype = 1,
+SceneKnifeAndTransformDoor = 2
 }

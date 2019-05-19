@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 //depend on EventManager
 namespace Skylight
@@ -36,7 +37,43 @@ namespace Skylight
 		{
 			base.SingletonInit ();
 			EventManager.Instance ().AddEventListener<SceneLoadedEvent> (SceneLoadedCallBack);
+
+			AddSceneLoadedEvent (DisableAllUICanvas);
 		}
+
+		void DisableAllUICanvas (SceneLoadedEvent e)
+		{
+			//if (SceneManager.GetActiveScene ().buildIndex == 0) {
+			//	foreach (GameObject go in SceneManager.GetActiveScene ().GetRootGameObjects ()) {
+			//		go.SetActive (false);
+			//		foreach (string name in openList) {
+			//			if (go.name == name) {
+			//				go.SetActive (true);
+			//				break;
+			//			}
+			//		}
+			//	}
+			//} else {
+			//	foreach (GraphicRaycaster go in GameObject.FindObjectsOfType<GraphicRaycaster> ()) {
+			//		go.gameObject.SetActive (false);
+			//		go.enabled = false;
+			//		Debug.Log (go.gameObject.name);
+			//	}
+			//}
+			foreach (GraphicRaycaster go in GameObject.FindObjectsOfType<GraphicRaycaster> ()) {
+				go.gameObject.SetActive (false);
+				//go.enabled = false;
+				Debug.Log (go.gameObject.name + " disable, UI should be loaded by UIManager");
+			}
+		}
+
+		//TODO:Find same scene name gameobject and find same name componennt and run it.
+		void FindSceneGameObject ()
+		{
+
+		}
+
+
 		public void LoadScene (SceneLookupEnum sceneName, SceneLoadMode loadMode, object sceneData = null)
 		{
 			LoadScene (SceneLookup.Get (sceneName), loadMode, sceneData);
@@ -156,7 +193,6 @@ namespace Skylight
 					call?.Invoke (showSceneEvent);
 				}
 
-				m_loadedSceneEvent.Clear ();
 			}
 		}
 		/*

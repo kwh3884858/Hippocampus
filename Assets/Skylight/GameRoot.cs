@@ -53,7 +53,7 @@ namespace Skylight
 
 			SceneManager.Instance ().AddSceneLoadedEvent (Handlecallback);
 
-			SceneManager.Instance ().LoadScene (SceneLookupEnum.SceneKnifeAndTransformDoor, SceneLoadMode.Additive);
+			SceneManager.Instance ().LoadScene (SceneLookupEnum.PaperPleasePrototype, SceneLoadMode.Additive);
 
 
 
@@ -71,9 +71,9 @@ namespace Skylight
 		void Handlecallback (SceneLoadedEvent loadedEvent)
 		{
 			//Show UI, if you have
-			//if (loadedEvent.GetSceneName () == SceneLookupEnum.PrototypeA.ToString ().ToLower ()) {
-			//	UIManager.Instance ().ShowPanel<UIDirectionButtonPanel> ();
-			//	UIManager.Instance ().ShowPanel<UIControllerPanel> ();
+			//if (loadedEvent.GetSceneName () == SceneLookupEnum.PaperPleasePrototype.ToString ().ToLower ()) {
+			//	//UIManager.Instance ().ShowPanel<UIDirectionButtonPanel> ();
+			//	UIManager.Instance ().ShowPanel<UIStartIntroPanel> ();
 			//}
 
 			//virtualMachineInterface = new VirtualMachineInterface ();
