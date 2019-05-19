@@ -2677,8 +2677,9 @@ GameObject:
   - component: {fileID: 822977391}
   - component: {fileID: 822977390}
   - component: {fileID: 822977389}
+  - component: {fileID: 822977392}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: UnloadDemo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2753,6 +2754,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &822977392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 822977388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f600775fe69ee492fa42beb22d0f3cc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &839394711
 GameObject:
   m_ObjectHideFlags: 0
