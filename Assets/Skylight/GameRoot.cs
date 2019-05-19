@@ -71,9 +71,9 @@ namespace Skylight
 		void Handlecallback (SceneLoadedEvent loadedEvent)
 		{
 			//Show UI, if you have
-			//if (loadedEvent.GetSceneName () == SceneLookupEnum.PrototypeA.ToString ().ToLower ()) {
-			//	UIManager.Instance ().ShowPanel<UIDirectionButtonPanel> ();
-			//	UIManager.Instance ().ShowPanel<UIControllerPanel> ();
+			//if (loadedEvent.GetSceneName () == SceneLookupEnum.PaperPleasePrototype.ToString ().ToLower ()) {
+			//	//UIManager.Instance ().ShowPanel<UIDirectionButtonPanel> ();
+			//	UIManager.Instance ().ShowPanel<UIStartIntroPanel> ();
 			//}
 
 			//virtualMachineInterface = new VirtualMachineInterface ();

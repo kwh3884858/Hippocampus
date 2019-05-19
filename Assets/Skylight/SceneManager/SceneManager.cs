@@ -6,160 +6,226 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 //depend on EventManager
 namespace Skylight
 {
-	public enum SceneLoadMode
-	{
-		Single = UnityEngine.SceneManagement.LoadSceneMode.Single,
-		Additive = UnityEngine.SceneManagement.LoadSceneMode.Additive
+    public enum SceneLoadMode
+    {
+        Single = UnityEngine.SceneManagement.LoadSceneMode.Single,
+        Additive = UnityEngine.SceneManagement.LoadSceneMode.Additive
 
-	}
-	public class SceneManager : GameModule<SceneManager>
-	{
+    }
+    public class SceneManager : GameModule<SceneManager>
+    {
 
-		Dictionary<string, GameObject> m_allScenes = new Dictionary<string, GameObject> ();
-		//private UnityEngine.SceneManagement.Scene mCurrentScene;
-		//AsyncOperation asyncOperation = new AsyncOperation ();
+        Dictionary<string, GameObject> m_allScenes = new Dictionary<string, GameObject>();
+        //private UnityEngine.SceneManagement.Scene mCurrentScene;
+        //AsyncOperation asyncOperation = new AsyncOperation ();
 
-		List<string> m_loadedScene = new List<string> ();
+        List<string> m_loadedScene = new List<string>();
 
-		public delegate void callback (SceneLoadedEvent e);
-		List<callback> m_loadedSceneEvent = new List<callback> ();
+        public delegate void callback(SceneLoadedEvent e);
+        List<callback> m_loadedSceneEvent = new List<callback>();
 
-		public UnityEngine.SceneManagement.Scene m_currentScene {
-			get; set;
-		}
+        public UnityEngine.SceneManagement.Scene m_currentScene
+        {
+            get; set;
+        }
 
-		public override void SingletonInit ()
-		{
-			base.SingletonInit ();
-			EventManager.Instance ().AddEventListener<SceneLoadedEvent> (SceneLoadedCallBack);
-		}
-		public void LoadScene (SceneLookupEnum sceneName, SceneLoadMode loadMode, object sceneData = null)
-		{
-			LoadScene (SceneLookup.Get (sceneName), loadMode, sceneData);
-		}
-		public void LoadScene (string sceneName, SceneLoadMode loadMode, object sceneData = null)
-		{
-			//string sceneName = typeof (T).ToString ();
+        public override void SingletonInit()
+        {
+            base.SingletonInit();
+            EventManager.Instance().AddEventListener<SceneLoadedEvent>(SceneLoadedCallBack);
 
+            AddSceneLoadedEvent(DisableAllUICanvas);
+        }
 
-			GameObject uiObject;
-			string perfbName = "Scenes/" + sceneName;
-			if (m_loadedScene.Contains (sceneName)) {
-				return;
-			}
-			sceneName = sceneName.ToLower ();
-			m_loadedScene.Add (sceneName);
-			//Debug.Log ("Loaded Perfab : " + perfbName);
-			if (loadMode == SceneLoadMode.Single) {
-				AssetsManager.Instance ().LoadScene (
-					sceneName,
-					UnityEngine.SceneManagement.LoadSceneMode.Single);
-			} else if (loadMode == SceneLoadMode.Additive) {
-				AssetsManager.Instance ().LoadScene (
-					sceneName,
-					UnityEngine.SceneManagement.LoadSceneMode.Additive);
-			}
+        void DisableAllUICanvas(SceneLoadedEvent e)
+        {
+            //if (SceneManager.GetActiveScene ().buildIndex == 0) {
+            //	foreach (GameObject go in SceneManager.GetActiveScene ().GetRootGameObjects ()) {
+            //		go.SetActive (false);
+            //		foreach (string name in openList) {
+            //			if (go.name == name) {
+            //				go.SetActive (true);
+            //				break;
+            //			}
+            //		}
+            //	}
+            //} else {
+            //	foreach (GraphicRaycaster go in GameObject.FindObjectsOfType<GraphicRaycaster> ()) {
+            //		go.gameObject.SetActive (false);
+            //		go.enabled = false;
+            //		Debug.Log (go.gameObject.name);
+            //	}
+            //}
+            foreach (GraphicRaycaster go in GameObject.FindObjectsOfType<GraphicRaycaster>())
+            {
+                go.gameObject.SetActive(false);
+                //go.enabled = false;
+                Debug.Log(go.gameObject.name + " disable, UI should be loaded by UIManager");
+            }
+        }
 
-			//UnityEngine.SceneManagement.LoadSceneMode.Single
+        //TODO:Find same scene name gameobject and find same name componennt and run it.
+        void FindSceneGameObject()
+        {
 
-			return;
-
-
-		}
-		private void FinishLoadScene<T> () where T : BaseScene
-		{
-			UnityEngine.SceneManagement.Scene scene;
-			//int i;
-			//for (i = UnityEngine.SceneManagement.SceneManager.sceneCount - 1; i >= 0; i--) {
-
-			//	scene = UnityEngine.SceneManagement.SceneManager.GetSceneAt (i);
-			//	if (!mAllScenes.Keys.Contains (scene.name)) {
-			//		mAllScenes.Add (scene.name, scene);
-			//		break;
-			//	}
-
-			//}
-			//i = (i == -1) ? 0 : i;
-			//scene = UnityEngine.SceneManagement.SceneManager.GetSceneAt (i);
+        }
 
 
-		}
+        public void LoadScene(SceneLookupEnum sceneName, SceneLoadMode loadMode, object sceneData = null)
+        {
+            LoadScene(SceneLookup.Get(sceneName), loadMode, sceneData);
+        }
+        public void LoadScene(string sceneName, SceneLoadMode loadMode, object sceneData = null)
+        {
+            //string sceneName = typeof (T).ToString ();
+
+
+            GameObject uiObject;
+            string perfbName = "Scenes/" + sceneName;
+            if (m_loadedScene.Contains(sceneName))
+            {
+                return;
+            }
+            sceneName = sceneName.ToLower();
+            m_loadedScene.Add(sceneName);
+            //Debug.Log ("Loaded Perfab : " + perfbName);
+            if (loadMode == SceneLoadMode.Single)
+            {
+                AssetsManager.Instance().LoadScene(
+                    sceneName,
+                    UnityEngine.SceneManagement.LoadSceneMode.Single);
+            }
+            else if (loadMode == SceneLoadMode.Additive)
+            {
+                AssetsManager.Instance().LoadScene(
+                    sceneName,
+                    UnityEngine.SceneManagement.LoadSceneMode.Additive);
+            }
+
+            //UnityEngine.SceneManagement.LoadSceneMode.Single
+
+            return;
+
+
+        }
+        private void FinishLoadScene<T>() where T : BaseScene
+        {
+            UnityEngine.SceneManagement.Scene scene;
+            //int i;
+            //for (i = UnityEngine.SceneManagement.SceneManager.sceneCount - 1; i >= 0; i--) {
+
+            //	scene = UnityEngine.SceneManagement.SceneManager.GetSceneAt (i);
+            //	if (!mAllScenes.Keys.Contains (scene.name)) {
+            //		mAllScenes.Add (scene.name, scene);
+            //		break;
+            //	}
+
+            //}
+            //i = (i == -1) ? 0 : i;
+            //scene = UnityEngine.SceneManagement.SceneManager.GetSceneAt (i);
+
+
+        }
 
 
 
-		public void UploadScene<T> (object sceneData = null)
-		{
+        public void UploadScene(string sceneName )
+        {
+            if (m_loadedScene.Contains(sceneName.ToLower())){
 
-		}
+                StartCoroutine(UnloadScene(sceneName));
+            }
+            else
+            {
+                Debug.Log(sceneName + " doesn`t exist.");
+            }
+        }
 
-		public GameObject SetActiveScene<T> (object sceneData = null) where T : BaseScene
-		{
-			string sceneName = typeof (T).ToString ();
-			if (m_currentScene.IsValid () == true && m_currentScene.name != sceneName) {
-				EventManager.Instance ().SendEvent<SceneLeaveEvent> (new SceneLeaveEvent (sceneName));
-				Debug.Log ("Leave Scene" + sceneName);
-				//mCurrentScene = null;
-			}
-			//Find target scene, and set it as current scene
-			UnityEngine.SceneManagement.Scene scene =
-			UnityEngine.SceneManagement.SceneManager.GetSceneByName (sceneName);
+        IEnumerator UnloadScene(string sceneName)
+        {
+            AsyncOperation operation = UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(sceneName);
+            while(operation.isDone != true)
+            {
+                yield return null;
+            }
 
-			UnityEngine.SceneManagement.SceneManager.SetActiveScene (scene);
-			m_currentScene = scene;
 
-			//m_currentScene = scene;
+        }
 
-			GameObject go;
-			T t;
-			if (!m_allScenes.TryGetValue (sceneName, out go)) {
-				go = GameObject.Instantiate (new GameObject (scene.name));
-				t = go.AddComponent<T> ();
-				t.SceneInit (scene.name);
+        public GameObject SetActiveScene<T>(object sceneData = null) where T : BaseScene
+        {
+            string sceneName = typeof(T).ToString();
+            if (m_currentScene.IsValid() == true && m_currentScene.name != sceneName)
+            {
+                EventManager.Instance().SendEvent<SceneLeaveEvent>(new SceneLeaveEvent(sceneName));
+                Debug.Log("Leave Scene" + sceneName);
+                //mCurrentScene = null;
+            }
+            //Find target scene, and set it as current scene
+            UnityEngine.SceneManagement.Scene scene =
+            UnityEngine.SceneManagement.SceneManager.GetSceneByName(sceneName);
 
-				m_allScenes.Add (scene.name, go);
-			} else {
-				t = go.GetComponent<T> ();
-			}
-			EventManager.Instance ().SendEvent<SceneEnterEvent> (new SceneEnterEvent (sceneName));
+            UnityEngine.SceneManagement.SceneManager.SetActiveScene(scene);
+            m_currentScene = scene;
 
-			//sceneGo.transform.SetParent (transform);
+            //m_currentScene = scene;
 
-			//FinishLoadScene ();
-			//callback ();
+            GameObject go;
+            T t;
+            if (!m_allScenes.TryGetValue(sceneName, out go))
+            {
+                go = GameObject.Instantiate(new GameObject(scene.name));
+                t = go.AddComponent<T>();
+                t.SceneInit(scene.name);
 
-			//Active scene not current scene
+                m_allScenes.Add(scene.name, go);
+            }
+            else
+            {
+                t = go.GetComponent<T>();
+            }
+            EventManager.Instance().SendEvent<SceneEnterEvent>(new SceneEnterEvent(sceneName));
 
-			//GameObject go = m_allScenes [sceneName];
-			//m_currentScene = UnityEngine.SceneManagement.SceneManager.GetSceneByName (sceneName);
-			//UnityEngine.SceneManagement.SceneManager.SetActiveScene (m_currentScene);
-			return go;
-		}
+            //sceneGo.transform.SetParent (transform);
 
-		public void AddSceneLoadedEvent (callback func)
-		{
-			m_loadedSceneEvent.Add (func);
-		}
+            //FinishLoadScene ();
+            //callback ();
 
-		public void RemoveSceneLoadedEvent (callback func)
-		{
-			m_loadedSceneEvent.Remove (func);
-		}
+            //Active scene not current scene
 
-		public void SceneLoadedCallBack (object sender, SceneLoadedEvent showSceneEvent)
-		{
-			if (m_loadedSceneEvent != null) {
-				foreach (callback call in m_loadedSceneEvent) {
-					call?.Invoke (showSceneEvent);
-				}
+            //GameObject go = m_allScenes [sceneName];
+            //m_currentScene = UnityEngine.SceneManagement.SceneManager.GetSceneByName (sceneName);
+            //UnityEngine.SceneManagement.SceneManager.SetActiveScene (m_currentScene);
+            return go;
+        }
 
-				m_loadedSceneEvent.Clear ();
-			}
-		}
-		/*
+        public void AddSceneLoadedEvent(callback func)
+        {
+            m_loadedSceneEvent.Add(func);
+        }
+
+        public void RemoveSceneLoadedEvent(callback func)
+        {
+            m_loadedSceneEvent.Remove(func);
+        }
+
+        public void SceneLoadedCallBack(object sender, SceneLoadedEvent showSceneEvent)
+        {
+            if (m_loadedSceneEvent != null)
+            {
+                foreach (callback call in m_loadedSceneEvent)
+                {
+                    call?.Invoke(showSceneEvent);
+                }
+
+            }
+        }
+        /*
 		public void ReloadScene<T> () where T : BaseScene
 		{
 			if (!mCurrentScene) {
@@ -187,9 +253,9 @@ namespace Skylight
 			//ShowScene<>
 		}
 		*/
-		//public void LoadScene
+        //public void LoadScene
 
-		/*
+        /*
 	public void CloseScene ()
 	{
 		if (mCurrentScene) {
@@ -210,5 +276,5 @@ namespace Skylight
 
 	}
 	*/
-	}
+    }
 }

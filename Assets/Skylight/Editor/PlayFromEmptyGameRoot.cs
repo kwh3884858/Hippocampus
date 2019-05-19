@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.SceneManagement;
 using System.Text;
+using UnityEngine.UI;
 
 public class PlayFromEmptyGameRoot : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class PlayFromEmptyGameRoot : MonoBehaviour
 		playFromFirstScene = !playFromFirstScene;
 		Menu.SetChecked (playFromFirstMenuStr, playFromFirstScene);
 
-        LogPrinter.ShowNotifyOrLog(playFromFirstScene ? "Play from GameRoot scene" : "Play from current scene");
+		LogPrinter.ShowNotifyOrLog (playFromFirstScene ? "Play from GameRoot scene" : "Play from current scene");
 	}
 
 	// The menu won't be gray out, we use this validate method for update check state
@@ -33,32 +34,18 @@ public class PlayFromEmptyGameRoot : MonoBehaviour
 		return true;
 	}
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    static void ApplyPerfabAndSetAllSceneFalse()
-    {
+	[RuntimeInitializeOnLoadMethod (RuntimeInitializeLoadType.BeforeSceneLoad)]
+	static void ApplyPerfabAndSetAllSceneFalse ()
+	{
 
-    }
+	}
 
-    // This method is called before any Awake. It's the perfect callback for this feature
-    [RuntimeInitializeOnLoadMethod (RuntimeInitializeLoadType.AfterSceneLoad)]
+	// This method is called before any Awake. It's the perfect callback for this feature
+	[RuntimeInitializeOnLoadMethod (RuntimeInitializeLoadType.AfterSceneLoad)]
 	static void LoadFirstSceneAtGameBegins ()
 	{
-        LogPrinter.ShowSceneInfo();
+		LogPrinter.ShowSceneInfo ();
 
-        if (SceneManager.GetActiveScene ().buildIndex == 0) {
-			foreach (GameObject go in SceneManager.GetActiveScene ().GetRootGameObjects ()) {
-				go.SetActive (false);
-				foreach (string name in openList) {
-					if (go.name == name) {
-						go.SetActive (true);
-						break;
-					}
-				}
-			}
-		} else {
-			foreach (GameObject go in Object.FindObjectsOfType<GameObject> ())
-				go.SetActive (false);
-		}
 
 
 		if (!playFromFirstScene)
@@ -91,5 +78,5 @@ public class PlayFromEmptyGameRoot : MonoBehaviour
 		Selection.activeObject = goes;
 	}
 
-   
+
 }

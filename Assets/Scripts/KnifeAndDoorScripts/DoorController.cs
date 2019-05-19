@@ -294,7 +294,6 @@ public class DoorController : MonoBehaviour
 					//			Debug.DrawRay (transform.position, velocity.normalized, Color.yellow, 20f);
 					//			Debug.Log ("Before rotation : " + velocity);
 
-					//			//TODO  Adding a drag coefficient make player slow down
 					//			heroRigid.velocity = Quaternion.AngleAxis (angle, axis) * velocity;
 
 					//			Debug.Log ("After rotation : " + heroRigid.velocity);
