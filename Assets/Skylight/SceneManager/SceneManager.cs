@@ -134,11 +134,11 @@ namespace Skylight
 
 
 
-        public void UploadScene(string sceneName )
+        public void UnloadScene(string sceneName )
         {
             if (m_loadedScene.Contains(sceneName.ToLower())){
 
-                StartCoroutine(UnloadScene(sceneName));
+                StartCoroutine(UnloadSceneEnumerator(sceneName));
             }
             else
             {
@@ -146,7 +146,7 @@ namespace Skylight
             }
         }
 
-        IEnumerator UnloadScene(string sceneName)
+        IEnumerator UnloadSceneEnumerator(string sceneName)
         {
             AsyncOperation operation = UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(sceneName);
             while(operation.isDone != true)

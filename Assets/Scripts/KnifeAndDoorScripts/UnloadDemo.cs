@@ -18,7 +18,7 @@ public class UnloadDemo : MonoBehaviour {
     {
       if(  GUI.Button(new Rect(0,0,100,100),"Unload Scene"))
         {
-            Skylight.SceneManager.Instance().UploadScene(SceneLookupEnum.SceneKnifeAndTransformDoor.ToString());
+            Skylight.SceneManager.Instance().UnloadScene(SceneLookupEnum.SceneKnifeAndTransformDoor.ToString());
 
         }
     }
