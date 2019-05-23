@@ -14,6 +14,7 @@ public class SceneRoot : MonoBehaviour
 		UIManager.Instance ().ShowPanel<UIStartIntroPanel> ();
 
 		m_dataSystem = new DataSystem ();
+
 	}
 
 	public DataSystem GetDataSystem ()
