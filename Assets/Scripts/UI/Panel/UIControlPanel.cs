@@ -24,7 +24,7 @@ public class UIControlPanel : UIPanel
 	public override void PanelOpen ()
 	{
 		base.PanelOpen ();
-
+		ShowNewDay ();
 	}
 
 	public override void PanelClose ()
@@ -33,7 +33,7 @@ public class UIControlPanel : UIPanel
 
 	}
 
-	public void ShowNewDay (int data)
+	public void ShowNewDay ()
 	{
 		m_sceneRoot.NextDay ();
 

@@ -6,7 +6,7 @@ using Skylight;
 public class UIStoragePanel : UIPanel
 {
 
-	private Slot [] m_slots;
+
 	private int [] m_slotId;
 	private int m_currentSlot = -1;
 	public override void PanelInit ()
@@ -17,7 +17,7 @@ public class UIStoragePanel : UIPanel
 		AddButtonClick ("Slot3", HandleUnityAction3);
 		AddButtonClick ("Slot4", HandleUnityAction4);
 
-		m_slots = new Slot [4];
+		//m_slots = new Slot [4];
 	}
 
 
@@ -36,11 +36,11 @@ public class UIStoragePanel : UIPanel
 
 	public void SaveItemToSlot (int slotIndex, int id)
 	{
-		if (m_slots [slotIndex].m_name != "None") {
+		//if (m_slots [slotIndex].m_name != "None") {
 
-		} else {
+		//} else {
 
-		}
+		//}
 	}
 
 	void HandleUnityAction1 ()
@@ -68,13 +68,13 @@ public class UIStoragePanel : UIPanel
 
 	void CheckSlot (int slotIndex)
 	{
-		if (m_slots [slotIndex].m_name != "None") {
-			UIManager.Instance ().ShowPanel<UIStorageSlotInfoPanel> (false, HandleCallback);
-			m_currentSlot = slotIndex;
+		//if (m_slots [slotIndex].m_name != "None") {
+		//	UIManager.Instance ().ShowPanel<UIStorageSlotInfoPanel> (false, HandleCallback);
+		//	m_currentSlot = slotIndex;
 
-		} else {
-			UIManager.Instance ().ShowOverlay<UIMessageOverlay> ("This is empty in slot" + (slotIndex + 1));
-		}
+		//} else {
+		//	UIManager.Instance ().ShowOverlay<UIMessageOverlay> ("This is empty in slot" + (slotIndex + 1));
+		//}
 	}
 	void StorageItem ()
 	{
