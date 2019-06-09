@@ -24,7 +24,7 @@ namespace Skylight
 			//m_readyForDelete = new List<Poller>();
 			m_allowList = new List<int> ();
 			m_recorder = 0;
-			m_interval = 0.1f;
+			m_interval = 0.5f;
 			m_isDoEvent = true;
 		}
 		//每过固定时间调用一次
@@ -69,6 +69,11 @@ namespace Skylight
 			m_allowList.Remove (closeId);
 		}
 
+		/// <summary>
+		/// Registers the poller.
+		/// </summary>
+		/// <param name="pollerId">Poller identifier.</param>
+		/// <param name="poller">Poller. true will going on, false will break out</param>
 		public void RegisterPoller (int pollerId, Poller poller)
 		{
 			if (!m_pollers.ContainsKey (pollerId)) {

@@ -23,6 +23,8 @@ public class SaveController : MonoBehaviour
 	{
 		if (!m_pass) {
 			m_pass = true;
+
+			GetComponent<SpriteRenderer> ().color = Color.red;
 		}
 	}
 }

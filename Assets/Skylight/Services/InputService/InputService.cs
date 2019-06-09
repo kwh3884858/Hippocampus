@@ -21,8 +21,8 @@ namespace Skylight
 		K = KeyCode.K,
 		Horizontal,
 		Vertical,
-		Knife = KeyCode.J,
-		Door = KeyCode.K,
+		Knife = KeyCode.Q,
+		Door = KeyCode.E,
 		Flash = KeyCode.N,
 
 	}
@@ -301,8 +301,8 @@ namespace Skylight
 			//m_inputs.Add (KeyMap.D, new ButtonInput (KeyCode.D.ToString ()));
 			m_inputs.Add (KeyMap.Horizontal, new AxisInput (KeyMap.Horizontal.ToString ()));
 			m_inputs.Add (KeyMap.Vertical, new AxisInput (KeyMap.Vertical.ToString ()));
-			m_inputs.Add (KeyMap.Knife, new ButtonInput (KeyCode.J.ToString ()));
-			m_inputs.Add (KeyMap.Door, new ButtonInput (KeyCode.K.ToString ()));
+			m_inputs.Add (KeyMap.Knife, new ButtonInput (KeyCode.Q.ToString ()));
+			m_inputs.Add (KeyMap.Door, new ButtonInput (KeyCode.E.ToString ()));
 			m_inputs.Add (KeyMap.Flash, new ButtonInput (KeyCode.N.ToString ()));
 
 

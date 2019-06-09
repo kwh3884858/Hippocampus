@@ -4,7 +4,7 @@ using UnityEngine;
 using Skylight;
 public class CharacterController : MonoBehaviour
 {
-	enum WeaponState
+	public enum WeaponState
 	{
 		None,
 		Knife,
@@ -232,5 +232,10 @@ public class CharacterController : MonoBehaviour
 			m_isOldFaceRight = m_isFaceRight;
 
 		}
+	}
+
+	public WeaponState GetWeaponState ()
+	{
+		return m_state;
 	}
 }

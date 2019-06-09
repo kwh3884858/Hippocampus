@@ -53,7 +53,7 @@ namespace Skylight
 
 			SceneManager.Instance ().AddSceneLoadedEvent (Handlecallback);
 
-			SceneManager.Instance ().LoadScene (SceneLookupEnum.PaperPleasePrototype, SceneLoadMode.Additive);
+			SceneManager.Instance ().LoadScene (SceneLookupEnum.SceneKnifeAndTransformDoor, SceneLoadMode.Additive);
 
 
 
