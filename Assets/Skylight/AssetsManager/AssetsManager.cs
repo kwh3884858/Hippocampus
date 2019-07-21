@@ -160,17 +160,24 @@ namespace Skylight
 		{
 			base.SingletonInit ();
 
-			//AssetBundleLoad.Initialize (ASSETBUNDLE_FILENAME + "/" + AssetsUtility.GetPlatformName () + "/" + AssetsUtility.GetPlatformName ());
+            //AssetBundleLoad.Initialize (ASSETBUNDLE_FILENAME + "/" + AssetsUtility.GetPlatformName () + "/" + AssetsUtility.GetPlatformName ());
 
-			//AssetBundleLoad.overrideBaseDownloadingURL += OverrideBaseDownloadingURLWithPlatform;
-			abm = new AssetBundleManager ();
+            //AssetBundleLoad.overrideBaseDownloadingURL += OverrideBaseDownloadingURLWithPlatform;
+
+#if UNITY_EDITOR
+            abm = new AssetBundleManager();
+            abm.SetPrioritizationStrategy(AssetBundleManager.PrioritizationStrategy.PrioritizeStreamingAssets);
+            abm.UseSimulatedUri();
+#else
+
+            abm = new AssetBundleManager ();
 			abm.SetPrioritizationStrategy (AssetBundleManager.PrioritizationStrategy.PrioritizeStreamingAssets);
 			abm.UseSimulatedUri ();
 			abm.Initialize (OnAssetBundleManagerInitialized);
+#endif
+        }
 
-		}
-
-		private void OnAssetBundleManagerInitialized (bool success)
+        private void OnAssetBundleManagerInitialized (bool success)
 		{
 			if (success) {
 				Debug.Log ("Assetbundle Manager loaded finish.");
@@ -195,15 +202,15 @@ namespace Skylight
 			} else {
 				Debug.LogError ("Error initializing ABM.");
 			}
-			//string strName = "Assets/" + path + ".prefab";
-			//T go = AssetDatabase.LoadAssetAtPath<T> (strName);
+            //string strName = "Assets/" + path + ".prefab";
+            //T go = AssetDatabase.LoadAssetAtPath<T> (strName);
 
-			//return go;
+            //return go;
 
-			//Console.Instance ().Debug (path);
-			//path = path.ToLower ();
-			//T go = AssetBundleLoad.LoadGameObject (path) as T;
-			//return go;
+            //Console.Instance ().Debug (path);
+            //path = path.ToLower ();
+            //T go = AssetBundleLoad.LoadGameObject (path) as T;
+            //return go;
 #else
 
 				//Console.Instance ().Debug (path);
@@ -213,10 +220,18 @@ namespace Skylight
 				Debug.LogError ("Error initializing ABM.");
 			}
 #endif
-		}
+        }
+        
+        public T LoadPrefab<T>(string path) where T: UnityEngine.Object
+        {
+            string strName = "Assets/" + path + ".prefab";
+            T go = AssetDatabase.LoadAssetAtPath<T>(strName) ;
+
+            return go;
+        }
 
 
-		public void LoadScene (
+        public void LoadScene (
 			string sceneName,
 			UnityEngine.SceneManagement.LoadSceneMode mode
 			)

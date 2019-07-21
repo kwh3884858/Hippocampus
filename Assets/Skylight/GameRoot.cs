@@ -31,11 +31,17 @@ namespace Skylight
 
 		IEnumerator AfterInitialize ()
 		{
-			//After Assetmanager is loaded, loading other modole
-			while (!AssetsManager.Instance ().IsAssetBundleManagerLoaded) {
+#if UNITY_EDITOR
+
+
+#else
+              //After Assetmanager is loaded, loading other modole
+            while (!AssetsManager.Instance ().IsAssetBundleManagerLoaded) {
 				yield return null;
 			}
-			AddGameObject<SceneManager> ();
+#endif
+
+            AddGameObject<SceneManager> ();
 			AddGameObject<SoundService> ();
 
 			AddGameObject<UIManager> ();
@@ -56,8 +62,8 @@ namespace Skylight
 			SceneManager.Instance ().LoadScene (SceneLookupEnum.SceneKnifeAndTransformDoor, SceneLoadMode.Additive);
 
 
-
-		}
+            yield return null;
+        }
 
 		// Update is called once per frame
 		void Update ()

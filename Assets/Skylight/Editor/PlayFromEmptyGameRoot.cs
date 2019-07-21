@@ -10,27 +10,27 @@ public class PlayFromEmptyGameRoot : MonoBehaviour
 {
 	static readonly string [] openList = { "Main Camera", "GameRoot" };
 
-	const string playFromFirstMenuStr = "Edit/Always Start From Scene GameRoot &p";
+	const string playFromSceneGameRoot = "Edit/Always Start From Scene GameRoot &p";
 
-	static bool playFromFirstScene {
-		get { return EditorPrefs.HasKey (playFromFirstMenuStr) && EditorPrefs.GetBool (playFromFirstMenuStr); }
-		set { EditorPrefs.SetBool (playFromFirstMenuStr, value); }
+	static bool isPlayFromGameRoot {
+		get { return EditorPrefs.HasKey (playFromSceneGameRoot) && EditorPrefs.GetBool (playFromSceneGameRoot); }
+		set { EditorPrefs.SetBool (playFromSceneGameRoot, value); }
 	}
 
-	[MenuItem (playFromFirstMenuStr, false, 150)]
+	[MenuItem (playFromSceneGameRoot, false, 150)]
 	static void PlayFromFirstSceneCheckMenu ()
 	{
-		playFromFirstScene = !playFromFirstScene;
-		Menu.SetChecked (playFromFirstMenuStr, playFromFirstScene);
+		isPlayFromGameRoot = !isPlayFromGameRoot;
+		Menu.SetChecked (playFromSceneGameRoot, isPlayFromGameRoot);
 
-		LogPrinter.ShowNotifyOrLog (playFromFirstScene ? "Play from GameRoot scene" : "Play from current scene");
+		LogPrinter.ShowNotifyOrLog (isPlayFromGameRoot ? "Play from GameRoot scene" : "Play from current scene");
 	}
 
 	// The menu won't be gray out, we use this validate method for update check state
-	[MenuItem (playFromFirstMenuStr, true)]
+	[MenuItem (playFromSceneGameRoot, true)]
 	static bool PlayFromFirstSceneCheckMenuValidate ()
 	{
-		Menu.SetChecked (playFromFirstMenuStr, playFromFirstScene);
+		Menu.SetChecked (playFromSceneGameRoot, isPlayFromGameRoot);
 		return true;
 	}
 
@@ -48,7 +48,7 @@ public class PlayFromEmptyGameRoot : MonoBehaviour
 
 
 
-		if (!playFromFirstScene)
+		if (!isPlayFromGameRoot)
 			return;
 
 		if (EditorBuildSettings.scenes.Length == 0) {
