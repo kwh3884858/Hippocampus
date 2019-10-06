@@ -29,6 +29,8 @@ namespace Skylight
         public delegate void callback(SceneLoadedEvent e);
         List<callback> m_loadedSceneEvent = new List<callback>();
 
+        string m_currentSceneName;
+
         public UnityEngine.SceneManagement.Scene m_currentScene
         {
             get; set;
@@ -40,31 +42,36 @@ namespace Skylight
             EventManager.Instance().AddEventListener<SceneLoadedEvent>(SceneLoadedCallBack);
 
             AddSceneLoadedEvent(DisableAllUICanvas);
+            AddSceneLoadedEvent(LoadSceneScript);
         }
 
-        void DisableAllUICanvas(SceneLoadedEvent e)
+        private void LoadSceneScript(SceneLoadedEvent e)
         {
-            //if (SceneManager.GetActiveScene ().buildIndex == 0) {
-            //	foreach (GameObject go in SceneManager.GetActiveScene ().GetRootGameObjects ()) {
-            //		go.SetActive (false);
-            //		foreach (string name in openList) {
-            //			if (go.name == name) {
-            //				go.SetActive (true);
-            //				break;
-            //			}
-            //		}
-            //	}
-            //} else {
-            //	foreach (GraphicRaycaster go in GameObject.FindObjectsOfType<GraphicRaycaster> ()) {
-            //		go.gameObject.SetActive (false);
-            //		go.enabled = false;
-            //		Debug.Log (go.gameObject.name);
-            //	}
-            //}
+            string path = AssetsManager.APPLICATION_PATH;
+            path += "Scripts/Scenes/";
+
+            if (!Directory.Exists(path))
+            {
+                return;
+            }
+
+            path += m_currentSceneName;
+
+            if (!File.Exists(path))
+            {
+                return;
+            }
+
+            
+        }
+
+        private void DisableAllUICanvas(SceneLoadedEvent e)
+        {
+
             foreach (GraphicRaycaster go in GameObject.FindObjectsOfType<GraphicRaycaster>())
             {
                 go.gameObject.SetActive(false);
-                //go.enabled = false;
+ 
                 Debug.Log(go.gameObject.name + " disable, UI should be loaded by UIManager");
             }
         }
@@ -91,6 +98,7 @@ namespace Skylight
             {
                 return;
             }
+            m_currentSceneName = sceneName;
             sceneName = sceneName.ToLower();
             m_loadedScene.Add(sceneName);
             //Debug.Log ("Loaded Perfab : " + perfbName);
