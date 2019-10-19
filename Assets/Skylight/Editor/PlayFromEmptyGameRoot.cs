@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 public class PlayFromEmptyGameRoot : MonoBehaviour
 {
-	static readonly string [] openList = { "Main Camera", "GameRoot" };
 
 	const string playFromSceneGameRoot = "Edit/Always Start From Scene GameRoot &p";
 

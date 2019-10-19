@@ -8,24 +8,24 @@ namespace Skylight
 {
 
 	/*  The AssetBundle Manager provides a High-Level API for working with AssetBundles. 
-    The AssetBundle Manager will take care of loading AssetBundles and their associated 
-    Asset Dependencies.
-        Initialize()
-            Initializes the AssetBundle manifest object.
-        LoadAssetAsync()
-            Loads a given asset from a given AssetBundle and handles all the dependencies.
-        LoadLevelAsync()
-            Loads a given scene from a given AssetBundle and handles all the dependencies.
-        LoadDependencies()
-            Loads all the dependent AssetBundles for a given AssetBundle.
-        BaseDownloadingURL
-            Sets the base downloading url which is used for automatic downloading dependencies.
-        SimulateAssetBundleInEditor
-            Sets Simulation Mode in the Editor.
-        Variants
-            Sets the active variant.
-        RemapVariantName()
-            Resolves the correct AssetBundle according to the active variant.
+	The AssetBundle Manager will take care of loading AssetBundles and their associated 
+	Asset Dependencies.
+		Initialize()
+			Initializes the AssetBundle manifest object.
+		LoadAssetAsync()
+			Loads a given asset from a given AssetBundle and handles all the dependencies.
+		LoadLevelAsync()
+			Loads a given scene from a given AssetBundle and handles all the dependencies.
+		LoadDependencies()
+			Loads all the dependent AssetBundles for a given AssetBundle.
+		BaseDownloadingURL
+			Sets the base downloading url which is used for automatic downloading dependencies.
+		SimulateAssetBundleInEditor
+			Sets Simulation Mode in the Editor.
+		Variants
+			Sets the active variant.
+		RemapVariantName()
+			Resolves the correct AssetBundle according to the active variant.
 */
 
 	public class AssetBundleLoad : MonoBehaviour
@@ -343,10 +343,10 @@ namespace Skylight
 		static protected bool UsesExternalBundleVariantResolutionMechanism (string baseAssetBundleName)
 		{
 #if ENABLE_IOS_APP_SLICING
-            var url = GetAssetBundleBaseDownloadingURL(baseAssetBundleName);
-            if (url.ToLower().StartsWith("res://") ||
-                url.ToLower().StartsWith("odr://"))
-                return true;
+			var url = GetAssetBundleBaseDownloadingURL(baseAssetBundleName);
+			if (url.ToLower().StartsWith("res://") ||
+				url.ToLower().StartsWith("odr://"))
+				return true;
 #endif
 			return false;
 		}
@@ -419,15 +419,15 @@ namespace Skylight
 
 			if (bundleBaseDownloadingURL.ToLower ().StartsWith ("odr://", System.StringComparison.Ordinal)) {
 #if ENABLE_IOS_ON_DEMAND_RESOURCES
-                Log(LogType.Info, "Requesting bundle " + assetBundleName + " through ODR");
-                m_InProgressOperations.Add(new AssetBundleDownloadFromODROperation(assetBundleName));
+				Log(LogType.Info, "Requesting bundle " + assetBundleName + " through ODR");
+				m_InProgressOperations.Add(new AssetBundleDownloadFromODROperation(assetBundleName));
 #else
 				new System.ApplicationException ("Can't load bundle " + assetBundleName + " through ODR: this Unity version or build target doesn't support it.");
 #endif
 			} else if (bundleBaseDownloadingURL.ToLower ().StartsWith ("res://")) {
 #if ENABLE_IOS_APP_SLICING
-                Log(LogType.Info, "Requesting bundle " + assetBundleName + " through asset catalog");
-                m_InProgressOperations.Add(new AssetBundleOpenFromAssetCatalogOperation(assetBundleName));
+				Log(LogType.Info, "Requesting bundle " + assetBundleName + " through asset catalog");
+				m_InProgressOperations.Add(new AssetBundleOpenFromAssetCatalogOperation(assetBundleName));
 #else
 				new System.ApplicationException ("Can't load bundle " + assetBundleName + " through asset catalog: this Unity version or build target doesn't support it.");
 #endif
