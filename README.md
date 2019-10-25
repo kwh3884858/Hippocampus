@@ -1,4 +1,6 @@
-# Hippocampus (Original Point)
+# Original Point
+
+<sub>Hippocampus是一个过去的项目，我们直接在这个项目框架上开发。</sub>
 
 ## Introduction 
 
