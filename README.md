@@ -9,15 +9,18 @@
 ### 游戏设计
 
 - 文档
+
 如果你不能访问以下链接，请在issue中反馈。
 https://www.yuque.com/nxym1s
 
 - 近期动态
+
 这一部分文本由逸凡负责，在做了某些新的剧情和设定之后，请在这里更新动态，以便通知我们及时查阅。
 
 ### 技术
 
 - Heaven Gate
+
 这次的技术重点是全新的剧情编辑器，Heave Gate，使用json作为存储格式，拥有一个独立的，基于IMGUI框架的跨平台编辑器，和一个置于Unity的运行时。对于Heaven Gate，请在Tools/imgui中查阅更多信息。
 
 目前对于Heave Gate的需求是：
@@ -30,6 +33,24 @@ https://www.yuque.com/nxym1s
 7. 快进已读文本
 
 如果想到了新的内容请继续加在下面。
+
+- 近期动态
+
+1. Scenes的管理方式进行了极大修改
+
+在Assets/Scenes中，现在有一个SceneLookupGenerator.exe，点击之后会生成SceneLookup.cs，其中存放了场景信息。
+
+每次打开新场景的时候，都会直接更新Build Setting里的Scenes列表，因此不再需要手动调整了。
+
+以后新建一个新场景之后，只要运行一下SceneLookupGenerator.exe，就可以了。
+
+现在打开一个新的Scene时，都会以Scene名生成一个同名GameObject，可以把一些入口脚本放在其中。
+
+2. imgui已经被加入了Tools/imgui
+
+
+
+---
 
 ## Archive Files
 
