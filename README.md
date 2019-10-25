@@ -1,6 +1,37 @@
-# Hippocampus
+# Hippocampus (Original Point)
 
-# Intro 
+## Introduction 
+
+全新的项目，原爆点，一款拥有数量庞大剧情的游戏。
+我们的目标平台是PC，Mobile，Console，包括了鼠标，触屏和手柄多种人体学接口设备。
+开发团队始终以快速迭代，容易修改为核心信念。
+
+### 游戏设计
+
+- 文档
+如果你不能访问以下链接，请在issue中反馈。
+https://www.yuque.com/nxym1s
+
+- 近期动态
+这一部分文本由逸凡负责，在做了某些新的剧情和设定之后，请在这里更新动态，以便通知我们及时查阅。
+
+### 技术
+
+- Heaven Gate
+这次的技术重点是全新的剧情编辑器，Heave Gate，使用json作为存储格式，拥有一个独立的，基于IMGUI框架的跨平台编辑器，和一个置于Unity的运行时。对于Heaven Gate，请在Tools/imgui中查阅更多信息。
+
+目前对于Heave Gate的需求是：
+1. 剧情分支，选项
+2. 查看历史记录，200条
+3. 文字着色
+4. 语速功能，调整文字出现的时间和打字机音效的速度
+5. 立绘位置可视化调整
+6. 文字控制符
+7. 快进已读文本
+
+如果想到了新的内容请继续加在下面。
+
+## Archive Files
 
 Through the link, you can check and modify the document.
 
