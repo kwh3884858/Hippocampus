@@ -52,7 +52,7 @@ https://www.yuque.com/nxym1s
 
 3. Heave Gate已经开始架构设计了，包含介绍文档和结构示意图。
 
-介绍文档，在[Ducment/HeavenGate](./Documents/HeaveGate/README.md)中。
+介绍文档，在[Documents/HeavenGate](./Documents/HeavenGate/README.md)中。
 
 结构示意图，建立在ProcessOn上，链接：
 
