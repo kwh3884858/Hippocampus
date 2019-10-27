@@ -50,7 +50,17 @@ https://www.yuque.com/nxym1s
 
 2. imgui已经被加入了Tools/imgui
 
+3. Heave Gate已经开始架构设计了，包含介绍文档和结构示意图。
 
+介绍文档，在[Ducment/HeavenGate](./Documents/HeaveGate/README.md)中。
+
+结构示意图，建立在ProcessOn上，链接：
+
+![ProcessOn](http://assets.processon.com/chart_image/5db2f59fe4b0e433944ebf84.png)
+
+[网站浏览地址](https://www.processon.com/view/link/5db2f5a0e4b0e433944ebf85)
+
+加入协作需要注册ProcessOn。
 
 ---
 
