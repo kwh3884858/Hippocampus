@@ -16,6 +16,7 @@
 		4080A9B020B0347A0036BA46 /* imgui_impl_osx.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4080A99F20B034280036BA46 /* imgui_impl_osx.mm */; };
 		4080A9B320B034E40036BA46 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4080A9B220B034E40036BA46 /* Cocoa.framework */; };
 		4080A9B520B034EA0036BA46 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4080A9B420B034EA0036BA46 /* OpenGL.framework */; };
+		760F84FF23686ECD00EFA0D9 /* HeavenGateEditorWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 760F84FE23686ECD00EFA0D9 /* HeavenGateEditorWindow.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,6 +47,8 @@
 		4080A9AC20B0343C0036BA46 /* imconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = imconfig.h; path = ../../imconfig.h; sourceTree = "<group>"; };
 		4080A9B220B034E40036BA46 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		4080A9B420B034EA0036BA46 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		760F84FD23686ECD00EFA0D9 /* HeavenGateEditorWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeavenGateEditorWindow.h; sourceTree = "<group>"; };
+		760F84FE23686ECD00EFA0D9 /* HeavenGateEditorWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HeavenGateEditorWindow.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +67,7 @@
 		4080A96220B029B00036BA46 = {
 			isa = PBXGroup;
 			children = (
+				760F84FC23686ECD00EFA0D9 /* HeavenGate_Editor */,
 				4080A9AC20B0343C0036BA46 /* imconfig.h */,
 				4080A9A720B0343C0036BA46 /* imgui.cpp */,
 				4080A9A820B0343C0036BA46 /* imgui.h */,
@@ -96,6 +100,16 @@
 				4080A9B220B034E40036BA46 /* Cocoa.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		760F84FC23686ECD00EFA0D9 /* HeavenGate_Editor */ = {
+			isa = PBXGroup;
+			children = (
+				760F84FD23686ECD00EFA0D9 /* HeavenGateEditorWindow.h */,
+				760F84FE23686ECD00EFA0D9 /* HeavenGateEditorWindow.cpp */,
+			);
+			name = HeavenGate_Editor;
+			path = ../../HeavenGate_Editor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,6 +171,7 @@
 			files = (
 				4080A99820B02D340036BA46 /* main.mm in Sources */,
 				4080A9AD20B0343C0036BA46 /* imgui_demo.cpp in Sources */,
+				760F84FF23686ECD00EFA0D9 /* HeavenGateEditorWindow.cpp in Sources */,
 				4080A9AF20B0343C0036BA46 /* imgui_draw.cpp in Sources */,
 				4080A9A220B034280036BA46 /* imgui_impl_opengl2.cpp in Sources */,
 				4080A9B020B0347A0036BA46 /* imgui_impl_osx.mm in Sources */,
