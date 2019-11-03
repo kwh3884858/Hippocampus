@@ -15,5 +15,7 @@
 
 
 namespace HeavenGateEditor {
+
 void ShowEditorWindow();
+
 }
