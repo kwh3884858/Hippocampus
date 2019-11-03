@@ -16,6 +16,6 @@
 
 namespace HeavenGateEditor {
 
-void ShowEditorWindow();
+void ShowEditorWindow(bool* isOpenPoint);
 
 }

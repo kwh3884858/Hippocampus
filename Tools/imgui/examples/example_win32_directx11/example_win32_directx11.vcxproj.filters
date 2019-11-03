@@ -24,6 +24,7 @@
     <ClInclude Include="..\imgui_impl_dx11.h">
       <Filter>sources</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\imgui.cpp">
@@ -47,6 +48,7 @@
     <ClCompile Include="..\..\imgui_widgets.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.txt" />
