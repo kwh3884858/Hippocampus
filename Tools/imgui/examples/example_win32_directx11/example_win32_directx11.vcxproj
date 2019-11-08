@@ -145,6 +145,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Dirent\dirent.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\CharacterUtility.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorWindow.h" />
     <ClInclude Include="..\..\imconfig.h" />
     <ClInclude Include="..\..\imgui.h" />
@@ -153,6 +155,7 @@
     <ClInclude Include="..\imgui_impl_win32.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\HeavenGate_Editor\CharacterUtility.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorWindow.cpp" />
     <ClCompile Include="..\..\imgui.cpp" />
     <ClCompile Include="..\..\imgui_demo.cpp" />

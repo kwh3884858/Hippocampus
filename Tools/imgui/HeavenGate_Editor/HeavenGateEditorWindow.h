@@ -18,4 +18,6 @@ namespace HeavenGateEditor {
 
 void ShowEditorWindow(bool* isOpenPoint);
 
+static void ShowEditorMenuFile();
+static void OpenSelectStoryWindow(bool* p_open);
 }

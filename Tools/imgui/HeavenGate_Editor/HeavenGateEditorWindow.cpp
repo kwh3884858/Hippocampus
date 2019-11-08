@@ -6,15 +6,23 @@
 //  Copyright © 2019 ImGui. All rights reserved.
 //
 #include "imgui.h"
-
+#include "Dirent/dirent.h"
 #include "HeavenGateEditorWindow.h"
+
+#include <string>
+#ifdef _WIN32
+#include <windows.h>
+#endif // _WIN32
+
+
 namespace HeavenGateEditor {
 
-static void ShowExampleMenuFile();
-static void OpenSelectStoryWindow();
+    static bool show_app_layout = false;
 
 void ShowEditorWindow(bool* isOpenPoint){
 
+
+    if (show_app_layout)              OpenSelectStoryWindow(&show_app_layout);
 
     // Demonstrate the various window flags. Typically you would just use the default!
     static bool no_titlebar = false;
@@ -46,7 +54,7 @@ void ShowEditorWindow(bool* isOpenPoint){
     ImGui::SetNextWindowSize(ImVec2(550, 680), ImGuiCond_FirstUseEver);
 
     // Main body of the Demo window starts here.
-    if (!ImGui::Begin("Dear ImGui Demo", isOpenPoint, window_flags))
+    if (!ImGui::Begin("Heaven Gate", isOpenPoint, window_flags))
     {
         // Early out if the window is collapsed, as an optimization.
         ImGui::End();
@@ -62,7 +70,7 @@ void ShowEditorWindow(bool* isOpenPoint){
     {
         if (ImGui::BeginMenu("Menu"))
         {
-            ShowExampleMenuFile();
+            ShowEditorMenuFile();
             ImGui::EndMenu();
         }
 
@@ -79,11 +87,14 @@ void ShowEditorWindow(bool* isOpenPoint){
 }
 
 // Note that shortcuts are currently provided for display only (future version will add flags to BeginMenu to process shortcuts)
-static void ShowExampleMenuFile()
+static void ShowEditorMenuFile()
 {
+
  //   ImGui::MenuItem("(dummy menu)", NULL, false, false);
     if (ImGui::MenuItem("New")) {}
-    if (ImGui::MenuItem("Open", "Ctrl+O")) {}
+    if (ImGui::MenuItem("Open", "Ctrl+O")) {
+        show_app_layout = true;
+    }
     if (ImGui::BeginMenu("Open Recent"))
     {
         ImGui::MenuItem("fish_hat.c");
@@ -95,7 +106,7 @@ static void ShowExampleMenuFile()
             ImGui::MenuItem("Sailor");
             if (ImGui::BeginMenu("Recurse.."))
             {
-                ShowExampleMenuFile();
+                ShowEditorMenuFile();
                 ImGui::EndMenu();
             }
             ImGui::EndMenu();
@@ -145,6 +156,8 @@ static void ShowExampleMenuFile()
 }
 
 static void OpenSelectStoryWindow(bool* p_open){
+    char storyDirectory[] = "../";
+
       ImGui::SetNextWindowSize(ImVec2(500, 440), ImGuiCond_FirstUseEver);
     if (ImGui::Begin("Open a story file", p_open, ImGuiWindowFlags_MenuBar))
     {
@@ -167,6 +180,21 @@ static void OpenSelectStoryWindow(bool* p_open){
             sprintf(label, "MyObject %d", i);
             if (ImGui::Selectable(label, selected == i))
                 selected = i;
+
+            DIR *dir;
+            struct dirent *ent;
+            if ((dir = opendir("c:\\src\\")) != NULL) {
+                /* print all the files and directories within directory */
+                while ((ent = readdir(dir)) != NULL) {
+                    printf("%s\n", ent->d_name);
+                }
+                closedir(dir);
+            }
+            else {
+                /* could not open directory */
+                perror("");
+                printf("Can`t open story folder");
+            }
         }
         ImGui::EndChild();
         ImGui::SameLine();
@@ -202,3 +230,23 @@ static void OpenSelectStoryWindow(bool* p_open){
 
 }
 
+using std::string;
+
+wchar_t ExePath() {
+    wchar_t buffer[MAX_PATH];
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    string::size_type pos = string(buffer).find_last_of("\\/");
+    return string(buffer).substr(0, pos);
+}
+std::string GetExeFileName()
+{
+    char buffer[MAX_PATH];
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    return std::string(buffer);
+}
+
+std::string GetExePath()
+{
+    std::string f = GetExeFileName();
+    return f.substr(0, f.find_last_of("\\/"));
+}
