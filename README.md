@@ -70,6 +70,7 @@ https://www.yuque.com/nxym1s
 
 目前可以先通过邮件发送来解决，主要问题是这些操作需要一个服务器来运行，但是我的海外服务器总是ssh不了。
 
+[使用 shadowsocks 加速 Mac 自带终端或iTerm 2](https://tech.jandou.com/to-accelerate-the-terminal.html)
 ---
 
 ## Archive Files
