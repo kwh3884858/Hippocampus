@@ -62,6 +62,14 @@ https://www.yuque.com/nxym1s
 
 加入协作需要注册ProcessOn。
 
+4. 我们需要一个简单的方式来整合通知，包括语雀和GitHub上的更新。
+
+我找到了QQ端的自动机器人，但是这个机器人基于Windows平台，需要通过docker运行在Linux平台上。
+
+[QQ端自动化流程](https://ixyzero.com/blog/archives/4463.html)
+
+目前可以先通过邮件发送来解决，主要问题是这些操作需要一个服务器来运行，但是我的海外服务器总是ssh不了。
+
 ---
 
 ## Archive Files
