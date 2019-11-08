@@ -68,7 +68,7 @@ https://www.yuque.com/nxym1s
 
 [QQ端自动化流程](https://ixyzero.com/blog/archives/4463.html)
 
-目前先通过邮件来发送吧
+目前可以先通过邮件发送来解决，主要问题是这些操作需要一个服务器来运行，但是我的海外服务器总是ssh不了。
 
 ---
 
