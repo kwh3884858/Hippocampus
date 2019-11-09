@@ -1,11 +1,14 @@
 {
-    {
-        id:373829182773(16)
-        name:"clue"
+    "pi": 3.141,
+    "happy": true,
+    "name": "Niels",
+    "nothing": null,
+    "answer": {
+      "everything": 42
     },
-    {
-        id:733829182773(16)
-        background:"background/dark Fire"
-        transform:""
+    "list": [1, 0, 2],
+    "object": {
+      "currency": "USD",
+      "value": 42.99
     }
-}
+  }

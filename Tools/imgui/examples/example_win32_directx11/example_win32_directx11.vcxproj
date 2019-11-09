@@ -151,6 +151,7 @@
     <ClInclude Include="..\..\imconfig.h" />
     <ClInclude Include="..\..\imgui.h" />
     <ClInclude Include="..\..\imgui_internal.h" />
+    <ClInclude Include="..\..\nlohmann\json.hpp" />
     <ClInclude Include="..\imgui_impl_dx11.h" />
     <ClInclude Include="..\imgui_impl_win32.h" />
   </ItemGroup>

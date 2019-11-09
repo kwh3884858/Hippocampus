@@ -1,11 +1,13 @@
 #include "CharacterUtility.h"
-#include "GlobalConstant.h"
+
+size_t CharacterUtility::BUFFERSIZE = 100;
+
 void CharacterUtility::reverse(char * c)
 {
 	int length = strlen(c);
 	int count = length / 2;
 	char temp;
-	for (size_t i = 0; i < count; i++)
+	for (int i = 0; i < count; i++)
 	{
 		temp = c[i];
 		c[i] = c[length - 1 - i];
@@ -24,7 +26,7 @@ void CharacterUtility::wreverse(wchar_t * c)
 	int length = wcslen(c);
 	int count = length / 2;
 	wchar_t temp;
-	for (size_t i = 0; i < count; i++)
+	for (int i = 0; i < count; i++)
 	{
 		temp = c[i];
 		c[i] = c[length - 1 - i];

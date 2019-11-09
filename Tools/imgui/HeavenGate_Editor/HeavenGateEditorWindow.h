@@ -10,14 +10,19 @@
 #define HeavenGateEditorWindow_h
 
 #include <stdio.h>
+#include <string>
 
 #endif /* HeavenGateEditorWindow_hpp */
 
+using std::string;
 
 namespace HeavenGateEditor {
 
-void ShowEditorWindow(bool* isOpenPoint);
 
-static void ShowEditorMenuFile();
-static void OpenSelectStoryWindow(bool* p_open);
+    void ShowEditorWindow(bool* isOpenPoint);
+
+    static void ShowEditorMenuFile();
+    static void OpenSelectStoryWindow(bool* p_open);
+
+    string ExePath();
 }
