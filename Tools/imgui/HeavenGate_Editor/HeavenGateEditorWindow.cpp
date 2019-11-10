@@ -23,6 +23,8 @@ namespace HeavenGateEditor {
 
     static bool show_app_layout = false;
     bool isInitializeFilesList = false;
+    bool isModifiedStory = false;
+    char storyPath[MAX_PATH] = "Untitled";
     static json currentStory;
 
     void ShowEditorWindow(bool* isOpenPoint) {
@@ -83,8 +85,19 @@ namespace HeavenGateEditor {
             ImGui::EndMenuBar();
         }
 
-        ImGui::Text("dear imgui says hello. (%s)", IMGUI_VERSION);
+        ImGui::Text("Heaven Gate says hello. (%s)", IMGUI_VERSION);
         ImGui::Spacing();
+
+        ImGui::Text("Current story path: %s", storyPath);
+
+        if (ImGui::Button("Add new story")) {}
+      /*  for (int i = 0; i < currentStory.count(); i++)
+        {
+        }*/
+        static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
+        ImGui::CheckboxFlags("ImGuiInputTextFlags_ReadOnly", (unsigned int*)&flags, ImGuiInputTextFlags_ReadOnly);
+        ImGui::CheckboxFlags("ImGuiInputTextFlags_AllowTabInput", (unsigned int*)&flags, ImGuiInputTextFlags_AllowTabInput);
+        ImGui::CheckboxFlags("ImGuiInputTextFlags_CtrlEnterForNewLine", (unsigned int*)&flags, ImGuiInputTextFlags_CtrlEnterForNewLine);
 
 
         // End of ShowDemoWindow()
@@ -97,7 +110,9 @@ namespace HeavenGateEditor {
     {
 
         //   ImGui::MenuItem("(dummy menu)", NULL, false, false);
-        if (ImGui::MenuItem("New")) {}
+        if (ImGui::MenuItem("New")) {
+
+        }
         if (ImGui::MenuItem("Open", "Ctrl+O")) {
             show_app_layout = true;
         }
@@ -224,7 +239,7 @@ namespace HeavenGateEditor {
             ImGui::SameLine();
 
             // right
-            char fullPath[100] = "";
+            char fullPath[MAX_PATH] = "";
 
             ImGui::BeginGroup();
             ImGui::BeginChild("item view", ImVec2(0, -ImGui::GetFrameHeightWithSpacing())); // Leave room for 1 line below us
@@ -288,6 +303,7 @@ namespace HeavenGateEditor {
                 if (selected >= 2)
                 {
                     currentStory = json::parse(content);
+                    strcpy(storyPath, fullPath);
                     *p_open = false;
                 }
             }
