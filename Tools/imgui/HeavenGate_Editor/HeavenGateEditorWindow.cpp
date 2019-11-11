@@ -24,7 +24,9 @@ namespace HeavenGateEditor {
     static bool show_app_layout = false;
     bool isInitializeFilesList = false;
     bool isModifiedStory = false;
+    bool isSavedFile = false;
     char storyPath[MAX_PATH] = "Untitled";
+    
     static json currentStory;
 
     void ShowEditorWindow(bool* isOpenPoint) {
@@ -90,7 +92,14 @@ namespace HeavenGateEditor {
 
         ImGui::Text("Current story path: %s", storyPath);
 
+     
+        if (!isSavedFile)
+        {
+            //currentStory
+        }
+
         if (ImGui::Button("Add new story")) {}
+
       /*  for (int i = 0; i < currentStory.count(); i++)
         {
         }*/
@@ -304,6 +313,8 @@ namespace HeavenGateEditor {
                 {
                     currentStory = json::parse(content);
                     strcpy(storyPath, fullPath);
+                    isSavedFile = true;
+
                     *p_open = false;
                 }
             }
