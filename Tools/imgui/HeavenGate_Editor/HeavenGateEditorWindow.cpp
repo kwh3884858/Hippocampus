@@ -26,7 +26,7 @@ namespace HeavenGateEditor {
     bool isModifiedStory = false;
     bool isSavedFile = false;
     char storyPath[MAX_PATH] = "Untitled";
-    
+
     static json currentStory;
 
     void ShowEditorWindow(bool* isOpenPoint) {
@@ -92,7 +92,7 @@ namespace HeavenGateEditor {
 
         ImGui::Text("Current story path: %s", storyPath);
 
-     
+
         if (!isSavedFile)
         {
             //currentStory
@@ -100,9 +100,10 @@ namespace HeavenGateEditor {
 
         if (ImGui::Button("Add new story")) {}
 
-      /*  for (int i = 0; i < currentStory.count(); i++)
+        for (int i = 0; i < currentStory.size(); i++)
         {
-        }*/
+            
+        }
         static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
         ImGui::CheckboxFlags("ImGuiInputTextFlags_ReadOnly", (unsigned int*)&flags, ImGuiInputTextFlags_ReadOnly);
         ImGui::CheckboxFlags("ImGuiInputTextFlags_AllowTabInput", (unsigned int*)&flags, ImGuiInputTextFlags_AllowTabInput);
@@ -240,7 +241,7 @@ namespace HeavenGateEditor {
             for (int i = 2; i < count; i++)
             {
 
-               
+
                 if (ImGui::Selectable(filesList[i], selected == i))
                     selected = i;
             }
@@ -274,7 +275,7 @@ namespace HeavenGateEditor {
                         if (selected >= 2)
                         {
                             std::ifstream fin;
-                          
+
                             fin.open(fullPath);
 
                             // If it could not open the file then exit.
@@ -292,7 +293,7 @@ namespace HeavenGateEditor {
 
                         }
                         lastSelected = selected;
-                      
+
                     }
                     ImGui::TextWrapped(content);
                     ImGui::TextWrapped("This is a space for content.");
@@ -311,6 +312,7 @@ namespace HeavenGateEditor {
             if (ImGui::Button("Open")) {
                 if (selected >= 2)
                 {
+                    currentStory.clear();
                     currentStory = json::parse(content);
                     strcpy(storyPath, fullPath);
                     isSavedFile = true;
