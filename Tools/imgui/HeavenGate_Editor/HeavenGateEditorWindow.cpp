@@ -10,7 +10,7 @@
 #include "HeavenGateEditorWindow.h"
 #include "CharacterUtility.h"
 #include "nlohmann/json.hpp"
-
+#include "StoryJson.h"
 
 #include <fstream>
 #ifdef _WIN32
@@ -100,10 +100,11 @@ namespace HeavenGateEditor {
 
         if (ImGui::Button("Add new story")) {}
 
-        for (int i = 0; i < currentStory.size(); i++)
-        {
-            
-        }
+//
+//        for (int i = 0; i < currentStory.size(); i++)
+//        {
+//
+//        }
         static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
         ImGui::CheckboxFlags("ImGuiInputTextFlags_ReadOnly", (unsigned int*)&flags, ImGuiInputTextFlags_ReadOnly);
         ImGui::CheckboxFlags("ImGuiInputTextFlags_AllowTabInput", (unsigned int*)&flags, ImGuiInputTextFlags_AllowTabInput);
@@ -307,7 +308,15 @@ namespace HeavenGateEditor {
                 ImGui::EndTabBar();
             }
             ImGui::EndChild();
-            if (ImGui::Button("Revert")) {}
+            if (ImGui::Button("Revert")) {
+//play test gym
+                vector<string> testContent;
+                testContent.push_back("hah");
+                testContent.push_back("ssjsj");
+
+                std::ofstream o("pretty.json");
+                o << std::setw(4) << testContent << std::endl;
+            }
             ImGui::SameLine();
             if (ImGui::Button("Open")) {
                 if (selected >= 2)

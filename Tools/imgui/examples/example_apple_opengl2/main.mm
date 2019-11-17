@@ -51,7 +51,7 @@
     // Global data for the demo
     static bool show_demo_window = true;
     static bool show_another_window = false;
-    static bool show_editor_window = false;
+    static bool show_editor_window = true;
 
     static ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
@@ -96,7 +96,7 @@
 
     // Show Heaven Gate editor window
     if (show_editor_window) {
-        <#statements#>
+        HeavenGateEditor::ShowEditorWindow(&show_editor_window);
     }
 	// Rendering
 	ImGui::Render();
