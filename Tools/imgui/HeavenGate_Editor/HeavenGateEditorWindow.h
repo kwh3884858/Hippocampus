@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <string>
 
-#endif /* HeavenGateEditorWindow_hpp */
+
 
 using std::string;
 
@@ -26,3 +26,6 @@ namespace HeavenGateEditor {
 
     string ExePath();
 }
+
+
+#endif /* HeavenGateEditorWindow_hpp */

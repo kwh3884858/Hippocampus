@@ -10,10 +10,13 @@
 #include "HeavenGateEditorWindow.h"
 #include "CharacterUtility.h"
 #include "nlohmann/json.hpp"
-#include "StoryJson.h"
+<<<<<<< HEAD
 
 #include <vector>
 
+=======
+#include "StoryJson.h"
+>>>>>>> 493fa814a5d3dcd71db96b8b9c7dc088d7e34dda
 
 #include <fstream>
 #ifdef _WIN32
@@ -104,11 +107,18 @@ namespace HeavenGateEditor {
 
         if (ImGui::Button("Add new story")) {}
 
+<<<<<<< HEAD
+    /*    for (int i = 0; i < currentStory.size(); i++)
+        {
+            
+        }*/
+=======
 //
 //        for (int i = 0; i < currentStory.size(); i++)
 //        {
 //
 //        }
+>>>>>>> 493fa814a5d3dcd71db96b8b9c7dc088d7e34dda
         static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
         ImGui::CheckboxFlags("ImGuiInputTextFlags_ReadOnly", (unsigned int*)&flags, ImGuiInputTextFlags_ReadOnly);
         ImGui::CheckboxFlags("ImGuiInputTextFlags_AllowTabInput", (unsigned int*)&flags, ImGuiInputTextFlags_AllowTabInput);
@@ -312,20 +322,28 @@ namespace HeavenGateEditor {
                 ImGui::EndTabBar();
             }
             ImGui::EndChild();
+<<<<<<< HEAD
 
             if (ImGui::Button("Revert")) {
                 char fullPath[MAX_PATH] = "";
 
 
-                std::vector<StoryWord> c_vector;
-                StoryWord word;
-                word.m_name = "dd";
-                word.m_content = "dsa";
-                c_vector.push_back(word);
+                std::vector<string> c_vector{ "sd", "fd", "s", "d" };
+                c_vector.push_back("d");
                 json j_vec(c_vector);
                 std::ofstream o("pretty.json");
                 o << j_vec << std::endl;
 
+=======
+            if (ImGui::Button("Revert")) {
+//play test gym
+                vector<string> testContent;
+                testContent.push_back("hah");
+                testContent.push_back("ssjsj");
+
+                std::ofstream o("pretty.json");
+                o << std::setw(4) << testContent << std::endl;
+>>>>>>> 493fa814a5d3dcd71db96b8b9c7dc088d7e34dda
             }
             ImGui::SameLine();
             if (ImGui::Button("Open")) {

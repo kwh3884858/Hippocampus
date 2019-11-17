@@ -2,11 +2,3 @@
 
 
 
-StoryJson::StoryJson()
-{
-}
-
-
-StoryJson::~StoryJson()
-{
-}
