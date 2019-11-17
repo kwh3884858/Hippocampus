@@ -11,12 +11,15 @@
 #include "CharacterUtility.h"
 #include "nlohmann/json.hpp"
 
+#include <vector>
+
 
 #include <fstream>
 #ifdef _WIN32
 #include <windows.h>
 #endif // _WIN32
 
+using std::vector;
 
 namespace HeavenGateEditor {
     using json = nlohmann::json;
@@ -100,10 +103,10 @@ namespace HeavenGateEditor {
 
         if (ImGui::Button("Add new story")) {}
 
-        for (int i = 0; i < currentStory.size(); i++)
+    /*    for (int i = 0; i < currentStory.size(); i++)
         {
             
-        }
+        }*/
         static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
         ImGui::CheckboxFlags("ImGuiInputTextFlags_ReadOnly", (unsigned int*)&flags, ImGuiInputTextFlags_ReadOnly);
         ImGui::CheckboxFlags("ImGuiInputTextFlags_AllowTabInput", (unsigned int*)&flags, ImGuiInputTextFlags_AllowTabInput);
@@ -307,7 +310,18 @@ namespace HeavenGateEditor {
                 ImGui::EndTabBar();
             }
             ImGui::EndChild();
-            if (ImGui::Button("Revert")) {}
+
+            if (ImGui::Button("Revert")) {
+                char fullPath[MAX_PATH] = "";
+
+
+                std::vector<string> c_vector{ "sd", "fd", "s", "d" };
+                c_vector.push_back("d");
+                json j_vec(c_vector);
+                std::ofstream o("pretty.json");
+                o << j_vec << std::endl;
+
+            }
             ImGui::SameLine();
             if (ImGui::Button("Open")) {
                 if (selected >= 2)
