@@ -28,8 +28,8 @@
     <ClInclude Include="..\..\Dirent\dirent.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\CharacterUtility.h" />
     <ClInclude Include="..\..\nlohmann\json.hpp" />
-    <ClInclude Include="StoryJson.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJson.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\imgui.cpp">
@@ -55,7 +55,6 @@
     </ClCompile>
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorWindow.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\CharacterUtility.cpp" />
-    <ClCompile Include="StoryJson.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJson.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -63,5 +62,9 @@
     <None Include="..\..\misc\natvis\imgui.natvis">
       <Filter>sources</Filter>
     </None>
+    <None Include="example_win32_directx11.licenseheader" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="example_win32_directx11.rc" />
   </ItemGroup>
 </Project>

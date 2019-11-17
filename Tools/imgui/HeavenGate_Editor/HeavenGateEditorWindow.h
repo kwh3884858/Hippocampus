@@ -1,11 +1,11 @@
 //
-//  HeavenGateEditorWindow.hpp
-//  example_osx_opengl2
+//Copyright (c) 2019 Star Platinum
 //
-//  Created by 威化饼干 on 29/10/2019.
-//  Copyright © 2019 ImGui. All rights reserved.
+//Created by Kong Wei Hang, 2019-11-17
+//example_win32_directx11, HeavenGateEditor
 //
-
+//Add Description
+//
 #ifndef HeavenGateEditorWindow_h
 #define HeavenGateEditorWindow_h
 

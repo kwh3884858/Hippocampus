@@ -1,11 +1,3 @@
-//
-//  StoryJson.hpp
-//  example_osx_opengl2
-//
-//  Created by 威化饼干 on 14/11/2019.
-//  Copyright © 2019 ImGui. All rights reserved.
-//
-
 #ifndef StoryJson_hpp
 #define StoryJson_hpp
 
@@ -21,7 +13,7 @@ using std::string;
 using std::vector;
 namespace HeavenGateEditor {
 
-    class StoryWord {
+    struct StoryWord {
         public:
 
         string m_name;
@@ -30,35 +22,38 @@ namespace HeavenGateEditor {
 
     class StoryJson {
     private:
-        vector<StoryWord *> m_words;
+        vector<StoryWord*> m_words;
 
     public:
-        void AddWord();
+        void AddWord(StoryWord* const word);
+        void AddWord(string name, string content);
+        void SetWord(const StoryWord* const word);
+        StoryWord* const GetWord(int index);
+        const StoryWord* const GetWord(int index) const;
+
         void RemoveWord();
         StoryWord FindWord(int index)const;
-        void Size() const;
+        int Size() const;
         void Clear();
         bool Empty()const;
     };
 
-    void to_json(json& j, const StoryWord& p){
-        j = json{{"name", p.m_name}, {"content", p.m_content}};
-    
-    }
-    
-    void from_json(const json& j, StoryWord& p) {
-        j.at("name").get_to(p.m_name);
-             j.at("content").get_to(p.m_content);
-    }
+    void to_json(json& j, const StoryWord& p);
+    void to_json(json& j, const StoryJson& p);
 
-    void to_json(json& j, const StoryWord* p) {
-        j = json{ {"name", p->m_name}, {"content", p->m_content} };
-    }
+    void from_json(const json& j, StoryWord& p);
+    void from_json(const json& j, StoryJson& p);
 
-    void from_json(const json& j, StoryWord* p) {
-        j.at("name").get_to(p.m_name);
-        j.at("content").get_to(p.m_content);
-    }
+  
+
+    //void to_json(json& j, const StoryWord* p) {
+    //    j = json{ {"name", p->m_name}, {"content", p->m_content} };
+    //}
+
+    //void from_json(const json& j, StoryWord* p) {
+    //    j.at("name").get_to(p.m_name);
+    //    j.at("content").get_to(p.m_content);
+    //}
     //void to_json(json& j, const StoryJson& p){
     //    for (int i = 0 ; i < p.m_words.size(); i++) {
     //

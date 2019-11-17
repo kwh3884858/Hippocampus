@@ -1,19 +1,11 @@
-//
-//  HeavenGateEditorWindow.cpp
-//  example_osx_opengl2
-//
-//  Created by 威化饼干 on 29/10/2019.
-//  Copyright © 2019 ImGui. All rights reserved.
-//
 #include "imgui.h"
 #include "Dirent/dirent.h"
 #include "HeavenGateEditorWindow.h"
 #include "CharacterUtility.h"
-#include "nlohmann/json.hpp"
+
 #include "StoryJson.h"
-
+#include <iostream>
 #include <vector>
-
 
 #include <fstream>
 #ifdef _WIN32
@@ -317,15 +309,46 @@ namespace HeavenGateEditor {
                 char fullPath[MAX_PATH] = "";
 
 
-                std::vector<StoryWord> c_vector;
+        /*        std::vector<StoryWord> c_vector;
                 StoryWord word;
                 word.m_name = "dd";
                 word.m_content = "dsa";
                 c_vector.push_back(word);
-                json j_vec(c_vector);
+                word.m_name = "aa";
+                word.m_content = "fffa";
+                c_vector.push_back(word);*/
+                               StoryJson sj;
+                               sj.AddWord("ff", "ff");
+                               sj.AddWord("dd", "aa");
+                //json j_vec(c_vector);
+                json j_test = sj;
                 std::ofstream o("pretty.json");
-                o << j_vec << std::endl;
+                o << j_test << std::endl;
+               
+            }
+            ImGui::SameLine();
+            if (ImGui::Button("Load")) {
+                std::ifstream i("pretty.json");
+                if (!i.fail())
+                {
+                    int i = 0;
+                    while (!i.eof())
+                    {
+                        std::cout << i;
+                    }
 
+                    i.close();
+                }
+                json a = json::parse(content);
+                std::cout << a;
+               /* StoryJson sj;
+                sj = a;
+                for (int i = 0 ; i < sj.Size(); i++)
+                {
+                    std::cout << sj.GetWord(i)->m_name;
+                    std::cout << sj.GetWord(i)->m_content;
+
+                }*/
             }
             ImGui::SameLine();
             if (ImGui::Button("Open")) {

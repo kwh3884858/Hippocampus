@@ -1,0 +1,23 @@
+﻿extensions: designer.cs generated.cs
+extensions: .cs .cpp .h
+//
+//Copyright (c) 2019 Star Platinum
+//
+//Created by %UserDisplayName%, %CurrentYear%-%CurrentMonth%-%CurrentDay%
+//%Project%, %Namespace%
+//
+//Add Description
+//
+extensions: .aspx .ascx
+<%-- 
+Copyright (c) 2019 Star Platinum
+Created by %UserDisplayName%, %CurrentYear%-%CurrentMonth%-%CurrentDay%
+%Project%, %Namespace%
+
+--%>
+extensions: .vb
+'Sample license text.
+extensions:  .xml .config .xsd
+<!--
+Sample license text.
+-->
