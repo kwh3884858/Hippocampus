@@ -1,5 +1,5 @@
-# Original Point
-
+# Ground Zero
+原爆点
 <sub>Hippocampus是一个过去的项目，我们直接在这个项目框架上开发。</sub>
 
 ## Introduction 
@@ -77,6 +77,24 @@ https://www.yuque.com/nxym1s
 [Json library Github from nlohmann](https://github.com/nlohmann/json)
 
 现在需要根据需求制定一个可行得json格式，需要能支持后续功能的直接加入而不破坏以有的文件。
+
+6. 添加了license Header
+现在可以添加类似于
+```
+//
+//Copyright (c) 2019 Star Platinum
+//
+//Created by Kong Wei Hang, 2019-11-17
+//example_win32_directx11, HeavenGateEditor
+//
+//Add Description
+//
+```
+这样的文本，license header已经加入到项目之中，需要下载一个vs插件使用
+
+[License Header Manager](https://marketplace.visualstudio.com/items?itemName=StefanWenig.LicenseHeaderManager)
+
+之后在需要加入license的地方右键，选择license headers/Add License header
 
 ---
 
