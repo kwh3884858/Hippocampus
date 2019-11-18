@@ -44,7 +44,7 @@ void HeavenGateEditor::to_json(json & j, const StoryJson & story)
         const StoryWord* const pWord = story.GetWord(i);
         string key = std::to_string(i);
         
-        j[key] = *pWord;
+        j.push_back(*pWord);
     }
 }
 

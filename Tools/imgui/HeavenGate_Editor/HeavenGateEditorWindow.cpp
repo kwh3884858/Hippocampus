@@ -24,6 +24,7 @@ namespace HeavenGateEditor {
     char storyPath[MAX_PATH] = "Untitled";
 
     static json currentStory;
+    static StoryJson* m_story = nullptr;
 
     void ShowEditorWindow(bool* isOpenPoint) {
 
@@ -89,24 +90,40 @@ namespace HeavenGateEditor {
         ImGui::Text("Current story path: %s", storyPath);
 
 
-        if (!isSavedFile)
+        if (!isSavedFile && m_story == nullptr)
         {
-            //currentStory
-        }
+            //Create a new story
+            m_story = new StoryJson();
 
-        if (ImGui::Button("Add new story")) {}
+        }
+        static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
+        ImGui::CheckboxFlags("ImGuiInputTextFlags_ReadOnly", (unsigned int*)&flags, ImGuiInputTextFlags_ReadOnly);
+        ImGui::CheckboxFlags("ImGuiInputTextFlags_AllowTabInput", (unsigned int*)&flags, ImGuiInputTextFlags_AllowTabInput);
+        ImGui::CheckboxFlags("ImGuiInputTextFlags_CtrlEnterForNewLine", (unsigned int*)&flags, ImGuiInputTextFlags_CtrlEnterForNewLine);
+        static char name[64 * 16];
+        static char content[1024 * 16];
+        for (int i = 0; i < m_story->Size(); i++)
+        {
+
+            strcpy(name, m_story->GetWord(i)->m_name.c_str());
+            strcpy(content, m_story->GetWord(i)->m_content.c_str());
+            ImGui::InputTextMultiline("##source", name, IM_ARRAYSIZE(name), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 16), flags);
+            ImGui::InputTextMultiline("##source", content, IM_ARRAYSIZE(content), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 16), flags);
+
+        }
+        if (ImGui::Button("Add new story")) {
+            if (m_story != nullptr)
+            {
+                m_story->AddWord("", "");
+            }
+        }
 
 //
 //        for (int i = 0; i < currentStory.size(); i++)
 //        {
 //
 //        }
-        static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
-        ImGui::CheckboxFlags("ImGuiInputTextFlags_ReadOnly", (unsigned int*)&flags, ImGuiInputTextFlags_ReadOnly);
-        ImGui::CheckboxFlags("ImGuiInputTextFlags_AllowTabInput", (unsigned int*)&flags, ImGuiInputTextFlags_AllowTabInput);
-        ImGui::CheckboxFlags("ImGuiInputTextFlags_CtrlEnterForNewLine", (unsigned int*)&flags, ImGuiInputTextFlags_CtrlEnterForNewLine);
-
-
+     
         // End of ShowDemoWindow()
         ImGui::End();
 
@@ -271,6 +288,7 @@ namespace HeavenGateEditor {
 
                         if (selected >= 2)
                         {
+                            memset(content, 0, sizeof content);
                             std::ifstream fin;
 
                             fin.open(fullPath);
@@ -308,7 +326,10 @@ namespace HeavenGateEditor {
             if (ImGui::Button("Revert")) {
                 char fullPath[MAX_PATH] = "";
 
-
+                exePath = ExePath();
+                strcpy(fullPath, exePath.c_str());
+                strcat(fullPath, "\\");
+                strcat(fullPath, "pretty.json");
         /*        std::vector<StoryWord> c_vector;
                 StoryWord word;
                 word.m_name = "dd";
@@ -322,14 +343,21 @@ namespace HeavenGateEditor {
                                sj.AddWord("dd", "aa");
                 //json j_vec(c_vector);
                 json j_test = sj;
-                std::ofstream o("pretty.json");
+                std::ofstream o(fullPath);
                 o << j_test << std::endl;
                
             }
             ImGui::SameLine();
+
             if (ImGui::Button("Load")) {
-                std::ifstream i("pretty.json");
-                if (!i.fail())
+                char fullPath[MAX_PATH] = "";
+                exePath = ExePath();
+                strcpy(fullPath, exePath.c_str());
+                strcat(fullPath, "\\");
+                strcat(fullPath, "pretty.json");
+
+                std::ifstream fins;
+             /*   if (!i.fail())
                 {
                     int i = 0;
                     while (!i.eof())
@@ -338,8 +366,27 @@ namespace HeavenGateEditor {
                     }
 
                     i.close();
+                }*/
+                fins.open(fullPath);
+
+                // If it could not open the file then exit.
+                if (!fins.fail())
+                {
+                    int i = 0;
+                    while (!fins.eof())
+                    {
+                        fins >> content[i++];
+                    }
+
+                    fins.close();
                 }
+                else
+                {
+                    std::cerr << "Error: " << strerror(errno);
+                }
+
                 json a = json::parse(content);
+               *m_story = a;
                 std::cout << a;
                /* StoryJson sj;
                 sj = a;
