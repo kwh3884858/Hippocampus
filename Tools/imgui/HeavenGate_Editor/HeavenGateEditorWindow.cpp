@@ -1,32 +1,52 @@
 #include "imgui.h"
-#include "Dirent/dirent.h"
+
+
 #include "HeavenGateEditorWindow.h"
 #include "CharacterUtility.h"
 
-#include "StoryJson.h"
 #include <iostream>
 #include <vector>
-
 #include <fstream>
+
 #ifdef _WIN32
 #include <windows.h>
+#include "Dirent/dirent.h"
 #endif // _WIN32
 
 using std::vector;
 
 namespace HeavenGateEditor {
-    using json = nlohmann::json;
 
-    static bool show_app_layout = false;
-    bool isInitializeFilesList = false;
-    bool isModifiedStory = false;
-    bool isSavedFile = false;
-    char storyPath[MAX_PATH] = "Untitled";
+    //Constant
+    const int MAX_NUM_OF_DISPLAY_FORLDERS = 50;
+    const char* const HeavenGateEditor::TOOL_FOLDER_NAME = "Tools";
+    const char* const HeavenGateEditor::PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER = "Assets\\Storys";
 
-    static json currentStory;
-    static StoryJson* m_story = nullptr;
 
-    void ShowEditorWindow(bool* isOpenPoint) {
+    HeavenGateEditor::HeavenGateEditor()
+    {
+
+        show_app_layout = false;
+
+
+        m_isInitializedFilesList = false;
+
+        isSavedFile = false;
+        strcpy(storyPath, "Untitled");
+        m_story = nullptr;
+
+        selected = 0;
+        m_numOfFile = 0;
+        memset(exePath, 0, sizeof(exePath));
+    }
+
+    HeavenGateEditor::~HeavenGateEditor()
+    {
+
+    }
+
+
+    void HeavenGateEditor::ShowEditorWindow(bool* isOpenPoint) {
 
 
         if (show_app_layout)              OpenSelectStoryWindow(&show_app_layout);
@@ -118,19 +138,19 @@ namespace HeavenGateEditor {
             }
         }
 
-//
-//        for (int i = 0; i < currentStory.size(); i++)
-//        {
-//
-//        }
-     
-        // End of ShowDemoWindow()
+        //
+        //        for (int i = 0; i < currentStory.size(); i++)
+        //        {
+        //
+        //        }
+
+                // End of ShowDemoWindow()
         ImGui::End();
 
     }
 
     // Note that shortcuts are currently provided for display only (future version will add flags to BeginMenu to process shortcuts)
-    static void ShowEditorMenuFile()
+    void HeavenGateEditor::ShowEditorMenuFile()
     {
 
         //   ImGui::MenuItem("(dummy menu)", NULL, false, false);
@@ -200,8 +220,7 @@ namespace HeavenGateEditor {
         if (ImGui::MenuItem("Quit", "Alt+F4")) {}
     }
 
-    static void OpenSelectStoryWindow(bool* p_open) {
-        char storyDirectory[] = "../";
+    void HeavenGateEditor::OpenSelectStoryWindow(bool* p_open) {
 
         ImGui::SetNextWindowSize(ImVec2(500, 440), ImGuiCond_FirstUseEver);
         if (ImGui::Begin("Open a story file", p_open, ImGuiWindowFlags_MenuBar))
@@ -217,14 +236,12 @@ namespace HeavenGateEditor {
             }
 
             // left
-            static int selected = 0;
+
             ImGui::BeginChild("left pane", ImVec2(150, 0), true);
 
-            static char filesList[20][100];
-            static int  count = 0;
-            static string exePath;
+          
 
-            if (isInitializeFilesList == false) {
+            if (m_isInitializedFilesList == false) {
 
                 DIR *dir;
                 struct dirent *ent;
@@ -235,8 +252,8 @@ namespace HeavenGateEditor {
 
                     while ((ent = readdir(dir)) != NULL) {
                         printf("%s\n", ent->d_name);
-                        strcpy(filesList[count], ent->d_name);
-                        count++;
+                        strcpy(filesList[m_numOfFile], ent->d_name);
+                        m_numOfFile++;
                     }
                     closedir(dir);
                 }
@@ -249,10 +266,10 @@ namespace HeavenGateEditor {
 
 
 
-                isInitializeFilesList = true;
+                m_isInitializedFilesList = true;
             }
 
-            for (int i = 2; i < count; i++)
+            for (int i = 2; i < m_numOfFile; i++)
             {
 
 
@@ -263,13 +280,13 @@ namespace HeavenGateEditor {
             ImGui::SameLine();
 
             // right
-            char fullPath[MAX_PATH] = "";
+            char fullPath[MAX_FOLDER_PATH] = "";
 
             ImGui::BeginGroup();
             ImGui::BeginChild("item view", ImVec2(0, -ImGui::GetFrameHeightWithSpacing())); // Leave room for 1 line below us
             if (selected != -1)
             {
-                strcpy(fullPath, exePath.c_str());
+                strcpy(fullPath, exePath);
                 strcat(fullPath, "\\");
                 strcat(fullPath, filesList[selected]);
             }
@@ -330,22 +347,22 @@ namespace HeavenGateEditor {
                 strcpy(fullPath, exePath.c_str());
                 strcat(fullPath, "\\");
                 strcat(fullPath, "pretty.json");
-        /*        std::vector<StoryWord> c_vector;
-                StoryWord word;
-                word.m_name = "dd";
-                word.m_content = "dsa";
-                c_vector.push_back(word);
-                word.m_name = "aa";
-                word.m_content = "fffa";
-                c_vector.push_back(word);*/
-                               StoryJson sj;
-                               sj.AddWord("ff", "ff");
-                               sj.AddWord("dd", "aa");
+                /*        std::vector<StoryWord> c_vector;
+                        StoryWord word;
+                        word.m_name = "dd";
+                        word.m_content = "dsa";
+                        c_vector.push_back(word);
+                        word.m_name = "aa";
+                        word.m_content = "fffa";
+                        c_vector.push_back(word);*/
+                StoryJson sj;
+                sj.AddWord("ff", "ff");
+                sj.AddWord("dd", "aa");
                 //json j_vec(c_vector);
                 json j_test = sj;
                 std::ofstream o(fullPath);
                 o << j_test << std::endl;
-               
+
             }
             ImGui::SameLine();
 
@@ -357,16 +374,16 @@ namespace HeavenGateEditor {
                 strcat(fullPath, "pretty.json");
 
                 std::ifstream fins;
-             /*   if (!i.fail())
-                {
-                    int i = 0;
-                    while (!i.eof())
-                    {
-                        std::cout << i;
-                    }
+                /*   if (!i.fail())
+                   {
+                       int i = 0;
+                       while (!i.eof())
+                       {
+                           std::cout << i;
+                       }
 
-                    i.close();
-                }*/
+                       i.close();
+                   }*/
                 fins.open(fullPath);
 
                 // If it could not open the file then exit.
@@ -386,16 +403,16 @@ namespace HeavenGateEditor {
                 }
 
                 json a = json::parse(content);
-               *m_story = a;
+                *m_story = a;
                 std::cout << a;
-               /* StoryJson sj;
-                sj = a;
-                for (int i = 0 ; i < sj.Size(); i++)
-                {
-                    std::cout << sj.GetWord(i)->m_name;
-                    std::cout << sj.GetWord(i)->m_content;
+                /* StoryJson sj;
+                 sj = a;
+                 for (int i = 0 ; i < sj.Size(); i++)
+                 {
+                     std::cout << sj.GetWord(i)->m_name;
+                     std::cout << sj.GetWord(i)->m_content;
 
-                }*/
+                 }*/
             }
             ImGui::SameLine();
             if (ImGui::Button("Open")) {
@@ -417,15 +434,18 @@ namespace HeavenGateEditor {
 
 
 
-    string ExePath() {
-        wchar_t buffer[100];
-        char cBuffer[100];
-        GetModuleFileName(NULL, buffer, 100);
+    void HeavenGateEditor::ExePath(char outExePath) {
+        wchar_t buffer[MAX_FOLDER_PATH];
+        char cBuffer[MAX_FOLDER_PATH];
+
+        GetModuleFileName(NULL, buffer, MAX_FOLDER_PATH);
         CharacterUtility::convertWcsToMbs(cBuffer, buffer);
-        string::size_type pos = string(cBuffer).find("Tools");
+
+
+        string::size_type pos = string(cBuffer).find(TOOL_FOLDER_NAME);
         string path(cBuffer);
         path = path.substr(0, pos);
-        path = path.append("Assets\\Storys");
+        path = path.append(PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER);
         printf("  %s  \n", path.c_str());
         return path;
     }
