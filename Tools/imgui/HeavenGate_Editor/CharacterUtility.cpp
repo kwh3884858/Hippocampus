@@ -1,9 +1,6 @@
 #include "CharacterUtility.h"
 
-#ifndef _WIN32
-#include <stdlib.h>
-#endif
-size_t CharacterUtility::BUFFERSIZE = 100;
+size_t CharacterUtility::BUFFERSIZE = 265;
 
 void CharacterUtility::reverse(char * c)
 {
@@ -43,7 +40,7 @@ void CharacterUtility::wparseSuffix(const wchar_t * c, wchar_t * suffix)
 	wreverse(suffix);
 }
 
-size_t CharacterUtility::convertWcsToMbs(char * pDest,const wchar_t * pSrc)
+size_t CharacterUtility::convertWcsToMbs(char * pDest,const wchar_t * pSrc, int BUFFERSIZE)
 {
 	size_t size;
 
@@ -51,7 +48,7 @@ size_t CharacterUtility::convertWcsToMbs(char * pDest,const wchar_t * pSrc)
 	return size;
 }
 
-size_t CharacterUtility::convertMbsToWcs(wchar_t * pDest, const char * pSrc)
+size_t CharacterUtility::convertMbsToWcs(wchar_t * pDest, const char * pSrc, int BUFFERSIZE)
 {
 	size_t size;
 	mbstowcs_s(&size, pDest, (size_t)BUFFERSIZE, pSrc, (size_t)BUFFERSIZE);
