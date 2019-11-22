@@ -1,5 +1,8 @@
 #include "CharacterUtility.h"
 
+#ifndef _WIN32
+#include <stdlib.h>
+#endif
 size_t CharacterUtility::BUFFERSIZE = 100;
 
 void CharacterUtility::reverse(char * c)
@@ -43,6 +46,7 @@ void CharacterUtility::wparseSuffix(const wchar_t * c, wchar_t * suffix)
 size_t CharacterUtility::convertWcsToMbs(char * pDest,const wchar_t * pSrc)
 {
 	size_t size;
+
 	wcstombs_s(&size, pDest, (size_t)BUFFERSIZE, pSrc, (size_t)BUFFERSIZE);
 	return size;
 }

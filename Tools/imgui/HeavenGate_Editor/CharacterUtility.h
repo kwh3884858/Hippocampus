@@ -6,9 +6,7 @@
 #define CHARACTER_UTILITY_H
 #include <string>
 
-#ifndef _WIN32
-#include <stdlib.h>
-#endif
+
 class CharacterUtility
 {
 public:
