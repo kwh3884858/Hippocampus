@@ -53,6 +53,8 @@
     static bool show_another_window = false;
     static bool show_editor_window = true;
 
+    static HeavenGateEditor::HeavenGateEditor m_heavenGateEditor;
+
     static ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
     // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
@@ -96,7 +98,7 @@
 
     // Show Heaven Gate editor window
     if (show_editor_window) {
-        HeavenGateEditor::ShowEditorWindow(&show_editor_window);
+        m_heavenGateEditor.ShowEditorWindow(&show_editor_window);
     }
 	// Rendering
 	ImGui::Render();

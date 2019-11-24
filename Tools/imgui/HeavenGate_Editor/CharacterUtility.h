@@ -10,7 +10,7 @@
 class CharacterUtility
 {
 public:
-	static size_t BUFFERSIZE;
+	static int BUFFERSIZE;
 
 	//static int getLength(const char* c);
 	static void reverse(char* c);

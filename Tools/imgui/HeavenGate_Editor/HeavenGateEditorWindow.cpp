@@ -7,10 +7,17 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <stdio.h>
 
 #ifdef _WIN32
-#include <windows.h>
+
 #include "Dirent/dirent.h"
+#include <windows.h>
+
+#else
+#include <dirent.h>
+#include <dlfcn.h>
+
 #endif // _WIN32
 
 using std::vector;
@@ -20,24 +27,22 @@ namespace HeavenGateEditor {
     //Constant
     const int MAX_NUM_OF_DISPLAY_FORLDERS = 50;
     const char* const HeavenGateEditor::TOOL_FOLDER_NAME = "Tools";
-    const char* const HeavenGateEditor::PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER = "Assets\\Storys";
 
+    const char* const HeavenGateEditor::PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER =
+#ifdef _WIN32
+"Assets\\Storys";
+#else
+"Assets/Storys";
+#endif
 
     HeavenGateEditor::HeavenGateEditor()
     {
 
         show_app_layout = false;
 
-
-        m_isInitializedFilesList = false;
-
         isSavedFile = false;
         strcpy(storyPath, "Untitled");
-        m_story = nullptr;
 
-        selected = 0;
-        m_numOfFile = 0;
-        memset(exePath, 0, sizeof(exePath));
     }
 
     HeavenGateEditor::~HeavenGateEditor()
@@ -245,15 +250,16 @@ namespace HeavenGateEditor {
 
                 DIR *dir;
                 struct dirent *ent;
-                exePath = ExePath();
-                printf("Current Path:%s", exePath.c_str());
-                if ((dir = opendir(exePath.c_str())) != NULL) {
-                    /* print all the files and directories within directory */
+                ExePath(exePath);
+                printf("Current Path:%s", exePath);
+                m_fileIndex = 0;
+                if ((dir = opendir(exePath)) != NULL) {
 
+                    /* print all the files and directories within directory */
                     while ((ent = readdir(dir)) != NULL) {
                         printf("%s\n", ent->d_name);
-                        strcpy(filesList[m_numOfFile], ent->d_name);
-                        m_numOfFile++;
+                        strcpy(filesList[m_fileIndex], ent->d_name);
+                        m_fileIndex++;
                     }
                     closedir(dir);
                 }
@@ -263,13 +269,10 @@ namespace HeavenGateEditor {
                     printf("Can`t open story folder");
                 }
 
-
-
-
                 m_isInitializedFilesList = true;
             }
 
-            for (int i = 2; i < m_numOfFile; i++)
+            for (int i = 2; i < m_fileIndex; i++)
             {
 
 
@@ -280,23 +283,28 @@ namespace HeavenGateEditor {
             ImGui::SameLine();
 
             // right
-            char fullPath[MAX_FOLDER_PATH] = "";
+
 
             ImGui::BeginGroup();
             ImGui::BeginChild("item view", ImVec2(0, -ImGui::GetFrameHeightWithSpacing())); // Leave room for 1 line below us
             if (selected != -1)
             {
                 strcpy(fullPath, exePath);
+
+#ifdef _WIN32
                 strcat(fullPath, "\\");
+#else
+                strcat(fullPath, "/");
+#endif
+
                 strcat(fullPath, filesList[selected]);
             }
             ImGui::Text("File No: %d", selected);
             ImGui::Text("File Path: %s", fullPath);
             ImGui::Separator();
 
-            static bool isCurrentFileChange = true;
-            static int lastSelected = 0;
-            static char content[500];
+//            static bool isCurrentFileChange = true;
+
             if (ImGui::BeginTabBar("##Tabs", ImGuiTabBarFlags_None))
             {
                 if (ImGui::BeginTabItem("Description"))
@@ -341,11 +349,15 @@ namespace HeavenGateEditor {
             ImGui::EndChild();
 
             if (ImGui::Button("Revert")) {
-                char fullPath[MAX_PATH] = "";
+                char fullPath[MAX_FOLDER_PATH] = "";
 
-                exePath = ExePath();
-                strcpy(fullPath, exePath.c_str());
-                strcat(fullPath, "\\");
+                ExePath(exePath);
+                strcpy(fullPath, exePath);
+                #ifdef _WIN32
+                                strcat(fullPath, "\\");
+                #else
+                                strcat(fullPath, "/");
+                #endif
                 strcat(fullPath, "pretty.json");
                 /*        std::vector<StoryWord> c_vector;
                         StoryWord word;
@@ -367,10 +379,14 @@ namespace HeavenGateEditor {
             ImGui::SameLine();
 
             if (ImGui::Button("Load")) {
-                char fullPath[MAX_PATH] = "";
-                exePath = ExePath();
-                strcpy(fullPath, exePath.c_str());
-                strcat(fullPath, "\\");
+                char fullPath[MAX_FOLDER_PATH] = "";
+                ExePath(exePath);
+                strcpy(fullPath, exePath);
+                #ifdef _WIN32
+                                strcat(fullPath, "\\");
+                #else
+                                strcat(fullPath, "/");
+                #endif
                 strcat(fullPath, "pretty.json");
 
                 std::ifstream fins;
@@ -434,12 +450,17 @@ namespace HeavenGateEditor {
 
 
 
-    void HeavenGateEditor::ExePath(char outExePath) {
-        wchar_t buffer[MAX_FOLDER_PATH];
+    void HeavenGateEditor::ExePath(char* const pOutExePath) {
+
         char cBuffer[MAX_FOLDER_PATH];
 
+#ifdef _WIN32
+        wchar_t buffer[MAX_FOLDER_PATH];
         GetModuleFileName(NULL, buffer, MAX_FOLDER_PATH);
-        CharacterUtility::convertWcsToMbs(cBuffer, buffer);
+        CharacterUtility::convertWcsToMbs(cBuffer, buffer,MAX_FOLDER_PATH);
+#else
+        bool result = GetModuleFileNameOSX(cBuffer);
+#endif
 
 
         string::size_type pos = string(cBuffer).find(TOOL_FOLDER_NAME);
@@ -447,8 +468,23 @@ namespace HeavenGateEditor {
         path = path.substr(0, pos);
         path = path.append(PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER);
         printf("  %s  \n", path.c_str());
-        return path;
+        strcpy(pOutExePath, path.c_str());
+
+        return;
     }
 
+
+#ifndef _WIN32
+bool GetModuleFileNameOSX(char* pOutCurrentPath) {
+  Dl_info module_info;
+  if (dladdr(reinterpret_cast<void*>(GetModuleFileNameOSX), &module_info) == 0) {
+    // Failed to find the symbol we asked for.
+    return false;
+  }
+
+    CharacterUtility::copyCharPointer(pOutCurrentPath, module_info.dli_fname) ;
+  return  true;
+}
+#endif
 }
 

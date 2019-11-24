@@ -19,6 +19,7 @@
 		7606C9E623770FA20071E204 /* CharacterUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7606C9E423770FA20071E204 /* CharacterUtility.cpp */; };
 		760C4B9B237CE45B00FA1E14 /* StoryJson.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 760C4B99237CE45B00FA1E14 /* StoryJson.cpp */; };
 		760F84FF23686ECD00EFA0D9 /* HeavenGateEditorWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 760F84FE23686ECD00EFA0D9 /* HeavenGateEditorWindow.cpp */; };
+		76EB7ABF23893C3D003B2C85 /* HeavenGateWindowSelectStory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76EB7ABE23893C3D003B2C85 /* HeavenGateWindowSelectStory.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,7 +56,10 @@
 		760C4B99237CE45B00FA1E14 /* StoryJson.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StoryJson.cpp; sourceTree = "<group>"; };
 		760C4B9A237CE45B00FA1E14 /* StoryJson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoryJson.h; sourceTree = "<group>"; };
 		760F84FD23686ECD00EFA0D9 /* HeavenGateEditorWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeavenGateEditorWindow.h; sourceTree = "<group>"; };
-		760F84FE23686ECD00EFA0D9 /* HeavenGateEditorWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HeavenGateEditorWindow.cpp; sourceTree = "<group>"; };
+		760F84FE23686ECD00EFA0D9 /* HeavenGateEditorWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HeavenGateEditorWindow.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		76EB7ABD23893C3D003B2C85 /* HeavenGateWindowSelectStory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeavenGateWindowSelectStory.h; sourceTree = "<group>"; };
+		76EB7ABE23893C3D003B2C85 /* HeavenGateWindowSelectStory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HeavenGateWindowSelectStory.cpp; sourceTree = "<group>"; };
+		76EB7AC12389A7D0003B2C85 /* HeavenGateEditorConstant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeavenGateEditorConstant.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,12 +117,15 @@
 		760F84FC23686ECD00EFA0D9 /* HeavenGate_Editor */ = {
 			isa = PBXGroup;
 			children = (
+				76EB7ABE23893C3D003B2C85 /* HeavenGateWindowSelectStory.cpp */,
+				76EB7ABD23893C3D003B2C85 /* HeavenGateWindowSelectStory.h */,
 				7606C9E423770FA20071E204 /* CharacterUtility.cpp */,
 				7606C9E523770FA20071E204 /* CharacterUtility.h */,
 				760F84FD23686ECD00EFA0D9 /* HeavenGateEditorWindow.h */,
 				760F84FE23686ECD00EFA0D9 /* HeavenGateEditorWindow.cpp */,
 				760C4B99237CE45B00FA1E14 /* StoryJson.cpp */,
 				760C4B9A237CE45B00FA1E14 /* StoryJson.h */,
+				76EB7AC12389A7D0003B2C85 /* HeavenGateEditorConstant.h */,
 			);
 			name = HeavenGate_Editor;
 			path = ../../HeavenGate_Editor;
@@ -190,6 +197,7 @@
 				4080A9B020B0347A0036BA46 /* imgui_impl_osx.mm in Sources */,
 				4080A9AE20B0343C0036BA46 /* imgui.cpp in Sources */,
 				07A82EDB213941D00078D120 /* imgui_widgets.cpp in Sources */,
+				76EB7ABF23893C3D003B2C85 /* HeavenGateWindowSelectStory.cpp in Sources */,
 				7606C9E623770FA20071E204 /* CharacterUtility.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

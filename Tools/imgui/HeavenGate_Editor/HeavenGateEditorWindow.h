@@ -10,7 +10,7 @@
 #define HeavenGateEditorWindow_h
 
 
-#include <string>
+#include "HeavenGateEditorConstant.h"
 #include "StoryJson.h"
 
 using std::string;
@@ -20,11 +20,6 @@ namespace HeavenGateEditor {
     class HeavenGateEditor
     {
     public:
-        //Constant//
-
-        //Max folder path
-        #define MAX_FOLDER_PATH     265
-        #define MAX_FOLDER_LIST     32
 
         //Max number of display folders
         static const int MAX_NUM_OF_DISPLAY_FORLDERS;
@@ -43,7 +38,7 @@ namespace HeavenGateEditor {
         void OpenSelectStoryWindow(bool* p_open);
 
     private:
-        string ExePath();
+        void ExePath(char* const outExePath);
 
         //Is Open Select Story Window
         bool show_app_layout;
@@ -51,12 +46,7 @@ namespace HeavenGateEditor {
         bool isSavedFile = false;
         char storyPath[MAX_FOLDER_PATH];
 
-        //Only use in Select Story
-        bool m_isInitializedFilesList;
-        int selected;
-        const char filesList[MAX_FOLDER_LIST][MAX_FOLDER_PATH];
-         int  m_numOfFile = 0;
-        char exePath[MAX_FOLDER_PATH];
+
 
         json currentStory;
         StoryJson* m_story;
@@ -65,7 +55,9 @@ namespace HeavenGateEditor {
 
     };
 
-
+#ifndef _WIN32
+        bool GetModuleFileNameOSX(char *  pOutCurrentPath);
+#endif
 
 }
 
