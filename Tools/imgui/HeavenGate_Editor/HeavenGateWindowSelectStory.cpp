@@ -39,6 +39,9 @@ HeavenGateWindowSelectStory::HeavenGateWindowSelectStory()
 
 HeavenGateWindowSelectStory::~HeavenGateWindowSelectStory()
 {
+    if (m_story == nullptr) {
+        delete m_story;
+    }
 }
 
 void HeavenGateWindowSelectStory::ShowSelectStoryWindow(){
@@ -207,7 +210,7 @@ void HeavenGateWindowSelectStory::ShowDescription(){
 }
 void HeavenGateWindowSelectStory::ShowFileButton(){
 
-    if (ImGui::Button("Revert")) {
+    if (ImGui::Button("Write Test")) {
         char fullPath[MAX_FOLDER_PATH] = "";
 
 
@@ -232,64 +235,40 @@ void HeavenGateWindowSelectStory::ShowFileButton(){
     }
     ImGui::SameLine();
     //
-    if (ImGui::Button("Load")) {
-        char fullPath[MAX_FOLDER_PATH] = "";
 
-        strcpy(fullPath, GetStoryPath());
-        strcpy(fullPath, m_storyPath);
-#ifdef _WIN32
-        strcat(fullPath, "\\");
-#else
-        strcat(fullPath, "/");
-#endif
-        strcat(fullPath, "pretty.json");
-
-        std::ifstream fins;
-        /*   if (!i.fail())
-         {
-         int i = 0;
-         while (!i.eof())
-         {
-         std::cout << i;
-         }
-
-         i.close();
-         }*/
-        fins.open(fullPath);
-
-        // If it could not open the file then exit.
-        if (!fins.fail())
-        {
-            int i = 0;
-            while (!fins.eof())
-            {
-                fins >> m_content[i++];
-            }
-
-            fins.close();
-        }
-        else
-        {
-            std::cerr << "Error: " << strerror(errno);
-        }
-        if(m_story == nullptr){
-            m_story = new StoryJson();
-        }
-        json a = json::parse(m_content);
-        *m_story = a;
-        std::cout << a;
-
-    }
-    //
     ImGui::SameLine();
 
     if (ImGui::Button("Open")) {
         if (m_selected >= 2)
         {
+            std::ifstream fins;
 
+            fins.open(m_fullPath);
+
+            // If it could not open the file then exit.
+            if (!fins.fail())
+            {
+                int i = 0;
+                while (!fins.eof())
+                {
+                    fins >> m_content[i++];
+                }
+
+                fins.close();
+            }
+            else
+            {
+                std::cerr << "Error: " << strerror(errno);
+                return;
+            }
+
+            if(m_story == nullptr){
+                m_story = new StoryJson();
+            }
             json a = json::parse(m_content);
             *m_story = a;
             CloseWindow();
+            std::cout << a;
         }
     }
 }
