@@ -9,7 +9,7 @@
 #ifndef HeavenGateEditorWindow_h
 #define HeavenGateEditorWindow_h
 
-
+#include "HeavenGateWindowSelectStory.h"
 #include "HeavenGateEditorConstant.h"
 #include "StoryJson.h"
 
@@ -20,15 +20,6 @@ namespace HeavenGateEditor {
     class HeavenGateEditor
     {
     public:
-
-        //Max number of display folders
-        static const int MAX_NUM_OF_DISPLAY_FORLDERS;
-
-        //Tool folder name
-        static const char* const TOOL_FOLDER_NAME;
-
-        //Relative path form project root to story folder
-        static const char* const PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER;
 
     public:
         HeavenGateEditor();
@@ -51,13 +42,10 @@ namespace HeavenGateEditor {
         json currentStory;
         StoryJson* m_story;
 
-
+        HeavenGateWindowSelectStory* m_selectStoryWindow;
 
     };
 
-#ifndef _WIN32
-        bool GetModuleFileNameOSX(char *  pOutCurrentPath);
-#endif
 
 }
 

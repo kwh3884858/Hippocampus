@@ -6,34 +6,14 @@
 
 #include <iostream>
 #include <vector>
-#include <fstream>
+
 #include <stdio.h>
 
-#ifdef _WIN32
 
-#include "Dirent/dirent.h"
-#include <windows.h>
-
-#else
-#include <dirent.h>
-#include <dlfcn.h>
-
-#endif // _WIN32
 
 using std::vector;
 
 namespace HeavenGateEditor {
-
-    //Constant
-    const int MAX_NUM_OF_DISPLAY_FORLDERS = 50;
-    const char* const HeavenGateEditor::TOOL_FOLDER_NAME = "Tools";
-
-    const char* const HeavenGateEditor::PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER =
-#ifdef _WIN32
-"Assets\\Storys";
-#else
-"Assets/Storys";
-#endif
 
     HeavenGateEditor::HeavenGateEditor()
     {
@@ -43,18 +23,26 @@ namespace HeavenGateEditor {
         isSavedFile = false;
         strcpy(storyPath, "Untitled");
 
+        m_selectStoryWindow = nullptr;
+
     }
 
     HeavenGateEditor::~HeavenGateEditor()
     {
-
+        if (m_selectStoryWindow!= nullptr) {
+            delete m_selectStoryWindow;
+        }
     }
 
 
     void HeavenGateEditor::ShowEditorWindow(bool* isOpenPoint) {
 
 
-        if (show_app_layout)              OpenSelectStoryWindow(&show_app_layout);
+       if (m_selectStoryWindow == nullptr) {
+            m_selectStoryWindow =new HeavenGateWindowSelectStory();
+        }
+        m_selectStoryWindow->ShowSelectStoryWindow();
+
 
         // Demonstrate the various window flags. Typically you would just use the default!
         static bool no_titlebar = false;
@@ -114,7 +102,7 @@ namespace HeavenGateEditor {
 
         ImGui::Text("Current story path: %s", storyPath);
 
-
+/*
         if (!isSavedFile && m_story == nullptr)
         {
             //Create a new story
@@ -150,6 +138,8 @@ namespace HeavenGateEditor {
         //        }
 
                 // End of ShowDemoWindow()
+
+ */
         ImGui::End();
 
     }
@@ -163,7 +153,7 @@ namespace HeavenGateEditor {
 
         }
         if (ImGui::MenuItem("Open", "Ctrl+O")) {
-            show_app_layout = true;
+            m_selectStoryWindow->OpenWindow();
         }
         if (ImGui::BeginMenu("Open Recent"))
         {
@@ -227,264 +217,18 @@ namespace HeavenGateEditor {
 
     void HeavenGateEditor::OpenSelectStoryWindow(bool* p_open) {
 
-        ImGui::SetNextWindowSize(ImVec2(500, 440), ImGuiCond_FirstUseEver);
-        if (ImGui::Begin("Open a story file", p_open, ImGuiWindowFlags_MenuBar))
-        {
-            if (ImGui::BeginMenuBar())
-            {
-                if (ImGui::BeginMenu("File"))
-                {
-                    if (ImGui::MenuItem("Close")) *p_open = false;
-                    ImGui::EndMenu();
-                }
-                ImGui::EndMenuBar();
-            }
-
-            // left
-
-            ImGui::BeginChild("left pane", ImVec2(150, 0), true);
-
-          
-
-            if (m_isInitializedFilesList == false) {
-
-                DIR *dir;
-                struct dirent *ent;
-                ExePath(exePath);
-                printf("Current Path:%s", exePath);
-                m_fileIndex = 0;
-                if ((dir = opendir(exePath)) != NULL) {
-
-                    /* print all the files and directories within directory */
-                    while ((ent = readdir(dir)) != NULL) {
-                        printf("%s\n", ent->d_name);
-                        strcpy(filesList[m_fileIndex], ent->d_name);
-                        m_fileIndex++;
-                    }
-                    closedir(dir);
-                }
-                else {
-                    /* could not open directory */
-                    perror("");
-                    printf("Can`t open story folder");
-                }
-
-                m_isInitializedFilesList = true;
-            }
-
-            for (int i = 2; i < m_fileIndex; i++)
-            {
-
-
-                if (ImGui::Selectable(filesList[i], selected == i))
-                    selected = i;
-            }
-            ImGui::EndChild();
-            ImGui::SameLine();
-
-            // right
-
-
-            ImGui::BeginGroup();
-            ImGui::BeginChild("item view", ImVec2(0, -ImGui::GetFrameHeightWithSpacing())); // Leave room for 1 line below us
-            if (selected != -1)
-            {
-                strcpy(fullPath, exePath);
-
-#ifdef _WIN32
-                strcat(fullPath, "\\");
-#else
-                strcat(fullPath, "/");
-#endif
-
-                strcat(fullPath, filesList[selected]);
-            }
-            ImGui::Text("File No: %d", selected);
-            ImGui::Text("File Path: %s", fullPath);
-            ImGui::Separator();
-
-//            static bool isCurrentFileChange = true;
-
-            if (ImGui::BeginTabBar("##Tabs", ImGuiTabBarFlags_None))
-            {
-                if (ImGui::BeginTabItem("Description"))
-                {
-                    if (lastSelected != selected) {
-
-                        if (selected >= 2)
-                        {
-                            memset(content, 0, sizeof content);
-                            std::ifstream fin;
-
-                            fin.open(fullPath);
-
-                            // If it could not open the file then exit.
-                            if (!fin.fail())
-                            {
-                                int i = 0;
-                                while (!fin.eof())
-                                {
-                                    fin >> content[i++];
-                                }
-
-                                fin.close();
-                            }
-
-
-                        }
-                        lastSelected = selected;
-
-                    }
-                    ImGui::TextWrapped(content);
-                    ImGui::TextWrapped("This is a space for content.");
-                    ImGui::EndTabItem();
-                }
-                if (ImGui::BeginTabItem("Details"))
-                {
-                    ImGui::Text("ID: 0123456789");
-                    ImGui::EndTabItem();
-                }
-                ImGui::EndTabBar();
-            }
-            ImGui::EndChild();
-
-            if (ImGui::Button("Revert")) {
-                char fullPath[MAX_FOLDER_PATH] = "";
-
-                ExePath(exePath);
-                strcpy(fullPath, exePath);
-                #ifdef _WIN32
-                                strcat(fullPath, "\\");
-                #else
-                                strcat(fullPath, "/");
-                #endif
-                strcat(fullPath, "pretty.json");
-                /*        std::vector<StoryWord> c_vector;
-                        StoryWord word;
-                        word.m_name = "dd";
-                        word.m_content = "dsa";
-                        c_vector.push_back(word);
-                        word.m_name = "aa";
-                        word.m_content = "fffa";
-                        c_vector.push_back(word);*/
-                StoryJson sj;
-                sj.AddWord("ff", "ff");
-                sj.AddWord("dd", "aa");
-                //json j_vec(c_vector);
-                json j_test = sj;
-                std::ofstream o(fullPath);
-                o << j_test << std::endl;
-
-            }
-            ImGui::SameLine();
-
-            if (ImGui::Button("Load")) {
-                char fullPath[MAX_FOLDER_PATH] = "";
-                ExePath(exePath);
-                strcpy(fullPath, exePath);
-                #ifdef _WIN32
-                                strcat(fullPath, "\\");
-                #else
-                                strcat(fullPath, "/");
-                #endif
-                strcat(fullPath, "pretty.json");
-
-                std::ifstream fins;
-                /*   if (!i.fail())
-                   {
-                       int i = 0;
-                       while (!i.eof())
-                       {
-                           std::cout << i;
-                       }
-
-                       i.close();
-                   }*/
-                fins.open(fullPath);
-
-                // If it could not open the file then exit.
-                if (!fins.fail())
-                {
-                    int i = 0;
-                    while (!fins.eof())
-                    {
-                        fins >> content[i++];
-                    }
-
-                    fins.close();
-                }
-                else
-                {
-                    std::cerr << "Error: " << strerror(errno);
-                }
-
-                json a = json::parse(content);
-                *m_story = a;
-                std::cout << a;
-                /* StoryJson sj;
-                 sj = a;
-                 for (int i = 0 ; i < sj.Size(); i++)
-                 {
-                     std::cout << sj.GetWord(i)->m_name;
-                     std::cout << sj.GetWord(i)->m_content;
-
-                 }*/
-            }
-            ImGui::SameLine();
-            if (ImGui::Button("Open")) {
-                if (selected >= 2)
-                {
-                    currentStory.clear();
-                    currentStory = json::parse(content);
-                    strcpy(storyPath, fullPath);
-                    isSavedFile = true;
-
-                    *p_open = false;
-                }
-            }
-            ImGui::EndGroup();
-        }
-        ImGui::End();
+//        if (m_selectStoryWindow != nullptr &&
+//            m_selectStoryWindow->IsOpenWindow()) {
+//
+//            if (*p_open) {
+//                m_selectStoryWindow->ShowSelectStoryWindow();
+//                *p_open =m_selectStoryWindow->IsOpenWindow();
+//            }
+//        }
 
     }
 
 
 
-    void HeavenGateEditor::ExePath(char* const pOutExePath) {
-
-        char cBuffer[MAX_FOLDER_PATH];
-
-#ifdef _WIN32
-        wchar_t buffer[MAX_FOLDER_PATH];
-        GetModuleFileName(NULL, buffer, MAX_FOLDER_PATH);
-        CharacterUtility::convertWcsToMbs(cBuffer, buffer,MAX_FOLDER_PATH);
-#else
-        bool result = GetModuleFileNameOSX(cBuffer);
-#endif
-
-
-        string::size_type pos = string(cBuffer).find(TOOL_FOLDER_NAME);
-        string path(cBuffer);
-        path = path.substr(0, pos);
-        path = path.append(PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER);
-        printf("  %s  \n", path.c_str());
-        strcpy(pOutExePath, path.c_str());
-
-        return;
-    }
-
-
-#ifndef _WIN32
-bool GetModuleFileNameOSX(char* pOutCurrentPath) {
-  Dl_info module_info;
-  if (dladdr(reinterpret_cast<void*>(GetModuleFileNameOSX), &module_info) == 0) {
-    // Failed to find the symbol we asked for.
-    return false;
-  }
-
-    CharacterUtility::copyCharPointer(pOutCurrentPath, module_info.dli_fname) ;
-  return  true;
-}
-#endif
 }
 
