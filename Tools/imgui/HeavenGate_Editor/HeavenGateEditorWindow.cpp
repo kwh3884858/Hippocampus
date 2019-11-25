@@ -102,12 +102,17 @@ namespace HeavenGateEditor {
 
         ImGui::Text("Current story path: %s", storyPath);
 
-/*
+
         if (!isSavedFile && m_story == nullptr)
         {
-            //Create a new story
-            m_story = new StoryJson();
+            m_selectStoryWindow->GetStoryPointer(m_story);
+            if (m_story == nullptr)
+            {
+                //Create a new story
+                m_story = new StoryJson();
 
+            }
+ 
         }
         static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
         ImGui::CheckboxFlags("ImGuiInputTextFlags_ReadOnly", (unsigned int*)&flags, ImGuiInputTextFlags_ReadOnly);
@@ -139,7 +144,7 @@ namespace HeavenGateEditor {
 
                 // End of ShowDemoWindow()
 
- */
+ 
         ImGui::End();
 
     }

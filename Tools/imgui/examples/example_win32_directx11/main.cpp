@@ -26,6 +26,7 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 // Main code
 int main(int, char**)
 {
+    static HeavenGateEditor::HeavenGateEditor m_heavenGateEditor;
     // Create application window
     WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, _T("ImGui Example"), NULL };
     ::RegisterClassEx(&wc);
@@ -142,7 +143,7 @@ int main(int, char**)
 
         if (show_editor_window)
         {
-            HeavenGateEditor::ShowEditorWindow(&show_editor_window);
+            m_heavenGateEditor.ShowEditorWindow(&show_editor_window);
         }
 
         // Rendering

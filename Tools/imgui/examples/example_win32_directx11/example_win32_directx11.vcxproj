@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\Dirent\dirent.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\CharacterUtility.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorConstant.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorWindow.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowSelectStory.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJson.h" />
