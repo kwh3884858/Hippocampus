@@ -1,18 +1,24 @@
 #include "StoryJson.h"
 
+namespace HeavenGateEditor {
 
-void HeavenGateEditor::StoryJson::AddWord(StoryWord * const word)
+int HeavenGateEditor::StoryJson::AddWord(StoryWord * const word)
 {
     m_words.push_back(word);
+    return static_cast<int>( m_words.size());
 }
 
-void HeavenGateEditor::StoryJson::AddWord(string name, string content)
+int HeavenGateEditor::StoryJson::AddWord(string name, string content)
 {
-    StoryWord* word = new StoryWord();
-    word->m_name = name;
-    word->m_content = content;
+    return  AddWord(name.c_str(), content.c_str());
+}
 
-    AddWord(word);
+int  HeavenGateEditor::StoryJson::AddWord(const char* name, const char* content){
+    StoryWord* word = new StoryWord();
+    strcpy(word->m_name, name);
+    strcpy(word->m_content, content);
+
+    return  AddWord(word);
 }
 
 const HeavenGateEditor::StoryWord * const HeavenGateEditor::StoryJson::GetWord(int index) const
@@ -28,16 +34,16 @@ HeavenGateEditor::StoryWord * const HeavenGateEditor::StoryJson::GetWord(int ind
 
 int HeavenGateEditor::StoryJson::Size() const
 {
-    return m_words.size();
+    return  static_cast<int>( m_words.size() );
 }
 
-void HeavenGateEditor::to_json(json & j, const StoryWord & p)
+void to_json(json & j, const StoryWord & p)
 {
     j = json{ {"name", p.m_name},{ "content", p.m_content } };
    
 }
 
-void HeavenGateEditor::to_json(json & j, const StoryJson & story)
+void to_json(json & j, const StoryJson & story)
 {
     for (int i = 0; i < story.Size(); i++)
     {
@@ -48,13 +54,22 @@ void HeavenGateEditor::to_json(json & j, const StoryJson & story)
     }
 }
 
-void HeavenGateEditor::from_json(const json & j, StoryWord & p)
+/* String version, Archieved */
+
+//void from_json(const json & j, StoryWord & p)
+//{
+//    j.at("name").get_to(p.m_name);
+//    j.at("content").get_to(p.m_content);
+//}
+
+void from_json(const json & j, StoryWord & p)
 {
-    j.at("name").get_to(p.m_name);
+    j.at("name").get_ptr<json::string_t *>();
+    strcpy(p.m_name, ) ;
     j.at("content").get_to(p.m_content);
 }
 
-void HeavenGateEditor::from_json(const json & j, StoryJson & p)
+void from_json(const json & j, StoryJson & p)
 {
     for (int i = 0 ; i < j.size(); i++)
     {
@@ -69,4 +84,5 @@ void HeavenGateEditor::from_json(const json & j, StoryJson & p)
         *word = *it;
         p.AddWord(word);
     }*/
+}
 }

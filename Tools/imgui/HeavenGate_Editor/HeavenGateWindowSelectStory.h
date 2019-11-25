@@ -40,7 +40,7 @@ private:
     char m_filesList[MAX_FOLDER_LIST][MAX_FOLDER_PATH];
     char m_storyPath[MAX_FOLDER_PATH];
     char m_fullPath[MAX_FOLDER_PATH] ;
-    char m_content[MAX_CONTENT];
+    char m_fullContent[MAX_FULL_CONTENT];
 
     int m_selected;
     int m_lastSelected ;

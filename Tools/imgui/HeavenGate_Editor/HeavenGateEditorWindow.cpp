@@ -118,15 +118,15 @@ namespace HeavenGateEditor {
         ImGui::CheckboxFlags("ImGuiInputTextFlags_ReadOnly", (unsigned int*)&flags, ImGuiInputTextFlags_ReadOnly);
         ImGui::CheckboxFlags("ImGuiInputTextFlags_AllowTabInput", (unsigned int*)&flags, ImGuiInputTextFlags_AllowTabInput);
         ImGui::CheckboxFlags("ImGuiInputTextFlags_CtrlEnterForNewLine", (unsigned int*)&flags, ImGuiInputTextFlags_CtrlEnterForNewLine);
-        static char name[64 * 16];
-        static char content[1024 * 16];
+         char* name;
+         char* content;
         for (int i = 0; i < m_story->Size(); i++)
         {
 
-            strcpy(name, m_story->GetWord(i)->m_name.c_str());
-            strcpy(content, m_story->GetWord(i)->m_content.c_str());
-            ImGui::InputTextMultiline("##source", name, IM_ARRAYSIZE(name), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 16), flags);
-            ImGui::InputTextMultiline("##source", content, IM_ARRAYSIZE(content), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 16), flags);
+           name = m_story->GetWord(i)->m_name;
+            content = m_story->GetWord(i)->m_content;
+            ImGui::InputTextMultiline("##source", name, MAX_NAME, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 16), flags);
+            ImGui::InputTextMultiline("##source", content, MAX_CONTENT, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 16), flags);
 
         }
         if (ImGui::Button("Add new story")) {

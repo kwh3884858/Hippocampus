@@ -29,7 +29,7 @@ HeavenGateWindowSelectStory::HeavenGateWindowSelectStory()
     memset(m_filesList, 0, MAX_FOLDER_LIST * MAX_FOLDER_PATH);
     memset(m_storyPath, 0, sizeof(m_storyPath));
     memset(m_fullPath, 0, sizeof(m_fullPath));
-    memset(m_content, 0, sizeof(m_content));
+    memset(m_fullContent, 0, sizeof(m_fullContent));
 
     m_selected = 0;
     m_lastSelected = m_selected;
@@ -194,7 +194,7 @@ void HeavenGateWindowSelectStory::ShowDescription(){
                 m_lastSelected = m_selected;
 
             }
-            ImGui::TextWrapped("%s", m_content);
+            ImGui::TextWrapped("%s", m_fullContent);
             ImGui::TextWrapped("This is a space for content.");
             ImGui::EndTabItem();
         }
@@ -251,7 +251,7 @@ void HeavenGateWindowSelectStory::ShowFileButton(){
                 int i = 0;
                 while (!fins.eof())
                 {
-                    fins >> m_content[i++];
+                    fins >> m_fullContent[i++];
                 }
 
                 fins.close();
@@ -265,7 +265,11 @@ void HeavenGateWindowSelectStory::ShowFileButton(){
             if(m_story == nullptr){
                 m_story = new StoryJson();
             }
-            json a = json::parse(m_content);
+            json a = json::parse(m_fullContent);
+
+            json j = a[0].at("name");
+            const char * name = a[0].at("name") .get_ptr<json::string_t *>()->c_str();
+            printf("%s", name);
             *m_story = a;
             CloseWindow();
             std::cout << a;
@@ -284,7 +288,7 @@ bool HeavenGateWindowSelectStory::GetStoryPointer(StoryJson* const pStory)const{
 
 void HeavenGateWindowSelectStory::GetContent(char* fullPath){
 
-    memset(m_content, 0, sizeof m_content);
+    memset(m_fullContent, 0, sizeof m_fullContent);
     std::ifstream fin;
 
     fin.open(fullPath);
@@ -295,7 +299,10 @@ void HeavenGateWindowSelectStory::GetContent(char* fullPath){
         int i = 0;
         while (!fin.eof())
         {
-            fin >> m_content[i++];
+            if (i >= MAX_FULL_CONTENT) {
+                std::cerr<<"Out of max content limit";
+            }
+            fin >> m_fullContent[i++];
         }
 
         fin.close();

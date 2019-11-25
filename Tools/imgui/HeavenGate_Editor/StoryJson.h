@@ -2,10 +2,10 @@
 #define StoryJson_hpp
 
 #include <stdio.h>
-#include <string>
+
 #include <vector>
 #include "nlohmann/json.hpp"
-
+#include "HeavenGateEditorConstant.h"
 
 
 using json = nlohmann::json;
@@ -16,8 +16,8 @@ namespace HeavenGateEditor {
     struct StoryWord {
         public:
 
-        string m_name;
-        string m_content;
+        char m_name[MAX_NAME];
+        char m_content[MAX_CONTENT];
     };
 
     class StoryJson {
@@ -25,9 +25,12 @@ namespace HeavenGateEditor {
         vector<StoryWord*> m_words;
 
     public:
-        void AddWord(StoryWord* const word);
-        void AddWord(string name, string content);
+        int AddWord(StoryWord* const word);
+        int AddWord(string name, string content);
+        int AddWord(const char* name, const char* content);
+
         void SetWord(const StoryWord* const word);
+
         StoryWord* const GetWord(int index);
         const StoryWord* const GetWord(int index) const;
 
