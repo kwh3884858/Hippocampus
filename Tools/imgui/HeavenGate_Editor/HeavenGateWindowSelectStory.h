@@ -12,13 +12,13 @@ public:
     ~HeavenGateWindowSelectStory();
 
     void ShowSelectStoryWindow();
-    bool GetStoryPointer(StoryJson* const pStory)const;
+    bool GetStoryPointer(StoryJson* pStory)const;
     char* GetStoryPath();
 
     void OpenWindow();
     void CloseWindow();
     bool IsOpenWindow() const;
-
+    bool IsLoadedSotry() const;
 private:
     void InitFileList(char (* pOutFileList) [MAX_FOLDER_PATH], int maxFileCount);
     void GetContent(char* fullPath);

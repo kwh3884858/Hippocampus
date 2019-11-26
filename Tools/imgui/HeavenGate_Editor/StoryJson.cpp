@@ -1,4 +1,6 @@
 #include "StoryJson.h"
+#include <string>
+using std::string;
 
 namespace HeavenGateEditor {
 
@@ -64,9 +66,10 @@ void to_json(json & j, const StoryJson & story)
 
 void from_json(const json & j, StoryWord & p)
 {
-    j.at("name").get_ptr<json::string_t *>();
-    strcpy(p.m_name, ) ;
-    j.at("content").get_to(p.m_content);
+    //TODO: Directly transform string as character array
+    strcpy( p.m_name, j.at("name").get_ptr<const json::string_t *>()->c_str() );
+    strcpy( p.m_content, j.at("content").get_ptr<const json::string_t *>()->c_str() );
+
 }
 
 void from_json(const json & j, StoryJson & p)

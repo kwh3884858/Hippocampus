@@ -74,6 +74,9 @@ void HeavenGateWindowSelectStory::CloseWindow(){
 bool HeavenGateWindowSelectStory::IsOpenWindow() const{
     return  m_open;
 }
+bool HeavenGateWindowSelectStory::IsLoadedSotry() const{
+    return m_story!=nullptr;
+}
 
 void HeavenGateWindowSelectStory::InitFileList(char (* pOutFileList) [MAX_FOLDER_PATH], int maxFileCount){
 
@@ -277,11 +280,12 @@ void HeavenGateWindowSelectStory::ShowFileButton(){
     }
 }
 
-bool HeavenGateWindowSelectStory::GetStoryPointer(StoryJson* const pStory)const{
+bool HeavenGateWindowSelectStory::GetStoryPointer(StoryJson* pStory)const{
     if (m_story == nullptr) {
         return false;
     }
     else{
+        pStory = m_story;
         return true;
     }
 }

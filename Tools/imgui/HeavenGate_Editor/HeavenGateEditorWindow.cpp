@@ -42,7 +42,9 @@ namespace HeavenGateEditor {
             m_selectStoryWindow =new HeavenGateWindowSelectStory();
         }
         m_selectStoryWindow->ShowSelectStoryWindow();
-
+        if (m_story == nullptr && m_selectStoryWindow->IsLoadedSotry()) {
+            m_selectStoryWindow->GetStoryPointer(m_story);
+        }
 
         // Demonstrate the various window flags. Typically you would just use the default!
         static bool no_titlebar = false;
@@ -103,33 +105,52 @@ namespace HeavenGateEditor {
         ImGui::Text("Current story path: %s", storyPath);
 
 
-        if (!isSavedFile && m_story == nullptr)
-        {
-            m_selectStoryWindow->GetStoryPointer(m_story);
-            if (m_story == nullptr)
-            {
-                //Create a new story
-                m_story = new StoryJson();
-
-            }
- 
-        }
+//        if (!isSavedFile && m_story == nullptr)
+//        {
+//            m_selectStoryWindow->GetStoryPointer(m_story);
+//            if (m_story == nullptr)
+//            {
+//                //Create a new story
+//                m_story = new StoryJson();
+//
+//            }
+//
+//        }
         static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
         ImGui::CheckboxFlags("ImGuiInputTextFlags_ReadOnly", (unsigned int*)&flags, ImGuiInputTextFlags_ReadOnly);
         ImGui::CheckboxFlags("ImGuiInputTextFlags_AllowTabInput", (unsigned int*)&flags, ImGuiInputTextFlags_AllowTabInput);
         ImGui::CheckboxFlags("ImGuiInputTextFlags_CtrlEnterForNewLine", (unsigned int*)&flags, ImGuiInputTextFlags_CtrlEnterForNewLine);
-         char* name;
-         char* content;
-        for (int i = 0; i < m_story->Size(); i++)
-        {
+        static char* name;
+        static char* content;
+        char nameConstant[16] = "##name";
+        char contentConstant[16] = "##content";
+        char order[8] = "";
 
-           name = m_story->GetWord(i)->m_name;
-            content = m_story->GetWord(i)->m_content;
-            ImGui::InputTextMultiline("##source", name, MAX_NAME, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 16), flags);
-            ImGui::InputTextMultiline("##source", content, MAX_CONTENT, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 16), flags);
+        if (m_story != nullptr) {
+               for (int i = 0; i < m_story->Size(); i++)
+                 {
 
+
+                     sprintf(order, "%d", i);
+                     strcat(nameConstant, order);
+                     strcat(contentConstant, order);
+
+                    name = m_story->GetWord(i)->m_name;
+                     content = m_story->GetWord(i)->m_content;
+
+                     ImGui::InputTextMultiline(nameConstant, name, MAX_NAME, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 2), flags);
+                     ImGui::InputTextMultiline(contentConstant, content, MAX_CONTENT, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 6), flags);
+
+                 }
         }
+
         if (ImGui::Button("Add new story")) {
+            //If story not exist
+            if (m_story == nullptr)
+            {
+                m_story = new StoryJson;
+            }
+            //If already exist story
             if (m_story != nullptr)
             {
                 m_story->AddWord("", "");
@@ -178,7 +199,9 @@ namespace HeavenGateEditor {
             }
             ImGui::EndMenu();
         }
-        if (ImGui::MenuItem("Save", "Ctrl+S")) {}
+        if (ImGui::MenuItem("Save", "Ctrl+S")) {
+            
+        }
         if (ImGui::MenuItem("Save As..")) {}
         ImGui::Separator();
         if (ImGui::BeginMenu("Options"))
