@@ -39,6 +39,18 @@ int HeavenGateEditor::StoryJson::Size() const
     return  static_cast<int>( m_words.size() );
 }
 
+void StoryJson::SetFullPath(const char* fullPath){
+    strcpy(m_fullPath, fullPath);
+}
+const char* StoryJson::GetFullPath(){
+    return m_fullPath;
+}
+
+bool StoryJson::IsExistFullPath()const{
+    return m_fullPath != nullptr;
+}
+
+
 void to_json(json & j, const StoryWord & p)
 {
     j = json{ {"name", p.m_name},{ "content", p.m_content } };

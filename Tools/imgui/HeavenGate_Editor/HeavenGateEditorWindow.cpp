@@ -20,11 +20,12 @@ namespace HeavenGateEditor {
 
         show_app_layout = false;
 
-        isSavedFile = false;
+        m_isSavedFile = false;
         strcpy(storyPath, "Untitled");
 
-        m_selectStoryWindow = nullptr;
 
+  m_selectStoryWindow =new HeavenGateWindowSelectStory();
+        m_fileManager = new HeavenGateEditorFileManager();
     }
 
     HeavenGateEditor::~HeavenGateEditor()
@@ -32,18 +33,19 @@ namespace HeavenGateEditor {
         if (m_selectStoryWindow!= nullptr) {
             delete m_selectStoryWindow;
         }
+        if (m_fileManager != nullptr) {
+            delete m_fileManager;
+        }
     }
 
 
     void HeavenGateEditor::ShowEditorWindow(bool* isOpenPoint) {
 
 
-       if (m_selectStoryWindow == nullptr) {
-            m_selectStoryWindow =new HeavenGateWindowSelectStory();
-        }
         m_selectStoryWindow->ShowSelectStoryWindow();
         if (m_story == nullptr && m_selectStoryWindow->IsLoadedSotry()) {
             m_selectStoryWindow->GetStoryPointer(m_story);
+            m_isSavedFile = true;
         }
 
         // Demonstrate the various window flags. Typically you would just use the default!
@@ -101,8 +103,12 @@ namespace HeavenGateEditor {
 
         ImGui::Text("Heaven Gate says hello. (%s)", IMGUI_VERSION);
         ImGui::Spacing();
+        if (m_isSavedFile ==true &&
+            m_story!= nullptr &&
+            m_story->IsExistFullPath() == true){
+            ImGui::Text("Current story path: %s", m_story->GetFullPath());
 
-        ImGui::Text("Current story path: %s", storyPath);
+        }
 
 
 //        if (!isSavedFile && m_story == nullptr)
@@ -137,10 +143,14 @@ namespace HeavenGateEditor {
 
                     name = m_story->GetWord(i)->m_name;
                      content = m_story->GetWord(i)->m_content;
+                     ImGui::InputTextWithHint(nameConstant, "Enter name here", name, MAX_NAME);
+                     ImGui::InputTextWithHint(contentConstant, "Enter Content here", content, MAX_CONTENT);
 
+                     //Multiline Version
+                     /*
                      ImGui::InputTextMultiline(nameConstant, name, MAX_NAME, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 2), flags);
                      ImGui::InputTextMultiline(contentConstant, content, MAX_CONTENT, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 6), flags);
-
+*/
                  }
         }
 
@@ -202,7 +212,26 @@ namespace HeavenGateEditor {
         if (ImGui::MenuItem("Save", "Ctrl+S")) {
             
         }
-        if (ImGui::MenuItem("Save As..")) {}
+        if (ImGui::MenuItem("Save As..")) {
+            if (m_isSavedFile) {
+                m_fileManager->SetNewFilePath(m_story->GetFullPath());
+                    if (!m_fileManager->SaveStoryFile(m_story)) {
+                        return;
+                                }
+            }else{
+                m_fileManager->ShowAskForNewFileNamePopup();
+
+                if (m_fileManager->IsExistNewFilePath()){
+                    if (!m_fileManager->SaveStoryFile(m_story)) {
+                                         return;
+                                                 }
+                    const char* filePath = m_fileManager->GetNewFilePath();
+                                                   m_story->SetFullPath(filePath);
+
+
+                }
+            }
+        }
         ImGui::Separator();
         if (ImGui::BeginMenu("Options"))
         {

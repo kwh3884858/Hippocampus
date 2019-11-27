@@ -22,7 +22,7 @@ public:
 private:
     void InitFileList(char (* pOutFileList) [MAX_FOLDER_PATH], int maxFileCount);
     void GetContent(char* fullPath);
-    void GetStoryPath(char* const outExePath)const;
+
     void InitStoryPath();
 
 
@@ -51,8 +51,5 @@ private:
     bool m_open;
 };
 
-#ifndef _WIN32
-bool GetModuleFileNameOSX(char *  pOutCurrentPath);
-#endif
 
 }

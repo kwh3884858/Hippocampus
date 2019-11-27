@@ -1,20 +1,20 @@
 
 #include "imgui.h"
 #include "HeavenGateWindowSelectStory.h"
-#include "CharacterUtility.h"
+#include "HeavenGateEditorUtility.h"
 
 #include <fstream>
 #include <iostream>
-#include <string>
+
 
 #ifdef _WIN32
 
 #include "Dirent/dirent.h"
-#include <windows.h>
+
 
 #else
 #include <dirent.h>
-#include <dlfcn.h>
+
 
 #endif // _WIN32
 
@@ -83,7 +83,7 @@ void HeavenGateWindowSelectStory::InitFileList(char (* pOutFileList) [MAX_FOLDER
     char exePath[MAX_FOLDER_PATH];
     DIR *dir;
     struct dirent *ent;
-    GetStoryPath(exePath);
+    HeavenGateEditorUtility::GetStoryPath(exePath);
     printf("Current Path:%s", exePath);
     m_fileIndex = 0;
     if ((dir = opendir(exePath)) != NULL) {
@@ -104,7 +104,7 @@ void HeavenGateWindowSelectStory::InitFileList(char (* pOutFileList) [MAX_FOLDER
 
 }
 void HeavenGateWindowSelectStory::InitStoryPath() {
-    GetStoryPath(m_storyPath);
+    HeavenGateEditorUtility::GetStoryPath(m_storyPath);
 }
 char* HeavenGateWindowSelectStory::GetStoryPath() {
     if (strlen(m_storyPath) == 0) {
@@ -234,7 +234,7 @@ void HeavenGateWindowSelectStory::ShowFileButton(){
         json j_test = sj;
         std::ofstream o(fullPath);
         o << j_test << std::endl;
-
+        o.close();
     }
     ImGui::SameLine();
     //
@@ -270,12 +270,14 @@ void HeavenGateWindowSelectStory::ShowFileButton(){
             }
             json a = json::parse(m_fullContent);
 
-            json j = a[0].at("name");
-            const char * name = a[0].at("name") .get_ptr<json::string_t *>()->c_str();
-            printf("%s", name);
+//            json j = a[0].at("name");
+//            const char * name = a[0].at("name") .get_ptr<json::string_t *>()->c_str();
+//            printf("%s", name);
             *m_story = a;
+            m_story->SetFullPath(m_fullPath);
             CloseWindow();
             std::cout << a;
+            fins.close();
         }
     }
 }
@@ -315,45 +317,4 @@ void HeavenGateWindowSelectStory::GetContent(char* fullPath){
 
 }
 
-void HeavenGateWindowSelectStory::GetStoryPath(char* const pOutExePath)const {
-
-    char cBuffer[MAX_FOLDER_PATH];
-
-#ifdef _WIN32
-
-    wchar_t buffer[MAX_FOLDER_PATH];
-    GetModuleFileName(NULL, buffer, MAX_FOLDER_PATH);
-    CharacterUtility::convertWcsToMbs(cBuffer, buffer,MAX_FOLDER_PATH);
-#else
-    bool result = GetModuleFileNameOSX(cBuffer);
-
-    if (!result) {
-        return;
-    }
-#endif
-
-
-    string::size_type pos = string(cBuffer).find(TOOL_FOLDER_NAME);
-    string path(cBuffer);
-    path = path.substr(0, pos);
-    path = path.append(PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER);
-    printf("  %s  \n", path.c_str());
-    strcpy(pOutExePath, path.c_str());
-
-    return;
-}
-
-
-#ifndef _WIN32
-bool GetModuleFileNameOSX(char* pOutCurrentPath) {
-    Dl_info module_info;
-    if (dladdr(reinterpret_cast<void*>(GetModuleFileNameOSX), &module_info) == 0) {
-        // Failed to find the symbol we asked for.
-        return false;
-    }
-
-    CharacterUtility::copyCharPointer(pOutCurrentPath, module_info.dli_fname) ;
-    return  true;
-}
-#endif
 }

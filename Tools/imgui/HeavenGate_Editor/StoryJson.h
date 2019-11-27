@@ -39,6 +39,13 @@ namespace HeavenGateEditor {
         int Size() const;
         void Clear();
         bool Empty()const;
+
+        void SetFullPath(const char* fullPath);
+        const char* GetFullPath();
+        bool IsExistFullPath()const;
+
+    private:
+        char m_fullPath[MAX_FOLDER_PATH];
     };
 
     void to_json(json& j, const StoryWord& p);

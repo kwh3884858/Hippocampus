@@ -8,10 +8,11 @@
 //
 #ifndef HeavenGateEditorWindow_h
 #define HeavenGateEditorWindow_h
-
-#include "HeavenGateWindowSelectStory.h"
-#include "HeavenGateEditorConstant.h"
 #include "StoryJson.h"
+
+#include "HeavenGateEditorConstant.h"
+#include "HeavenGateWindowSelectStory.h"
+#include "HeavenGateEditorFileManager.h"
 
 using std::string;
 using json = nlohmann::json;
@@ -34,7 +35,7 @@ namespace HeavenGateEditor {
         //Is Open Select Story Window
         bool show_app_layout;
 
-        bool isSavedFile = false;
+        bool m_isSavedFile = false;
         char storyPath[MAX_FOLDER_PATH];
 
 
@@ -43,7 +44,7 @@ namespace HeavenGateEditor {
         StoryJson* m_story;
 
         HeavenGateWindowSelectStory* m_selectStoryWindow;
-
+        HeavenGateEditorFileManager* m_fileManager;
     };
 
 

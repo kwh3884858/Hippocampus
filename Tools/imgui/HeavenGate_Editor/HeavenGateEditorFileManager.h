@@ -16,10 +16,22 @@
 
 namespace HeavenGateEditor {
 class HeavenGateEditorFileManager {
-    bool WriteToFile(StoryJson* pStoryJson);
 
 public:
-    
+    HeavenGateEditorFileManager();
+    ~HeavenGateEditorFileManager();
+
+    bool SaveStoryFile(StoryJson* pStoryJson) const;
+    void ShowAskForNewFileNamePopup();
+
+    const char * GetNewFilePath() const;
+    bool IsExistNewFilePath() const;
+    void SetNewFilePath(const char* filePatj);
+
+    bool FromFileNameToFullPath(char * filePath, const char* fileName) const;
+private:
+    char m_newFilePath[MAX_FOLDER_PATH];
+    char m_newFileName[MAX_FILE_NAME];
 };
 }
 

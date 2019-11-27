@@ -12,6 +12,7 @@
 namespace HeavenGateEditor {
 
 #define     MAX_FOLDER_PATH         265
+#define     MAX_FILE_NAME           64
 #define     MAX_FOLDER_LIST         32
 #define     MAX_FULL_CONTENT        512
 
