@@ -6,6 +6,7 @@
 #include "../imgui_impl_opengl2.h"
 
 #include "HeavenGateEditorWindow.h"
+#include "HeavenGateEditorUtility.h"
 
 #include <stdio.h>
 #import <Cocoa/Cocoa.h>
@@ -250,8 +251,18 @@
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
+
+    char exePath [50];
+    HeavenGateEditor::HeavenGateEditorUtility::GetStoryPath(exePath);
+    strcat(exePath, "/Fonts/SourceHanSansCN-Regular.ttf");
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+    io.Fonts->AddFontFromFileTTF(exePath, 18.0f, NULL, io.Fonts->GetGlyphRangesChineseFull());
+    
+#ifdef _WIN32
+    // For Microsoft IME, pass your HWND to enable IME positioning:
+    io.ImeWindowHandle = my_hwnd;
+#endif
 
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
