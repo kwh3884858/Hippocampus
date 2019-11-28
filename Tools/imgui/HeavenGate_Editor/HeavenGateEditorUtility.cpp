@@ -11,8 +11,6 @@
 
 #include "CharacterUtility.h"
 
-#include <string>
-
 #ifdef _WIN32
 #include <windows.h>
 
@@ -37,7 +35,7 @@ void HeavenGateEditorUtility::GetStoryPath(char* const pOutExePath) {
 
     wchar_t buffer[MAX_FOLDER_PATH];
     GetModuleFileName(NULL, buffer, MAX_FOLDER_PATH);
-    CharacterUtility::convertWcsToMbs(cBuffer, buffer,MAX_FOLDER_PATH);
+    CharacterUtility::convertWcsToMbs(cBuffer, buffer, MAX_FOLDER_PATH);
 #else
     bool result = GetModuleFileNameOSX(cBuffer);
 

@@ -148,6 +148,8 @@
     <ClInclude Include="..\..\Dirent\dirent.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\CharacterUtility.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorConstant.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorFileManager.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorUtility.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorWindow.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowSelectStory.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJson.h" />
@@ -161,6 +163,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\HeavenGate_Editor\CharacterUtility.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorFileManager.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorUtility.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorWindow.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowSelectStory.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJson.cpp" />

@@ -8,11 +8,9 @@
 
 #ifndef HeavenGateEditorUtility_h
 #define HeavenGateEditorUtility_h
-
-namespace HeavenGateEditor {
-
 #include <stdio.h>
 
+namespace HeavenGateEditor {
 
 
 class HeavenGateEditorUtility{

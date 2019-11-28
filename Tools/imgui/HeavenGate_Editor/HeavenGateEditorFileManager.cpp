@@ -15,11 +15,11 @@
 namespace HeavenGateEditor {
 
 HeavenGateEditorFileManager::HeavenGateEditorFileManager(){
-
+    Initialize();
 }
 
 HeavenGateEditorFileManager::~HeavenGateEditorFileManager(){
-
+   
 }
 
 bool HeavenGateEditorFileManager::SaveStoryFile(StoryJson* pStoryJson) const{
@@ -36,11 +36,18 @@ bool HeavenGateEditorFileManager::SaveStoryFile(StoryJson* pStoryJson) const{
     return true;
 }
 
+void HeavenGateEditorFileManager::OpenAskForNameWindow() 
+{
+    m_isOpenAskForNewFileNamePopup = true;
+}
+
 void HeavenGateEditorFileManager::ShowAskForNewFileNamePopup(){
+    if (!m_isOpenAskForNewFileNamePopup)
+    {
+        return;
+    }
 
-
-    if (ImGui::Button("Save as.."))
-        ImGui::OpenPopup("New File Name");
+    ImGui::OpenPopup("New File Name");
 
     if (ImGui::BeginPopupModal("New File Name", NULL, ImGuiWindowFlags_AlwaysAutoResize))
     {
@@ -57,6 +64,8 @@ void HeavenGateEditorFileManager::ShowAskForNewFileNamePopup(){
 
         if (ImGui::Button("OK", ImVec2(120, 0))) {
             if(FromFileNameToFullPath(m_newFilePath, m_newFileName)){
+                m_isOpenAskForNewFileNamePopup = false;
+
                 ImGui::CloseCurrentPopup();
 
             }else{
@@ -65,7 +74,10 @@ void HeavenGateEditorFileManager::ShowAskForNewFileNamePopup(){
         }
         ImGui::SetItemDefaultFocus();
         ImGui::SameLine();
-        if (ImGui::Button("Cancel", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
+        if (ImGui::Button("Cancel", ImVec2(120, 0))) {
+            m_isOpenAskForNewFileNamePopup = false;
+            ImGui::CloseCurrentPopup();
+        }
         ImGui::EndPopup();
     }
 
@@ -110,6 +122,13 @@ bool HeavenGateEditorFileManager::FromFileNameToFullPath(char * filePath, const 
     strcat(filePath, ".json");
 
     return true;
+}
+
+void HeavenGateEditorFileManager::Initialize()
+{
+    memset(m_newFilePath, 0, sizeof(m_newFilePath));
+    memset(m_newFileName, 0, sizeof(m_newFileName));
+    m_isOpenAskForNewFileNamePopup = false;
 }
 
 }

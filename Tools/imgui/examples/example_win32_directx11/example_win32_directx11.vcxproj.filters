@@ -32,6 +32,8 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowSelectStory.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorConstant.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorFileManager.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorUtility.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\imgui.cpp">
@@ -59,6 +61,8 @@
     <ClCompile Include="..\..\HeavenGate_Editor\CharacterUtility.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJson.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowSelectStory.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorFileManager.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorUtility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.txt" />

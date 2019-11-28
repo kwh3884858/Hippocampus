@@ -21,27 +21,15 @@
 namespace HeavenGateEditor {
 HeavenGateWindowSelectStory::HeavenGateWindowSelectStory()
 {
-    m_isInitializedFilesList = false;
-
-    m_story = nullptr;
-    m_fileIndex = 0;
-
-    memset(m_filesList, 0, MAX_FOLDER_LIST * MAX_FOLDER_PATH);
-    memset(m_storyPath, 0, sizeof(m_storyPath));
-    memset(m_fullPath, 0, sizeof(m_fullPath));
-    memset(m_fullContent, 0, sizeof(m_fullContent));
-
-    m_selected = 0;
-    m_lastSelected = m_selected;
+    Initialize();
 
 }
 
 
 HeavenGateWindowSelectStory::~HeavenGateWindowSelectStory()
 {
-    if (m_story == nullptr) {
-        delete m_story;
-    }
+    Destory();
+
 }
 
 void HeavenGateWindowSelectStory::ShowSelectStoryWindow(){
@@ -76,6 +64,44 @@ bool HeavenGateWindowSelectStory::IsOpenWindow() const{
 }
 bool HeavenGateWindowSelectStory::IsLoadedSotry() const{
     return m_story!=nullptr;
+}
+
+bool HeavenGateWindowSelectStory::GiveUpLoadedStory()
+{
+    if (m_story == nullptr)
+    {
+        return false;
+    }
+    Destory();
+ 
+
+    Initialize();
+
+    return true;
+}
+
+void HeavenGateWindowSelectStory::Initialize()
+{
+    m_isInitializedFilesList = false;
+    m_open = false;
+    m_story = nullptr;
+    m_fileIndex = 0;
+
+    memset(m_filesList, 0, MAX_FOLDER_LIST * MAX_FOLDER_PATH);
+    memset(m_storyPath, 0, sizeof(m_storyPath));
+    memset(m_fullPath, 0, sizeof(m_fullPath));
+    memset(m_fullContent, 0, sizeof(m_fullContent));
+
+    m_selected = 0;
+    m_lastSelected = m_selected;
+}
+
+void HeavenGateWindowSelectStory::Destory()
+{
+    if (m_story == nullptr) {
+        delete m_story;
+    }
+    m_story = nullptr;
 }
 
 void HeavenGateWindowSelectStory::InitFileList(char (* pOutFileList) [MAX_FOLDER_PATH], int maxFileCount){
@@ -282,12 +308,12 @@ void HeavenGateWindowSelectStory::ShowFileButton(){
     }
 }
 
-bool HeavenGateWindowSelectStory::GetStoryPointer(StoryJson* pStory)const{
+bool HeavenGateWindowSelectStory::GetStoryPointer(StoryJson** pStory)const{
     if (m_story == nullptr) {
         return false;
     }
     else{
-        pStory = m_story;
+        *pStory = m_story;
         return true;
     }
 }

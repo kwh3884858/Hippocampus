@@ -21,16 +21,16 @@ namespace HeavenGateEditor {
         show_app_layout = false;
 
         m_isSavedFile = false;
-        strcpy(storyPath, "Untitled");
+        m_isWritedUnsavedContent = false;
 
 
-  m_selectStoryWindow =new HeavenGateWindowSelectStory();
+        m_selectStoryWindow = new HeavenGateWindowSelectStory();
         m_fileManager = new HeavenGateEditorFileManager();
     }
 
     HeavenGateEditor::~HeavenGateEditor()
     {
-        if (m_selectStoryWindow!= nullptr) {
+        if (m_selectStoryWindow != nullptr) {
             delete m_selectStoryWindow;
         }
         if (m_fileManager != nullptr) {
@@ -43,9 +43,50 @@ namespace HeavenGateEditor {
 
 
         m_selectStoryWindow->ShowSelectStoryWindow();
-        if (m_story == nullptr && m_selectStoryWindow->IsLoadedSotry()) {
-            m_selectStoryWindow->GetStoryPointer(m_story);
-            m_isSavedFile = true;
+        if (m_selectStoryWindow->IsLoadedSotry()) {
+            //Current don`t have story
+            if (m_story == nullptr) {
+                m_selectStoryWindow->GetStoryPointer(&m_story);
+                m_selectStoryWindow->GiveUpLoadedStory();
+                m_isSavedFile = true;
+            }
+            //Already have some content, maybe be is saved file but have some unsaved changes
+            else
+            {
+                ImGui::OpenPopup("Have Unsaved Content");
+
+                if (ImGui::BeginPopupModal("Have Unsaved Content", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+                {
+                    ImGui::Text("You open a new file, but now workspace already have changes.\n Do you want to abandon changes to open new file or keep them?\n\n");
+                    ImGui::Separator();
+
+                    //static int dummy_i = 0;
+                    //ImGui::Combo("Combo", &dummy_i, "Delete\0Delete harder\0");
+
+
+                    if (ImGui::Button("Keep Changes", ImVec2(120, 0))) {
+
+                        m_selectStoryWindow->GiveUpLoadedStory();
+                        ImGui::CloseCurrentPopup();
+
+                    }
+                    ImGui::SetItemDefaultFocus();
+                    ImGui::SameLine();
+                    if (ImGui::Button("Give Up Changes", ImVec2(120, 0))) {
+
+                        delete m_story;
+                        m_story = nullptr;
+
+                        m_selectStoryWindow->GetStoryPointer(&m_story);
+                        m_selectStoryWindow->GiveUpLoadedStory();
+
+                        m_isSavedFile = true;
+                        ImGui::CloseCurrentPopup();
+                    }
+                    ImGui::EndPopup();
+                }
+            }
+
         }
 
         // Demonstrate the various window flags. Typically you would just use the default!
@@ -101,57 +142,71 @@ namespace HeavenGateEditor {
             ImGui::EndMenuBar();
         }
 
+        //For save as new file
+        m_fileManager->ShowAskForNewFileNamePopup();
+        if (m_fileManager->IsExistNewFilePath())
+        {
+            if (!m_fileManager->SaveStoryFile(m_story)) {
+                return;
+            }
+            const char* filePath = m_fileManager->GetNewFilePath();
+            m_story->SetFullPath(filePath);
+            m_isSavedFile = true;
+            m_fileManager->Initialize();
+        }
+
         ImGui::Text("Heaven Gate says hello. (%s)", IMGUI_VERSION);
         ImGui::Spacing();
-        if (m_isSavedFile ==true &&
-            m_story!= nullptr &&
-            m_story->IsExistFullPath() == true){
+        if (m_isSavedFile == true &&
+            m_story != nullptr &&
+            m_story->IsExistFullPath() == true) {
             ImGui::Text("Current story path: %s", m_story->GetFullPath());
 
         }
 
 
-//        if (!isSavedFile && m_story == nullptr)
-//        {
-//            m_selectStoryWindow->GetStoryPointer(m_story);
-//            if (m_story == nullptr)
-//            {
-//                //Create a new story
-//                m_story = new StoryJson();
-//
-//            }
-//
-//        }
+        //        if (!isSavedFile && m_story == nullptr)
+        //        {
+        //            m_selectStoryWindow->GetStoryPointer(m_story);
+        //            if (m_story == nullptr)
+        //            {
+        //                //Create a new story
+        //                m_story = new StoryJson();
+        //
+        //            }
+        //
+        //        }
         static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
         ImGui::CheckboxFlags("ImGuiInputTextFlags_ReadOnly", (unsigned int*)&flags, ImGuiInputTextFlags_ReadOnly);
         ImGui::CheckboxFlags("ImGuiInputTextFlags_AllowTabInput", (unsigned int*)&flags, ImGuiInputTextFlags_AllowTabInput);
         ImGui::CheckboxFlags("ImGuiInputTextFlags_CtrlEnterForNewLine", (unsigned int*)&flags, ImGuiInputTextFlags_CtrlEnterForNewLine);
         static char* name;
         static char* content;
-        char nameConstant[16] = "##name";
-        char contentConstant[16] = "##content";
+        char nameConstant[16] = "name";
+        char contentConstant[16] = "content";
         char order[8] = "";
 
+        ImGui::LabelText("label", "Value");
         if (m_story != nullptr) {
-               for (int i = 0; i < m_story->Size(); i++)
-                 {
+            for (int i = 0; i < m_story->Size(); i++)
+            {
 
 
-                     sprintf(order, "%d", i);
-                     strcat(nameConstant, order);
-                     strcat(contentConstant, order);
+                sprintf(order, "%d", i);
+                strcat(nameConstant, order);
+                strcat(contentConstant, order);
 
-                    name = m_story->GetWord(i)->m_name;
-                     content = m_story->GetWord(i)->m_content;
-                     ImGui::InputTextWithHint(nameConstant, "Enter name here", name, MAX_NAME);
-                     ImGui::InputTextWithHint(contentConstant, "Enter Content here", content, MAX_CONTENT);
+                name = m_story->GetWord(i)->m_name;
+                content = m_story->GetWord(i)->m_content;
+                ImGui::InputTextWithHint(nameConstant, "Enter name here", name, MAX_NAME);
+                ImGui::InputTextWithHint(contentConstant, "Enter Content here", content, MAX_CONTENT);
 
-                     //Multiline Version
-                     /*
-                     ImGui::InputTextMultiline(nameConstant, name, MAX_NAME, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 2), flags);
-                     ImGui::InputTextMultiline(contentConstant, content, MAX_CONTENT, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 6), flags);
+                //Multiline Version
+                /*
+                ImGui::InputTextMultiline(nameConstant, name, MAX_NAME, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 2), flags);
+                ImGui::InputTextMultiline(contentConstant, content, MAX_CONTENT, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 6), flags);
 */
-                 }
+            }
         }
 
         if (ImGui::Button("Add new story")) {
@@ -175,7 +230,7 @@ namespace HeavenGateEditor {
 
                 // End of ShowDemoWindow()
 
- 
+
         ImGui::End();
 
     }
@@ -210,28 +265,27 @@ namespace HeavenGateEditor {
             ImGui::EndMenu();
         }
         if (ImGui::MenuItem("Save", "Ctrl+S")) {
-            
-        }
-        if (ImGui::MenuItem("Save As..")) {
             if (m_isSavedFile) {
                 m_fileManager->SetNewFilePath(m_story->GetFullPath());
-                    if (!m_fileManager->SaveStoryFile(m_story)) {
-                        return;
-                                }
-            }else{
-                m_fileManager->ShowAskForNewFileNamePopup();
-
-                if (m_fileManager->IsExistNewFilePath()){
-                    if (!m_fileManager->SaveStoryFile(m_story)) {
-                                         return;
-                                                 }
-                    const char* filePath = m_fileManager->GetNewFilePath();
-                                                   m_story->SetFullPath(filePath);
-
-
+                if (!m_fileManager->SaveStoryFile(m_story)) {
+                    return;
                 }
+                m_fileManager->Initialize();
+
+            }
+            else {
+                m_fileManager->OpenAskForNameWindow();
+
             }
         }
+        if (ImGui::MenuItem("Save As..")) {
+            
+     
+        }
+        
+
+
+    
         ImGui::Separator();
         if (ImGui::BeginMenu("Options"))
         {
@@ -274,14 +328,14 @@ namespace HeavenGateEditor {
 
     void HeavenGateEditor::OpenSelectStoryWindow(bool* p_open) {
 
-//        if (m_selectStoryWindow != nullptr &&
-//            m_selectStoryWindow->IsOpenWindow()) {
-//
-//            if (*p_open) {
-//                m_selectStoryWindow->ShowSelectStoryWindow();
-//                *p_open =m_selectStoryWindow->IsOpenWindow();
-//            }
-//        }
+        //        if (m_selectStoryWindow != nullptr &&
+        //            m_selectStoryWindow->IsOpenWindow()) {
+        //
+        //            if (*p_open) {
+        //                m_selectStoryWindow->ShowSelectStoryWindow();
+        //                *p_open =m_selectStoryWindow->IsOpenWindow();
+        //            }
+        //        }
 
     }
 

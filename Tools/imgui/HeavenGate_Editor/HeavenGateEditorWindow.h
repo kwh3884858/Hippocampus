@@ -14,10 +14,14 @@
 #include "HeavenGateWindowSelectStory.h"
 #include "HeavenGateEditorFileManager.h"
 
-using std::string;
-using json = nlohmann::json;
+
 
 namespace HeavenGateEditor {
+
+    using std::string;
+    using json = nlohmann::json;
+
+
     class HeavenGateEditor
     {
     public:
@@ -30,13 +34,13 @@ namespace HeavenGateEditor {
         void OpenSelectStoryWindow(bool* p_open);
 
     private:
-        void ExePath(char* const outExePath);
+
 
         //Is Open Select Story Window
         bool show_app_layout;
 
-        bool m_isSavedFile = false;
-        char storyPath[MAX_FOLDER_PATH];
+        bool m_isSavedFile;
+        bool m_isWritedUnsavedContent;
 
 
 
