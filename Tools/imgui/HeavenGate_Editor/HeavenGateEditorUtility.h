@@ -16,7 +16,7 @@ namespace HeavenGateEditor {
 class HeavenGateEditorUtility{
 
 public:
-
+    static void GetAssetPath(char* const outAssetPath);
     static void GetStoryPath(char* const outExePath);
 
     #ifndef _WIN32

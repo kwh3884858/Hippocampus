@@ -25,9 +25,11 @@
 using std::string;
 
 namespace HeavenGateEditor{
+    void HeavenGateEditorUtility::GetAssetPath(char * const outAssetPath)
+    {
 
-
-void HeavenGateEditorUtility::GetStoryPath(char* const pOutExePath) {
+    }
+    void HeavenGateEditorUtility::GetStoryPath(char* const pOutExePath) {
 
     char cBuffer[MAX_FOLDER_PATH];
 
