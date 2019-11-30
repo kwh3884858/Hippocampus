@@ -7,6 +7,7 @@
 
 #include "HeavenGateEditorWindow.h"
 #include "HeavenGateEditorUtility.h"
+#include "CharacterUtility.h"
 
 #include <stdio.h>
 #import <Cocoa/Cocoa.h>
@@ -252,11 +253,14 @@
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
 
-    char exePath [50];
-    HeavenGateEditor::HeavenGateEditorUtility::GetStoryPath(exePath);
-    strcat(exePath, "/Fonts/SourceHanSansCN-Regular.ttf");
+
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+     char exePath [100];
+     char storysFolder[] = "Storys";
+     HeavenGateEditor::HeavenGateEditorUtility::GetStoryPath(exePath);
+    int pos = CharacterUtility::Find(exePath, static_cast<int>(strlen(exePath)), storysFolder, static_cast<int>(strlen(storysFolder)));
+     strcpy(exePath+pos, "Fonts/SourceHanSansCN-Regular.ttf" );
     io.Fonts->AddFontFromFileTTF(exePath, 18.0f, NULL, io.Fonts->GetGlyphRangesChineseFull());
     
 #ifdef _WIN32

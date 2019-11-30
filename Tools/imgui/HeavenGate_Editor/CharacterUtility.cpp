@@ -66,6 +66,21 @@ size_t CharacterUtility::convertMbsToWcs(wchar_t * pDest, const char * pSrc, int
     return size;
 }
 
+int CharacterUtility::Find(const char* pContent, int contentLegth, const char* pFind, int findLength){
+    DFA* dfa = new DFA();
+    CreateDFA(pFind, findLength, dfa);
+    int j =0;
+    for (int i =0; i < contentLegth ; i++) {
+        j = dfa->Get(dfa->GetCharacterPos(pContent[i]), j);
+
+        if (j == findLength) {
+            return i + 1 - findLength;
+        }
+    }
+    return -1;
+}
+
+
 bool CharacterUtility::copyCharPointer(char * pDest, const char * pSrc)
 {
 	if (pDest == nullptr)
@@ -132,6 +147,94 @@ void CharacterUtility::wreadSuffix(const wchar_t * c, wchar_t * suffix)
 		j++;
 	}
 }
+
+CharacterUtility::DFA::DFA(){
+    m_next = nullptr;
+    m_character = nullptr;
+    m_characterCount= 0;
+    m_countentlength = 0;
+}
+
+CharacterUtility::DFA::~DFA(){
+    if (m_next) {
+        delete m_next;
+        m_next = nullptr;
+    }
+
+    if (m_character) {
+        delete m_character;
+        m_character = nullptr;
+    }
+}
+
+
+
+int CharacterUtility::DFA::Get(int characterPos, int pos){
+    if (characterPos < 0) {
+        return 0;
+    }
+    return m_next[characterPos * m_characterCount + pos];
+}
+
+
+void CharacterUtility::DFA::Set(int characterPos, int pos, int value){
+    m_next[characterPos * m_countentlength + pos] = value;
+}
+
+char CharacterUtility::DFA::GetCharacter(int pos){
+    return m_character[pos];
+}
+int CharacterUtility::DFA::GetCharacterPos(char character){
+    for (int i = 0 ; i < m_characterCount; i++) {
+        if (m_character[i] == character){
+            return i;
+        }
+    }
+    return -1;
+}
+
+void CharacterUtility::CreateDFA(const char* findContent,int findLength, DFA* pOutDFA ){
+    int character[265];
+    int count  = 0;
+
+    memset(character, 0, sizeof(character));
+    for (int i = 0 ; i < findLength ; i++) {
+        character[findContent[i]]++;
+    }
+    for (int i = 0; i < 265; i++) {
+        if (character[i] != 0) {
+            count++;
+               }
+    }
+    pOutDFA->m_characterCount = count;
+    pOutDFA->m_countentlength = findLength;
+
+    pOutDFA->m_next = new int[pOutDFA->m_characterCount * pOutDFA->m_countentlength];
+    memset(pOutDFA->m_next, 0, pOutDFA->m_characterCount * pOutDFA->m_countentlength * 4);
+    pOutDFA->m_character = new char[pOutDFA->m_characterCount];
+
+    count = 0;
+    for (int i = 0; i < 265; i++) {
+        if (character[i] != 0) {
+            pOutDFA->m_character[count++] = i ;
+        }
+    }
+
+    int X = 0;
+    pOutDFA->Set(pOutDFA->GetCharacterPos( findContent[0] ), 0, 1) ;
+    for (int i = 1; i < pOutDFA->m_countentlength; i++) {
+        for (int j = 0; j < pOutDFA->m_characterCount; j++) {
+            pOutDFA->Set(j, i, pOutDFA->Get(j, X));
+        }
+        int charPos = pOutDFA->GetCharacterPos( findContent[i] );
+
+        pOutDFA->Set(charPos, i, i+1);
+
+        X = pOutDFA->Get(charPos, X);
+    }
+
+}
+
 
 CharacterUtility::CharacterUtility()
 {
