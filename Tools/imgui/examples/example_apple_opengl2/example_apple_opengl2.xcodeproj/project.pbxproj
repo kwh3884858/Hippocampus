@@ -15,23 +15,24 @@
 		4080A9AF20B0343C0036BA46 /* imgui_draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4080A9AA20B0343C0036BA46 /* imgui_draw.cpp */; };
 		4080A9B020B0347A0036BA46 /* imgui_impl_osx.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4080A99F20B034280036BA46 /* imgui_impl_osx.mm */; };
 		4080A9B320B034E40036BA46 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4080A9B220B034E40036BA46 /* Cocoa.framework */; };
-		4080A9B520B034EA0036BA46 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4080A9B420B034EA0036BA46 /* OpenGL.framework */; };
 		7606C9E623770FA20071E204 /* CharacterUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7606C9E423770FA20071E204 /* CharacterUtility.cpp */; };
 		760C4B9B237CE45B00FA1E14 /* StoryJson.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 760C4B99237CE45B00FA1E14 /* StoryJson.cpp */; };
 		760F84FF23686ECD00EFA0D9 /* HeavenGateEditorWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 760F84FE23686ECD00EFA0D9 /* HeavenGateEditorWindow.cpp */; };
 		7697377D238DA05700780634 /* HeavenGateEditorFileManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7697377B238DA05700780634 /* HeavenGateEditorFileManager.cpp */; };
 		76973780238EE31000780634 /* HeavenGateEditorUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7697377E238EE31000780634 /* HeavenGateEditorUtility.cpp */; };
+		769737812393948500780634 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4080A9B420B034EA0036BA46 /* OpenGL.framework */; };
 		76EB7ABF23893C3D003B2C85 /* HeavenGateWindowSelectStory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76EB7ABE23893C3D003B2C85 /* HeavenGateWindowSelectStory.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		4080A96920B029B00036BA46 /* CopyFiles */ = {
+		4080A96920B029B00036BA46 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -73,8 +74,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4080A9B520B034EA0036BA46 /* OpenGL.framework in Frameworks */,
 				4080A9B320B034E40036BA46 /* Cocoa.framework in Frameworks */,
+				769737812393948500780634 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,7 +151,7 @@
 			buildPhases = (
 				4080A96720B029B00036BA46 /* Sources */,
 				4080A96820B029B00036BA46 /* Frameworks */,
-				4080A96920B029B00036BA46 /* CopyFiles */,
+				4080A96920B029B00036BA46 /* Copy Files */,
 			);
 			buildRules = (
 			);
@@ -333,6 +334,7 @@
 				HEADER_SEARCH_PATHS = ../../..;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 				SYSTEM_HEADER_SEARCH_PATHS = ../libs/gl3w;
 				USER_HEADER_SEARCH_PATHS = ../..;
 			};
@@ -345,6 +347,7 @@
 				HEADER_SEARCH_PATHS = ../../..;
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRINGS_FILE_OUTPUT_ENCODING = "UTF-8";
 				SYSTEM_HEADER_SEARCH_PATHS = ../libs/gl3w;
 				USER_HEADER_SEARCH_PATHS = ../..;
 			};

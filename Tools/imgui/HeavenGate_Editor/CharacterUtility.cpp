@@ -173,7 +173,7 @@ int CharacterUtility::DFA::Get(int characterPos, int pos){
     if (characterPos < 0) {
         return 0;
     }
-    return m_next[characterPos * m_characterCount + pos];
+    return m_next[characterPos * m_countentlength + pos];
 }
 
 

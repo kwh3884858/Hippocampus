@@ -8,6 +8,7 @@
 #include "HeavenGateEditorWindow.h"
 #include "HeavenGateEditorUtility.h"
 #include "CharacterUtility.h"
+#include "HeavenGateEditorConstant.h"
 
 #include <stdio.h>
 #import <Cocoa/Cocoa.h>
@@ -256,13 +257,19 @@
 
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-     char exePath [100];
-     char storysFolder[] = "Storys";
+
+     char exePath [MAX_FOLDER_PATH];
      HeavenGateEditor::HeavenGateEditorUtility::GetStoryPath(exePath);
-    int pos = CharacterUtility::Find(exePath, static_cast<int>(strlen(exePath)), storysFolder, static_cast<int>(strlen(storysFolder)));
-     strcpy(exePath+pos, "Fonts/SourceHanSansCN-Regular.ttf" );
-    io.Fonts->AddFontFromFileTTF(exePath, 18.0f, NULL, io.Fonts->GetGlyphRangesChineseFull());
-    
+    int pos = CharacterUtility::Find(exePath,
+                                     static_cast<int>(strlen(exePath)),
+                                     HeavenGateEditor::ASSET_FOLDER_NAME,
+                                     static_cast<int>(strlen(HeavenGateEditor::ASSET_FOLDER_NAME)));
+    if(pos != -1){
+        strcpy(exePath+pos, HeavenGateEditor::PATH_FROM_PROJECT_ROOT_TO_FONT_FOLDER );
+        io.Fonts->AddFontFromFileTTF(exePath, 18.0f, NULL, io.Fonts->GetGlyphRangesChineseFull());
+        
+    }
+
 #ifdef _WIN32
     // For Microsoft IME, pass your HWND to enable IME positioning:
     io.ImeWindowHandle = my_hwnd;

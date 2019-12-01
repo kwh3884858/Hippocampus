@@ -25,6 +25,7 @@ static const int  MAX_NUM_OF_DISPLAY_FORLDERS = 50;
 
 //Tool folder name
 static const char* const TOOL_FOLDER_NAME= "Tools";
+static const char* const ASSET_FOLDER_NAME = "Assets";
 
 //Relative path form project root to story folder
 static const char* const PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER =
@@ -32,6 +33,13 @@ static const char* const PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER =
 "Assets\\Storys";
 #else
 "Assets/Storys";
+#endif
+
+static const char* const PATH_FROM_PROJECT_ROOT_TO_FONT_FOLDER =
+#ifdef _WIN32
+"Assets\\Fonts\\SourceHanSansCN-Regular.ttf";
+#else
+"Assets/Fonts/SourceHanSansCN-Regular.ttf";
 #endif
 
 }
