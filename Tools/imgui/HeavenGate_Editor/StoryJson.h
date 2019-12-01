@@ -12,12 +12,47 @@ using json = nlohmann::json;
 using std::string;
 using std::vector;
 namespace HeavenGateEditor {
+    enum NODE_TYPE
+    {
+        NONE,
+        LABEL,
+        WORD,
+        JUMP
+    };
+    class StoryNode {
+        NODE_TYPE m_nodeType;
+    };
 
-    struct StoryWord {
+    class StoryLabel:public StoryNode
+    {
+    public:
+        unsigned int m_id;
+    };
+
+    class StoryJump : public StoryNode
+    {
+    public:
+        StoryJump();
+        ~StoryJump();
+
+    private:
+
+    };
+
+    StoryJump::StoryJump()
+    {
+    }
+
+    StoryJump::~StoryJump()
+    {
+    }
+    class StoryWord :public StoryNode{
         public:
 
         char m_name[MAX_NAME];
         char m_content[MAX_CONTENT];
+
+
     };
 
     class StoryJson {

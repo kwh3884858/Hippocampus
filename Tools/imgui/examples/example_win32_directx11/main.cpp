@@ -1,8 +1,11 @@
 // dear imgui - standalone example application for DirectX 11
 // If you are new to dear imgui, see examples/README.txt and documentation at the top of imgui.cpp.
 
-#include "../../HeavenGate_Editor/HeavenGateEditorWindow.h"
+#include "HeavenGate_Editor/HeavenGateEditorWindow.h"
 #include "HeavenGate_Editor/HeavenGateEditorUtility.h"
+#include "HeavenGate_Editor/CharacterUtility.h"
+#include "HeavenGate_Editor/HeavenGateEditorConstant.h"
+
 #include "imgui.h"
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
@@ -10,6 +13,8 @@
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
 #include <tchar.h>
+
+
 
 // Data
 static ID3D11Device*            g_pd3dDevice = NULL;
@@ -50,9 +55,23 @@ int main(int, char**)
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
 
-    char storyPath[50];
-    HeavenGateEditor::HeavenGateEditorUtility::GetStoryPath(storyPath);
 
+    char exePath[MAX_FOLDER_PATH];
+    HeavenGateEditor::HeavenGateEditorUtility::GetStoryPath(exePath);
+    int pos = CharacterUtility::Find(exePath,
+        static_cast<int>(strlen(exePath)),
+        HeavenGateEditor::ASSET_FOLDER_NAME,
+        static_cast<int>(strlen(HeavenGateEditor::ASSET_FOLDER_NAME)));
+    if (pos != -1) {
+        strcpy(exePath + pos, HeavenGateEditor::PATH_FROM_PROJECT_ROOT_TO_FONT_FOLDER);
+        io.Fonts->AddFontFromFileTTF(exePath, 18.0f, NULL, io.Fonts->GetGlyphRangesChineseFull());
+
+    }
+
+#ifdef _WIN32
+    // For Microsoft IME, pass your HWND to enable IME positioning:
+    io.ImeWindowHandle = hwnd;
+#endif
 
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
