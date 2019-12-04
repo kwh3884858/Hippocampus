@@ -12,19 +12,20 @@ using json = nlohmann::json;
 using std::string;
 using std::vector;
 namespace HeavenGateEditor {
-    enum NODE_TYPE
+    enum NodeType
     {
-        NONE,
-        LABEL,
-        WORD,
-        JUMP
-    };
-    class StoryNode {
-    public:
-        NODE_TYPE m_nodeType;
+        None = 0,
+        label,
+        word,
+        jump
     };
 
-    class StoryLabel:public StoryNode
+    class StoryNode {
+    public:
+        NodeType m_nodeType;
+    };
+
+    class StoryLabel :public StoryNode
     {
     public:
         char m_labelId[MAX_ID];
@@ -33,14 +34,14 @@ namespace HeavenGateEditor {
     class StoryJump : public StoryNode
     {
     public:
-        char m_jumpId [MAX_ID];
+        char m_jumpId[MAX_ID];
 
     private:
 
     };
 
-    class StoryWord :public StoryNode{
-        public:
+    class StoryWord :public StoryNode {
+    public:
 
         char m_name[MAX_NAME];
         char m_content[MAX_CONTENT];
@@ -60,8 +61,8 @@ namespace HeavenGateEditor {
 
         void SetWord(const StoryWord* const word);
 
-        StoryWord* const GetWord(int index);
-        const StoryWord* const GetWord(int index) const;
+        StoryNode* const GetNode(int index);
+        const StoryNode* const GetNode(int index) const;
 
         void RemoveWord();
         StoryWord FindWord(int index)const;
@@ -79,14 +80,14 @@ namespace HeavenGateEditor {
 
     void to_json(json& j, const StoryWord& p);
     void to_json(json& j, const StoryJson& p);
-void to_json(json& j, const StoryLabel& p);
-void to_json(json& j, const StoryJump& p);
+    void to_json(json& j, const StoryLabel& p);
+    void to_json(json& j, const StoryJump& p);
 
     void from_json(const json& j, StoryWord& p);
     void from_json(const json& j, StoryJson& p);
-void from_json(const json& j, StoryLabel& p);
-void from_json(const json& j, StoryJump& p);
-  
+    void from_json(const json& j, StoryLabel& p);
+    void from_json(const json& j, StoryJump& p);
+
 
     //void to_json(json& j, const StoryWord* p) {
     //    j = json{ {"name", p->m_name}, {"content", p->m_content} };

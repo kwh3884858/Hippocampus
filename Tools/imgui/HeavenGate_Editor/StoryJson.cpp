@@ -27,15 +27,15 @@ int  HeavenGateEditor::StoryJson::AddWord(const char* name, const char* content)
     return  AddWord(word);
 }
 
-const HeavenGateEditor::StoryWord * const HeavenGateEditor::StoryJson::GetWord(int index) const
+const HeavenGateEditor::StoryNode * const HeavenGateEditor::StoryJson::GetNode(int index) const
 {
     return m_nodes[index];
 }
 
-HeavenGateEditor::StoryWord * const HeavenGateEditor::StoryJson::GetWord(int index)
+HeavenGateEditor::StoryNode * const HeavenGateEditor::StoryJson::GetNode(int index)
 {
-    return const_cast<StoryWord*>(
-        static_cast<const StoryJson&>(*this).GetWord(index));
+    return const_cast<StoryNode*>(
+        static_cast<const StoryJson&>(*this).GetNode(index));
 }
 
 int HeavenGateEditor::StoryJson::Size() const
@@ -65,10 +65,13 @@ void to_json(json & j, const StoryJson & story)
 {
     for (int i = 0; i < story.Size(); i++)
     {
-        const StoryWord* const pWord = story.GetWord(i);
-        string key = std::to_string(i);
-        
-        j.push_back(*pWord);
+        const StoryNode* const pNode = story.GetNode(i);
+     
+        if (pNode->m_nodeType == NodeType::word)
+        {
+            const StoryWord*const pWord = static_cast<const StoryWord*const>(pNode);
+            j.push_back(*pWord);
+        }
     }
 }
 void to_json(json& j, const StoryLabel& p){
@@ -99,12 +102,14 @@ void from_json(const json & j, StoryJson & p)
     {
         char enumString[ MAX_ENUM_LENGTH ];
         strcpy(enumString, j[i].at("nodeType").get_ptr<const json::string_t *>()->c_str());
-        if(strcmp(enumString, "label")){
+        if(strcmp(enumString, "label") == 0){
             StoryLabel* node = new StoryLabel;
-            node->m_nodeType = NODE_TYPE::LABEL;
+            node->m_nodeType = NodeType::label;
             *node = j[i];
-            p.AddWord(node);
+            p.AddNode(node);
         }
+
+        
         StoryWord* word = new StoryWord();
         *word = j[i];
         p.AddWord(word);
