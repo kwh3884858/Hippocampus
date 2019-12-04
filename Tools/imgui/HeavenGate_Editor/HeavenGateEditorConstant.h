@@ -19,7 +19,9 @@ namespace HeavenGateEditor {
 //For story content limit
 #define     MAX_NAME                64
 #define     MAX_CONTENT             265
+#define     MAX_ID                  8
 
+#define     MAX_ENUM_LENGTH         8
 //Max number of display folders
 static const int  MAX_NUM_OF_DISPLAY_FORLDERS = 50;
 

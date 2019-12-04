@@ -6,10 +6,14 @@ namespace HeavenGateEditor {
 
 int HeavenGateEditor::StoryJson::AddWord(StoryWord * const word)
 {
-    m_words.push_back(word);
-    return static_cast<int>( m_words.size());
+    m_nodes.push_back(word);
+    return static_cast<int>( m_nodes.size());
 }
 
+int HeavenGateEditor::StoryJson::AddNode(StoryNode* const node){
+    m_nodes.push_back(node);
+      return static_cast<int>( m_nodes.size());
+}
 int HeavenGateEditor::StoryJson::AddWord(string name, string content)
 {
     return  AddWord(name.c_str(), content.c_str());
@@ -25,7 +29,7 @@ int  HeavenGateEditor::StoryJson::AddWord(const char* name, const char* content)
 
 const HeavenGateEditor::StoryWord * const HeavenGateEditor::StoryJson::GetWord(int index) const
 {
-    return m_words[index];
+    return m_nodes[index];
 }
 
 HeavenGateEditor::StoryWord * const HeavenGateEditor::StoryJson::GetWord(int index)
@@ -36,7 +40,7 @@ HeavenGateEditor::StoryWord * const HeavenGateEditor::StoryJson::GetWord(int ind
 
 int HeavenGateEditor::StoryJson::Size() const
 {
-    return  static_cast<int>( m_words.size() );
+    return  static_cast<int>( m_nodes.size() );
 }
 
 void StoryJson::SetFullPath(const char* fullPath){
@@ -67,7 +71,13 @@ void to_json(json & j, const StoryJson & story)
         j.push_back(*pWord);
     }
 }
-
+void to_json(json& j, const StoryLabel& p){
+    j = json{"label", p.m_labelId};
+}
+void to_json(json& j, const StoryJump& p)
+{
+    j = json{"jump",p.m_jumpId};
+}
 /* String version, Archieved */
 
 //void from_json(const json & j, StoryWord & p)
@@ -78,7 +88,6 @@ void to_json(json & j, const StoryJson & story)
 
 void from_json(const json & j, StoryWord & p)
 {
-    //TODO: Directly transform string as character array
     strcpy( p.m_name, j.at("name").get_ptr<const json::string_t *>()->c_str() );
     strcpy( p.m_content, j.at("content").get_ptr<const json::string_t *>()->c_str() );
 
@@ -88,6 +97,14 @@ void from_json(const json & j, StoryJson & p)
 {
     for (int i = 0 ; i < j.size(); i++)
     {
+        char enumString[ MAX_ENUM_LENGTH ];
+        strcpy(enumString, j[i].at("nodeType").get_ptr<const json::string_t *>()->c_str());
+        if(strcmp(enumString, "label")){
+            StoryLabel* node = new StoryLabel;
+            node->m_nodeType = NODE_TYPE::LABEL;
+            *node = j[i];
+            p.AddWord(node);
+        }
         StoryWord* word = new StoryWord();
         *word = j[i];
         p.AddWord(word);
@@ -100,4 +117,14 @@ void from_json(const json & j, StoryJson & p)
         p.AddWord(word);
     }*/
 }
+
+void from_json(const json& j, StoryLabel& p){
+    strcpy( p.m_labelId, j.at("label").get_ptr<const json::string_t *>()->c_str() );
+
+}
+void from_json(const json& j, StoryJump& p){
+    strcpy( p.m_jumpId, j.at("jump").get_ptr<const json::string_t *>()->c_str() );
+
+}
+
 }

@@ -20,32 +20,25 @@ namespace HeavenGateEditor {
         JUMP
     };
     class StoryNode {
+    public:
         NODE_TYPE m_nodeType;
     };
 
     class StoryLabel:public StoryNode
     {
     public:
-        unsigned int m_id;
+        char m_labelId[MAX_ID];
     };
 
     class StoryJump : public StoryNode
     {
     public:
-        StoryJump();
-        ~StoryJump();
+        char m_jumpId [MAX_ID];
 
     private:
 
     };
 
-    StoryJump::StoryJump()
-    {
-    }
-
-    StoryJump::~StoryJump()
-    {
-    }
     class StoryWord :public StoryNode{
         public:
 
@@ -57,10 +50,11 @@ namespace HeavenGateEditor {
 
     class StoryJson {
     private:
-        vector<StoryWord*> m_words;
+        vector<StoryNode*> m_nodes;
 
     public:
         int AddWord(StoryWord* const word);
+        int AddNode(StoryNode* const node);
         int AddWord(string name, string content);
         int AddWord(const char* name, const char* content);
 
@@ -85,10 +79,13 @@ namespace HeavenGateEditor {
 
     void to_json(json& j, const StoryWord& p);
     void to_json(json& j, const StoryJson& p);
+void to_json(json& j, const StoryLabel& p);
+void to_json(json& j, const StoryJump& p);
 
     void from_json(const json& j, StoryWord& p);
     void from_json(const json& j, StoryJson& p);
-
+void from_json(const json& j, StoryLabel& p);
+void from_json(const json& j, StoryJump& p);
   
 
     //void to_json(json& j, const StoryWord* p) {
@@ -100,7 +97,7 @@ namespace HeavenGateEditor {
     //    j.at("content").get_to(p.m_content);
     //}
     //void to_json(json& j, const StoryJson& p){
-    //    for (int i = 0 ; i < p.m_words.size(); i++) {
+    //    for (int i = 0 ; i < p.m_nodes.size(); i++) {
     //
     //    }
     //}
