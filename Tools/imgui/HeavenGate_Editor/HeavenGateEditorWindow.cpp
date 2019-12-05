@@ -1,8 +1,10 @@
 #include "imgui.h"
 
-
 #include "HeavenGateEditorWindow.h"
 #include "CharacterUtility.h"
+#include "StoryJson.h"
+#include "HeavenGateWindowSelectStory.h"
+#include "HeavenGateEditorFileManager.h"
 
 #include <iostream>
 #include <vector>
@@ -182,30 +184,43 @@ namespace HeavenGateEditor {
         ImGui::CheckboxFlags("ImGuiInputTextFlags_CtrlEnterForNewLine", (unsigned int*)&flags, ImGuiInputTextFlags_CtrlEnterForNewLine);
         static char* name;
         static char* content;
-        char nameConstant[16] = "name";
-        char contentConstant[16] = "content";
-        char order[8] = "";
 
+
+  char order[8] = "";
         ImGui::LabelText("label", "Value");
         if (m_story != nullptr) {
             for (int i = 0; i < m_story->Size(); i++)
             {
 
-
+                char nameConstant[16] = "name";
+                char contentConstant[16] = "content";
                 sprintf(order, "%d", i);
                 strcat(nameConstant, order);
                 strcat(contentConstant, order);
+                StoryNode* node = m_story->GetNode(i);
+                switch (node->m_nodeType) {
+                    case NodeType::Word:
+                    {
+                        StoryWord* word = static_cast<StoryWord*>(node);
+                                           name = word->m_name;
+                                                     content = word->m_content;
 
-                name = m_story->GetWord(i)->m_name;
-                content = m_story->GetWord(i)->m_content;
-                ImGui::InputTextWithHint(nameConstant, "Enter name here", name, MAX_NAME);
-                ImGui::InputTextWithHint(contentConstant, "Enter Content here", content, MAX_CONTENT);
 
-                //Multiline Version
-                /*
-                ImGui::InputTextMultiline(nameConstant, name, MAX_NAME, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 2), flags);
-                ImGui::InputTextMultiline(contentConstant, content, MAX_CONTENT, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 6), flags);
-*/
+                                        ImGui::InputTextWithHint(nameConstant, "Enter name here", name, MAX_NAME);
+                                        ImGui::InputTextWithHint(contentConstant, "Enter Content here", content, MAX_CONTENT);
+
+                                        //Multiline Version
+                                        /*
+                                        ImGui::InputTextMultiline(nameConstant, name, MAX_NAME, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 2), flags);
+                                        ImGui::InputTextMultiline(contentConstant, content, MAX_CONTENT, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 6), flags);
+                        */
+    break;
+                    }
+
+                    default:
+                        break;
+                }
+
             }
         }
 
@@ -222,6 +237,34 @@ namespace HeavenGateEditor {
             }
         }
 
+        ImGui::SameLine();
+
+        if (ImGui::Button("Add new label")) {
+            //If story not exist
+            if (m_story == nullptr)
+            {
+                m_story = new StoryJson;
+            }
+            //If already exist story
+            if (m_story != nullptr)
+            {
+                m_story->AddLabel("");
+            }
+        }
+        ImGui::SameLine();
+
+             if (ImGui::Button("Add new jump")) {
+                 //If story not exist
+                 if (m_story == nullptr)
+                 {
+                     m_story = new StoryJson;
+                 }
+                 //If already exist story
+                 if (m_story != nullptr)
+                 {
+                     m_story->AddJump("");
+                 }
+             }
         //
         //        for (int i = 0; i < currentStory.size(); i++)
         //        {

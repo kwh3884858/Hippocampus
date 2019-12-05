@@ -1,5 +1,5 @@
-#ifndef StoryJson_hpp
-#define StoryJson_hpp
+#ifndef StoryJson_h
+#define StoryJson_h
 
 #include <stdio.h>
 
@@ -15,10 +15,13 @@ namespace HeavenGateEditor {
     enum NodeType
     {
         None = 0,
-        label,
-        word,
-        jump
+        Label,
+        Word,
+        Jump
     };
+
+    char nodeTypeString[][MAX_ENUM_LENGTH]={"none","label","word","jump"};
+
 
     class StoryNode {
     public:
@@ -54,10 +57,12 @@ namespace HeavenGateEditor {
         vector<StoryNode*> m_nodes;
 
     public:
+                int AddNode(StoryNode* const node);
+
         int AddWord(StoryWord* const word);
-        int AddNode(StoryNode* const node);
-        int AddWord(string name, string content);
         int AddWord(const char* name, const char* content);
+        int AddLabel(const char* labelName);
+        int AddJump(const char* jumpName);
 
         void SetWord(const StoryWord* const word);
 
@@ -108,4 +113,4 @@ namespace HeavenGateEditor {
     //     }
 }
 
-#endif /* StoryJson_hpp */
+#endif /* StoryJson_h */

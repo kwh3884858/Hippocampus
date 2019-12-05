@@ -11,10 +11,11 @@
 
 #include <stdio.h>
 
-#include "StoryJson.h"
 #include "HeavenGateEditorConstant.h"
 
 namespace HeavenGateEditor {
+class StoryJson;
+
 class HeavenGateEditorFileManager {
 
 public:

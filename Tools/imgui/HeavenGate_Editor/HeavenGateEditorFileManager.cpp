@@ -6,6 +6,8 @@
 //  Copyright © 2019 ImGui. All rights reserved.
 //
 #include "imgui.h"
+
+#include "StoryJson.h"
 #include "HeavenGateEditorFileManager.h"
 #include "HeavenGateEditorUtility.h"
 

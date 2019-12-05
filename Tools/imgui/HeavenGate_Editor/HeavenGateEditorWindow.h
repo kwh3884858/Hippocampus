@@ -8,19 +8,19 @@
 //
 #ifndef HeavenGateEditorWindow_h
 #define HeavenGateEditorWindow_h
-#include "StoryJson.h"
 
 #include "HeavenGateEditorConstant.h"
-#include "HeavenGateWindowSelectStory.h"
-#include "HeavenGateEditorFileManager.h"
 
+#include "nlohmann/json.hpp"
 
 
 namespace HeavenGateEditor {
 
-    using std::string;
     using json = nlohmann::json;
 
+class StoryJson;
+class HeavenGateWindowSelectStory;
+class HeavenGateEditorFileManager;
 
     class HeavenGateEditor
     {

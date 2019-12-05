@@ -2,6 +2,7 @@
 #include "imgui.h"
 #include "HeavenGateWindowSelectStory.h"
 #include "HeavenGateEditorUtility.h"
+#include "StoryJson.h"
 
 #include <fstream>
 #include <iostream>

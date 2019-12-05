@@ -2780,7 +2780,7 @@ static void ShowDemoWindowColumns()
         ImGui::TreePop();
     }
 
-    // Word wrapping
+    // word wrapping
     if (ImGui::TreeNode("Word-wrapping"))
     {
         ImGui::Columns(2, "word-wrapping");
