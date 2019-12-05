@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/PaperPleasePrototype.unity
     guid: e700043bacb9f47eb83bea5469219d94
   - enabled: 1
-    path: Assets/Scenes/Porto_2DARPG.unity
+    path: Assets/Scenes/Prototype_AVG_System.unity
     guid: 444a4299db83f2d4cbb4b11f9b940949
   - enabled: 1
     path: Assets/Scenes/SceneKnifeAndTransformDoor.unity

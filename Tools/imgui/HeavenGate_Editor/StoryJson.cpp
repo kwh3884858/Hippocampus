@@ -57,10 +57,30 @@ bool StoryJson::IsExistFullPath()const{
 
 void to_json(json & j, const StoryWord & p)
 {
-    j = json{ {"name", p.m_name},{ "content", p.m_content } };
+    j = json{
+        {"nodeType", p.m_nodeType},
+        {"name", p.m_name},
+        { "content", p.m_content }
+    };
    
 }
+void to_json(json& j, const StoryLabel& p)
+{
+    j = json{
+        {"nodeType", p.m_nodeType},
+        {"label", p.m_labelId}
 
+    };
+}
+
+void to_json(json& j, const StoryJump& p)
+{
+    j = json{
+        {"nodeType", p.m_nodeType},
+        {"jump",p.m_jumpId}
+
+    };
+}
 void to_json(json & j, const StoryJson & story)
 {
     for (int i = 0; i < story.Size(); i++)
@@ -72,15 +92,21 @@ void to_json(json & j, const StoryJson & story)
             const StoryWord*const pWord = static_cast<const StoryWord*const>(pNode);
             j.push_back(*pWord);
         }
+
+           if (pNode->m_nodeType == NodeType::label)
+           {
+               const StoryLabel*const pLabel = static_cast<const StoryLabel*const>(pNode);
+               j.push_back(*pLabel);
+           }
+        if (pNode->m_nodeType == NodeType::jump)
+              {
+                  const StoryJump*const pJump = static_cast<const StoryJump*const>(pNode);
+                  j.push_back(*pJump);
+              }
     }
 }
-void to_json(json& j, const StoryLabel& p){
-    j = json{"label", p.m_labelId};
-}
-void to_json(json& j, const StoryJump& p)
-{
-    j = json{"jump",p.m_jumpId};
-}
+
+
 /* String version, Archieved */
 
 //void from_json(const json & j, StoryWord & p)
@@ -93,7 +119,6 @@ void from_json(const json & j, StoryWord & p)
 {
     strcpy( p.m_name, j.at("name").get_ptr<const json::string_t *>()->c_str() );
     strcpy( p.m_content, j.at("content").get_ptr<const json::string_t *>()->c_str() );
-
 }
 
 void from_json(const json & j, StoryJson & p)
@@ -129,7 +154,6 @@ void from_json(const json& j, StoryLabel& p){
 }
 void from_json(const json& j, StoryJump& p){
     strcpy( p.m_jumpId, j.at("jump").get_ptr<const json::string_t *>()->c_str() );
-
 }
 
 }

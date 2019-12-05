@@ -16,7 +16,6 @@ ExportedObj/
 .consulo/
 *.csproj
 *.unityproj
-*.sln
 *.suo
 *.tmp
 *.user
@@ -50,7 +49,6 @@ TestResult.xml
 submodules/
 *.stackdump
 *.lastcodeanalysissucceeded
-
 
 # Mac bundle stuff
 *.dmg
