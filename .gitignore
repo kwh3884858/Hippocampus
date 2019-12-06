@@ -8,6 +8,10 @@
 Assets/AssetStoreTools*
 StreamingAssets/
 StreamingAssets.meta
+
+# Project
+Hippocampus.sln
+
 # Visual Studio cache directory
 .vs/
 
