@@ -56,7 +56,7 @@ int main(int, char**)
     ImGuiIO& io = ImGui::GetIO(); (void)io;
 
 
-    char exePath[MAX_FOLDER_PATH];
+    char exePath[HeavenGateEditor::MAX_FOLDER_PATH];
     HeavenGateEditor::HeavenGateEditorUtility::GetStoryPath(exePath);
     int pos = CharacterUtility::Find(exePath,
         static_cast<int>(strlen(exePath)),

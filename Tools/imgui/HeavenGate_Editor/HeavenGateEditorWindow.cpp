@@ -16,6 +16,7 @@
 using std::vector;
 
 namespace HeavenGateEditor {
+    //using NodeType = StoryNode::NodeType;
 
     HeavenGateEditor::HeavenGateEditor()
     {
@@ -182,43 +183,72 @@ namespace HeavenGateEditor {
         ImGui::CheckboxFlags("ImGuiInputTextFlags_ReadOnly", (unsigned int*)&flags, ImGuiInputTextFlags_ReadOnly);
         ImGui::CheckboxFlags("ImGuiInputTextFlags_AllowTabInput", (unsigned int*)&flags, ImGuiInputTextFlags_AllowTabInput);
         ImGui::CheckboxFlags("ImGuiInputTextFlags_CtrlEnterForNewLine", (unsigned int*)&flags, ImGuiInputTextFlags_CtrlEnterForNewLine);
-        static char* name;
-        static char* content;
+        static char* name = nullptr;
+        static char* content = nullptr;
+        static char* label = nullptr;
+        static char* jump = nullptr;
 
-
-  char order[8] = "";
+        char order[8] = "";
         ImGui::LabelText("label", "Value");
         if (m_story != nullptr) {
             for (int i = 0; i < m_story->Size(); i++)
             {
 
-                char nameConstant[16] = "name";
-                char contentConstant[16] = "content";
+      
+                
                 sprintf(order, "%d", i);
-                strcat(nameConstant, order);
-                strcat(contentConstant, order);
+         
                 StoryNode* node = m_story->GetNode(i);
                 switch (node->m_nodeType) {
-                    case NodeType::Word:
-                    {
-                        StoryWord* word = static_cast<StoryWord*>(node);
-                                           name = word->m_name;
-                                                     content = word->m_content;
+                case NodeType::Word:
+                {
+                    char nameConstant[16] = "Name";
+                    char contentConstant[16] = "Content";
+                    strcat(nameConstant, order);
+                    strcat(contentConstant, order);
+
+                    StoryWord* word = static_cast<StoryWord*>(node);
+                    name = word->m_name;
+                    content = word->m_content;
 
 
-                                        ImGui::InputTextWithHint(nameConstant, "Enter name here", name, MAX_NAME);
-                                        ImGui::InputTextWithHint(contentConstant, "Enter Content here", content, MAX_CONTENT);
+                    ImGui::InputTextWithHint(nameConstant, "Enter name here", name, MAX_NAME);
+                    ImGui::InputTextWithHint(contentConstant, "Enter Content here", content, MAX_CONTENT);
 
-                                        //Multiline Version
-                                        /*
-                                        ImGui::InputTextMultiline(nameConstant, name, MAX_NAME, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 2), flags);
-                                        ImGui::InputTextMultiline(contentConstant, content, MAX_CONTENT, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 6), flags);
-                        */
-    break;
-                    }
+                    //Multiline Version
+                    /*
+                    ImGui::InputTextMultiline(nameConstant, name, MAX_NAME, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 2), flags);
+                    ImGui::InputTextMultiline(contentConstant, content, MAX_CONTENT, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 6), flags);
+    */
+                    break;
+                }
 
-                    default:
-                        break;
+                case NodeType::Jump:
+                {
+                    char jumpConstant[16] = "Jump";
+                    strcat(jumpConstant, order);
+
+                    StoryJump* pJump = static_cast<StoryJump*>(node);
+                    jump = pJump->m_jumpId;
+
+                    ImGui::InputTextWithHint(jumpConstant, "Enter jump ID here", jump, MAX_NAME);
+                    break;
+                }
+
+                case NodeType::Label:
+                {
+                    char LabelConstant[16] = "Label";
+                    strcat(LabelConstant, order);
+
+                    StoryLabel *pLabel = static_cast<StoryLabel*>(node);
+                    label = pLabel->m_labelId;
+
+                    ImGui::InputTextWithHint(LabelConstant, "Enter label ID here", label, MAX_NAME);
+                    break;
+                }
+
+                default:
+                    break;
                 }
 
             }
@@ -253,18 +283,18 @@ namespace HeavenGateEditor {
         }
         ImGui::SameLine();
 
-             if (ImGui::Button("Add new jump")) {
-                 //If story not exist
-                 if (m_story == nullptr)
-                 {
-                     m_story = new StoryJson;
-                 }
-                 //If already exist story
-                 if (m_story != nullptr)
-                 {
-                     m_story->AddJump("");
-                 }
-             }
+        if (ImGui::Button("Add new jump")) {
+            //If story not exist
+            if (m_story == nullptr)
+            {
+                m_story = new StoryJson;
+            }
+            //If already exist story
+            if (m_story != nullptr)
+            {
+                m_story->AddJump("");
+            }
+        }
         //
         //        for (int i = 0; i < currentStory.size(); i++)
         //        {
@@ -322,13 +352,13 @@ namespace HeavenGateEditor {
             }
         }
         if (ImGui::MenuItem("Save As..")) {
-            
-     
+
+
         }
-        
 
 
-    
+
+
         ImGui::Separator();
         if (ImGui::BeginMenu("Options"))
         {

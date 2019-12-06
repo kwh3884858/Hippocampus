@@ -8,30 +8,42 @@
 #include "HeavenGateEditorConstant.h"
 
 
-using json = nlohmann::json;
-using std::string;
-using std::vector;
+
 namespace HeavenGateEditor {
-    enum NodeType
+    using json = nlohmann::json;
+    using std::vector;
+
+    enum class NodeType
     {
         None = 0,
         Label,
         Word,
         Jump
     };
+    enum class LabelLayout:int;
+    enum class JumpLayout :int;
+    enum class WordLayout :int;
 
-    char nodeTypeString[][MAX_ENUM_LENGTH]={"none","label","word","jump"};
 
+    extern char nodeTypeString[][MAX_ENUM_LENGTH];
+    extern char labelNodeString[][MAX_ENUM_LENGTH];
+    extern char jumpNodeString[][MAX_ENUM_LENGTH];
+    extern char wordNodeString[][MAX_ENUM_LENGTH];
 
     class StoryNode {
     public:
+
         NodeType m_nodeType;
+
+        StoryNode();
     };
 
     class StoryLabel :public StoryNode
     {
     public:
         char m_labelId[MAX_ID];
+
+        StoryLabel();
     };
 
     class StoryJump : public StoryNode
@@ -39,8 +51,7 @@ namespace HeavenGateEditor {
     public:
         char m_jumpId[MAX_ID];
 
-    private:
-
+        StoryJump();
     };
 
     class StoryWord :public StoryNode {
@@ -49,7 +60,7 @@ namespace HeavenGateEditor {
         char m_name[MAX_NAME];
         char m_content[MAX_CONTENT];
 
-
+        StoryWord();
     };
 
     class StoryJson {

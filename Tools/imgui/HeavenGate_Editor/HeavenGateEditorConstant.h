@@ -21,7 +21,8 @@ namespace HeavenGateEditor {
     const int     MAX_CONTENT = 265;
     const int     MAX_ID = 8;
 
-    const int     MAX_ENUM_LENGTH = 8;
+    const int     MAX_ENUM_LENGTH = 16;
+
 
     //Max number of display folders
     const int  MAX_NUM_OF_DISPLAY_FORLDERS = 50;
