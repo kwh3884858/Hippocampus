@@ -10,7 +10,7 @@ StreamingAssets/
 StreamingAssets.meta
 
 # Project
-Hippocampus.sln
+[Hh]ippocampus.sln
 
 # Visual Studio cache directory
 .vs/
@@ -57,3 +57,10 @@ submodules/
 # Mac bundle stuff
 *.dmg
 *.app
+
+# Windows:
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+
