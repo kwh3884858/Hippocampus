@@ -113,20 +113,24 @@ namespace HeavenGateEditor {
      template<int row, int column>
      bool StoryTable<row, column>::PushContent(const char * content)
      {
-         StoryRow<column>* row = m_content.back();
+         StoryRow<column>* aRow = m_content.back();
 
-         if (row->IsFull())
+         if (aRow->IsFull())
          {
-             row = new StoryRow<column>;
+             if (m_rowSize + 1 >= row) {
+                 return  false;
+             }
+             aRow = new StoryRow<column>;
              m_content.push_back(row);
              m_rowSize++;
          }
-      
-         return row.Push(content);
+         aRow.Push(content);
+
+         return true;
      }
 
      template<int row, int column>
-     bool StoryTable<row, column>::SetContent(int row, int index, const char * content)
+     bool StoryTable<row, column>::SetContent(int rowIndex, int index, const char * content)
      {
          if (row < 0 || row >= m_rowSize)
          {
@@ -136,12 +140,12 @@ namespace HeavenGateEditor {
          {
              return false;
          }
-         StoryRow<column>* row = m_content[row];
-         if (index >= row->Size() || index < 0)
+         StoryRow<column>* aRow = m_content[rowIndex];
+         if (index >= aRow->Size() || index < 0)
          {
              return false;
          }
-         row->Set(index, content);
+         aRow->Set(index, content);
 
          return true;
      }
@@ -153,7 +157,7 @@ namespace HeavenGateEditor {
      }
 
      template<int row, int column>
-     const char * StoryTable<row, column>::GetContent(int row, int index)
+     const char * StoryTable<row, column>::GetContent(int rowIndex, int index)
      {
          if (row < 0 || row >= m_rowSize)
          {
@@ -163,12 +167,12 @@ namespace HeavenGateEditor {
          {
              return nullptr;
          }
-         StoryRow<column>* row = m_content[row];
-         if (index >= row->Size() || index < 0)
+         StoryRow<column>* aRow = m_content[rowIndex];
+         if (index >= aRow->Size() || index < 0)
          {
              return nullptr;
          }
-         return row->Get(index, content);
+         return aRow->Get(index);
 
          
      }

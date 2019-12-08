@@ -46,9 +46,9 @@ namespace HeavenGateEditor {
         bool PushName(const char* name);
         bool SetName(int index, const char * name);
         bool PushContent(const char * content);
-        bool SetContent(int row, int index, const char* content);
+        bool SetContent(int rowIndex, int index, const char* content);
         const char* GetName(int index);
-        const char* GetContent(int row, int index);
+        const char* GetContent(int rowIndex, int index);
 
     private:
         int m_rowSize;
