@@ -5,6 +5,7 @@
 #include "HeavenGate_Editor/HeavenGateEditorUtility.h"
 #include "HeavenGate_Editor/CharacterUtility.h"
 #include "HeavenGate_Editor/HeavenGateEditorConstant.h"
+#include "HeavenGate_Editor/HeavenGateEditorFontSizeTable.h"
 
 #include "imgui.h"
 #include "imgui_impl_win32.h"
@@ -33,6 +34,7 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 int main(int, char**)
 {
     static HeavenGateEditor::HeavenGateEditor m_heavenGateEditor;
+    static HeavenGateEditor::HeavenGateEditorFontSizeTable m_fontSizeTable;
     // Create application window
     WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, _T("ImGui Example"), NULL };
     ::RegisterClassEx(&wc);
@@ -103,6 +105,7 @@ int main(int, char**)
     bool show_demo_window = true;
     bool show_another_window = false;
     bool show_editor_window = false;
+    bool* show_font_size_table_window = m_fontSizeTable.GetWindowOpenHandle();
 
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
@@ -143,6 +146,8 @@ int main(int, char**)
             ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
             ImGui::Checkbox("Another Window", &show_another_window);
             ImGui::Checkbox("Story Editor", &show_editor_window);
+            ImGui::Checkbox("Font Size Table", show_font_size_table_window);
+
 
             ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
             ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
@@ -169,6 +174,11 @@ int main(int, char**)
         if (show_editor_window)
         {
             m_heavenGateEditor.ShowEditorWindow(&show_editor_window);
+        }
+
+        if (*show_font_size_table_window)
+        {
+            m_fontSizeTable.ShowTableWindow();
         }
 
         // Rendering

@@ -149,10 +149,12 @@
     <ClInclude Include="..\..\HeavenGate_Editor\CharacterUtility.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorConstant.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorFileManager.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorFontSizeTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorUtility.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorWindow.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowSelectStory.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJson.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\StoryTable.h" />
     <ClInclude Include="..\..\imconfig.h" />
     <ClInclude Include="..\..\imgui.h" />
     <ClInclude Include="..\..\imgui_internal.h" />
@@ -164,10 +166,12 @@
   <ItemGroup>
     <ClCompile Include="..\..\HeavenGate_Editor\CharacterUtility.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorFileManager.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorFontSizeTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorUtility.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorWindow.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowSelectStory.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJson.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\StoryTable.cpp" />
     <ClCompile Include="..\..\imgui.cpp" />
     <ClCompile Include="..\..\imgui_demo.cpp" />
     <ClCompile Include="..\..\imgui_draw.cpp" />

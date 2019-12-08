@@ -21,12 +21,17 @@ public:
     HeavenGateEditorFontSizeTable();
     ~HeavenGateEditorFontSizeTable();
 
-private:
     void ShowTableWindow();
 
-    void CloseTableWindow();
+    void OpenWindow();
+    void CloseWindow();
+    bool IsOpenWindow() const;
+    bool* GetWindowOpenHandle();
 
+private:
 
+    void ShowEditorMenuFile();
+    bool m_open;
 
 };
 
