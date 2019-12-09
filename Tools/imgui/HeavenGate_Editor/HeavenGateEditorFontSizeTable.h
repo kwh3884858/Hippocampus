@@ -12,10 +12,13 @@
 #include <stdio.h>
 #include "imgui.h"
 
+#include "HeavenGateEditorConstant.h"
 
 
 namespace HeavenGateEditor {
-    //template<int c>
+
+    template<int c>
+    class StoryTable;
 
     class HeavenGateEditorFileManager;
 
@@ -38,7 +41,7 @@ namespace HeavenGateEditor {
         bool m_open;
 
         HeavenGateEditorFileManager* m_fileManager;
-        StoryTable<2> m_table;
+        StoryTable<FONT_SIZE_MAX_COLUMN>* m_table;
     };
 
 }

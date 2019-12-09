@@ -28,7 +28,9 @@ namespace HeavenGateEditor {
 
 
         m_selectStoryWindow = new HeavenGateWindowSelectStory();
+
         m_fileManager = new HeavenGateEditorFileManager();
+
     }
 
     HeavenGateEditor::~HeavenGateEditor()
@@ -46,51 +48,47 @@ namespace HeavenGateEditor {
 
 
         m_selectStoryWindow->ShowSelectStoryWindow();
-        if (m_selectStoryWindow->IsLoadedSotry()) {
-            //Current don`t have story
-            if (m_story == nullptr) {
-                m_selectStoryWindow->GetStoryPointer(&m_story);
-                m_selectStoryWindow->GiveUpLoadedStory();
-                m_isSavedFile = true;
-            }
-            //Already have some content, maybe be is saved file but have some unsaved changes
-            else
-            {
-                ImGui::OpenPopup("Have Unsaved Content");
+        m_selectStoryWindow->GetStoryPointerWindow(&m_story, &m_isSavedFile);
 
-                if (ImGui::BeginPopupModal("Have Unsaved Content", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-                {
-                    ImGui::Text("You open a new file, but now workspace already have changes.\n Do you want to abandon changes to open new file or keep them?\n\n");
-                    ImGui::Separator();
+        //if (m_selectStoryWindow->IsLoadedSotry()) {
+        //    if (m_story == nullptr) {
+        //        m_selectStoryWindow->GetStoryPointer(&m_story);
+        //        m_selectStoryWindow->GiveUpLoadedStory();
+        //        m_isSavedFile = true;
+        //    }
+        //    else
+        //    {
+        //        ImGui::OpenPopup("Have Unsaved Content");
 
-                    //static int dummy_i = 0;
-                    //ImGui::Combo("Combo", &dummy_i, "Delete\0Delete harder\0");
+        //        if (ImGui::BeginPopupModal("Have Unsaved Content", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+        //        {
+        //            ImGui::Text("You open a new file, but now workspace already have changes.\n Do you want to abandon changes to open new file or keep them?\n\n");
+        //            ImGui::Separator();
 
+        //            if (ImGui::Button("Keep Changes", ImVec2(120, 0))) {
 
-                    if (ImGui::Button("Keep Changes", ImVec2(120, 0))) {
+        //                m_selectStoryWindow->GiveUpLoadedStory();
+        //                ImGui::CloseCurrentPopup();
 
-                        m_selectStoryWindow->GiveUpLoadedStory();
-                        ImGui::CloseCurrentPopup();
+        //            }
+        //            ImGui::SetItemDefaultFocus();
+        //            ImGui::SameLine();
+        //            if (ImGui::Button("Give Up Changes", ImVec2(120, 0))) {
 
-                    }
-                    ImGui::SetItemDefaultFocus();
-                    ImGui::SameLine();
-                    if (ImGui::Button("Give Up Changes", ImVec2(120, 0))) {
+        //                delete m_story;
+        //                m_story = nullptr;
 
-                        delete m_story;
-                        m_story = nullptr;
+        //                m_selectStoryWindow->GetStoryPointer(&m_story);
+        //                m_selectStoryWindow->GiveUpLoadedStory();
 
-                        m_selectStoryWindow->GetStoryPointer(&m_story);
-                        m_selectStoryWindow->GiveUpLoadedStory();
+        //                m_isSavedFile = true;
+        //                ImGui::CloseCurrentPopup();
+        //            }
+        //            ImGui::EndPopup();
+        //        }
+        //    }
 
-                        m_isSavedFile = true;
-                        ImGui::CloseCurrentPopup();
-                    }
-                    ImGui::EndPopup();
-                }
-            }
-
-        }
+        //}
 
         // Demonstrate the various window flags. Typically you would just use the default!
         static bool no_titlebar = false;

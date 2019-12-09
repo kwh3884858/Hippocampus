@@ -14,12 +14,14 @@ public:
     ~HeavenGateWindowSelectStory();
 
     void ShowSelectStoryWindow();
-    bool GetStoryPointer(StoryJson** pStory)const;
+    bool GetStoryPointerWindow(StoryJson** ppStory, bool* pIsFileSaved);
+    bool GetStoryPointer(StoryJson** ppStory)const;
     char* GetStoryPath();
 
     void OpenWindow();
     void CloseWindow();
     bool IsOpenWindow() const;
+    bool* GetWindowHandle();
 
     bool IsLoadedSotry() const;
     bool GiveUpLoadedStory();

@@ -14,31 +14,30 @@
 #include "HeavenGateEditorConstant.h"
 
 namespace HeavenGateEditor {
-class StoryJson;
+    class StoryJson;
 
-class HeavenGateEditorFileManager {
+    class HeavenGateEditorFileManager {
 
-public:
-    HeavenGateEditorFileManager();
-    ~HeavenGateEditorFileManager();
+    public:
+        HeavenGateEditorFileManager();
+        ~HeavenGateEditorFileManager();
 
-    bool SaveStoryFile(StoryJson* pStoryJson) const;
-    void OpenAskForNameWindow();
-    void ShowAskForNewFileNamePopup();
+        bool SaveStoryFile(StoryJson* pStoryJson) const;
+        void OpenAskForNameWindow();
+        void ShowAskForNewFileNamePopup();
 
-    const char * GetNewFilePath() const;
-    bool IsExistNewFilePath() const;
-    void SetNewFilePath(const char* filePatj);
+        const char * GetNewFilePath() const;
+        bool IsExistNewFilePath() const;
+        void SetNewFilePath(const char* filePatj);
+        bool FromFileNameToFullPath(char * filePath, const char* fileName) const;
+        void Initialize();
 
-    bool FromFileNameToFullPath(char * filePath, const char* fileName) const;
+    private:
+        char m_newFilePath[MAX_FOLDER_PATH];
+        char m_newFileName[MAX_FILE_NAME];
 
-    void Initialize();
-private:
-    char m_newFilePath[MAX_FOLDER_PATH];
-    char m_newFileName[MAX_FILE_NAME];
-
-    bool m_isOpenAskForNewFileNamePopup;
-};
+        bool m_isOpenAskForNewFileNamePopup;
+    };
 }
 
 

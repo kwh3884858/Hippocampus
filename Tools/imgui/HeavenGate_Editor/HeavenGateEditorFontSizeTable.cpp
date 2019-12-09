@@ -8,6 +8,7 @@
 
 #include "HeavenGateEditorFontSizeTable.h"
 
+#include "StoryTable.h"
 #include "HeavenGateEditorFileManager.h"
 
 
@@ -15,9 +16,29 @@ namespace HeavenGateEditor {
 
 
     HeavenGateEditorFontSizeTable::HeavenGateEditorFontSizeTable() {
+
         m_open = false;
+
+        m_fileManager = new HeavenGateEditorFileManager;
+        m_table = new StoryTable<FONT_SIZE_MAX_COLUMN>;
+
     }
+
     HeavenGateEditorFontSizeTable:: ~HeavenGateEditorFontSizeTable() {
+
+        m_open = false;
+
+        if (m_fileManager)
+        {
+            delete m_fileManager;
+        }
+        m_fileManager = nullptr;
+
+        if (m_table)
+        {
+            delete m_table;
+        }
+        m_table = nullptr;
 
     }
 

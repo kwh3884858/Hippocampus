@@ -54,6 +54,56 @@ void HeavenGateWindowSelectStory::ShowSelectStoryWindow(){
     ImGui::End();
 }
 
+bool HeavenGateWindowSelectStory::GetStoryPointerWindow(StoryJson** ppStory, bool* pIsFileSaved)
+{
+    if (IsLoadedSotry()) {
+        if (*ppStory == nullptr)
+        {
+            //Current main window don`t have any story
+
+            GetStoryPointer(ppStory);
+            GiveUpLoadedStory();
+            *pIsFileSaved = true;
+        }
+        else
+        {
+            //Already have some content, maybe be is saved file but have some unsaved changes
+            ImGui::OpenPopup("Have Unsaved Content");
+
+            if (ImGui::BeginPopupModal("Have Unsaved Content", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+            {
+                ImGui::Text("You open a new file, but now workspace already have changes.\n Do you want to abandon changes to open new file or keep them?\n\n");
+                ImGui::Separator();
+
+
+                if (ImGui::Button("Keep Changes", ImVec2(120, 0))) {
+
+                    GiveUpLoadedStory();
+                    ImGui::CloseCurrentPopup();
+
+                }
+                ImGui::SetItemDefaultFocus();
+                ImGui::SameLine();
+                if (ImGui::Button("Give Up Changes", ImVec2(120, 0))) {
+
+                    delete *ppStory;
+                    *ppStory = nullptr;
+
+                    GetStoryPointer(ppStory);
+                    GiveUpLoadedStory();
+
+                    *pIsFileSaved = true;
+                    ImGui::CloseCurrentPopup();
+                }
+                ImGui::EndPopup();
+            }
+        }
+
+    }
+
+    return true;
+}
+
 void HeavenGateWindowSelectStory::OpenWindow(){
     m_open = true;
 }
@@ -62,6 +112,10 @@ void HeavenGateWindowSelectStory::CloseWindow(){
 }
 bool HeavenGateWindowSelectStory::IsOpenWindow() const{
     return  m_open;
+}
+bool * HeavenGateWindowSelectStory::GetWindowHandle()
+{
+    return &m_open;
 }
 bool HeavenGateWindowSelectStory::IsLoadedSotry() const{
     return m_story!=nullptr;
@@ -309,12 +363,12 @@ void HeavenGateWindowSelectStory::ShowFileButton(){
     }
 }
 
-bool HeavenGateWindowSelectStory::GetStoryPointer(StoryJson** pStory)const{
+bool HeavenGateWindowSelectStory::GetStoryPointer(StoryJson** ppStory)const{
     if (m_story == nullptr) {
         return false;
     }
     else{
-        *pStory = m_story;
+        *ppStory = m_story;
         return true;
     }
 }

@@ -48,7 +48,9 @@ class HeavenGateEditorFileManager;
         StoryJson* m_story;
 
         HeavenGateWindowSelectStory* m_selectStoryWindow;
+
         HeavenGateEditorFileManager* m_fileManager;
+
     };
 
 
