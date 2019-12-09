@@ -15,26 +15,31 @@
 
 
 namespace HeavenGateEditor {
+    //template<int c>
 
-class HeavenGateEditorFontSizeTable{
-public:
-    HeavenGateEditorFontSizeTable();
-    ~HeavenGateEditorFontSizeTable();
+    class HeavenGateEditorFileManager;
 
-    void ShowTableWindow();
+    class HeavenGateEditorFontSizeTable {
+    public:
+        HeavenGateEditorFontSizeTable();
+        ~HeavenGateEditorFontSizeTable();
 
-    void OpenWindow();
-    void CloseWindow();
-    bool IsOpenWindow() const;
-    bool* GetWindowOpenHandle();
+        void ShowTableWindow();
 
-private:
+        void OpenWindow();
+        void CloseWindow();
+        bool IsOpenWindow() const;
+        bool* GetWindowOpenHandle();
 
-    void ShowEditorMenuFile();
-    bool m_open;
+    private:
 
-};
+        void ShowEditorMenuFile();
 
+        bool m_open;
+
+        HeavenGateEditorFileManager* m_fileManager;
+        StoryTable<2> m_table;
+    };
 
 }
 

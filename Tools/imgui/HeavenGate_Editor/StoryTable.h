@@ -37,8 +37,14 @@ namespace HeavenGateEditor {
         char(*m_content)[MAX_COLUMNS_CONTENT_LENGTH];
     };
 
-    template<int row, int column>
+    template<int column>
     class StoryTable {
+        enum TableType
+        {
+            Font_Size,
+            Font_Color
+        };
+
     public:
         StoryTable();
         ~StoryTable();
@@ -54,18 +60,18 @@ namespace HeavenGateEditor {
         int m_rowSize;
         StoryRow<column>* m_name;
         vector<StoryRow<column>*> m_content;
-       
+
 
     };
 
-    template<int row, int column>
-    void to_json(json& j, const StoryTable<row, column>& p);
+    template<int column>
+    void to_json(json& j, const StoryTable< column>& p);
 
-    template<int row>
-    void to_json(json& j, const StoryRow<row>& p);
+    template<int column>
+    void to_json(json& j, const StoryRow<column>& p);
 
-    template<int row, int column>
-    void from_json(const json& j, StoryTable<row, column>& p);
+    template< int column>
+    void from_json(const json& j, StoryTable< column>& p);
 
     template<int row>
     void from_json(const json& j, StoryRow<row>& p);

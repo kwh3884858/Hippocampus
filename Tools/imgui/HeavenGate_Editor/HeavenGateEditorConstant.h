@@ -22,7 +22,12 @@ namespace HeavenGateEditor {
     const int     MAX_ID = 8;
 
     const int     MAX_ENUM_LENGTH = 16;
-const int MAX_COLUMNS_CONTENT_LENGTH = 16;
+
+    //Table
+    const int     MAX_COLUMNS_CONTENT_LENGTH = 16;
+    const int     FONT_SIZE_MAX_COLUMN = 2;
+
+
 
     //Max number of display folders
     const int  MAX_NUM_OF_DISPLAY_FORLDERS = 50;

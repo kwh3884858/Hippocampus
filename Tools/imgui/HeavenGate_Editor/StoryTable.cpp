@@ -69,15 +69,15 @@ namespace HeavenGateEditor {
          return m_content[index];
      }
 
-    template<int row, int column>
-     StoryTable<row, column>::StoryTable()
+    template<int column>
+     StoryTable<column>::StoryTable()
     {
         m_name = new StoryRow<column>;
         m_rowSize = 0;
     }
 
-     template<int row, int column>
-     StoryTable<row, column>::~StoryTable()
+     template<int column>
+     StoryTable<column>::~StoryTable()
      {
          if (m_name != nullptr)
          {
@@ -98,20 +98,20 @@ namespace HeavenGateEditor {
          
      }
 
-     template<int row, int column>
-     bool StoryTable<row, column>::PushName(const char * name)
+     template<int column>
+     bool StoryTable<column>::PushName(const char * name)
      {
          return m_name->Push(name);
      }
 
-     template<int row, int column>
-     bool StoryTable<row, column>::SetName(int index, const char * name)
+     template<int column>
+     bool StoryTable<column>::SetName(int index, const char * name)
      {
          return m_name->Set(index, name);
      }
 
-     template<int row, int column>
-     bool StoryTable<row, column>::PushContent(const char * content)
+     template<int column>
+     bool StoryTable<column>::PushContent(const char * content)
      {
          StoryRow<column>* aRow = m_content.back();
 
@@ -129,18 +129,16 @@ namespace HeavenGateEditor {
          return true;
      }
 
-     template<int row, int column>
-     bool StoryTable<row, column>::SetContent(int rowIndex, int index, const char * content)
+     template<int column>
+     bool StoryTable<column>::SetContent(int row, int index, const char * content)
      {
+
          if (row < 0 || row >= m_rowSize)
          {
              return false;
          }
-         if (index < 0 || index > column)
-         {
-             return false;
-         }
-         StoryRow<column>* aRow = m_content[rowIndex];
+
+         StoryRow<column>* aRow = m_content[row];
          if (index >= aRow->Size() || index < 0)
          {
              return false;
@@ -150,24 +148,22 @@ namespace HeavenGateEditor {
          return true;
      }
 
-     template<int row, int column>
-     const char * StoryTable<row, column>::GetName(int index)
+     template<int column>
+     const char * StoryTable<column>::GetName(int index)
      {
          return m_name->Get(index);
      }
 
-     template<int row, int column>
-     const char * StoryTable<row, column>::GetContent(int rowIndex, int index)
+     template<int column>
+     const char * StoryTable<column>::GetContent(int row, int index)
      {
          if (row < 0 || row >= m_rowSize)
          {
-             return nullptr;
+             return false;
          }
-         if (index < 0 || index > column)
-         {
-             return nullptr;
-         }
-         StoryRow<column>* aRow = m_content[rowIndex];
+
+         StoryRow<column>* aRow = m_content[row];
+
          if (index >= aRow->Size() || index < 0)
          {
              return nullptr;
@@ -179,26 +175,26 @@ namespace HeavenGateEditor {
 
 
 
-     template<int row, int column>
-     void to_json(json& j, const StoryTable<row, column>& p) {
+     template<int column>
+     void to_json(json& j, const StoryTable<column>& p) {
          for (int i = 0 ; i < j.size(); i++)
          {
 
          }
      }
 
-     template<int row>
-     void to_json(json& j, const StoryRow<row>& p) {
+     template<int column>
+     void to_json(json& j, const StoryRow<column>& p) {
 
      }
 
-     template<int row, int column>
-     void from_json(const json& j, StoryTable<row, column>& p) {
+     template<int column>
+     void from_json(const json& j, StoryTable<column>& p) {
 
      }
 
-     template<int row>
-     void from_json(const json& j, StoryRow<row>& p) {
+     template<int column>
+     void from_json(const json& j, StoryRow<column>& p) {
 
      }
 }
