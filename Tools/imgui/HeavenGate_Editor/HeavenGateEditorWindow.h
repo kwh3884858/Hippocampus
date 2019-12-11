@@ -10,6 +10,7 @@
 #define HeavenGateEditorWindow_h
 
 #include "HeavenGateEditorConstant.h"
+#include "HeavenGateEditorBaseWindow.h"
 
 #include "nlohmann/json.hpp"
 
@@ -22,22 +23,25 @@ class StoryJson;
 class HeavenGateWindowSelectStory;
 class HeavenGateEditorFileManager;
 
-    class HeavenGateEditor
+    class HeavenGateEditor : public HeavenGateEditorBaseWindow
     {
-    public:
 
     public:
-        HeavenGateEditor();
-        ~HeavenGateEditor();
+        HeavenGateEditor() ;
+        
+        virtual ~HeavenGateEditor() override;
+
+        virtual void UpdateMainWindow() override;
+        virtual void UpdateMenu() override;
+
         void ShowEditorWindow(bool* isOpenPoint);
         void ShowEditorMenuFile();
-        void OpenSelectStoryWindow(bool* p_open);
 
+        
     private:
 
 
         //Is Open Select Story Window
-        bool show_app_layout;
 
         bool m_isSavedFile;
         bool m_isWritedUnsavedContent;

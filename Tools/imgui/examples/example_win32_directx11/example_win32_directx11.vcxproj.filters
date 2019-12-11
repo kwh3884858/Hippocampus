@@ -36,6 +36,7 @@
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorUtility.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorFontSizeTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryTable.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorBaseWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\imgui.cpp">
@@ -67,6 +68,7 @@
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorUtility.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorFontSizeTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryTable.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorBaseWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.txt" />
