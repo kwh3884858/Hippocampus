@@ -104,7 +104,7 @@ int main(int, char**)
     // Our state
     bool show_demo_window = true;
     bool show_another_window = false;
-    bool show_editor_window = false;
+    bool* show_editor_window = m_heavenGateEditor.GetHandle();
     bool* show_font_size_table_window = m_fontSizeTable.GetWindowOpenHandle();
 
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
@@ -145,7 +145,7 @@ int main(int, char**)
             ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
             ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
             ImGui::Checkbox("Another Window", &show_another_window);
-            ImGui::Checkbox("Story Editor", &show_editor_window);
+            ImGui::Checkbox("Story Editor", show_editor_window);
             ImGui::Checkbox("Font Size Table", show_font_size_table_window);
 
 
@@ -171,9 +171,9 @@ int main(int, char**)
             ImGui::End();
         }
 
-        if (show_editor_window)
+        if (*show_editor_window)
         {
-            m_heavenGateEditor.ShowEditorWindow(&show_editor_window);
+            m_heavenGateEditor.Update();
         }
 
         if (*show_font_size_table_window)

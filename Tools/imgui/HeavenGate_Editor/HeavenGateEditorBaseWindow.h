@@ -12,21 +12,24 @@
 #define HeavenGateEditorBaseWindow_h
 
 
-
 namespace HeavenGateEditor {
+
+#define WINDOW_DECLARE(windowName) \
+public: \
+    const char*         GetWindiwName() const override        { return windowName; } 
 
 
     class HeavenGateEditorBaseWindow
     {
     public:
-        HeavenGateEditorBaseWindow() = delete;
-        HeavenGateEditorBaseWindow(const char* windowName);
+        HeavenGateEditorBaseWindow();
         virtual ~HeavenGateEditorBaseWindow();
 
         void Update();
 
         virtual void UpdateMainWindow() = 0;
         virtual void UpdateMenu() = 0;
+        virtual const char* GetWindiwName() const = 0;
 
         bool* GetHandle();
         void OpenWindow();
@@ -34,7 +37,7 @@ namespace HeavenGateEditor {
         bool IsWindowOpen() const;
     private:
         bool m_open;
-        char m_windowName[128];
+
     };
 
 

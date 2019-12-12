@@ -20,7 +20,7 @@ namespace HeavenGateEditor {
         m_open = false;
 
         m_fileManager = new HeavenGateEditorFileManager;
-        m_table = new StoryTable<FONT_SIZE_MAX_COLUMN>;
+        //m_table = new StoryTable<2>;
 
     }
 
@@ -34,11 +34,11 @@ namespace HeavenGateEditor {
         }
         m_fileManager = nullptr;
 
-        if (m_table)
-        {
-            delete m_table;
-        }
-        m_table = nullptr;
+        //if (m_table)
+        //{
+        //    delete m_table;
+        //}
+        //m_table = nullptr;
 
     }
 

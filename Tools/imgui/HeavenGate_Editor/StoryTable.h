@@ -76,6 +76,7 @@ namespace HeavenGateEditor {
     template<int row>
     void from_json(const json& j, StoryRow<row>& p);
 
+
 }
 
 #endif /* StoryTable_h */

@@ -48,59 +48,6 @@ namespace HeavenGateEditor {
         m_selectStoryWindow->ShowSelectStoryWindow();
         m_selectStoryWindow->GetStoryPointerWindow(&m_story, &m_isSavedFile);
 
-        bool* pOpen = GetHandle();
-
-        static bool no_titlebar = false;
-        static bool no_scrollbar = false;
-        static bool no_menu = false;
-        static bool no_move = false;
-        static bool no_resize = false;
-        static bool no_collapse = false;
-        static bool no_close = false;
-        static bool no_nav = false;
-        static bool no_background = false;
-        static bool no_bring_to_front = false;
-
-        ImGuiWindowFlags window_flags = 0;
-        if (no_titlebar)        window_flags |= ImGuiWindowFlags_NoTitleBar;
-        if (no_scrollbar)       window_flags |= ImGuiWindowFlags_NoScrollbar;
-        if (!no_menu)           window_flags |= ImGuiWindowFlags_MenuBar;
-        if (no_move)            window_flags |= ImGuiWindowFlags_NoMove;
-        if (no_resize)          window_flags |= ImGuiWindowFlags_NoResize;
-        if (no_collapse)        window_flags |= ImGuiWindowFlags_NoCollapse;
-        if (no_nav)             window_flags |= ImGuiWindowFlags_NoNav;
-        if (no_background)      window_flags |= ImGuiWindowFlags_NoBackground;
-        if (no_bring_to_front)  window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus;
-        if (no_close)           *pOpen = NULL; // Don't pass our bool* to Begin
-
-
-      // We specify a default position/size in case there's no data in the .ini file. Typically this isn't required! We only do it to make the Demo applications a little more welcoming.
-        ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
-        ImGui::SetNextWindowSize(ImVec2(550, 680), ImGuiCond_FirstUseEver);
-
-        // Main body of the Demo window starts here.
-        if (!ImGui::Begin("Heaven Gate", pOpen, window_flags))
-        {
-            // Early out if the window is collapsed, as an optimization.
-            ImGui::End();
-            return;
-        }
-
-        // Most "big" widgets share a common width settings by default.
-        //ImGui::PushItemWidth(ImGui::GetWindowWidth() * 0.65f);    // Use 2/3 of the space for widgets and 1/3 for labels (default)
-        ImGui::PushItemWidth(ImGui::GetFontSize() * -12);           // Use fixed width for labels (by passing a negative value), the rest goes to widgets. We choose a width proportional to our font size.
-
-        // Menu Bar
-        if (ImGui::BeginMenuBar())
-        {
-            if (ImGui::BeginMenu("Menu"))
-            {
-                ShowEditorMenuFile();
-                ImGui::EndMenu();
-            }
-
-            ImGui::EndMenuBar();
-        }
 
         //For save as new file
         m_fileManager->ShowAskForNewFileNamePopup();
@@ -237,8 +184,6 @@ namespace HeavenGateEditor {
             }
         }
 
-
-        ImGui::End();
     }
 
     void HeavenGateEditor::UpdateMenu()
