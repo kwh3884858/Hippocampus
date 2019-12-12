@@ -8,7 +8,6 @@
 
 #include "HeavenGateEditorFontSizeTable.h"
 
-#include "StoryTable.h"
 #include "HeavenGateEditorFileManager.h"
 
 
@@ -20,7 +19,7 @@ namespace HeavenGateEditor {
         m_open = false;
 
         m_fileManager = new HeavenGateEditorFileManager;
-        //m_table = new StoryTable<2>;
+        
 
     }
 

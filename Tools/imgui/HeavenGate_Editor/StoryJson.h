@@ -20,7 +20,7 @@ namespace HeavenGateEditor {
         Word,
         Jump
     };
-    enum class LabelLayout:int;
+    enum class LabelLayout :int;
     enum class JumpLayout :int;
     enum class WordLayout :int;
 
@@ -68,7 +68,7 @@ namespace HeavenGateEditor {
         vector<StoryNode*> m_nodes;
 
     public:
-                int AddNode(StoryNode* const node);
+        int AddNode(StoryNode* const node);
 
         int AddWord(StoryWord* const word);
         int AddWord(const char* name, const char* content);

@@ -41,7 +41,7 @@ namespace HeavenGateEditor {
         bool m_open;
 
         HeavenGateEditorFileManager* m_fileManager;
-        //StoryTable<2>* m_table;
+        StoryTable<2> m_table;
     };
 
 }
