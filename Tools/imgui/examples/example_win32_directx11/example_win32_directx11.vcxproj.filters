@@ -37,6 +37,7 @@
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorFontSizeTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorBaseWindow.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\StoryFileManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\imgui.cpp">
@@ -69,6 +70,7 @@
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorFontSizeTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorBaseWindow.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\StoryFileManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.txt" />
@@ -76,6 +78,7 @@
       <Filter>sources</Filter>
     </None>
     <None Include="example_win32_directx11.licenseheader" />
+    <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="example_win32_directx11.rc" />

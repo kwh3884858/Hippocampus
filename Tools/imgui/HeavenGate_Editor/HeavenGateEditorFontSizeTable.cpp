@@ -5,11 +5,11 @@
 //  Created by 威化饼干 on 7/12/2019.
 //  Copyright © 2019 ImGui. All rights reserved.
 //
+#include "imgui.h"
 
 #include "HeavenGateEditorFontSizeTable.h"
-
 #include "HeavenGateEditorFileManager.h"
-
+#include "StoryTable.h"
 
 namespace HeavenGateEditor {
 
@@ -19,8 +19,8 @@ namespace HeavenGateEditor {
         m_open = false;
 
         m_fileManager = new HeavenGateEditorFileManager;
-        
 
+        m_table = new StoryTable< FONT_SIZE_MAX_COLUMN>;
     }
 
     HeavenGateEditorFontSizeTable:: ~HeavenGateEditorFontSizeTable() {
@@ -33,11 +33,11 @@ namespace HeavenGateEditor {
         }
         m_fileManager = nullptr;
 
-        //if (m_table)
-        //{
-        //    delete m_table;
-        //}
-        //m_table = nullptr;
+        if (m_table)
+        {
+            delete m_table;
+        }
+        m_table = nullptr;
 
     }
 
@@ -108,19 +108,56 @@ namespace HeavenGateEditor {
     }
 
 
-    void HeavenGateEditorFontSizeTable::OpenWindow() {
-        m_open = true;
-    }
-    void HeavenGateEditorFontSizeTable::CloseWindow() {
-        m_open = false;
-    }
-    bool HeavenGateEditorFontSizeTable::IsOpenWindow() const {
-        return  m_open;
-    }
-    bool * HeavenGateEditorFontSizeTable::GetWindowOpenHandle()
+
+    void HeavenGateEditorFontSizeTable::UpdateMainWindow()
     {
-        return &m_open;
+
+        ImGui::Separator();
+
+        ImGui::Text("With border:");
+        ImGui::Columns(4, "mycolumns"); // 4-ways, with border
+        ImGui::Separator();
+        ImGui::Text("ID"); ImGui::NextColumn();
+        ImGui::Text("Name"); ImGui::NextColumn();
+        ImGui::Text("Path"); ImGui::NextColumn();
+        ImGui::Text("Hovered"); ImGui::NextColumn();
+        ImGui::Separator();
+        const char* names[3] = { "One", "Two", "Three" };
+        const char* paths[3] = { "/path/one", "/path/two", "/path/three" };
+        static int selected = -1;
+        for (int i = 0; i < 3; i++)
+        {
+            char label[32];
+            sprintf(label, "%04d", i);
+            if (ImGui::Selectable(label, selected == i, ImGuiSelectableFlags_SpanAllColumns))
+                selected = i;
+            bool hovered = ImGui::IsItemHovered();
+            ImGui::NextColumn();
+            ImGui::Text(names[i]); ImGui::NextColumn();
+            ImGui::Text(paths[i]); ImGui::NextColumn();
+            ImGui::Text("%d", hovered); ImGui::NextColumn();
+        }
+        ImGui::Columns(1);
+        ImGui::Separator();
     }
+
+    void HeavenGateEditorFontSizeTable::UpdateMenu()
+    {
+        //   ImGui::MenuItem("(dummy menu)", NULL, false, false);
+        if (ImGui::MenuItem("New")) {
+
+        }
+
+        if (ImGui::MenuItem("Open", "Ctrl+O")) {
+
+        }
+
+        if (ImGui::MenuItem("Save", "Ctrl+S")) {
+
+        }
+
+    }
+
     // Note that shortcuts are currently provided for display only (future version will add flags to BeginMenu to process shortcuts)
     void HeavenGateEditorFontSizeTable::ShowEditorMenuFile()
     {

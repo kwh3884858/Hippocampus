@@ -2,38 +2,43 @@
 
 
 #include "HeavenGateEditorConstant.h"
+#include "HeavenGateEditorBaseWindow.h"
 
 namespace HeavenGateEditor {
 
 class StoryJson;
 
-class HeavenGateWindowSelectStory
+class HeavenGateWindowSelectStory : public HeavenGateEditorBaseWindow
 {
+    WINDOW_DECLARE("HeavenGateWindowSelectStory", Window_Type::SubWindow)
+
 public:
     HeavenGateWindowSelectStory();
     ~HeavenGateWindowSelectStory();
 
-    void ShowSelectStoryWindow();
+    virtual void UpdateMainWindow() override;
+    virtual void UpdateMenu() override;
+
+    //void ShowSelectStoryWindow();
     bool GetStoryPointerWindow(StoryJson** ppStory, bool* pIsFileSaved);
-    bool GetStoryPointer(StoryJson** ppStory)const;
-    char* GetStoryPath();
+   
+   
 
-    void OpenWindow();
-    void CloseWindow();
-    bool IsOpenWindow() const;
-    bool* GetWindowHandle();
-
-    bool IsLoadedSotry() const;
+    
     bool GiveUpLoadedStory();
 private:
     void Initialize();
     void Destory();
 
+    //void InitStoryPath();
     void InitFileList(char (* pOutFileList) [MAX_FOLDER_PATH], int maxFileCount);
+
+  
+
+    //bool IsLoadedSotry() const;
+    bool GetStoryPointer(StoryJson** ppStory) const;
+    char* GetStoryPath();
     void GetContent(char* fullPath);
-
-    void InitStoryPath();
-
 
     void ShowMenuBar();
     void ShowLeftColumn();

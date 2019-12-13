@@ -18,10 +18,28 @@ namespace HeavenGateEditor {
         ImGuiWindowFlags window_flags = 0;
         window_flags |= ImGuiWindowFlags_MenuBar;
 
+        switch (GetWindowType())
+        {
+        case Window_Type::MainWindow:
+        {
+            // We specify a default position/size in case there's no data in the .ini file. Typically this isn't required! We only do it to make the Demo applications a little more welcoming.
+            ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
+            ImGui::SetNextWindowSize(ImVec2(550, 680), ImGuiCond_FirstUseEver);
 
-        // We specify a default position/size in case there's no data in the .ini file. Typically this isn't required! We only do it to make the Demo applications a little more welcoming.
-        ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
-        ImGui::SetNextWindowSize(ImVec2(550, 680), ImGuiCond_FirstUseEver);
+            break;
+        }
+
+        case Window_Type::SubWindow:
+        {
+            ImGui::SetNextWindowSize(ImVec2(500, 440), ImGuiCond_FirstUseEver);
+
+            break;
+        }
+
+        default:
+            break;
+        }
+
 
 
         // Main body of the Demo window starts here.
@@ -79,6 +97,10 @@ namespace HeavenGateEditor {
     }
     const char* HeavenGateEditorBaseWindow::GetWindiwName() const {
         return "WindowTemplate";
+    }
+    HeavenGateEditorBaseWindow::Window_Type HeavenGateEditorBaseWindow::GetWindowType() const
+    {
+        return Window_Type::MainWindow;
     }
     bool * HeavenGateEditorBaseWindow::GetHandle()
     {

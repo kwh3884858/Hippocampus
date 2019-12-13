@@ -14,30 +14,40 @@
 
 namespace HeavenGateEditor {
 
-#define WINDOW_DECLARE(windowName) \
+    //Window Name, String for identify a special windows
+    //Window Type, Window appearance depend on it
+#define WINDOW_DECLARE(windowName, windowType) \
 public: \
-    const char*         GetWindiwName() const override        { return windowName; } 
-
+    const char*         GetWindiwName() const override          { return windowName; } \
+    Window_Type         GetWindowType() const override          { return windowType; }
 
     class HeavenGateEditorBaseWindow
     {
     public:
+        enum class Window_Type
+        {
+            MainWindow,
+            SubWindow
+        };
+
         HeavenGateEditorBaseWindow();
         virtual ~HeavenGateEditorBaseWindow();
 
         void Update();
 
-        virtual void UpdateMainWindow() = 0;
-        virtual void UpdateMenu() = 0;
-        virtual const char* GetWindiwName() const = 0;
-
         bool* GetHandle();
         void OpenWindow();
         void CloseWindow();
         bool IsWindowOpen() const;
+
+    protected:
+        virtual void UpdateMainWindow() = 0;
+        virtual void UpdateMenu() = 0;
+        virtual const char* GetWindiwName() const = 0;
+        virtual Window_Type GetWindowType() const = 0;
+
     private:
         bool m_open;
-
     };
 
 

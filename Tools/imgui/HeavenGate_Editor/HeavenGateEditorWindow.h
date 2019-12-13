@@ -25,7 +25,7 @@ class HeavenGateEditorFileManager;
 
     class HeavenGateEditor : public HeavenGateEditorBaseWindow
     {
-        WINDOW_DECLARE("Heaven Gate Editor")
+        WINDOW_DECLARE("Heaven Gate Editor", Window_Type::MainWindow)
 
     public:
         HeavenGateEditor() ;

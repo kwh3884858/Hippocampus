@@ -45,7 +45,7 @@ namespace HeavenGateEditor {
 
     void HeavenGateEditor::UpdateMainWindow()
     {
-        m_selectStoryWindow->ShowSelectStoryWindow();
+        m_selectStoryWindow->Update();
         m_selectStoryWindow->GetStoryPointerWindow(&m_story, &m_isSavedFile);
 
 

@@ -154,6 +154,7 @@
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorUtility.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorWindow.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowSelectStory.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\StoryFileManager.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJson.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryTable.h" />
     <ClInclude Include="..\..\imconfig.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorUtility.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorWindow.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowSelectStory.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\StoryFileManager.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJson.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryTable.cpp" />
     <ClCompile Include="..\..\imgui.cpp" />
@@ -185,6 +187,7 @@
   <ItemGroup>
     <None Include="..\..\misc\natvis\imgui.natvis" />
     <None Include="..\README.txt" />
+    <None Include="cpp.hint" />
     <None Include="example_win32_directx11.licenseheader" />
   </ItemGroup>
   <ItemGroup>

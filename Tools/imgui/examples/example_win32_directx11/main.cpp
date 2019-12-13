@@ -105,7 +105,7 @@ int main(int, char**)
     bool show_demo_window = true;
     bool show_another_window = false;
     bool* show_editor_window = m_heavenGateEditor.GetHandle();
-    bool* show_font_size_table_window = m_fontSizeTable.GetWindowOpenHandle();
+    bool* show_font_size_table_window = m_fontSizeTable.GetHandle();
 
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
@@ -178,7 +178,7 @@ int main(int, char**)
 
         if (*show_font_size_table_window)
         {
-            m_fontSizeTable.ShowTableWindow();
+            m_fontSizeTable.Update();
         }
 
         // Rendering
