@@ -1,12 +1,15 @@
 # Ground Zero
 原爆点
+
 <sub>Hippocampus是一个过去的项目，我们直接在这个项目框架上开发。</sub>
 
 ## Introduction 
 
 全新的项目，原爆点，一款拥有数量庞大剧情的游戏。
+
 我们的目标平台是PC，Mobile，Console，包括了鼠标，触屏和手柄多种人体学接口设备。
-开发团队始终以快速迭代，容易修改为核心信念。
+
+开发团队始终以快速迭代，容易修改为核心理念。
 
 ### 游戏设计
 
@@ -15,9 +18,10 @@
 如果你不能访问以下链接，请在issue中反馈。
 https://www.yuque.com/nxym1s
 
-- 近期动态
+- Gound Zero Weekly
 
-这一部分文本由逸凡负责，在做了某些新的剧情和设定之后，请在这里更新动态，以便通知我们及时查阅。
+[GoundZeroWeekly地址: ./Documents/HeavenGate/GoundZeroWeekly](./Documents/HeavenGate/GoundZeroWeekly)
+
 
 ### 技术
 
