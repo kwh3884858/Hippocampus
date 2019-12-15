@@ -20,7 +20,7 @@ https://www.yuque.com/nxym1s
 
 - Gound Zero Weekly
 
-[GoundZeroWeekly地址: ./Documents/HeavenGate/GoundZeroWeekly](./Documents/HeavenGate/GoundZeroWeekly)
+[GoundZeroWeekly地址: ./Documents/Ground Zero Weekly](./Documents/Ground Zero Weekly)
 
 
 ### 技术
