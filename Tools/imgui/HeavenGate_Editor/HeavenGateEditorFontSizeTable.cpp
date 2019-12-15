@@ -8,7 +8,7 @@
 #include "imgui.h"
 
 #include "HeavenGateEditorFontSizeTable.h"
-#include "HeavenGateEditorFileManager.h"
+#include "HeavenGateWindowFileManager.h"
 #include "StoryTable.h"
 
 namespace HeavenGateEditor {
@@ -18,7 +18,7 @@ namespace HeavenGateEditor {
 
         m_open = false;
 
-        m_fileManager = new HeavenGateEditorFileManager;
+        m_fileManager = new HeavenGateWindowFileManager;
 
         m_table = new StoryTable< FONT_SIZE_MAX_COLUMN>;
     }

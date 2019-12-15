@@ -18,22 +18,20 @@ public:
 
     virtual void UpdateMainWindow() override;
     virtual void UpdateMenu() override;
+   
 
     //void ShowSelectStoryWindow();
-    bool GetStoryPointerWindow(StoryJson** ppStory, bool* pIsFileSaved);
-   
-   
-
+    bool GetStoryPointerWindow(StoryJson** ppStory);
     
-    bool GiveUpLoadedStory();
+   
 private:
     void Initialize();
     void Destory();
 
+    bool GiveUpLoadedStory();
+
     //void InitStoryPath();
     void InitFileList(char (* pOutFileList) [MAX_FOLDER_PATH], int maxFileCount);
-
-  
 
     //bool IsLoadedSotry() const;
     bool GetStoryPointer(StoryJson** ppStory) const;

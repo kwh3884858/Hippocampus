@@ -20,7 +20,7 @@ namespace HeavenGateEditor {
     template<int column>
     class StoryTable;
 
-    class HeavenGateEditorFileManager;
+    class HeavenGateWindowFileManager;
 
     class HeavenGateEditorFontSizeTable : public HeavenGateEditorBaseWindow{
         WINDOW_DECLARE("HeavenGateEditorFontSizeTable", Window_Type::MainWindow)
@@ -40,7 +40,7 @@ namespace HeavenGateEditor {
 
         bool m_open;
 
-        HeavenGateEditorFileManager* m_fileManager;
+        HeavenGateWindowFileManager* m_fileManager;
         StoryTable<FONT_SIZE_MAX_COLUMN>* m_table;
     };
 

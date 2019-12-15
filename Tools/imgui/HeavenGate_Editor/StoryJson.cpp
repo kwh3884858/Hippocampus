@@ -101,7 +101,8 @@ namespace HeavenGateEditor {
     void StoryJson::SetFullPath(const char* fullPath) {
         strcpy(m_fullPath, fullPath);
     }
-    const char* StoryJson::GetFullPath() {
+    const char* StoryJson::GetFullPath() const
+{
         return m_fullPath;
     }
 

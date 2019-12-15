@@ -27,7 +27,8 @@ public: \
         enum class Window_Type
         {
             MainWindow,
-            SubWindow
+            SubWindow,
+            Popup
         };
 
         HeavenGateEditorBaseWindow();

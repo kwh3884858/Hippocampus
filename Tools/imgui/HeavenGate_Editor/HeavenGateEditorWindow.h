@@ -21,7 +21,8 @@ namespace HeavenGateEditor {
 
 class StoryJson;
 class HeavenGateWindowSelectStory;
-class HeavenGateEditorFileManager;
+class HeavenGateWindowFileManager;
+class StoryFileManager;
 
     class HeavenGateEditor : public HeavenGateEditorBaseWindow
     {
@@ -35,8 +36,8 @@ class HeavenGateEditorFileManager;
         virtual void UpdateMainWindow() override;
         virtual void UpdateMenu() override;
 
-        void ShowEditorWindow(bool* isOpenPoint);
-        void ShowEditorMenuFile();
+        //void ShowEditorWindow(bool* isOpenPoint);
+        //void ShowEditorMenuFile();
 
         
     private:
@@ -44,17 +45,20 @@ class HeavenGateEditorFileManager;
 
         //Is Open Select Story Window
 
-        bool m_isSavedFile;
+        //bool m_isSavedFileInCurrentWindow;
         bool m_isWritedUnsavedContent;
 
 
 
         json currentStory;
         StoryJson* m_story;
+        StoryFileManager* m_storyFileManager;
 
         HeavenGateWindowSelectStory* m_selectStoryWindow;
+        bool* m_selectStoryHandle;
 
-        HeavenGateEditorFileManager* m_fileManager;
+        HeavenGateWindowFileManager* m_fileManagerWindow;
+        bool* m_fileManagerHandle;
 
     };
 

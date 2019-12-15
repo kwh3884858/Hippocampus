@@ -87,7 +87,7 @@ namespace HeavenGateEditor {
         bool Empty()const;
 
         void SetFullPath(const char* fullPath);
-        const char* GetFullPath();
+        const char* GetFullPath()const;
         bool IsExistFullPath()const;
 
     private:

@@ -48,29 +48,29 @@ namespace HeavenGateEditor {
         ShowMenuBar();
     }
 
-    void HeavenGateWindowSelectStory::ShowSelectStoryWindow() {
+    //void HeavenGateWindowSelectStory::ShowSelectStoryWindow() {
 
-        if (!m_open) {
-            return;
-        }
+    //    if (!m_open) {
+    //        return;
+    //    }
 
-        ImGui::SetNextWindowSize(ImVec2(500, 440), ImGuiCond_FirstUseEver);
+    //    ImGui::SetNextWindowSize(ImVec2(500, 440), ImGuiCond_FirstUseEver);
 
-        if (ImGui::Begin("Open a story file", &m_open, ImGuiWindowFlags_MenuBar))
-        {
-            ShowMenuBar();
+    //    if (ImGui::Begin("Open a story file", &m_open, ImGuiWindowFlags_MenuBar))
+    //    {
+    //        ShowMenuBar();
 
-            // left
-            ShowLeftColumn();
+    //        // left
+    //        ShowLeftColumn();
 
-            // right
-            ShowRightColumn();
+    //        // right
+    //        ShowRightColumn();
 
-        }
-        ImGui::End();
-    }
+    //    }
+    //    ImGui::End();
+    //}
 
-    bool HeavenGateWindowSelectStory::GetStoryPointerWindow(StoryJson** ppStory, bool* pIsFileSaved)
+    bool HeavenGateWindowSelectStory::GetStoryPointerWindow(StoryJson** ppStory)
     {
         // Is Loaded Story
         if (m_story != nullptr) {
@@ -81,7 +81,7 @@ namespace HeavenGateEditor {
 
                 GetStoryPointer(ppStory);
                 GiveUpLoadedStory();
-                *pIsFileSaved = true;
+             /*   *pIsFileSaved = true;*/
             }
             else
             {
@@ -110,7 +110,7 @@ namespace HeavenGateEditor {
                         GetStoryPointer(ppStory);
                         GiveUpLoadedStory();
 
-                        *pIsFileSaved = true;
+         /*               *pIsFileSaved = true;*/
                         ImGui::CloseCurrentPopup();
                     }
                     ImGui::EndPopup();
@@ -122,22 +122,7 @@ namespace HeavenGateEditor {
         return true;
     }
 
-    //void HeavenGateWindowSelectStory::OpenWindow() {
-    //    m_open = true;
-    //}
-    //void HeavenGateWindowSelectStory::CloseWindow() {
-    //    m_open = false;
-    //}
-    //bool HeavenGateWindowSelectStory::IsOpenWindow() const {
-    //    return  m_open;
-    //}
-    //bool * HeavenGateWindowSelectStory::GetWindowHandle()
-    //{
-    //    return &m_open;
-    //}
-    //bool HeavenGateWindowSelectStory::IsLoadedSotry() const {
-    //    return ;
-    //}
+
 
     bool HeavenGateWindowSelectStory::GiveUpLoadedStory()
     {
@@ -191,14 +176,14 @@ namespace HeavenGateEditor {
                 printf("%s\n", ent->d_name);
                 if (CharacterUtility::Find(
                     ent->d_name,
-                    sizeof(ent->d_name),
+                    strlen(ent->d_name),
                     ".meta",
-                    sizeof(".meta")) != -1)
+                    strlen(".meta")) == -1)
                 {
-
+                    strcpy(pOutFileList[m_fileIndex], ent->d_name);
+                    m_fileIndex++;
                 }
-                strcpy(pOutFileList[m_fileIndex], ent->d_name);
-                m_fileIndex++;
+        
             }
             closedir(dir);
         }
@@ -378,14 +363,14 @@ namespace HeavenGateEditor {
                 }
                 json a = json::parse(m_fullContent);
 
-                //            json j = a[0].at("name");
-                //            const char * name = a[0].at("name") .get_ptr<json::string_t *>()->c_str();
-                //            printf("%s", name);
+ 
                 *m_story = a;
                 m_story->SetFullPath(m_fullPath);
-                CloseWindow();
+                
                 std::cout << a;
                 fins.close();
+
+                CloseWindow();
             }
         }
     }

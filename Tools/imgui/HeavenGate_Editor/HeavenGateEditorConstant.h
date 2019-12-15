@@ -19,7 +19,7 @@ namespace HeavenGateEditor {
     //For story content limit
     const int     MAX_NAME = 64;
     const int     MAX_CONTENT = 265;
-    const int     MAX_ID = 8;
+    const int     MAX_ID = 128;
 
     const int     MAX_ENUM_LENGTH = 16;
 

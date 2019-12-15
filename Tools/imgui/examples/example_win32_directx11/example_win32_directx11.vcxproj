@@ -149,7 +149,7 @@
     <ClInclude Include="..\..\HeavenGate_Editor\CharacterUtility.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorBaseWindow.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorConstant.h" />
-    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorFileManager.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowFileManager.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorFontSizeTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorUtility.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorWindow.h" />
@@ -168,7 +168,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\HeavenGate_Editor\CharacterUtility.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorBaseWindow.cpp" />
-    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorFileManager.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowFileManager.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorFontSizeTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorUtility.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorWindow.cpp" />
