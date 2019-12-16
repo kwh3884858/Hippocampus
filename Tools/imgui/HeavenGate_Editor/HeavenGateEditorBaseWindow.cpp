@@ -134,6 +134,19 @@ namespace HeavenGateEditor {
         m_open = true;
     }
     void HeavenGateEditorBaseWindow::CloseWindow() {
+        switch (GetWindowType())
+        {
+
+        case Window_Type::Popup:
+        {
+
+            ImGui::CloseCurrentPopup();
+            break;
+        }
+        default:
+            break;
+        }
+
         m_open = false;
     }
     bool HeavenGateEditorBaseWindow::IsWindowOpen() const

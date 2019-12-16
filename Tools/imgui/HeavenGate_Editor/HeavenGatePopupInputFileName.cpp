@@ -8,18 +8,19 @@
 #include "imgui.h"
 
 
-#include "HeavenGateWindowFileManager.h"
+#include "HeavenGatePopupInputFileName.h"
 #include "StoryFileManager.h"
 #include "StoryJson.h"
 
 namespace HeavenGateEditor {
 
-    HeavenGateWindowFileManager::HeavenGateWindowFileManager() {
+    HeavenGatePopupInputFileName::HeavenGatePopupInputFileName() {
 
+        Initialize();
 
     }
 
-    HeavenGateWindowFileManager::~HeavenGateWindowFileManager() {
+    HeavenGatePopupInputFileName::~HeavenGatePopupInputFileName() {
         if (m_storyFileManager)
         {
             delete m_storyFileManager;
@@ -50,26 +51,49 @@ namespace HeavenGateEditor {
 
 
 
-    void HeavenGateEditor::HeavenGateWindowFileManager::UpdateMainWindow()
+    void HeavenGateEditor::HeavenGatePopupInputFileName::UpdateMainWindow()
     {
 
-        ImGui::Text("Pleae Input New File Name.\n\n");
+        if (m_storyFileManager == nullptr || m_ppStory == nullptr)
+        {
+            return;
+        }
+
+        StoryJson* story = *m_ppStory;
+
+        if (story != nullptr )
+        {
+            if (story->IsExistFullPath() != true) {
+                printf("Error story");
+                return;
+            }
+
+            m_storyFileManager->SaveStoryFile(story);
+            story->Clear();
+        }
+        else {
+            story = new StoryJson;
+        }
+
+        
+
+        ImGui::Text("Please Input New File Name.\n\n");
         ImGui::Separator();
 
-        char* fileNameHandle = m_storyFileManager->GetNewFileName();
-        char* filePathHandle = m_storyFileManager->GetNewFilePath();
         ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0, 0));
-        ImGui::InputTextWithHint("New File Name", "enter name here", fileNameHandle, IM_ARRAYSIZE(fileNameHandle));
+        ImGui::InputTextWithHint("New File Name", "enter name here", m_fileName, IM_ARRAYSIZE(m_fileName));
         ImGui::PopStyleVar();
 
         if (ImGui::Button("OK", ImVec2(120, 0))) {
-            if (m_storyFileManager->FromFileNameToFullPath(filePathHandle, fileNameHandle)) {
+            if (m_storyFileManager->FromFileNameToFullPath(m_filePath, m_fileName)) {
                 //TODO
-                m_storyFileManager->OpenStoryFile();
-                m_storyFileManager->Initialize();
+                //m_storyFileManager->SaveStoryFile(story);
+                //m_storyFileManager->Initialize();
+                story->SetFullPath(m_filePath);
 
+                Initialize();
 
-                ImGui::CloseCurrentPopup();
+                CloseWindow();
 
             }
             else {
@@ -81,8 +105,9 @@ namespace HeavenGateEditor {
         ImGui::SetItemDefaultFocus();
         ImGui::SameLine();
         if (ImGui::Button("Cancel", ImVec2(120, 0))) {
+            Initialize();
 
-            ImGui::CloseCurrentPopup();
+            CloseWindow();
         }
 
     }
@@ -109,11 +134,23 @@ namespace HeavenGateEditor {
     //        }
     //    }
     //
-    void HeavenGateWindowFileManager::SetStoryFileManager(StoryFileManager* pStoryFileManager)
+    void HeavenGatePopupInputFileName::SetStoryFileManager(StoryFileManager* pStoryFileManager)
     {
         m_storyFileManager = pStoryFileManager;
     }
 
+
+    void HeavenGatePopupInputFileName::SetStoryJsonPonter(StoryJson** ppStory)
+    {
+        m_ppStory = ppStory;
+    }
+
+    void HeavenGatePopupInputFileName::Initialize()
+    {
+        memset(m_fileName, 0, sizeof(m_fileName));
+        memset(m_filePath, 0, sizeof(m_filePath));
+
+    }
 
     //void HeavenGateWindowFileManager::SetNewFilePath(const char* filePath) {
 

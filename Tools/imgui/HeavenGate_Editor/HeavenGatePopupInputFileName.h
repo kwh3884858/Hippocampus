@@ -11,18 +11,19 @@
 
 #include <stdio.h>
 
+#include "HeavenGateEditorConstant.h"
 #include "HeavenGateEditorBaseWindow.h"
 
 namespace HeavenGateEditor {
     class StoryJson;
     class StoryFileManager;
 
-    class HeavenGateWindowFileManager : public HeavenGateEditorBaseWindow{
-        WINDOW_DECLARE("HeavenGateEditorFileManager", Window_Type::SubWindow)
+    class HeavenGatePopupInputFileName : public HeavenGateEditorBaseWindow{
+        WINDOW_DECLARE("HeavenGateEditorFileManager", Window_Type::Popup)
 
     public:
-        HeavenGateWindowFileManager();
-        virtual ~HeavenGateWindowFileManager() override;
+        HeavenGatePopupInputFileName();
+        virtual ~HeavenGatePopupInputFileName() override;
 
         
 
@@ -30,14 +31,17 @@ namespace HeavenGateEditor {
         virtual void UpdateMenu() override {}
 
         void SetStoryFileManager(StoryFileManager* pStoryFileManager);
-
+        void SetStoryJsonPonter(StoryJson** ppStory);
     private:
+        void Initialize();
 
         //bool SaveStoryFile(StoryJson* pStory, bool* pIsSavedFile);
         //void SetNewFilePath(const char* filePath);
+        char m_fileName[MAX_FOLDER_PATH];
+        char m_filePath[MAX_FILE_NAME];
 
         StoryFileManager* m_storyFileManager;
-
+        StoryJson** m_ppStory;
     };
 }
 

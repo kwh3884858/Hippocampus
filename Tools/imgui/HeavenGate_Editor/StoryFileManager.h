@@ -16,33 +16,34 @@ namespace HeavenGateEditor {
         ~StoryFileManager();
 
         //TODO
-        bool CreateStoryFIle();
-        bool OpenStoryFile();
+        //bool CreateStoryFIle();
+        bool OpenStoryFile(const char* pPath, StoryJson* pStoryJson);
         bool SaveStoryFile(const StoryJson* pStoryJson);
 
         //Getter and Setter
-        bool GetIsSaveFileExist();
+  /*      bool GetIsSaveFileExist();*/
 
-        char* GetNewFileName();
-        const char* GetNewFileName()const;
+        //char* GetNewFileName();
+        //const char* GetNewFileName()const;
 
-        char* GetNewFilePath();
-        const char* GetNewFilePath()const;
+        //char* GetNewFilePath();
+        //const char* GetNewFilePath()const;
 
-        void Initialize();
-        bool IsNewFilePathExist() const;
+        //void Initialize();
+        //bool IsNewFilePathExist() const;
+        void InitFileList(char(*pOutFileList)[MAX_FOLDER_PATH], int* maxFileCount);
 
         bool FromFileNameToFullPath(char * filePath, const char* fileName) const;
-
+        void GetFileContent(char* pFullPath, char* pOutContent);
     private:
 
         //void SetNewFilePath(const char* filePath);
    
 
-        bool m_isSaveFileExist;
+        //bool m_isSaveFileExist;
 
-        char m_newFilePath[MAX_FOLDER_PATH];
-        char m_newFileName[MAX_FILE_NAME];
+        //char m_newFilePath[MAX_FOLDER_PATH];
+        //char m_newFileName[MAX_FILE_NAME];
     };
 
 }

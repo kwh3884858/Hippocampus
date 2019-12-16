@@ -64,10 +64,11 @@ namespace HeavenGateEditor {
     };
 
     class StoryJson {
-    private:
-        vector<StoryNode*> m_nodes;
 
     public:
+        StoryJson();
+        ~StoryJson();
+
         int AddNode(StoryNode* const node);
 
         int AddWord(StoryWord* const word);
@@ -75,7 +76,6 @@ namespace HeavenGateEditor {
         int AddLabel(const char* labelName);
         int AddJump(const char* jumpName);
 
-        void SetWord(const StoryWord* const word);
 
         StoryNode* const GetNode(int index);
         const StoryNode* const GetNode(int index) const;
@@ -91,6 +91,7 @@ namespace HeavenGateEditor {
         bool IsExistFullPath()const;
 
     private:
+        vector<StoryNode*> m_nodes;
         char m_fullPath[MAX_FOLDER_PATH];
     };
 

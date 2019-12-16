@@ -4,7 +4,7 @@
 #include "CharacterUtility.h"
 
 #include "HeavenGateWindowSelectStory.h"
-#include "HeavenGateWindowFileManager.h"
+#include "HeavenGatePopupInputFileName.h"
 
 #include "StoryJson.h"
 #include "StoryFileManager.h"
@@ -24,20 +24,22 @@ namespace HeavenGateEditor {
     {
 
 
-
+        m_storyJson = nullptr;
         //m_isSavedFileInCurrentWindow = false;
         m_isWritedUnsavedContent = false;
 
         m_storyFileManager = new StoryFileManager;
 
         m_selectStoryWindow = new HeavenGateWindowSelectStory();
-        m_selectStoryHandle = m_selectStoryWindow->GetHandle();
+        bool* selectStoryWindowHandle = m_selectStoryWindow->GetHandle();
+        *selectStoryWindowHandle = true;
+        m_selectStoryWindow->SetStoryFileManager(m_storyFileManager);
+        m_selectStoryWindow->SetStoryJsonPonter(&m_storyJson);
 
-        //Default open select windows
-        *m_selectStoryHandle = true;
-
-        m_fileManagerWindow = new HeavenGateWindowFileManager();
-        m_fileManagerWindow->SetStoryFileManager(m_storyFileManager);
+        m_inputFileNamePopup = new HeavenGatePopupInputFileName();
+        m_inputFileNamePopup->SetStoryFileManager(m_storyFileManager);
+        m_inputFileNamePopup->SetStoryJsonPonter(&m_storyJson);
+      
 
     }
 
@@ -47,33 +49,41 @@ namespace HeavenGateEditor {
             delete m_selectStoryWindow;
         }
         m_selectStoryWindow = nullptr;
-        m_selectStoryHandle = nullptr;
 
-        if (m_fileManagerWindow != nullptr) {
-            delete m_fileManagerWindow;
+        if (m_inputFileNamePopup != nullptr) {
+            delete m_inputFileNamePopup;
         }
-        m_fileManagerWindow = nullptr;
+        m_inputFileNamePopup = nullptr;
+
+        if (m_storyFileManager != nullptr) {
+            delete m_storyFileManager;
+        }
+        m_storyFileManager = nullptr;
+
+        if (m_storyJson != nullptr) {
+            delete m_storyJson;
+        }
+        m_storyJson = nullptr;
 
     }
 
     void HeavenGateEditor::UpdateMainWindow()
     {
         m_selectStoryWindow->Update();
-        m_selectStoryWindow->GetStoryPointerWindow(&m_story);
 
-        if (m_story == nullptr)
+        //For save as new file
+        m_inputFileNamePopup->Update();
+
+        if (m_storyJson == nullptr)
         {
             return;
         }
 
-        //For save as new file
-        m_fileManagerWindow->Update();
-
         ImGui::Text("Heaven Gate says hello. (%s)", IMGUI_VERSION);
         ImGui::Spacing();
-        if (m_story != nullptr &&
-            m_story->IsExistFullPath() == true) {
-            ImGui::Text("Current story path: %s", m_story->GetFullPath());
+        if (m_storyJson != nullptr &&
+            m_storyJson->IsExistFullPath() == true) {
+            ImGui::Text("Current story path: %s", m_storyJson->GetFullPath());
 
         }
 
@@ -89,13 +99,13 @@ namespace HeavenGateEditor {
 
         char order[8] = "";
         ImGui::LabelText("label", "Value");
-        if (m_story != nullptr) {
-            for (int i = 0; i < m_story->Size(); i++)
+        if (m_storyJson != nullptr) {
+            for (int i = 0; i < m_storyJson->Size(); i++)
             {
 
                 sprintf(order, "%d", i);
 
-                StoryNode* node = m_story->GetNode(i);
+                StoryNode* node = m_storyJson->GetNode(i);
                 switch (node->m_nodeType) {
                 case NodeType::Word:
                 {
@@ -148,14 +158,14 @@ namespace HeavenGateEditor {
 
         if (ImGui::Button("Add new story")) {
             //If story not exist
-            if (m_story == nullptr)
+            if (m_storyJson == nullptr)
             {
-                m_story = new StoryJson;
+                m_storyJson = new StoryJson;
             }
             //If already exist story
-            if (m_story != nullptr)
+            if (m_storyJson != nullptr)
             {
-                m_story->AddWord("", "");
+                m_storyJson->AddWord("", "");
             }
         }
 
@@ -163,28 +173,28 @@ namespace HeavenGateEditor {
 
         if (ImGui::Button("Add new label")) {
             //If story not exist
-            if (m_story == nullptr)
+            if (m_storyJson == nullptr)
             {
-                m_story = new StoryJson;
+                m_storyJson = new StoryJson;
             }
             //If already exist story
-            if (m_story != nullptr)
+            if (m_storyJson != nullptr)
             {
-                m_story->AddLabel("");
+                m_storyJson->AddLabel("");
             }
         }
         ImGui::SameLine();
 
         if (ImGui::Button("Add new jump")) {
             //If story not exist
-            if (m_story == nullptr)
+            if (m_storyJson == nullptr)
             {
-                m_story = new StoryJson;
+                m_storyJson = new StoryJson;
             }
             //If already exist story
-            if (m_story != nullptr)
+            if (m_storyJson != nullptr)
             {
-                m_story->AddJump("");
+                m_storyJson->AddJump("");
             }
         }
 
@@ -193,7 +203,7 @@ namespace HeavenGateEditor {
     void HeavenGateEditor::UpdateMenu()
     {
         if (ImGui::MenuItem("New")) {
-            m_fileManagerWindow->OpenWindow();
+            m_inputFileNamePopup->OpenWindow();
         }
         if (ImGui::MenuItem("Open", "Ctrl+O")) {
             m_selectStoryWindow->OpenWindow();
@@ -218,7 +228,7 @@ namespace HeavenGateEditor {
         }
         if (ImGui::MenuItem("Save", "Ctrl+S")) {
 
-            m_storyFileManager->SaveStoryFile(m_story);
+            m_storyFileManager->SaveStoryFile(m_storyJson);
           
         }
         if (ImGui::MenuItem("Save As..")) {

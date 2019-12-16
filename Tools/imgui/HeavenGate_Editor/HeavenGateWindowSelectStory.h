@@ -7,7 +7,7 @@
 namespace HeavenGateEditor {
 
 class StoryJson;
-
+class StoryFileManager;
 class HeavenGateWindowSelectStory : public HeavenGateEditorBaseWindow
 {
     WINDOW_DECLARE("HeavenGateWindowSelectStory", Window_Type::SubWindow)
@@ -21,22 +21,21 @@ public:
    
 
     //void ShowSelectStoryWindow();
-    bool GetStoryPointerWindow(StoryJson** ppStory);
-    
-   
+    //
+    void SetStoryFileManager(StoryFileManager* pStoryFileManager);
+    void SetStoryJsonPonter(StoryJson** ppStory);
 private:
     void Initialize();
     void Destory();
 
     bool GiveUpLoadedStory();
-
+    bool OpenStoryFile();
     //void InitStoryPath();
-    void InitFileList(char (* pOutFileList) [MAX_FOLDER_PATH], int maxFileCount);
 
     //bool IsLoadedSotry() const;
-    bool GetStoryPointer(StoryJson** ppStory) const;
+    //bool GetStoryPointer(StoryJson** ppStory) const;
     char* GetStoryPath();
-    void GetContent(char* fullPath);
+    //void GetContent(char* fullPath);
 
     void ShowMenuBar();
     void ShowLeftColumn();
@@ -47,7 +46,7 @@ private:
 
     //Prevent multi-call for directory path;
     bool m_isInitializedFilesList;
-    int  m_fileIndex ;
+    int  m_fileCount ;
 
     char m_filesList[MAX_FOLDER_LIST][MAX_FOLDER_PATH];
     char m_storyPath[MAX_FOLDER_PATH];
@@ -58,9 +57,9 @@ private:
     int m_lastSelected ;
 
 
-    StoryJson* m_story;
+    StoryJson** m_ppStory;
+    StoryFileManager* m_fileManager;
 
-    bool m_open;
 };
 
 

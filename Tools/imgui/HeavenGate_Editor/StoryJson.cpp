@@ -98,6 +98,27 @@ namespace HeavenGateEditor {
         return  static_cast<int>(m_nodes.size());
     }
 
+    StoryJson::StoryJson()
+    {
+        memset(m_fullPath, 0, sizeof(m_fullPath));
+
+    }
+
+    StoryJson::~StoryJson()
+    {
+        Clear();
+    }
+
+    void StoryJson::Clear()
+    {
+        for (int i = 0 ; i < m_nodes.size(); i++)
+        {
+            delete m_nodes[i];
+            m_nodes[i] = nullptr;
+        }
+        m_nodes.clear();
+    }
+
     void StoryJson::SetFullPath(const char* fullPath) {
         strcpy(m_fullPath, fullPath);
     }
@@ -107,8 +128,12 @@ namespace HeavenGateEditor {
     }
 
     bool StoryJson::IsExistFullPath()const {
-        return m_fullPath != nullptr;
+        return strlen(m_fullPath) != 0;
     }
+
+
+    //=========================DATA STRUCTURE============================
+
 
     void to_json(json & j, const StoryWord & p)
     {
