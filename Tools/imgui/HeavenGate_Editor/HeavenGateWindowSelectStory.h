@@ -8,6 +8,8 @@ namespace HeavenGateEditor {
 
 class StoryJson;
 class StoryFileManager;
+class HeavenGatePopupResolveConflictFiles;
+
 class HeavenGateWindowSelectStory : public HeavenGateEditorBaseWindow
 {
     WINDOW_DECLARE("HeavenGateWindowSelectStory", Window_Type::SubWindow)
@@ -43,7 +45,7 @@ private:
     void ShowFileInfo();
     void ShowDescription();
     void ShowFileButton();
-
+    void ShowPopup();
     //Prevent multi-call for directory path;
     bool m_isInitializedFilesList;
     int  m_fileCount ;
@@ -60,6 +62,9 @@ private:
     StoryJson** m_ppStory;
     StoryFileManager* m_fileManager;
 
+    HeavenGatePopupResolveConflictFiles* m_popupResolveConflictFiles;
+    bool* m_isOpenPopupResolveConflictFiles;
+   
 };
 
 

@@ -21,13 +21,9 @@ namespace HeavenGateEditor {
     }
 
     HeavenGatePopupInputFileName::~HeavenGatePopupInputFileName() {
-        if (m_storyFileManager)
-        {
-            delete m_storyFileManager;
-        }
-
+ 
         m_storyFileManager = nullptr;
-
+        m_ppStory = nullptr;
     }
 
     //bool HeavenGateWindowFileManager::SaveStoryFile(const StoryJson* pStoryJson) {

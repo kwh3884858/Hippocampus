@@ -66,7 +66,7 @@ namespace HeavenGateEditor {
         json a = json::parse(content);
 
 
-        *pStoryJson = a;
+        *pStoryJson = std::move(a);
         pStoryJson->SetFullPath(pPath);
 
         std::cout << a;

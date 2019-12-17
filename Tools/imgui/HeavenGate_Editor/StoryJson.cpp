@@ -1,5 +1,6 @@
 #include "StoryJson.h"
 #include <string>
+#include <utility>
 using std::string;
 
 namespace HeavenGateEditor {
@@ -104,19 +105,73 @@ namespace HeavenGateEditor {
 
     }
 
+    StoryJson::StoryJson(const StoryJson& storyJson)
+    {
+        if (this == &storyJson)
+        {
+            return;
+        }
+        memset(m_fullPath, 0, sizeof(m_fullPath));
+        strcpy(m_fullPath, storyJson.m_fullPath);
+
+        m_nodes = storyJson.m_nodes;
+    }
+
+    StoryJson::StoryJson( StoryJson&& storyJson) noexcept
+    {
+        if (this == &storyJson)
+        {
+            return;
+        }
+        memset(m_fullPath, 0, sizeof(m_fullPath));
+        strcpy(m_fullPath, storyJson.m_fullPath);
+
+        m_nodes = storyJson.m_nodes;
+
+        for (int i = 0; i < storyJson.m_nodes.size(); i++)
+        {
+            storyJson.m_nodes[i] = nullptr;
+        }
+    }
+
     StoryJson::~StoryJson()
     {
         Clear();
+    }
+
+    StoryJson& StoryJson::operator=(StoryJson&& storyJson) noexcept
+    {
+        if (this == &storyJson) {
+            return *this;
+        }
+        Clear();
+        memset(m_fullPath, 0, sizeof(m_fullPath));
+        strcpy(m_fullPath, storyJson.m_fullPath);
+        m_nodes = storyJson.m_nodes;
+
+        for (int i = 0; i < storyJson.m_nodes.size(); i++)
+        {
+            storyJson.m_nodes[i] = nullptr;
+        }
+
+        return *this;
     }
 
     void StoryJson::Clear()
     {
         for (int i = 0 ; i < m_nodes.size(); i++)
         {
+            if (m_nodes[i] == nullptr)
+            {
+                continue;
+            }
             delete m_nodes[i];
             m_nodes[i] = nullptr;
         }
         m_nodes.clear();
+
+
+        memset(m_fullPath, 0, sizeof(m_fullPath));
     }
 
     void StoryJson::SetFullPath(const char* fullPath) {

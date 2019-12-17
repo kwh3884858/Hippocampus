@@ -1,6 +1,7 @@
 
 #include "imgui.h"
 #include "HeavenGateWindowSelectStory.h"
+#include "HeavenGatePopupResolveConflictFiles.h"
 #include "HeavenGateEditorUtility.h"
 
 #include "StoryFileManager.h"
@@ -12,9 +13,11 @@
 namespace HeavenGateEditor {
     HeavenGateWindowSelectStory::HeavenGateWindowSelectStory()
     {
-        
+
         m_ppStory = nullptr;
         m_fileManager = nullptr;
+        m_popupResolveConflictFiles = new HeavenGatePopupResolveConflictFiles;
+        m_isOpenPopupResolveConflictFiles = m_popupResolveConflictFiles->GetHandle();
 
         Initialize();
     }
@@ -26,6 +29,15 @@ namespace HeavenGateEditor {
         m_ppStory = nullptr;
         m_fileManager = nullptr;
 
+        m_isOpenPopupResolveConflictFiles = nullptr;
+
+        if (m_popupResolveConflictFiles)
+        {
+            delete m_popupResolveConflictFiles;
+        }
+
+        m_popupResolveConflictFiles = nullptr;
+  
         Initialize();
     }
 
@@ -36,6 +48,9 @@ namespace HeavenGateEditor {
 
         // right
         ShowRightColumn();
+
+        //Popup
+        ShowPopup();
     }
 
     void HeavenGateWindowSelectStory::UpdateMenu()
@@ -66,53 +81,54 @@ namespace HeavenGateEditor {
     //}
 
     bool HeavenGateWindowSelectStory::OpenStoryFile()
-{
+    {
         // Is Loaded Story
         if (m_ppStory != nullptr) {
 
-            StoryJson* story = *m_ppStory;
-
-            if (story == nullptr)
+            if (*m_ppStory == nullptr)
             {
                 //Current main window don`t have any story
 
-                story = new StoryJson;
-                m_fileManager->OpenStoryFile(m_fullPath, story);
+                *m_ppStory = new StoryJson;
+                m_fileManager->OpenStoryFile(m_fullPath, *m_ppStory);
                 Initialize();
+                CloseWindow();
                 /*   *pIsFileSaved = true;*/
             }
             else
             {
-                //Already have some content, maybe be is saved file but have some unsaved changes
-                ImGui::OpenPopup("File already exists in the editor");
+                *m_isOpenPopupResolveConflictFiles = true;
+                ////Already have some content, maybe be is saved file but have some unsaved changes
+                //ImGui::OpenPopup("File already exists in the editor");
 
-                if (ImGui::BeginPopupModal("File already exists in the editor", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-                {
-                    ImGui::Text("If you wish to open a new file, click on Discard Current File.\nIf you wish to stop opening new files, click Cancel. \n\n");
-                    ImGui::Separator();
+                //if (ImGui::BeginPopupModal("File already exists in the editor", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+                //{
+                //    ImGui::Text("If you wish to open a new file, click on Discard Current File.\nIf you wish to stop opening new files, click Cancel. \n\n");
+                //    ImGui::Separator();
 
 
-                    if (ImGui::Button("Discard Current File", ImVec2(120, 0))) {
+                //    if (ImGui::Button("Discard Current File", ImVec2(120, 0))) {
 
-                        Initialize();
-                        ImGui::CloseCurrentPopup();
+                //        Initialize();
+                //        ImGui::CloseCurrentPopup();
+                //        CloseWindow();
+                //    }
+                //    ImGui::SetItemDefaultFocus();
+                //    ImGui::SameLine();
+                //    if (ImGui::Button("Cancel", ImVec2(120, 0))) {
 
-                    }
-                    ImGui::SetItemDefaultFocus();
-                    ImGui::SameLine();
-                    if (ImGui::Button("Cancel", ImVec2(120, 0))) {
 
-      
-                        story->Clear();
+                //        (*m_ppStory)->Clear();
 
-                        m_fileManager->OpenStoryFile(m_fullPath, story);
-                        Initialize();
+                //        m_fileManager->OpenStoryFile(m_fullPath, *m_ppStory);
+                //        Initialize();
 
-                        /*               *pIsFileSaved = true;*/
-                        ImGui::CloseCurrentPopup();
-                    }
-                    ImGui::EndPopup();
-                }
+                //        /*               *pIsFileSaved = true;*/
+                //        ImGui::CloseCurrentPopup();
+                //        CloseWindow();
+                //    }
+                //    ImGui::EndPopup();
+                //}
             }
 
         }
@@ -145,6 +161,8 @@ namespace HeavenGateEditor {
 
         m_selected = 0;
         m_lastSelected = m_selected;
+
+        *m_isOpenPopupResolveConflictFiles = false;
     }
 
 
@@ -286,7 +304,7 @@ namespace HeavenGateEditor {
 
                     if (m_selected >= 2)
                     {
-                        m_fileManager-> GetFileContent(m_fullPath, m_fullContent);
+                        m_fileManager->GetFileContent(m_fullPath, m_fullContent);
                     }
                     m_lastSelected = m_selected;
 
@@ -343,8 +361,43 @@ namespace HeavenGateEditor {
             if (m_selected >= 2)
             {
                 OpenStoryFile();
-                CloseWindow();
+
             }
+        }
+    }
+
+    void HeavenGateWindowSelectStory::ShowPopup()
+    {
+        m_popupResolveConflictFiles->Update();
+
+        switch (m_popupResolveConflictFiles->GetIsDiscardCurrentFile())
+        {
+        case HeavenGatePopupResolveConflictFiles::ResolveConflictFileSelection::DiscardCurrentFile:
+        {
+
+
+            (*m_ppStory)->Clear();
+            m_fileManager->OpenStoryFile(m_fullPath, *m_ppStory);
+
+            m_popupResolveConflictFiles->ResetIsDiscardCurrentFile();
+            Initialize();
+            ImGui::CloseCurrentPopup();
+            CloseWindow();
+            break;
+        }
+        case HeavenGatePopupResolveConflictFiles::ResolveConflictFileSelection::Cancel:
+        {
+
+            m_popupResolveConflictFiles->ResetIsDiscardCurrentFile();
+            Initialize();
+            ImGui::CloseCurrentPopup();
+            CloseWindow();
+
+            break;
+        }
+
+        default:
+            break;
         }
     }
 
