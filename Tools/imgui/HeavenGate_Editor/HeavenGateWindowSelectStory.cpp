@@ -37,7 +37,8 @@ namespace HeavenGateEditor {
         }
 
         m_popupResolveConflictFiles = nullptr;
-  
+        m_isOpenPopupResolveConflictFiles = nullptr;
+
         Initialize();
     }
 
@@ -162,7 +163,7 @@ namespace HeavenGateEditor {
         m_selected = 0;
         m_lastSelected = m_selected;
 
-        *m_isOpenPopupResolveConflictFiles = false;
+       
     }
 
 

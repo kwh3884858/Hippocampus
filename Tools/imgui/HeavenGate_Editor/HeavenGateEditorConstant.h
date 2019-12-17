@@ -39,9 +39,9 @@ namespace HeavenGateEditor {
     //Relative path form project root to story folder
     const char* const PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER =
 #ifdef _WIN32
-        "Assets\\Storys";
+        "Assets\\Resources\\Storys";
 #else
-        "Assets/Storys";
+        "Assets/Resources/Storys";
 #endif
 
     const char* const PATH_FROM_PROJECT_ROOT_TO_FONT_FOLDER =
