@@ -24,7 +24,7 @@ namespace HeavenGateEditor {
         m_table->PushName("Size Key");
         m_table->PushName("Font Size Value");
 
-        m_fileManager->
+        
     }
 
     HeavenGateEditorFontSizeTable:: ~HeavenGateEditorFontSizeTable() {
