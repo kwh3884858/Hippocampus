@@ -14,12 +14,12 @@ namespace HeavenGateEditor {
     const int     MAX_FOLDER_PATH = 265;
     const int     MAX_FILE_NAME = 64;
     const int     MAX_FOLDER_LIST = 32;
-    const int     MAX_FULL_CONTENT = 512;
+    const int     MAX_FULL_CONTENT = 1024;
 
     //For story content limit
     const int     MAX_NAME = 64;
     const int     MAX_CONTENT = 265;
-    const int     MAX_ID = 8;
+    const int     MAX_ID = 128;
 
     const int     MAX_ENUM_LENGTH = 16;
 
@@ -39,9 +39,18 @@ namespace HeavenGateEditor {
     //Relative path form project root to story folder
     const char* const PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER =
 #ifdef _WIN32
-        "Assets\\Storys";
+        "Assets\\Resources\\Storys";
 #else
-        "Assets/Storys";
+        "Assets/Resources/Storys";
+#endif
+
+    //Relative path from story folder to font size table
+
+    const char* const FONT_TABLE_NAME = 
+#ifdef _WIN32
+    "\\FontSizeTable.json";
+#else
+    "/FontSizeTable.json";
 #endif
 
     const char* const PATH_FROM_PROJECT_ROOT_TO_FONT_FOLDER =

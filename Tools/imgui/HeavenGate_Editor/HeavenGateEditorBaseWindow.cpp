@@ -15,6 +15,27 @@ namespace HeavenGateEditor {
 
     void HeavenGateEditorBaseWindow::Update()
     {
+        if (!m_open)
+        {
+            return;
+        }
+
+        //Only for popup
+        if (GetWindowType() == Window_Type::Popup)
+        {
+            ImGui::OpenPopup(GetWindiwName());
+
+            if (ImGui::BeginPopupModal(GetWindiwName(), NULL, ImGuiWindowFlags_AlwaysAutoResize))
+            {
+                UpdateMainWindow();
+
+                ImGui::EndPopup();
+            }
+
+            return;
+        }
+
+        //For regular windows
         ImGuiWindowFlags window_flags = 0;
         window_flags |= ImGuiWindowFlags_MenuBar;
 
@@ -43,7 +64,7 @@ namespace HeavenGateEditor {
 
 
         // Main body of the Demo window starts here.
-        if (!ImGui::Begin("Base Window Template", &m_open, window_flags))
+        if (!ImGui::Begin(GetWindiwName(), &m_open, window_flags))
         {
             // Early out if the window is collapsed, as an optimization.
             ImGui::End();
@@ -102,6 +123,8 @@ namespace HeavenGateEditor {
     {
         return Window_Type::MainWindow;
     }
+
+
     bool * HeavenGateEditorBaseWindow::GetHandle()
     {
         return &m_open;
@@ -111,6 +134,19 @@ namespace HeavenGateEditor {
         m_open = true;
     }
     void HeavenGateEditorBaseWindow::CloseWindow() {
+        switch (GetWindowType())
+        {
+
+        case Window_Type::Popup:
+        {
+
+            ImGui::CloseCurrentPopup();
+            break;
+        }
+        default:
+            break;
+        }
+
         m_open = false;
     }
     bool HeavenGateEditorBaseWindow::IsWindowOpen() const

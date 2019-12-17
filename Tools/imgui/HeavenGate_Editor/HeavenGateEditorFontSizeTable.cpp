@@ -8,7 +8,7 @@
 #include "imgui.h"
 
 #include "HeavenGateEditorFontSizeTable.h"
-#include "HeavenGateEditorFileManager.h"
+#include "StoryFileManager.h"
 #include "StoryTable.h"
 
 namespace HeavenGateEditor {
@@ -17,10 +17,14 @@ namespace HeavenGateEditor {
     HeavenGateEditorFontSizeTable::HeavenGateEditorFontSizeTable() {
 
         m_open = false;
-
-        m_fileManager = new HeavenGateEditorFileManager;
+        m_fileManager = new StoryFileManager;
 
         m_table = new StoryTable< FONT_SIZE_MAX_COLUMN>;
+
+        m_table->PushName("Size Key");
+        m_table->PushName("Font Size Value");
+
+        m_fileManager->
     }
 
     HeavenGateEditorFontSizeTable:: ~HeavenGateEditorFontSizeTable() {
@@ -41,90 +45,31 @@ namespace HeavenGateEditor {
 
     }
 
-    void HeavenGateEditorFontSizeTable::ShowTableWindow() {
-
-        // We specify a default position/size in case there's no data in the .ini file. Typically this isn't required! We only do it to make the Demo applications a little more welcoming.
-        ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
-        ImGui::SetNextWindowSize(ImVec2(550, 680), ImGuiCond_FirstUseEver);
-
-        ImGuiWindowFlags window_flags = 0;
-        window_flags |= ImGuiWindowFlags_MenuBar;
-
-        // Main body of the Demo window starts here.
-        if (!ImGui::Begin("Heaven Gate Table Editor", &m_open, window_flags))
-        {
-            // Early out if the window is collapsed, as an optimization.
-            ImGui::End();
-            return;
-        }
-
-        // Most "big" widgets share a common width settings by default.
-         //ImGui::PushItemWidth(ImGui::GetWindowWidth() * 0.65f);    // Use 2/3 of the space for widgets and 1/3 for labels (default)
-        ImGui::PushItemWidth(ImGui::GetFontSize() * -12);           // Use fixed width for labels (by passing a negative value), the rest goes to widgets. We choose a width proportional to our font size.
-
-
-        // Menu Bar
-        if (ImGui::BeginMenuBar())
-        {
-            if (ImGui::BeginMenu("Menu"))
-            {
-                ShowEditorMenuFile();
-                ImGui::EndMenu();
-            }
-
-            ImGui::EndMenuBar();
-        }
-
-
-        ImGui::Separator();
-
-        ImGui::Text("With border:");
-        ImGui::Columns(4, "mycolumns"); // 4-ways, with border
-        ImGui::Separator();
-        ImGui::Text("ID"); ImGui::NextColumn();
-        ImGui::Text("Name"); ImGui::NextColumn();
-        ImGui::Text("Path"); ImGui::NextColumn();
-        ImGui::Text("Hovered"); ImGui::NextColumn();
-        ImGui::Separator();
-        const char* names[3] = { "One", "Two", "Three" };
-        const char* paths[3] = { "/path/one", "/path/two", "/path/three" };
-        static int selected = -1;
-        for (int i = 0; i < 3; i++)
-        {
-            char label[32];
-            sprintf(label, "%04d", i);
-            if (ImGui::Selectable(label, selected == i, ImGuiSelectableFlags_SpanAllColumns))
-                selected = i;
-            bool hovered = ImGui::IsItemHovered();
-            ImGui::NextColumn();
-            ImGui::Text(names[i]); ImGui::NextColumn();
-            ImGui::Text(paths[i]); ImGui::NextColumn();
-            ImGui::Text("%d", hovered); ImGui::NextColumn();
-        }
-        ImGui::Columns(1);
-        ImGui::Separator();
-
-        ImGui::End();
-    }
-
-
 
     void HeavenGateEditorFontSizeTable::UpdateMainWindow()
     {
 
         ImGui::Separator();
 
-        ImGui::Text("With border:");
-        ImGui::Columns(4, "mycolumns"); // 4-ways, with border
+        ImGui::Text("Font Size Table");
+        ImGui::Columns(FONT_SIZE_MAX_COLUMN, "Font Size"); // 4-ways, with border
         ImGui::Separator();
-        ImGui::Text("ID"); ImGui::NextColumn();
-        ImGui::Text("Name"); ImGui::NextColumn();
-        ImGui::Text("Path"); ImGui::NextColumn();
-        ImGui::Text("Hovered"); ImGui::NextColumn();
+
+        for (int i = 0 ; i < FONT_SIZE_MAX_COLUMN; i++)
+        {
+            ImGui::Text(m_table->GetName(i)); ImGui::NextColumn();
+        }
+        //ImGui::Text("ID"); ImGui::NextColumn();
+        //ImGui::Text("Name"); ImGui::NextColumn();
+        //ImGui::Text("Path"); ImGui::NextColumn();
+        //ImGui::Text("Hovered"); ImGui::NextColumn();
         ImGui::Separator();
         const char* names[3] = { "One", "Two", "Three" };
         const char* paths[3] = { "/path/one", "/path/two", "/path/three" };
         static int selected = -1;
+
+
+
         for (int i = 0; i < 3; i++)
         {
             char label[32];
@@ -158,23 +103,7 @@ namespace HeavenGateEditor {
 
     }
 
-    // Note that shortcuts are currently provided for display only (future version will add flags to BeginMenu to process shortcuts)
-    void HeavenGateEditorFontSizeTable::ShowEditorMenuFile()
-    {
 
-        //   ImGui::MenuItem("(dummy menu)", NULL, false, false);
-        if (ImGui::MenuItem("New")) {
-
-        }
-
-        if (ImGui::MenuItem("Open", "Ctrl+O")) {
-
-        }
-
-        if (ImGui::MenuItem("Save", "Ctrl+S")) {
-
-        }
-    }
 
 
 }
