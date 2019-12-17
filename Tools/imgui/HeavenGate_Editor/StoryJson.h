@@ -24,7 +24,6 @@ namespace HeavenGateEditor {
     enum class JumpLayout :int;
     enum class WordLayout :int;
 
-
     extern char nodeTypeString[][MAX_ENUM_LENGTH];
     extern char labelNodeString[][MAX_ENUM_LENGTH];
     extern char jumpNodeString[][MAX_ENUM_LENGTH];
