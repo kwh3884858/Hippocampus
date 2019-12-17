@@ -12,7 +12,7 @@ namespace Skylight
 		// Use this for initialization
 		void Start ()
 		{
-
+            ReadStorys readStorys = new ReadStorys();
 			//DONT CHANGE ORDER
 			//不要修改顺序，有相互依赖关系
 			AddGameObject<EventManager> ();
@@ -59,7 +59,7 @@ namespace Skylight
 
 			SceneManager.Instance ().AddSceneLoadedEvent (Handlecallback);
 
-			SceneManager.Instance ().LoadScene (SceneLookupEnum.Porto_2DARPG, SceneLoadMode.Additive);
+			SceneManager.Instance ().LoadScene (SceneLookupEnum.Prototype_AVG_System, SceneLoadMode.Additive);
 
 
             yield return null;
