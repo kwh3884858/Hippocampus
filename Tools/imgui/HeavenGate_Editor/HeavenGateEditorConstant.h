@@ -44,6 +44,15 @@ namespace HeavenGateEditor {
         "Assets/Resources/Storys";
 #endif
 
+    //Relative path from story folder to font size table
+
+    const char* const FONT_TABLE_NAME = 
+#ifdef _WIN32
+    "\\FontSizeTable.json";
+#else
+    "/FontSizeTable.json";
+#endif
+
     const char* const PATH_FROM_PROJECT_ROOT_TO_FONT_FOLDER =
 #ifdef _WIN32
         "Assets\\Fonts\\SourceHanSansCN-Regular.ttf";

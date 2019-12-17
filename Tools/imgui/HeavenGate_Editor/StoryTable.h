@@ -20,11 +20,37 @@ namespace HeavenGateEditor {
     using json = nlohmann::json;
     using std::vector;
 
+    enum class TableLayout {
+
+        Type = 0,
+        Value = 1
+
+    };
+
+    enum class FontSizeTableLayout {
+        Type = 0,
+        Alias = 1,
+        Size = 2
+
+    };
+
+    char tableString[][MAX_ENUM_LENGTH] = {
+        "type",
+        "value"
+    };
+
+    char fontSizeTableString[][MAX_ENUM_LENGTH] = {
+        "fontSize",
+        "alias",
+        "size"
+    };
+
     template<int column >
     class StoryRow
     {
     public:
         StoryRow();
+        StoryRow(const StoryRow& storyRow);
         ~StoryRow();
 
         inline int Size()const;
@@ -43,13 +69,15 @@ namespace HeavenGateEditor {
     public:
         enum TableType
         {
+            None,
             Font_Size,
             Font_Color
         };
 
-     
+
     public:
         StoryTable();
+        StoryTable(const StoryTable& storyTable);
         ~StoryTable();
 
         bool PushName(const char* name);
@@ -63,7 +91,7 @@ namespace HeavenGateEditor {
         int m_rowSize;
         StoryRow<column>* m_name;
         vector<StoryRow<column>*> m_content;
-
+        TableType m_tableType;
 
     };
 
@@ -71,14 +99,16 @@ namespace HeavenGateEditor {
     template<int column>
     void to_json(json& j, const StoryTable< column>& p);
 
-    //template<int column>
-    //void to_json(json& j, const StoryTable<column>::StoryRow& p);
+    template<int column>
+    void to_json(json& j, const StoryRow<column>& p);
 
     template< int column>
     void from_json(const json& j, StoryTable< column>& p);
 
-    /*  template<int column>
-      void from_json(const json& j, StoryTable<column>::StoryRow & p);*/
+    template<int column>
+    void from_json(const json& j, StoryRow<column>& p);
+
+
 
 
     template<int column>
@@ -88,6 +118,13 @@ namespace HeavenGateEditor {
 
         memset(m_content, 0, sizeof(m_content));
         m_size = 0;
+    }
+
+    template<int column >
+    HeavenGateEditor::StoryRow<column>::StoryRow(const StoryRow& storyRow)
+    {
+        m_size = storyRow.m_size;
+        memset(m_content, storyRow.m_content, MAX_COLUMNS_CONTENT_LENGTH*column);
     }
 
     template<int column>
@@ -116,7 +153,7 @@ namespace HeavenGateEditor {
     template<int column>
     bool StoryRow<column>::Push(const char * content)
     {
-        return Set(m_size, content);
+        return Set(m_size++, content);
     }
 
     template<int column>
@@ -146,6 +183,11 @@ namespace HeavenGateEditor {
     {
         m_name = new StoryRow<column>;
         m_rowSize = 0;
+    }
+    template<int column >
+    HeavenGateEditor::StoryTable<column>::StoryTable(const StoryTable& storyTable)
+    {
+
     }
 
     template<int column>
@@ -250,26 +292,53 @@ namespace HeavenGateEditor {
 
     template<int column>
     void to_json(json& j, const StoryTable<column>& p) {
-        for (int i = 0; i < j.size(); i++)
-        {
+        j[tableString[(int)TableLayout::Type] = fontSizeTableString[(int)FontSizeTableLayout::Type];
 
+        for (int i = 0; i < p.m_rowSize; i++)
+        {
+            j[tableString[(int)TableLayout::Value].push(*p[i]);
         }
     }
+    template<int column>
+    void to_json(json& j, const StoryRow<column>& p)
+    {
+        j = json{
+            {fontSizeTableString[(int)FontSizeTableLayout::Alias],          p.Get(0) },
+            {fontSizeTableString[(int)FontSizeTableLayout::Size],           p.Get(1) }
+        };
+    }
 
-    //template<int column>
-    //void to_json(json& j, const  StoryTable<column>::StoryRow& p) {
 
-    //}
+
 
     template<int column>
     void from_json(const json& j, StoryTable<column>& p) {
 
+        char typeString[MAX_ENUM_LENGTH];
+        strcpy(typeString, j.at(tableString[(int)TableLayout::Type].get_ptr<const json::string_t *>()->c_str()));
+
+        json values = j.at(tableString[(int)TableLayout::Value].get_ptr<const json::string_t *>()->c_str()));
+
+        if (strcmp(typeString, fontSizeTableString[(int)FontSizeTableLayout::Type]) == 0) {
+
+            char content[MAX_COLUMNS_CONTENT_LENGTH];
+            for (int i = 0; i < values.size(); i++)
+            {
+
+                strcpy(content, values[i].at(fontSizeTableString[(int)FontSizeTableLayout::Alias]).get_ptr<const json::string_t *>()->c_str());
+                p.Push(content);
+                strcpy(content, values[i].at(fontSizeTableString[(int)FontSizeTableLayout::Size]).get_ptr<const json::string_t *>()->c_str());
+                p.Push(content);
+
+            }
+        }
+
+
     }
+    template<int column>
+    void from_json(const json& j, StoryRow<column> & p)
+    {
 
-    //template<int column>
-    //void from_json(const json& j, StoryTable<column>::StoryRow& p) {
-
-    //}
+    }
 }
-
 #endif /* StoryTable_h */
