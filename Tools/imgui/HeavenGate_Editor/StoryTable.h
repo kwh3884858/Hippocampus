@@ -94,7 +94,8 @@ namespace HeavenGateEditor {
         bool PushContent(const char * content);
         bool SetContent(int rowIndex, int index, const char* content);
         inline const char* GetName(int index);
-        inline const char* GetContent(int rowIndex, int index);
+        inline const char* GetContent(int rowIndex, int index)const;
+        char * GetContent(int rowIndex, int index);
 
         const StoryRow<column>* GetRow(int index)const;
         void AddRow();
@@ -112,19 +113,6 @@ namespace HeavenGateEditor {
 
     };
 
-    template<int column >
-    void HeavenGateEditor::StoryTable<column>::AddRow()
-    {
-        StoryRow<column>* newRow = new StoryRow<column>;
-        PushRow(newRow);
-    }
-
-    template<int column >
-    void HeavenGateEditor::StoryTable<column>::PushRow(StoryRow<column>* storyRow)
-    {
-        m_rowSize++;
-        m_content.push_back(storyRow);
-    }
 
 
     template<int column>
@@ -352,7 +340,7 @@ namespace HeavenGateEditor {
     }
 
     template<int column>
-    const char * StoryTable<column>::GetContent(int row, int index)
+    const char * StoryTable<column>::GetContent(int row, int index)const
     {
         if (row < 0 || row >= m_rowSize)
         {
@@ -361,14 +349,20 @@ namespace HeavenGateEditor {
 
         StoryRow<column>* aRow = m_content[row];
 
-        if (index >= aRow->Size() || index < 0)
-        {
-            return nullptr;
-        }
+//        if (index >= aRow->Size() || index < 0)
+//        {
+//            return nullptr;
+//        }
         return aRow->Get(index);
 
 
     }
+
+template<int column >
+char * StoryTable<column>::GetContent(int rowIndex, int index){
+    return const_cast<char *>(const_cast<const StoryTable<column>*>(this)->GetContent(rowIndex, index));
+}
+
 
     template<int column >
     const StoryRow<column>* HeavenGateEditor::StoryTable<column>::GetRow(int index) const
@@ -381,6 +375,20 @@ namespace HeavenGateEditor {
     {
         return m_rowSize;
     }
+
+template<int column >
+ void HeavenGateEditor::StoryTable<column>::AddRow()
+ {
+     StoryRow<column>* newRow = new StoryRow<column>;
+     PushRow(newRow);
+ }
+
+ template<int column >
+ void HeavenGateEditor::StoryTable<column>::PushRow(StoryRow<column>* storyRow)
+ {
+     m_rowSize++;
+     m_content.push_back(storyRow);
+ }
 
     template<int column>
     void to_json(json& j, const StoryTable<column>& p) {

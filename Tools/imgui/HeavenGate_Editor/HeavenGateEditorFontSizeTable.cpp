@@ -76,11 +76,12 @@ namespace HeavenGateEditor {
             m_table->AddRow();
         }
 
-        ImGui::Columns(FONT_SIZE_MAX_COLUMN, "Font Size"); // 4-ways, with border
+        ImGui::Columns(FONT_SIZE_MAX_COLUMN + 1, "Font Size"); // 4-ways, with border
         ImGui::Separator();
+        ImGui::Text("ID");    ImGui::NextColumn();
         for (int i = 0; i < FONT_SIZE_MAX_COLUMN; i++)
         {
-            ImGui::Text(m_table->GetName(i)); ImGui::NextColumn();
+            ImGui::Text(m_table->GetName(i));   ImGui::NextColumn();
         }
 
         //ImGui::Text("ID"); ImGui::NextColumn();
@@ -98,7 +99,7 @@ namespace HeavenGateEditor {
         {
             char label[32];
             sprintf(label, "%04d", i);
-            if (ImGui::Selectable(label, selected == i, ImGuiSelectableFlags_SpanAllColumns))
+            if (ImGui::Selectable(label, selected == i, ImGuiSelectableFlags_None))
                 selected = i;
             //bool hovered = ImGui::IsItemHovered();
             ImGui::NextColumn();
@@ -108,8 +109,10 @@ namespace HeavenGateEditor {
 
             for (int j = 0; j < FONT_SIZE_MAX_COLUMN; j++)
             {
-                ImGui::Text(m_table->GetContent(i, j)); ImGui::NextColumn();
+                char * content = m_table->GetContent(i, j);
 
+ImGui::InputText(j%2==0?"key":"value", content, MAX_COLUMNS_CONTENT_LENGTH);
+                 ImGui::NextColumn();
             }
         }
         ImGui::Columns(1);

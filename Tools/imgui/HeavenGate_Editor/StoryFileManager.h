@@ -6,8 +6,11 @@
 
 #include <fstream>
 #include <iostream>
+#include "nlohmann/json.hpp"
 
 namespace HeavenGateEditor {
+
+using json = nlohmann::json;
 
     class StoryJson;
 
