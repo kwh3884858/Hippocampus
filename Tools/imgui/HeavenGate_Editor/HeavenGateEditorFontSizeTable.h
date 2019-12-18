@@ -35,8 +35,7 @@ namespace HeavenGateEditor {
         virtual void UpdateMenu()override;
 
     private:
-
-        bool m_open;
+        char m_fullPath[MAX_FOLDER_PATH];
 
         StoryFileManager* m_fileManager;
         StoryTable<FONT_SIZE_MAX_COLUMN>* m_table;

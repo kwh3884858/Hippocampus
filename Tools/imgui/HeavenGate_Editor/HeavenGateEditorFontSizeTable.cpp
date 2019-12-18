@@ -8,6 +8,10 @@
 #include "imgui.h"
 
 #include "HeavenGateEditorFontSizeTable.h"
+
+#include "HeavenGateEditorConstant.h"
+#include "HeavenGateEditorUtility.h"
+
 #include "StoryFileManager.h"
 #include "StoryTable.h"
 
@@ -16,20 +20,30 @@ namespace HeavenGateEditor {
 
     HeavenGateEditorFontSizeTable::HeavenGateEditorFontSizeTable() {
 
-        m_open = false;
+
         m_fileManager = new StoryFileManager;
 
         m_table = new StoryTable< FONT_SIZE_MAX_COLUMN>;
 
-        m_table->PushName("Size Key");
-        m_table->PushName("Font Size Value");
+        memset(m_fullPath, 0, sizeof(m_fullPath));
 
-        
+        HeavenGateEditorUtility::GetStoryPath(m_fullPath);
+        strcat(m_fullPath, FONT_TABLE_NAME);
+
+       bool result = m_fileManager->LoadTableFile(m_fullPath, m_table);
+       if (result == false)
+       {
+           m_fileManager->SaveTableFile(m_fullPath, m_table);
+           m_fileManager->LoadTableFile(m_fullPath, m_table);
+       }
+
+       m_table->PushName("Size Key");
+       m_table->PushName("Font Size Value");
     }
 
     HeavenGateEditorFontSizeTable:: ~HeavenGateEditorFontSizeTable() {
 
-        m_open = false;
+
 
         if (m_fileManager)
         {
@@ -48,39 +62,55 @@ namespace HeavenGateEditor {
 
     void HeavenGateEditorFontSizeTable::UpdateMainWindow()
     {
+        if (m_table == nullptr)
+        {
+            return;
+        }
 
         ImGui::Separator();
 
         ImGui::Text("Font Size Table");
+
+        if (ImGui::Button("Add New Row"))
+        {
+            m_table->AddRow();
+        }
+
         ImGui::Columns(FONT_SIZE_MAX_COLUMN, "Font Size"); // 4-ways, with border
         ImGui::Separator();
-
-        for (int i = 0 ; i < FONT_SIZE_MAX_COLUMN; i++)
+        for (int i = 0; i < FONT_SIZE_MAX_COLUMN; i++)
         {
             ImGui::Text(m_table->GetName(i)); ImGui::NextColumn();
         }
+
         //ImGui::Text("ID"); ImGui::NextColumn();
         //ImGui::Text("Name"); ImGui::NextColumn();
         //ImGui::Text("Path"); ImGui::NextColumn();
         //ImGui::Text("Hovered"); ImGui::NextColumn();
         ImGui::Separator();
-        const char* names[3] = { "One", "Two", "Three" };
-        const char* paths[3] = { "/path/one", "/path/two", "/path/three" };
+        //const char* names[3] = { "One", "Two", "Three" };
+        //const char* paths[3] = { "/path/one", "/path/two", "/path/three" };
         static int selected = -1;
 
 
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < m_table->GetSize(); i++)
         {
             char label[32];
             sprintf(label, "%04d", i);
             if (ImGui::Selectable(label, selected == i, ImGuiSelectableFlags_SpanAllColumns))
                 selected = i;
-            bool hovered = ImGui::IsItemHovered();
+            //bool hovered = ImGui::IsItemHovered();
             ImGui::NextColumn();
-            ImGui::Text(names[i]); ImGui::NextColumn();
-            ImGui::Text(paths[i]); ImGui::NextColumn();
-            ImGui::Text("%d", hovered); ImGui::NextColumn();
+            //ImGui::Text(names[i]); ImGui::NextColumn();
+            //ImGui::Text(paths[i]); ImGui::NextColumn();
+            //ImGui::Text("%d", hovered); ImGui::NextColumn();
+
+            for (int j = 0; j < FONT_SIZE_MAX_COLUMN; j++)
+            {
+                ImGui::Text(m_table->GetContent(i, j)); ImGui::NextColumn();
+
+            }
         }
         ImGui::Columns(1);
         ImGui::Separator();
@@ -98,7 +128,7 @@ namespace HeavenGateEditor {
         }
 
         if (ImGui::MenuItem("Save", "Ctrl+S")) {
-
+            m_fileManager->SaveTableFile(m_fullPath, m_table);
         }
 
     }

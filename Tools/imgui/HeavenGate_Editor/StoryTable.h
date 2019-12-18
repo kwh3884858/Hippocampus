@@ -5,6 +5,7 @@
 //  Created by 威化饼干 on 7/12/2019.
 //  Copyright © 2019 ImGui. All rights reserved.
 //
+#pragma once
 
 #ifndef StoryTable_h
 #define StoryTable_h
@@ -20,6 +21,9 @@ namespace HeavenGateEditor {
     using json = nlohmann::json;
     using std::vector;
 
+    //enum class TableLayout :int;
+    //enum class FontSizeTableLayout :int;
+
     enum class TableLayout {
 
         Type = 0,
@@ -34,12 +38,13 @@ namespace HeavenGateEditor {
 
     };
 
-    char tableString[][MAX_ENUM_LENGTH] = {
+
+    const char tableString[][MAX_ENUM_LENGTH] = {
         "type",
         "value"
     };
 
-    char fontSizeTableString[][MAX_ENUM_LENGTH] = {
+    const char fontSizeTableString[][MAX_ENUM_LENGTH] = {
         "fontSize",
         "alias",
         "size"
@@ -51,6 +56,7 @@ namespace HeavenGateEditor {
     public:
         StoryRow();
         StoryRow(const StoryRow& storyRow);
+        StoryRow(StoryRow&& storyRow);
         ~StoryRow();
 
         inline int Size()const;
@@ -78,7 +84,10 @@ namespace HeavenGateEditor {
     public:
         StoryTable();
         StoryTable(const StoryTable& storyTable);
+        StoryTable(StoryTable&& storyTable);
         ~StoryTable();
+
+        StoryTable& operator=(StoryTable&& storyTable)noexcept;
 
         bool PushName(const char* name);
         bool SetName(int index, const char * name);
@@ -87,13 +96,35 @@ namespace HeavenGateEditor {
         inline const char* GetName(int index);
         inline const char* GetContent(int rowIndex, int index);
 
+        const StoryRow<column>* GetRow(int index)const;
+        void AddRow();
+        void PushRow(StoryRow<column>* storyRow);
+
+        int GetSize()const;
+
     private:
+        void Clear();
+
         int m_rowSize;
         StoryRow<column>* m_name;
         vector<StoryRow<column>*> m_content;
         TableType m_tableType;
 
     };
+
+    template<int column >
+    void HeavenGateEditor::StoryTable<column>::AddRow()
+    {
+        StoryRow<column>* newRow = new StoryRow<column>;
+        PushRow(newRow);
+    }
+
+    template<int column >
+    void HeavenGateEditor::StoryTable<column>::PushRow(StoryRow<column>* storyRow)
+    {
+        m_rowSize++;
+        m_content.push_back(storyRow);
+    }
 
 
     template<int column>
@@ -116,7 +147,7 @@ namespace HeavenGateEditor {
     {
         m_content = new char[column][MAX_COLUMNS_CONTENT_LENGTH];
 
-        memset(m_content, 0, sizeof(m_content));
+        memset(m_content, 0, MAX_COLUMNS_CONTENT_LENGTH*column);
         m_size = 0;
     }
 
@@ -125,8 +156,18 @@ namespace HeavenGateEditor {
     {
         m_size = storyRow.m_size;
 
-         m_content = new char[column][MAX_COLUMNS_CONTENT_LENGTH];
+        m_content = new char[column][MAX_COLUMNS_CONTENT_LENGTH];
         memset(m_content, storyRow.m_content, MAX_COLUMNS_CONTENT_LENGTH*column);
+    }
+
+
+    template<int column >
+    HeavenGateEditor::StoryRow<column>::StoryRow(StoryRow&& storyRow)
+    {
+        m_size = storyRow.m_size;
+
+        m_content = storyRow.m_content;
+        storyRow.m_content = nullptr;
     }
 
     template<int column>
@@ -189,18 +230,35 @@ namespace HeavenGateEditor {
     template<int column >
     HeavenGateEditor::StoryTable<column>::StoryTable(const StoryTable& storyTable)
     {
-         m_rowSize = storyTable.m_rowSizex;
+        m_rowSize = storyTable.m_rowSize;
         m_name(storyTable.m_name);
         for (int i = 0; i < m_rowSize; i++) {
-            StoryRow<column>* tmpRow = new StoryRow<column>( *(storyTable.m_content[i]) );
+            StoryRow<column>* tmpRow = new StoryRow<column>(*(storyTable.m_content[i]));
             m_content.push_back(tmpRow);
         }
 
-               m_tableType = storyTable.m_tableType;
+        m_tableType = storyTable.m_tableType;
     }
 
+    template<int column >
+    HeavenGateEditor::StoryTable<column>::StoryTable(StoryTable&& storyTable):
+        m_tableType(storyTable.m_tableType),
+        m_rowSize(storyTable.m_rowSize)
+    {
+        m_name = storyTable.m_name;
+        m_content = storyTable.m_content;
+
+        storyTable.m_name = nullptr;
+        storyTable.m_content.clear();
+    }
     template<int column>
     StoryTable<column>::~StoryTable()
+    {
+        Clear();
+    }
+
+    template<int column >
+    void StoryTable<column>::Clear()
     {
         if (m_name != nullptr)
         {
@@ -221,7 +279,24 @@ namespace HeavenGateEditor {
 
     }
 
+    template<int column >
+    StoryTable<column>& StoryTable<column>::operator=(StoryTable&& storyTable) noexcept
+    {
+        if (this == &storyTable) {
+            return *this;
+        }
 
+        Clear();
+        m_name = storyTable.m_name;
+        m_content = storyTable.m_content;
+        m_rowSize = storyTable.m_rowSize;
+        m_tableType = storyTable.m_tableType;
+
+        storyTable.m_name = nullptr;
+        storyTable.m_content.clear();
+
+        return *this;
+    }
 
     template<int column>
     bool StoryTable<column>::PushName(const char * name)
@@ -295,14 +370,30 @@ namespace HeavenGateEditor {
 
     }
 
+    template<int column >
+    const StoryRow<column>* HeavenGateEditor::StoryTable<column>::GetRow(int index) const
+    {
+        return m_content[index];
+    }
+
+    template<int column >
+    int HeavenGateEditor::StoryTable<column>::GetSize() const
+    {
+        return m_rowSize;
+    }
 
     template<int column>
     void to_json(json& j, const StoryTable<column>& p) {
         j[tableString[(int)TableLayout::Type]] = fontSizeTableString[(int)FontSizeTableLayout::Type];
 
-        for (int i = 0; i < p.m_rowSize; i++)
+        if (p.GetSize() == 0)
         {
-            j[tableString[(int)TableLayout::Value]].push_back(*p[i]);
+            j[tableString[(int)TableLayout::Value]] = json::array();
+        }
+
+        for (int i = 0; i < p.GetSize(); i++)
+        {
+            j[tableString[(int)TableLayout::Value]].push_back( *(p.GetRow(i)) );
 
         }
     }
@@ -324,8 +415,9 @@ namespace HeavenGateEditor {
         char typeString[MAX_ENUM_LENGTH];
         strcpy(typeString, j.at(tableString[(int)TableLayout::Type]).get_ptr<const json::string_t *>()->c_str());
 
-        json values = j.at(tableString[(int)TableLayout::Value]).get_ptr<const json::string_t *>()->c_str();
-
+        json values = j.at(tableString[(int)TableLayout::Value]);
+            /*get_ptr<const json::string_t *>()->c_str();*/
+ 
         if (strcmp(typeString, fontSizeTableString[(int)FontSizeTableLayout::Type]) == 0) {
 
             char content[MAX_COLUMNS_CONTENT_LENGTH];
@@ -333,9 +425,9 @@ namespace HeavenGateEditor {
             {
 
                 strcpy(content, values[i].at(fontSizeTableString[(int)FontSizeTableLayout::Alias]).get_ptr<const json::string_t *>()->c_str());
-                p.Push(content);
+                p.PushContent(content);
                 strcpy(content, values[i].at(fontSizeTableString[(int)FontSizeTableLayout::Size]).get_ptr<const json::string_t *>()->c_str());
-                p.Push(content);
+                p.PushContent(content);
 
             }
         }

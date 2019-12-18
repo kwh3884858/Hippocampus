@@ -28,9 +28,7 @@ public:
     void SetStoryJsonPonter(StoryJson** ppStory);
 private:
     void Initialize();
-    void Destory();
 
-    bool GiveUpLoadedStory();
     bool OpenStoryFile();
     //void InitStoryPath();
 

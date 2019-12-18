@@ -4,9 +4,15 @@
 
 #include "HeavenGateEditorConstant.h"
 
+#include <fstream>
+#include <iostream>
+
 namespace HeavenGateEditor {
 
     class StoryJson;
+
+    template<int column>
+    class StoryTable;
 
     class StoryFileManager
     {
@@ -17,20 +23,16 @@ namespace HeavenGateEditor {
 
         //TODO
         //bool CreateStoryFIle();
-        bool OpenStoryFile(const char* pPath, StoryJson* pStoryJson);
+        bool LoadStoryFile(const char* pPath, StoryJson* pStoryJson);
         bool SaveStoryFile(const StoryJson* pStoryJson);
 
-        //Getter and Setter
-  /*      bool GetIsSaveFileExist();*/
+        template<int column>
+        bool LoadTableFile(const char* pPath, StoryTable<column>* pTableJson);
+        template<int column>
+        bool SaveTableFile(const char* pPath, const StoryTable<column>* pTableJson);
 
-        //char* GetNewFileName();
-        //const char* GetNewFileName()const;
 
-        //char* GetNewFilePath();
-        //const char* GetNewFilePath()const;
 
-        //void Initialize();
-        //bool IsNewFilePathExist() const;
         void InitFileList(char(*pOutFileList)[MAX_FOLDER_PATH], int* maxFileCount);
 
         bool FromFileNameToFullPath(char * filePath, const char* fileName) const;
@@ -46,6 +48,74 @@ namespace HeavenGateEditor {
         //char m_newFileName[MAX_FILE_NAME];
     };
 
+
+    template<int column>
+    bool StoryFileManager::LoadTableFile(const char* pPath, StoryTable<column>* pTableJson)
+    {
+        std::ifstream fins;
+        char content[MAX_FULL_CONTENT];
+        memset(content, 0, sizeof(content));
+
+        if (pPath == nullptr || pTableJson == nullptr)
+        {
+            return false;
+        }
+
+        fins.open(pPath);
+
+        // If it could not open the file then exit.
+        if (!fins.fail())
+        {
+            int i = 0;
+            while (!fins.eof())
+            {
+                fins >> content[i++];
+            }
+
+            fins.close();
+        }
+        else
+        {
+            std::cerr << "Error: " << strerror(errno);
+            return false;
+        }
+
+        json a = json::parse(content);
+
+
+        *pTableJson = std::move(a);
+
+        std::cout << a;
+        fins.close();
+
+        return true;
+    }
+
+    template<int column>
+    bool StoryFileManager::SaveTableFile(const char* pPath, const StoryTable<column>* pTableJson)
+    {
+        if (pPath == nullptr || pTableJson == nullptr)
+        {
+            return false;
+        }
+
+        //char filePath[MAX_FOLDER_PATH];
+        //strcpy(filePath, pTableJson->GetFullPath());
+
+        if (strlen(pPath) <= 0) {
+            return false;
+        }
+
+        json j_test = *pTableJson;
+        std::ofstream o(pPath);
+        o << j_test << std::endl;
+
+        o.close();
+
+        //Initialize();
+
+        return true;
+    }
 }
 
 #endif /* StoryFileManager_h */

@@ -1,10 +1,10 @@
 #include "StoryFileManager.h"
 #include "HeavenGateEditorUtility.h"
 #include "StoryJson.h"
+#include "StoryTable.h"
 #include "CharacterUtility.h"
 
-#include <fstream>
-#include <iostream>
+
 
 #ifdef _WIN32
 
@@ -33,7 +33,7 @@ namespace HeavenGateEditor {
 
     //}
 
-    bool StoryFileManager::OpenStoryFile(const char* pPath, StoryJson* pStoryJson)
+    bool StoryFileManager::LoadStoryFile(const char* pPath, StoryJson* pStoryJson)
 {
         std::ifstream fins;
         char content[MAX_FULL_CONTENT];
@@ -97,6 +97,8 @@ namespace HeavenGateEditor {
 
         return true;
     }
+
+
 
     void StoryFileManager::InitFileList(char(*pOutFileList)[MAX_FOLDER_PATH], int* maxFileCount)
     {

@@ -15,7 +15,7 @@ namespace HeavenGateEditor {
     {
 
         m_ppStory = nullptr;
-        m_fileManager = nullptr;
+        m_fileManager = new StoryFileManager;
         m_popupResolveConflictFiles = new HeavenGatePopupResolveConflictFiles;
         m_isOpenPopupResolveConflictFiles = m_popupResolveConflictFiles->GetHandle();
 
@@ -26,22 +26,39 @@ namespace HeavenGateEditor {
     HeavenGateWindowSelectStory::~HeavenGateWindowSelectStory()
     {
 
-        m_ppStory = nullptr;
-        m_fileManager = nullptr;
-
         m_isOpenPopupResolveConflictFiles = nullptr;
 
         if (m_popupResolveConflictFiles)
         {
             delete m_popupResolveConflictFiles;
         }
-
         m_popupResolveConflictFiles = nullptr;
-        m_isOpenPopupResolveConflictFiles = nullptr;
 
+        if (m_fileManager)
+        {
+            delete m_fileManager;
+        }
+        m_fileManager = nullptr;
+
+        m_ppStory = nullptr;
         Initialize();
     }
 
+    void HeavenGateWindowSelectStory::Initialize()
+    {
+        m_isInitializedFilesList = false;
+        m_fileCount = 0;
+
+        memset(m_filesList, 0, MAX_FOLDER_LIST * MAX_FOLDER_PATH);
+        memset(m_storyPath, 0, sizeof(m_storyPath));
+        memset(m_fullPath, 0, sizeof(m_fullPath));
+        memset(m_fullContent, 0, sizeof(m_fullContent));
+
+        m_selected = 0;
+        m_lastSelected = m_selected;
+
+
+    }
     void HeavenGateWindowSelectStory::UpdateMainWindow()
     {
         // left
@@ -91,7 +108,7 @@ namespace HeavenGateEditor {
                 //Current main window don`t have any story
 
                 *m_ppStory = new StoryJson;
-                m_fileManager->OpenStoryFile(m_fullPath, *m_ppStory);
+                m_fileManager->LoadStoryFile(m_fullPath, *m_ppStory);
                 Initialize();
                 CloseWindow();
                 /*   *pIsFileSaved = true;*/
@@ -150,21 +167,7 @@ namespace HeavenGateEditor {
     }
 
 
-    void HeavenGateWindowSelectStory::Initialize()
-    {
-        m_isInitializedFilesList = false;
-        m_fileCount = 0;
 
-        memset(m_filesList, 0, MAX_FOLDER_LIST * MAX_FOLDER_PATH);
-        memset(m_storyPath, 0, sizeof(m_storyPath));
-        memset(m_fullPath, 0, sizeof(m_fullPath));
-        memset(m_fullContent, 0, sizeof(m_fullContent));
-
-        m_selected = 0;
-        m_lastSelected = m_selected;
-
-       
-    }
 
 
 
@@ -378,7 +381,7 @@ namespace HeavenGateEditor {
 
 
             (*m_ppStory)->Clear();
-            m_fileManager->OpenStoryFile(m_fullPath, *m_ppStory);
+            m_fileManager->LoadStoryFile(m_fullPath, *m_ppStory);
 
             m_popupResolveConflictFiles->ResetIsDiscardCurrentFile();
             Initialize();

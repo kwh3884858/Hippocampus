@@ -13,6 +13,7 @@ namespace HeavenGateEditor {
         ResetIsDiscardCurrentFile();
     }
 
+
     void HeavenGatePopupResolveConflictFiles::UpdateMainWindow()
     {
         //Already have some content, maybe be is saved file but have some unsaved changes
