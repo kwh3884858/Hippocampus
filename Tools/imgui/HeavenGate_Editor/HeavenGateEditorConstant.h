@@ -26,6 +26,7 @@ namespace HeavenGateEditor {
     //Table
     const int     MAX_COLUMNS_CONTENT_LENGTH = 16;
     const int     FONT_SIZE_MAX_COLUMN = 2;
+    const int     COLOR_MAX_COLUMN = 2;
 
 
 
@@ -51,6 +52,16 @@ namespace HeavenGateEditor {
     "\\FontSizeTable.json";
 #else
     "/FontSizeTable.json";
+#endif
+
+
+    //Relative path from story folder to color table
+
+    const char* const COLOR_TABLE_NAME =
+#ifdef _WIN32
+        "\\ColorTable.json";
+#else
+        "/ColorTable.json";
 #endif
 
     const char* const PATH_FROM_PROJECT_ROOT_TO_FONT_FOLDER =

@@ -1,17 +1,1 @@
-{
-    "type": "fontSize",
-    "value": [
-        {
-            "alias": "",
-            "size": ""
-        },
-        {
-            "alias": "",
-            "size": ""
-        },
-        {
-            "alias": "",
-            "size": ""
-        }
-    ]
-}
+{"type":"fontSize","value":[{"alias":"56","size":"112"},{"alias":"58","size":"112"},{"alias":"444","size":"25"},{"alias":"56","size":"112"},{"alias":"444","size":"112"}]}

@@ -9,8 +9,6 @@
 #ifndef HeavenGateEditorFontSizeTable_h
 #define HeavenGateEditorFontSizeTable_h
 
-#include <stdio.h>
-
 
 #include "HeavenGateEditorConstant.h"
 #include "HeavenGateEditorBaseWindow.h"
@@ -36,6 +34,8 @@ namespace HeavenGateEditor {
 
     private:
         char m_fullPath[MAX_FOLDER_PATH];
+
+
 
         StoryFileManager* m_fileManager;
         StoryTable<FONT_SIZE_MAX_COLUMN>* m_table;

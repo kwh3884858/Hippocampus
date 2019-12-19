@@ -1,34 +1,34 @@
 //
-//  HeavenGateEditorFontSizeTable.cpp
-//  example_osx_opengl2
+//Copyright (c) 2019 Star Platinum
 //
-//  Created by 威化饼干 on 7/12/2019.
-//  Copyright © 2019 ImGui. All rights reserved.
+//Created by Kong Wei Hang, 2019-12-19
+//example_win32_directx11, HeavenGateEditor
 //
+//Add Description
+//
+
 #include "imgui.h"
 
-#include "HeavenGateEditorFontSizeTable.h"
-
-#include "HeavenGateEditorConstant.h"
+#include "HeavenGateWindowColorTable.h"
 #include "HeavenGateEditorUtility.h"
 
 #include "StoryFileManager.h"
 #include "StoryTable.h"
-
 namespace HeavenGateEditor {
 
-    HeavenGateEditorFontSizeTable::HeavenGateEditorFontSizeTable() {
 
 
+    HeavenGateWindowColorTable::HeavenGateWindowColorTable()
+    {
         m_fileManager = new StoryFileManager;
 
-        m_table = new StoryTable< FONT_SIZE_MAX_COLUMN>;
+        m_table = new StoryTable<COLOR_MAX_COLUMN>;
+        m_table->SetTableType(StoryTable<COLOR_MAX_COLUMN>::TableType::Color);
 
         memset(m_fullPath, 0, sizeof(m_fullPath));
-        m_table->SetTableType(StoryTable<COLOR_MAX_COLUMN>::TableType::Font_Size);
 
         HeavenGateEditorUtility::GetStoryPath(m_fullPath);
-        strcat(m_fullPath, FONT_TABLE_NAME);
+        strcat(m_fullPath, COLOR_TABLE_NAME);
 
         bool result = m_fileManager->LoadTableFile(m_fullPath, m_table);
         if (result == false)
@@ -37,13 +37,12 @@ namespace HeavenGateEditor {
             m_fileManager->LoadTableFile(m_fullPath, m_table);
         }
 
-        m_table->PushName("Size Key");
-        m_table->PushName("Font Size Value");
+        m_table->PushName("Color name");
+        m_table->PushName("RGB Value");
     }
 
-    HeavenGateEditorFontSizeTable:: ~HeavenGateEditorFontSizeTable() {
-
-
+    HeavenGateWindowColorTable::~HeavenGateWindowColorTable()
+    {
 
         if (m_fileManager)
         {
@@ -59,8 +58,7 @@ namespace HeavenGateEditor {
 
     }
 
-
-    void HeavenGateEditorFontSizeTable::UpdateMainWindow()
+    void HeavenGateWindowColorTable::UpdateMainWindow()
     {
         if (m_table == nullptr)
         {
@@ -69,7 +67,7 @@ namespace HeavenGateEditor {
 
         ImGui::Separator();
 
-        ImGui::Text("Font Size Table");
+        ImGui::Text("Color Table");
 
         if (ImGui::Button("Add New Row"))
         {
@@ -81,7 +79,7 @@ namespace HeavenGateEditor {
             m_table->RemoveRow();
         }
 
-        ImGui::Columns(FONT_SIZE_MAX_COLUMN + 1, "Font Size"); // 4-ways, with border
+        ImGui::Columns(FONT_SIZE_MAX_COLUMN + 1, "Color"); // 4-ways, with border
         ImGui::Separator();
         ImGui::Text("Index");    ImGui::NextColumn();
         for (int i = 0; i < FONT_SIZE_MAX_COLUMN; i++)
@@ -122,7 +120,7 @@ namespace HeavenGateEditor {
                 if (j % 2 == 0)
                 {
                     strcpy(constant, "Alias ");
-                    
+
                 }
                 else
                 {
@@ -134,14 +132,14 @@ namespace HeavenGateEditor {
                 ImGui::InputText(constant, content, MAX_COLUMNS_CONTENT_LENGTH);
                 ImGui::NextColumn();
             }
-           
+
         }
 
         ImGui::Columns(1);
         ImGui::Separator();
     }
 
-    void HeavenGateEditorFontSizeTable::UpdateMenu()
+    void HeavenGateWindowColorTable::UpdateMenu()
     {
         //   ImGui::MenuItem("(dummy menu)", NULL, false, false);
         if (ImGui::MenuItem("New")) {
@@ -157,8 +155,5 @@ namespace HeavenGateEditor {
         }
 
     }
-
-
-
 
 }
