@@ -16,18 +16,6 @@ MonoBehaviour:
   m_GroupAssets:
   - {fileID: 11400000, guid: d9ed0f313840ff744b3711ec31c563ab, type: 2}
   - {fileID: 11400000, guid: 9b8887d1c1e33f34da0c50f28a912a98, type: 2}
-  - {fileID: 11400000, guid: 03c7b21a63b173441bd2610d12481991, type: 2}
-  - {fileID: 11400000, guid: 98a2b1b93d06fba4b82fe5e65d58dd67, type: 2}
-  - {fileID: 11400000, guid: be6b670f47fe64e408839ff89f147e4f, type: 2}
-  - {fileID: 11400000, guid: 6488ab733f809f844a3c7b72358c33f4, type: 2}
-  - {fileID: 11400000, guid: ef48fe7cb5f77f4448861fe5bef0fd70, type: 2}
-  - {fileID: 11400000, guid: da43fc21a99e538468b60a69ce84b1d0, type: 2}
-  - {fileID: 11400000, guid: 16c661cb516e3b44bb39baf07c10f603, type: 2}
-  - {fileID: 11400000, guid: b8f2916fd6acdc341b60a29935353551, type: 2}
-  - {fileID: 11400000, guid: 00e30852fe3fb3040abf01147a73255a, type: 2}
-  - {fileID: 11400000, guid: cbc89acb344c7604f91ea903718a6690, type: 2}
-  - {fileID: 11400000, guid: 1aabaf5339f425747adcb115f9e135e8, type: 2}
-  - {fileID: 11400000, guid: 36a6752697defd64bb1a63db07b50f96, type: 2}
   m_BuildSettings:
     m_Compression:
       compression: 3
@@ -85,7 +73,7 @@ MonoBehaviour:
       m_ClassName: UnityEditor.AddressableAssets.ContentUpdateGroupSchema
   m_InitializationObjects: []
   m_ActivePlayerDataBuilderIndex: 3
-  m_ActivePlayModeDataBuilderIndex: 0
+  m_ActivePlayModeDataBuilderIndex: 2
   m_DataBuilders:
   - {fileID: 11400000, guid: 30a757c6c5d08594a85c7479de847e66, type: 2}
   - {fileID: 11400000, guid: dc08d0d1bd7cb6349b956a2518884f63, type: 2}

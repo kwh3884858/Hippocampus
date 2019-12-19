@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.SceneManagement;
 
 namespace Skylight
 {
@@ -45,7 +46,8 @@ namespace Skylight
 
 		public async Task<T> InstantiateAsyncAwait<T>(string key,Transform parent =null) where T : MonoBehaviour
 		{
-			var obj = await Addressables.Instantiate<T>(key,parent);
+			var objP = await Addressables.LoadAsset<GameObject>(key);
+			var obj = GameObject.Instantiate<T>(objP.GetComponent<T>(), parent);
 			if (obj == null)
 			{
 				Debug.Log(string.Format("找不到key为 {key} 的预设"));
@@ -64,8 +66,19 @@ namespace Skylight
 		
 		public void InstantiateAsync<T>(string key,Action<T> callBack,Transform parent =null) where T : MonoBehaviour
 		{
-			Addressables.Instantiate<T>(key,parent).Completed+= operation => { callBack?.Invoke(operation.Result);};
+//			Addressables.Instantiate<T>(key,parent).Completed+= operation => { callBack?.Invoke(operation.Result);};
+			Addressables.LoadAsset<GameObject>(key).Completed+= operation =>
+			{
+				T a = Instantiate<T>(operation.Result.GetComponent<T>(), parent);
+				callBack?.Invoke(a);
+			};
 		}
+
+		public void LoadScene(string key, LoadSceneMode loadSceneMode)
+		{
+			Addressables.LoadScene(key,loadSceneMode);
+		}
+
 
 		public void UploadPrefab (string name)
 		{

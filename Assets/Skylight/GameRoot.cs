@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Skylight
 {
@@ -12,21 +13,24 @@ namespace Skylight
 		// Use this for initialization
 		void Start ()
 		{
-            ReadStorys readStorys = new ReadStorys();
-			//DONT CHANGE ORDER
-			//不要修改顺序，有相互依赖关系
-			AddGameObject<EventManager> ();
-
-
-			AddGameObject<PollerService> ();
-
-			//依赖Poller
-			//AddGameObject<Localization> ();
-
-			//Initialize asset bundle loader and assetmanager
-			AddGameObject<AssetsManager> ();
-
-			StartCoroutine (AfterInitialize ());
+//            ReadStorys readStorys = new ReadStorys();
+//			//DONT CHANGE ORDER
+//			//不要修改顺序，有相互依赖关系
+//			AddGameObject<EventManager> ();
+//
+//
+//			AddGameObject<PollerService> ();
+//
+//			//依赖Poller
+//			//AddGameObject<Localization> ();
+//
+//			//Initialize asset bundle loader and assetmanager
+//			AddGameObject<AssetsManager> ();
+//
+//			StartCoroutine (AfterInitialize ());
+//			SceneManager.Instance ().LoadScene (SceneLookupEnum.UITestScene, SceneLoadMode.Additive);
+//			AsyncOperation asyncLoad = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync (SceneLookup.Get(SceneLookupEnum.UITestScene), UnityEngine.SceneManagement.LoadSceneMode.Additive); 
+			PrefabManager.Instance().LoadScene(SceneLookup.Get(SceneLookupEnum.UITestScene),LoadSceneMode.Additive);
 		}
 
 		IEnumerator AfterInitialize ()

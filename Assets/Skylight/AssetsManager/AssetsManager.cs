@@ -225,7 +225,7 @@ namespace Skylight
         public T LoadPrefab<T>(string path) where T: UnityEngine.Object
         {
             string strName = "Assets/" + path + ".prefab";
-            T go = AssetDatabase.LoadAssetAtPath<T>(strName) ;
+            T go = PrefabManager.Instance().LoadPrefab(strName) as T;
 
             return go;
         }
@@ -371,7 +371,7 @@ namespace Skylight
 			// This is particularly good for creating loading screens.
 			// You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
 			// a sceneBuildIndex of 1 as shown in Build Settings.
-
+			
 			AsyncOperation asyncLoad = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync (sceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive);
 
 
