@@ -55,20 +55,19 @@ namespace HeavenGateEditor {
             return;
         }
 
-        StoryJson* story = *m_ppStory;
 
-        if (story != nullptr )
+        if (*m_ppStory != nullptr )
         {
-            if (story->IsExistFullPath() != true) {
+            if ( (*m_ppStory)->IsExistFullPath() != true) {
                 printf("Error story");
                 return;
             }
 
-            m_storyFileManager->SaveStoryFile(story);
-            story->Clear();
+            m_storyFileManager->SaveStoryFile(*m_ppStory);
+            (*m_ppStory)->Clear();
         }
         else {
-            story = new StoryJson;
+            *m_ppStory = new StoryJson;
         }
 
         
@@ -85,7 +84,7 @@ namespace HeavenGateEditor {
                 //TODO
                 //m_storyFileManager->SaveStoryFile(story);
                 //m_storyFileManager->Initialize();
-                story->SetFullPath(m_filePath);
+                (*m_ppStory)->SetFullPath(m_filePath);
 
                 Initialize();
 

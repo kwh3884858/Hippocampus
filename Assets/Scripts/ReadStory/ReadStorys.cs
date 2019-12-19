@@ -6,18 +6,19 @@ using Newtonsoft.Json.Linq;
 
 public class ReadStorys
 {
-
-    public ReadStorys()
+    public ReadStorys() { }
+    public ReadStorys(string path)
     {
-        LoadStory();
+        LoadStory(path);
     }
+
 
     /// <summary>
     /// 加载故事
     /// </summary>
-    private void LoadStory()
+    private void LoadStory(string path)
     {
-        TextAsset story = Resources.Load<TextAsset>("Storys/k");
+        TextAsset story = Resources.Load<TextAsset>(path);
         if (story != null)
         {
             object json = JsonConvert.DeserializeObject(story.text);
@@ -26,30 +27,39 @@ public class ReadStorys
                 JArray test = JArray.FromObject(json);
                 if (test != null)
                 {
-                    int l = test.Count;
+                    int count = test.Count;
                     string type;
                     string data;
-                    for (int i = 0; i < l; i++)
+                    for (int i = 0; i < count; i++)
                     {
                         type = test[i]["typename"].ToString();
                         data = test[i].ToString();
                         switch (type)
                         {
+
                             case "word":
                                 ReadWord(data);
                                 break;
-                            case "lebel":
+
+                            case "label":
                                 ReadLabel(data);
                                 break;
+
                             case "jump":
                                 ReadJump(data);
                                 break;
+
                             default:
                                 break;
+
                         }
                     }
                 }
             }
+        }
+        else
+        {
+            Debug.Log("Can`t open story file");
         }
     }
 

@@ -25,7 +25,7 @@ namespace HeavenGateEditor {
         m_table = new StoryTable< FONT_SIZE_MAX_COLUMN>;
 
         memset(m_fullPath, 0, sizeof(m_fullPath));
-        m_table->SetTableType(StoryTable<COLOR_MAX_COLUMN>::TableType::Font_Size);
+        m_table->SetTableType(TableType::Font_Size);
 
         HeavenGateEditorUtility::GetStoryPath(m_fullPath);
         strcat(m_fullPath, FONT_TABLE_NAME);

@@ -79,16 +79,17 @@ namespace HeavenGateEditor {
         char(*m_content)[MAX_COLUMNS_CONTENT_LENGTH];
     };
 
+    enum class TableType
+    {
+        None = 0,
+        Font_Size,
+        Color
+    };
 
     template<int column >
     class StoryTable {
     public:
-        enum TableType
-        {
-            None = 0,
-            Font_Size,
-            Color
-        };
+   
 
 
     public:
@@ -425,11 +426,13 @@ namespace HeavenGateEditor {
         m_tableType = tableType;
     }
 
-    template<int column >
-    StoryTable<column>::TableType HeavenGateEditor::StoryTable<column>::GetTableType() const
+    template<int column>
+    TableType StoryTable<column>::GetTableType() const
     {
         return m_tableType;
     }
+
+
     //========================Json========================== 
 
     template<int column>
@@ -438,14 +441,14 @@ namespace HeavenGateEditor {
         switch (p.GetTableType())
         {
 
-        case StoryTable<column>::TableType::Font_Size:
+        case TableType::Font_Size:
         {
             j[tableString[(int)TableLayout::Type]] = fontSizeTableString[(int)FontSizeTableLayout::Type];
 
             break;
         }
 
-        case StoryTable<column>::TableType::Color:
+        case TableType::Color:
         {
             j[tableString[(int)TableLayout::Type]] = colorTableString[(int)colorTableLayout::Type];
 
@@ -488,7 +491,7 @@ namespace HeavenGateEditor {
         /*get_ptr<const json::string_t *>()->c_str();*/
 
         if (strcmp(typeString, fontSizeTableString[(int)FontSizeTableLayout::Type]) == 0) {
-            p.SetTableType(StoryTable<column>::TableType::Font_Size);
+            p.SetTableType(TableType::Font_Size);
             char content[MAX_COLUMNS_CONTENT_LENGTH];
             for (int i = 0; i < values.size(); i++)
             {
@@ -504,7 +507,7 @@ namespace HeavenGateEditor {
         }
 
         if (strcmp(typeString, colorTableString[(int)colorTableLayout::Type]) == 0) {
-            p.SetTableType(StoryTable<column>::TableType::Color);
+            p.SetTableType(TableType::Color);
             char content[MAX_COLUMNS_CONTENT_LENGTH];
             for (int i = 0; i < values.size(); i++)
             {

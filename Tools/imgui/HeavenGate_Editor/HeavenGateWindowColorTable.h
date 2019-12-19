@@ -22,6 +22,7 @@ namespace HeavenGateEditor {
     class StoryFileManager;
 
     class HeavenGateWindowColorTable : public HeavenGateEditorBaseWindow {
+        WINDOW_DECLARE("HeavenGateWindowColorTable", Window_Type::MainWindow)
 
     public:
         HeavenGateWindowColorTable();

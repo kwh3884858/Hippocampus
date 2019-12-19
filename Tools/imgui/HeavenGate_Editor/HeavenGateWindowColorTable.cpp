@@ -23,7 +23,7 @@ namespace HeavenGateEditor {
         m_fileManager = new StoryFileManager;
 
         m_table = new StoryTable<COLOR_MAX_COLUMN>;
-        m_table->SetTableType(StoryTable<COLOR_MAX_COLUMN>::TableType::Color);
+        m_table->SetTableType(TableType::Color);
 
         memset(m_fullPath, 0, sizeof(m_fullPath));
 

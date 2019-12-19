@@ -73,7 +73,7 @@ MonoBehaviour:
       m_ClassName: UnityEditor.AddressableAssets.ContentUpdateGroupSchema
   m_InitializationObjects: []
   m_ActivePlayerDataBuilderIndex: 3
-  m_ActivePlayModeDataBuilderIndex: 2
+  m_ActivePlayModeDataBuilderIndex: 0
   m_DataBuilders:
   - {fileID: 11400000, guid: 30a757c6c5d08594a85c7479de847e66, type: 2}
   - {fileID: 11400000, guid: dc08d0d1bd7cb6349b956a2518884f63, type: 2}
