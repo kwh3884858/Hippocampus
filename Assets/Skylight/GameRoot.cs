@@ -13,7 +13,7 @@ namespace Skylight
 		// Use this for initialization
 		void Start ()
 		{
-            ReadStorys readStorys = new ReadStorys("Storys/StoryTest");
+//            ReadStorys readStorys = new ReadStorys("Storys/StoryTest");
 //			//DONT CHANGE ORDER
 //			//不要修改顺序，有相互依赖关系
 //			AddGameObject<EventManager> ();

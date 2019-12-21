@@ -5,9 +5,28 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
 
 namespace Skylight
 {
+	public enum RequestStatus
+	{
+		SUCCESS,
+		FAIL
+	}
+	public struct RequestResult
+	{
+		public Object result;
+		public string key;
+		public RequestStatus status;
+
+		public RequestResult(Object result, string key, RequestStatus status)
+		{
+			this.key = key;
+			this.result = result;
+			this.status = status;
+		}
+	}
 	public class PrefabManager : GameModule<PrefabManager>
 	{
 
@@ -64,13 +83,22 @@ namespace Skylight
 			return obj;
 		}
 		
-		public void InstantiateAsync<T>(string key,Action<T> callBack,Transform parent =null) where T : MonoBehaviour
+		public void InstantiateAsync<T>(string key,Action<RequestResult> callBack,Transform parent =null) where T: UnityEngine.Object
 		{
-//			Addressables.Instantiate<T>(key,parent).Completed+= operation => { callBack?.Invoke(operation.Result);};
-			Addressables.LoadAsset<GameObject>(key).Completed+= operation =>
+			Addressables.LoadAsset<T>(key).Completed+= operation =>
 			{
-				T a = Instantiate<T>(operation.Result.GetComponent<T>(), parent);
-				callBack?.Invoke(a);
+				RequestResult result = new RequestResult();
+				result.key = key;
+				if (operation.Result == null)
+				{
+					result.status = RequestStatus.FAIL;
+					callBack?.Invoke(result);
+					return;
+				}
+				T obj = Instantiate(operation.Result, parent);
+				result.result = obj;
+				result.status = RequestStatus.SUCCESS;
+				callBack?.Invoke(result);
 			};
 		}
 

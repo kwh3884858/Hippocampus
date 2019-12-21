@@ -29,12 +29,13 @@ namespace UI
         {
         }
 
-        public void Initialize()
+        public void Initialize(GameRunTimeData data)
         {
+            Data = data;
             ShowModule(GameState.MainManu);
             ShowModule(GameState.Battle);
             
-            OnActivated(GameState.MainManu);
+            ActivatState(GameState.MainManu);
         }
 
         public void DeInitialize()
@@ -71,15 +72,15 @@ namespace UI
             m_activeModule = null;
         }
         
-        public void OnActivated(GameState state)
+        public void ActivatState(GameState state)
         {
-            Assert.IsNull(m_activeModule, $"OnActivated UiModule for {state}, but have active {nameof(UIModule)} {m_activeModule}");
-            m_activeModule = m_uiModules[state];
-            if (m_activeModule != null)
+            if (!m_uiModules.TryGetValue(state, out m_activeModule)||m_activeModule == null)
             {
-                m_activeModule.Activate();
-                OnActiveModuleActivated?.Invoke();
+                Debug.Log($"Can't find state : {state} in UIModules!!!");
+                return;
             }
+            m_activeModule.Activate();
+            OnActiveModuleActivated?.Invoke();
         }
 
         public void OnDeactivated(GameState state)
@@ -119,6 +120,7 @@ namespace UI
         {
             T1 dataProvider = new T1
             {
+                Data = Data,
                 IconProvider = LoadIconProvider(),
                 SoundService = Skylight.SoundService.Instance()
             };
@@ -140,7 +142,6 @@ namespace UI
         private UIModuleMainMenu m_uiModuleMainMenu;
         [SerializeField]
         private UIModuleBattle m_uiModuleBattle;
-
         
         [SerializeField]
         private GameObject m_iconProvider;

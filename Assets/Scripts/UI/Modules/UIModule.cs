@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Extentions;
+using Skylight;
 using UI.Panels;
 using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
@@ -14,6 +15,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using Object = UnityEngine.Object;
 using Debug = UnityEngine.Debug;
+using UIPanel = UI.Panels.UIPanel;
 
 namespace UI.Modules
 {
@@ -302,7 +304,12 @@ namespace UI.Modules
             m_loadingPanels.Add(settings.PanelType);
             var assetKey = GetPathByAttribute(settings.PanelType);
             UIPanel panel = null; 
-            m_content.InstantiateAsync<UIPanel>(assetKey, (newPanel) => { panel = newPanel;},m_container);
+            m_content.InstantiateAsync<UIPanel>(assetKey, (result) =>
+            {
+                Assert.IsTrue(result.status == RequestStatus.SUCCESS,$"panel {GetType()} load failure!!!");
+                panel =result.result as UIPanel ;
+                Assert.IsTrue(panel != null,$"panel {GetType()} load failure!!!");
+            },m_container);
             yield return new WaitUntil(()=>panel != null);
             Assert.IsNotNull(panel, $"LoadPanelAsync failed for {settings.PanelType}: key={assetKey}");
 
