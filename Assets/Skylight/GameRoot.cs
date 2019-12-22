@@ -30,7 +30,7 @@ namespace Skylight
 //			StartCoroutine (AfterInitialize ());
 //			SceneManager.Instance ().LoadScene (SceneLookupEnum.UITestScene, SceneLoadMode.Additive);
 //			AsyncOperation asyncLoad = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync (SceneLookup.Get(SceneLookupEnum.UITestScene), UnityEngine.SceneManagement.LoadSceneMode.Additive); 
-			PrefabManager.Instance().LoadScene(SceneLookup.Get(SceneLookupEnum.UITestScene),LoadSceneMode.Additive);
+//			PrefabManager.Instance().LoadScene(SceneLookup.Get(SceneLookupEnum.UITestScene),LoadSceneMode.Additive);
 		}
 
 		IEnumerator AfterInitialize ()
