@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Controllers.Subsystems;
-using Controllers.Subsystems.Stroy;
+using Controllers.Subsystems.Story;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Serialization;

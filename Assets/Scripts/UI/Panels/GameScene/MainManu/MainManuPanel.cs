@@ -4,6 +4,7 @@ using UnityEngine;
 using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
 using UI.Panels.Providers.DataProviders.GameScene;
+using UI.Panels.Providers.DataProviders.StaticBoard;
 
 namespace UI.Panels.GameScene.MainManu
 {
@@ -18,8 +19,7 @@ namespace UI.Panels.GameScene.MainManu
 
         public void ShowHud()
         {
-            InvokeChangePanel(UIPanelType.HudPanel,new HudDataProvider(){Data = 19});
-
+            InvokeChangePanel(UIPanelType.TalkPanel,new TalkDataProvider(){ID = "1"});
         }
 
         private int i = 0;

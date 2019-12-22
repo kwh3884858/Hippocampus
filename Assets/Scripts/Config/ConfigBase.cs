@@ -21,7 +21,7 @@ namespace Config
             StoryConfig.Preload();
         }
 
-        
+
         private static T _instance = null;
 
         public static T Ins

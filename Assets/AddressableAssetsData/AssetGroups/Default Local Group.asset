@@ -24,6 +24,10 @@ MonoBehaviour:
     m_Address: hud_subpanel_panel
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 8116767e825ad4e4d871c79408b096ff
+    m_Address: talk_panel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: b267b312e23b57d40aefe04153b93290
     m_Address: hud_subpanel_two_panel
     m_ReadOnly: 0

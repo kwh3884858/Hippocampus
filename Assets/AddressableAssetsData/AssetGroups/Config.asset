@@ -17,7 +17,7 @@ MonoBehaviour:
   m_GUID: 67a7d28da8a2334429a52622868888f2
   m_SerializeEntries:
   - m_GUID: 7872aee81a117194cbd8cd381b900edc
-    m_Address: StroyConfig
+    m_Address: StoryConfig
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

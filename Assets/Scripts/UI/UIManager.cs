@@ -61,6 +61,11 @@ namespace UI
             }
         }
 
+        public void ShowPanel(UIPanelType type)
+        {
+            m_activeModule.ShowPanel(type);
+        }
+
         public void UnloadActiveModule()
         {
             OnActiveModuleDeactivate?.Invoke();
