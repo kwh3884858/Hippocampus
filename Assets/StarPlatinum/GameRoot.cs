@@ -60,7 +60,7 @@ namespace StarPlatinum
 
 
 
-            PrefabManager.Instance().LoadScene(SceneLookupEnum.UITestScene,LoadSceneMode.Additive);
+            PrefabManager.Instance.LoadScene(SceneLookupEnum.UITestScene,LoadSceneMode.Additive);
 		}
 
 		IEnumerator AfterInitialize ()
@@ -80,7 +80,7 @@ namespace StarPlatinum
 
 			AddGameObject<UIManager> ();
 
-			AddGameObject<PrefabManager> ();
+			//AddGameObject<PrefabManager> ();
 			EventManager.Instance ().LogicStart ();
 			//   AddGameObject<CameraService>();
 			//AddGameObject<InputService> ();

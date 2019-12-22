@@ -14,7 +14,9 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using Object = UnityEngine.Object;
 using Debug = UnityEngine.Debug;
+using UIPanel = UI.Panels.UIPanel;
 using Random  = System.Random;
+using StarPlatinum;
 
 namespace UI.Modules
 {
@@ -303,7 +305,12 @@ namespace UI.Modules
             m_loadingPanels.Add(settings.PanelType);
             var assetKey = GetPathByAttribute(settings.PanelType);
             UIPanel panel = null; 
-            m_content.InstantiateAsync<UIPanel>(assetKey, (newPanel) => { panel = newPanel;},m_container);
+            m_content.InstantiateAsync<UIPanel>(assetKey, (result) =>
+            {
+                Assert.IsTrue(result.status == RequestStatus.SUCCESS,$"panel {GetType()} load failure!!!");
+                panel =result.result as UIPanel ;
+                Assert.IsTrue(panel != null,$"panel {GetType()} load failure!!!");
+            },m_container);
             yield return new WaitUntil(()=>panel != null);
             Assert.IsNotNull(panel, $"LoadPanelAsync failed for {settings.PanelType}: key={assetKey}");
 

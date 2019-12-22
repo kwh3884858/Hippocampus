@@ -6,4 +6,5 @@ public enum UIPanelType
     [AssetPath("hud_panel")] HudPanel = 2,
     [AssetPath("hud_subpanel_panel")] HudSubpanelPanel = 3,
     [AssetPath("hud_subpanel_two_panel")] HudSubpanelTwoPanel = 4,
+    [AssetPath("talk_panel")] TalkPanel = 5,
 }

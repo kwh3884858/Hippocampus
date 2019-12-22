@@ -226,7 +226,7 @@ namespace StarPlatinum
         public T LoadPrefab<T>(string path) where T: UnityEngine.Object
         {
             string strName = "Assets/" + path + ".prefab";
-            T go = PrefabManager.Instance().LoadPrefab(strName) as T;
+            T go = PrefabManager.Instance.LoadPrefab(strName) as T;
 
             return go;
         }
