@@ -8,21 +8,24 @@ public class MoveController : MonoBehaviour
 
 	public float m_moveSpeed = 5f;
 	public float m_jumpForce = 60f;
+    public float m_rayDistance = 2f;
 
+    [SerializeField]
+    private bool m_isOldFaceRight = false;
 
-
-	private bool m_isOldFaceRight = false;
-	private bool m_isFaceRight = false;
+    [SerializeField]
+    private bool m_isFaceRight = false;
 
 	//private Rigidbody2D m_rigidbody2D;
-	//private BoxCollider2D m_boxCollider2D;
+    [SerializeField]
+	private BoxCollider2D m_boxCollider2D;
  //   public LayerMask m_layerMask;
  //   public LayerMask m_enemyLayerMask;
 
     void Start ()
 	{
         //m_rigidbody2D = transform.GetComponent<Rigidbody2D> ();
-        //m_boxCollider2D = transform.GetComponent<BoxCollider2D> ();
+        m_boxCollider2D = transform.GetComponent<BoxCollider2D> ();
 
         CameraService.Instance.SetTarget(gameObject);
 	}
@@ -35,7 +38,27 @@ public class MoveController : MonoBehaviour
 
 	}
 
-	void FixedUpdate ()
+    private void OnGUI()
+    {
+        if((GUI.Button(new Rect(0, 50, 200, 50), "Interact"))){
+            RaycastHit hit;
+            bool result = Physics.Raycast (transform.position, m_isFaceRight?Vector3.right:Vector3.left, out hit,Mathf.Infinity);
+            if (result)
+            {
+                Debug.DrawRay(transform.position, m_isFaceRight ? Vector3.right : Vector3.left * hit.distance, Color.yellow);
+                Debug.Log("Did Hit");
+            }
+            else
+            {
+                Debug.DrawRay(transform.position, m_isFaceRight ? Vector3.right : Vector3.left * 1000, Color.white);
+
+            }
+       
+
+        }
+    }
+
+    void FixedUpdate ()
 	{
 		//if (m_isLightAttack || m_isHeavyAttack) return;
 
@@ -51,7 +74,17 @@ public class MoveController : MonoBehaviour
             transform.localPosition.z);
 
         }
+        if (verticalAxis > 0.1f || verticalAxis < -0.1f)
+        {
 
+            //m_rigidbody2D.velocity = new Vector2 (horizontalAxis * m_moveSpeed, m_rigidbody2D.velocity.y);
+
+            transform.localPosition = new Vector3(
+            transform.localPosition.x ,
+            transform.localPosition.y,
+            transform.localPosition.z + verticalAxis * m_moveSpeed * Time.fixedDeltaTime);
+
+        }
         //No Jump
         //if (verticalAxis > 0.1f) {
         //	//Debug.Log (InputService.Instance ().GetAxis (KeyMap.Horizontal));

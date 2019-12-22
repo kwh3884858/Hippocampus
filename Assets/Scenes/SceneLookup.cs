@@ -9,13 +9,15 @@
 public static class SceneLookup {
 
 public const int GameRoot = 0;
-public const int UITestScene = 1;
+public const int GoundTestScene = 1;
+public const int UITestScene = 2;
 
 
-    private const int TotalComponents = 2;
+    private const int TotalComponents = 3;
 
     private static readonly string[] sceneLists = {
 "GameRoot",
+"GoundTestScene",
 "UITestScene"
     };
 
@@ -28,5 +30,6 @@ public const int UITestScene = 1;
 public enum SceneLookupEnum
 {
 GameRoot = 0,
-UITestScene = 1
+GoundTestScene = 1,
+UITestScene = 2
 }
