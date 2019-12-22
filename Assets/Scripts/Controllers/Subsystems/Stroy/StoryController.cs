@@ -71,7 +71,9 @@ namespace Controllers.Subsystems.Story
             container.PushColor("#FF0000");
             container.PushContent("我不做人了！");
             container.PushWaiting(1.2f);
-            container.PushContent("jojo！");
+            container.PushFontName("SourceHanSansCN2");
+            container.PushContent("乔乔！");
+            container.PushFontName("SourceHanSansCN2");
             container.PushColor("#FF0000");
             container.PushFontSize("48");
             return container;

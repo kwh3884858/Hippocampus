@@ -72,7 +72,7 @@ namespace UI.Panels.StaticBoard
 
                 if (m_font != null)
                 {
-                    content = $"<style=\"{m_font}\">{content}</style>";
+                    content = $"<font=\"{m_font}\">{content}</font>";
                 }
 
                 if (m_fontSize != null)
