@@ -10,59 +10,109 @@ namespace StarPlatinum
     /// 如果有摄像机，也有固定脚本，那么什么都不做
     /// 如果有多台摄像机
     /// </summary>
-	public class CameraService : GameModule<CameraService>
+	public class CameraService : Singleton<CameraService>
 	{
+        [SerializeField]
 		private GameObject m_mainCamera;
 
-		private GameObject m_cachedCamera;
+        [SerializeField]
+        private CameraController m_cameraController;
 
-		public override void SingletonInit ()
-		{
-			base.SingletonInit ();
-            EventManager.Instance().RegisterCallback((int)LogicType.MainMenuOpen, SetCamera);
-            EventManager.Instance().RegisterCallback((int)LogicType.MainMenuClose, CameraClose);
-            EventManager.Instance().RegisterCallback((int)LogicType.SceneOpen, SetCamera);
-            EventManager.Instance().RegisterCallback((int)LogicType.SceneClose, CameraClose);
+        public CameraService()
+        {
 
+            //EventManager.Instance().RegisterCallback((int)LogicType.MainMenuOpen, SetCamera);
+            //EventManager.Instance().RegisterCallback((int)LogicType.MainMenuClose, CameraClose);
+            //EventManager.Instance().RegisterCallback((int)LogicType.SceneOpen, SetCamera);
+            //EventManager.Instance().RegisterCallback((int)LogicType.SceneClose, CameraClose);
+
+
+            GameObject mainCamera = GetCamera();
+            if(mainCamera == null)
+            {
+                mainCamera = CreateCamera();
+                if (mainCamera == null) return;
+
+            }
+
+            m_mainCamera = mainCamera;
+
+            m_cameraController = m_mainCamera.GetComponent<CameraController>();
+            if (m_cameraController == null)
+            {
+                m_cameraController= m_mainCamera.AddComponent<CameraController>();
+            }
+          
         }
+
+        private GameObject camera;
+
+		//public override void SingletonInit ()
+		//{
+	
+  //      }
 
 		public GameObject GetCamera ()
 		{
 
 			Camera [] cameras = Camera.allCameras;
 			Debug.Log ("Camera Length:" + cameras.Length);
-			for (int i = 0; i < cameras.Length; i++) {
-				Debug.Log ("Camera" + i + " name: " + cameras [i].name);
-				if (cameras [i].name != "AutoCamera") {
-					return cameras [i].gameObject;
-				}
-			}
-			Debug.Log ("This scene doean`t contain a camera!");
-			return null;
+
+            if(Camera.allCamerasCount == 0)
+            {
+                Debug.Log("This scene doean`t contain a camera!");
+
+                return null;
+            }
+
+            if(cameras.Length > 1)
+            {
+                for (int i = 1; i < cameras.Length; i++)
+                {
+                    GameObject.Destroy(cameras[i]);
+                }
+            }
+            
+			return cameras[0].gameObject;
 
 		}
 
-		private void SetCachedCamera (bool flag)
-		{
-			if (m_cachedCamera == null) {
-                m_cachedCamera = PrefabManager.Instance.LoadPrefab("");
-				m_cachedCamera = Instantiate (m_cachedCamera);
-				m_cachedCamera.transform.SetParent (transform);
-			}
+		private GameObject CreateCamera ()
+        { 
+                GameObject root = GameObject.Find("GameRoot");
+                if (root == null) return null;
 
-			m_cachedCamera.SetActive (flag);
+
+                camera = new GameObject("Main Camera");
+                camera.AddComponent<Camera>();
+
+            //m_cachedCamera = Instantiate (m_cachedCamera);
+            camera.transform.SetParent (root.transform);
+
+                return camera;
+            
+
 		}
 
-		public bool SetCamera (System.Object vars = null)
-		{
+		//public bool SetCamera (System.Object vars = null)
+		//{
 
-			m_mainCamera = GetCamera ();
-			if (m_mainCamera == null) {
-				SetCachedCamera (true);
+		//	m_mainCamera = GetCamera ();
+		//	if (m_mainCamera == null) {
+		//		CreateCamera (true);
 
-			}
-			return true;
-		}
+		//	}
+		//	return true;
+		//}
+
+
+        public void SetTarget(GameObject target)
+        {
+            if(m_cameraController != null)
+            {
+                m_cameraController.SetTarget(target);
+            }
+        }
 
 		public bool CameraClose (System.Object vars = null)
 		{

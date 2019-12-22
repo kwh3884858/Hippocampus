@@ -4,102 +4,127 @@ using UnityEngine;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-public class ReadStorys
+namespace StarPlatinum.StoryReader
 {
-    public ReadStorys() { }
-    public ReadStorys(string path)
+    public class StoryReader
     {
-        LoadStory(path);
-    }
-
-
-    /// <summary>
-    /// 加载故事
-    /// </summary>
-    private void LoadStory(string path)
-    {
-        TextAsset story = Resources.Load<TextAsset>(path);
-        if (story != null)
+        private List<StoryBasicData> m_story = new List<StoryBasicData>();
+        public StoryReader() { }
+        public StoryReader(string path)
         {
-            object json = JsonConvert.DeserializeObject(story.text);
-            if(json != null)
+            LoadStory(path);
+        }
+
+        public enum NodeType
+        {
+            none ,
+            label,
+            word,
+            jump
+        };
+
+         public List<StoryBasicData> GetSotry()
+        {
+            return m_story;
+        }
+
+        /// <summary>
+        /// 加载故事
+        /// </summary>
+        private void LoadStory(string path)
+        {
+            TextAsset story = Resources.Load<TextAsset>(path);
+            if (story != null)
             {
-                JArray test = JArray.FromObject(json);
-                if (test != null)
+                object json = JsonConvert.DeserializeObject(story.text);
+                if (json != null)
                 {
-                    int count = test.Count;
-                    string type;
-                    string data;
-                    for (int i = 0; i < count; i++)
+                    JArray storyJson = JArray.FromObject(json);
+                    if (storyJson != null)
                     {
-                        type = test[i]["typename"].ToString();
-                        data = test[i].ToString();
-                        switch (type)
+                        int count = storyJson.Count;
+                        NodeType type;
+                        string data;
+                        for (int i = 0; i < count; i++)
                         {
 
-                            case "word":
-                                ReadWord(data);
-                                break;
+                            //type = storyJson[i]["typename"].ToString();
+                            type =(NodeType)System.Enum.Parse(typeof(NodeType), storyJson[i]["typename"].ToString());
+                            data = storyJson[i].ToString();
+                            switch (type)
+                            {
+                                
+                                case NodeType.word:
+                                    ReadWord(data);
+                                    break;
 
-                            case "label":
-                                ReadLabel(data);
-                                break;
+                                case NodeType.label:
+                                    ReadLabel(data);
+                                    break;
 
-                            case "jump":
-                                ReadJump(data);
-                                break;
+                                case NodeType.jump:
+                                    ReadJump(data);
+                                    break;
 
-                            default:
-                                break;
+                                default:
+                                    break;
 
+                            }
                         }
                     }
                 }
             }
+            else
+            {
+                Debug.Log("Can`t open story file");
+            }
         }
-        else
+
+        /// <summary>
+        /// 读取word
+        /// </summary>
+        /// <param name="json">数据</param>
+        private void ReadWord(string json)
         {
-            Debug.Log("Can`t open story file");
+            StoryWordData data = JsonConvert.DeserializeObject<StoryWordData>(json);
+            Debug.Log(data.content);
+            Debug.Log(data.name);
+            Debug.Log(data.typename);
+            m_story.Add(data);
         }
+
+        /// <summary>
+        /// 读取label
+        /// </summary>
+        /// <param name="json">数据</param>
+        private void ReadLabel(string json)
+        {
+            StoryLabelData data = JsonConvert.DeserializeObject<StoryLabelData>(json);
+            Debug.Log(data.label);
+            m_story.Add(data);
+
+        }
+
+        /// <summary>
+        /// 读取jump
+        /// </summary>
+        /// <param name="json">数据</param>
+        private void ReadJump(string json)
+        {
+            StoryJumpData data = JsonConvert.DeserializeObject<StoryJumpData>(json);
+            Debug.Log(data.jump);
+            m_story.Add(data);
+
+        }
+
+        /// <summary>
+        /// 基础数据
+        /// </summary>
+   
     }
 
-    /// <summary>
-    /// 读取word
-    /// </summary>
-    /// <param name="json">数据</param>
-    private void ReadWord(string json)
-    {
-        StoryWordData data = JsonConvert.DeserializeObject<StoryWordData>(json);
-        Debug.Log(data.content);
-        Debug.Log(data.name);
-        Debug.Log(data.typename);
-    }
-
-    /// <summary>
-    /// 读取label
-    /// </summary>
-    /// <param name="json">数据</param>
-    private void ReadLabel(string json)
-    {
-        StoryLabelData data = JsonConvert.DeserializeObject<StoryLabelData>(json);
-        Debug.Log(data.label);
-    }
-
-    /// <summary>
-    /// 读取jump
-    /// </summary>
-    /// <param name="json">数据</param>
-    private void ReadJump(string json)
-    {
-        StoryJumpData data = JsonConvert.DeserializeObject<StoryJumpData>(json);
-        Debug.Log(data.jump);
-    }
-
-    /// <summary>
-    /// 基础数据
-    /// </summary>
     [System.Serializable]
-    class StoryBasicData
+    public class StoryBasicData
     {
         public string typename;
     }
@@ -108,7 +133,7 @@ public class ReadStorys
     /// word类
     /// </summary>
     [System.Serializable]
-    class StoryWordData : StoryBasicData
+    public class StoryWordData : StoryBasicData
     {
         public string content;
         public string name;
@@ -118,7 +143,7 @@ public class ReadStorys
     /// label
     /// </summary>
     [System.Serializable]
-    class StoryLabelData : StoryBasicData
+    public class StoryLabelData : StoryBasicData
     {
         public string label;
     }
@@ -127,7 +152,7 @@ public class ReadStorys
     /// jump
     /// </summary>
     [System.Serializable]
-    class StoryJumpData : StoryBasicData
+    public class StoryJumpData : StoryBasicData
     {
         public string jump;
     }

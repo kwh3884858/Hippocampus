@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace StarPlatinum
 {
-	public class GameRoot : MonoSingleton<GameRoot>
+    public class GameRoot : MonoSingleton<GameRoot>
 	{
 
         public override void SingletonInit ()  { }
@@ -40,7 +40,7 @@ namespace StarPlatinum
             //Console.Instance.Print("Hello, World!");
             Porductivity();
 
-            ReadStorys readStorys = new ReadStorys("Storys/StoryTest");
+            //ReadStorys readStorys = new ReadStorys("Storys/StoryTest");
             //			//DONT CHANGE ORDER
             //			//不要修改顺序，有相互依赖关系
             //			AddGameObject<EventManager> ();
@@ -113,7 +113,7 @@ namespace StarPlatinum
 
             if(input!= lastInput)
             {
-                Debug.Log(input );
+                //Debug.Log(input );
                 lastInput = input;
             }
         }

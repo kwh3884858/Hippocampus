@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Config;
+using StarPlatinum.StoryReader;
 using UnityEngine;
 
 namespace Controllers.Subsystems.Story
@@ -42,13 +44,26 @@ namespace Controllers.Subsystems.Story
 
         private void LoadStory()
         {
-            m_storys = new ReadStorys(m_config.StoryPath);
+            m_storys = new StoryReader(m_config.StoryPath);
         }
 
         public StoryActionContainer GetStory(string ID)
         {
             StoryActionContainer container =new StoryActionContainer();
+
             //TODO: Get info from Story Parsing
+            List<StoryBasicData> datas = m_storys.GetSotry();
+
+            for(int i = 0; i < datas.Count(); i++)
+            {
+                if(datas[i].typename == StoryReader.NodeType.word.ToString())
+                {
+                    StoryWordData data = datas[i] as StoryWordData;
+                    container.PushName(data.name);
+                    container.PushContent(data.content);
+                }
+            }
+
             container.PushName("迪奥");
             container.PushContent("jojo，人的能力是有极限的");
             container.PushName("迪奥");
@@ -84,7 +99,7 @@ namespace Controllers.Subsystems.Story
             return m_config.ChineseContentSpeed;
         }
 
-        private ReadStorys m_storys;
+        private StoryReader m_storys;
         private StoryConfig m_config;
     }
 }
