@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 4898934140237878}
   - component: {fileID: 114312913334382630}
   - component: {fileID: 114109849832879468}
+  - component: {fileID: 114106967399437950}
   m_Layer: 0
   m_Name: UIModules
   m_TagString: Untagged
@@ -60,6 +61,24 @@ Transform:
   m_Father: {fileID: 224522578941188998}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114106967399437950
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1948776033171202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe8a0f3ebd334ae09d71c4b3d1fe0fcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_panelsSettings:
+  - m_panelType: 1
+    unLoadMode: 0
+    m_showOnStart: 0
+  - m_panelType: 2
+    unLoadMode: 0
+    m_showOnStart: 0
 --- !u!114 &114109849832879468
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -72,19 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_panelsSettings:
-  - m_panelType: 0
-    unLoadMode: 0
-    m_showOnStart: 0
-  - m_panelType: 0
-    unLoadMode: 0
-    m_showOnStart: 0
-  - m_panelType: 0
-    unLoadMode: 0
-    m_showOnStart: 0
-  - m_panelType: 0
-    unLoadMode: 0
-    m_showOnStart: 0
-  - m_panelType: 0
+  - m_panelType: 3
     unLoadMode: 0
     m_showOnStart: 0
 --- !u!114 &114312913334382630
@@ -99,21 +106,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_panelsSettings:
-  - m_panelType: 1
-    unLoadMode: 1
-    m_showOnStart: 1
-  - m_panelType: 2
-    unLoadMode: 0
-    m_showOnStart: 0
   - m_panelType: 3
     unLoadMode: 1
-    m_showOnStart: 0
-  - m_panelType: 4
-    unLoadMode: 1
-    m_showOnStart: 0
-  - m_panelType: 5
-    unLoadMode: 0
-    m_showOnStart: 0
+    m_showOnStart: 1
 --- !u!114 &114373055534123712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -147,6 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_canvas: {fileID: 223389268492012594}
+  m_uiModuleStaticBoard: {fileID: 114106967399437950}
   m_uiModuleMainMenu: {fileID: 114312913334382630}
   m_uiModuleBattle: {fileID: 114109849832879468}
   m_iconProvider: {fileID: 1948776033171202}

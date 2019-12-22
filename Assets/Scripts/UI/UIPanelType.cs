@@ -2,9 +2,7 @@
 public enum UIPanelType
 {
     [AssetPath("0")] None = 0,
-    [AssetPath("main_manu_panel")] MainManuPanel = 1,
-    [AssetPath("hud_panel")] HudPanel = 2,
-    [AssetPath("hud_subpanel_panel")] HudSubpanelPanel = 3,
-    [AssetPath("hud_subpanel_two_panel")] HudSubpanelTwoPanel = 4,
-    [AssetPath("talk_panel")] TalkPanel = 5,
+    [AssetPath("options_panel")] OptionsPanel = 1,
+    [AssetPath("talk_panel")] TalkPanel = 2,
+    [AssetPath("main_manu_panel")] MainManuPanel = 3,
 }

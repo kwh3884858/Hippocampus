@@ -135,6 +135,14 @@ namespace UI.Panels.StaticBoard
                     SetActionState(ActionState.End);
                     break;
                 case StoryActionType.Jump:
+                    var jumpAction = storyAction as StoryJumpAction;
+                    if (jumpAction == null)
+                    {
+                        Debug.LogError("JumpAction null!!!!!!!Please check");
+                        SetActionState(ActionState.End);
+                        return;
+                    }
+                    ShowJumpOption(jumpAction.Options);
                     break;
                 case StoryActionType.Picture:
                     break;
@@ -162,6 +170,18 @@ namespace UI.Panels.StaticBoard
             {
                 SetNextAction(m_actionContainer.GetNextAction());
             }
+        }
+
+        private void ShowJumpOption(List<Option> options)
+        {
+            SetActionState(ActionState.Actioning);
+            UiDataProvider.StaticBoard.ShowOptions(options ,OptionCallback);
+        }
+
+        private void OptionCallback(string id)
+        {
+            SetActionState(ActionState.End);
+            SetInfo(id);
         }
 
         private void SetNameContent(string name)

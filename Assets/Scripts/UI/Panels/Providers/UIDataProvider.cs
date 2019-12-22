@@ -1,8 +1,9 @@
-
+﻿
 using Config;
 using Controllers;
 
 using StarPlatinum;
+using UI.Modules;
 
 namespace UI.Panels.Providers
 {
@@ -32,5 +33,7 @@ namespace UI.Panels.Providers
         {
             get;set;
         }
+
+        public UIModuleStaticBoard StaticBoard { get; set; }
     }
 }

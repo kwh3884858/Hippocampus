@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UI.Panels.StaticBoard;
 using UnityEngine;
 
 namespace Controllers.Subsystems.Story
@@ -15,7 +16,7 @@ namespace Controllers.Subsystems.Story
     }
     public class StoryJumpAction : StoryAction
     {
-        public string NextID { get; set; }
+        public List<Option> Options { get; set; }
     }
 
     public class StoryPictureMoveAction : StoryAction
@@ -57,9 +58,9 @@ namespace Controllers.Subsystems.Story
             m_actions.Enqueue(new StoryAction(){Type = StoryActionType.Font,Content = fontName});
         }
 
-        public void PushJump(string content, string nextID)
+        public void PushJump(List<Option> options)
         {
-            m_actions.Enqueue(new StoryJumpAction(){Type = StoryActionType.Jump,Content = content,NextID = nextID});
+            m_actions.Enqueue(new StoryJumpAction(){Type = StoryActionType.Jump,Options = options});
         }
 
         public void PushWaiting(float waitingTime)
