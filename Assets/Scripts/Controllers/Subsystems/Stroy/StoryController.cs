@@ -52,16 +52,41 @@ namespace Controllers.Subsystems.Story
             StoryActionContainer container =new StoryActionContainer();
 
             //TODO: Get info from Story Parsing
-            List<StoryBasicData> datas = m_storys.GetSotry();
+            //List<StoryBasicData> datas = m_storys.GetSotry();
 
-            for(int i = 0; i < datas.Count(); i++)
+            //for(int i = 0; i < datas.Count(); i++)
+            //{
+            //    if(datas[i].typename == StoryReader.NodeType.word.ToString())
+            //    {
+            //        StoryWordData data = datas[i] as StoryWordData;
+            //        container.PushName(data.name);
+            //        container.PushContent(data.content);
+            //    }
+            //    else if (datas[i].typename == StoryReader.NodeType.jump.ToString())
+            //    {
+            //        StoryJumpData data = datas[i] as StoryJumpData;
+            //        container.PushJump(data.jump, );
+                   
+            //    }
+            //}
+
+            while (!m_storys.IsDone())
             {
-                if(datas[i].typename == StoryReader.NodeType.word.ToString())
+                switch (m_storys.GetNodeType())
                 {
-                    StoryWordData data = datas[i] as StoryWordData;
-                    container.PushName(data.name);
-                    container.PushContent(data.content);
+                    case StoryReader.NodeType.word:
+                        container.PushName(m_storys.GetName());
+                        container.PushContent(m_storys.GetContent());
+                        break;
+
+                    case StoryReader.NodeType.jump:
+                        break;
+
+                    default:
+                        break;
                 }
+
+                m_storys.Next();
             }
 
             container.PushName("迪奥");
