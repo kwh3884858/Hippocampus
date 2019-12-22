@@ -1,4 +1,4 @@
-﻿using Skylight;
+﻿using StarPlatinum;
 
 namespace UI.Panels.Providers
 {

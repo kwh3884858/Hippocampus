@@ -9,15 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/GameRoot.unity
     guid: e59ae2862aaea427a8b8b4a0d1462e0e
   - enabled: 1
-    path: Assets/Scenes/PaperPleasePrototype.unity
-    guid: e700043bacb9f47eb83bea5469219d94
-  - enabled: 1
-    path: Assets/Scenes/Prototype_AVG_System.unity
-    guid: 444a4299db83f2d4cbb4b11f9b940949
-  - enabled: 1
-    path: Assets/Scenes/SceneKnifeAndTransformDoor.unity
-    guid: e3f24d6fbaeda4c439f3875d824dc578
-  - enabled: 1
     path: Assets/Scenes/UITestScene.unity
     guid: 67e9f636bf85cec49aa5259fcd3be769
   m_configObjects:

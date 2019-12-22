@@ -120,10 +120,10 @@ namespace UI
             T1 dataProvider = new T1
             {
                 IconProvider = LoadIconProvider(),
-                SoundService = Skylight.SoundService.Instance()
+                SoundService = StarPlatinum.SoundService.Instance
             };
 
-            uiModule.Initialize(dataProvider, Skylight.PrefabManager.Instance());
+            uiModule.Initialize(dataProvider, StarPlatinum.PrefabManager.Instance());
             return uiModule;
         }
 

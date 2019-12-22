@@ -72,6 +72,7 @@ public class ReadStorys
         StoryWordData data = JsonConvert.DeserializeObject<StoryWordData>(json);
         Debug.Log(data.content);
         Debug.Log(data.name);
+        Debug.Log(data.typename);
     }
 
     /// <summary>

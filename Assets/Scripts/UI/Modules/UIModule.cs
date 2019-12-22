@@ -14,6 +14,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using Object = UnityEngine.Object;
 using Debug = UnityEngine.Debug;
+using Random  = System.Random;
 
 namespace UI.Modules
 {
@@ -109,7 +110,7 @@ namespace UI.Modules
             }
         }
 
-        public virtual void Initialize(UIDataProvider uiDataProvider, Skylight.PrefabManager content)
+        public virtual void Initialize(UIDataProvider uiDataProvider, StarPlatinum.PrefabManager content)
         {
             Log("Initialize");
             UiDataProvider = uiDataProvider;
@@ -770,7 +771,7 @@ namespace UI.Modules
                 panel.ShowData(data);
                 panel.UpdateData(data);
             }
-            UiDataProvider.SoundService.PlayMusic("ShowPanel");
+            //UiDataProvider.SoundService.PlayBgm("ShowPanel");
         }
 
         private IEnumerator UpdatePanelOperation(UIPanelType type, DataProvider data = null)
@@ -789,7 +790,6 @@ namespace UI.Modules
                 yield break;
             }
 
-            UiDataProvider.SoundService.PlayMusic("InvokePanel");
             var subpanel = m_subpanels.FirstOrDefault(x => x.Value == type);
 
 
@@ -898,7 +898,7 @@ namespace UI.Modules
 
         private List<UIPanelType> m_loadingPanels = new List<UIPanelType>();
         private UIDataProvider m_uiDataProvider = null;
-        private Skylight.PrefabManager m_content = null;
+        private StarPlatinum.PrefabManager m_content = null;
         private RectTransform m_container = null;
 
         private List<UIPanelOperation> m_operationQueue = new List<UIPanelOperation>();
@@ -916,7 +916,7 @@ namespace UI.Modules
             get; private set;
         }
 
-        public override void Initialize(UIDataProvider uiDataProvider,Skylight.PrefabManager  content)
+        public override void Initialize(UIDataProvider uiDataProvider,StarPlatinum.PrefabManager  content)
         {
             base.Initialize(uiDataProvider, content);
             UiDataProvider = base.UiDataProvider as T;
