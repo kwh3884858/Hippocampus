@@ -5,4 +5,5 @@ public enum UIPanelType
     [AssetPath("options_panel")] OptionsPanel = 1,
     [AssetPath("talk_panel")] TalkPanel = 2,
     [AssetPath("main_manu_panel")] MainManuPanel = 3,
+    [AssetPath("joystick_panel")] JoystickPanel = 4,
 }
