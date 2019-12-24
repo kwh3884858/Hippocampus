@@ -14,7 +14,8 @@ namespace HeavenGateEditor {
     enum class JumpLayout
     {
         NodeTypeName = 0,
-        Jump = 1
+        Jump = 1,
+        Content
     };
 
     enum class WordLayout {
@@ -37,6 +38,7 @@ namespace HeavenGateEditor {
     extern char jumpNodeString[][MAX_ENUM_LENGTH] = {
         "typename",
         "jump"
+        "content"
     };
     extern char wordNodeString[][MAX_ENUM_LENGTH] = {
         "typename",
@@ -75,10 +77,11 @@ namespace HeavenGateEditor {
 
         return  AddNode(label);
     }
-    int HeavenGateEditor::StoryJson::AddJump(const char* jumpName) {
+    int HeavenGateEditor::StoryJson::AddJump(const char* jumpName, const char* jumpContent) {
         StoryJump* jump = new StoryJump;
         jump->m_nodeType = NodeType::Jump;
         strcpy(jump->m_jumpId, jumpName);
+        strcpy(jump->m_jumpContent, jumpContent);
 
         return  AddNode(jump);
     }
@@ -211,7 +214,8 @@ namespace HeavenGateEditor {
     {
         j = json{
             {jumpNodeString[(int)JumpLayout::NodeTypeName],      nodeTypeString[(int)p.m_nodeType] },
-            {jumpNodeString[(int)JumpLayout::Jump],          p.m_jumpId}
+            {jumpNodeString[(int)JumpLayout::Jump],          p.m_jumpId},
+            {jumpNodeString[(int)JumpLayout::Content],          p.m_jumpContent}
 
         };
     }
@@ -266,6 +270,7 @@ namespace HeavenGateEditor {
     void from_json(const json& j, StoryJump& p) {
         p.m_nodeType = NodeType::Jump;
         strcpy(p.m_jumpId, j.at(jumpNodeString[(int)JumpLayout::Jump]).get_ptr<const json::string_t *>()->c_str());
+        strcpy(p.m_jumpContent, j.at(jumpNodeString[(int)JumpLayout::Content]).get_ptr<const json::string_t *>()->c_str());
     }
 
     void from_json(const json & j, StoryJson & p)

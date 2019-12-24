@@ -96,6 +96,7 @@ namespace HeavenGateEditor {
         static char* content = nullptr;
         static char* label = nullptr;
         static char* jump = nullptr;
+        static char* jumpContent = nullptr;
 
         char order[8] = "";
         ImGui::LabelText("label", "Value");
@@ -128,12 +129,16 @@ namespace HeavenGateEditor {
                 case NodeType::Jump:
                 {
                     char jumpConstant[16] = "Jump";
+                    char contentConstant[16] = "JumpContent";
                     strcat(jumpConstant, order);
+                    strcat(contentConstant, order);
 
                     StoryJump* pJump = static_cast<StoryJump*>(node);
                     jump = pJump->m_jumpId;
+                    jumpContent = pJump->m_jumpContent;
 
                     ImGui::InputTextWithHint(jumpConstant, "Enter jump ID here", jump, MAX_NAME);
+                    ImGui::InputTextWithHint(contentConstant, "Enter jump Content here", jumpContent, MAX_CONTENT);
                     break;
                 }
 
@@ -194,7 +199,7 @@ namespace HeavenGateEditor {
             //If already exist story
             if (m_storyJson != nullptr)
             {
-                m_storyJson->AddJump("");
+                m_storyJson->AddJump("", "");
             }
         }
 

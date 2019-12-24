@@ -21,7 +21,7 @@ namespace HeavenGateEditor {
     }
 
     HeavenGatePopupInputFileName::~HeavenGatePopupInputFileName() {
- 
+
         m_storyFileManager = nullptr;
         m_ppStory = nullptr;
     }
@@ -56,21 +56,6 @@ namespace HeavenGateEditor {
         }
 
 
-        if (*m_ppStory != nullptr )
-        {
-            if ( (*m_ppStory)->IsExistFullPath() != true) {
-                printf("Error story");
-                return;
-            }
-
-            m_storyFileManager->SaveStoryFile(*m_ppStory);
-            (*m_ppStory)->Clear();
-        }
-        else {
-            *m_ppStory = new StoryJson;
-        }
-
-        
 
         ImGui::Text("Please Input New File Name.\n\n");
         ImGui::Separator();
@@ -81,9 +66,28 @@ namespace HeavenGateEditor {
 
         if (ImGui::Button("OK", ImVec2(120, 0))) {
             if (m_storyFileManager->FromFileNameToFullPath(m_filePath, m_fileName)) {
-                //TODO
-                //m_storyFileManager->SaveStoryFile(story);
-                //m_storyFileManager->Initialize();
+
+
+
+                if (*m_ppStory != nullptr)
+                {
+                    //If already have a file
+                    if ((*m_ppStory)->IsExistFullPath() != true) {
+                        printf("Error story");
+                        return;
+                    }
+
+                    m_storyFileManager->SaveStoryFile(*m_ppStory);
+                    (*m_ppStory)->Clear();
+                }
+                else {
+                    //If story don`t loaded
+                    *m_ppStory = new StoryJson;
+                }
+
+
+
+
                 (*m_ppStory)->SetFullPath(m_filePath);
 
                 Initialize();

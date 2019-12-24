@@ -48,24 +48,37 @@ namespace StarPlatinum.StoryReader
 
         public string GetJump()
         {
+            //for (int i = 0; i < length; i++)
+            //{
+
+            //}
             StoryJumpData data = m_story[m_index] as StoryJumpData;
             return data.jump;
         }
 
         public void JumpToLabel(string label)
         {
-            int i = 0;
+            int i = -1;
             foreach (StoryBasicData item in m_story)
             {
                 i++;
-
                 if (item.typename != NodeType.label.ToString()) continue;
                 StoryLabelData labelData = item as StoryLabelData;
-                if (labelData.label == label)
+                if (labelData.label != label) continue;
+
+                //ignore all label and jump
+                for(int j = i + 1; j < m_story.Count(); j++)
                 {
-                    m_index = ++i;
+                    if(m_story[j].typename != NodeType.label.ToString())
+                    {
+                        m_index = j;
+                        return;
+                    }
                 }
+                m_index = m_story.Count();
+               
             }
+
         }
 
         public int GetIndex()
