@@ -13,13 +13,13 @@ namespace UI.Panels.GameScene.MainManu
         public override void Initialize(UIDataProvider uiDataProvider, UIPanelSettings settings)
         {
             base.Initialize(uiDataProvider, settings);
-            CallbackTime(1,ShowHud);
+            CallbackTime(1, ShowHud);
         }
         
 
         public void ShowHud()
         {
-            InvokeChangePanel(UIPanelType.TalkPanel,new TalkDataProvider(){ID = "1"});
+            UiDataProvider.StaticBoard.ShowTalk("9");
         }
 
         private int i = 0;

@@ -1,4 +1,9 @@
 # Heaven Door Editor 剧情编辑器
+
+## Heaven Gate Editor
+
+HG生成基于json的声明式数据定义，轻量，方便易用，支持快速迭代。 
+
 ## HDEditor所提供的功能
 - 剧情分支，选项
 - 查看历史记录，200条

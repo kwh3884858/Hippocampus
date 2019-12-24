@@ -32,10 +32,9 @@ namespace UI
         public void Initialize(GameRunTimeData data)
         {
             Data = data;
+            ActivateModule<UIDataProviderBattle>(m_uiModuleStaticBoard);
             ShowModule(GameState.MainManu);
             ShowModule(GameState.Battle);
-            
-            ActivatState(GameState.MainManu);
         }
 
         public void DeInitialize()
@@ -50,6 +49,7 @@ namespace UI
             {
                 m_activeModule.Tick();
             }
+            m_uiModuleStaticBoard.Tick();
         }
 
         public void LateTick()
@@ -59,6 +59,7 @@ namespace UI
             {
                 m_activeModule.LateTick();
             }
+            m_uiModuleStaticBoard.LateTick();
         }
 
         public void ShowPanel(UIPanelType type)
@@ -73,6 +74,7 @@ namespace UI
             {
                 uiModule.Value.DeInitialize();
             }
+            m_uiModuleStaticBoard.DeInitialize();
             m_uiModules.Clear();
             m_activeModule = null;
         }
@@ -108,10 +110,10 @@ namespace UI
             switch (state)
             {
                 case GameState.MainManu:
-                    uiModule = ActivateModule<UIDataProviderMainMenu>(state, m_uiModuleMainMenu);
+                    uiModule = ActivateModule<UIDataProviderMainMenu>(m_uiModuleMainMenu);
                     break;
                 case GameState.Battle:
-                    uiModule = ActivateModule<UIDataProviderBattle>(state, m_uiModuleBattle);
+                    uiModule = ActivateModule<UIDataProviderBattle>(m_uiModuleBattle);
                     break;
             }
 
@@ -120,14 +122,15 @@ namespace UI
             //TODO:Active module after state data initialized
         }
 
-        private UIModule ActivateModule<T1>(GameState gameState, UIModule uiModule)
+        private UIModule ActivateModule<T1>( UIModule uiModule)
     where T1 : UIDataProviderGameScene, new()
         {
             T1 dataProvider = new T1
             {
                 Data = Data,
                 IconProvider = LoadIconProvider(),
-                SoundService = StarPlatinum.SoundService.Instance
+                SoundService = StarPlatinum.SoundService.Instance,
+                StaticBoard = m_uiModuleStaticBoard,
             };
 
             uiModule.Initialize(dataProvider, StarPlatinum.PrefabManager.Instance);
@@ -144,10 +147,12 @@ namespace UI
         private Canvas m_canvas;
 
         [SerializeField]
+        private UIModuleStaticBoard m_uiModuleStaticBoard;
+        [SerializeField]
         private UIModuleMainMenu m_uiModuleMainMenu;
         [SerializeField]
         private UIModuleBattle m_uiModuleBattle;
-        
+
         [SerializeField]
         private GameObject m_iconProvider;
 

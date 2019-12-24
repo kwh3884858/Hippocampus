@@ -20,20 +20,12 @@ MonoBehaviour:
     m_Address: main_manu_panel
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 26d9a3557d5efea429c267ecd709e5d2
-    m_Address: hud_subpanel_panel
+  - m_GUID: 8f665e4f0728a1a43a5939dc70d6301b
+    m_Address: options_panel
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 8116767e825ad4e4d871c79408b096ff
+  - m_GUID: f7c40a5bdb671e147a31606c053f8d37
     m_Address: talk_panel
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: b267b312e23b57d40aefe04153b93290
-    m_Address: hud_subpanel_two_panel
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: bb6beff4ecaabd1429ebf1ec5d9c2aa0
-    m_Address: hud_panel
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
