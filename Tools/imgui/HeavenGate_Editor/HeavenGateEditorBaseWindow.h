@@ -36,7 +36,7 @@ public: \
 
         void Update();
 
-        bool* GetHandle();
+        bool*const GetHandle();
         void OpenWindow();
         void CloseWindow();
         bool IsWindowOpen() const;

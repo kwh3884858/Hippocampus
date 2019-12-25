@@ -1,13 +1,12 @@
 // dear imgui - standalone example application for DirectX 11
 // If you are new to dear imgui, see examples/README.txt and documentation at the top of imgui.cpp.
 
-#include "HeavenGate_Editor/HeavenGateEditorWindow.h"
-#include "HeavenGate_Editor/HeavenGateEditorUtility.h"
-#include "HeavenGate_Editor/CharacterUtility.h"
-#include "HeavenGate_Editor/HeavenGateEditorConstant.h"
-#include "HeavenGate_Editor/HeavenGateEditorFontSizeTable.h"
-#include "HeavenGate_Editor/HeavenGateWindowColorTable.h"
-#include "HeavenGate_Editor/HeavenGateWindowTipTable.h"
+
+#include "HeavenGateEditorUtility.h"
+#include "CharacterUtility.h"
+#include "HeavenGateEditorConstant.h"
+
+#include "HeavenGateWindowCenter.h"
 
 #include "imgui.h"
 #include "imgui_impl_win32.h"
@@ -35,10 +34,8 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 // Main code
 int main(int, char**)
 {
-    static HeavenGateEditor::HeavenGateEditor m_heavenGateEditor;
-    static HeavenGateEditor::HeavenGateEditorFontSizeTable m_fontSizeTable;
-    static HeavenGateEditor::HeavenGateWindowColorTable m_colorTable;
-    static HeavenGateEditor::HeavenGateWindowTipTable m_tipTable;
+    static HeavenGateEditor::HeavenGateWindowCenter heavenGateCenter;
+
 
     // Create application window
     WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, _T("ImGui Example"), NULL };
@@ -109,10 +106,7 @@ int main(int, char**)
     // Our state
     bool show_demo_window = true;
     bool show_another_window = false;
-    bool* show_editor_window = m_heavenGateEditor.GetHandle();
-    bool* show_font_size_table_window = m_fontSizeTable.GetHandle();
-    bool* show_color_table_window = m_colorTable.GetHandle();
-    bool* show_tip_table_window = m_tipTable.GetHandle();
+    bool * const show_heaven_gate_center = heavenGateCenter.GetHandle();
 
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
@@ -152,10 +146,8 @@ int main(int, char**)
             ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
             ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
             ImGui::Checkbox("Another Window", &show_another_window);
-            ImGui::Checkbox("Story Editor", show_editor_window);
-            ImGui::Checkbox("Font Size Table", show_font_size_table_window);
-            ImGui::Checkbox("Color Table", show_color_table_window);
-            ImGui::Checkbox("Tip Table", show_tip_table_window);
+            ImGui::Checkbox("Heaven Gate Center", show_heaven_gate_center);
+
 
 
             ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
@@ -180,24 +172,9 @@ int main(int, char**)
             ImGui::End();
         }
 
-        if (*show_editor_window)
+        if (*show_heaven_gate_center)
         {
-            m_heavenGateEditor.Update();
-        }
-
-        if (*show_font_size_table_window)
-        {
-            m_fontSizeTable.Update();
-        }
-
-        if (*show_color_table_window)
-        {
-            m_colorTable.Update();
-        }
-
-        if (*show_tip_table_window)
-        {
-            m_tipTable.Update();
+            heavenGateCenter.Update();
         }
 
         // Rendering

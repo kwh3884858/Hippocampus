@@ -69,6 +69,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)..\HeavenGate_Editor;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
@@ -152,7 +153,8 @@
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGatePopupInputFileName.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorFontSizeTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorUtility.h" />
-    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorWindow.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowCenter.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowStoryEditor.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGatePopupResolveConflictFiles.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowColorTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowSelectStory.h" />
@@ -174,7 +176,8 @@
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGatePopupInputFileName.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorFontSizeTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorUtility.cpp" />
-    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorWindow.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowCenter.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowStoryEditor.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGatePopupResolveConflictFiles.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowColorTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowSelectStory.cpp" />

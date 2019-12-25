@@ -1,6 +1,6 @@
 #include "imgui.h"
 
-#include "HeavenGateEditorWindow.h"
+#include "HeavenGateWindowStoryEditor.h"
 #include "CharacterUtility.h"
 
 #include "HeavenGateWindowSelectStory.h"
@@ -20,7 +20,7 @@
 namespace HeavenGateEditor {
     //using NodeType = StoryNode::NodeType;
 
-    HeavenGateEditor::HeavenGateEditor()
+    HeavenGateWindowStoryEditor::HeavenGateWindowStoryEditor()
     {
 
 
@@ -43,7 +43,7 @@ namespace HeavenGateEditor {
 
     }
 
-    HeavenGateEditor::~HeavenGateEditor()
+    HeavenGateWindowStoryEditor::~HeavenGateWindowStoryEditor()
     {
         if (m_selectStoryWindow != nullptr) {
             delete m_selectStoryWindow;
@@ -67,7 +67,7 @@ namespace HeavenGateEditor {
 
     }
 
-    void HeavenGateEditor::UpdateMainWindow()
+    void HeavenGateWindowStoryEditor::UpdateMainWindow()
     {
         m_selectStoryWindow->Update();
 
@@ -205,7 +205,7 @@ namespace HeavenGateEditor {
 
     }
 
-    void HeavenGateEditor::UpdateMenu()
+    void HeavenGateWindowStoryEditor::UpdateMenu()
     {
         if (ImGui::MenuItem("New")) {
             m_inputFileNamePopup->OpenWindow();
@@ -285,7 +285,7 @@ namespace HeavenGateEditor {
     }
 
 
-    //void HeavenGateEditor::ShowEditorWindow(bool* isOpenPoint) {
+    //void HeavenGateWindowStoryEditor::ShowEditorWindow(bool* isOpenPoint) {
 
 
     //    m_selectStoryWindow->ShowSelectStoryWindow();

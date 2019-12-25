@@ -24,14 +24,14 @@ namespace HeavenGateEditor {
     class HeavenGatePopupInputFileName;
     class StoryFileManager;
 
-    class HeavenGateEditor : public HeavenGateEditorBaseWindow
+    class HeavenGateWindowStoryEditor : public HeavenGateEditorBaseWindow
     {
         WINDOW_DECLARE("Heaven Gate Editor", Window_Type::MainWindow)
 
     public:
-        HeavenGateEditor();
+        HeavenGateWindowStoryEditor();
 
-        virtual ~HeavenGateEditor() override;
+        virtual ~HeavenGateWindowStoryEditor() override;
 
         virtual void UpdateMainWindow() override;
         virtual void UpdateMenu() override;

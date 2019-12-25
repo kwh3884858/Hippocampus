@@ -125,8 +125,8 @@ namespace HeavenGateEditor {
     }
 
 
-    bool * HeavenGateEditorBaseWindow::GetHandle()
-    {
+    bool*const HeavenGateEditorBaseWindow::GetHandle()
+{
         return &m_open;
     }
 
