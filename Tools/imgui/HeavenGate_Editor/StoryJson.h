@@ -49,6 +49,7 @@ namespace HeavenGateEditor {
     {
     public:
         char m_jumpId[MAX_ID];
+        char m_jumpContent[MAX_CONTENT];
 
         StoryJump();
     };
@@ -77,7 +78,7 @@ namespace HeavenGateEditor {
         int AddWord(StoryWord* const word);
         int AddWord(const char* name, const char* content);
         int AddLabel(const char* labelName);
-        int AddJump(const char* jumpName);
+        int AddJump(const char* jumpName, const char* jumpContent);
 
 
         StoryNode* const GetNode(int index);
