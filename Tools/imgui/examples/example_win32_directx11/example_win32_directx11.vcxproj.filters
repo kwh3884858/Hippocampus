@@ -40,6 +40,7 @@
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGatePopupInputFileName.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGatePopupResolveConflictFiles.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowColorTable.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowTipTable.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\imgui.cpp">
@@ -75,6 +76,7 @@
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGatePopupInputFileName.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGatePopupResolveConflictFiles.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowColorTable.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowTipTable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.txt" />

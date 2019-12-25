@@ -43,6 +43,12 @@ namespace HeavenGateEditor {
         Size = 2
     };
 
+    enum class TipTableLayout {
+        Type = 0,
+        Alias = 1,
+        Size = 2
+    };
+
     const char tableString[][MAX_ENUM_LENGTH] = {
         "type",
         "value"
@@ -60,6 +66,12 @@ namespace HeavenGateEditor {
         "size"
     };
 
+    const char tipTableString[][MAX_ENUM_LENGTH] = {
+        "tip",
+        "alias",
+        "size"
+    };
+
     template<int column >
     class StoryRow
     {
@@ -72,7 +84,7 @@ namespace HeavenGateEditor {
         inline int Size()const;
         inline bool IsFull()const;
         bool Push(const char* content);
-        bool Set(int index, const char * content);
+        bool Set(int index, const char* content);
         const char* Get(int index)const;
     private:
         int m_size;
@@ -83,13 +95,14 @@ namespace HeavenGateEditor {
     {
         None = 0,
         Font_Size,
-        Color
+        Color,
+        Tips
     };
 
     template<int column >
     class StoryTable {
     public:
-   
+
 
 
     public:
@@ -101,12 +114,12 @@ namespace HeavenGateEditor {
         StoryTable& operator=(StoryTable&& storyTable)noexcept;
 
         bool PushName(const char* name);
-        bool SetName(int index, const char * name);
-        bool PushContent(const char * content);
+        bool SetName(int index, const char* name);
+        bool PushContent(const char* content);
         bool SetContent(int rowIndex, int index, const char* content);
         inline const char* GetName(int index);
         inline const char* GetContent(int rowIndex, int index)const;
-        char * GetContent(int rowIndex, int index);
+        char* GetContent(int rowIndex, int index);
 
         const StoryRow<column>* GetRow(int index)const;
         StoryRow<column>* AddRow();
@@ -147,7 +160,7 @@ namespace HeavenGateEditor {
     {
         m_content = new char[column][MAX_COLUMNS_CONTENT_LENGTH];
 
-        memset(m_content, 0, MAX_COLUMNS_CONTENT_LENGTH*column);
+        memset(m_content, 0, MAX_COLUMNS_CONTENT_LENGTH * column);
         m_size = 0;
 
     }
@@ -158,7 +171,7 @@ namespace HeavenGateEditor {
         m_size = storyRow.m_size;
 
         m_content = new char[column][MAX_COLUMNS_CONTENT_LENGTH];
-        memset(m_content, storyRow.m_content, MAX_COLUMNS_CONTENT_LENGTH*column);
+        memset(m_content, storyRow.m_content, MAX_COLUMNS_CONTENT_LENGTH * column);
     }
 
 
@@ -195,13 +208,13 @@ namespace HeavenGateEditor {
     }
 
     template<int column>
-    bool StoryRow<column>::Push(const char * content)
+    bool StoryRow<column>::Push(const char* content)
     {
         return Set(m_size++, content);
     }
 
     template<int column>
-    bool StoryRow<column>::Set(int index, const char * content)
+    bool StoryRow<column>::Set(int index, const char* content)
     {
         if (index >= column || index < 0)
         {
@@ -213,7 +226,7 @@ namespace HeavenGateEditor {
     }
 
     template<int column>
-    const char * StoryRow<column>::Get(int index)const
+    const char* StoryRow<column>::Get(int index)const
     {
         if (index >= column || index < 0)
         {
@@ -300,19 +313,19 @@ namespace HeavenGateEditor {
     }
 
     template<int column>
-    bool StoryTable<column>::PushName(const char * name)
+    bool StoryTable<column>::PushName(const char* name)
     {
         return m_name->Push(name);
     }
 
     template<int column>
-    bool StoryTable<column>::SetName(int index, const char * name)
+    bool StoryTable<column>::SetName(int index, const char* name)
     {
         return m_name->Set(index, name);
     }
 
     template<int column>
-    bool StoryTable<column>::PushContent(const char * content)
+    bool StoryTable<column>::PushContent(const char* content)
     {
         StoryRow<column>* aRow;
 
@@ -336,7 +349,7 @@ namespace HeavenGateEditor {
     }
 
     template<int column>
-    bool StoryTable<column>::SetContent(int row, int index, const char * content)
+    bool StoryTable<column>::SetContent(int row, int index, const char* content)
     {
 
         if (row < 0 || row >= m_content.size())
@@ -355,13 +368,13 @@ namespace HeavenGateEditor {
     }
 
     template<int column>
-    const char * StoryTable<column>::GetName(int index)
+    const char* StoryTable<column>::GetName(int index)
     {
         return m_name->Get(index);
     }
 
     template<int column>
-    const char * StoryTable<column>::GetContent(int row, int index)const
+    const char* StoryTable<column>::GetContent(int row, int index)const
     {
         if (row < 0 || row >= m_content.size())
         {
@@ -380,8 +393,8 @@ namespace HeavenGateEditor {
     }
 
     template<int column >
-    char * StoryTable<column>::GetContent(int rowIndex, int index) {
-        return const_cast<char *>(const_cast<const StoryTable<column>*>(this)->GetContent(rowIndex, index));
+    char* StoryTable<column>::GetContent(int rowIndex, int index) {
+        return const_cast<char*>(const_cast<const StoryTable<column>*>(this)->GetContent(rowIndex, index));
     }
 
 
@@ -455,6 +468,13 @@ namespace HeavenGateEditor {
             break;
         }
 
+        case TableType::Tips:
+        {
+            j[tableString[(int)TableLayout::Type]] = tipTableString[(int)TipTableLayout::Type];
+
+            break;
+        }
+
         default:
 
             return;
@@ -485,7 +505,7 @@ namespace HeavenGateEditor {
     void from_json(const json& j, StoryTable<column>& p) {
 
         char typeString[MAX_ENUM_LENGTH];
-        strcpy(typeString, j.at(tableString[(int)TableLayout::Type]).get_ptr<const json::string_t *>()->c_str());
+        strcpy(typeString, j.at(tableString[(int)TableLayout::Type]).get_ptr<const json::string_t*>()->c_str());
 
         json values = j.at(tableString[(int)TableLayout::Value]);
         /*get_ptr<const json::string_t *>()->c_str();*/
@@ -496,9 +516,9 @@ namespace HeavenGateEditor {
             for (int i = 0; i < values.size(); i++)
             {
 
-                strcpy(content, values[i].at(fontSizeTableString[(int)FontSizeTableLayout::Alias]).get_ptr<const json::string_t *>()->c_str());
+                strcpy(content, values[i].at(fontSizeTableString[(int)FontSizeTableLayout::Alias]).get_ptr<const json::string_t*>()->c_str());
                 p.PushContent(content);
-                strcpy(content, values[i].at(fontSizeTableString[(int)FontSizeTableLayout::Size]).get_ptr<const json::string_t *>()->c_str());
+                strcpy(content, values[i].at(fontSizeTableString[(int)FontSizeTableLayout::Size]).get_ptr<const json::string_t*>()->c_str());
                 p.PushContent(content);
 
             }
@@ -512,9 +532,9 @@ namespace HeavenGateEditor {
             for (int i = 0; i < values.size(); i++)
             {
 
-                strcpy(content, values[i].at(colorTableString[(int)colorTableLayout::Alias]).get_ptr<const json::string_t *>()->c_str());
+                strcpy(content, values[i].at(colorTableString[(int)colorTableLayout::Alias]).get_ptr<const json::string_t*>()->c_str());
                 p.PushContent(content);
-                strcpy(content, values[i].at(colorTableString[(int)colorTableLayout::Size]).get_ptr<const json::string_t *>()->c_str());
+                strcpy(content, values[i].at(colorTableString[(int)colorTableLayout::Size]).get_ptr<const json::string_t*>()->c_str());
                 p.PushContent(content);
 
             }
@@ -522,10 +542,25 @@ namespace HeavenGateEditor {
             return;
         }
 
+        if (strcmp(typeString, tipTableString[(int)TipTableLayout::Type]) == 0) {
+            p.SetTableType(TableType::Tips);
+            char content[MAX_COLUMNS_CONTENT_LENGTH];
+            for (int i = 0; i < values.size(); i++)
+            {
+
+                strcpy(content, values[i].at(tipTableString[(int)TipTableLayout::Alias]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
+                strcpy(content, values[i].at(tipTableString[(int)TipTableLayout::Size]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
+
+            }
+
+            return;
+        }
 
     }
     template<int column>
-    void from_json(const json& j, StoryRow<column> & p)
+    void from_json(const json& j, StoryRow<column>& p)
     {
 
     }

@@ -28,27 +28,27 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -156,6 +156,7 @@
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGatePopupResolveConflictFiles.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowColorTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowSelectStory.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowTipTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryFileManager.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJson.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryTable.h" />
@@ -177,6 +178,7 @@
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGatePopupResolveConflictFiles.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowColorTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowSelectStory.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowTipTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryFileManager.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJson.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryTable.cpp" />

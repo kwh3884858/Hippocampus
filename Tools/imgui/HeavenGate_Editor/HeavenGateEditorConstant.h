@@ -27,6 +27,7 @@ namespace HeavenGateEditor {
     const int     MAX_COLUMNS_CONTENT_LENGTH = 16;
     const int     FONT_SIZE_MAX_COLUMN = 2;
     const int     COLOR_MAX_COLUMN = 2;
+    const int     TIP_MAX_COLUMN = 2;
 
 
 
@@ -62,6 +63,15 @@ namespace HeavenGateEditor {
         "\\ColorTable.json";
 #else
         "/ColorTable.json";
+#endif
+
+    //Relative path from story folder to tips table
+
+    const char* const TIP_TABLE_NAME =
+#ifdef _WIN32
+        "\\TipTable.json";
+#else
+        "/TipsTable.json";
 #endif
 
     const char* const PATH_FROM_PROJECT_ROOT_TO_FONT_FOLDER =
