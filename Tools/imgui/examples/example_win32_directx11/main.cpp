@@ -8,6 +8,7 @@
 #include "HeavenGate_Editor/HeavenGateEditorFontSizeTable.h"
 #include "HeavenGate_Editor/HeavenGateWindowColorTable.h"
 #include "HeavenGate_Editor/HeavenGateWindowTipTable.h"
+#include "HeavenGate_Editor/HeavenGateWindowPaintMoveTable.h"
 
 #include "imgui.h"
 #include "imgui_impl_win32.h"
@@ -39,6 +40,7 @@ int main(int, char**)
     static HeavenGateEditor::HeavenGateEditorFontSizeTable m_fontSizeTable;
     static HeavenGateEditor::HeavenGateWindowColorTable m_colorTable;
     static HeavenGateEditor::HeavenGateWindowTipTable m_tipTable;
+    static HeavenGateEditor::HeavenGateWindowPaintMoveTable m_paintMoveTable;
 
     // Create application window
     WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, _T("ImGui Example"), NULL };
@@ -113,6 +115,7 @@ int main(int, char**)
     bool* show_font_size_table_window = m_fontSizeTable.GetHandle();
     bool* show_color_table_window = m_colorTable.GetHandle();
     bool* show_tip_table_window = m_tipTable.GetHandle();
+    bool* show_paint_move_table_window = m_paintMoveTable.GetHandle();
 
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
@@ -156,6 +159,7 @@ int main(int, char**)
             ImGui::Checkbox("Font Size Table", show_font_size_table_window);
             ImGui::Checkbox("Color Table", show_color_table_window);
             ImGui::Checkbox("Tip Table", show_tip_table_window);
+            ImGui::Checkbox("Paint Move Table", show_paint_move_table_window);
 
 
             ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
@@ -198,6 +202,11 @@ int main(int, char**)
         if (*show_tip_table_window)
         {
             m_tipTable.Update();
+        }
+
+        if (*show_paint_move_table_window)
+        {
+            m_paintMoveTable.Update();
         }
 
         // Rendering
