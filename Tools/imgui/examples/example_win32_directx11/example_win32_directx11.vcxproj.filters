@@ -24,7 +24,6 @@
     <ClInclude Include="..\imgui_impl_dx11.h">
       <Filter>sources</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorWindow.h" />
     <ClInclude Include="..\..\Dirent\dirent.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\CharacterUtility.h" />
     <ClInclude Include="..\..\nlohmann\json.hpp" />
@@ -42,6 +41,8 @@
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowColorTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowTipTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowPaintMoveTable.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowStoryEditor.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowCenter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\imgui.cpp">
@@ -65,7 +66,6 @@
     <ClCompile Include="..\..\imgui_widgets.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorWindow.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\CharacterUtility.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJson.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowSelectStory.cpp" />
@@ -79,6 +79,8 @@
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowColorTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowTipTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowPaintMoveTable.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowStoryEditor.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowCenter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.txt" />

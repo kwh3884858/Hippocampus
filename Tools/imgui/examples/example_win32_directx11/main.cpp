@@ -9,6 +9,7 @@
 #include "HeavenGate_Editor/HeavenGateWindowColorTable.h"
 #include "HeavenGate_Editor/HeavenGateWindowTipTable.h"
 #include "HeavenGate_Editor/HeavenGateWindowPaintMoveTable.h"
+#include "HeavenGateWindowCenter.h"
 
 #include "imgui.h"
 #include "imgui_impl_win32.h"
@@ -36,11 +37,16 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 // Main code
 int main(int, char**)
 {
+<<<<<<< HEAD
     static HeavenGateEditor::HeavenGateEditor m_heavenGateEditor;
     static HeavenGateEditor::HeavenGateEditorFontSizeTable m_fontSizeTable;
     static HeavenGateEditor::HeavenGateWindowColorTable m_colorTable;
     static HeavenGateEditor::HeavenGateWindowTipTable m_tipTable;
     static HeavenGateEditor::HeavenGateWindowPaintMoveTable m_paintMoveTable;
+=======
+    static HeavenGateEditor::HeavenGateWindowCenter heavenGateCenter;
+
+>>>>>>> 097612a28ae6e6d19741145138785b96c303d605
 
     // Create application window
     WNDCLASSEX wc = { sizeof(WNDCLASSEX), CS_CLASSDC, WndProc, 0L, 0L, GetModuleHandle(NULL), NULL, NULL, NULL, NULL, _T("ImGui Example"), NULL };
@@ -116,6 +122,7 @@ int main(int, char**)
     bool* show_color_table_window = m_colorTable.GetHandle();
     bool* show_tip_table_window = m_tipTable.GetHandle();
     bool* show_paint_move_table_window = m_paintMoveTable.GetHandle();
+    bool * const show_heaven_gate_center = heavenGateCenter.GetHandle();
 
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
@@ -160,6 +167,7 @@ int main(int, char**)
             ImGui::Checkbox("Color Table", show_color_table_window);
             ImGui::Checkbox("Tip Table", show_tip_table_window);
             ImGui::Checkbox("Paint Move Table", show_paint_move_table_window);
+            ImGui::Checkbox("Heaven Gate Center", show_heaven_gate_center);
 
 
             ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
@@ -184,24 +192,9 @@ int main(int, char**)
             ImGui::End();
         }
 
-        if (*show_editor_window)
+        if (*show_heaven_gate_center)
         {
-            m_heavenGateEditor.Update();
-        }
-
-        if (*show_font_size_table_window)
-        {
-            m_fontSizeTable.Update();
-        }
-
-        if (*show_color_table_window)
-        {
-            m_colorTable.Update();
-        }
-
-        if (*show_tip_table_window)
-        {
-            m_tipTable.Update();
+            heavenGateCenter.Update();
         }
 
         if (*show_paint_move_table_window)
