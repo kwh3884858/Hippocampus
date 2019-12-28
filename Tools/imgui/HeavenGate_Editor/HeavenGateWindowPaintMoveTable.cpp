@@ -12,6 +12,7 @@
 #include "HeavenGateWindowPaintMoveTable.h"
 #include "HeavenGateEditorUtility.h"
 
+#include "StoryTableManager.h"
 #include "StoryFileManager.h"
 #include "StoryTable.h"
 namespace HeavenGateEditor {
@@ -20,47 +21,47 @@ namespace HeavenGateEditor {
 
     HeavenGateWindowPaintMoveTable::HeavenGateWindowPaintMoveTable()
     {
-        m_fileManager = new StoryFileManager;
+     
+        StoryTable<PAINT_MOVE_MAX_COLUMN>* const paintMoveTable = StoryTableManager::Instance().GetPaintMoveTable();
 
-        m_table = new StoryTable<PAINT_MOVE_MAX_COLUMN>;
-        m_table->SetTableType(TableType::Paint_Move);
 
         memset(m_fullPath, 0, sizeof(m_fullPath));
 
         HeavenGateEditorUtility::GetStoryPath(m_fullPath);
         strcat(m_fullPath, PAINT_MOVE_TABLE_NAME);
 
-        bool result = m_fileManager->LoadTableFile(m_fullPath, m_table);
+        bool result = StoryFileManager::Instance().LoadTableFile(m_fullPath, paintMoveTable);
         if (result == false)
         {
-            m_fileManager->SaveTableFile(m_fullPath, m_table);
-            m_fileManager->LoadTableFile(m_fullPath, m_table);
+            StoryFileManager::Instance().SaveTableFile(m_fullPath, paintMoveTable);
+            StoryFileManager::Instance().LoadTableFile(m_fullPath, paintMoveTable);
         }
 
-        m_table->PushName("Angle Value");
-        m_table->PushName("Move Distance");
+
     }
 
     HeavenGateWindowPaintMoveTable::~HeavenGateWindowPaintMoveTable()
     {
 
-        if (m_fileManager)
-        {
-            delete m_fileManager;
-        }
-        m_fileManager = nullptr;
+        //if (m_fileManager)
+        //{
+        //    delete m_fileManager;
+        //}
+        //m_fileManager = nullptr;
 
-        if (m_table)
-        {
-            delete m_table;
-        }
-        m_table = nullptr;
+        //if (paintMoveTable)
+        //{
+        //    delete paintMoveTable;
+        //}
+        //paintMoveTable = nullptr;
 
     }
 
     void HeavenGateWindowPaintMoveTable::UpdateMainWindow()
     {
-        if (m_table == nullptr)
+        StoryTable<PAINT_MOVE_MAX_COLUMN>* const paintMoveTable = StoryTableManager::Instance().GetPaintMoveTable();
+
+        if (paintMoveTable == nullptr)
         {
             return;
         }
@@ -71,12 +72,12 @@ namespace HeavenGateEditor {
 
         if (ImGui::Button("Add New Row"))
         {
-            m_table->AddRow();
+            paintMoveTable->AddRow();
         }
         ImGui::SameLine();
         if (ImGui::Button("Remove Row"))
         {
-            m_table->RemoveRow();
+            paintMoveTable->RemoveRow();
         }
 
         ImGui::Columns(PAINT_MOVE_MAX_COLUMN + 1, "Paint Move"); // 4-ways, with border
@@ -84,7 +85,7 @@ namespace HeavenGateEditor {
         ImGui::Text("Index");    ImGui::NextColumn();
         for (int i = 0; i < PAINT_MOVE_MAX_COLUMN; i++)
         {
-            ImGui::Text(m_table->GetName(i));   ImGui::NextColumn();
+            ImGui::Text(paintMoveTable->GetName(i));   ImGui::NextColumn();
         }
 
         //ImGui::Text("ID"); ImGui::NextColumn();
@@ -98,7 +99,7 @@ namespace HeavenGateEditor {
 
 
         char order[8] = "";
-        for (int i = 0; i < m_table->GetSize(); i++)
+        for (int i = 0; i < paintMoveTable->GetSize(); i++)
         {
             char label[32];
             sprintf(label, "%04d", i);
@@ -114,7 +115,7 @@ namespace HeavenGateEditor {
 
             for (int j = 0; j < PAINT_MOVE_MAX_COLUMN; j++)
             {
-                char * content = m_table->GetContent(i, j);
+                char * content = paintMoveTable->GetContent(i, j);
 
                 char constant[16];
                 if (j % 2 == 0)
@@ -151,7 +152,9 @@ namespace HeavenGateEditor {
         }
 
         if (ImGui::MenuItem("Save", "Ctrl+S")) {
-            m_fileManager->SaveTableFile(m_fullPath, m_table);
+            StoryTable<PAINT_MOVE_MAX_COLUMN>* const paintMoveTable = StoryTableManager::Instance().GetPaintMoveTable();
+
+            StoryFileManager::Instance().SaveTableFile(m_fullPath, paintMoveTable);
         }
 
     }

@@ -34,6 +34,9 @@ namespace HeavenGateEditor {
         const StoryTable<TIP_MAX_COLUMN>* const GetTipTable() const;
         StoryTable<TIP_MAX_COLUMN>*  GetTipTable();
 
+        const StoryTable<PAINT_MOVE_MAX_COLUMN>* const GetPaintMoveTable() const;
+        StoryTable<PAINT_MOVE_MAX_COLUMN>*  GetPaintMoveTable();
+
     protected:
     private:
 
@@ -41,6 +44,8 @@ namespace HeavenGateEditor {
         StoryTable<COLOR_MAX_COLUMN>*  m_colorTable;
         StoryTable<FONT_SIZE_MAX_COLUMN>* m_fontSizeTable;
         StoryTable<TIP_MAX_COLUMN>* m_tipTable;
+        StoryTable<PAINT_MOVE_MAX_COLUMN>* m_paintMovetable;
+
     };
 
 

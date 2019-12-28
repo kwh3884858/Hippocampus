@@ -13,13 +13,8 @@
 #include "HeavenGateEditorConstant.h"
 #include "HeavenGateEditorBaseWindow.h"
 
-
 namespace HeavenGateEditor {
 
-    template<int column>
-    class StoryTable;
-
-    class StoryFileManager;
 
     class HeavenGateWindowPaintMoveTable : public HeavenGateEditorBaseWindow {
         WINDOW_DECLARE("HeavenGateWindowPaintMoveTable", Window_Type::MainWindow)
@@ -35,11 +30,6 @@ namespace HeavenGateEditor {
 
     private:
         char m_fullPath[MAX_FOLDER_PATH];
-
-
-
-        StoryFileManager* m_fileManager;
-        StoryTable<PAINT_MOVE_MAX_COLUMN>* m_table;
 
     };
 }

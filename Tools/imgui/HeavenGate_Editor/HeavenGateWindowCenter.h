@@ -12,6 +12,7 @@ namespace HeavenGateEditor {
     class HeavenGateEditorFontSizeTable;
     class HeavenGateWindowColorTable;
     class HeavenGateWindowTipTable;
+    class HeavenGateWindowPaintMoveTable;
 
     class HeavenGateWindowCenter : public HeavenGateEditorBaseWindow
     {
@@ -31,11 +32,13 @@ namespace HeavenGateEditor {
         HeavenGateEditorFontSizeTable*   m_fontSizeTable;
         HeavenGateWindowColorTable*      m_colorTable;
         HeavenGateWindowTipTable*        m_tipTable;
+        HeavenGateWindowPaintMoveTable*  m_heavenGateWindowPaintMoveTable;
 
         bool* show_editor_window;
         bool* show_font_size_table_window;
         bool* show_color_table_window;
         bool* show_tip_table_window;
+        bool* show_heaven_gate_window_paint_move_table;
     };
 
 }
