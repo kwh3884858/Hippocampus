@@ -1,7 +1,9 @@
 #include "StoryJson.h"
-#include <string>
+
 #include <utility>
-using std::string;
+
+#include <stdexcept>
+
 
 namespace HeavenGateEditor {
     //using NodeType = StoryNode::NodeType;
@@ -37,7 +39,7 @@ namespace HeavenGateEditor {
     };
     extern char jumpNodeString[][MAX_ENUM_LENGTH] = {
         "typename",
-        "jump"
+        "jump",
         "content"
     };
     extern char wordNodeString[][MAX_ENUM_LENGTH] = {
@@ -120,7 +122,7 @@ namespace HeavenGateEditor {
         m_nodes = storyJson.m_nodes;
     }
 
-    StoryJson::StoryJson( StoryJson&& storyJson) noexcept
+    StoryJson::StoryJson(StoryJson&& storyJson) noexcept
     {
         if (this == &storyJson)
         {
@@ -162,7 +164,7 @@ namespace HeavenGateEditor {
 
     void StoryJson::Clear()
     {
-        for (int i = 0 ; i < m_nodes.size(); i++)
+        for (int i = 0; i < m_nodes.size(); i++)
         {
             if (m_nodes[i] == nullptr)
             {
@@ -181,7 +183,7 @@ namespace HeavenGateEditor {
         strcpy(m_fullPath, fullPath);
     }
     const char* StoryJson::GetFullPath() const
-{
+    {
         return m_fullPath;
     }
 
@@ -254,6 +256,23 @@ namespace HeavenGateEditor {
     //    j.at("content").get_to(p.m_content);
     //}
 
+    //=========================Exception===========================
+    void GetContentException(char*const des, const json & j,const char* const index) {
+
+        try
+        {
+            strcpy(des, j.at(index).get_ptr<const json::string_t *>()->c_str());
+        }
+        catch (json::exception& e)
+        {
+            printf("message: %s \n exception id: %d \n lack of: %s \n\n", e.what(), e.id, index);
+
+            memset(des, '\0', sizeof(des));
+
+        }
+     
+    }
+
 
     void from_json(const json & j, StoryWord & p)
     {
@@ -269,8 +288,10 @@ namespace HeavenGateEditor {
     }
     void from_json(const json& j, StoryJump& p) {
         p.m_nodeType = NodeType::Jump;
-        strcpy(p.m_jumpId, j.at(jumpNodeString[(int)JumpLayout::Jump]).get_ptr<const json::string_t *>()->c_str());
-        strcpy(p.m_jumpContent, j.at(jumpNodeString[(int)JumpLayout::Content]).get_ptr<const json::string_t *>()->c_str());
+        GetContentException(p.m_jumpId, j, jumpNodeString[(int)JumpLayout::Jump]);
+        GetContentException(p.m_jumpContent, j, jumpNodeString[(int)JumpLayout::Content]);
+        /*      strcpy(p.m_jumpId, j.at(jumpNodeString[(int)JumpLayout::Jump]).get_ptr<const json::string_t *>()->c_str());
+              strcpy(p.m_jumpContent, j.at(jumpNodeString[(int)JumpLayout::Content]).get_ptr<const json::string_t *>()->c_str());*/
     }
 
     void from_json(const json & j, StoryJson & p)

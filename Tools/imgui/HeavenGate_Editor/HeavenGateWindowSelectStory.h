@@ -7,7 +7,7 @@
 namespace HeavenGateEditor {
 
 class StoryJson;
-class StoryFileManager;
+//class StoryFileManager;
 class HeavenGatePopupResolveConflictFiles;
 
 class HeavenGateWindowSelectStory : public HeavenGateEditorBaseWindow
@@ -24,12 +24,12 @@ public:
 
     //void ShowSelectStoryWindow();
     //
-    void SetStoryFileManager(StoryFileManager* pStoryFileManager);
-    void SetStoryJsonPonter(StoryJson** ppStory);
+    //void SetStoryFileManager(StoryFileManager* pStoryFileManager);
+
 private:
     void Initialize();
 
-    bool OpenStoryFile();
+    //bool OpenStoryFile();
     //void InitStoryPath();
 
     //bool IsLoadedSotry() const;
@@ -58,7 +58,7 @@ private:
 
 
     StoryJson** m_ppStory;
-    StoryFileManager* m_fileManager;
+    //StoryFileManager* m_fileManager;
 
     HeavenGatePopupResolveConflictFiles* m_popupResolveConflictFiles;
     bool* m_isOpenPopupResolveConflictFiles;

@@ -10,16 +10,16 @@
 #ifndef HeavenGateWindowTipTable_h
 #define HeavenGateWindowTipTable_h
 
-#include "HeavenGateEditorConstant.h"
+//#include "HeavenGateEditorConstant.h"
 #include "HeavenGateEditorBaseWindow.h"
-
+#include "HeavenGateEditorConstant.h"
 
 namespace HeavenGateEditor {
 
-    template<int column>
-    class StoryTable;
+    //template<int column>
+    //class StoryTable;
 
-    class StoryFileManager;
+    //class StoryFileManager;
 
     class HeavenGateWindowTipTable : public HeavenGateEditorBaseWindow {
         WINDOW_DECLARE("HeavenGateWindowTipTable", Window_Type::MainWindow)
@@ -38,8 +38,8 @@ namespace HeavenGateEditor {
 
 
 
-        StoryFileManager* m_fileManager;
-        StoryTable<TIP_MAX_COLUMN>* m_table;
+        //StoryFileManager* m_fileManager;
+
 
     };
 }

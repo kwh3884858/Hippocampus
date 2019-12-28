@@ -10,16 +10,11 @@
 #ifndef HeavenGateWindowColorTable_h
 #define HeavenGateWindowColorTable_h
 
-#include "HeavenGateEditorConstant.h"
 #include "HeavenGateEditorBaseWindow.h"
 
-
+#include "HeavenGateEditorConstant.h"
 namespace HeavenGateEditor {
 
-    template<int column>
-    class StoryTable;
-
-    class StoryFileManager;
 
     class HeavenGateWindowColorTable : public HeavenGateEditorBaseWindow {
         WINDOW_DECLARE("HeavenGateWindowColorTable", Window_Type::MainWindow)
@@ -36,10 +31,6 @@ namespace HeavenGateEditor {
     private:
         char m_fullPath[MAX_FOLDER_PATH];
 
-
-
-        StoryFileManager* m_fileManager;
-        StoryTable<COLOR_MAX_COLUMN>* m_table;
 
     };
 }

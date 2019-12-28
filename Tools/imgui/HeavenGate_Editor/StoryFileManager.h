@@ -8,21 +8,26 @@
 #include <iostream>
 #include "nlohmann/json.hpp"
 
+#include "StorySingleton.h"
+
 namespace HeavenGateEditor {
 
-using json = nlohmann::json;
+    using json = nlohmann::json;
 
     class StoryJson;
-
     template<int column>
     class StoryTable;
 
-    class StoryFileManager
+    class StoryFileManager final : public StorySingleton<StoryFileManager>
     {
 
     public:
-        StoryFileManager();
-        ~StoryFileManager();
+        StoryFileManager() = default;
+        virtual ~StoryFileManager() override = default;
+        //initialize function, take the place of constructor
+        virtual bool Initialize() override { return true; };
+        //destroy function, take the  place of destructor
+        virtual bool Shutdown() override { return true; };
 
         //TODO
         //bool CreateStoryFIle();
@@ -30,9 +35,9 @@ using json = nlohmann::json;
         bool SaveStoryFile(const StoryJson* pStoryJson);
 
         template<int column>
-        bool LoadTableFile(const char* pPath, StoryTable<column>* pTableJson);
+        bool LoadTableFile(const char* pPath, StoryTable<column>*const  pTableJson)const;
         template<int column>
-        bool SaveTableFile(const char* pPath, const StoryTable<column>* pTableJson);
+        bool SaveTableFile(const char* pPath, const StoryTable<column>* const pTableJson)const;
 
 
 
@@ -42,18 +47,13 @@ using json = nlohmann::json;
         void GetFileContent(char* pFullPath, char* pOutContent);
     private:
 
-        //void SetNewFilePath(const char* filePath);
-   
-
-        //bool m_isSaveFileExist;
-
-        //char m_newFilePath[MAX_FOLDER_PATH];
-        //char m_newFileName[MAX_FILE_NAME];
+     
     };
 
 
     template<int column>
-    bool StoryFileManager::LoadTableFile(const char* pPath, StoryTable<column>* pTableJson)
+    bool StoryFileManager::LoadTableFile(const char* pPath,
+        StoryTable<column>*const pTableJson) const
     {
         std::ifstream fins;
         char content[MAX_FULL_CONTENT];
@@ -95,7 +95,8 @@ using json = nlohmann::json;
     }
 
     template<int column>
-    bool StoryFileManager::SaveTableFile(const char* pPath, const StoryTable<column>* pTableJson)
+    bool StoryFileManager::SaveTableFile(const char* pPath,
+        const StoryTable<column>* const pTableJson) const
     {
         if (pPath == nullptr || pTableJson == nullptr)
         {

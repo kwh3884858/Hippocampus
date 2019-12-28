@@ -19,19 +19,8 @@
 
 namespace HeavenGateEditor {
 
-    StoryFileManager::StoryFileManager()
-    {
-       /* Initialize();*/
-    }
 
-    StoryFileManager::~StoryFileManager()
-    {
-    }
 
-    //bool StoryFileManager::CreateStoryFIle()
-    //{
-
-    //}
 
     bool StoryFileManager::LoadStoryFile(const char* pPath, StoryJson* pStoryJson)
 {
@@ -86,10 +75,17 @@ namespace HeavenGateEditor {
         if (strlen(filePath) <= 0) {
             return false;
         }
+/*
+        StoryJson copyStory(*pStoryJson);
 
-        json j_test = *pStoryJson;
+        if (!copyStory.CompileContent())
+        {
+            return;
+        }
+*/
+        json tmpJson = *pStoryJson;
         std::ofstream o(filePath);
-        o << j_test << std::endl;
+        o << tmpJson << std::endl;
 
         o.close();
 

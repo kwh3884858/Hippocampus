@@ -16,7 +16,7 @@
 
 namespace HeavenGateEditor {
     class StoryJson;
-    class StoryFileManager;
+
 
     class HeavenGatePopupInputFileName : public HeavenGateEditorBaseWindow{
         WINDOW_DECLARE("HeavenGateEditorFileManager", Window_Type::Popup)
@@ -30,8 +30,8 @@ namespace HeavenGateEditor {
         virtual void UpdateMainWindow() override;
         virtual void UpdateMenu() override {}
 
-        void SetStoryFileManager(StoryFileManager* pStoryFileManager);
-        void SetStoryJsonPonter(StoryJson** ppStory);
+        //void SetStoryFileManager(StoryFileManager* pStoryFileManager);
+        //void SetStoryJsonPonter(StoryJson** ppStory);
     private:
         void Initialize();
 
@@ -40,8 +40,8 @@ namespace HeavenGateEditor {
         char m_fileName[MAX_FOLDER_PATH];
         char m_filePath[MAX_FILE_NAME];
 
-        StoryFileManager* m_storyFileManager;
-        StoryJson** m_ppStory;
+        //StoryFileManager* m_storyFileManager;
+        //StoryJson** m_ppStory;
     };
 }
 

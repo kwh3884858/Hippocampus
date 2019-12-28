@@ -1,0 +1,82 @@
+
+
+#include "StoryTableManager.h"
+
+#include "StoryTable.h"
+
+namespace HeavenGateEditor {
+
+    bool StoryTableManager::Initialize()
+    {
+        m_colorTable = new StoryTable<COLOR_MAX_COLUMN>;
+        m_colorTable->SetTableType(TableType::Color);
+
+        m_colorTable->PushName("Color name");
+        m_colorTable->PushName("RGB Value");
+
+
+        m_fontSizeTable = new StoryTable< FONT_SIZE_MAX_COLUMN>;
+        m_fontSizeTable->SetTableType(TableType::Font_Size);
+
+        m_fontSizeTable->PushName("Size Key");
+        m_fontSizeTable->PushName("Font Size Value");
+
+
+        m_tipTable = new StoryTable<TIP_MAX_COLUMN>;
+        m_tipTable->SetTableType(TableType::Tips);
+
+        m_tipTable->PushName("Tip");
+        m_tipTable->PushName("Description");
+
+        return true;
+
+    }
+
+    bool StoryTableManager::Shutdown()
+    {
+        delete m_colorTable;
+        m_colorTable = nullptr;
+
+        delete m_fontSizeTable;
+        m_fontSizeTable = nullptr;
+
+        delete m_tipTable;
+        m_tipTable = nullptr;
+
+        return true;
+    }
+
+    const StoryTable<HeavenGateEditor::COLOR_MAX_COLUMN>* const StoryTableManager::GetColorTable() const
+    {
+        return m_colorTable;
+    }
+
+    StoryTable<COLOR_MAX_COLUMN>* StoryTableManager::GetColorTable()
+    {
+        return const_cast<StoryTable<COLOR_MAX_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetColorTable());
+    }
+
+    const StoryTable<FONT_SIZE_MAX_COLUMN>* const StoryTableManager::GetFontSizeTable() const
+    {
+        return m_fontSizeTable;
+
+    }
+
+    StoryTable<FONT_SIZE_MAX_COLUMN>* StoryTableManager::GetFontSizeTable()
+    {
+        return const_cast<StoryTable<FONT_SIZE_MAX_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetFontSizeTable());
+
+    }
+
+    const StoryTable<TIP_MAX_COLUMN>* const StoryTableManager::GetTipTable() const
+    {
+        return m_tipTable;
+
+    }
+
+    StoryTable<TIP_MAX_COLUMN>* StoryTableManager::GetTipTable()
+    {
+        return const_cast<StoryTable<TIP_MAX_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetTipTable());
+    }
+
+}

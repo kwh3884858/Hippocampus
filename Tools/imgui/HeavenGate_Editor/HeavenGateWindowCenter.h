@@ -27,10 +27,10 @@ namespace HeavenGateEditor {
 
     private:
 
-           HeavenGateWindowStoryEditor*     m_heavenGateEditor;
-           HeavenGateEditorFontSizeTable*   m_fontSizeTable;
-           HeavenGateWindowColorTable*      m_colorTable;
-           HeavenGateWindowTipTable*        m_tipTable;
+        HeavenGateWindowStoryEditor*     m_heavenGateEditor;
+        HeavenGateEditorFontSizeTable*   m_fontSizeTable;
+        HeavenGateWindowColorTable*      m_colorTable;
+        HeavenGateWindowTipTable*        m_tipTable;
 
         bool* show_editor_window;
         bool* show_font_size_table_window;

@@ -12,6 +12,7 @@
 #include "HeavenGateWindowTipTable.h"
 #include "HeavenGateEditorUtility.h"
 
+#include "StoryTableManager.h"
 #include "StoryFileManager.h"
 #include "StoryTable.h"
 namespace HeavenGateEditor {
@@ -20,47 +21,40 @@ namespace HeavenGateEditor {
 
     HeavenGateWindowTipTable::HeavenGateWindowTipTable()
     {
-        m_fileManager = new StoryFileManager;
+        //m_fileManager = new StoryFileManager;
 
-        m_table = new StoryTable<TIP_MAX_COLUMN>;
-        m_table->SetTableType(TableType::Tips);
-
+        StoryTable<TIP_MAX_COLUMN>*const  tipTable = StoryTableManager::Instance().GetTipTable();
         memset(m_fullPath, 0, sizeof(m_fullPath));
 
         HeavenGateEditorUtility::GetStoryPath(m_fullPath);
         strcat(m_fullPath, TIP_TABLE_NAME);
 
-        bool result = m_fileManager->LoadTableFile(m_fullPath, m_table);
+        bool result = StoryFileManager::Instance().LoadTableFile(m_fullPath, tipTable);
         if (result == false)
         {
-            m_fileManager->SaveTableFile(m_fullPath, m_table);
-            m_fileManager->LoadTableFile(m_fullPath, m_table);
+            StoryFileManager::Instance().SaveTableFile(m_fullPath, tipTable);
+            StoryFileManager::Instance().LoadTableFile(m_fullPath, tipTable);
         }
 
-        m_table->PushName("Tip");
-        m_table->PushName("Description");
+
     }
 
     HeavenGateWindowTipTable::~HeavenGateWindowTipTable()
     {
 
-        if (m_fileManager)
-        {
-            delete m_fileManager;
-        }
-        m_fileManager = nullptr;
-
-        if (m_table)
-        {
-            delete m_table;
-        }
-        m_table = nullptr;
+        //if (tipTable)
+        //{
+        //    delete tipTable;
+        //}
+        //tipTable = nullptr;
 
     }
 
     void HeavenGateWindowTipTable::UpdateMainWindow()
     {
-        if (m_table == nullptr)
+        StoryTable<TIP_MAX_COLUMN>*const  tipTable = StoryTableManager::Instance().GetTipTable();
+
+        if (tipTable == nullptr)
         {
             return;
         }
@@ -71,12 +65,12 @@ namespace HeavenGateEditor {
 
         if (ImGui::Button("Add New Row"))
         {
-            m_table->AddRow();
+            tipTable->AddRow();
         }
         ImGui::SameLine();
         if (ImGui::Button("Remove Row"))
         {
-            m_table->RemoveRow();
+            tipTable->RemoveRow();
         }
 
         ImGui::Columns(TIP_MAX_COLUMN + 1, "Tip"); // 4-ways, with border
@@ -84,7 +78,7 @@ namespace HeavenGateEditor {
         ImGui::Text("Index");    ImGui::NextColumn();
         for (int i = 0; i < TIP_MAX_COLUMN; i++)
         {
-            ImGui::Text(m_table->GetName(i));   ImGui::NextColumn();
+            ImGui::Text(tipTable->GetName(i));   ImGui::NextColumn();
         }
 
         //ImGui::Text("ID"); ImGui::NextColumn();
@@ -98,7 +92,7 @@ namespace HeavenGateEditor {
 
 
         char order[8] = "";
-        for (int i = 0; i < m_table->GetSize(); i++)
+        for (int i = 0; i < tipTable->GetSize(); i++)
         {
             char label[32];
             sprintf(label, "%04d", i);
@@ -114,7 +108,7 @@ namespace HeavenGateEditor {
 
             for (int j = 0; j < FONT_SIZE_MAX_COLUMN; j++)
             {
-                char * content = m_table->GetContent(i, j);
+                char * content = tipTable->GetContent(i, j);
 
                 char constant[16];
                 if (j % 2 == 0)
@@ -151,7 +145,9 @@ namespace HeavenGateEditor {
         }
 
         if (ImGui::MenuItem("Save", "Ctrl+S")) {
-            m_fileManager->SaveTableFile(m_fullPath, m_table);
+            StoryTable<TIP_MAX_COLUMN>*const  tipTable = StoryTableManager::Instance().GetTipTable();
+
+            StoryFileManager::Instance().SaveTableFile(m_fullPath, tipTable);
         }
 
     }

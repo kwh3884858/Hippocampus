@@ -19,10 +19,10 @@ namespace HeavenGateEditor {
 
     using json = nlohmann::json;
 
-    class StoryJson;
     class HeavenGateWindowSelectStory;
     class HeavenGatePopupInputFileName;
-    class StoryFileManager;
+    //class StoryFileManager;
+    class StoryJson;
 
     class HeavenGateWindowStoryEditor : public HeavenGateEditorBaseWindow
     {
@@ -43,18 +43,14 @@ namespace HeavenGateEditor {
     private:
 
 
-        //Is Open Select Story Window
-
-        //bool m_isSavedFileInCurrentWindow;
         bool m_isWritedUnsavedContent;
-
 
         //Model
         json currentStory;
         StoryJson* m_storyJson;
 
         //Controller
-        StoryFileManager* m_storyFileManager;
+        //StoryFileManager* m_storyFileManager;
 
         //View
         HeavenGateWindowSelectStory* m_selectStoryWindow;

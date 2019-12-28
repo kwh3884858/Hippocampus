@@ -6,6 +6,10 @@
 #include "HeavenGateWindowColorTable.h"
 #include "HeavenGateWindowTipTable.h"
 
+#include "StoryJsonManager.h"
+#include "StoryTableManager.h"
+#include "StoryFileManager.h"
+
 #include "imgui.h"
 
 namespace HeavenGateEditor {
@@ -14,15 +18,21 @@ namespace HeavenGateEditor {
 
     HeavenGateWindowCenter::HeavenGateWindowCenter()
     {
-         m_heavenGateEditor = new HeavenGateWindowStoryEditor;
-         m_fontSizeTable = new HeavenGateEditorFontSizeTable;
-         m_colorTable = new HeavenGateWindowColorTable;
-         m_tipTable = new HeavenGateWindowTipTable;
+
+        StoryJsonManager::Instance().Initialize();
+        StoryFileManager::Instance().Initialize();
+        StoryTableManager::Instance().Initialize();
+
+        m_heavenGateEditor = new HeavenGateWindowStoryEditor;
+        m_fontSizeTable = new HeavenGateEditorFontSizeTable;
+        m_colorTable = new HeavenGateWindowColorTable;
+        m_tipTable = new HeavenGateWindowTipTable;
 
         show_editor_window = m_heavenGateEditor->GetHandle();
         show_font_size_table_window = m_fontSizeTable->GetHandle();
         show_color_table_window = m_colorTable->GetHandle();
         show_tip_table_window = m_tipTable->GetHandle();
+
     }
 
     HeavenGateWindowCenter::~HeavenGateWindowCenter()
@@ -37,6 +47,7 @@ namespace HeavenGateEditor {
         show_color_table_window = nullptr;
         show_tip_table_window = nullptr;
 
+        //Delete Windows
         delete m_heavenGateEditor;
         delete m_fontSizeTable;
         delete m_colorTable;
@@ -46,6 +57,14 @@ namespace HeavenGateEditor {
         m_fontSizeTable = nullptr;
         m_colorTable = nullptr;
         m_tipTable = nullptr;
+
+
+        //Delete Data
+        StoryTableManager::Instance().Shutdown();
+        StoryFileManager::Instance().Shutdown();
+        StoryJsonManager::Instance().Shutdown();
+
+
 
     }
 

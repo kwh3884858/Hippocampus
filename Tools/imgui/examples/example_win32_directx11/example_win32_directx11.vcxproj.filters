@@ -42,6 +42,10 @@
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowTipTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowStoryEditor.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowCenter.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\StorySingleton.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonManager.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\StoryTableManager.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonContentCompiler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\imgui.cpp">
@@ -79,6 +83,9 @@
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowTipTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowStoryEditor.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowCenter.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonManager.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\StoryTableManager.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonContentCompiler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.txt" />

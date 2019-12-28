@@ -2,8 +2,7 @@
 #include "HeavenGatePopupResolveConflictFiles.h"
 #include "imgui.h"
 
-#include "StoryJson.h"
-#include "StoryFileManager.h"
+
 
 namespace HeavenGateEditor {
 

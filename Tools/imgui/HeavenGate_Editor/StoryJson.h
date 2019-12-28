@@ -8,10 +8,11 @@
 #include "HeavenGateEditorConstant.h"
 
 
-
 namespace HeavenGateEditor {
     using json = nlohmann::json;
     using std::vector;
+
+
 
     enum class NodeType
     {

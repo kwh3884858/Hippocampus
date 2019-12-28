@@ -4,6 +4,7 @@
 #include "HeavenGatePopupResolveConflictFiles.h"
 #include "HeavenGateEditorUtility.h"
 
+#include "StoryJsonManager.h"
 #include "StoryFileManager.h"
 #include "StoryJson.h"
 
@@ -14,8 +15,7 @@ namespace HeavenGateEditor {
     HeavenGateWindowSelectStory::HeavenGateWindowSelectStory()
     {
 
-        m_ppStory = nullptr;
-        m_fileManager = new StoryFileManager;
+        //m_fileManager = new StoryFileManager;
         m_popupResolveConflictFiles = new HeavenGatePopupResolveConflictFiles;
         m_isOpenPopupResolveConflictFiles = m_popupResolveConflictFiles->GetHandle();
 
@@ -34,13 +34,12 @@ namespace HeavenGateEditor {
         }
         m_popupResolveConflictFiles = nullptr;
 
-        if (m_fileManager)
-        {
-            delete m_fileManager;
-        }
-        m_fileManager = nullptr;
+        //if (m_fileManager)
+        //{
+        //    delete m_fileManager;
+        //}
+        //m_fileManager = nullptr;
 
-        m_ppStory = nullptr;
         Initialize();
     }
 
@@ -67,7 +66,7 @@ namespace HeavenGateEditor {
         // right
         ShowRightColumn();
 
-        //Popup
+        //Pop up
         ShowPopup();
     }
 
@@ -98,73 +97,74 @@ namespace HeavenGateEditor {
     //    ImGui::End();
     //}
 
-    bool HeavenGateWindowSelectStory::OpenStoryFile()
-    {
-        // Is Loaded Story
-        if (m_ppStory != nullptr) {
+    //bool HeavenGateWindowSelectStory::OpenStoryFile()
+    //{
+    //    // Is Loaded Story
 
-            if (*m_ppStory == nullptr)
-            {
-                //Current main window don`t have any story
+    //    if (StoryJsonManager::get().GetStoryJson() != nullptr) {
 
-                *m_ppStory = new StoryJson;
-                m_fileManager->LoadStoryFile(m_fullPath, *m_ppStory);
-                Initialize();
-                CloseWindow();
-                /*   *pIsFileSaved = true;*/
-            }
-            else
-            {
-                *m_isOpenPopupResolveConflictFiles = true;
-                ////Already have some content, maybe be is saved file but have some unsaved changes
-                //ImGui::OpenPopup("File already exists in the editor");
+    //        if (*m_ppStory == nullptr)
+    //        {
+    //            //Current main window don`t have any story
 
-                //if (ImGui::BeginPopupModal("File already exists in the editor", NULL, ImGuiWindowFlags_AlwaysAutoResize))
-                //{
-                //    ImGui::Text("If you wish to open a new file, click on Discard Current File.\nIf you wish to stop opening new files, click Cancel. \n\n");
-                //    ImGui::Separator();
+    //            *m_ppStory = new StoryJson;
+    //            m_fileManager->LoadStoryFile(m_fullPath, *m_ppStory);
+    //            Initialize();
+    //            CloseWindow();
+    //            /*   *pIsFileSaved = true;*/
+    //        }
+    //        else
+    //        {
+    //            *m_isOpenPopupResolveConflictFiles = true;
+    //            ////Already have some content, maybe be is saved file but have some unsaved changes
+    //            //ImGui::OpenPopup("File already exists in the editor");
 
-
-                //    if (ImGui::Button("Discard Current File", ImVec2(120, 0))) {
-
-                //        Initialize();
-                //        ImGui::CloseCurrentPopup();
-                //        CloseWindow();
-                //    }
-                //    ImGui::SetItemDefaultFocus();
-                //    ImGui::SameLine();
-                //    if (ImGui::Button("Cancel", ImVec2(120, 0))) {
+    //            //if (ImGui::BeginPopupModal("File already exists in the editor", NULL, ImGuiWindowFlags_AlwaysAutoResize))
+    //            //{
+    //            //    ImGui::Text("If you wish to open a new file, click on Discard Current File.\nIf you wish to stop opening new files, click Cancel. \n\n");
+    //            //    ImGui::Separator();
 
 
-                //        (*m_ppStory)->Clear();
+    //            //    if (ImGui::Button("Discard Current File", ImVec2(120, 0))) {
 
-                //        m_fileManager->OpenStoryFile(m_fullPath, *m_ppStory);
-                //        Initialize();
-
-                //        /*               *pIsFileSaved = true;*/
-                //        ImGui::CloseCurrentPopup();
-                //        CloseWindow();
-                //    }
-                //    ImGui::EndPopup();
-                //}
-            }
-
-        }
-
-        return true;
-    }
+    //            //        Initialize();
+    //            //        ImGui::CloseCurrentPopup();
+    //            //        CloseWindow();
+    //            //    }
+    //            //    ImGui::SetItemDefaultFocus();
+    //            //    ImGui::SameLine();
+    //            //    if (ImGui::Button("Cancel", ImVec2(120, 0))) {
 
 
+    //            //        (*m_ppStory)->Clear();
 
-    void HeavenGateWindowSelectStory::SetStoryFileManager(StoryFileManager* pStoryFileManager)
-    {
-        m_fileManager = pStoryFileManager;
-    }
+    //            //        m_fileManager->OpenStoryFile(m_fullPath, *m_ppStory);
+    //            //        Initialize();
 
-    void HeavenGateWindowSelectStory::SetStoryJsonPonter(StoryJson** ppStory)
-    {
-        m_ppStory = ppStory;
-    }
+    //            //        /*               *pIsFileSaved = true;*/
+    //            //        ImGui::CloseCurrentPopup();
+    //            //        CloseWindow();
+    //            //    }
+    //            //    ImGui::EndPopup();
+    //            //}
+    //        }
+
+    //    }
+
+    //    return true;
+    //}
+
+
+
+    //void HeavenGateWindowSelectStory::SetStoryFileManager(StoryFileManager* pStoryFileManager)
+    //{
+    //    m_fileManager = pStoryFileManager;
+    //}
+
+    //void HeavenGateWindowSelectStory::SetStoryJsonPonter(StoryJson** ppStory)
+    //{
+    //    m_ppStory = ppStory;
+    //}
 
 
 
@@ -249,7 +249,7 @@ namespace HeavenGateEditor {
 
         if (m_isInitializedFilesList == false) {
 
-            m_fileManager->InitFileList(m_filesList, &m_fileCount);
+            StoryFileManager::Instance().InitFileList(m_filesList, &m_fileCount);
 
             m_isInitializedFilesList = true;
         }
@@ -308,7 +308,7 @@ namespace HeavenGateEditor {
 
                     if (m_selected >= 2)
                     {
-                        m_fileManager->GetFileContent(m_fullPath, m_fullContent);
+                        StoryFileManager::Instance().GetFileContent(m_fullPath, m_fullContent);
                     }
                     m_lastSelected = m_selected;
 
@@ -364,7 +364,7 @@ namespace HeavenGateEditor {
         if (ImGui::Button("Open")) {
             if (m_selected >= 2)
             {
-                OpenStoryFile();
+                *m_isOpenPopupResolveConflictFiles = true;
 
             }
         }
@@ -379,13 +379,14 @@ namespace HeavenGateEditor {
         case HeavenGatePopupResolveConflictFiles::ResolveConflictFileSelection::DiscardCurrentFile:
         {
 
-
-            (*m_ppStory)->Clear();
-            m_fileManager->LoadStoryFile(m_fullPath, *m_ppStory);
+            StoryJson* story = StoryJsonManager::Instance().GetStoryJson();
+            story->Clear();
+            StoryFileManager::Instance().LoadStoryFile(m_fullPath, story);
 
             m_popupResolveConflictFiles->ResetIsDiscardCurrentFile();
+            m_popupResolveConflictFiles->CloseWindow();
+
             Initialize();
-            ImGui::CloseCurrentPopup();
             CloseWindow();
             break;
         }
@@ -393,8 +394,9 @@ namespace HeavenGateEditor {
         {
 
             m_popupResolveConflictFiles->ResetIsDiscardCurrentFile();
+            m_popupResolveConflictFiles->CloseWindow();
+
             Initialize();
-            ImGui::CloseCurrentPopup();
             CloseWindow();
 
             break;
@@ -403,6 +405,8 @@ namespace HeavenGateEditor {
         default:
             break;
         }
+
+      
     }
 
     //bool HeavenGateWindowSelectStory::GetStoryPointer(StoryJson** ppStory)const {

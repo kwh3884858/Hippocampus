@@ -6,6 +6,7 @@
 #include "HeavenGateWindowSelectStory.h"
 #include "HeavenGatePopupInputFileName.h"
 
+#include "StoryJsonManager.h"
 #include "StoryJson.h"
 #include "StoryFileManager.h"
 
@@ -22,23 +23,21 @@ namespace HeavenGateEditor {
 
     HeavenGateWindowStoryEditor::HeavenGateWindowStoryEditor()
     {
-
-
         m_storyJson = nullptr;
         //m_isSavedFileInCurrentWindow = false;
         m_isWritedUnsavedContent = false;
 
-        m_storyFileManager = new StoryFileManager;
+        //m_storyFileManager = new StoryFileManager;
 
         m_selectStoryWindow = new HeavenGateWindowSelectStory();
         bool* selectStoryWindowHandle = m_selectStoryWindow->GetHandle();
         *selectStoryWindowHandle = true;
-        m_selectStoryWindow->SetStoryFileManager(m_storyFileManager);
-        m_selectStoryWindow->SetStoryJsonPonter(&m_storyJson);
+        //m_selectStoryWindow->SetStoryFileManager(m_storyFileManager);
+
 
         m_inputFileNamePopup = new HeavenGatePopupInputFileName();
-        m_inputFileNamePopup->SetStoryFileManager(m_storyFileManager);
-        m_inputFileNamePopup->SetStoryJsonPonter(&m_storyJson);
+        //m_inputFileNamePopup->SetStoryFileManager(m_storyFileManager);
+
       
 
     }
@@ -55,14 +54,11 @@ namespace HeavenGateEditor {
         }
         m_inputFileNamePopup = nullptr;
 
-        if (m_storyFileManager != nullptr) {
-            delete m_storyFileManager;
-        }
-        m_storyFileManager = nullptr;
+        //if (m_storyFileManager != nullptr) {
+        //    delete m_storyFileManager;
+        //}
+        //m_storyFileManager = nullptr;
 
-        if (m_storyJson != nullptr) {
-            delete m_storyJson;
-        }
         m_storyJson = nullptr;
 
     }
@@ -74,6 +70,7 @@ namespace HeavenGateEditor {
         //For save as new file
         m_inputFileNamePopup->Update();
 
+        m_storyJson = StoryJsonManager::Instance().GetStoryJson();
         if (m_storyJson == nullptr)
         {
             return;
@@ -233,7 +230,7 @@ namespace HeavenGateEditor {
         }
         if (ImGui::MenuItem("Save", "Ctrl+S")) {
 
-            m_storyFileManager->SaveStoryFile(m_storyJson);
+            StoryFileManager::Instance().SaveStoryFile(m_storyJson);
           
         }
         if (ImGui::MenuItem("Save As..")) {
