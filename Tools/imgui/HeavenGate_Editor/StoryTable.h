@@ -49,6 +49,12 @@ namespace HeavenGateEditor {
         Size = 2
     };
 
+    enum class PaintMoveTableLayout {
+        Type = 0,
+        Angle = 1,
+        Distance = 2
+    };
+
     const char tableString[][MAX_ENUM_LENGTH] = {
         "type",
         "value"
@@ -68,6 +74,12 @@ namespace HeavenGateEditor {
 
     const char tipTableString[][MAX_ENUM_LENGTH] = {
         "tip",
+        "alias",
+        "size"
+    };
+
+    const char paintMoveTableString[][MAX_ENUM_LENGTH] = {
+        "paintMove",
         "alias",
         "size"
     };
@@ -96,7 +108,8 @@ namespace HeavenGateEditor {
         None = 0,
         Font_Size,
         Color,
-        Tips
+        Tips,
+        Paint_Move
     };
 
     template<int column >
@@ -475,6 +488,13 @@ namespace HeavenGateEditor {
             break;
         }
 
+        case TableType::Paint_Move:
+        {
+            j[tableString[(int)TableLayout::Type]] = paintMoveTableString[(int)PaintMoveTableLayout::Type];
+
+            break;
+        }
+
         default:
 
             return;
@@ -551,6 +571,22 @@ namespace HeavenGateEditor {
                 strcpy(content, values[i].at(tipTableString[(int)TipTableLayout::Alias]).get_ptr<const json::string_t*>()->c_str());
                 p.PushContent(content);
                 strcpy(content, values[i].at(tipTableString[(int)TipTableLayout::Size]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
+
+            }
+
+            return;
+        }
+
+        if (strcmp(typeString, paintMoveTableString[(int)PaintMoveTableLayout::Type]) == 0) {
+            p.SetTableType(TableType::Paint_Move);
+            char content[MAX_COLUMNS_CONTENT_LENGTH];
+            for (int i = 0; i < values.size(); i++)
+            {
+
+                strcpy(content, values[i].at(paintMoveTableString[(int)PaintMoveTableLayout::Angle]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
+                strcpy(content, values[i].at(paintMoveTableString[(int)PaintMoveTableLayout::Distance]).get_ptr<const json::string_t*>()->c_str());
                 p.PushContent(content);
 
             }

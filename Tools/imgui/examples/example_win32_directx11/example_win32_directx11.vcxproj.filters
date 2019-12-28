@@ -40,6 +40,7 @@
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGatePopupResolveConflictFiles.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowColorTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowTipTable.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowPaintMoveTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowStoryEditor.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowCenter.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StorySingleton.h" />
@@ -81,6 +82,7 @@
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGatePopupResolveConflictFiles.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowColorTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowTipTable.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowPaintMoveTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowStoryEditor.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowCenter.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonManager.cpp" />
