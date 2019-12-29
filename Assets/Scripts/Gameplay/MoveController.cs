@@ -4,6 +4,7 @@ using UnityEngine;
 using StarPlatinum;
 using UI.Panels.Providers;
 using Player;
+using UI.Panels.Providers.DataProviders.StaticBoard;
 
 public class MoveController : MonoBehaviour
 {
@@ -62,7 +63,7 @@ public class MoveController : MonoBehaviour
                 {
                     Debug.Log("Did Interactable");
                     // TODO:接触可交互物体，触发对话
-                    UI.UIManager.Instance().ShowPanel(UIPanelType.TalkPanel);
+                    UI.UIManager.Instance().ShowPanel(UIPanelType.TalkPanel,new TalkDataProvider(){ID = "1"});
                 }
                 Debug.DrawRay(transform.position, m_isFaceRight ? Vector3.right : Vector3.left * hit.distance, Color.yellow);
                 //Debug.Log("Did Hit");

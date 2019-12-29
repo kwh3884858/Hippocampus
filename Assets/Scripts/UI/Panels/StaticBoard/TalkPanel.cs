@@ -116,8 +116,8 @@ namespace UI.Panels.StaticBoard
             if (storyAction == null)
             {
                 SetActionState(ActionState.Waiting);
-                base.InvokeHidePanel();
-                Player.PlayerController.Instance().SetMoveEnable(true);// 测试
+                InvokeHidePanel();
+                UIPanelDataProvider.OnTalkEnd?.Invoke();
                 return;
             }
             switch (storyAction.Type)
@@ -201,6 +201,7 @@ namespace UI.Panels.StaticBoard
 
         IEnumerator Typewriter(string content)
         {
+            m_typeing = true;
             foreach (var txt in content)
             {
                 m_content.text += m_textHelp.GetContent(txt.ToString());
@@ -209,14 +210,42 @@ namespace UI.Panels.StaticBoard
                 {
                     m_content.pageToDisplay++;
                 }
-                yield return new WaitForSeconds(StoryController.GetContentSpeed());
+                yield return new WaitForSeconds(m_skip?0:StoryController.GetContentSpeed());
             }
-            SetActionState(ActionState.End);
+            m_typeing = false;
+            m_skip = false;
+        }
+
+        public void ShowPicture(string picID, int posID)
+        {
+            
+        }
+
+        public void MovePicture(int oldPosID, int targetPosID)
+        {
+            
+        }
+
+        public void ClickSkip()
+        {
+            if (m_typeing)
+            {
+                if (m_skip == false)
+                {
+                    m_skip = true;
+                }
+            }
+            else
+            {
+                SetActionState(ActionState.End);
+            }
         }
         
         [SerializeField] private TMP_Text m_name;
         [SerializeField] private TMP_Text m_content;
 
+        private bool m_skip = false;
+        private bool m_typeing = false;
         private string m_currentID;
         private StoryActionContainer m_actionContainer;
         private TextHelp m_textHelp;

@@ -4,6 +4,7 @@ using System.Linq;
 using Extentions;
 using UI.Modules;
 using UI.Panels.Providers;
+using UI.Panels.Providers.DataProviders;
 using UnityEngine;
 using UnityEngine.Assertions;
 using StarPlatinum;
@@ -67,9 +68,9 @@ namespace UI
             m_uiModuleStaticBoard.LateTick();
         }
 
-        public void ShowPanel(UIPanelType type)
+        public void ShowPanel(UIPanelType type,DataProvider dataProvider = null)
         {
-            m_activeModule.ShowPanel(type);
+            m_activeModule.ShowPanel(type,dataProvider);
         }
 
         public void UnloadActiveModule()
@@ -77,9 +78,17 @@ namespace UI
             OnActiveModuleDeactivate?.Invoke();
             foreach (var uiModule in m_uiModules)
             {
-                uiModule.Value.DeInitialize();
+                if (uiModule.Value != null)
+                {
+                    uiModule.Value.DeInitialize();
+                }
             }
-            m_uiModuleStaticBoard.DeInitialize();
+
+            if (m_uiModuleStaticBoard != null)
+            {
+                m_uiModuleStaticBoard.DeInitialize();
+            }
+
             m_uiModules.Clear();
             m_activeModule = null;
         }
