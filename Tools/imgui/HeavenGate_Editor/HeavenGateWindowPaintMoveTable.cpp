@@ -118,16 +118,33 @@ namespace HeavenGateEditor {
                 char * content = paintMoveTable->GetContent(i, j);
 
                 char constant[16];
-                if (j % 2 == 0)
+                switch (j)
                 {
-                    strcpy(constant, "Angle ");
-
+                    case 0:
+                        strcpy(constant, "moveAlias ");
+                        break;
+                    case 1:
+                        strcpy(constant, "startPoint ");
+                        break;
+                    case 2:
+                        strcpy(constant, "endPoint ");
+                        break;
+                    case 3:
+                        strcpy(constant, "moveType ");
+                        break;
+                default:
+                    break;
                 }
-                else
-                {
-                    strcpy(constant, "Distance ");
+                //if (j % 2 == 0)
+                //{
+                //    strcpy(constant, "Angle ");
 
-                }
+                //}
+                //else
+                //{
+                //    strcpy(constant, "Distance ");
+
+                //}
                 strcat(constant, order);
 
                 ImGui::InputText(constant, content, MAX_COLUMNS_CONTENT_LENGTH);

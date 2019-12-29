@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 25020361f65824cf694b444394914ee3
+guid: 292aa547de7da2d4596271cd9861e12b
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -11,7 +11,8 @@ TrueTypeFontImporter:
   fontName: Source Han Sans CN
   fontNames:
   - Source Han Sans CN
-  fallbackFontReferences: []
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 25020361f65824cf694b444394914ee3, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1

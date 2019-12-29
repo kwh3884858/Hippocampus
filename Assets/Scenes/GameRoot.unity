@@ -409,6 +409,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1138144319}
     m_Modifications:
+    - target: {fileID: 114312913334382630, guid: c25d4133262bcdd4f860536293f84b7f,
+        type: 2}
+      propertyPath: m_panelsSettings.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 224522578941188998, guid: c25d4133262bcdd4f860536293f84b7f,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -503,6 +508,21 @@ Prefab:
         type: 2}
       propertyPath: m_panelsSettings.Array.data[1].m_panelType
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114312913334382630, guid: c25d4133262bcdd4f860536293f84b7f,
+        type: 2}
+      propertyPath: m_panelsSettings.Array.data[1].m_panelType
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114312913334382630, guid: c25d4133262bcdd4f860536293f84b7f,
+        type: 2}
+      propertyPath: m_panelsSettings.Array.data[1].unLoadMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114312913334382630, guid: c25d4133262bcdd4f860536293f84b7f,
+        type: 2}
+      propertyPath: m_panelsSettings.Array.data[1].m_showOnStart
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c25d4133262bcdd4f860536293f84b7f, type: 2}

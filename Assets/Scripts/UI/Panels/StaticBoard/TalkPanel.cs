@@ -116,6 +116,8 @@ namespace UI.Panels.StaticBoard
             if (storyAction == null)
             {
                 SetActionState(ActionState.Waiting);
+                base.InvokeHidePanel();
+                Player.PlayerController.Instance().SetMoveEnable(true);// 测试
                 return;
             }
             switch (storyAction.Type)

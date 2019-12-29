@@ -1,10 +1,11 @@
 ﻿using System;
 using TMPro;
+using UI.Panels.Element;
 using UnityEngine;
 
 namespace UI.Panels.StaticBoard.Element
 {
-	public class OptionItem : MonoBehaviour
+	public class OptionItem : UIElementBase
 	{
 		public Action<string> OnClickItem;
 

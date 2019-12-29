@@ -61,7 +61,7 @@ namespace StarPlatinum
 
 
             PrefabManager.Instance.LoadScene(SceneLookupEnum.UITestScene,LoadSceneMode.Additive);
-            PrefabManager.Instance.LoadScene(SceneLookupEnum.GoundTestScene,LoadSceneMode.Additive);
+            //PrefabManager.Instance.LoadScene(SceneLookupEnum.GoundTestScene,LoadSceneMode.Additive);
 		}
 
 		IEnumerator AfterInitialize ()

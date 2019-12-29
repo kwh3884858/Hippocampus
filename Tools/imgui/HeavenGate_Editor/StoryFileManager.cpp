@@ -258,7 +258,7 @@ namespace HeavenGateEditor {
   
       /*  assert(MAX_CONTENT == sizeof(pOutContent));*/
 
-        memset(pOutContent, 0, MAX_FULL_CONTENT);
+        memset(pOutContent, '\0', MAX_FULL_CONTENT);
 
         std::ifstream fin;
 
@@ -268,7 +268,7 @@ namespace HeavenGateEditor {
         if (!fin.fail())
         {
             int i = 0;
-            while (!fin.eof())
+            while (!fin.eof() && i < MAX_FULL_CONTENT)
             {
                 if (i >= MAX_FULL_CONTENT) {
                     std::cerr << "Out of max content limit";
