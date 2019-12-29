@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -12,16 +13,17 @@ MonoBehaviour:
   m_Name: AddressableAssetSettings
   m_EditorClassIdentifier: 
   m_DefaultGroup: 5a14d1da2bab395429c135ae93b83e98
-  m_groups: []
+  m_BuildRemoteCatalog: 0
+  m_RemoteCatalogBuildPath:
+    m_Id: 
+  m_RemoteCatalogLoadPath:
+    m_Id: 
+  m_overridePlayerVersion: 
   m_GroupAssets:
   - {fileID: 11400000, guid: d9ed0f313840ff744b3711ec31c563ab, type: 2}
   - {fileID: 11400000, guid: 9b8887d1c1e33f34da0c50f28a912a98, type: 2}
   - {fileID: 11400000, guid: 89df6065d8a4c1d45a5d8f1c095936dd, type: 2}
   m_BuildSettings:
-    m_Compression:
-      compression: 3
-      level: 5
-      blockSize: 131072
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
     m_LogResourceManagerExceptions: 1
@@ -62,19 +64,14 @@ MonoBehaviour:
   m_LabelTable:
     m_LabelNames:
     - default
-  m_SchemaTemplates:
-  - m_DisplayName: Packed Assets
-    m_Description: Pack assets into asset bundles.
-    m_SchemaTypes:
-    - m_AssemblyName: Unity.Addressables.Editor, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      m_ClassName: UnityEditor.AddressableAssets.BundledAssetGroupSchema
-    - m_AssemblyName: Unity.Addressables.Editor, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      m_ClassName: UnityEditor.AddressableAssets.ContentUpdateGroupSchema
+  m_SchemaTemplates: []
+  m_GroupTemplateObjects:
+  - {fileID: 11400000, guid: 5c171d71f4c358845a15a827a349214d, type: 2}
   m_InitializationObjects: []
+  m_CertificateHandlerType:
+    m_AssemblyName: 
+    m_ClassName: 
   m_ActivePlayerDataBuilderIndex: 3
-  m_ActivePlayModeDataBuilderIndex: 0
   m_DataBuilders:
   - {fileID: 11400000, guid: 30a757c6c5d08594a85c7479de847e66, type: 2}
   - {fileID: 11400000, guid: dc08d0d1bd7cb6349b956a2518884f63, type: 2}
