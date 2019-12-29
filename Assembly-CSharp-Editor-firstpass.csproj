@@ -419,6 +419,12 @@
     <Reference Include="Entitas.VisualDebugging.CodeGeneration.Plugins">
       <HintPath>E:/GithubProjects/Hippocampus/Assets/Libraries/Entitas/Editor/Plugins/Entitas.VisualDebugging.CodeGeneration.Plugins.dll</HintPath>
     </Reference>
+    <Reference Include="DOTween">
+      <HintPath>E:/GithubProjects/Hippocampus/Assets/Plugins/DOTween/DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTweenEditor">
+      <HintPath>E:/GithubProjects/Hippocampus/Assets/Plugins/DOTween/Editor/DOTweenEditor.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>E:/GithubProjects/Hippocampus/Assets/UnityPackages/JsonNet/Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -436,12 +442,6 @@
     </Reference>
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/Users/whkong/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTweenEditor">
-      <HintPath>E:/GithubProjects/Hippocampus/Assets/Plugins/DOTween/Editor/DOTweenEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween">
-      <HintPath>E:/GithubProjects/Hippocampus/Assets/Plugins/DOTween/DOTween.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.2.20f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

@@ -12,14 +12,16 @@ namespace HeavenGateEditor {
     using std::vector;
 
     class StoryJson;
+    class StoryWord;
+
     class StoryJsonContentCompiler final : public StorySingleton<StoryJsonContentCompiler>
     {
     public:
         enum class CompilerState {
             Error,
             StateString,
-            StateProperty,
-            StateValue,
+            StateInstructor,
+            StateIdent,
             StateStartBracket,
             StateStopBracket,
             StateOp,
@@ -29,9 +31,10 @@ namespace HeavenGateEditor {
         {
             TokenIdnet,
             TokenInstructor,
-            TokenStringID,
+            TokenCloseLabel,
 
-            TokenOpEquel,
+            TokenContent,
+
             TokenOpBracketLeft,
             TokenOpBracketRight,
             TokenOpColon
@@ -50,16 +53,23 @@ namespace HeavenGateEditor {
         //destroy function, take the  place of destructor
         virtual bool Shutdown() override { return true; };
 
-        void CompilerContent(StoryJson* const storyJson);
+        void Compile(StoryJson* const storyJson);
 
     private:
-        
-        void Lexer(const StoryJson* const storyJson);
+        void CompileEach(const StoryWord* const word);
+
+
+        void Lexer(const StoryWord* const storyJson);
+
+        //void Lexer(const StoryJson* const storyJson);
         void Parser();
 
         void SwitchCompilerState(CompilerState state);
+        Token*const CreateTokenByString(char*const aString, TokenType tokenType);
 
-        vector<Token> m_tokens;
+        void AddToken(Token*const token );
+
+        vector<Token*> m_tokens;
         CompilerState m_state;
         CompilerState m_lastState;
     };

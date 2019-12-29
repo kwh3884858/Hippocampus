@@ -165,7 +165,10 @@ namespace UI.Modules
             {
                 IsQueue = false;
             }
-            Destroy(m_container.gameObject);
+            if (m_container)
+            {
+                Destroy(m_container.gameObject);
+            }
             Log("DeInitialize");
         }
 

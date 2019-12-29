@@ -499,6 +499,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114106967399437950, guid: c25d4133262bcdd4f860536293f84b7f,
+        type: 2}
+      propertyPath: m_panelsSettings.Array.data[1].m_panelType
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c25d4133262bcdd4f860536293f84b7f, type: 2}
   m_IsPrefabAsset: 0
