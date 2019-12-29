@@ -233,6 +233,11 @@ namespace HeavenGateEditor {
             StoryFileManager::Instance().SaveStoryFile(m_storyJson);
           
         }
+        if (ImGui::MenuItem("Export", "Ctrl+E")) {
+
+            StoryFileManager::Instance().ExportStoryFile(m_storyJson);
+
+        }
         if (ImGui::MenuItem("Save As..")) {
 
 

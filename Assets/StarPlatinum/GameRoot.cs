@@ -85,7 +85,7 @@ namespace StarPlatinum
 			EventManager.Instance ().LogicStart ();
 			//   AddGameObject<CameraService>();
 			//AddGameObject<InputService> ();
-			AddGameObject<TimerService> ();
+			//AddGameObject<TimerService> ();
 			//AddGameObject<Console> ();
 			AddGameObject<Localization> ();
 

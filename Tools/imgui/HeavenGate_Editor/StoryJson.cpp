@@ -119,7 +119,28 @@ namespace HeavenGateEditor {
         memset(m_fullPath, 0, sizeof(m_fullPath));
         strcpy(m_fullPath, storyJson.m_fullPath);
 
-        m_nodes = storyJson.m_nodes;
+        //m_nodes = storyJson.m_nodes;
+        for (int i = 0; i < storyJson.m_nodes.size(); i++)
+        {
+            
+            if (storyJson.m_nodes[i]->m_nodeType == NodeType::Word)
+            {
+                StoryWord* word = new StoryWord(static_cast<const StoryWord&>(*(storyJson.m_nodes[i])));
+                m_nodes.push_back(word);
+            }
+            else if(storyJson.m_nodes[i]->m_nodeType == NodeType::Jump)
+            {
+                StoryJump* jump = new StoryJump(static_cast<const StoryJump&>(*(storyJson.m_nodes[i])));
+                m_nodes.push_back(jump);
+
+            }
+            else if (storyJson.m_nodes[i]->m_nodeType == NodeType::Label)
+            {
+                StoryLabel* label = new StoryLabel(static_cast<const StoryLabel&>(*(storyJson.m_nodes[i])));
+                m_nodes.push_back(label);
+
+            }
+        }
     }
 
     StoryJson::StoryJson(StoryJson&& storyJson) noexcept
@@ -268,7 +289,6 @@ namespace HeavenGateEditor {
             printf("message: %s \n exception id: %d \n lack of: %s \n\n", e.what(), e.id, index);
 
             memset(des, '\0', sizeof(des));
-
         }
      
     }
@@ -335,9 +355,21 @@ namespace HeavenGateEditor {
         m_nodeType = NodeType::None;
     }
 
+    StoryNode::StoryNode(const StoryNode& storyNode)
+    {
+        m_nodeType = storyNode.m_nodeType;
+
+    }
+
     StoryLabel::StoryLabel()
     {
         m_nodeType = NodeType::Label;
+    }
+
+    StoryLabel::StoryLabel(const StoryLabel& storyLabel)
+    {
+        m_nodeType = storyLabel.m_nodeType;
+        strcpy(m_labelId, storyLabel.m_labelId);
     }
 
     StoryJump::StoryJump()
@@ -345,9 +377,25 @@ namespace HeavenGateEditor {
         m_nodeType = NodeType::Jump;
     }
 
+    StoryJump::StoryJump(const StoryJump& storyJump)
+    {
+        m_nodeType = storyJump.m_nodeType;
+        strcpy(m_jumpId, storyJump.m_jumpId);
+        strcpy(m_jumpContent, storyJump.m_jumpContent);
+
+    }
+
     StoryWord::StoryWord()
     {
         m_nodeType = NodeType::Word;
+    }
+
+    StoryWord::StoryWord(const StoryWord& storyWard)
+    {
+        m_nodeType = storyWard.m_nodeType;
+        strcpy(m_name, storyWard.m_name);
+        strcpy(m_content, storyWard.m_content);
+
     }
 
 }

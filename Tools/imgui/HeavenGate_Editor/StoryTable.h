@@ -134,7 +134,7 @@ namespace HeavenGateEditor {
         inline const char* GetContent(int rowIndex, int index)const;
         char* GetContent(int rowIndex, int index);
 
-        const StoryRow<column>* GetRow(int index)const;
+        const StoryRow<column>* const GetRow(int index)const;
         StoryRow<column>* AddRow();
         StoryRow<column>* RemoveRow();
         void PushRow(StoryRow<column>* storyRow);
@@ -412,7 +412,7 @@ namespace HeavenGateEditor {
 
 
     template<int column >
-    const StoryRow<column>* HeavenGateEditor::StoryTable<column>::GetRow(int index) const
+    const StoryRow<column>* const HeavenGateEditor::StoryTable<column>::GetRow(int index) const
     {
         return m_content[index];
     }

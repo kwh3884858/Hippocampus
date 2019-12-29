@@ -59,6 +59,35 @@ namespace HeavenGateEditor{
 }
 
 
+//    void HeavenGateEditorUtility::GetStoryExportPath(char* const outExportPath)
+//    {
+//        char cBuffer[MAX_FOLDER_PATH];
+//
+//#ifdef _WIN32
+//
+//        wchar_t buffer[MAX_FOLDER_PATH];
+//        GetModuleFileName(NULL, buffer, MAX_FOLDER_PATH);
+//        CharacterUtility::convertWcsToMbs(cBuffer, buffer, MAX_FOLDER_PATH);
+//#else
+//        bool result = GetModuleFileNameOSX(cBuffer);
+//
+//        if (!result) {
+//            return;
+//        }
+//#endif
+//
+//        //TODO: Need to write a string function to find tool folder name
+//        string path(cBuffer);
+//        string::size_type pos = path.find(TOOL_FOLDER_NAME);
+//
+//        path = path.substr(0, pos);
+//        path = path.append(PATH_FROM_PROJECT_ROOT_TO_STORY_EXPORT_FOLDER);
+//        printf("  %s  \n", path.c_str());
+//        strcpy(outExportPath, path.c_str());
+//
+//        return;
+//    }
+
 #ifndef _WIN32
 bool HeavenGateEditorUtility::GetModuleFileNameOSX(char* pOutCurrentPath) {
     Dl_info module_info;

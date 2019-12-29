@@ -40,6 +40,8 @@ namespace HeavenGateEditor {
             TokenOpColon
 
         };
+
+ 
         struct Token
         {
             TokenType m_tokeType;
@@ -51,20 +53,19 @@ namespace HeavenGateEditor {
         //initialize function, take the place of constructor
         virtual bool Initialize() override { return true; };
         //destroy function, take the  place of destructor
-        virtual bool Shutdown() override { return true; };
+        virtual bool Shutdown() override { Clear();  return true; };
 
         void Compile(StoryJson* const storyJson);
 
     private:
-        void CompileEach(const StoryWord* const word);
-
-
+        void CompileEach(StoryWord* const word);
         void Lexer(const StoryWord* const storyJson);
-
-        //void Lexer(const StoryJson* const storyJson);
         void Parser();
+        void Output(StoryWord* const word);
+        void Clear();
 
-        void SwitchCompilerState(CompilerState state);
+        void SwitchCompilerState(CompilerState lastState);
+        void CreateToken(char*const aString, CompilerState tokenType);
         Token*const CreateTokenByString(char*const aString, TokenType tokenType);
 
         void AddToken(Token*const token );

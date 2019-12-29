@@ -4,7 +4,7 @@
 #include "StoryTable.h"
 #include "CharacterUtility.h"
 
-
+#include "StoryJsonContentCompiler.h"
 
 #ifdef _WIN32
 
@@ -18,8 +18,6 @@
 #endif // _WIN32
 
 namespace HeavenGateEditor {
-
-
 
 
     bool StoryFileManager::LoadStoryFile(const char* pPath, StoryJson* pStoryJson)
@@ -71,19 +69,13 @@ namespace HeavenGateEditor {
         }
         char filePath[MAX_FOLDER_PATH];
         strcpy( filePath , pStoryJson->GetFullPath());
-
+        
         if (strlen(filePath) <= 0) {
             return false;
         }
-/*
-        StoryJson copyStory(*pStoryJson);
 
-        if (!copyStory.CompileContent())
-        {
-            return;
-        }
-*/
         json tmpJson = *pStoryJson;
+
         std::ofstream o(filePath);
         o << tmpJson << std::endl;
 
@@ -94,7 +86,48 @@ namespace HeavenGateEditor {
         return true;
     }
 
+    bool StoryFileManager::ExportStoryFile(const StoryJson* pStoryJson)
+    {
+        const char STORY_FOLDER[] = "Storys";
+        char tmpPath[MAX_FOLDER_PATH];
+        const int folderLength = strlen(STORY_FOLDER);
 
+        if (pStoryJson == nullptr) {
+            return false;
+        }
+
+        char filePath[MAX_FOLDER_PATH];
+        strcpy(filePath, pStoryJson->GetFullPath());
+
+        if (strlen(filePath) <= 0) {
+            return false;
+        }
+
+
+        int pos = CharacterUtility::Find(filePath, strlen(filePath), STORY_FOLDER, strlen(STORY_FOLDER));
+        if (pos == -1)
+        {
+            return true;
+        }
+        int posNeedMove = pos + folderLength;
+        strcpy(tmpPath, filePath+posNeedMove);
+        strcpy(filePath+pos, STORY_EXPORT_FOLDER);
+        strcat(filePath, tmpPath);
+
+        StoryJson copyStory(*pStoryJson);
+        StoryJsonContentCompiler::Instance().Compile(&copyStory);
+        json tmpJson = copyStory;
+
+
+        std::ofstream o(filePath);
+        o << tmpJson << std::endl;
+
+        o.close();
+
+        //Initialize();
+
+        return true;
+    }
 
     void StoryFileManager::InitFileList(char(*pOutFileList)[MAX_FOLDER_PATH], int* maxFileCount)
     {
@@ -246,6 +279,8 @@ namespace HeavenGateEditor {
             fin.close();
         }
     }
+
+
 
     //void StoryFileManager::SetNewFilePath(const char * filePath)
     //{

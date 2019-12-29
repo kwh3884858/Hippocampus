@@ -10,6 +10,7 @@
 #include "StoryJsonManager.h"
 #include "StoryTableManager.h"
 #include "StoryFileManager.h"
+#include "StoryJsonContentCompiler.h"
 
 #include "imgui.h"
 
@@ -23,6 +24,7 @@ namespace HeavenGateEditor {
         StoryJsonManager::Instance().Initialize();
         StoryFileManager::Instance().Initialize();
         StoryTableManager::Instance().Initialize();
+        StoryJsonContentCompiler::Instance().Initialize();
 
         m_heavenGateEditor = new HeavenGateWindowStoryEditor;
         m_fontSizeTable = new HeavenGateEditorFontSizeTable;
@@ -70,7 +72,7 @@ namespace HeavenGateEditor {
         StoryTableManager::Instance().Shutdown();
         StoryFileManager::Instance().Shutdown();
         StoryJsonManager::Instance().Shutdown();
-
+        StoryJsonContentCompiler::Instance().Shutdown();
 
 
     }

@@ -33,6 +33,7 @@ namespace HeavenGateEditor {
         //bool CreateStoryFIle();
         bool LoadStoryFile(const char* pPath, StoryJson* pStoryJson);
         bool SaveStoryFile(const StoryJson* pStoryJson);
+        bool ExportStoryFile(const StoryJson* pStoryJson);
 
         template<int column>
         bool LoadTableFile(const char* pPath, StoryTable<column>*const  pTableJson)const;

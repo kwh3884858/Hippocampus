@@ -18,7 +18,7 @@ class HeavenGateEditorUtility{
 public:
     static void GetAssetPath(char* const outAssetPath);
     static void GetStoryPath(char* const outExePath);
-
+    //static void GetStoryExportPath(char* const outExportPath);
     #ifndef _WIN32
     static bool GetModuleFileNameOSX(char *  pOutCurrentPath);
     #endif

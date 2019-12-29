@@ -1,1 +1,1 @@
-[{"content":"用于HeavenGate与Unity交互","name":"这是一个故事剧情文件测试文档","typename":"word"},{"content":"点击进行跳跃","jump":"跳跃点","typename":"jump"},{"content":"这些文本会被跳过","name":"这些文本会被跳过","typename":"word"},{"label":"跳跃点","typename":"label"},{"content":"这里","name":"最终将跳转到这里","typename":"word"}]
+[{"content":"用于HeavenGate与<color:as>Unity交互</color>的啦","name":"这是一个故事剧情文件测试文档","typename":"word"},{"content":"点击进行跳跃","jump":"跳跃点","typename":"jump"},{"content":"这些文本会被跳过","name":"这些文本会被跳过","typename":"word"},{"label":"跳跃点","typename":"label"},{"content":"这里","name":"最终将跳转到这里","typename":"word"}]

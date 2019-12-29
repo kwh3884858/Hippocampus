@@ -47,6 +47,18 @@ namespace HeavenGateEditor {
         "Assets/Resources/Storys";
 #endif
 
+    // Story export Folder
+    const char* const STORY_EXPORT_FOLDER ="Storys_Export";
+
+
+//    //Relative path form project root to story export folder
+//    const char* const PATH_FROM_PROJECT_ROOT_TO_STORY_EXPORT_FOLDER =
+//#ifdef _WIN32
+//        "Assets\\Resources\\Storys_Export";
+//#else
+//        "Assets/Resources/Storys";
+//#endif
+//
     //Relative path from story folder to font size table
 
     const char* const FONT_TABLE_NAME = 

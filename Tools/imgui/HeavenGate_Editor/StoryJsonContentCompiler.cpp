@@ -3,6 +3,8 @@
 #include "StoryJson.h"
 #include "StoryTableManager.h"
 
+#include "StoryTable.h"
+
 namespace HeavenGateEditor {
 
 
@@ -10,27 +12,30 @@ namespace HeavenGateEditor {
     {
         for (int i = 0; i < storyJson->Size(); i++)
         {
-            const StoryNode* const node = storyJson->GetNode(i);
+            StoryNode* const node = storyJson->GetNode(i);
 
             if (node->m_nodeType != NodeType::Word) continue;
 
-            const StoryWord* const word = static_cast<const StoryWord* const>(node);
+            StoryWord* const word = static_cast<StoryWord* const>(node);
 
             CompileEach(word);
 
         }
     }
 
-    void StoryJsonContentCompiler::CompileEach(const StoryWord* const word)
+    void StoryJsonContentCompiler::CompileEach(StoryWord* const word)
     {
         Lexer(word);
         Parser();
+
+        Output(word);
     }
 
 
     void StoryJsonContentCompiler::Lexer(const StoryWord* const word)
     {
-        m_state = CompilerState::StateString;
+        Clear();
+
         char tmp[MAX_CONTENT];
         memset(tmp, '\0', sizeof(tmp));
 
@@ -42,89 +47,124 @@ namespace HeavenGateEditor {
             switch (word->m_content[j])
             {
             case '<':
-            {
+
                 SwitchCompilerState(CompilerState::StateStartBracket);
 
                 break;
-            }
+
             case '>':
-            {
+
                 SwitchCompilerState(CompilerState::StateStopBracket);
                 break;
-            }
-            case ':':
-            {
+
+            case '/': case ':':
                 SwitchCompilerState(CompilerState::StateOp);
                 break;
-            }
 
-            default: {
+            default:
                 SwitchCompilerState(CompilerState::StateString);
                 break;
-            }
+
 
             }
+
+
+
             if (m_state == m_lastState)
             {
-                sprintf(tmp, "%s", word->m_content[j]);
+                //copy char
+                char c[2] = "a";
+                c[0] = word->m_content[j];
+                strcat(tmp, c);
+
                 continue;
             }
 
-            switch (m_lastState)
-            {
-            case HeavenGateEditor::StoryJsonContentCompiler::CompilerState::Error:
-                break;
-            case HeavenGateEditor::StoryJsonContentCompiler::CompilerState::StateString:
-            {
-                Token* token = CreateTokenByString(tmp, TokenType::TokenContent);
+            CreateToken(tmp, m_lastState);
 
-                break;
-            }
-            case HeavenGateEditor::StoryJsonContentCompiler::CompilerState::StateInstructor: {
-                if (m_state == CompilerState::StateOp)
-                {
-                    Token* token = CreateTokenByString(tmp, TokenType::TokenInstructor);
+            m_lastState = m_state;
 
-                }
-                else if (m_state == CompilerState::StateInstructor)
-                {
-                    Token* token = CreateTokenByString(tmp, TokenType::TokenCloseLabel);
+            //copy char
+            char c[2] = "a";
+            c[0] = word->m_content[j];
+            strcat(tmp, c);
 
-                }
-
-                break;
-            }
-            case HeavenGateEditor::StoryJsonContentCompiler::CompilerState::StateIdent: {
-                Token* token = CreateTokenByString(tmp, TokenType::TokenIdnet);
-
-                break;
-            }
-
-            case HeavenGateEditor::StoryJsonContentCompiler::CompilerState::StateStartBracket: {
-
-                Token* token = CreateTokenByString(tmp, TokenType::TokenOpBracketLeft);
-
-                break;
-            }
-            case HeavenGateEditor::StoryJsonContentCompiler::CompilerState::StateStopBracket:
-            {
-                Token* token = CreateTokenByString(tmp, TokenType::TokenOpBracketRight);
-
-                break;
-            }
-            case  HeavenGateEditor::StoryJsonContentCompiler::CompilerState::StateOp:
-            {
-                Token* token = CreateTokenByString(tmp, TokenType::TokenOpColon);
-
-                break;
-            }
-            default:
-                break;
-            }
         }
 
+
+        CreateToken(tmp, m_lastState);
     }
 
+
+    void StoryJsonContentCompiler::CreateToken(char*const aString, CompilerState lastState)
+    {
+        if (strlen(aString) == 0)
+        {
+            return;
+        }
+
+        switch (lastState)
+        {
+        case HeavenGateEditor::StoryJsonContentCompiler::CompilerState::Error:
+            break;
+        case HeavenGateEditor::StoryJsonContentCompiler::CompilerState::StateString:
+        {
+            Token* token = CreateTokenByString(aString, TokenType::TokenContent);
+
+            break;
+        }
+        case HeavenGateEditor::StoryJsonContentCompiler::CompilerState::StateInstructor: {
+            if (m_state == CompilerState::StateOp)
+            {
+                Token* token = CreateTokenByString(aString, TokenType::TokenInstructor);
+
+            }
+            else if (m_state == CompilerState::StateInstructor)
+            {
+                Token* token = CreateTokenByString(aString, TokenType::TokenCloseLabel);
+
+            }
+
+            break;
+        }
+        case HeavenGateEditor::StoryJsonContentCompiler::CompilerState::StateIdent: {
+            Token* token = CreateTokenByString(aString, TokenType::TokenIdnet);
+
+            break;
+        }
+
+        case HeavenGateEditor::StoryJsonContentCompiler::CompilerState::StateStartBracket: {
+
+            Token* token = CreateTokenByString(aString, TokenType::TokenOpBracketLeft);
+
+            break;
+        }
+        case HeavenGateEditor::StoryJsonContentCompiler::CompilerState::StateStopBracket:
+        {
+            Token* token = CreateTokenByString(aString, TokenType::TokenOpBracketRight);
+
+            break;
+        }
+        case  HeavenGateEditor::StoryJsonContentCompiler::CompilerState::StateOp:
+        {
+            if (m_state == CompilerState::StateInstructor)
+            {
+                Token* token = CreateTokenByString(aString, TokenType::TokenOpColon);
+            }
+            else if (m_state == CompilerState::StateStartBracket)
+            {
+                Token* token = CreateTokenByString(aString, TokenType::TokenOpColon);
+            }
+            else if (m_state == CompilerState::StateIdent)
+            {
+                Token* token = CreateTokenByString(aString, TokenType::TokenOpColon);
+            }
+            break;
+        }
+        default:
+            break;
+        }
+    }
 
 
 
@@ -197,6 +237,10 @@ namespace HeavenGateEditor {
             {
                 m_state = state;
             }
+            if (m_state == CompilerState::StateStartBracket)
+            {
+                m_state = state;
+            }
 
             break;
         }
@@ -204,19 +248,97 @@ namespace HeavenGateEditor {
             break;
         }
 
-        m_lastState = m_state;
+        //m_lastState = m_state;
     }
 
 
     void StoryJsonContentCompiler::Parser()
     {
+        TableType currentTableType = TableType::None;
+
         for (int i = 0; i < m_tokens.size(); i++)
         {
-            if (m_tokens[i]->m_tokeType == TokenType::TokenIdnet)
+            Token* token = m_tokens[i];
+            if (token->m_tokeType == TokenType::TokenInstructor)
             {
 
+                if (strcmp(token->m_content, fontSizeTableString[(int)FontSizeTableLayout::Type]) == 0)
+                {
+                    currentTableType = TableType::Font_Size;
+                }
+                if (strcmp(token->m_content, colorTableString[(int)FontSizeTableLayout::Type]) == 0)
+                {
+                    currentTableType = TableType::Color;
+                }
+                if (strcmp(token->m_content, paintMoveTableString[(int)FontSizeTableLayout::Type]) == 0)
+                {
+                    currentTableType = TableType::Paint_Move;
+                }
             }
+            else if (token->m_tokeType == TokenType::TokenIdnet)
+            {
+                switch (currentTableType)
+                {
+                case HeavenGateEditor::TableType::None:
+                    break;
+                case HeavenGateEditor::TableType::Font_Size:
+                {
+                    const StoryTable<FONT_SIZE_MAX_COLUMN>* const fontSizeTable = StoryTableManager::Instance().GetFontSizeTable();
+                    for (int i = 0; i < fontSizeTable->GetSize(); i++)
+                    {
+                        const StoryRow<FONT_SIZE_MAX_COLUMN>* const row = fontSizeTable->GetRow(i);
+                        if (strcmp(row->Get(0), token->m_content) == 0)
+                        {
+                            strcpy(token->m_content, row->Get(1));
+                        }
+                    }
+
+                    break;
+                }
+                case HeavenGateEditor::TableType::Color: {
+                    const StoryTable<COLOR_MAX_COLUMN>* const colorTable = StoryTableManager::Instance().GetColorTable();
+                    for (int i = 0; i < colorTable->GetSize(); i++)
+                    {
+                        const StoryRow<COLOR_MAX_COLUMN>* const row = colorTable->GetRow(i);
+                        if (strcmp(row->Get(0), token->m_content) == 0)
+                        {
+                            strcpy(token->m_content, row->Get(1));
+                        }
+                    }
+                    break;
+                }
+                                                         /*    case HeavenGateEditor::TableType::Paint_Move: {
+                                                                 const StoryTable<PAINT_MOVE_MAX_COLUMN>* const paintMoveTable = StoryTableManager::Instance().GetPaintMoveTable();
+                                                                 for (int i = 0; i < paintMoveTable->GetSize(); i++)
+                                                                 {
+                                                                     const StoryRow<PAINT_MOVE_MAX_COLUMN>* const row = paintMoveTable->GetRow(i);
+                                                                     if (strcmp(row->Get(0), token->m_content) == 0)
+                                                                     {
+                                                                         strcpy(token->m_content, row->Get(1));
+                                                                     }
+                                                                 }
+                                                                 break;
+                                                             }*/
+                default:
+                    break;
+                }
+
+                currentTableType = TableType::None;
+            }
+
         }
+    }
+
+    void StoryJsonContentCompiler::Output(StoryWord* const word)
+    {
+        memset(word->m_content, '\0', MAX_CONTENT);
+
+        for (int i = 0; i < m_tokens.size(); i++)
+        {
+            strcat(word->m_content, m_tokens[i]->m_content);
+        }
+
+        Clear();
     }
 
     HeavenGateEditor::StoryJsonContentCompiler::Token*const StoryJsonContentCompiler::CreateTokenByString(char*const aString, TokenType tokenType)
@@ -233,6 +355,13 @@ namespace HeavenGateEditor {
     void StoryJsonContentCompiler::AddToken(Token*const token)
     {
         m_tokens.push_back(token);
+    }
+
+    void StoryJsonContentCompiler::Clear()
+    {
+        m_tokens.clear();
+        m_state = CompilerState::StateString;
+        m_lastState = CompilerState::StateString;
     }
 
 }

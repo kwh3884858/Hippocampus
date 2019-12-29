@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using StarPlatinum;
 
-public class TimerService : GameModule<TimerService>
+public class TimerService : Singleton<TimerService>
 {
 
 	public class Timer
@@ -21,14 +21,19 @@ public class TimerService : GameModule<TimerService>
 
 	public List<Timer> m_timers;
 
-	public override void SingletonInit ()
-	{
-		base.SingletonInit ();
+    public TimerService()
+    {
+        m_timers = new List<Timer>();
 
-		m_timers = new List<Timer> ();
+        m_readyForDelete = new List<Timer>();
+    }
 
-		m_readyForDelete = new List<Timer> ();
-	}
+ //   public override void SingletonInit ()
+	//{
+	//	base.SingletonInit ();
+
+	
+	//}
 	List<Timer> m_readyForDelete;
 
 	private void FixedUpdate ()
@@ -46,7 +51,7 @@ public class TimerService : GameModule<TimerService>
 					if (m_timers [i].m_timer.Target.ToString () != "null") {
 						m_timers [i].m_timer ();
 					} else {
-						Debug.Log ("Timer lose taget before execute.");
+						Debug.Log ("Timer lose target before execute.");
 					}
 
 

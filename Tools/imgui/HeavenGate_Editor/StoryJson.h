@@ -36,6 +36,7 @@ namespace HeavenGateEditor {
         NodeType m_nodeType;
 
         StoryNode();
+        StoryNode(const StoryNode& storyNode);
     };
 
     class StoryLabel :public StoryNode
@@ -44,6 +45,7 @@ namespace HeavenGateEditor {
         char m_labelId[MAX_ID];
 
         StoryLabel();
+        StoryLabel(const StoryLabel& storyLabel);
     };
 
     class StoryJump : public StoryNode
@@ -53,6 +55,7 @@ namespace HeavenGateEditor {
         char m_jumpContent[MAX_CONTENT];
 
         StoryJump();
+        StoryJump(const StoryJump& storyJump);
     };
 
     class StoryWord :public StoryNode {
@@ -62,6 +65,7 @@ namespace HeavenGateEditor {
         char m_content[MAX_CONTENT];
 
         StoryWord();
+        StoryWord(const StoryWord& storyWard);
     };
 
     class StoryJson {

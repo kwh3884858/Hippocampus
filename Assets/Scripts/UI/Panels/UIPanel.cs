@@ -142,7 +142,7 @@ namespace UI.Panels
 
         protected void CallbackTime(float delayTime ,Action callback)
         {
-            TimerService.Instance().AddTimer(delayTime,()=>
+            TimerService.Instance.AddTimer(delayTime,()=>
             {
                 callback?.Invoke();
             });

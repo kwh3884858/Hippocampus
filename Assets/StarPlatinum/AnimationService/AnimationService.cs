@@ -70,7 +70,7 @@ namespace StarPlatinum
 		public void FlashAndShake (Transform tran, float delay = 0f)
 		{
 			m_readyForFlashAndShake.Enqueue (tran);
-			TimerService.Instance ().AddTimer (delay, TimerCallbackFlashAndShake);
+			TimerService.Instance .AddTimer (delay, TimerCallbackFlashAndShake);
 
 
 		}
@@ -93,7 +93,7 @@ namespace StarPlatinum
 
 			} else {
 				m_readyForHorizontalShake.Enqueue (tran);
-				TimerService.Instance ().AddTimer (delay, TimerCallbackHorizontalShake);
+				TimerService.Instance .AddTimer (delay, TimerCallbackHorizontalShake);
 			}
 
 
@@ -118,7 +118,7 @@ namespace StarPlatinum
 
 			} else {
 				m_readyForVerticalFlash.Enqueue (tran);
-				TimerService.Instance ().AddTimer (delay, TimerCallbackVerticalShake);
+				TimerService.Instance .AddTimer (delay, TimerCallbackVerticalShake);
 			}
 
 		}
