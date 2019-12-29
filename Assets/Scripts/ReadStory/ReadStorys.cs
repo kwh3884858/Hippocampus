@@ -242,5 +242,6 @@ namespace StarPlatinum.StoryReader
     public class StoryJumpData : StoryBasicData
     {
         public string jump;
+        public string content;
     }
 }
