@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
@@ -31,7 +32,6 @@ namespace StarPlatinum
     {
 
         Dictionary<string, GameObject> m_allPrefab = new Dictionary<string, GameObject> ();
-
         public GameObject LoadPrefab (string prefabName)
         {
             //string name = "Prefabs/" + prefabName;
@@ -47,64 +47,82 @@ namespace StarPlatinum
                 return perfb;
             }
         }
-
-        public async Task<GameObject> LoadAssetSync(string key)
-        {
-            if (m_allPrefab.ContainsKey(key))
-            {
-                return m_allPrefab[key];
-            }
-            var obj = await Addressables.LoadAsset<GameObject>(key);
-            if (obj!=null)
-            {
-                m_allPrefab.Add(key,obj);
-                return obj;
-            }
-            return null;
-        }
-
-        public async Task<T> InstantiateAsyncAwait<T>(string key,Transform parent =null) where T : MonoBehaviour
-        {
-            var objP = await Addressables.LoadAsset<GameObject>(key);
-            var obj = GameObject.Instantiate<T>(objP.GetComponent<T>(), parent);
-            if (obj == null)
-            {
-                Debug.Log(string.Format("找不到key为 {key} 的预设"));
-            }
-            return obj;
-        }
-        public async Task<GameObject> InstantiateAsyncAwait(string key,Transform parent =null)
-        {
-            var obj = await Addressables.Instantiate<GameObject>(key,parent);
-            if (obj == null)
-            {
-                Debug.Log(string.Format("找不到key为 {key} 的预设"));
-            }
-            return obj;
-        }
         
         public void InstantiateAsync<T>(string key,Action<RequestResult> callBack,Transform parent =null) where T: UnityEngine.Object
         {
             Addressables.LoadAsset<T>(key).Completed+= operation =>
             {
-                RequestResult result = new RequestResult();
-                result.key = key;
-                if (operation.Result == null)
+                var result = GetResult(key,operation);
+                if (result.status == RequestStatus.FAIL)
                 {
-                    result.status = RequestStatus.FAIL;
                     callBack?.Invoke(result);
                     return;
                 }
-                T obj = Object.Instantiate(operation.Result, parent);
-                result.result = obj;
-                result.status = RequestStatus.SUCCESS;
+                result.result = Object.Instantiate(operation.Result, parent);
                 callBack?.Invoke(result);
             };
+        }
+
+        public void InstantiateComponentAsync<T>(string key,Action<RequestResult> callBack,Transform parent =null) where T: UnityEngine.Object
+        {
+            Addressables.LoadAsset<GameObject>(key).Completed+= operation =>
+            {
+                var result = GetResult(key,operation);
+                if (result.status == RequestStatus.FAIL)
+                {
+                    callBack?.Invoke(result);
+                    return;
+                }
+                var obj = Object.Instantiate(operation.Result, parent);
+                result.result = obj.GetComponent<T>();
+                callBack?.Invoke(result);
+            };
+        }
+        
+        public void InstantiateConfigAsync(string key,Action<RequestResult> callBack,Transform parent =null)
+        {
+            Addressables.LoadAsset<ScriptableObject>(key).Completed+= operation =>
+            {
+                var result = GetResult(key,operation);
+                if (result.status == RequestStatus.FAIL)
+                {
+                    callBack?.Invoke(result);
+                    return;
+                }
+                result.result = Object.Instantiate(operation.Result, parent);
+                callBack?.Invoke(result);
+            };
+        }
+
+        public void LoadAssetsAsync<T>(List<string> keys, Action<RequestResult> callBack, Transform parent = null)where T: UnityEngine.Object
+        {
+            foreach (var key in keys)
+            {
+                Addressables.LoadAsset<T>(key).Completed += operation =>
+                {
+                    var result = GetResult(key, operation);
+                    callBack?.Invoke(result);
+                };
+            }
         }
 
         public void LoadScene(SceneLookupEnum key, LoadSceneMode loadSceneMode)
         {
             Addressables.LoadScene(SceneLookup.Get(key),loadSceneMode);
+        }
+
+        private RequestResult GetResult<T>(string key,AsyncOperationHandle<T> operation)where T: UnityEngine.Object
+        {
+            RequestResult result = new RequestResult();
+            result.key = key;
+            if (operation.Result == null)
+            {
+                result.status = RequestStatus.FAIL;
+                return result;
+            }
+            result.result = operation.Result;
+            result.status = RequestStatus.SUCCESS;
+            return result;
         }
 
 

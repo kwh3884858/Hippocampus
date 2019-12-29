@@ -36,7 +36,7 @@ namespace Config
         {
             if (Application.isPlaying)
             {
-                PrefabManager.Instance.InstantiateAsync<ScriptableObject>(typeof(T).Name, (result)=>
+                PrefabManager.Instance.InstantiateConfigAsync(typeof(T).Name, (result)=>
                 {
                     Debug.Log($"===========aas:{result.key}加载完成,");
                     _instance = result.result as T;

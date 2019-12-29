@@ -71,25 +71,79 @@ namespace Controllers.Subsystems.Story
             //    }
             //}
 
-            while (!m_storys.IsDone())
+            if(ID == "1")
             {
-                switch (m_storys.GetNodeType())
-                {
-                    case StoryReader.NodeType.word:
-                        container.PushName(m_storys.GetName());
-                        container.PushContent(m_storys.GetContent());
-                        container.PushWaiting(1f);
-                        break;
-
-                    case StoryReader.NodeType.jump:
-                        break;
-
-                    default:
-                        break;
-                }
-
-                m_storys.Next();
+                container.PushName("我");
+                container.PushContent("如果真的要刮暴风雨，这个雨棚能挡住什么？");
+                container.PushWaiting(1f);
+                container.PushName("艾琳");
+                container.PushContent("主要是不想要夏天的时候太阳把车晒太热吧？");
+                container.PushWaiting(1f);
+                container.PushName("我");
+                container.PushContent("那还是叫遮阳棚比较好。");
+                container.PushWaiting(1f);
+                container.PushName("艾琳");
+                container.PushContent("是你自顾自地叫人家雨棚的吧！");
+                container.PushWaiting(1f);
             }
+            else if(ID == "2")
+            {
+                container.PushName("我");
+                container.PushContent("是个雨棚。");
+                container.PushWaiting(1f);
+                container.PushName("艾琳");
+                container.PushContent("你不刚说了是遮阳棚吗？");
+                container.PushWaiting(1f);
+                container.PushName("我");
+                container.PushContent("我反悔了。");
+                container.PushWaiting(1f);
+            }
+            else if(ID == "3")
+            {
+                container.PushName("我");
+                container.PushContent("雨棚。");
+            }
+            else
+            {
+                while (!m_storys.IsDone())
+                {
+                    switch (m_storys.GetNodeType())
+                    {
+                        case StoryReader.NodeType.word:
+                            container.PushName(m_storys.GetName());
+                            container.PushContent(m_storys.GetContent());
+                            container.PushWaiting(1f);
+                            break;
+
+                        case StoryReader.NodeType.jump:
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    m_storys.Next();
+                }
+            }
+            //while (!m_storys.IsDone())
+            //{
+            //    switch (m_storys.GetNodeType())
+            //    {
+            //        case StoryReader.NodeType.word:
+            //            container.PushName(m_storys.GetName());
+            //            container.PushContent(m_storys.GetContent());
+            //            container.PushWaiting(1f);
+            //            break;
+
+            //        case StoryReader.NodeType.jump:
+            //            break;
+
+            //        default:
+            //            break;
+            //    }
+
+            //    m_storys.Next();
+            //}
 
             //            container.PushName("迪奥");
             //            container.PushContent("jojo，人的能力是有极限的");

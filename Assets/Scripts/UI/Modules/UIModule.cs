@@ -308,7 +308,7 @@ namespace UI.Modules
             m_loadingPanels.Add(settings.PanelType);
             var assetKey = GetPathByAttribute(settings.PanelType);
             UIPanel panel = null; 
-            m_content.InstantiateAsync<UIPanel>(assetKey, (result) =>
+            m_content.InstantiateComponentAsync<UIPanel>(assetKey, (result) =>
             {
                 Assert.IsTrue(result.status == RequestStatus.SUCCESS,$"panel {GetType()} load failure!!!");
                 panel =result.result as UIPanel ;
@@ -321,16 +321,6 @@ namespace UI.Modules
             m_loadingPanels.Remove(settings.PanelType);
             Log("End LoadPanelAsync " + settings.PanelType);
         }
-
-        protected async void LoadPanelSync(UIPanelSettings settings)
-        {
-            Log("LoadPanelSync " + settings.PanelType);
-            var assetKey = GetPathByAttribute(settings.PanelType);
-            var panel = await m_content.InstantiateAsyncAwait<UIPanel>(assetKey,m_container);
-            Assert.IsNotNull(panel, $"LoadPanelSync failed for {settings.PanelType}: guid={assetKey}");
-            InstantiatePanel(panel, settings);
-        }
-
         protected void InstantiatePanel(UIPanel panel, UIPanelSettings settings)
         {
             Log("InstantiatePanel " + settings.PanelType);

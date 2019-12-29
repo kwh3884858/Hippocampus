@@ -27,6 +27,7 @@ public class MoveController : MonoBehaviour
     //   public LayerMask m_enemyLayerMask;
 
     private bool m_isMove = false;
+    private int count = 0;// 测试计数
 
     void Start ()
 	{
@@ -34,7 +35,9 @@ public class MoveController : MonoBehaviour
         m_boxCollider2D = transform.GetComponent<BoxCollider2D> ();
         PlayerController.Instance().m_moveCtrl = this;
         CameraService.Instance.SetTarget(gameObject);
-	}
+        count = 0;
+
+    }
 
     private void OnDestroy()
     {
@@ -63,7 +66,8 @@ public class MoveController : MonoBehaviour
                 {
                     Debug.Log("Did Interactable");
                     // TODO:接触可交互物体，触发对话
-                    UI.UIManager.Instance().ShowPanel(UIPanelType.TalkPanel,new TalkDataProvider(){ID = "1"});
+                    count++;
+                    UI.UIManager.Instance().ShowPanel(UIPanelType.TalkPanel,new TalkDataProvider(){ID = count.ToString()});
                 }
                 Debug.DrawRay(transform.position, m_isFaceRight ? Vector3.right : Vector3.left * hit.distance, Color.yellow);
                 //Debug.Log("Did Hit");
