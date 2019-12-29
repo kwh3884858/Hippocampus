@@ -18,7 +18,7 @@ namespace UI.Panels.GameScene.MainManu
 
         public void ShowHud()
         {
-            UiDataProvider.StaticBoard.ShowTalk("9");
+            UiDataProvider.StaticBoard.ShowTalk("9", OnTalkEnd);
         }
 
         public void HidSelef()
@@ -36,6 +36,11 @@ namespace UI.Panels.GameScene.MainManu
             HidSelef();
             CallbackTime(1, ShowHud);
             StarPlatinum.PrefabManager.Instance.LoadScene(SceneLookupEnum.GoundTestScene, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+        }
+
+        private void OnTalkEnd()
+        {
+            Player.PlayerController.Instance().SetMoveEnable(true);
         }
 
         private int i = 0;
