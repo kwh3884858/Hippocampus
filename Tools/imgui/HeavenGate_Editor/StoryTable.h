@@ -45,14 +45,16 @@ namespace HeavenGateEditor {
 
     enum class TipTableLayout {
         Type = 0,
-        Alias = 1,
-        Size = 2
+        Tip = 1,
+        Description = 2
     };
 
     enum class PaintMoveTableLayout {
         Type = 0,
-        Angle = 1,
-        Distance = 2
+        MoveAlias = 1,
+        StartPoint = 2,
+        EndPoint = 3,
+        MoveType = 4
     };
 
     const char tableString[][MAX_ENUM_LENGTH] = {
@@ -74,14 +76,17 @@ namespace HeavenGateEditor {
 
     const char tipTableString[][MAX_ENUM_LENGTH] = {
         "tip",
-        "alias",
-        "size"
+        "tip",
+        "description"
     };
 
     const char paintMoveTableString[][MAX_ENUM_LENGTH] = {
         "paintMove",
-        "alias",
-        "size"
+        "moveAlias",
+        "startPoint",
+        "endPoint",
+        "moveType",
+
     };
 
     template<int column >
@@ -464,34 +469,81 @@ namespace HeavenGateEditor {
     template<int column>
     void to_json(json& j, const StoryTable<column>& p) {
 
+        const StoryRow<column>* tmp;
         switch (p.GetTableType())
         {
 
         case TableType::Font_Size:
         {
             j[tableString[(int)TableLayout::Type]] = fontSizeTableString[(int)FontSizeTableLayout::Type];
-
+            if (p.GetSize() == 0)
+            {
+                j[tableString[(int)TableLayout::Value]] = json::array();
+            }
+            for (int i = 0; i < p.GetSize(); i++)
+            {
+                tmp = p.GetRow(i);
+                j[tableString[(int)TableLayout::Value]].push_back(json{
+    {fontSizeTableString[(int)FontSizeTableLayout::Alias],          tmp->Get(0) },
+    {fontSizeTableString[(int)FontSizeTableLayout::Size],           tmp->Get(1) }
+                    });
+            }
             break;
         }
 
         case TableType::Color:
         {
             j[tableString[(int)TableLayout::Type]] = colorTableString[(int)colorTableLayout::Type];
-
+            if (p.GetSize() == 0)
+            {
+                j[tableString[(int)TableLayout::Value]] = json::array();
+            }
+            for (int i = 0; i < p.GetSize(); i++)
+            {
+                tmp = p.GetRow(i);
+                j[tableString[(int)TableLayout::Value]].push_back(json{
+    {colorTableString[(int)colorTableLayout::Alias],          tmp->Get(0) },
+    {colorTableString[(int)colorTableLayout::Size],           tmp->Get(1) }
+                    });
+            }
             break;
         }
 
         case TableType::Tips:
         {
             j[tableString[(int)TableLayout::Type]] = tipTableString[(int)TipTableLayout::Type];
-
+            if (p.GetSize() == 0)
+            {
+                j[tableString[(int)TableLayout::Value]] = json::array();
+            }
+            for (int i = 0; i < p.GetSize(); i++)
+            {
+                tmp = p.GetRow(i);
+                j[tableString[(int)TableLayout::Value]].push_back(json{
+    {tipTableString[(int)TipTableLayout::Tip],        tmp->Get(0) },
+    {tipTableString[(int)TipTableLayout::Description],           tmp->Get(1) }
+                    });
+            }
             break;
         }
 
         case TableType::Paint_Move:
         {
             j[tableString[(int)TableLayout::Type]] = paintMoveTableString[(int)PaintMoveTableLayout::Type];
-
+            if (p.GetSize() == 0)
+            {
+                j[tableString[(int)TableLayout::Value]] = json::array();
+            }
+            for (int i = 0; i < p.GetSize(); i++)
+            {
+                tmp = p.GetRow(i);
+                j[tableString[(int)TableLayout::Value]].push_back(json{
+    {paintMoveTableString[(int)PaintMoveTableLayout::MoveAlias],          tmp->Get(0) },
+    {paintMoveTableString[(int)PaintMoveTableLayout::StartPoint],          tmp->Get(1) },
+    {paintMoveTableString[(int)PaintMoveTableLayout::EndPoint],          tmp->Get(2) },
+    {paintMoveTableString[(int)PaintMoveTableLayout::MoveType],           tmp->Get(3) }
+                    });
+            }
             break;
         }
 
@@ -500,16 +552,16 @@ namespace HeavenGateEditor {
             return;
         }
 
-        if (p.GetSize() == 0)
-        {
-            j[tableString[(int)TableLayout::Value]] = json::array();
-        }
+        //if (p.GetSize() == 0)
+        //{
+        //    j[tableString[(int)TableLayout::Value]] = json::array();
+        //}
 
-        for (int i = 0; i < p.GetSize(); i++)
-        {
-            j[tableString[(int)TableLayout::Value]].push_back(*(p.GetRow(i)));
+        //for (int i = 0; i < p.GetSize(); i++)
+        //{
+        //    j[tableString[(int)TableLayout::Value]].push_back(*(p.GetRow(i)));
 
-        }
+        //}
     }
 
     template<int column>
@@ -568,9 +620,9 @@ namespace HeavenGateEditor {
             for (int i = 0; i < values.size(); i++)
             {
 
-                strcpy(content, values[i].at(tipTableString[(int)TipTableLayout::Alias]).get_ptr<const json::string_t*>()->c_str());
+                strcpy(content, values[i].at(tipTableString[(int)TipTableLayout::Tip]).get_ptr<const json::string_t*>()->c_str());
                 p.PushContent(content);
-                strcpy(content, values[i].at(tipTableString[(int)TipTableLayout::Size]).get_ptr<const json::string_t*>()->c_str());
+                strcpy(content, values[i].at(tipTableString[(int)TipTableLayout::Description]).get_ptr<const json::string_t*>()->c_str());
                 p.PushContent(content);
 
             }
@@ -584,9 +636,13 @@ namespace HeavenGateEditor {
             for (int i = 0; i < values.size(); i++)
             {
 
-                strcpy(content, values[i].at(paintMoveTableString[(int)PaintMoveTableLayout::Angle]).get_ptr<const json::string_t*>()->c_str());
+                strcpy(content, values[i].at(paintMoveTableString[(int)PaintMoveTableLayout::MoveAlias]).get_ptr<const json::string_t*>()->c_str());
                 p.PushContent(content);
-                strcpy(content, values[i].at(paintMoveTableString[(int)PaintMoveTableLayout::Distance]).get_ptr<const json::string_t*>()->c_str());
+                strcpy(content, values[i].at(paintMoveTableString[(int)PaintMoveTableLayout::StartPoint]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
+                strcpy(content, values[i].at(paintMoveTableString[(int)PaintMoveTableLayout::EndPoint]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
+                strcpy(content, values[i].at(paintMoveTableString[(int)PaintMoveTableLayout::MoveType]).get_ptr<const json::string_t*>()->c_str());
                 p.PushContent(content);
 
             }

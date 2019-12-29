@@ -28,7 +28,7 @@ namespace HeavenGateEditor {
     const int     FONT_SIZE_MAX_COLUMN = 2;
     const int     COLOR_MAX_COLUMN = 2;
     const int     TIP_MAX_COLUMN = 2;
-    const int     PAINT_MOVE_MAX_COLUMN = 2;
+    const int     PAINT_MOVE_MAX_COLUMN = 4;
 
 
 

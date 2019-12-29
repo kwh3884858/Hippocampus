@@ -6,12 +6,17 @@ using UI.Modules;
 using UI.Panels.Providers;
 using UnityEngine;
 using UnityEngine.Assertions;
+using StarPlatinum;
 
 namespace UI
 {
 
-    public class UIManager : MonoBehaviour
+    public class UIManager : MonoSingleton<UIManager>
     {
+
+        public override void SingletonInit()
+        {
+        }
         public event Action OnActiveModuleActivated = null;
         public event Action OnActiveModuleDeactivate = null;
 

@@ -113,12 +113,12 @@ namespace HeavenGateEditor {
                 char constant[16];
                 if (j % 2 == 0)
                 {
-                    strcpy(constant, "Alias ");
+                    strcpy(constant, "Tip ");
 
                 }
                 else
                 {
-                    strcpy(constant, "Value ");
+                    strcpy(constant, "Description ");
 
                 }
                 strcat(constant, order);

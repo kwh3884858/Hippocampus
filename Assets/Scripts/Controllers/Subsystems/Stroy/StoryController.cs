@@ -67,75 +67,76 @@ namespace Controllers.Subsystems.Story
             //    {
             //        StoryJumpData data = datas[i] as StoryJumpData;
             //        container.PushJump(data.jump, );
-                   
+
             //    }
             //}
 
-//            while (!m_storys.IsDone())
-//            {
-//                switch (m_storys.GetNodeType())
-//                {
-//                    case StoryReader.NodeType.word:
-//                        container.PushName(m_storys.GetName());
-//                        container.PushContent(m_storys.GetContent());
-//                        break;
-//
-//                    case StoryReader.NodeType.jump:
-//                        break;
-//
-//                    default:
-//                        break;
-//                }
-//
-//                m_storys.Next();
-//            }
+            while (!m_storys.IsDone())
+            {
+                switch (m_storys.GetNodeType())
+                {
+                    case StoryReader.NodeType.word:
+                        container.PushName(m_storys.GetName());
+                        container.PushContent(m_storys.GetContent());
+                        container.PushWaiting(1f);
+                        break;
 
-//            container.PushName("迪奥");
-//            container.PushContent("jojo，人的能力是有极限的");
-//            container.PushName("迪奥");
-//            container.PushContent("我从短暂的人生当中学到一件事......");
-//            container.PushName("迪奥");
-//            container.PushContent("越是玩弄计谋，就越会发现人类的能力是有极限的......");
-//            container.PushName("迪奥");
-//            container.PushContent("除非超越人类。");
-//            container.PushName("乔纳森");
-//            container.PushBold();
-//            container.PushFontSize("48");
-//            container.PushColor("#000000");
-//            container.PushContent("你到底想说什么？");
-//            container.PushColor("#000000");
-//            container.PushFontSize("48");
-//            container.PushBold();
-//            container.PushWaiting(1.2f);
-//            container.PushName("迪奥");
-//            container.PushFontSize("48");
-//            container.PushColor("#FF0000");
-//            container.PushContent("我不做人了！");
-//            container.PushWaiting(1.2f);
-//            container.PushFontName("SourceHanSansCN2");
-//            container.PushContent("乔乔！");
-//            container.PushFontName("SourceHanSansCN2");
-//            container.PushColor("#FF0000");
-//            container.PushFontSize("48");
-            if (ID == "9")
-            {
-                container.PushName("迪奥");
-                container.PushContent("jojo，人的能力是有极限的");
-                container.PushJump(
-                    new List<Option>() {new Option("1", "1"), new Option("2", "2"), new Option("3", "3")});
-            }else if (ID == "1")
-            {
-                container.PushName("乔纳森");
-                container.PushContent("你到底想说什么？");
-            }else if (ID == "2")
-            {
-                container.PushName("迪奥");
-                container.PushContent("我不做人了！");
-            }else if (ID == "3")
-            {
-                container.PushName("乔纳森");
-                container.PushContent("乔乔！");
+                    case StoryReader.NodeType.jump:
+                        break;
+
+                    default:
+                        break;
+                }
+
+                m_storys.Next();
             }
+
+            //            container.PushName("迪奥");
+            //            container.PushContent("jojo，人的能力是有极限的");
+            //            container.PushName("迪奥");
+            //            container.PushContent("我从短暂的人生当中学到一件事......");
+            //            container.PushName("迪奥");
+            //            container.PushContent("越是玩弄计谋，就越会发现人类的能力是有极限的......");
+            //            container.PushName("迪奥");
+            //            container.PushContent("除非超越人类。");
+            //            container.PushName("乔纳森");
+            //            container.PushBold();
+            //            container.PushFontSize("48");
+            //            container.PushColor("#000000");
+            //            container.PushContent("你到底想说什么？");
+            //            container.PushColor("#000000");
+            //            container.PushFontSize("48");
+            //            container.PushBold();
+            //            container.PushWaiting(1.2f);
+            //            container.PushName("迪奥");
+            //            container.PushFontSize("48");
+            //            container.PushColor("#FF0000");
+            //            container.PushContent("我不做人了！");
+            //            container.PushWaiting(1.2f);
+            //            container.PushFontName("SourceHanSansCN2");
+            //            container.PushContent("乔乔！");
+            //            container.PushFontName("SourceHanSansCN2");
+            //            container.PushColor("#FF0000");
+            //            container.PushFontSize("48");
+            //if (ID == "9")
+            //{
+            //    container.PushName("迪奥");
+            //    container.PushContent("jojo，人的能力是有极限的");
+            //    container.PushJump(
+            //        new List<Option>() {new Option("1", "1"), new Option("2", "2"), new Option("3", "3")});
+            //}else if (ID == "1")
+            //{
+            //    container.PushName("乔纳森");
+            //    container.PushContent("你到底想说什么？");
+            //}else if (ID == "2")
+            //{
+            //    container.PushName("迪奥");
+            //    container.PushContent("我不做人了！");
+            //}else if (ID == "3")
+            //{
+            //    container.PushName("乔纳森");
+            //    container.PushContent("乔乔！");
+            //}
             return container;
         }
 
