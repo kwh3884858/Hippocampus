@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Const;
 using Extentions;
+using StarPlatinum;
 using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
 using UnityEngine;
@@ -146,6 +148,11 @@ namespace UI.Panels
             {
                 callback?.Invoke();
             });
+        }
+
+        public void ClickSound(int num)
+        {
+            UiDataProvider.SoundService.PlayEffect(SoundNameConst.UIClickName+num);
         }
 
 
