@@ -41,7 +41,7 @@ namespace HeavenGateEditor {
 
 
     private:
-
+        void AddButton(int index);
 
         bool m_isWritedUnsavedContent;
 

@@ -6,6 +6,7 @@
 #include "HeavenGateWindowSelectStory.h"
 #include "HeavenGatePopupInputFileName.h"
 
+#include "StoryJsonContentCompiler.h"
 #include "StoryJsonManager.h"
 #include "StoryJson.h"
 #include "StoryFileManager.h"
@@ -38,7 +39,7 @@ namespace HeavenGateEditor {
         m_inputFileNamePopup = new HeavenGatePopupInputFileName();
         //m_inputFileNamePopup->SetStoryFileManager(m_storyFileManager);
 
-      
+
 
     }
 
@@ -96,6 +97,7 @@ namespace HeavenGateEditor {
         static char* jumpContent = nullptr;
 
         char order[8] = "";
+        char thumbnail[ MAX_CONTENT * 2 ] = "";
         ImGui::LabelText("label", "Value");
         if (m_storyJson != nullptr) {
             for (int i = 0; i < m_storyJson->Size(); i++)
@@ -116,9 +118,49 @@ namespace HeavenGateEditor {
                     name = word->m_name;
                     content = word->m_content;
 
+                    strcpy(thumbnail, order);
+                    strcat(thumbnail, "__");
+                    strcat(thumbnail, name);
+                    strcat(thumbnail, ": ");
+                    strcat(thumbnail, content);
 
-                    ImGui::InputTextWithHint(nameConstant, "Enter name here", name, MAX_NAME);
-                    ImGui::InputTextWithHint(contentConstant, "Enter Content here", content, MAX_CONTENT);
+                    if (ImGui::TreeNode((void*)(intptr_t)i, thumbnail))
+                    {
+                        StoryWord compiledWord(*word);
+                        vector<StoryJsonContentCompiler::Token*>tokens = StoryJsonContentCompiler::Instance().CompileToTokens(&compiledWord);
+
+                        ImGui::Text("Preview:");
+
+                        bool testColor = false;
+                        ImVec4 color(1.0f, 1.0f, 1.0f, 1.0f);
+                        for (auto iter = tokens.cbegin(); iter != tokens.end(); iter++)
+                        {
+                            if ((*iter)->m_tokeType == StoryJsonContentCompiler::TokenType::TokenContent)
+                            {
+                                ImGui::TextColored(color, (*iter)->m_content);
+                                ImGui::SameLine(0, 0);
+                            }
+                            else if ((*iter)->m_tokeType == StoryJsonContentCompiler::TokenType::TokenInstructor)
+                            {
+                                
+                            }
+                            else if ((*iter)->m_tokeType == StoryJsonContentCompiler::TokenType::TokenIdnet)
+                            {
+                                color = ImVec4(1.0f, 0.0f, 1.0f, 1.0f);
+                            }
+                            
+                            
+                        }
+                        ImGui::Separator();
+
+                        ImGui::InputTextWithHint(nameConstant, "Enter name here", name, MAX_NAME);
+                        ImGui::InputTextWithHint(contentConstant, "Enter Content here", content, MAX_CONTENT);
+
+                        AddButton(i);
+
+                        ImGui::TreePop();
+                    }
+
 
                     break;
                 }
@@ -134,8 +176,21 @@ namespace HeavenGateEditor {
                     jump = pJump->m_jumpId;
                     jumpContent = pJump->m_jumpContent;
 
-                    ImGui::InputTextWithHint(jumpConstant, "Enter jump ID here", jump, MAX_NAME);
-                    ImGui::InputTextWithHint(contentConstant, "Enter jump Content here", jumpContent, MAX_CONTENT);
+                    strcpy(thumbnail, order);
+                    strcat(thumbnail, "__");
+                    strcat(thumbnail, jump);
+
+                    if (ImGui::TreeNode((void*)(intptr_t)i, thumbnail))
+                    {
+
+
+                        ImGui::InputTextWithHint(jumpConstant, "Enter jump ID here", jump, MAX_NAME);
+                        ImGui::InputTextWithHint(contentConstant, "Enter jump Content here", jumpContent, MAX_CONTENT);
+
+                        AddButton(i);
+
+                        ImGui::TreePop();
+                    }
                     break;
                 }
 
@@ -147,7 +202,17 @@ namespace HeavenGateEditor {
                     StoryLabel *pLabel = static_cast<StoryLabel*>(node);
                     label = pLabel->m_labelId;
 
-                    ImGui::InputTextWithHint(LabelConstant, "Enter label ID here", label, MAX_NAME);
+                    strcpy(thumbnail, order);
+                    strcat(thumbnail, "__");
+                    strcat(thumbnail, label);
+
+                    if (ImGui::TreeNode((void*)(intptr_t)i, thumbnail))
+                    {
+                        ImGui::InputTextWithHint(LabelConstant, "Enter label ID here", label, MAX_NAME);
+                        AddButton(i);
+
+                        ImGui::TreePop();
+                    }
                     break;
                 }
 
@@ -159,12 +224,7 @@ namespace HeavenGateEditor {
         }
 
         if (ImGui::Button("Add new story")) {
-            //If story not exist
-            if (m_storyJson == nullptr)
-            {
-                m_storyJson = new StoryJson;
-            }
-            //If already exist story
+
             if (m_storyJson != nullptr)
             {
                 m_storyJson->AddWord("", "");
@@ -174,12 +234,7 @@ namespace HeavenGateEditor {
         ImGui::SameLine();
 
         if (ImGui::Button("Add new label")) {
-            //If story not exist
-            if (m_storyJson == nullptr)
-            {
-                m_storyJson = new StoryJson;
-            }
-            //If already exist story
+
             if (m_storyJson != nullptr)
             {
                 m_storyJson->AddLabel("");
@@ -188,12 +243,7 @@ namespace HeavenGateEditor {
         ImGui::SameLine();
 
         if (ImGui::Button("Add new jump")) {
-            //If story not exist
-            if (m_storyJson == nullptr)
-            {
-                m_storyJson = new StoryJson;
-            }
-            //If already exist story
+
             if (m_storyJson != nullptr)
             {
                 m_storyJson->AddJump("", "");
@@ -204,6 +254,7 @@ namespace HeavenGateEditor {
 
     void HeavenGateWindowStoryEditor::UpdateMenu()
     {
+
         if (ImGui::MenuItem("New")) {
             m_inputFileNamePopup->OpenWindow();
         }
@@ -231,7 +282,7 @@ namespace HeavenGateEditor {
         if (ImGui::MenuItem("Save", "Ctrl+S")) {
 
             StoryFileManager::Instance().SaveStoryFile(m_storyJson);
-          
+
         }
         if (ImGui::MenuItem("Export", "Ctrl+E")) {
 
@@ -286,6 +337,59 @@ namespace HeavenGateEditor {
         if (ImGui::MenuItem("Quit", "Alt+F4")) {}
     }
 
+
+    void HeavenGateWindowStoryEditor::AddButton(int index)
+    {
+        if (ImGui::TreeNode("Story Operator"))
+        {
+            if (ImGui::Button("Add new story")) {
+
+                if (m_storyJson != nullptr)
+                {
+                    m_storyJson->InsertWord("", "", index);
+                }
+            }
+
+            ImGui::SameLine();
+                if (ImGui::Button("Insert new label")) {
+
+                    if (m_storyJson != nullptr)
+                    {
+                        m_storyJson->InsertLabel("", index);
+                    }
+                }
+            ImGui::SameLine();
+
+            if (ImGui::Button("Insert new jump")) {
+
+                if (m_storyJson != nullptr)
+                {
+                    m_storyJson->InsertJump("", "", index);
+                }
+            }
+
+            ImGui::SameLine();
+
+            if (ImGui::Button("Move Up")) {
+
+                if (m_storyJson != nullptr)
+                {
+                    m_storyJson->Swap(index, index - 1);
+                }
+            }
+            ImGui::SameLine();
+
+            if (ImGui::Button("Move Down")) {
+
+                if (m_storyJson != nullptr)
+                {
+                    m_storyJson->Swap(index, index + 1);
+                }
+            }
+
+            ImGui::TreePop();
+        }
+    }
 
     //void HeavenGateWindowStoryEditor::ShowEditorWindow(bool* isOpenPoint) {
 

@@ -3,14 +3,14 @@
 
 #include <stdio.h>
 
-#include <vector>
+#include <list>
 #include "nlohmann/json.hpp"
 #include "HeavenGateEditorConstant.h"
 
 
 namespace HeavenGateEditor {
     using json = nlohmann::json;
-    using std::vector;
+    using std::list;
 
 
 
@@ -82,9 +82,13 @@ namespace HeavenGateEditor {
 
         int AddWord(StoryWord* const word);
         int AddWord(const char* name, const char* content);
+        int InsertWord(const char* name, const char* content, int index);
         int AddLabel(const char* labelName);
+        int InsertLabel(const char* labelName, int index);
         int AddJump(const char* jumpName, const char* jumpContent);
+        int InsertJump(const char* jumpName, const char* jumpContent, int index);
 
+        void Swap(int lhs, int rhs);
 
         StoryNode* const GetNode(int index);
         const StoryNode* const GetNode(int index) const;
@@ -100,7 +104,7 @@ namespace HeavenGateEditor {
         bool IsExistFullPath()const;
 
     private:
-        vector<StoryNode*> m_nodes;
+        list<StoryNode*> m_nodes;
         char m_fullPath[MAX_FOLDER_PATH];
     };
 

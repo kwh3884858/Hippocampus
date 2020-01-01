@@ -118,7 +118,6 @@ namespace HeavenGateEditor {
         StoryJsonContentCompiler::Instance().Compile(&copyStory);
         json tmpJson = copyStory;
 
-
         std::ofstream o(filePath);
         o << tmpJson << std::endl;
 

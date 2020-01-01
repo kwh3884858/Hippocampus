@@ -29,6 +29,8 @@ namespace HeavenGateEditor {
 
         enum class TokenType
         {
+            TokenNone,
+
             TokenIdnet,
             TokenInstructor,
             TokenCloseLabel,
@@ -46,6 +48,15 @@ namespace HeavenGateEditor {
         {
             TokenType m_tokeType;
             char m_content[MAX_CONTENT];
+
+            Token() {
+                m_tokeType = TokenType::TokenNone;
+            }
+
+            Token(const Token& token) {
+                m_tokeType = token.m_tokeType;
+                strcpy(m_content, token.m_content);
+            }
         };
 
         StoryJsonContentCompiler() = default;
@@ -56,7 +67,7 @@ namespace HeavenGateEditor {
         virtual bool Shutdown() override { Clear();  return true; };
 
         void Compile(StoryJson* const storyJson);
-
+        vector<Token*> CompileToTokens(StoryWord* const storyWord);
     private:
         void CompileEach(StoryWord* const word);
         void Lexer(const StoryWord* const storyJson);

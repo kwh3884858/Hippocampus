@@ -23,6 +23,23 @@ namespace HeavenGateEditor {
         }
     }
 
+
+    vector<StoryJsonContentCompiler::Token*> StoryJsonContentCompiler::CompileToTokens(StoryWord* const storyWord)
+    {
+        Lexer(storyWord);
+        Parser();
+
+        vector<StoryJsonContentCompiler::Token*> copyTokens;
+        for (auto iter = m_tokens.begin(); iter != m_tokens.end(); iter++)
+        {
+            Token* copyToken = new Token(**iter);
+            copyTokens.push_back(copyToken);
+        }
+
+        return m_tokens;
+    }
+
+
     void StoryJsonContentCompiler::CompileEach(StoryWord* const word)
     {
         Lexer(word);
@@ -307,18 +324,7 @@ namespace HeavenGateEditor {
                     }
                     break;
                 }
-                                                         /*    case HeavenGateEditor::TableType::Paint_Move: {
-                                                                 const StoryTable<PAINT_MOVE_MAX_COLUMN>* const paintMoveTable = StoryTableManager::Instance().GetPaintMoveTable();
-                                                                 for (int i = 0; i < paintMoveTable->GetSize(); i++)
-                                                                 {
-                                                                     const StoryRow<PAINT_MOVE_MAX_COLUMN>* const row = paintMoveTable->GetRow(i);
-                                                                     if (strcmp(row->Get(0), token->m_content) == 0)
-                                                                     {
-                                                                         strcpy(token->m_content, row->Get(1));
-                                                                     }
-                                                                 }
-                                                                 break;
-                                                             }*/
+                                         
                 default:
                     break;
                 }
@@ -359,6 +365,11 @@ namespace HeavenGateEditor {
 
     void StoryJsonContentCompiler::Clear()
     {
+        for (auto iter = m_tokens.begin(); iter != m_tokens.end(); iter++)
+        {
+            delete *iter;
+            *iter = nullptr;
+        }
         m_tokens.clear();
         m_state = CompilerState::StateString;
         m_lastState = CompilerState::StateString;

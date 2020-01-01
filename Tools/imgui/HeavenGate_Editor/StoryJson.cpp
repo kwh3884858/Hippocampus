@@ -72,6 +72,26 @@ namespace HeavenGateEditor {
         return  AddNode(word);
     }
 
+    int StoryJson::InsertWord(const char* name, const char* content, int index)
+    {
+        int i = 0;
+        for (auto iter = m_nodes.cbegin(); iter != m_nodes.cend(); iter++)
+        {
+            if (i == index)
+            {
+                StoryWord* word = new StoryWord;
+                word->m_nodeType = NodeType::Word;
+                strcpy(word->m_name, name);
+                strcpy(word->m_content, content);
+
+                m_nodes.insert(iter, word);
+            }
+
+            i++;
+        }
+        return i;
+    }
+
     int HeavenGateEditor::StoryJson::AddLabel(const char* labelName) {
         StoryLabel* label = new StoryLabel;
         label->m_nodeType = NodeType::Label;
@@ -79,6 +99,26 @@ namespace HeavenGateEditor {
 
         return  AddNode(label);
     }
+    int StoryJson::InsertLabel(const char* labelName, int index)
+    {
+        int i = 0;
+        for (auto iter = m_nodes.cbegin(); iter != m_nodes.cend(); iter++)
+        {
+            if (i == index)
+            {
+                StoryLabel* label = new StoryLabel;
+                label->m_nodeType = NodeType::Label;
+                strcpy(label->m_labelId, labelName);
+
+                m_nodes.insert(iter, label);
+            }
+
+            i++;
+        }
+        return i;
+    }
+
+
     int HeavenGateEditor::StoryJson::AddJump(const char* jumpName, const char* jumpContent) {
         StoryJump* jump = new StoryJump;
         jump->m_nodeType = NodeType::Jump;
@@ -87,10 +127,84 @@ namespace HeavenGateEditor {
 
         return  AddNode(jump);
     }
+    int StoryJson::InsertJump(const char* jumpName, const char* jumpContent, int index)
+    {
+        int i = 0;
+        for (auto iter = m_nodes.cbegin(); iter != m_nodes.cend(); iter++)
+        {
+            if (i == index)
+            {
+                StoryJump* jump = new StoryJump;
+                jump->m_nodeType = NodeType::Jump;
+                strcpy(jump->m_jumpId, jumpName);
+                strcpy(jump->m_jumpContent, jumpContent);
+
+                m_nodes.insert(iter, jump);
+            }
+
+            i++;
+        }
+
+        return i;
+    }
+
+
+    void StoryJson::Swap(int lhs, int rhs)
+    {
+        if (lhs < 0 || rhs < 0 || lhs >= m_nodes.size() || rhs >= m_nodes.size())
+        {
+            return;
+        }
+
+        int i = 0;
+        list<StoryNode*>::iterator lIter = m_nodes.begin();
+        list<StoryNode*>::iterator rIter = m_nodes.begin();
+
+        for (; lIter != m_nodes.end(); lIter ++)
+        {
+            if (lhs == i)
+            {
+                break;
+            }
+
+            i++;
+        }
+
+        i = 0;
+
+        for (; rIter != m_nodes.end(); rIter++)
+        {
+            if (rhs == i)
+            {
+                break;
+            }
+
+            i++;
+        }
+
+        StoryNode* node = *lIter;
+        *lIter = *rIter;
+        *rIter = node;
+    }
 
     const HeavenGateEditor::StoryNode * const HeavenGateEditor::StoryJson::GetNode(int index) const
     {
-        return m_nodes[index];
+        int i = 0;
+        if (index >= m_nodes.size())
+        {
+            return nullptr;
+        }
+
+        for (auto iter = m_nodes.cbegin(); iter != m_nodes.cend(); iter++)
+        {
+            if (i == index)
+            {
+                return *iter;
+            }
+
+            i++;
+        }
+        return nullptr;
     }
 
     HeavenGateEditor::StoryNode * const HeavenGateEditor::StoryJson::GetNode(int index)
@@ -119,28 +233,29 @@ namespace HeavenGateEditor {
         memset(m_fullPath, 0, sizeof(m_fullPath));
         strcpy(m_fullPath, storyJson.m_fullPath);
 
-        //m_nodes = storyJson.m_nodes;
-        for (int i = 0; i < storyJson.m_nodes.size(); i++)
-        {
-            
-            if (storyJson.m_nodes[i]->m_nodeType == NodeType::Word)
+        for (auto iter = storyJson.m_nodes.cbegin(); iter != storyJson.m_nodes.cend(); iter++) {
+            if ( (*iter)->m_nodeType == NodeType::Word)
             {
-                StoryWord* word = new StoryWord(static_cast<const StoryWord&>(*(storyJson.m_nodes[i])));
+                const StoryNode* node = *iter;
+                StoryWord* word = new StoryWord(static_cast<const StoryWord&>(*node));
                 m_nodes.push_back(word);
             }
-            else if(storyJson.m_nodes[i]->m_nodeType == NodeType::Jump)
+            else if ((*iter)->m_nodeType == NodeType::Jump)
             {
-                StoryJump* jump = new StoryJump(static_cast<const StoryJump&>(*(storyJson.m_nodes[i])));
+                const StoryNode* node = *iter;
+                StoryJump* jump = new StoryJump(static_cast<const StoryJump&>(*node));
                 m_nodes.push_back(jump);
 
             }
-            else if (storyJson.m_nodes[i]->m_nodeType == NodeType::Label)
+            else if ((*iter)->m_nodeType == NodeType::Label)
             {
-                StoryLabel* label = new StoryLabel(static_cast<const StoryLabel&>(*(storyJson.m_nodes[i])));
+                const StoryNode* node = *iter;
+                StoryLabel* label = new StoryLabel(static_cast<const StoryLabel&>(*node));
                 m_nodes.push_back(label);
 
             }
         }
+    
     }
 
     StoryJson::StoryJson(StoryJson&& storyJson) noexcept
@@ -154,16 +269,19 @@ namespace HeavenGateEditor {
 
         m_nodes = storyJson.m_nodes;
 
-        for (int i = 0; i < storyJson.m_nodes.size(); i++)
-        {
-            storyJson.m_nodes[i] = nullptr;
+        for (auto iter = storyJson.m_nodes.begin(); iter != storyJson.m_nodes.end(); iter++) {
+            *iter = nullptr;
         }
+
+     
     }
 
     StoryJson::~StoryJson()
     {
         Clear();
     }
+
+
 
     StoryJson& StoryJson::operator=(StoryJson&& storyJson) noexcept
     {
@@ -175,9 +293,8 @@ namespace HeavenGateEditor {
         strcpy(m_fullPath, storyJson.m_fullPath);
         m_nodes = storyJson.m_nodes;
 
-        for (int i = 0; i < storyJson.m_nodes.size(); i++)
-        {
-            storyJson.m_nodes[i] = nullptr;
+        for (auto iter = storyJson.m_nodes.begin(); iter != storyJson.m_nodes.end(); iter++) {
+            *iter = nullptr;
         }
 
         return *this;
@@ -185,17 +302,18 @@ namespace HeavenGateEditor {
 
     void StoryJson::Clear()
     {
-        for (int i = 0; i < m_nodes.size(); i++)
+
+        for (auto iter = m_nodes.begin(); iter != m_nodes.end(); iter++)
         {
-            if (m_nodes[i] == nullptr)
+            if (*iter == nullptr)
             {
                 continue;
             }
-            delete m_nodes[i];
-            m_nodes[i] = nullptr;
+            delete *iter;
+            *iter = nullptr;
         }
-        m_nodes.clear();
 
+        m_nodes.clear();
 
         memset(m_fullPath, 0, sizeof(m_fullPath));
     }
