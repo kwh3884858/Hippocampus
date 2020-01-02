@@ -14,21 +14,24 @@
 
 #include "nlohmann/json.hpp"
 
+#include <deque>
 
 namespace HeavenGateEditor {
 
     using json = nlohmann::json;
-
+    using std::deque;
     class HeavenGateWindowSelectStory;
     class HeavenGatePopupInputFileName;
     //class StoryFileManager;
     class StoryJson;
-
+    enum class TableType;
     class HeavenGateWindowStoryEditor : public HeavenGateEditorBaseWindow
     {
         WINDOW_DECLARE("Heaven Gate Editor", Window_Type::MainWindow)
 
     public:
+       
+
         HeavenGateWindowStoryEditor();
 
         virtual ~HeavenGateWindowStoryEditor() override;
@@ -54,10 +57,11 @@ namespace HeavenGateEditor {
 
         //View
         HeavenGateWindowSelectStory* m_selectStoryWindow;
-
         HeavenGatePopupInputFileName* m_inputFileNamePopup;
 
-
+        TableType m_currentState;
+        deque<TableType> m_editorState;
+        bool m_isReadCloseLabel;
     };
 
 

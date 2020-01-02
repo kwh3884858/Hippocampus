@@ -9,8 +9,8 @@
 #include "StoryJsonContentCompiler.h"
 #include "StoryJsonManager.h"
 #include "StoryJson.h"
+#include "StoryTable.h"
 #include "StoryFileManager.h"
-
 #include <iostream>
 
 #include <stdio.h>
@@ -39,8 +39,8 @@ namespace HeavenGateEditor {
         m_inputFileNamePopup = new HeavenGatePopupInputFileName();
         //m_inputFileNamePopup->SetStoryFileManager(m_storyFileManager);
 
-
-
+        m_isReadCloseLabel = false;
+        m_currentState = TableType::None;
     }
 
     HeavenGateWindowStoryEditor::~HeavenGateWindowStoryEditor()
@@ -97,7 +97,7 @@ namespace HeavenGateEditor {
         static char* jumpContent = nullptr;
 
         char order[8] = "";
-        char thumbnail[ MAX_CONTENT * 2 ] = "";
+        char thumbnail[MAX_CONTENT * 2] = "";
         ImGui::LabelText("label", "Value");
         if (m_storyJson != nullptr) {
             for (int i = 0; i < m_storyJson->Size(); i++)
@@ -142,14 +142,79 @@ namespace HeavenGateEditor {
                             }
                             else if ((*iter)->m_tokeType == StoryJsonContentCompiler::TokenType::TokenInstructor)
                             {
-                                
+                                if (m_isReadCloseLabel)
+                                {
+                                    // Is closing state
+                                    if (m_editorState.empty())
+                                    {
+                                        printf("Close Label is lack");
+                                        continue;
+                                    }
+
+                                    m_currentState = m_editorState.back();
+                                    m_editorState.pop_back();
+                                    m_isReadCloseLabel = false;
+
+                                    switch (m_currentState)
+                                    {
+                                    case HeavenGateEditor::TableType::None:
+                                        break;
+                                    case HeavenGateEditor::TableType::Font_Size:
+                                        break;
+                                    case HeavenGateEditor::TableType::Color:
+                                        color = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+                                        break;
+                                    case HeavenGateEditor::TableType::Tips:
+                                        break;
+                                    case HeavenGateEditor::TableType::Paint_Move:
+                                        break;
+                                    default:
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    // Is start state
+                                    if (strcmp((*iter)->m_content, fontSizeTableString[(int)FontSizeTableLayout::Type]) == 0)
+                                    {
+                                        m_editorState.push_back(TableType::Font_Size);
+                                    }
+                                    if (strcmp((*iter)->m_content, colorTableString[(int)FontSizeTableLayout::Type]) == 0)
+                                    {
+                                        m_editorState.push_back(TableType::Color);
+                                    }
+                                    if (strcmp((*iter)->m_content, paintMoveTableString[(int)FontSizeTableLayout::Type]) == 0)
+                                    {
+                                        m_editorState.push_back(TableType::Paint_Move);
+                                    }
+
+                                }
                             }
-                            else if ((*iter)->m_tokeType == StoryJsonContentCompiler::TokenType::TokenIdnet)
+                            else if ((*iter)->m_tokeType == StoryJsonContentCompiler::TokenType::TokenIdnetity)
                             {
-                                color = ImVec4(1.0f, 0.0f, 1.0f, 1.0f);
+                                switch (m_editorState.back())
+                                {
+                                case HeavenGateEditor::TableType::None:
+                                    break;
+                                case HeavenGateEditor::TableType::Font_Size:
+                                    break;
+                                case HeavenGateEditor::TableType::Color:
+                                    color = ImVec4(1.0f, 0.0f, 1.0f, 1.0f);
+                                    break;
+                                case HeavenGateEditor::TableType::Tips:
+                                    break;
+                                case HeavenGateEditor::TableType::Paint_Move:
+                                    break;
+                                default:
+                                    break;
+                                }
                             }
-                            
-                            
+                            else if ((*iter)->m_tokeType == StoryJsonContentCompiler::TokenType::TokenOpSlash)
+                            {
+                                //Start close
+                                m_isReadCloseLabel = true;
+                            }
+
                         }
                         ImGui::Separator();
 
@@ -351,13 +416,13 @@ namespace HeavenGateEditor {
             }
 
             ImGui::SameLine();
-                if (ImGui::Button("Insert new label")) {
+            if (ImGui::Button("Insert new label")) {
 
-                    if (m_storyJson != nullptr)
-                    {
-                        m_storyJson->InsertLabel("", index);
-                    }
+                if (m_storyJson != nullptr)
+                {
+                    m_storyJson->InsertLabel("", index);
                 }
+            }
             ImGui::SameLine();
 
             if (ImGui::Button("Insert new jump")) {

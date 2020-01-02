@@ -74,7 +74,11 @@ namespace HeavenGateEditor {
                 SwitchCompilerState(CompilerState::StateStopBracket);
                 break;
 
-            case '/': case ':':
+            case '/':
+                SwitchCompilerState(CompilerState::StateSlash);
+                break;
+
+            case ':':
                 SwitchCompilerState(CompilerState::StateOp);
                 break;
 
@@ -87,7 +91,7 @@ namespace HeavenGateEditor {
 
 
 
-            if (m_state == m_lastState)
+            if (m_currentState == m_lastState)
             {
                 //copy char
                 char c[2] = "a";
@@ -99,7 +103,7 @@ namespace HeavenGateEditor {
 
             CreateToken(tmp, m_lastState);
 
-            m_lastState = m_state;
+            m_lastState = m_currentState;
 
             //copy char
             char c[2] = "a";
@@ -131,53 +135,67 @@ namespace HeavenGateEditor {
             break;
         }
         case HeavenGateEditor::StoryJsonContentCompiler::CompilerState::StateInstructor: {
-            if (m_state == CompilerState::StateOp)
+            if (m_currentState == CompilerState::StateOp)
             {
                 Token* token = CreateTokenByString(aString, TokenType::TokenInstructor);
 
             }
-            else if (m_state == CompilerState::StateInstructor)
-            {
-                Token* token = CreateTokenByString(aString, TokenType::TokenCloseLabel);
-
+            else if (m_currentState == CompilerState::StateStopBracket) {
+                Token* token = CreateTokenByString(aString, TokenType::TokenInstructor);
             }
 
             break;
         }
-        case HeavenGateEditor::StoryJsonContentCompiler::CompilerState::StateIdent: {
-            Token* token = CreateTokenByString(aString, TokenType::TokenIdnet);
+        case HeavenGateEditor::StoryJsonContentCompiler::CompilerState::StateIdentity: {
+            Token* token = CreateTokenByString(aString, TokenType::TokenIdnetity);
 
             break;
         }
 
         case HeavenGateEditor::StoryJsonContentCompiler::CompilerState::StateStartBracket: {
+            if (m_currentState == CompilerState::StateInstructor)
+            {
+                Token* token = CreateTokenByString(aString, TokenType::TokenOpStartBracket);
+            }
+            else if (m_currentState == CompilerState::StateSlash)
+            {
+                Token* token = CreateTokenByString(aString, TokenType::TokenOpStartBracket);
 
-            Token* token = CreateTokenByString(aString, TokenType::TokenOpBracketLeft);
+            }
+
 
             break;
         }
         case HeavenGateEditor::StoryJsonContentCompiler::CompilerState::StateStopBracket:
         {
-            Token* token = CreateTokenByString(aString, TokenType::TokenOpBracketRight);
+            Token* token = CreateTokenByString(aString, TokenType::TokenOpStopBracket);
 
             break;
         }
         case  HeavenGateEditor::StoryJsonContentCompiler::CompilerState::StateOp:
         {
-            if (m_state == CompilerState::StateInstructor)
+            if (m_currentState == CompilerState::StateInstructor)
             {
                 Token* token = CreateTokenByString(aString, TokenType::TokenOpColon);
             }
-            else if (m_state == CompilerState::StateStartBracket)
+            else if (m_currentState == CompilerState::StateStartBracket)
             {
                 Token* token = CreateTokenByString(aString, TokenType::TokenOpColon);
             }
-            else if (m_state == CompilerState::StateIdent)
+            else if (m_currentState == CompilerState::StateIdentity)
             {
                 Token* token = CreateTokenByString(aString, TokenType::TokenOpColon);
             }
             break;
         }
+
+        case CompilerState::StateSlash:
+            if (m_currentState == CompilerState::StateInstructor) {
+                Token* token = CreateTokenByString(aString, TokenType::TokenOpSlash);
+
+            }
+
+            break;
         default:
             break;
         }
@@ -185,82 +203,94 @@ namespace HeavenGateEditor {
 
 
 
-    void StoryJsonContentCompiler::SwitchCompilerState(CompilerState state)
+    void StoryJsonContentCompiler::SwitchCompilerState(CompilerState nextState)
     {
-        switch (state)
+        switch (nextState)
         {
         case CompilerState::Error:
-        {
+        
             break;
-        }
+        
 
-        case CompilerState::StateString: {
-            if (m_state == CompilerState::StateStopBracket)
+        case CompilerState::StateString: 
+            if (m_currentState == CompilerState::StateStopBracket)
             {
-                m_state = state;
+                m_currentState = nextState;
             }
-            else if (m_state == CompilerState::StateStartBracket)
+            else if (m_currentState == CompilerState::StateStartBracket)
             {
-                m_state = CompilerState::StateInstructor;
+                m_currentState = CompilerState::StateInstructor;
             }
-            else if (m_state == CompilerState::StateOp)
+            else if (m_currentState == CompilerState::StateOp)
             {
-                m_state = CompilerState::StateIdent;
+                m_currentState = CompilerState::StateIdentity;
             }
+            else if (m_currentState == CompilerState::StateSlash)
+            {
+                m_currentState = CompilerState::StateInstructor;
+            }
+          
 
             break;
-        }
+        
         case CompilerState::StateInstructor:
-        {
-            if (m_state == CompilerState::StateStartBracket)
+        
+            if (m_currentState == CompilerState::StateStartBracket)
             {
-                m_state = state;
+                m_currentState = nextState;
             }
             break;
 
-        }
-        case CompilerState::StateIdent:
-        {
-            if (m_state == CompilerState::StateOp)
+        
+        case CompilerState::StateIdentity:
+        
+            if (m_currentState == CompilerState::StateOp)
             {
-                m_state = state;
+                m_currentState = nextState;
             }
 
             break;
-        }
-        case CompilerState::StateStartBracket: {
-            if (m_state == CompilerState::StateString)
+        
+        case CompilerState::StateStartBracket: 
+            if (m_currentState == CompilerState::StateString)
             {
-                m_state = state;
+                m_currentState = nextState;
             }
 
             break;
-        }
-        case CompilerState::StateStopBracket: {
-            if (m_state == CompilerState::StateIdent)
+        
+        case CompilerState::StateStopBracket: 
+            if (m_currentState == CompilerState::StateIdentity)
             {
-                m_state = state;
+                m_currentState = nextState;
             }
 
-            if (m_state == CompilerState::StateInstructor)
+            if (m_currentState == CompilerState::StateInstructor)
             {
-                m_state = state;
-            }
-
-            break;
-        }
-        case CompilerState::StateOp: {
-            if (m_state == CompilerState::StateInstructor)
-            {
-                m_state = state;
-            }
-            if (m_state == CompilerState::StateStartBracket)
-            {
-                m_state = state;
+                m_currentState = nextState;
             }
 
             break;
-        }
+        
+        case CompilerState::StateOp: 
+            if (m_currentState == CompilerState::StateInstructor)
+            {
+                m_currentState = nextState;
+            }
+            if (m_currentState == CompilerState::StateStartBracket)
+            {
+                m_currentState = nextState;
+            }
+
+            break;
+        
+
+        case CompilerState::StateSlash:
+            if (m_currentState == CompilerState::StateStartBracket) {
+                m_currentState = nextState;
+            }
+
+            break;
         default:
             break;
         }
@@ -292,7 +322,7 @@ namespace HeavenGateEditor {
                     currentTableType = TableType::Paint_Move;
                 }
             }
-            else if (token->m_tokeType == TokenType::TokenIdnet)
+            else if (token->m_tokeType == TokenType::TokenIdnetity)
             {
                 switch (currentTableType)
                 {
@@ -371,7 +401,7 @@ namespace HeavenGateEditor {
             *iter = nullptr;
         }
         m_tokens.clear();
-        m_state = CompilerState::StateString;
+        m_currentState = CompilerState::StateString;
         m_lastState = CompilerState::StateString;
     }
 
