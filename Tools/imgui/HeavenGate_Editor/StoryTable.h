@@ -40,7 +40,11 @@ namespace HeavenGateEditor {
     enum class colorTableLayout {
         Type = 0,
         Alias = 1,
-        Size = 2
+        //Size = 2
+        R,
+        G,
+        B,
+        A
     };
 
     enum class TipTableLayout {
@@ -71,7 +75,11 @@ namespace HeavenGateEditor {
     const char colorTableString[][MAX_ENUM_LENGTH] = {
         "color",
         "alias",
-        "size"
+        //"size"
+        "r",
+        "g",
+        "b",
+        "a"
     };
 
     const char tipTableString[][MAX_ENUM_LENGTH] = {
@@ -503,7 +511,10 @@ namespace HeavenGateEditor {
                 tmp = p.GetRow(i);
                 j[tableString[(int)TableLayout::Value]].push_back(json{
     {colorTableString[(int)colorTableLayout::Alias],          tmp->Get(0) },
-    {colorTableString[(int)colorTableLayout::Size],           tmp->Get(1) }
+    {colorTableString[(int)colorTableLayout::R],           tmp->Get(1) },
+    {colorTableString[(int)colorTableLayout::G],           tmp->Get(2) },
+    {colorTableString[(int)colorTableLayout::G],           tmp->Get(3) },
+    {colorTableString[(int)colorTableLayout::A],           tmp->Get(4) }
                     });
             }
             break;
@@ -606,9 +617,14 @@ namespace HeavenGateEditor {
 
                 strcpy(content, values[i].at(colorTableString[(int)colorTableLayout::Alias]).get_ptr<const json::string_t*>()->c_str());
                 p.PushContent(content);
-                strcpy(content, values[i].at(colorTableString[(int)colorTableLayout::Size]).get_ptr<const json::string_t*>()->c_str());
+                strcpy(content, values[i].at(colorTableString[(int)colorTableLayout::R]).get_ptr<const json::string_t*>()->c_str());
                 p.PushContent(content);
-
+                strcpy(content, values[i].at(colorTableString[(int)colorTableLayout::G]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
+                strcpy(content, values[i].at(colorTableString[(int)colorTableLayout::B]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
+                strcpy(content, values[i].at(colorTableString[(int)colorTableLayout::A]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
             }
 
             return;
