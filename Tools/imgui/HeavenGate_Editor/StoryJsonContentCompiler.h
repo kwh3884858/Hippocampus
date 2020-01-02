@@ -20,10 +20,13 @@ namespace HeavenGateEditor {
         enum class CompilerState {
             Error,
             StateString,
-            StateInstructor,
-            StateIdent,
+
+            StateInstructor,        //key word
+            StateIdentity,          //variable
+
             StateStartBracket,
             StateStopBracket,
+            StateSlash,
             StateOp,
         };
 
@@ -31,19 +34,19 @@ namespace HeavenGateEditor {
         {
             TokenNone,
 
-            TokenIdnet,
-            TokenInstructor,
-            TokenCloseLabel,
+            TokenInstructor,         //key word
+            TokenIdnetity,           //variable
 
             TokenContent,
 
-            TokenOpBracketLeft,
-            TokenOpBracketRight,
-            TokenOpColon
-
+            TokenOpStartBracket,
+            TokenOpStopBracket,
+            TokenOpColon,
+            TokenOpSlash,
+        
         };
 
- 
+
         struct Token
         {
             TokenType m_tokeType;
@@ -82,7 +85,7 @@ namespace HeavenGateEditor {
         void AddToken(Token*const token );
 
         vector<Token*> m_tokens;
-        CompilerState m_state;
+        CompilerState m_currentState;
         CompilerState m_lastState;
     };
 }
