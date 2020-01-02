@@ -30,8 +30,7 @@ namespace HeavenGateEditor {
 
     private:
         char m_fullPath[MAX_FOLDER_PATH];
-
-
+        float m_color[COLOR_VALUE_COLUMN];
     };
 }
 

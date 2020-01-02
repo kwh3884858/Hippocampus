@@ -25,6 +25,8 @@ namespace HeavenGateEditor {
     {
 
         memset(m_fullPath, 0, sizeof(m_fullPath));
+        memset(m_color, 0, sizeof(m_color));
+        //m_color[COLOR_VALUE_COLUMN - 1] = 0;
 
         HeavenGateEditorUtility::GetStoryPath(m_fullPath);
         strcat(m_fullPath, COLOR_TABLE_NAME);
@@ -56,6 +58,7 @@ namespace HeavenGateEditor {
         }
 
         ImGui::Separator();
+        ImGui::ColorEdit4("Color", m_color);
 
         ImGui::Text("Color Table");
 
@@ -68,6 +71,20 @@ namespace HeavenGateEditor {
         {
             colorTable->RemoveRow();
         }
+
+        //if (ImGui::Button("Color"))
+        //{
+        //    for (int i = 0; i < COLOR_VALUE_COLUMN; i++)
+        //    {
+        //        printf("%f", m_color[i]);
+        //    }
+        //    //ImVec4 tmp = ImVec4(m_color[0], m_color[1], m_color[2], m_color[3]);
+        //    //ImU32 rgb = ImGui::ColorConvertFloat4ToU32(tmp);
+        //    //printf("%f ", rgb);
+        //    //ImGuiCol ttt = 
+        //    //ImVec4 rgba = ImGui::ColorConvertU32ToFloat4(rgb);
+        //    //printf("%f ", rgba);
+        //}
 
         ImGui::Columns(FONT_SIZE_MAX_COLUMN + 1, "Color"); // 4-ways, with border
         ImGui::Separator();

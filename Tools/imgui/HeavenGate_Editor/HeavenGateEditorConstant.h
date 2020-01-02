@@ -30,6 +30,8 @@ namespace HeavenGateEditor {
     const int     TIP_MAX_COLUMN = 2;
     const int     PAINT_MOVE_MAX_COLUMN = 4;
 
+    //Color
+    const int    COLOR_VALUE_COLUMN = 4;
 
 
     //Max number of display folders
