@@ -16,7 +16,7 @@ namespace HeavenGateEditor {
 
 
     class HeavenGateEditorFontSizeTable : public HeavenGateEditorBaseWindow{
-        WINDOW_DECLARE("HeavenGateEditorFontSizeTable", Window_Type::MainWindow)
+        WINDOW_DECLARE("HeavenGateEditorFontSizeTable", Window_Type::MainWindow);
 
     public:
         HeavenGateEditorFontSizeTable();
