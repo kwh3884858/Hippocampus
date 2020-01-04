@@ -28,6 +28,7 @@ namespace HeavenGateEditor {
         memset(m_color, 0, sizeof(m_color));
         m_colorAlpha = nullptr;
         m_colorAlpha = &m_color[3];
+        m_color[3] = 1;
         r = new char[10];
         g = new char[10];
         b = new char[10];
