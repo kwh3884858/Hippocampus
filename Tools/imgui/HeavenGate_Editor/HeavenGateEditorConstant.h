@@ -26,7 +26,7 @@ namespace HeavenGateEditor {
     //Table
     const int     MAX_COLUMNS_CONTENT_LENGTH = 16;
     const int     FONT_SIZE_MAX_COLUMN = 2;
-    const int     COLOR_MAX_COLUMN = 2;
+    const int     COLOR_MAX_COLUMN = 5;
     const int     TIP_MAX_COLUMN = 2;
     const int     PAINT_MOVE_MAX_COLUMN = 4;
     const int     CHARPTER_COLUMN = 2;
@@ -34,7 +34,7 @@ namespace HeavenGateEditor {
 
     //Color
     const int    COLOR_VALUE_COLUMN = 4;
-
+    const int    COLOR_RGBA_BASE_VALUE = 255;
 
     //Max number of display folders
     const int  MAX_NUM_OF_DISPLAY_FORLDERS = 50;

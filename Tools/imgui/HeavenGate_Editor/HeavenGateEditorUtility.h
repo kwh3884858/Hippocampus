@@ -9,6 +9,7 @@
 #ifndef HeavenGateEditorUtility_h
 #define HeavenGateEditorUtility_h
 #include <stdio.h>
+#include "imgui.h"
 
 namespace HeavenGateEditor {
 
@@ -18,6 +19,7 @@ class HeavenGateEditorUtility{
 public:
     static void GetAssetPath(char* const outAssetPath);
     static void GetStoryPath(char* const outExePath);
+    static ImVec4 ConvertRGBAToFloat4(ImVec4 const originalRGBAValue);
     //static void GetStoryExportPath(char* const outExportPath);
     #ifndef _WIN32
     static bool GetModuleFileNameOSX(char *  pOutCurrentPath);
