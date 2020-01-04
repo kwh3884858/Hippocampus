@@ -27,7 +27,6 @@ namespace HeavenGateEditor {
     vector<StoryJsonContentCompiler::Token*> StoryJsonContentCompiler::CompileToTokens(StoryWord* const storyWord)
     {
         Lexer(storyWord);
-        Parser();
 
         vector<StoryJsonContentCompiler::Token*> copyTokens;
         for (auto iter = m_tokens.begin(); iter != m_tokens.end(); iter++)
@@ -343,14 +342,19 @@ namespace HeavenGateEditor {
                     break;
                 }
                 case HeavenGateEditor::TableType::Color: {
-                    const StoryTable<COLOR_MAX_COLUMN>* const colorTable = StoryTableManager::Instance().GetColorTable();
+                    
+                    char colorAlias[MAX_COLUMNS_CONTENT_LENGTH];
+
+                    StoryTable<COLOR_MAX_COLUMN>* colorTable = StoryTableManager::Instance().GetColorTable();
                     for (int i = 0; i < colorTable->GetSize(); i++)
                     {
                         const StoryRow<COLOR_MAX_COLUMN>* const row = colorTable->GetRow(i);
-                        if (strcmp(row->Get(0), token->m_content) == 0)
+                        strcpy(colorAlias, colorTable->GetRow(i)->Get(0));
+                        if (strcmp(colorAlias, token->m_content) == 0)
                         {
-                            strcpy(token->m_content, row->Get(1));
+                        //TODO 
                         }
+
                     }
                     break;
                 }
