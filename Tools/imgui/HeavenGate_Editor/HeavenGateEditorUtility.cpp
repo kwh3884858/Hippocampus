@@ -58,6 +58,18 @@ namespace HeavenGateEditor{
     return;
 }
 
+    ImVec4 HeavenGateEditorUtility::ConvertRGBAToFloat4(ImVec4 const originalRGBAValue)
+    {
+        float x = originalRGBAValue.x / COLOR_RGBA_BASE_VALUE;
+        float y = originalRGBAValue.y / COLOR_RGBA_BASE_VALUE;
+        float z = originalRGBAValue.z / COLOR_RGBA_BASE_VALUE;
+        float w = originalRGBAValue.w / COLOR_RGBA_BASE_VALUE;
+        ImVec4 outV4 = ImVec4(x, y, z, w);
+        return outV4;
+    }
+
+
+
 
 //    void HeavenGateEditorUtility::GetStoryExportPath(char* const outExportPath)
 //    {

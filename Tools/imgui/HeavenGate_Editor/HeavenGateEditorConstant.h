@@ -32,7 +32,7 @@ namespace HeavenGateEditor {
 
     //Color
     const int    COLOR_VALUE_COLUMN = 4;
-
+    const int    COLOR_RGBA_BASE_VALUE = 255;
 
     //Max number of display folders
     const int  MAX_NUM_OF_DISPLAY_FORLDERS = 50;
