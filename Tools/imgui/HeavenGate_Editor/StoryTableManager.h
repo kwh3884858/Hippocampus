@@ -45,6 +45,9 @@ namespace HeavenGateEditor {
         StoryTable<FONT_SIZE_MAX_COLUMN>* m_fontSizeTable;
         StoryTable<TIP_MAX_COLUMN>* m_tipTable;
         StoryTable<PAINT_MOVE_MAX_COLUMN>* m_paintMovetable;
+        StoryTable<CHAPTER_COLUMN>* m_chapterTable;
+        StoryTable<SCENE_COLUMN>* m_sceneTable;
+
 
     };
 

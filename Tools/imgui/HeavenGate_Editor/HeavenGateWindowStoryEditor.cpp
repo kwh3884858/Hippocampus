@@ -5,12 +5,14 @@
 
 #include "HeavenGateWindowSelectStory.h"
 #include "HeavenGatePopupInputFileName.h"
+#include "HeavenGateEditorUtility.h"
 
 #include "StoryJsonContentCompiler.h"
 #include "StoryJsonManager.h"
 #include "StoryJson.h"
 #include "StoryTable.h"
 #include "StoryFileManager.h"
+#include "StoryTableManager.h"
 #include <iostream>
 
 #include <stdio.h>
@@ -199,8 +201,28 @@ namespace HeavenGateEditor {
                                 case HeavenGateEditor::TableType::Font_Size:
                                     break;
                                 case HeavenGateEditor::TableType::Color:
-                                    color = ImVec4(1.0f, 0.0f, 1.0f, 1.0f);
+                                {
+                                    char colorAlias[MAX_COLUMNS_CONTENT_LENGTH];
+                                    StoryTable<COLOR_MAX_COLUMN>* colorTable = StoryTableManager::Instance().GetColorTable();
+                                    for (int j = 0; j < colorTable->GetSize(); j++)
+                                    {
+                                        strcpy(colorAlias, colorTable->GetRow(j)->Get(0));
+                                        if (strcmp(colorAlias, (*iter)->m_content) == 0)
+                                        {
+                                            color = ImVec4(
+                                                *(colorTable->GetRow(j)->Get(1)) - '0',
+                                                *(colorTable->GetRow(j)->Get(2)) - '0',
+                                                *(colorTable->GetRow(j)->Get(3)) - '0',
+                                                *(colorTable->GetRow(j)->Get(4)) - '0'
+                                            );
+                                            color = HeavenGateEditorUtility::ConvertRGBAToFloat4(color);
+                                        }
+
+                                    }
+
+
                                     break;
+                                }
                                 case HeavenGateEditor::TableType::Tips:
                                     break;
                                 case HeavenGateEditor::TableType::Paint_Move:
