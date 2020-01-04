@@ -513,7 +513,7 @@ namespace HeavenGateEditor {
     {colorTableString[(int)colorTableLayout::Alias],          tmp->Get(0) },
     {colorTableString[(int)colorTableLayout::R],           tmp->Get(1) },
     {colorTableString[(int)colorTableLayout::G],           tmp->Get(2) },
-    {colorTableString[(int)colorTableLayout::G],           tmp->Get(3) },
+    {colorTableString[(int)colorTableLayout::B],           tmp->Get(3) },
     {colorTableString[(int)colorTableLayout::A],           tmp->Get(4) }
                     });
             }

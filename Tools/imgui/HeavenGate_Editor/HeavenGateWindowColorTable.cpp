@@ -66,9 +66,9 @@ namespace HeavenGateEditor {
         }
 
         ImGui::Separator();
-        ImGui::ColorEdit4("Color", m_color);
 
         ImGui::Text("Color Table");
+        ImGui::ColorEdit4("Color", m_color);
 
         if (ImGui::Button("Add New Row"))
         {
@@ -79,37 +79,37 @@ namespace HeavenGateEditor {
         {
             colorTable->RemoveRow();
         }
-        if (ImGui::Button("Add Color To Cur Row"))
-        {
-            //char buf2[4];
-            //sprintf(buf2, "%d", 200);
-            //printf("%s", buf2);
-            int count = colorTable->GetSize();
-            r = colorTable->GetContent(count -1, 1);
-            g = colorTable->GetContent(count -1, 2);
-            b = colorTable->GetContent(count -1, 3);
-            a = colorTable->GetContent(count -1, 4);
-            //char * tmp = new char[10];
-            //itoa(m_color[0] * 255, tmp, 10);
-            //*r = (m_color[0] * 255);
-            sprintf(r, "%d", (int)(m_color[0] * 255 + 0.5));
-            sprintf(g, "%d", (int)(m_color[1] * 255 + 0.5));
-            sprintf(b, "%d", (int)(m_color[2] * 255 + 0.5));
-            sprintf(a, "%d", (int)(m_color[3] * 255 + 0.5));
-            //printf("%s", r);
-            //itoa(m_color[1] * 255, g, 10);
-            //itoa(m_color[2] * 255, b, 10);
-            //itoa(m_color[3] * 255, a, 10);
-            colorTable->RemoveRow();
-            StoryRow<5>* row = colorTable->AddRow();
-            //row->Push(r);
-            row->Set(1, r);
-            row->Set(2, g);
-            row->Set(3, b);
-            row->Set(4, a);
-            //colorTable->PushRow()
-            //curContent = 
-        }
+        //if (ImGui::Button("Add Color To Cur Row"))
+        //{
+        //    //char buf2[4];
+        //    //sprintf(buf2, "%d", 200);
+        //    //printf("%s", buf2);
+        //    int count = colorTable->GetSize();
+        //    r = colorTable->GetContent(count -1, 1);
+        //    g = colorTable->GetContent(count -1, 2);
+        //    b = colorTable->GetContent(count -1, 3);
+        //    a = colorTable->GetContent(count -1, 4);
+        //    //char * tmp = new char[10];
+        //    //itoa(m_color[0] * 255, tmp, 10);
+        //    //*r = (m_color[0] * 255);
+        //    sprintf(r, "%d", (int)(m_color[0] * 255 + 0.5));
+        //    sprintf(g, "%d", (int)(m_color[1] * 255 + 0.5));
+        //    sprintf(b, "%d", (int)(m_color[2] * 255 + 0.5));
+        //    sprintf(a, "%d", (int)(m_color[3] * 255 + 0.5));
+        //    //printf("%s", r);
+        //    //itoa(m_color[1] * 255, g, 10);
+        //    //itoa(m_color[2] * 255, b, 10);
+        //    //itoa(m_color[3] * 255, a, 10);
+        //    colorTable->RemoveRow();
+        //    StoryRow<5>* row = colorTable->AddRow();
+        //    //row->Push(r);
+        //    row->Set(1, r);
+        //    row->Set(2, g);
+        //    row->Set(3, b);
+        //    row->Set(4, a);
+        //    //colorTable->PushRow()
+        //    //curContent = 
+        //}
 
         //if (ImGui::Button("Color"))
         //{
@@ -160,7 +160,7 @@ namespace HeavenGateEditor {
 
             for (int j = 0; j < COLOR_MAX_COLUMN; j++)
             {
-                //char * content = colorTable->GetContent(i, j);
+                char * content = colorTable->GetContent(i, j);
 
                 char constant[16];
                 switch (j)
@@ -168,37 +168,62 @@ namespace HeavenGateEditor {
                 case 0:
                     strcpy(constant, "Alias ");
                     strcat(constant, order);
-                    curContent = colorTable->GetContent(i, j);
-                    ImGui::InputText(constant, curContent, MAX_COLUMNS_CONTENT_LENGTH);
                     break;
                 case 1:
                     strcpy(constant, "R ");
                     strcat(constant, order);
-                    r = (colorTable->GetContent(i, j));
-                    ImGui::InputText(constant, r, MAX_COLUMNS_CONTENT_LENGTH);
                     break;
                 case 2:
                     strcpy(constant, "G ");
                     strcat(constant, order);
-                    g = (colorTable->GetContent(i, j));
-                    ImGui::InputText(constant, g, MAX_COLUMNS_CONTENT_LENGTH);
                     break;
                 case 3:
                     strcpy(constant, "B ");
                     strcat(constant, order);
-                    b = (colorTable->GetContent(i, j));
-                    ImGui::InputText(constant, b, MAX_COLUMNS_CONTENT_LENGTH);
                     break;
                 case 4:
                     strcpy(constant, "A ");
                     strcat(constant, order);
-                    a = (colorTable->GetContent(i, j));
-                    ImGui::InputText(constant, a, MAX_COLUMNS_CONTENT_LENGTH);
                     break;
                 default:
                     break;
                 }
+                ImGui::InputText(constant, content, MAX_COLUMNS_CONTENT_LENGTH);
                 ImGui::NextColumn();
+            }
+            char buf[14] = "Add Color";
+            char bufi[4];
+            itoa(i, bufi, 10);
+            strcat(buf, bufi);
+            if (ImGui::Button(buf))
+            {
+                //char buf2[4];
+                //sprintf(buf2, "%d", 200);
+                //printf("%s", buf2);
+                r = colorTable->GetContent(i, 1);
+                g = colorTable->GetContent(i, 2);
+                b = colorTable->GetContent(i, 3);
+                a = colorTable->GetContent(i, 4);
+                //char * tmp = new char[10];
+                //itoa(m_color[0] * 255, tmp, 10);
+                //*r = (m_color[0] * 255);
+                sprintf(r, "%d", (int)(m_color[0] * 255 + 0.5));
+                sprintf(g, "%d", (int)(m_color[1] * 255 + 0.5));
+                sprintf(b, "%d", (int)(m_color[2] * 255 + 0.5));
+                sprintf(a, "%d", (int)(m_color[3] * 255 + 0.5));
+                //printf("%s", r);
+                //itoa(m_color[1] * 255, g, 10);
+                //itoa(m_color[2] * 255, b, 10);
+                //itoa(m_color[3] * 255, a, 10);
+                //colorTable->RemoveRow();
+                //StoryRow<5>* row = colorTable->AddRow();
+                //row->Push(r);
+                //row->Set(1, r);
+                //row->Set(2, g);
+                //row->Set(3, b);
+                //row->Set(4, a);
+                //colorTable->PushRow()
+                //curContent = 
             }
         }
 
