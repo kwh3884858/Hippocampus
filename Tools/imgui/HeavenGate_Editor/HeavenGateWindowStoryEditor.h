@@ -59,9 +59,6 @@ namespace HeavenGateEditor {
         HeavenGateWindowSelectStory* m_selectStoryWindow;
         HeavenGatePopupInputFileName* m_inputFileNamePopup;
 
-        TableType m_currentState;
-        deque<TableType> m_editorState;
-        bool m_isReadCloseLabel;
     };
 
 
