@@ -26,6 +26,8 @@ namespace HeavenGateEditor {
 
         memset(m_fullPath, '/0', sizeof(m_fullPath));
         memset(m_color, 0, sizeof(m_color));
+        m_colorAlpha = nullptr;
+        m_colorAlpha = &m_color[3];
         r = new char[10];
         g = new char[10];
         b = new char[10];
@@ -69,6 +71,7 @@ namespace HeavenGateEditor {
 
         ImGui::Text("Color Table");
         ImGui::ColorEdit4("Color", m_color);
+        ImGui::SliderFloat("Color Alpha", m_colorAlpha,0,1);
 
         if (ImGui::Button("Add New Row"))
         {
