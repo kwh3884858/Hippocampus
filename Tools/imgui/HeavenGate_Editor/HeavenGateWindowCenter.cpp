@@ -6,6 +6,10 @@
 #include "HeavenGateWindowColorTable.h"
 #include "HeavenGateWindowTipTable.h"
 #include "HeavenGateWindowPaintMoveTable.h"
+#include "HeavenGateWindowChapterTable.h"
+#include "HeavenGateWindowSceneTable.h"
+#include "HeavenGateWindowCharacterTable.h"
+#include "HeavenGateWindowPauseTable.h"
 
 #include "StoryJsonManager.h"
 #include "StoryTableManager.h"
@@ -31,12 +35,20 @@ namespace HeavenGateEditor {
         m_colorTable = new HeavenGateWindowColorTable;
         m_tipTable = new HeavenGateWindowTipTable;
         m_heavenGateWindowPaintMoveTable = new HeavenGateWindowPaintMoveTable;
+        m_chapterTable = new HeavenGateWindowChapterTable;
+        m_sceneTable = new HeavenGateWindowSceneTable;
+        m_characterTable = new HeavenGateWindowCharacterTable;
+        m_pauseTable = new HeavenGateWindowPauseTable;
 
         show_editor_window = m_heavenGateEditor->GetHandle();
         show_font_size_table_window = m_fontSizeTable->GetHandle();
         show_color_table_window = m_colorTable->GetHandle();
         show_tip_table_window = m_tipTable->GetHandle();
         show_heaven_gate_window_paint_move_table = m_heavenGateWindowPaintMoveTable->GetHandle();
+        show_chapter_table = m_chapterTable->GetHandle();
+        show_scene_table = m_sceneTable->GetHandle();
+        show_character_table = m_characterTable->GetHandle();
+        show_pause_table = m_pauseTable->GetHandle();
 
     }
 
@@ -47,12 +59,20 @@ namespace HeavenGateEditor {
         *show_color_table_window = false;
         *show_tip_table_window = false;
         *show_heaven_gate_window_paint_move_table = false;
+        *show_chapter_table = false;
+        *show_scene_table = false;
+        *show_character_table = false;
+        *show_pause_table = false;
 
         show_editor_window = nullptr;
         show_font_size_table_window = nullptr;
         show_color_table_window = nullptr;
         show_tip_table_window = nullptr;
         show_heaven_gate_window_paint_move_table = nullptr;
+        show_chapter_table = nullptr;
+        show_scene_table = nullptr;
+        show_character_table = nullptr;
+        show_pause_table = nullptr;
 
         //Delete Windows
         delete m_heavenGateEditor;
@@ -60,12 +80,20 @@ namespace HeavenGateEditor {
         delete m_colorTable;
         delete m_tipTable;
         delete m_heavenGateWindowPaintMoveTable;
+        delete m_chapterTable;
+        delete m_sceneTable;
+        delete m_characterTable;
+        delete m_pauseTable;
 
         m_heavenGateEditor = nullptr;
         m_fontSizeTable = nullptr;
         m_colorTable = nullptr;
         m_tipTable = nullptr;
         m_heavenGateWindowPaintMoveTable = nullptr;
+        m_chapterTable = nullptr;
+        m_sceneTable = nullptr;
+        m_characterTable = nullptr;
+        m_pauseTable = nullptr;
 
 
         //Delete Data
@@ -85,6 +113,10 @@ namespace HeavenGateEditor {
         ImGui::Checkbox("Color Table", show_color_table_window);
         ImGui::Checkbox("Tip Table", show_tip_table_window);
         ImGui::Checkbox("Paint Move Table", show_heaven_gate_window_paint_move_table);
+        ImGui::Checkbox("Chapter Table", show_chapter_table);
+        ImGui::Checkbox("Scene Table", show_scene_table);
+        ImGui::Checkbox("Character Table", show_character_table);
+        ImGui::Checkbox("Pause Table", show_pause_table);
 
         if (show_editor_window && *show_editor_window)
         {
@@ -109,6 +141,26 @@ namespace HeavenGateEditor {
         if (show_heaven_gate_window_paint_move_table && *show_heaven_gate_window_paint_move_table)
         {
             m_heavenGateWindowPaintMoveTable->Update();
+        };
+
+        if (show_chapter_table && *show_chapter_table)
+        {
+            m_chapterTable->Update();
+        };
+
+        if (show_scene_table && *show_scene_table)
+        {
+            m_sceneTable->Update();
+        };
+
+        if (show_character_table && *show_character_table)
+        {
+            m_characterTable->Update();
+        };
+
+        if (show_pause_table && *show_pause_table)
+        {
+            m_pauseTable->Update();
         };
 
     }

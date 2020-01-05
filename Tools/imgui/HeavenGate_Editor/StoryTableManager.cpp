@@ -35,6 +35,30 @@ namespace HeavenGateEditor {
 
         m_paintMovetable->PushName("Angle Value");
         m_paintMovetable->PushName("Move Distance");
+
+        m_chapterTable = new StoryTable<CHAPTER_COLUMN>;
+        m_chapterTable->SetTableType(TableType::Chapter);
+
+        m_chapterTable->PushName("Chapter");
+        m_chapterTable->PushName("Description");
+
+        m_sceneTable = new StoryTable<SCENE_COLUMN>;
+        m_sceneTable->SetTableType(TableType::Scene);
+
+        m_sceneTable->PushName("Scene");
+        m_sceneTable->PushName("Description");
+
+        m_characterTable = new StoryTable<CHARACTER_COLUMN>;
+        m_characterTable->SetTableType(TableType::Character);
+
+        m_characterTable->PushName("Character");
+        m_characterTable->PushName("Description");
+
+        m_pauseTable = new StoryTable<PAUSE_MAX_COLUMN>;
+        m_pauseTable->SetTableType(TableType::Character);
+
+        m_pauseTable->PushName("Pause");
+        m_pauseTable->PushName("Time");
         return true;
 
     }
@@ -52,6 +76,18 @@ namespace HeavenGateEditor {
 
         delete m_paintMovetable;
         m_paintMovetable = nullptr;
+
+        delete m_chapterTable;
+        m_chapterTable = nullptr;
+
+        delete m_sceneTable;
+        m_sceneTable = nullptr;
+
+        delete m_characterTable;
+        m_characterTable = nullptr;
+
+        delete m_pauseTable;
+        m_pauseTable = nullptr;
 
         return true;
     }
@@ -100,4 +136,47 @@ namespace HeavenGateEditor {
 
     }
 
+    const StoryTable<CHAPTER_COLUMN>* const StoryTableManager::GetChapterTable() const
+    {
+        return m_chapterTable;
+    }
+
+    StoryTable<CHAPTER_COLUMN>* StoryTableManager::GetChapterTable()
+    {
+        return const_cast<StoryTable<CHAPTER_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetChapterTable());
+
+    }
+
+    const StoryTable<SCENE_COLUMN>* const StoryTableManager::GetSceneTable() const
+    {
+        return m_sceneTable;
+    }
+
+    StoryTable<SCENE_COLUMN>* StoryTableManager::GetSceneTable()
+    {
+        return const_cast<StoryTable<SCENE_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetSceneTable());
+
+    }
+
+    const StoryTable<CHARACTER_COLUMN>* const StoryTableManager::GetCharacterTable() const
+    {
+        return m_characterTable;
+    }
+
+    StoryTable<CHARACTER_COLUMN>* StoryTableManager::GetCharacterTable()
+    {
+        return const_cast<StoryTable<CHARACTER_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetCharacterTable());
+
+    }
+
+    const StoryTable<PAUSE_MAX_COLUMN>* const StoryTableManager::GetPauseTable() const
+    {
+        return m_pauseTable;
+    }
+
+    StoryTable<PAUSE_MAX_COLUMN>* StoryTableManager::GetPauseTable()
+    {
+        return const_cast<StoryTable<PAUSE_MAX_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetPauseTable());
+
+    }
 }

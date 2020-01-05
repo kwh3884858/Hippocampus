@@ -45,6 +45,9 @@ namespace HeavenGateEditor {
 
         const StoryTable<CHARACTER_COLUMN>* const GetCharacterTable() const;
         StoryTable<CHARACTER_COLUMN>*  GetCharacterTable();
+
+        const StoryTable<PAUSE_MAX_COLUMN>* const GetPauseTable() const;
+        StoryTable<PAUSE_MAX_COLUMN>*  GetPauseTable();
     protected:
     private:
 
@@ -56,6 +59,7 @@ namespace HeavenGateEditor {
         StoryTable<CHAPTER_COLUMN>* m_chapterTable;
         StoryTable<SCENE_COLUMN>* m_sceneTable;
         StoryTable<CHARACTER_COLUMN>* m_characterTable;
+        StoryTable<PAUSE_MAX_COLUMN>* m_pauseTable;
 
 
     };

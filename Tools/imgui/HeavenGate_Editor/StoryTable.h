@@ -61,6 +61,30 @@ namespace HeavenGateEditor {
         MoveType = 4
     };
 
+    enum class ChapterTableLayout {
+        Type = 0,
+        Chapter = 1,
+        Description = 2
+    };
+
+    enum class SceneTableLayout {
+        Type = 0,
+        Scene = 1,
+        Description = 2
+    };
+
+    enum class CharacterTableLayout {
+        Type = 0,
+        Character = 1,
+        Description = 2
+    };
+
+    enum class PauseTableLayout {
+        Type = 0,
+        Pause = 1,
+        Time = 2
+    };
+
     const char tableString[][MAX_ENUM_LENGTH] = {
         "type",
         "value"
@@ -97,6 +121,34 @@ namespace HeavenGateEditor {
 
     };
 
+    const char chapterTableString[][MAX_ENUM_LENGTH] = {
+        "chapter",
+        "chapter",
+        "description"
+
+    };
+
+    const char sceneTableString[][MAX_ENUM_LENGTH] = {
+        "scene",
+        "scene",
+        "description"
+
+    };
+
+    const char characterTableString[][MAX_ENUM_LENGTH] = {
+        "character",
+        "character",
+        "description"
+
+    };
+
+    const char pauseTableString[][MAX_ENUM_LENGTH] = {
+        "pause",
+        "pause",
+        "time"
+
+    };
+
     template<int column >
     class StoryRow
     {
@@ -122,7 +174,11 @@ namespace HeavenGateEditor {
         Font_Size,
         Color,
         Tips,
-        Paint_Move
+        Paint_Move,
+        Chapter,
+        Scene,
+        Character,
+        Pause
     };
 
     template<int column >
@@ -558,6 +614,78 @@ namespace HeavenGateEditor {
             break;
         }
 
+        case TableType::Chapter:
+        {
+            j[tableString[(int)TableLayout::Type]] = chapterTableString[(int)ChapterTableLayout::Type];
+            if (p.GetSize() == 0)
+            {
+                j[tableString[(int)TableLayout::Value]] = json::array();
+            }
+            for (int i = 0; i < p.GetSize(); i++)
+            {
+                tmp = p.GetRow(i);
+                j[tableString[(int)TableLayout::Value]].push_back(json{
+    {chapterTableString[(int)ChapterTableLayout::Chapter],          tmp->Get(0) },
+    {chapterTableString[(int)ChapterTableLayout::Description],          tmp->Get(1) }
+                    });
+            }
+            break;
+        }
+
+        case TableType::Scene:
+        {
+            j[tableString[(int)TableLayout::Type]] = sceneTableString[(int)SceneTableLayout::Type];
+            if (p.GetSize() == 0)
+            {
+                j[tableString[(int)TableLayout::Value]] = json::array();
+            }
+            for (int i = 0; i < p.GetSize(); i++)
+            {
+                tmp = p.GetRow(i);
+                j[tableString[(int)TableLayout::Value]].push_back(json{
+    {sceneTableString[(int)SceneTableLayout::Scene],          tmp->Get(0) },
+    {sceneTableString[(int)SceneTableLayout::Description],          tmp->Get(1) }
+                    });
+            }
+            break;
+        }
+
+        case TableType::Character:
+        {
+            j[tableString[(int)TableLayout::Type]] = characterTableString[(int)CharacterTableLayout::Type];
+            if (p.GetSize() == 0)
+            {
+                j[tableString[(int)TableLayout::Value]] = json::array();
+            }
+            for (int i = 0; i < p.GetSize(); i++)
+            {
+                tmp = p.GetRow(i);
+                j[tableString[(int)TableLayout::Value]].push_back(json{
+    {characterTableString[(int)CharacterTableLayout::Character],          tmp->Get(0) },
+    {characterTableString[(int)CharacterTableLayout::Description],          tmp->Get(1) }
+                    });
+            }
+            break;
+        }
+
+        case TableType::Pause:
+        {
+            j[tableString[(int)TableLayout::Type]] = pauseTableString[(int)PauseTableLayout::Type];
+            if (p.GetSize() == 0)
+            {
+                j[tableString[(int)TableLayout::Value]] = json::array();
+            }
+            for (int i = 0; i < p.GetSize(); i++)
+            {
+                tmp = p.GetRow(i);
+                j[tableString[(int)TableLayout::Value]].push_back(json{
+    {pauseTableString[(int)PauseTableLayout::Pause],          tmp->Get(0) },
+    {pauseTableString[(int)PauseTableLayout::Time],          tmp->Get(1) }
+                    });
+            }
+            break;
+        }
+
         default:
 
             return;
@@ -661,6 +789,66 @@ namespace HeavenGateEditor {
                 strcpy(content, values[i].at(paintMoveTableString[(int)PaintMoveTableLayout::MoveType]).get_ptr<const json::string_t*>()->c_str());
                 p.PushContent(content);
 
+            }
+
+            return;
+        }
+
+        if (strcmp(typeString, chapterTableString[(int)ChapterTableLayout::Type]) == 0) {
+            p.SetTableType(TableType::Chapter);
+            char content[MAX_COLUMNS_CONTENT_LENGTH];
+            for (int i = 0; i < values.size(); i++)
+            {
+
+                strcpy(content, values[i].at(chapterTableString[(int)ChapterTableLayout::Chapter]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
+                strcpy(content, values[i].at(chapterTableString[(int)ChapterTableLayout::Description]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
+            }
+
+            return;
+        }
+
+        if (strcmp(typeString, sceneTableString[(int)SceneTableLayout::Type]) == 0) {
+            p.SetTableType(TableType::Scene);
+            char content[MAX_COLUMNS_CONTENT_LENGTH];
+            for (int i = 0; i < values.size(); i++)
+            {
+
+                strcpy(content, values[i].at(sceneTableString[(int)SceneTableLayout::Scene]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
+                strcpy(content, values[i].at(sceneTableString[(int)SceneTableLayout::Description]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
+            }
+
+            return;
+        }
+
+        if (strcmp(typeString, characterTableString[(int)CharacterTableLayout::Type]) == 0) {
+            p.SetTableType(TableType::Character);
+            char content[MAX_COLUMNS_CONTENT_LENGTH];
+            for (int i = 0; i < values.size(); i++)
+            {
+
+                strcpy(content, values[i].at(characterTableString[(int)CharacterTableLayout::Character]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
+                strcpy(content, values[i].at(characterTableString[(int)CharacterTableLayout::Description]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
+            }
+
+            return;
+        }
+
+        if (strcmp(typeString, pauseTableString[(int)PauseTableLayout::Type]) == 0) {
+            p.SetTableType(TableType::Pause);
+            char content[MAX_COLUMNS_CONTENT_LENGTH];
+            for (int i = 0; i < values.size(); i++)
+            {
+
+                strcpy(content, values[i].at(pauseTableString[(int)PauseTableLayout::Pause]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
+                strcpy(content, values[i].at(pauseTableString[(int)PauseTableLayout::Time]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
             }
 
             return;
