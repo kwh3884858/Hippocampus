@@ -129,8 +129,8 @@ namespace HeavenGateEditor {
     void GetContentException(char*const des, const json & j, const char* const index);
     void GetJsonException(json & des, const json& src, const char* const index);
 
-    void to_json(json& j, const StoryWord& p);
     void to_json(json& j, const StoryJson& p);
+    void to_json(json& j, const StoryWord& p);
     void to_json(json& j, const StoryLabel& p);
     void to_json(json& j, const StoryJump& p);
 

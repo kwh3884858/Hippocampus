@@ -148,6 +148,10 @@
   <ItemGroup>
     <ClInclude Include="..\..\Dirent\dirent.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\CharacterUtility.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowChapterTable.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowCharacterTable.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowPauseTable.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowSceneTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonChecker.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonContentCompiler.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonManager.h" />
@@ -178,6 +182,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\HeavenGate_Editor\CharacterUtility.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowChapterTable.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowCharacterTable.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowPauseTable.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowSceneTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonChecker.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonContentCompiler.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonManager.cpp" />

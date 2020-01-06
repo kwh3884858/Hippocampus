@@ -120,6 +120,8 @@ namespace UI.Panels.StaticBoard
                 UIPanelDataProvider.OnTalkEnd?.Invoke();
                 return;
             }
+
+            m_actionType = storyAction.Type;
             switch (storyAction.Type)
             {
                 case StoryActionType.Name:
@@ -170,6 +172,7 @@ namespace UI.Panels.StaticBoard
             m_state = state;
             if ( state == ActionState.Begin||state == ActionState.End)
             {
+                m_actionType = StoryActionType.Waiting;
                 SetNextAction(m_actionContainer.GetNextAction());
             }
         }
@@ -228,6 +231,10 @@ namespace UI.Panels.StaticBoard
 
         public void ClickSkip()
         {
+            if (m_actionType != StoryActionType.Content)
+            {
+                return;
+            }
             if (m_typeing)
             {
                 if (m_skip == false)
@@ -250,6 +257,7 @@ namespace UI.Panels.StaticBoard
         private StoryActionContainer m_actionContainer;
         private TextHelp m_textHelp;
         private ActionState m_state = ActionState.Waiting;
+        private StoryActionType m_actionType = StoryActionType.Waiting;
 //        private bool isReset;
     }
 }

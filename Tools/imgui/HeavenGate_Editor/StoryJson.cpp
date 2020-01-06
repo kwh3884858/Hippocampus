@@ -237,7 +237,9 @@ namespace HeavenGateEditor {
 
     StoryJson::StoryJson()
     {
-        memset(m_fullPath, 0, sizeof(m_fullPath));
+        memset(m_fullPath, '\0', sizeof(m_fullPath));
+        memset(m_chapter, '\0', sizeof(m_chapter));
+        memset(m_scene, '\0', sizeof(m_scene));
 
     }
 
@@ -247,8 +249,14 @@ namespace HeavenGateEditor {
         {
             return;
         }
-        memset(m_fullPath, 0, sizeof(m_fullPath));
+        memset(m_fullPath, '\0', sizeof(m_fullPath));
         strcpy(m_fullPath, storyJson.m_fullPath);
+
+        memset(m_chapter, '\0', sizeof(m_chapter));
+        strcpy(m_chapter, storyJson.m_chapter);
+
+        memset(m_scene, '\0', sizeof(m_scene));
+        strcpy(m_scene, storyJson.m_scene);
 
         for (auto iter = storyJson.m_nodes.cbegin(); iter != storyJson.m_nodes.cend(); iter++) {
             if ((*iter)->m_nodeType == NodeType::Word)
@@ -280,8 +288,14 @@ namespace HeavenGateEditor {
         {
             return;
         }
-        memset(m_fullPath, 0, sizeof(m_fullPath));
+        memset(m_fullPath, '\0', sizeof(m_fullPath));
         strcpy(m_fullPath, storyJson.m_fullPath);
+
+        memset(m_chapter, '\0', sizeof(m_chapter));
+        strcpy(m_chapter, storyJson.m_chapter);
+
+        memset(m_scene, '\0', sizeof(m_scene));
+        strcpy(m_scene, storyJson.m_scene);
 
         m_nodes = storyJson.m_nodes;
 
@@ -305,8 +319,14 @@ namespace HeavenGateEditor {
             return *this;
         }
         Clear();
-        memset(m_fullPath, 0, sizeof(m_fullPath));
+        memset(m_fullPath, '\0', sizeof(m_fullPath));
         strcpy(m_fullPath, storyJson.m_fullPath);
+
+        memset(m_chapter, '\0', sizeof(m_chapter));
+        strcpy(m_chapter, storyJson.m_chapter);
+
+        memset(m_scene, '\0', sizeof(m_scene));
+        strcpy(m_scene, storyJson.m_scene);
         m_nodes = storyJson.m_nodes;
 
         for (auto iter = storyJson.m_nodes.begin(); iter != storyJson.m_nodes.end(); iter++) {
@@ -333,7 +353,9 @@ namespace HeavenGateEditor {
 
         m_nodes.clear();
 
-        memset(m_fullPath, 0, sizeof(m_fullPath));
+        memset(m_fullPath, '\0', sizeof(m_fullPath));
+        memset(m_chapter, '\0', sizeof(m_chapter));
+        memset(m_scene, '\0', sizeof(m_scene));
     }
 
     void StoryJson::SetFullPath(const char* fullPath) {
@@ -385,12 +407,10 @@ namespace HeavenGateEditor {
     void to_json(json & j, const StoryJson & story)
     {
         j[StructString[(int)StructLayout::Info]] = json::array();
-        j[StructString[(int)StructLayout::Info]].push_back(
-            json{
+        j[StructString[(int)StructLayout::Info]] = json{
                 {infoString[(int)InfoLayout::Chapter],       story.GetChapter()},
-                {infoString[(int)InfoLayout::Scene],         story.GetScene()}
-            }
-        );
+                {infoString[(int)InfoLayout::Scene],         story.GetScene()} };
+
 
         j[StructString[(int)StructLayout::Value]] = json::array();
         ToJsonFactory(j[StructString[(int)StructLayout::Value]], story);
@@ -471,7 +491,7 @@ namespace HeavenGateEditor {
             GetContentException(p.GetScene(), tmpJson, infoString[(int)InfoLayout::Scene]);
         }
 
-        GetJsonException(tmpJson, j, StructString[(int)StructLayout::Info]);
+        GetJsonException(tmpJson, j, StructString[(int)StructLayout::Value]);
         if (!tmpJson.empty())
         {
             FromJsonFactory(tmpJson, p);
@@ -483,7 +503,7 @@ namespace HeavenGateEditor {
             FromJsonFactory(j, p);
         }
 
-      
+
         // iterate the array
        /* for (json::iterator it = j.begin(); it != j.end(); ++it) {
             StoryWord* word = new StoryWord();

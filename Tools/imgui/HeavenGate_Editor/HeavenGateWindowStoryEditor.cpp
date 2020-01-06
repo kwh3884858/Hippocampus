@@ -43,6 +43,8 @@ namespace HeavenGateEditor {
         m_inputFileNamePopup = new HeavenGatePopupInputFileName();
         //m_inputFileNamePopup->SetStoryFileManager(m_storyFileManager);
 
+
+
     }
 
     HeavenGateWindowStoryEditor::~HeavenGateWindowStoryEditor()
@@ -87,11 +89,52 @@ namespace HeavenGateEditor {
 
         }
 
+        StoryTable<CHAPTER_COLUMN>* const chapterTable = StoryTableManager::Instance().GetChapterTable();
+        StoryTable<SCENE_COLUMN>* const sceneTable = StoryTableManager::Instance().GetSceneTable();
+        if (chapterTable == nullptr || sceneTable == nullptr)
+        {
+            return;
+        }
 
-        static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
-        ImGui::CheckboxFlags("ImGuiInputTextFlags_ReadOnly", (unsigned int*)&flags, ImGuiInputTextFlags_ReadOnly);
-        ImGui::CheckboxFlags("ImGuiInputTextFlags_AllowTabInput", (unsigned int*)&flags, ImGuiInputTextFlags_AllowTabInput);
-        ImGui::CheckboxFlags("ImGuiInputTextFlags_CtrlEnterForNewLine", (unsigned int*)&flags, ImGuiInputTextFlags_CtrlEnterForNewLine);
+        if (ImGui::BeginCombo("Chapter", m_storyJson->GetChapter(), 0)) // The second parameter is the label previewed before opening the combo.
+        {
+
+            for (int i = 0; i < chapterTable->GetSize(); i++)
+            {
+                bool is_selected = strcmp(m_storyJson->GetChapter(), chapterTable->GetRow(i)->Get(0)) == 0;
+                if (ImGui::Selectable(chapterTable->GetRow(i)->Get(0), is_selected))
+                    m_storyJson->SetChapter(chapterTable->GetRow(i)->Get(0));
+                if (is_selected)
+                    ImGui::SetItemDefaultFocus();   // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
+
+
+            }
+
+            ImGui::EndCombo();
+        }
+
+        if (ImGui::BeginCombo("Scene", m_storyJson->GetScene(), 0)) // The second parameter is the label previewed before opening the combo.
+        {
+
+            for (int i = 0; i < sceneTable->GetSize(); i++)
+            {
+                bool is_selected = strcmp(m_storyJson->GetScene(), sceneTable->GetRow(i)->Get(0)) == 0;
+                if (ImGui::Selectable(sceneTable->GetRow(i)->Get(0), is_selected))
+                    m_storyJson->SetScene(sceneTable->GetRow(i)->Get(0));
+                if (is_selected)
+                    ImGui::SetItemDefaultFocus();   // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
+
+
+            }
+
+            ImGui::EndCombo();
+        }
+
+
+        //static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
+        //ImGui::CheckboxFlags("ImGuiInputTextFlags_ReadOnly", (unsigned int*)&flags, ImGuiInputTextFlags_ReadOnly);
+        //ImGui::CheckboxFlags("ImGuiInputTextFlags_AllowTabInput", (unsigned int*)&flags, ImGuiInputTextFlags_AllowTabInput);
+        //ImGui::CheckboxFlags("ImGuiInputTextFlags_CtrlEnterForNewLine", (unsigned int*)&flags, ImGuiInputTextFlags_CtrlEnterForNewLine);
         static char* name = nullptr;
         static char* content = nullptr;
         static char* label = nullptr;
@@ -230,7 +273,7 @@ namespace HeavenGateEditor {
                                             strcpy(colorAlias, colorTable->GetRow(j)->Get(0));
                                             if (strcmp(colorAlias, (*iter)->m_content) == 0)
                                             {
-                                             
+
                                                 int tsst = atoi(colorTable->GetRow(j)->Get(1));
                                                 color = ImVec4(
                                                     atoi(colorTable->GetRow(j)->Get(1)),

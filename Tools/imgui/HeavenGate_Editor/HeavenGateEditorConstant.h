@@ -34,6 +34,7 @@ namespace HeavenGateEditor {
     const int     CHAPTER_COLUMN = 2;
     const int     SCENE_COLUMN = 2;
     const int     CHARACTER_COLUMN = 2;
+    const int     PAUSE_MAX_COLUMN = 2;
 
     //Color
     const int    COLOR_VALUE_COLUMN = 4;
@@ -101,6 +102,42 @@ namespace HeavenGateEditor {
         "\\PaintMoveTable.json";
 #else
         "/PaintMoveTable.json";
+#endif
+
+    //Relative path from story folder to chapter table
+
+    const char* const CHAPTER_TABLE_NAME =
+#ifdef _WIN32
+        "\\ChapterTable.json";
+#else
+        "/ChapterTable.json";
+#endif
+
+    //Relative path from story folder to scene table
+
+    const char* const SCENE_TABLE_NAME =
+#ifdef _WIN32
+        "\\SceneTable.json";
+#else
+        "/SceneTable.json";
+#endif
+
+    //Relative path from story folder to character table
+
+    const char* const CHARACTER_TABLE_NAME =
+#ifdef _WIN32
+        "\\CharacterTable.json";
+#else
+        "/CharacterTable.json";
+#endif
+
+    //Relative path from story folder to pause table
+
+    const char* const PAUSE_TABLE_NAME =
+#ifdef _WIN32
+        "\\PauseTable.json";
+#else
+        "/PauseTable.json";
 #endif
 
     const char* const PATH_FROM_PROJECT_ROOT_TO_FONT_FOLDER =

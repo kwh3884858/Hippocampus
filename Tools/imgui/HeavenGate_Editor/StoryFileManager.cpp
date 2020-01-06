@@ -4,6 +4,7 @@
 #include "StoryTable.h"
 #include "CharacterUtility.h"
 
+#include "StoryJsonChecker.h"
 #include "StoryJsonContentCompiler.h"
 
 #ifdef _WIN32
@@ -74,6 +75,12 @@ namespace HeavenGateEditor {
             return false;
         }
 
+        bool result = StoryJsonChecker::Instance().CheckJsonStory(pStoryJson);
+        if (!result)
+        {
+            return false;
+        }
+
         json tmpJson = *pStoryJson;
 
         std::ofstream o(filePath);
@@ -103,6 +110,11 @@ namespace HeavenGateEditor {
             return false;
         }
 
+        bool result = StoryJsonChecker::Instance().CheckJsonStory(pStoryJson);
+        if (!result)
+        {
+            return false;
+        }
 
         int pos = CharacterUtility::Find(filePath, strlen(filePath), STORY_FOLDER, strlen(STORY_FOLDER));
         if (pos == -1)
