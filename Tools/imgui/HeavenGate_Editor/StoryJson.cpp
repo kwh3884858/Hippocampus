@@ -7,6 +7,14 @@
 
 namespace HeavenGateEditor {
     //using NodeType = StoryNode::NodeType;
+    enum class StructLayout {
+        Info,
+        Value
+    };
+    enum class InfoLayout {
+        Chapter,
+        Scene
+    };
 
     enum class LabelLayout {
         NodeTypeName = 0,
@@ -26,7 +34,15 @@ namespace HeavenGateEditor {
         Content
     };
 
-    char nodeTypeString[][MAX_ENUM_LENGTH] = {
+    extern char StructString[][MAX_ENUM_LENGTH] = {
+        "info",
+        "value"
+    };
+    extern char infoString[][MAX_ENUM_LENGTH] = {
+        "chapter",
+        "scene"
+    };
+    extern char nodeTypeString[][MAX_ENUM_LENGTH] = {
         "none",
         "label",
         "word",
@@ -160,7 +176,7 @@ namespace HeavenGateEditor {
         list<StoryNode*>::iterator lIter = m_nodes.begin();
         list<StoryNode*>::iterator rIter = m_nodes.begin();
 
-        for (; lIter != m_nodes.end(); lIter ++)
+        for (; lIter != m_nodes.end(); lIter++)
         {
             if (lhs == i)
             {
@@ -213,9 +229,10 @@ namespace HeavenGateEditor {
             static_cast<const StoryJson&>(*this).GetNode(index));
     }
 
-    int HeavenGateEditor::StoryJson::Size() const
+    int StoryJson::Size() const
     {
         return  static_cast<int>(m_nodes.size());
+
     }
 
     StoryJson::StoryJson()
@@ -234,7 +251,7 @@ namespace HeavenGateEditor {
         strcpy(m_fullPath, storyJson.m_fullPath);
 
         for (auto iter = storyJson.m_nodes.cbegin(); iter != storyJson.m_nodes.cend(); iter++) {
-            if ( (*iter)->m_nodeType == NodeType::Word)
+            if ((*iter)->m_nodeType == NodeType::Word)
             {
                 const StoryNode* node = *iter;
                 StoryWord* word = new StoryWord(static_cast<const StoryWord&>(*node));
@@ -255,7 +272,6 @@ namespace HeavenGateEditor {
 
             }
         }
-    
     }
 
     StoryJson::StoryJson(StoryJson&& storyJson) noexcept
@@ -273,7 +289,7 @@ namespace HeavenGateEditor {
             *iter = nullptr;
         }
 
-     
+
     }
 
     StoryJson::~StoryJson()
@@ -299,6 +315,8 @@ namespace HeavenGateEditor {
 
         return *this;
     }
+
+
 
     void StoryJson::Clear()
     {
@@ -331,6 +349,8 @@ namespace HeavenGateEditor {
     }
 
 
+
+
     //=========================DATA STRUCTURE============================
 
 
@@ -360,7 +380,120 @@ namespace HeavenGateEditor {
 
         };
     }
+
+
     void to_json(json & j, const StoryJson & story)
+    {
+        j[StructString[(int)StructLayout::Info]] = json::array();
+        j[StructString[(int)StructLayout::Info]].push_back(
+            json{
+                {infoString[(int)InfoLayout::Chapter],       story.GetChapter()},
+                {infoString[(int)InfoLayout::Scene],         story.GetScene()}
+            }
+        );
+
+        j[StructString[(int)StructLayout::Value]] = json::array();
+        ToJsonFactory(j[StructString[(int)StructLayout::Value]], story);
+    }
+
+
+    /* String version, Archived */
+
+    //void from_json(const json & j, StoryWord & p)
+    //{
+    //    j.at("name").get_to(p.m_name);
+    //    j.at("content").get_to(p.m_content);
+    //}
+
+    //=========================Exception===========================
+    void GetContentException(char*const des, const json & j, const char* const index) {
+
+        try
+        {
+            strcpy(des, j.at(index).get_ptr<const json::string_t *>()->c_str());
+        }
+        catch (json::exception& e)
+        {
+            printf("message: %s \n exception id: %d \n lack of: %s \n\n", e.what(), e.id, index);
+
+            memset(des, '\0', sizeof(des));
+        }
+
+    }
+
+    void GetJsonException(json & des, const json& src, const char* const index) {
+        try
+        {
+            des = src.at(index);
+        }
+        catch (json::exception& e)
+        {
+            printf("message: %s \n exception id: %d \n lack of: %s \n\n", e.what(), e.id, index);
+
+            des = json();
+        }
+
+    }
+
+
+    void from_json(const json & j, StoryWord & p)
+    {
+        p.m_nodeType = NodeType::Word;
+        //strcpy(p.m_name, j.at(wordNodeString[(int)WordLayout::Name]).get_ptr<const json::string_t *>()->c_str());
+        //strcpy(p.m_content, j.at(wordNodeString[(int)WordLayout::Content]).get_ptr<const json::string_t *>()->c_str());
+        GetContentException(p.m_name, j, wordNodeString[(int)WordLayout::Name]);
+        GetContentException(p.m_content, j, wordNodeString[(int)WordLayout::Content]);
+
+    }
+
+    void from_json(const json& j, StoryLabel& p) {
+        p.m_nodeType = NodeType::Label;
+        //strcpy(p.m_labelId, j.at(labelNodeString[(int)LabelLayout::Label]).get_ptr<const json::string_t *>()->c_str());
+        GetContentException(p.m_labelId, j, labelNodeString[(int)LabelLayout::Label]);
+
+    }
+    void from_json(const json& j, StoryJump& p) {
+        p.m_nodeType = NodeType::Jump;
+        GetContentException(p.m_jumpId, j, jumpNodeString[(int)JumpLayout::Jump]);
+        GetContentException(p.m_jumpContent, j, jumpNodeString[(int)JumpLayout::Content]);
+        /*      strcpy(p.m_jumpId, j.at(jumpNodeString[(int)JumpLayout::Jump]).get_ptr<const json::string_t *>()->c_str());
+              strcpy(p.m_jumpContent, j.at(jumpNodeString[(int)JumpLayout::Content]).get_ptr<const json::string_t *>()->c_str());*/
+    }
+
+    void from_json(const json & j, StoryJson & p)
+    {
+        json tmpJson;
+
+        GetJsonException(tmpJson, j, StructString[(int)StructLayout::Info]);
+        if (!tmpJson.empty())
+        {
+            GetContentException(p.GetChapter(), tmpJson, infoString[(int)InfoLayout::Chapter]);
+            GetContentException(p.GetScene(), tmpJson, infoString[(int)InfoLayout::Scene]);
+        }
+
+        GetJsonException(tmpJson, j, StructString[(int)StructLayout::Info]);
+        if (!tmpJson.empty())
+        {
+            FromJsonFactory(tmpJson, p);
+        }
+
+        //Adapt for old struct
+        if (j.is_array())
+        {
+            FromJsonFactory(j, p);
+        }
+
+      
+        // iterate the array
+       /* for (json::iterator it = j.begin(); it != j.end(); ++it) {
+            StoryWord* word = new StoryWord();
+            *word = *it;
+            p.AddWord(word);
+        }*/
+    }
+
+
+    void ToJsonFactory(json& j, const StoryJson& story)
     {
         for (int i = 0; i < story.Size(); i++)
         {
@@ -386,87 +519,33 @@ namespace HeavenGateEditor {
         }
     }
 
-
-    /* String version, Archieved */
-
-    //void from_json(const json & j, StoryWord & p)
-    //{
-    //    j.at("name").get_to(p.m_name);
-    //    j.at("content").get_to(p.m_content);
-    //}
-
-    //=========================Exception===========================
-    void GetContentException(char*const des, const json & j,const char* const index) {
-
-        try
-        {
-            strcpy(des, j.at(index).get_ptr<const json::string_t *>()->c_str());
-        }
-        catch (json::exception& e)
-        {
-            printf("message: %s \n exception id: %d \n lack of: %s \n\n", e.what(), e.id, index);
-
-            memset(des, '\0', sizeof(des));
-        }
-     
-    }
-
-
-    void from_json(const json & j, StoryWord & p)
-    {
-        p.m_nodeType = NodeType::Word;
-        strcpy(p.m_name, j.at(wordNodeString[(int)WordLayout::Name]).get_ptr<const json::string_t *>()->c_str());
-        strcpy(p.m_content, j.at(wordNodeString[(int)WordLayout::Content]).get_ptr<const json::string_t *>()->c_str());
-    }
-
-    void from_json(const json& j, StoryLabel& p) {
-        p.m_nodeType = NodeType::Label;
-        strcpy(p.m_labelId, j.at(labelNodeString[(int)LabelLayout::Label]).get_ptr<const json::string_t *>()->c_str());
-
-    }
-    void from_json(const json& j, StoryJump& p) {
-        p.m_nodeType = NodeType::Jump;
-        GetContentException(p.m_jumpId, j, jumpNodeString[(int)JumpLayout::Jump]);
-        GetContentException(p.m_jumpContent, j, jumpNodeString[(int)JumpLayout::Content]);
-        /*      strcpy(p.m_jumpId, j.at(jumpNodeString[(int)JumpLayout::Jump]).get_ptr<const json::string_t *>()->c_str());
-              strcpy(p.m_jumpContent, j.at(jumpNodeString[(int)JumpLayout::Content]).get_ptr<const json::string_t *>()->c_str());*/
-    }
-
-    void from_json(const json & j, StoryJson & p)
+    void FromJsonFactory(const json& j, StoryJson & storyJson)
     {
         for (int i = 0; i < j.size(); i++)
         {
             char enumString[MAX_ENUM_LENGTH];
-            strcpy(enumString, j[i].at(wordNodeString[(int)WordLayout::NodeTypeName]).get_ptr<const json::string_t *>()->c_str());
+            //strcpy(enumString, j[i].at(wordNodeString[(int)WordLayout::NodeTypeName]).get_ptr<const json::string_t *>()->c_str());
+            GetContentException(enumString, j[i], wordNodeString[(int)WordLayout::NodeTypeName]);
 
             if (strcmp(enumString, nodeTypeString[(int)NodeType::Label]) == 0) {
                 StoryLabel* node = new StoryLabel;
                 *node = j[i];
-                p.AddNode(node);
+                storyJson.AddNode(node);
             }
 
             if (strcmp(enumString, nodeTypeString[(int)NodeType::Jump]) == 0) {
                 StoryJump* node = new StoryJump;
                 *node = j[i];
-                p.AddNode(node);
+                storyJson.AddNode(node);
             }
 
             if (strcmp(enumString, nodeTypeString[(int)NodeType::Word]) == 0) {
                 StoryWord* node = new StoryWord;
                 *node = j[i];
-                p.AddNode(node);
+                storyJson.AddNode(node);
             }
-
-
         }
-        // iterate the array
-       /* for (json::iterator it = j.begin(); it != j.end(); ++it) {
-            StoryWord* word = new StoryWord();
-            *word = *it;
-            p.AddWord(word);
-        }*/
     }
-
 
     StoryNode::StoryNode()
     {

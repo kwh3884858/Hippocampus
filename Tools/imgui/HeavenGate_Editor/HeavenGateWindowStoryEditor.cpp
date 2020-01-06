@@ -28,11 +28,13 @@ namespace HeavenGateEditor {
     {
         m_storyJson = nullptr;
         //m_isSavedFileInCurrentWindow = false;
-        m_isWritedUnsavedContent = false;
+        //m_isWritedUnsavedContent = false;
 
         //m_storyFileManager = new StoryFileManager;
 
         m_selectStoryWindow = new HeavenGateWindowSelectStory();
+
+        //Default open select story window
         bool* selectStoryWindowHandle = m_selectStoryWindow->GetHandle();
         *selectStoryWindowHandle = true;
         //m_selectStoryWindow->SetStoryFileManager(m_storyFileManager);
@@ -139,7 +141,7 @@ namespace HeavenGateEditor {
                             currentState = TableType::None;
 
                             StoryWord compiledWord;
-                            strcpy( compiledWord.m_content , data->Buf);
+                            strcpy(compiledWord.m_content, data->Buf);
                             vector<StoryJsonContentCompiler::Token*>tokens = StoryJsonContentCompiler::Instance().CompileToTokens(&compiledWord);
 
                             ImGui::Text("Preview:");
@@ -147,7 +149,7 @@ namespace HeavenGateEditor {
                             bool testColor = false;
                             ImVec4 color(1.0f, 1.0f, 1.0f, 1.0f);
 
-              
+
                             for (auto iter = tokens.cbegin(); iter != tokens.end(); iter++)
                             {
                                 if ((*iter)->m_tokeType == StoryJsonContentCompiler::TokenType::TokenContent)
@@ -162,7 +164,7 @@ namespace HeavenGateEditor {
                                         // Is closing state
                                         if (editorState.empty())
                                         {
-                                            printf("Close Label is lack");
+                                            printf("Close Label is lack\n");
                                             continue;
                                         }
 
@@ -205,8 +207,14 @@ namespace HeavenGateEditor {
 
                                     }
                                 }
-                                else if ((*iter)->m_tokeType == StoryJsonContentCompiler::TokenType::TokenIdnetity)
+                                else if ((*iter)->m_tokeType == StoryJsonContentCompiler::TokenType::TokenIdentity)
                                 {
+
+                                    if (editorState.empty())
+                                    {
+                                        printf("No Identity Exist. \n");
+                                        continue;
+                                    }
                                     switch (editorState.back())
                                     {
                                     case HeavenGateEditor::TableType::None:
@@ -222,11 +230,13 @@ namespace HeavenGateEditor {
                                             strcpy(colorAlias, colorTable->GetRow(j)->Get(0));
                                             if (strcmp(colorAlias, (*iter)->m_content) == 0)
                                             {
+                                             
+                                                int tsst = atoi(colorTable->GetRow(j)->Get(1));
                                                 color = ImVec4(
-                                                    *(colorTable->GetRow(j)->Get(1)) - '0',
-                                                    *(colorTable->GetRow(j)->Get(2)) - '0',
-                                                    *(colorTable->GetRow(j)->Get(3)) - '0',
-                                                    *(colorTable->GetRow(j)->Get(4)) - '0'
+                                                    atoi(colorTable->GetRow(j)->Get(1)),
+                                                    atoi(colorTable->GetRow(j)->Get(2)),
+                                                    atoi(colorTable->GetRow(j)->Get(3)),
+                                                    atoi(colorTable->GetRow(j)->Get(4))
                                                 );
                                                 color = HeavenGateEditorUtility::ConvertRGBAToFloat4(color);
                                             }
@@ -293,7 +303,7 @@ namespace HeavenGateEditor {
                         ImGui::InputTextWithHint(jumpConstant, "Enter jump ID here", jump, MAX_NAME);
                         ImGui::InputTextWithHint(contentConstant, "Enter jump Content here", jumpContent, MAX_CONTENT);
 
-                        
+
 
                         ImGui::TreePop();
                     }
@@ -316,7 +326,7 @@ namespace HeavenGateEditor {
                     {
                         AddButton(i);
                         ImGui::InputTextWithHint(LabelConstant, "Enter label ID here", label, MAX_NAME);
-                        
+
 
                         ImGui::TreePop();
                     }

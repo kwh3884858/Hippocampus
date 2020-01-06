@@ -35,7 +35,7 @@ namespace HeavenGateEditor {
             TokenNone,
 
             TokenInstructor,         //key word
-            TokenIdnetity,           //variable
+            TokenIdentity,           //variable
 
             TokenContent,
 

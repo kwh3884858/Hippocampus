@@ -47,6 +47,7 @@
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonManager.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryTableManager.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonContentCompiler.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonChecker.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\imgui.cpp">
@@ -88,6 +89,7 @@
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonManager.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryTableManager.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonContentCompiler.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonChecker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.txt" />

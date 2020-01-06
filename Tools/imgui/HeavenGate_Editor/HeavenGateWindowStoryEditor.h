@@ -46,10 +46,9 @@ namespace HeavenGateEditor {
     private:
         void AddButton(int index);
 
-        bool m_isWritedUnsavedContent;
-
+        //bool m_isWritedUnsavedContent;
         //Model
-        json currentStory;
+        //json m_currentStory;
         StoryJson* m_storyJson;
 
         //Controller

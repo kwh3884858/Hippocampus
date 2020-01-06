@@ -21,9 +21,15 @@ namespace HeavenGateEditor {
         Word,
         Jump
     };
+    enum class StructLayout :int;
+    enum class InfoLayout :int;
     enum class LabelLayout :int;
     enum class JumpLayout :int;
     enum class WordLayout :int;
+
+
+    extern char StructString[][MAX_ENUM_LENGTH];
+    extern char infoString[][MAX_ENUM_LENGTH];
 
     extern char nodeTypeString[][MAX_ENUM_LENGTH];
     extern char labelNodeString[][MAX_ENUM_LENGTH];
@@ -103,10 +109,25 @@ namespace HeavenGateEditor {
         const char* GetFullPath()const;
         bool IsExistFullPath()const;
 
+        void SetChapter(const char* chapter) { strcpy(m_chapter, chapter); }
+        const char *const GetChapter()const { return m_chapter; }
+        char* GetChapter() { return const_cast<char*>(const_cast<const StoryJson*>(this)->GetChapter()); }
+
+        void SetScene(const char* scene) { strcpy(m_scene, scene); }
+        const char* const GetScene()const { return m_scene; }
+        char* GetScene() { return const_cast<char*>(const_cast<const StoryJson*>(this)->GetScene()); }
+
     private:
         list<StoryNode*> m_nodes;
         char m_fullPath[MAX_FOLDER_PATH];
+
+        char m_chapter[MAX_FOLDER_PATH];
+        char m_scene[MAX_FOLDER_PATH];
+
     };
+
+    void GetContentException(char*const des, const json & j, const char* const index);
+    void GetJsonException(json & des, const json& src, const char* const index);
 
     void to_json(json& j, const StoryWord& p);
     void to_json(json& j, const StoryJson& p);
@@ -118,6 +139,9 @@ namespace HeavenGateEditor {
     void from_json(const json& j, StoryLabel& p);
     void from_json(const json& j, StoryJump& p);
 
+
+    void ToJsonFactory(json& j, const StoryJson& p);
+    void FromJsonFactory(const json& j, StoryJson & p);
 
     //void to_json(json& j, const StoryWord* p) {
     //    j = json{ {"name", p->m_name}, {"content", p->m_content} };

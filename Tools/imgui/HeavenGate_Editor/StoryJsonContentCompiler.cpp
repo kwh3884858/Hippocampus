@@ -146,7 +146,7 @@ namespace HeavenGateEditor {
             break;
         }
         case HeavenGateEditor::StoryJsonContentCompiler::CompilerState::StateIdentity: {
-            Token* token = CreateTokenByString(aString, TokenType::TokenIdnetity);
+            Token* token = CreateTokenByString(aString, TokenType::TokenIdentity);
 
             break;
         }
@@ -321,7 +321,7 @@ namespace HeavenGateEditor {
                     currentTableType = TableType::Paint_Move;
                 }
             }
-            else if (token->m_tokeType == TokenType::TokenIdnetity)
+            else if (token->m_tokeType == TokenType::TokenIdentity)
             {
                 switch (currentTableType)
                 {
