@@ -10,20 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Config
+  m_Name: Scene
   m_EditorClassIdentifier: 
-  m_GroupName: Config
+  m_GroupName: Scene
   m_Data:
     m_SerializedData: []
-  m_GUID: 51975007e8779df4fb0f320cf9532c3d
+  m_GUID: 052d0ed1e3839014d90c13b3b0494749
   m_SerializeEntries:
-  - m_GUID: 7872aee81a117194cbd8cd381b900edc
-    m_Address: StoryConfig
+  - m_GUID: 67e9f636bf85cec49aa5259fcd3be769
+    m_Address: UITestScene
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d64d83efff065fe4485fa4ded364df60
+    m_Address: GoundTestScene
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e59ae2862aaea427a8b8b4a0d1462e0e
+    m_Address: GameRoot
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cd5387e64e22b3d47a39edb1e325859e, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 90b86a5b370e8ad4d992c4f8e36ab642, type: 2}
-    - {fileID: 11400000, guid: 3d4acc994c74d634d95b73a17a87fc15, type: 2}
+    - {fileID: 11400000, guid: df71d306312d2eb4b9dcea3232cac8f0, type: 2}
+    - {fileID: 11400000, guid: d2d5e85b5f3f4f042b93866cf5a3d7f8, type: 2}
