@@ -4,7 +4,7 @@
 #include "StoryTableManager.h"
 
 #include "StoryTable.h"
-
+#include "deque"
 namespace HeavenGateEditor {
 
 
@@ -255,6 +255,10 @@ namespace HeavenGateEditor {
             {
                 m_currentState = nextState;
             }
+            if (m_currentState == CompilerState::StateStopBracket)
+            {
+                m_currentState = nextState;
+            }
 
             break;
         
@@ -300,35 +304,82 @@ namespace HeavenGateEditor {
 
     void StoryJsonContentCompiler::Parser()
     {
-        TableType currentTableType = TableType::None;
+        TableType currentState;
+        std::deque<TableType> editorState;
+        bool isReadCloseLabel;
+
+        isReadCloseLabel = false;
+        currentState = TableType::None;
 
         for (int i = 0; i < m_tokens.size(); i++)
         {
             Token* token = m_tokens[i];
             if (token->m_tokeType == TokenType::TokenInstructor)
             {
+                if (isReadCloseLabel)
+                {
+                    // Is closing state
+                    if (editorState.empty())
+                    {
+                        printf("Close Label is lack\n");
+                        continue;
+                    }
 
-                if (strcmp(token->m_content, fontSizeTableString[(int)FontSizeTableLayout::Type]) == 0)
-                {
-                    currentTableType = TableType::Font_Size;
+                    currentState = editorState.back();
+                    editorState.pop_back();
+                    isReadCloseLabel = false;
+
+                    switch (currentState)
+                    {
+                    case HeavenGateEditor::TableType::None:
+                        break;
+                    case HeavenGateEditor::TableType::Font_Size:
+                        break;
+                    case HeavenGateEditor::TableType::Color:
+                        break;
+                    case HeavenGateEditor::TableType::Tips:
+                        break;
+                    case HeavenGateEditor::TableType::Paint_Move:
+                        break;
+                    case TableType::Pause:
+                        break;
+                    default:
+                        break;
+                    }
                 }
-                if (strcmp(token->m_content, colorTableString[(int)FontSizeTableLayout::Type]) == 0)
+                else
                 {
-                    currentTableType = TableType::Color;
-                }
-                if (strcmp(token->m_content, paintMoveTableString[(int)FontSizeTableLayout::Type]) == 0)
-                {
-                    currentTableType = TableType::Paint_Move;
+                    // Is start state
+                    if (strcmp(token->m_content, fontSizeTableString[(int)FontSizeTableLayout::Type]) == 0)
+                    {
+                        editorState.push_back(TableType::Font_Size);
+                    }
+                    if (strcmp(token->m_content, colorTableString[(int)FontSizeTableLayout::Type]) == 0)
+                    {
+                        editorState.push_back(TableType::Color);
+                    }
+                    if (strcmp(token->m_content, paintMoveTableString[(int)FontSizeTableLayout::Type]) == 0)
+                    {
+                        editorState.push_back(TableType::Paint_Move);
+                    }
+                    if (strcmp(token->m_content, pauseTableString[(int)FontSizeTableLayout::Type]) == 0)
+                    {
+                        editorState.push_back(TableType::Pause);
+                    }
                 }
             }
             else if (token->m_tokeType == TokenType::TokenIdentity)
             {
-                switch (currentTableType)
+                if (editorState.empty())
+                {
+                    printf("No Identity Exist. \n");
+                    continue;
+                }
+                switch (editorState.back())
                 {
                 case HeavenGateEditor::TableType::None:
                     break;
-                case HeavenGateEditor::TableType::Font_Size:
-                {
+                case HeavenGateEditor::TableType::Font_Size: {
                     const StoryTable<FONT_SIZE_MAX_COLUMN>* const fontSizeTable = StoryTableManager::Instance().GetFontSizeTable();
                     for (int i = 0; i < fontSizeTable->GetSize(); i++)
                     {
@@ -338,11 +389,10 @@ namespace HeavenGateEditor {
                             strcpy(token->m_content, row->Get(1));
                         }
                     }
-
                     break;
                 }
-                case HeavenGateEditor::TableType::Color: {
-                    
+                case HeavenGateEditor::TableType::Color:
+                {
                     char colorAlias[MAX_COLUMNS_CONTENT_LENGTH];
 
                     StoryTable<COLOR_MAX_COLUMN>* colorTable = StoryTableManager::Instance().GetColorTable();
@@ -352,18 +402,40 @@ namespace HeavenGateEditor {
                         strcpy(colorAlias, colorTable->GetRow(i)->Get(0));
                         if (strcmp(colorAlias, token->m_content) == 0)
                         {
-                        //TODO 
+                            //TODO 
                         }
 
                     }
                     break;
                 }
-                                         
+                case HeavenGateEditor::TableType::Tips:
+                    break;
+                case HeavenGateEditor::TableType::Paint_Move:
+                    break;
+                case TableType::Pause:
+                {
+                    const StoryTable<PAUSE_MAX_COLUMN>* const pauseTable = StoryTableManager::Instance().GetPauseTable();
+
+                    for (int i = 0; i < pauseTable->GetSize(); i++)
+                    {
+                        const StoryRow<PAUSE_MAX_COLUMN>* const row = pauseTable->GetRow(i);
+                        if (strcmp(row->Get(0), token->m_content) == 0)
+                        {
+                            strcpy(token->m_content, row->Get(1));
+                        }
+                    }
+
+                    break;
+                }
                 default:
                     break;
                 }
-
-                currentTableType = TableType::None;
+              
+            }
+            else if (token->m_tokeType == StoryJsonContentCompiler::TokenType::TokenOpSlash)
+            {
+                //Start close
+                isReadCloseLabel = true;
             }
 
         }

@@ -615,4 +615,48 @@ namespace HeavenGateEditor {
 
     }
 
+    void IdOperator::ParseStringId(const char* const pinStringId, char(*pOutIdArray)[MAX_ID_COUNT])
+    {
+        int strLength = strlen(pinStringId);
+
+        char tmpPartId[MAX_ID];
+        memset(tmpPartId, '\0', MAX_ID);
+
+        int j = 0;
+        int indexOfArray = 0;
+
+        for (int i = 0 ; i < strLength; i++)
+        {
+            if (pinStringId[i] == '_')
+            {
+
+                strcpy(pOutIdArray[indexOfArray++], tmpPartId);
+
+                j = 0;
+                memset(tmpPartId, '\0', MAX_ID);
+            }
+            else {
+                tmpPartId[j++] = pinStringId[i];
+            }
+        }
+        if (indexOfArray > 3)
+        {
+            return;
+        }
+        strcpy(pOutIdArray[indexOfArray++], tmpPartId);
+    }
+
+    void IdOperator::CombineStringId(char* const pOutStringId, char(*pInIdArray)[MAX_ID_COUNT])
+    {
+
+        memset(pOutStringId, '\0', MAX_ID);
+        for (int i = 0 ; i < NUM_OF_ID_PART - 1; i++)
+        {
+            strcat(pOutStringId, pInIdArray[i]);
+            strcat(pOutStringId, "_");
+        }
+        strcat(pOutStringId, pInIdArray[NUM_OF_ID_PART - 1]);
+
+    }
+
 }

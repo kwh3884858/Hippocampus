@@ -24,39 +24,39 @@
 
 using std::string;
 
-namespace HeavenGateEditor{
+namespace HeavenGateEditor {
     void HeavenGateEditorUtility::GetAssetPath(char * const outAssetPath)
     {
 
     }
     void HeavenGateEditorUtility::GetStoryPath(char* const pOutExePath) {
 
-    char cBuffer[MAX_FOLDER_PATH];
+        char cBuffer[MAX_FOLDER_PATH];
 
 #ifdef _WIN32
 
-    wchar_t buffer[MAX_FOLDER_PATH];
-    GetModuleFileName(NULL, buffer, MAX_FOLDER_PATH);
-    CharacterUtility::convertWcsToMbs(cBuffer, buffer, MAX_FOLDER_PATH);
+        wchar_t buffer[MAX_FOLDER_PATH];
+        GetModuleFileName(NULL, buffer, MAX_FOLDER_PATH);
+        CharacterUtility::convertWcsToMbs(cBuffer, buffer, MAX_FOLDER_PATH);
 #else
-    bool result = GetModuleFileNameOSX(cBuffer);
+        bool result = GetModuleFileNameOSX(cBuffer);
 
-    if (!result) {
-        return;
-    }
+        if (!result) {
+            return;
+        }
 #endif
 
-//TODO: Need to write a string function to find tool folder name
-  string path(cBuffer);
-    string::size_type pos =path.find(TOOL_FOLDER_NAME);
+        //TODO: Need to write a string function to find tool folder name
+        string path(cBuffer);
+        string::size_type pos = path.find(TOOL_FOLDER_NAME);
 
-    path = path.substr(0, pos);
-    path = path.append(PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER);
-    printf("  %s  \n", path.c_str());
-    strcpy(pOutExePath, path.c_str());
+        path = path.substr(0, pos);
+        path = path.append(PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER);
+        printf("  %s  \n", path.c_str());
+        strcpy(pOutExePath, path.c_str());
 
-    return;
-}
+        return;
+    }
 
     ImVec4 HeavenGateEditorUtility::ConvertRGBAToFloat4(ImVec4 const originalRGBAValue)
     {
@@ -70,46 +70,45 @@ namespace HeavenGateEditor{
 
 
 
-
-//    void HeavenGateEditorUtility::GetStoryExportPath(char* const outExportPath)
-//    {
-//        char cBuffer[MAX_FOLDER_PATH];
-//
-//#ifdef _WIN32
-//
-//        wchar_t buffer[MAX_FOLDER_PATH];
-//        GetModuleFileName(NULL, buffer, MAX_FOLDER_PATH);
-//        CharacterUtility::convertWcsToMbs(cBuffer, buffer, MAX_FOLDER_PATH);
-//#else
-//        bool result = GetModuleFileNameOSX(cBuffer);
-//
-//        if (!result) {
-//            return;
-//        }
-//#endif
-//
-//        //TODO: Need to write a string function to find tool folder name
-//        string path(cBuffer);
-//        string::size_type pos = path.find(TOOL_FOLDER_NAME);
-//
-//        path = path.substr(0, pos);
-//        path = path.append(PATH_FROM_PROJECT_ROOT_TO_STORY_EXPORT_FOLDER);
-//        printf("  %s  \n", path.c_str());
-//        strcpy(outExportPath, path.c_str());
-//
-//        return;
-//    }
+    //    void HeavenGateEditorUtility::GetStoryExportPath(char* const outExportPath)
+    //    {
+    //        char cBuffer[MAX_FOLDER_PATH];
+    //
+    //#ifdef _WIN32
+    //
+    //        wchar_t buffer[MAX_FOLDER_PATH];
+    //        GetModuleFileName(NULL, buffer, MAX_FOLDER_PATH);
+    //        CharacterUtility::convertWcsToMbs(cBuffer, buffer, MAX_FOLDER_PATH);
+    //#else
+    //        bool result = GetModuleFileNameOSX(cBuffer);
+    //
+    //        if (!result) {
+    //            return;
+    //        }
+    //#endif
+    //
+    //        //TODO: Need to write a string function to find tool folder name
+    //        string path(cBuffer);
+    //        string::size_type pos = path.find(TOOL_FOLDER_NAME);
+    //
+    //        path = path.substr(0, pos);
+    //        path = path.append(PATH_FROM_PROJECT_ROOT_TO_STORY_EXPORT_FOLDER);
+    //        printf("  %s  \n", path.c_str());
+    //        strcpy(outExportPath, path.c_str());
+    //
+    //        return;
+    //    }
 
 #ifndef _WIN32
-bool HeavenGateEditorUtility::GetModuleFileNameOSX(char* pOutCurrentPath) {
-    Dl_info module_info;
-    if (dladdr(reinterpret_cast<void*>(GetModuleFileNameOSX), &module_info) == 0) {
-        // Failed to find the symbol we asked for.
-        return false;
-    }
+    bool HeavenGateEditorUtility::GetModuleFileNameOSX(char* pOutCurrentPath) {
+        Dl_info module_info;
+        if (dladdr(reinterpret_cast<void*>(GetModuleFileNameOSX), &module_info) == 0) {
+            // Failed to find the symbol we asked for.
+            return false;
+        }
 
-    CharacterUtility::copyCharPointer(pOutCurrentPath, module_info.dli_fname) ;
-    return  true;
-}
+        CharacterUtility::copyCharPointer(pOutCurrentPath, module_info.dli_fname);
+        return  true;
+    }
 #endif
 }

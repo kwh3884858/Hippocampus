@@ -143,6 +143,11 @@ namespace HeavenGateEditor {
     void ToJsonFactory(json& j, const StoryJson& p);
     void FromJsonFactory(const json& j, StoryJson & p);
 
+
+    namespace IdOperator {
+        void ParseStringId(const char* const pinStringId, char(*pOutIdArray)[MAX_ID_COUNT]);
+        void CombineStringId(char* const pOutStringId, char(*pInIdArray)[MAX_ID_COUNT]);
+    }
     //void to_json(json& j, const StoryWord* p) {
     //    j = json{ {"name", p->m_name}, {"content", p->m_content} };
     //}

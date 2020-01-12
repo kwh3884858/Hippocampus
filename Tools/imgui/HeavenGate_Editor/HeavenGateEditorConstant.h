@@ -12,8 +12,7 @@
 namespace HeavenGateEditor {
 
     const int     MAX_FOLDER_PATH = 265;
-    const int     MAX_CHAPTER = 32;
-    const int     MAX_SCENE = 32;
+
     const int     MAX_FILE_NAME = 64;
     const int     MAX_FOLDER_LIST = 32;
     const int     MAX_FULL_CONTENT = 6144;
@@ -21,7 +20,23 @@ namespace HeavenGateEditor {
     //For story content limit
     const int     MAX_NAME = 64;
     const int     MAX_CONTENT = 265;
-    const int     MAX_ID = 128;
+    const int     NUM_OF_ID_PART = 4;
+    const int     MAX_ID_PART = 32;
+
+    //ID 
+    const int     MAX_CHAPTER = MAX_ID_PART;
+    const int     MAX_SCENE = MAX_ID_PART;
+    const int     MAX_ID_TITLE = MAX_ID_PART;
+    const int     MAX_ID_COUNT = MAX_ID_PART;
+    const int     MAX_ID = MAX_CHAPTER + MAX_SCENE + MAX_ID_TITLE + MAX_ID_COUNT + NUM_OF_ID_PART;
+    enum class ID_PART
+    {
+        CHAPTER = 0,
+        SCENE,
+        TITLE,
+        COUNT
+    };
+
 
     const int     MAX_ENUM_LENGTH = 16;
 
@@ -31,10 +46,10 @@ namespace HeavenGateEditor {
     const int     COLOR_MAX_COLUMN = 5;
     const int     TIP_MAX_COLUMN = 2;
     const int     PAINT_MOVE_MAX_COLUMN = 4;
+    const int     PAUSE_MAX_COLUMN = 2;
     const int     CHAPTER_COLUMN = 2;
     const int     SCENE_COLUMN = 2;
     const int     CHARACTER_COLUMN = 2;
-    const int     PAUSE_MAX_COLUMN = 2;
 
     //Color
     const int    COLOR_VALUE_COLUMN = 4;

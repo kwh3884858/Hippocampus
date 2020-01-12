@@ -13,6 +13,7 @@
 #include "HeavenGateEditorBaseWindow.h"
 
 #include "nlohmann/json.hpp"
+#include "imgui.h"
 
 #include <deque>
 
@@ -22,6 +23,7 @@ namespace HeavenGateEditor {
     using std::deque;
     class HeavenGateWindowSelectStory;
     class HeavenGatePopupInputFileName;
+
     //class StoryFileManager;
     class StoryJson;
     enum class TableType;
@@ -46,6 +48,8 @@ namespace HeavenGateEditor {
     private:
         void AddButton(int index);
 
+       static int WordContentCallback(ImGuiInputTextCallbackData* data);
+    
         //bool m_isWritedUnsavedContent;
         //Model
         //json m_currentStory;
