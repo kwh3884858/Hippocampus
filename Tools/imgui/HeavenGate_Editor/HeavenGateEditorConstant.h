@@ -50,6 +50,7 @@ namespace HeavenGateEditor {
     const int     CHAPTER_COLUMN = 2;
     const int     SCENE_COLUMN = 2;
     const int     CHARACTER_COLUMN = 2;
+    const int     EXHIBIT_COLUMN = 2;
 
     //Color
     const int    COLOR_VALUE_COLUMN = 4;
@@ -153,6 +154,15 @@ namespace HeavenGateEditor {
         "\\PauseTable.json";
 #else
         "/PauseTable.json";
+#endif
+
+    //Relative path from story folder to exhibit table
+
+    const char* const EXHIBIT_TABLE_NAME =
+#ifdef _WIN32
+        "\\ExhibitTable.json";
+#else
+        "/ExhibitTable.json";
 #endif
 
     const char* const PATH_FROM_PROJECT_ROOT_TO_FONT_FOLDER =

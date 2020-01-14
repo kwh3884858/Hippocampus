@@ -85,6 +85,12 @@ namespace HeavenGateEditor {
         Time = 2
     };
 
+    enum class ExhibitTableLayout {
+        Type = 0,
+        Exhibit = 1,
+        Description = 2
+    };
+
     const char tableString[][MAX_ENUM_LENGTH] = {
         "type",
         "value"
@@ -149,6 +155,13 @@ namespace HeavenGateEditor {
 
     };
 
+    const char exhibitTableString[][MAX_ENUM_LENGTH] = {
+        "exhibit",
+        "exhibit",
+        "description"
+
+    };
+
     template<int column >
     class StoryRow
     {
@@ -178,7 +191,8 @@ namespace HeavenGateEditor {
         Chapter,
         Scene,
         Character,
-        Pause
+        Pause,
+        Exhibit
     };
 
     template<int column >
@@ -686,6 +700,24 @@ namespace HeavenGateEditor {
             break;
         }
 
+        case TableType::Exhibit:
+        {
+            j[tableString[(int)TableLayout::Type]] = exhibitTableString[(int)ExhibitTableLayout::Type];
+            if (p.GetSize() == 0)
+            {
+                j[tableString[(int)TableLayout::Value]] = json::array();
+            }
+            for (int i = 0; i < p.GetSize(); i++)
+            {
+                tmp = p.GetRow(i);
+                j[tableString[(int)TableLayout::Value]].push_back(json{
+    {exhibitTableString[(int)ExhibitTableLayout::Exhibit],          tmp->Get(0) },
+    {exhibitTableString[(int)ExhibitTableLayout::Description],          tmp->Get(1) }
+                    });
+            }
+            break;
+        }
+
         default:
 
             return;
@@ -848,6 +880,21 @@ namespace HeavenGateEditor {
                 strcpy(content, values[i].at(pauseTableString[(int)PauseTableLayout::Pause]).get_ptr<const json::string_t*>()->c_str());
                 p.PushContent(content);
                 strcpy(content, values[i].at(pauseTableString[(int)PauseTableLayout::Time]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
+            }
+
+            return;
+        }
+
+        if (strcmp(typeString, exhibitTableString[(int)ExhibitTableLayout::Type]) == 0) {
+            p.SetTableType(TableType::Exhibit);
+            char content[MAX_COLUMNS_CONTENT_LENGTH];
+            for (int i = 0; i < values.size(); i++)
+            {
+
+                strcpy(content, values[i].at(exhibitTableString[(int)ExhibitTableLayout::Exhibit]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
+                strcpy(content, values[i].at(exhibitTableString[(int)ExhibitTableLayout::Description]).get_ptr<const json::string_t*>()->c_str());
                 p.PushContent(content);
             }
 
