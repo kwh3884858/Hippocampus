@@ -34,9 +34,9 @@ namespace StarPlatinum
 		{
 			m_sceneName = sceneName;
 			//Regist Event
-			EventManager.Instance ().AddEventListener<SceneLoadedEvent> (SceneLoaded);
-			EventManager.Instance ().AddEventListener<SceneEnterEvent> (SceneEnter);
-			EventManager.Instance ().AddEventListener<SceneLeaveEvent> (SceneLeave);
+			EventManager.Instance .AddEventListener<SceneLoadedEvent> (SceneLoaded);
+			EventManager.Instance .AddEventListener<SceneEnterEvent> (SceneEnter);
+			EventManager.Instance .AddEventListener<SceneLeaveEvent> (SceneLeave);
 
 			//EventManager.Instance ().Notify ((iwwqnt)LogicType.SceneInit);
 		}

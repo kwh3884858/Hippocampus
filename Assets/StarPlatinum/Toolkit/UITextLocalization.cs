@@ -11,7 +11,7 @@ public class UITextLocalization : MonoBehaviour
 	void Start ()
 	{
 		ShowText ();
-		EventManager.Instance ().RegisterCallback ((int)LogicType.Changelanguage, Changelanguage);
+		EventManager.Instance .RegisterCallback ((int)LogicType.Changelanguage, Changelanguage);
 
 	}
 

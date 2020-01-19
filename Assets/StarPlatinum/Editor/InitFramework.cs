@@ -6,7 +6,7 @@ using System.IO;
 using System.Text;
 using UnityEditor.SceneManagement;
 
-namespace Skylight
+namespace StarPlatinum
 {
 	public class InitFramework : Editor
 	{

@@ -34,8 +34,8 @@ namespace StarPlatinum
 	public enum Environment
 	{
 		UI = 0,             //UI场景
-		Story,          //故事场景
-		Battle,         //战斗场景
+		Story,              //故事场景
+		Battle,             //战斗场景
 
 	}
 
@@ -129,25 +129,25 @@ namespace StarPlatinum
 		}
 
 
-		void HandleButtonUpEvent (object sender, ButtonUpEvent e)
-		{
-			switch (e.m_buttonName) {
-			case "A":
-			case "a":
-			case "d":
-			case "D":
-				SetAxis (KeyMap.Horizontal, 0f);
-				break;
+		//void HandleButtonUpEvent (object sender, ButtonUpEvent e)
+		//{
+		//	switch (e.m_buttonName) {
+		//	case "A":
+		//	case "a":
+		//	case "d":
+		//	case "D":
+		//		SetAxis (KeyMap.Horizontal, 0f);
+		//		break;
 
-			case "W":
-			case "w":
-			case "S":
-			case "s":
-				SetAxis (KeyMap.Vertical, 0f);
-				break;
+		//	case "W":
+		//	case "w":
+		//	case "S":
+		//	case "s":
+		//		SetAxis (KeyMap.Vertical, 0f);
+		//		break;
 
-			}
-		}
+		//	}
+		//}
 
 		//void HandleButtonDownEvent (object sender, ButtonDownEvent e)
 		//{
@@ -236,18 +236,18 @@ namespace StarPlatinum
 		/// <returns>The input.</returns>
 		/// <param name="environment">Environment.环境，应该由框架来处理并传入</param>
 		/// <param name="inputType">Input type.开发者需要指定一个想获取的输入类型</param>
-		public float GetInput (Environment environment, InputType inputType)
-		{
+		//public float GetInput (Environment environment, InputType inputType)
+		//{
 
-			if (m_envStack.Peek () != environment) {
+		//	if (m_envStack.Peek () != environment) {
 
-				return m_inputControl.m_buttonValue [(int)inputType];
-			} else {
-				Debug.Log ("Type error!");
-				return 0;
+		//		return m_inputControl.m_buttonValue [(int)inputType];
+		//	} else {
+		//		Debug.Log ("Type error!");
+		//		return 0;
 
-			}
-		}
+		//	}
+		//}
 
 		/// <summary>
 		/// Sets the input.
@@ -256,18 +256,18 @@ namespace StarPlatinum
 		/// <param name="environment">Environment.环境，应该由框架来处理并传入</param>
 		/// <param name="inputType">Input type.开发者需要指定一个想获取的输入类型</param>
 		/// <param name="value">Value.需要传入该类型的数值</param>
-		public void SetInput (Environment environment, InputType inputType, float value)
-		{
-			try {
-				if (m_envStack.Peek () != environment) {
-					throw new System.Exception ("Environment type error!");
-				}
-				m_inputControl.m_buttonValue [(int)inputType] = value;
-			} catch (System.Exception e) {
-				Debug.Log (e.Message);
-			}
+		//public void SetInput (Environment environment, InputType inputType, float value)
+		//{
+		//	try {
+		//		if (m_envStack.Peek () != environment) {
+		//			throw new System.Exception ("Environment type error!");
+		//		}
+		//		m_inputControl.m_buttonValue [(int)inputType] = value;
+		//	} catch (System.Exception e) {
+		//		Debug.Log (e.Message);
+		//	}
 
-		}
+		//}
 		/// <summary>
 		/// Pushing a the environment into stack，
 		/// 推入一个环境变量到栈顶。

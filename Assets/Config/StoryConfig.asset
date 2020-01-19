@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24884f3489c246539f171b9c58b7cfbb, type: 3}
   m_Name: StoryConfig
   m_EditorClassIdentifier: 
-  StoryPath: Storys_Export/Story1
+  StoryPath: Storys_Export/StoryTest
   ChineseContentSpeed: 0.1
   EnglishContentSpeed: 0

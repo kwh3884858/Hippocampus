@@ -53,7 +53,7 @@ namespace StarPlatinum
 			ControlType.Pause,
 		};
 
-		public List<float> m_buttonValue = new List<float> ();
+		//public List<float> m_buttonValue = new List<float> ();
 
 		//public Vector3 Move {
 		//	get {
@@ -117,8 +117,8 @@ namespace StarPlatinum
 		{
 			//int deviceCount = InputService.Instance ().m_openDeviceType.Length;
 			//int i = 0;
-			foreach (ControlType type in m_controlType) {
-				m_buttonValue.Add (0);
+			//foreach (ControlType type in m_controlType) {
+				//m_buttonValue.Add (0);
 				//switch (type) {
 				//case ControlType.Move:
 				//	MoveContrller moveContrller = new MoveContrller ();
@@ -170,7 +170,7 @@ namespace StarPlatinum
 				//default:
 				//	break;
 				//}
-			}
+			//}
 		}
 
 

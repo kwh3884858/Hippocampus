@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Skylight
+namespace StarPlatinum
 {
 	public class SceneEditorWindow : EditorWindow
 	{

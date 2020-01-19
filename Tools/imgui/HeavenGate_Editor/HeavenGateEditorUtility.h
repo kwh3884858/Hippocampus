@@ -9,11 +9,11 @@
 #ifndef HeavenGateEditorUtility_h
 #define HeavenGateEditorUtility_h
 #include <stdio.h>
-#include "imgui.h"
 
+
+typedef struct ImVec4;
 
 namespace HeavenGateEditor {
-
 
 class HeavenGateEditorUtility{
 
@@ -21,10 +21,15 @@ public:
     static void GetAssetPath(char* const outAssetPath);
     static void GetStoryPath(char* const outExePath);
     static ImVec4 ConvertRGBAToFloat4(ImVec4 const originalRGBAValue);
+    static unsigned int ConvertRGBAToUnsignedInt(ImVec4 const originalRGBAValue);
     //static void GetStoryExportPath(char* const outExportPath);
     #ifndef _WIN32
     static bool GetModuleFileNameOSX(char *  pOutCurrentPath);
     #endif
+
+private:
+    static unsigned int FromRGBA(int r, int g, int b, int a);
+    static void ToRGBA(unsigned int col, int &r, int &g, int &b, int &a);
 };
 
 

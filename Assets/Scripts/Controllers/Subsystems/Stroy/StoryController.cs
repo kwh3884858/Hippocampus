@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Config;
+using StarPlatinum.StoryCompile;
 using StarPlatinum.StoryReader;
 using UI.Panels.StaticBoard;
 using UnityEngine;
@@ -51,7 +52,7 @@ namespace Controllers.Subsystems.Story
         public StoryActionContainer GetStory(string ID)
         {
             StoryActionContainer container =new StoryActionContainer();
-
+            StoryVirtualMachine.Instance.SetStoryActionContainer(container);
             //TODO: Get info from Story Parsing
             //List<StoryBasicData> datas = m_storys.GetSotry();
 
@@ -71,7 +72,7 @@ namespace Controllers.Subsystems.Story
             //    }
             //}
 
-            if(ID == "1")
+            if (ID == "1")
             {
                 container.PushName("我");
                 container.PushContent("如果真的要刮暴风雨，这个雨棚能挡住什么？");
@@ -105,13 +106,14 @@ namespace Controllers.Subsystems.Story
             }
             else
             {
+                
                 while (!m_storys.IsDone())
                 {
                     switch (m_storys.GetNodeType())
                     {
                         case StoryReader.NodeType.word:
                             container.PushName(m_storys.GetName());
-                            container.PushContent(m_storys.GetContent());
+                            StoryVirtualMachine.Instance.Run(m_storys.GetContent());
                             container.PushWaiting(1f);
                             break;
 

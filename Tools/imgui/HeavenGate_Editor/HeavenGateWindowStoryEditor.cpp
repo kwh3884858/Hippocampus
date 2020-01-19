@@ -780,8 +780,6 @@ namespace HeavenGateEditor {
                         strcpy(colorAlias, colorTable->GetRow(j)->Get(0));
                         if (strcmp(colorAlias, (*iter)->m_content) == 0)
                         {
-
-                            int tsst = atoi(colorTable->GetRow(j)->Get(1));
                             color = ImVec4(
                                 atoi(colorTable->GetRow(j)->Get(1)),
                                 atoi(colorTable->GetRow(j)->Get(2)),

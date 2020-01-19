@@ -4,6 +4,7 @@ using UnityEngine;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Linq;
+using System.Data;
 
 namespace StarPlatinum.StoryReader
 {
@@ -12,13 +13,28 @@ namespace StarPlatinum.StoryReader
 
         public int m_index = 0;
 
+        private string m_chapter;
+        private string m_scene;
         private List<StoryBasicData> m_story = new List<StoryBasicData>();
+
 
         public StoryReader() { }
         public StoryReader(string path)
         {
             LoadStory(path);
         }
+
+        public enum StoryJsonLayout
+        {
+            info,
+            value
+        };
+
+        public enum InfoLayout
+        {
+            chapter,
+            scene
+        };
 
         public enum NodeType
         {
@@ -121,10 +137,15 @@ namespace StarPlatinum.StoryReader
             TextAsset story = Resources.Load<TextAsset>(path);
             if (story != null)
             {
-                object json = JsonConvert.DeserializeObject(story.text);
+                //DataSet json = JsonConvert.DeserializeObject<DataSet>(story.text);
+                JObject json = JObject.Parse(story.text);
+                //object json = JsonConvert.DeserializeObject(story.text);
                 if (json != null)
                 {
-                    JArray storyJson = JArray.FromObject(json);
+                   m_chapter = json[StoryJsonLayout.info.ToString()][InfoLayout.chapter.ToString()].ToString();
+                   m_scene= json[StoryJsonLayout.info.ToString()][InfoLayout.scene.ToString()].ToString();
+
+                    JArray storyJson = JArray.Parse(json[StoryJsonLayout.value.ToString()].ToString());
                     if (storyJson != null)
                     {
                         int count = storyJson.Count;

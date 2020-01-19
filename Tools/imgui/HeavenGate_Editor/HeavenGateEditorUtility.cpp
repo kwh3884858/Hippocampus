@@ -11,6 +11,8 @@
 
 #include "CharacterUtility.h"
 
+#include "imgui.h"
+
 #ifdef _WIN32
 #include <windows.h>
 
@@ -69,6 +71,24 @@ namespace HeavenGateEditor {
     }
 
 
+    unsigned int HeavenGateEditorUtility::ConvertRGBAToUnsignedInt(ImVec4 const originalRGBAValue)
+    {
+
+        return FromRGBA(originalRGBAValue.x, originalRGBAValue.y, originalRGBAValue.z, originalRGBAValue.w);
+    }
+
+    unsigned int HeavenGateEditorUtility::FromRGBA(int r, int g, int b, int a)
+    {
+        return r << 24 | g << 16 | b << 8 | a;
+    }
+
+    void HeavenGateEditorUtility::ToRGBA(unsigned int col,  int &r, int &g, int &b, int &a)
+    {
+        r = col >> 24;
+        g = (col >> 16) & 0x00ff;
+        b = (col >> 8) & 0x0000ff;
+        a = col & 0x000000ff;
+    }
 
     //    void HeavenGateEditorUtility::GetStoryExportPath(char* const outExportPath)
     //    {

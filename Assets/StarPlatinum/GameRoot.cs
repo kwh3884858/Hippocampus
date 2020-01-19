@@ -82,7 +82,7 @@ namespace StarPlatinum
 			AddGameObject<UIManager> ();
 
 			//AddGameObject<PrefabManager> ();
-			EventManager.Instance ().LogicStart ();
+			//EventManager.Instance.LogicStart ();
 			//   AddGameObject<CameraService>();
 			//AddGameObject<InputService> ();
 			//AddGameObject<TimerService> ();

@@ -295,31 +295,31 @@ namespace StarPlatinum
 			//EventManager.Instance ().SendEvent<SceneLoadedEvent> (new SceneLoadedEvent (sceneName));
 		}
 
-		IEnumerator InitializeLevelAsync (string sceneName, UnityEngine.SceneManagement.LoadSceneMode mode)
-		{
-			yield return null;
-			AssetBundleLoadOperation operation;
-			System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder ("scenes/", 3);
-			stringBuilder.Append (sceneName);
-			stringBuilder.Append (".unity3d");
-			switch (mode) {
-			case UnityEngine.SceneManagement.LoadSceneMode.Single:
+		//IEnumerator InitializeLevelAsync (string sceneName, UnityEngine.SceneManagement.LoadSceneMode mode)
+		//{
+		//	yield return null;
+		//	AssetBundleLoadOperation operation;
+		//	System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder ("scenes/", 3);
+		//	stringBuilder.Append (sceneName);
+		//	stringBuilder.Append (".unity3d");
+		//	switch (mode) {
+		//	case UnityEngine.SceneManagement.LoadSceneMode.Single:
 
-				operation = AssetBundleLoad.LoadLevelAsync (stringBuilder.ToString (), sceneName, false);
-				if (operation == null)
-					yield break;
-				yield return StartCoroutine (operation);
-				break;
+		//		operation = AssetBundleLoad.LoadLevelAsync (stringBuilder.ToString (), sceneName, false);
+		//		if (operation == null)
+		//			yield break;
+		//		yield return StartCoroutine (operation);
+		//		break;
 
-			case UnityEngine.SceneManagement.LoadSceneMode.Additive:
-				operation = AssetBundleLoad.LoadLevelAsync (stringBuilder.ToString (), sceneName, true);
-				if (operation == null)
-					yield break;
-				yield return StartCoroutine (operation);
-				break;
+		//	case UnityEngine.SceneManagement.LoadSceneMode.Additive:
+		//		operation = AssetBundleLoad.LoadLevelAsync (stringBuilder.ToString (), sceneName, true);
+		//		if (operation == null)
+		//			yield break;
+		//		yield return StartCoroutine (operation);
+		//		break;
 
 
-			}
+		//	}
 
 			//string strName = "Assets/" + sceneName + ".unity";
 			//AssetBundleCreateRequest bundleLoadRequest = AssetBundle.LoadFromFileAsync (Path.Combine (STREAMING_PATH, sceneName));
@@ -364,7 +364,7 @@ namespace StarPlatinum
 			//	m_currentScene = scene;
 			//}
 
-		}
+		//}
 
 		IEnumerator LoadYourAsyncScene (string sceneName)
 		{
@@ -381,32 +381,32 @@ namespace StarPlatinum
 				yield return null;
 			}
 
-			EventManager.Instance ().SendEvent<SceneLoadedEvent> (new SceneLoadedEvent (sceneName));
+			EventManager.Instance .SendEvent<SceneLoadedEvent> (new SceneLoadedEvent (sceneName));
 
 		}
-		public static GameObject LoadMaterialPrefabs (string path)
-		{
-#if UNITY_EDITOR
-			//string strName = "Assets/Prefabs/" + path + ".prefab";
-			//T go = AssetDatabase.LoadAssetAtPath<T> (strName);
-			//			Debug.Log (path);
-			path = path.ToLower ();
-			GameObject go = AssetBundleLoad.LoadGameObject (path) as GameObject;
-			//         string strName = "Assets/" + path + ".prefab";
-			//T go = AssetDatabase.LoadAssetAtPath<T> (strName);
-			go.GetComponent<Renderer> ().sharedMaterial.shader = Shader.Find (go.GetComponent<Renderer> ().sharedMaterial.shader.name);
-			return go;
-#else
-			//string strName = ASSETBUNDLE_PATH + path;
-            //Debug.Log(strName);
-			//GameObject.Find ("Console").GetComponent <Text>().text += "\n" + strName;
-			path = path.ToLower ();
-			GameObject go = AssetBundleLoad.LoadGameObject (path) as GameObject;
-            go.GetComponent<Renderer>().sharedMaterial.shader = Shader.Find(go.GetComponent<Renderer>().sharedMaterial.shader.name);
+//		public static GameObject LoadMaterialPrefabs (string path)
+//		{
+//#if UNITY_EDITOR
+//			//string strName = "Assets/Prefabs/" + path + ".prefab";
+//			//T go = AssetDatabase.LoadAssetAtPath<T> (strName);
+//			//			Debug.Log (path);
+//			path = path.ToLower ();
+//			GameObject go = AssetBundleLoad.LoadGameObject (path) as GameObject;
+//			//         string strName = "Assets/" + path + ".prefab";
+//			//T go = AssetDatabase.LoadAssetAtPath<T> (strName);
+//			go.GetComponent<Renderer> ().sharedMaterial.shader = Shader.Find (go.GetComponent<Renderer> ().sharedMaterial.shader.name);
+//			return go;
+//#else
+//			//string strName = ASSETBUNDLE_PATH + path;
+//            //Debug.Log(strName);
+//			//GameObject.Find ("Console").GetComponent <Text>().text += "\n" + strName;
+//			path = path.ToLower ();
+//			GameObject go = AssetBundleLoad.LoadGameObject (path) as GameObject;
+//            go.GetComponent<Renderer>().sharedMaterial.shader = Shader.Find(go.GetComponent<Renderer>().sharedMaterial.shader.name);
 
-            return go;
-#endif
-		}
+//            return go;
+//#endif
+//		}
 		public static T LoadAnimationController<T> (string path) where T : UnityEngine.Object
 		{
 #if UNITY_EDITOR

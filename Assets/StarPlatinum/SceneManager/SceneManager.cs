@@ -39,7 +39,7 @@ namespace StarPlatinum
         public override void SingletonInit()
         {
             base.SingletonInit();
-            EventManager.Instance().AddEventListener<SceneLoadedEvent>(SceneLoadedCallBack);
+            EventManager.Instance.AddEventListener<SceneLoadedEvent>(SceneLoadedCallBack);
 
             AddSceneLoadedEvent(DisableAllUICanvas);
             AddSceneLoadedEvent(LoadSceneScript);
@@ -170,7 +170,7 @@ namespace StarPlatinum
             string sceneName = typeof(T).ToString();
             if (m_currentScene.IsValid() == true && m_currentScene.name != sceneName)
             {
-                EventManager.Instance().SendEvent<SceneLeaveEvent>(new SceneLeaveEvent(sceneName));
+                EventManager.Instance.SendEvent<SceneLeaveEvent>(new SceneLeaveEvent(sceneName));
                 Debug.Log("Leave Scene" + sceneName);
                 //mCurrentScene = null;
             }
@@ -197,7 +197,7 @@ namespace StarPlatinum
             {
                 t = go.GetComponent<T>();
             }
-            EventManager.Instance().SendEvent<SceneEnterEvent>(new SceneEnterEvent(sceneName));
+            EventManager.Instance.SendEvent<SceneEnterEvent>(new SceneEnterEvent(sceneName));
 
             //sceneGo.transform.SetParent (transform);
 

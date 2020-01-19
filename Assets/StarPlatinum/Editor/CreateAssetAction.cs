@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor.ProjectWindowCallback;
 using System.IO;
 using UnityEditor;
-namespace Skylight
+namespace StarPlatinum
 {
 	public class CreateAssetAction : EndNameEditAction
 	{
@@ -30,10 +30,10 @@ namespace Skylight
 			//获取资源的文件名
 			string fileName = Path.GetFileNameWithoutExtension (pathName);
 			//替换默认的文件名
-			content = content.Replace ("#NAME#", fileName);
-
-			//写入新文件
-			StreamWriter writer = new StreamWriter (fullName, false, System.Text.Encoding.UTF8);
+			content = content.Replace ("#CLASSNAME#", fileName);
+            //content = content.Replace("#NAMESPACE#", fileName);
+            //写入新文件
+            StreamWriter writer = new StreamWriter (fullName, false, System.Text.Encoding.UTF8);
 			writer.Write (content);
 			writer.Close ();
 

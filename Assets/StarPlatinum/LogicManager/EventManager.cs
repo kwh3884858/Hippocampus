@@ -33,7 +33,7 @@ namespace StarPlatinum
 
 	}
 
-	public class EventManager : GameModule<EventManager>
+	public class EventManager : Singleton<EventManager>
 	{
 		LogicBase m_currentLogic;
 		private Dictionary<Type, Delegate> m_allEvent =
@@ -43,58 +43,49 @@ new Dictionary<Type, Delegate> ();
 		//public delegate void EventDelegate<T> (T e) where T : EventArgs;
 
 
-		public override void SingletonInit ()
-		{
-			base.SingletonInit ();
 
-		}
+	
+		//public T AddLogic<T> () where T : LogicBase
+		//{
+		//	var go = new GameObject ();
+		//	go.name = typeof (T).ToString ();
+		//	T t = go.AddComponent<T> ();
+		//	m_currentLogic = t;
+		//	go.transform.SetParent (transform);
 
-		public void LogicStart ()
-		{
-			//Instance ().OpenLogic<MainMenuLogic> ();
-		}
+		//	t.LogicInit ();
+		//	t.LogicShow ();
+		//	return t;
+		//}
 
-		public T AddLogic<T> () where T : LogicBase
-		{
-			var go = new GameObject ();
-			go.name = typeof (T).ToString ();
-			T t = go.AddComponent<T> ();
-			m_currentLogic = t;
-			go.transform.SetParent (transform);
+		//public T GetLogic<T> () where T : LogicBase
+		//{
+		//	Transform logicTran = transform.Find (typeof (T).ToString ());
+		//	if (logicTran != null) {
+		//		T t = logicTran.GetComponent<T> ();
+		//		m_currentLogic = t;
+		//		t.LogicShow ();
+		//		return t;
+		//	} else {
+		//		return null;
+		//	}
+		//}
 
-			t.LogicInit ();
-			t.LogicShow ();
-			return t;
-		}
+		//public T OpenLogic<T> () where T : LogicBase
+		//{
+		//	if (m_currentLogic != null) {
+		//		m_currentLogic.LogicClose ();
+		//		m_currentLogic = null;
+		//	}
 
-		public T GetLogic<T> () where T : LogicBase
-		{
-			Transform logicTran = transform.Find (typeof (T).ToString ());
-			if (logicTran != null) {
-				T t = logicTran.GetComponent<T> ();
-				m_currentLogic = t;
-				t.LogicShow ();
-				return t;
-			} else {
-				return null;
-			}
-		}
+		//	T t = null;
+		//	t = GetLogic<T> ();
+		//	if (t == null) {
+		//		t = AddLogic<T> ();
+		//	}
 
-		public T OpenLogic<T> () where T : LogicBase
-		{
-			if (m_currentLogic != null) {
-				m_currentLogic.LogicClose ();
-				m_currentLogic = null;
-			}
-
-			T t = null;
-			t = GetLogic<T> ();
-			if (t == null) {
-				t = AddLogic<T> ();
-			}
-
-			return t;
-		}
+		//	return t;
+		//}
 
 		public void Notify (int eventId, System.Object vars = null)
 		{

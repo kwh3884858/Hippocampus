@@ -22,7 +22,7 @@ namespace StarPlatinum
 		/// </summary>
 		public virtual void PanelInit ()
 		{
-			EventManager.Instance ().Notify ((int)LogicType.PanelInit);
+			EventManager.Instance.Notify ((int)LogicType.PanelInit);
 		}
 
 
@@ -36,7 +36,7 @@ namespace StarPlatinum
 		/// </summary>
 		public virtual void PanelOpen ()
 		{
-			EventManager.Instance ().Notify ((int)LogicType.PanelOpen);
+			EventManager.Instance .Notify ((int)LogicType.PanelOpen);
 
 		}
 
@@ -44,7 +44,7 @@ namespace StarPlatinum
 		//every close will call
 		public virtual void PanelClose ()
 		{
-			EventManager.Instance ().Notify ((int)LogicType.PanelClose);
+			EventManager.Instance .Notify ((int)LogicType.PanelClose);
 
 		}
 

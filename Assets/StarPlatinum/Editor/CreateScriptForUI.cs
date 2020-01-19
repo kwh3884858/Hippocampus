@@ -4,16 +4,23 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 using UnityEngine.UI;
-namespace Skylight
+namespace StarPlatinum
 {
 	public class CreateScriptForUI : MonoBehaviour
 	{
 
-
+        /*
 		[MenuItem ("Assets/Framework/CreateUIPanelScript %m")]
-		static void CreateUIPanelScript ()
-		{
-			string selectName = Selection.activeGameObject.name;
+		static void CreateUIPanelScript (MenuCommand menuCommand)
+        {
+            GameObject go = new GameObject("Custom Game Object");
+            // Ensure it gets reparented if this was a context click (otherwise does nothing)
+            GameObjectUtility.SetParentAndAlign(go, menuCommand.context as GameObject);
+            // Register the creation in the undo system
+            Undo.RegisterCreatedObjectUndo(go, "Create " + go.name);
+
+            Selection.activeObject = go;
+            string selectName = Selection.activeGameObject.name;
 
 			ProjectWindowUtil.StartNameEditingIfProjectWindowExists (0,
 			ScriptableObject.CreateInstance<CreateAssetAction> (),
@@ -28,7 +35,7 @@ namespace Skylight
 			return PrefabUtility.GetPrefabType (Selection.activeGameObject) == PrefabType.Prefab;
 		}
 
-
+       
 		[MenuItem ("Assets/Framework/AddTextLocalization %l")]
 		static void AddTextLocalization ()
 		{
@@ -48,9 +55,9 @@ namespace Skylight
 
 			return PrefabUtility.GetPrefabType (Selection.activeGameObject) == PrefabType.Prefab;
 		}
+         */
 
-
-		private static string GetSelectedPath ()
+        private static string GetSelectedPath ()
 		{
 			//默认路径为Assets
 			string selectedPath = "Assets";

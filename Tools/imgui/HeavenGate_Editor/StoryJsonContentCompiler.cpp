@@ -1,4 +1,7 @@
 #include "StoryJsonContentCompiler.h"
+#include "HeavenGateEditorUtility.h"
+
+#include "imgui.h"
 
 #include "StoryJson.h"
 #include "StoryTableManager.h"
@@ -402,7 +405,17 @@ namespace HeavenGateEditor {
                         strcpy(colorAlias, colorTable->GetRow(i)->Get(0));
                         if (strcmp(colorAlias, token->m_content) == 0)
                         {
-                            //TODO 
+                            ImVec4 color(1.0f, 1.0f, 1.0f, 1.0f);
+                            color = ImVec4(
+                                atoi(colorTable->GetRow(i)->Get(1)),
+                                atoi(colorTable->GetRow(i)->Get(2)),
+                                atoi(colorTable->GetRow(i)->Get(3)),
+                                atoi(colorTable->GetRow(i)->Get(4))
+                            );
+                            unsigned int unsignedColor = HeavenGateEditorUtility::ConvertRGBAToUnsignedInt(color);
+
+                            sprintf(token->m_content, "%x", unsignedColor);
+                           
                         }
 
                     }
