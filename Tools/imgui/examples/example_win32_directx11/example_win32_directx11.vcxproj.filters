@@ -52,6 +52,7 @@
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowCharacterTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowPauseTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonChecker.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowExhibitTable.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\imgui.cpp">
@@ -98,6 +99,7 @@
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowCharacterTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowPauseTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonChecker.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowExhibitTable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.txt" />

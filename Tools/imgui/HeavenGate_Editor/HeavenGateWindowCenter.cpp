@@ -10,6 +10,7 @@
 #include "HeavenGateWindowSceneTable.h"
 #include "HeavenGateWindowCharacterTable.h"
 #include "HeavenGateWindowPauseTable.h"
+#include "HeavenGateWindowExhibitTable.h"
 
 #include "StoryJsonManager.h"
 #include "StoryTableManager.h"
@@ -41,6 +42,7 @@ namespace HeavenGateEditor {
         m_sceneTable = new HeavenGateWindowSceneTable;
         m_characterTable = new HeavenGateWindowCharacterTable;
         m_pauseTable = new HeavenGateWindowPauseTable;
+        m_exhibitTable = new HeavenGateWindowExhibitTable;
 
         show_editor_window = m_heavenGateEditor->GetHandle();
         show_font_size_table_window = m_fontSizeTable->GetHandle();
@@ -51,6 +53,7 @@ namespace HeavenGateEditor {
         show_scene_table = m_sceneTable->GetHandle();
         show_character_table = m_characterTable->GetHandle();
         show_pause_table = m_pauseTable->GetHandle();
+        show_exhibit_table = m_exhibitTable->GetHandle();
 
     }
 
@@ -65,6 +68,7 @@ namespace HeavenGateEditor {
         *show_scene_table = false;
         *show_character_table = false;
         *show_pause_table = false;
+        *show_exhibit_table = false;
 
         show_editor_window = nullptr;
         show_font_size_table_window = nullptr;
@@ -75,6 +79,7 @@ namespace HeavenGateEditor {
         show_scene_table = nullptr;
         show_character_table = nullptr;
         show_pause_table = nullptr;
+        show_exhibit_table = nullptr;
 
         //Delete Windows
         delete m_heavenGateEditor;
@@ -86,6 +91,7 @@ namespace HeavenGateEditor {
         delete m_sceneTable;
         delete m_characterTable;
         delete m_pauseTable;
+        delete m_exhibitTable;
 
         m_heavenGateEditor = nullptr;
         m_fontSizeTable = nullptr;
@@ -96,6 +102,7 @@ namespace HeavenGateEditor {
         m_sceneTable = nullptr;
         m_characterTable = nullptr;
         m_pauseTable = nullptr;
+        m_exhibitTable = nullptr;
 
 
         //Delete Data
@@ -119,6 +126,7 @@ namespace HeavenGateEditor {
         ImGui::Checkbox("Scene Table", show_scene_table);
         ImGui::Checkbox("Character Table", show_character_table);
         ImGui::Checkbox("Pause Table", show_pause_table);
+        ImGui::Checkbox("Exhibit Table", show_exhibit_table);
 
         if (show_editor_window && *show_editor_window)
         {
@@ -163,6 +171,11 @@ namespace HeavenGateEditor {
         if (show_pause_table && *show_pause_table)
         {
             m_pauseTable->Update();
+        };
+
+        if (show_exhibit_table && *show_exhibit_table)
+        {
+            m_exhibitTable->Update();
         };
 
     }
