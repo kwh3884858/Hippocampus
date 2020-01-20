@@ -5,8 +5,7 @@
 #include "../imgui_impl_osx.h"
 #include "../imgui_impl_opengl2.h"
 
-#include "HeavenGateEditorWindow.h"
-#include "HeavenGateEditorFontSizeTable.h"
+#include "HeavenGateWindowCenter.h"
 #include "HeavenGateEditorUtility.h"
 #include "CharacterUtility.h"
 #include "HeavenGateEditorConstant.h"
@@ -54,14 +53,12 @@
 
 
 
-    static HeavenGateEditor::HeavenGateEditor m_heavenGateEditor;
-    static HeavenGateEditor::HeavenGateEditorFontSizeTable m_heavenGateEditorFontSizeTable;
+    static HeavenGateEditor::HeavenGateWindowCenter m_center;
 
     // Global data for the demo
     static bool show_demo_window = true;
     static bool show_another_window = false;
-    static bool* show_editor_window = m_heavenGateEditor.GetHandle();
-    static bool* show_font_size_table_window = m_heavenGateEditorFontSizeTable.GetHandle();
+    static bool* show_center = m_center.GetHandle();
 
     static ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
@@ -80,9 +77,7 @@
         ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
         ImGui::Checkbox("Another Window", &show_another_window);
 
-        ImGui::Checkbox("Heaven Gate Editor", show_editor_window);
-
-        ImGui::Checkbox("Font Size Window", show_font_size_table_window);
+        ImGui::Checkbox("Heaven Gate Center", show_center);
 
         ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
         ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
@@ -107,13 +102,10 @@
     }
 
     // Show Heaven Gate editor window
-    if (*show_editor_window) {
-        m_heavenGateEditor.Update();
+    if (*show_center) {
+        m_center.Update();
     }
 
-    if (*show_font_size_table_window) {
-        m_heavenGateEditorFontSizeTable.Update();
-    }
 	// Rendering
 	ImGui::Render();
 	[[self openGLContext] makeCurrentContext];
