@@ -60,7 +60,7 @@ namespace StarPlatinum
                 T t = uiObject.AddComponent<T>();
                 uiObject.transform.SetParent(m_dialog.transform);
 
-                t.PanelInit();
+                //t.PanelInit();
 
             }
             else
@@ -71,7 +71,7 @@ namespace StarPlatinum
             if (uiObject)
             {
                 T panel = uiObject.GetComponent<T>();
-                panel.PanelOpen();
+                //panel.PanelOpen();
                 if (varList != null)
                     panel.m_userData = varList;
 
@@ -94,7 +94,7 @@ namespace StarPlatinum
         }
         public void CloseCurrentDialog()
         {
-            m_currentDialog.GetComponent<UIDialog>().PanelClose();
+            //m_currentDialog.GetComponent<UIDialog>().PanelClose();
 
             m_currentDialog.gameObject.SetActive(false);
             m_currentDialog = null;
@@ -166,7 +166,7 @@ namespace StarPlatinum
                 uiObject.transform.GetChild(0).transform.position = rectPos;
                 //Debug.Log("After calculate, uiObject RectTransform " + uiObject.GetComponent<RectTransform>().position);
 
-                t.PanelInit();
+                //t.PanelInit();
             }
             else
             {
@@ -176,7 +176,7 @@ namespace StarPlatinum
             {
                 panel = uiObject.GetComponent<T>();
                 panel.ShowMsg(text);
-                panel.PanelOpen();
+                //panel.PanelOpen();
                 if (varList != null)
                     panel.m_userData = varList;
 
@@ -251,7 +251,7 @@ namespace StarPlatinum
                 T t = uiObject.AddComponent<T>();
                 uiObject.transform.SetParent(m_panel.transform);
 
-                t.PanelInit();
+                //t.PanelInit();
 
 
                 OpenUIPanel<T>(uiObject);
@@ -314,7 +314,7 @@ namespace StarPlatinum
             if (uiObject)
             {
                 T panel = uiObject.GetComponent<T>();
-                panel.PanelOpen();
+                //panel.PanelOpen();
                 if (varList != null)
                     panel.m_userData = varList;
 
@@ -335,7 +335,7 @@ namespace StarPlatinum
                 {
                     return;
                 }
-                panelTran.GetComponent<T>().PanelClose();
+                //panelTran.GetComponent<T>().PanelClose();
                 panelTran.gameObject.SetActive(false);
             }
 
@@ -384,7 +384,7 @@ namespace StarPlatinum
                 T t = uiObject.AddComponent<T>();
                 uiObject.transform.SetParent(m_box.transform);
 
-                t.PanelInit();
+                //t.PanelInit();
 
                 OpenUIBoxOpen<T>(uiObject);
 
@@ -442,7 +442,7 @@ namespace StarPlatinum
             if (uiObject)
             {
                 T box = uiObject.GetComponent<T>();
-                box.PanelOpen();
+                //box.PanelOpen();
                 if (varList != null)
                     box.m_userData = varList;
 

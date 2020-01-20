@@ -5,18 +5,12 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Linq;
 using System.Data;
+using GamePlay.Global;
 
 namespace StarPlatinum.StoryReader
 {
     public class StoryReader
     {
-
-        public int m_index = 0;
-
-        private string m_chapter;
-        private string m_scene;
-        private List<StoryBasicData> m_story = new List<StoryBasicData>();
-
 
         public StoryReader() { }
         public StoryReader(string path)
@@ -53,7 +47,7 @@ namespace StarPlatinum.StoryReader
         {
             StoryWordData data = m_story[m_index] as StoryWordData;
             return data.name;
-          
+
         }
 
         public string GetContent()
@@ -83,16 +77,16 @@ namespace StarPlatinum.StoryReader
                 if (labelData.label != label) continue;
 
                 //ignore all label and jump
-                for(int j = i + 1; j < m_story.Count(); j++)
+                for (int j = i + 1; j < m_story.Count(); j++)
                 {
-                    if(m_story[j].typename != NodeType.label.ToString())
+                    if (m_story[j].typename != NodeType.label.ToString())
                     {
                         m_index = j;
                         return;
                     }
                 }
                 m_index = m_story.Count();
-               
+
             }
 
         }
@@ -129,6 +123,19 @@ namespace StarPlatinum.StoryReader
         {
             return m_index >= m_story.Count();
         }
+
+        public bool TryStoryID(string ID)
+        {
+            foreach (StoryBasicData data in m_story)
+            {
+                if (data.typename == NodeType.label.ToString())
+                {
+
+                }
+            }
+            return false;
+        }
+
         /// <summary>
         /// 加载故事
         /// </summary>
@@ -142,8 +149,12 @@ namespace StarPlatinum.StoryReader
                 //object json = JsonConvert.DeserializeObject(story.text);
                 if (json != null)
                 {
-                   m_chapter = json[StoryJsonLayout.info.ToString()][InfoLayout.chapter.ToString()].ToString();
-                   m_scene= json[StoryJsonLayout.info.ToString()][InfoLayout.scene.ToString()].ToString();
+                    m_chapter = json[StoryJsonLayout.info.ToString()][InfoLayout.chapter.ToString()].ToString();
+                    m_scene = json[StoryJsonLayout.info.ToString()][InfoLayout.scene.ToString()].ToString();
+
+                    //Set Global Data
+                    SingletonGlobalDataContainer.Instance.SetChapter(m_chapter);
+                    SingletonGlobalDataContainer.Instance.SetScene(m_scene);
 
                     JArray storyJson = JArray.Parse(json[StoryJsonLayout.value.ToString()].ToString());
                     if (storyJson != null)
@@ -228,7 +239,11 @@ namespace StarPlatinum.StoryReader
         /// <summary>
         /// 基础数据
         /// </summary>
+        private int m_index = 0;
 
+        private string m_chapter;
+        private string m_scene;
+        private List<StoryBasicData> m_story = new List<StoryBasicData>();
     }
 
     [System.Serializable]

@@ -11,7 +11,7 @@ namespace StarPlatinum.StoryCompile
     public class StoryVirtualMachine : Singleton<StoryVirtualMachine>
     {
 
-
+        
         enum TableType
         {
             none,
@@ -29,6 +29,7 @@ namespace StarPlatinum.StoryCompile
         public StoryVirtualMachine()
         {
             m_compiler = new StoryCompiler();
+            m_currentColor = "FFFFFFFF";
         }
 
         public void Run(string content)
@@ -78,7 +79,7 @@ namespace StarPlatinum.StoryCompile
                             case TableType.fontSize:
                                 break;
                             case TableType.color:
-                                m_container.PushColor("FFFFFFFF");
+                                m_container.PushColor(m_currentColor);
                                 break;
                             case TableType.tip:
                                 break;
@@ -129,6 +130,7 @@ namespace StarPlatinum.StoryCompile
                         case TableType.color:
 
                             m_container.PushColor(token.m_content);
+                            m_currentColor = token.m_content;
                             break;
 
                         case TableType.tip:
@@ -154,6 +156,8 @@ namespace StarPlatinum.StoryCompile
 
             }
         }
+
+        string m_currentColor;
 
         StoryCompiler m_compiler;
         StoryActionContainer m_container;
