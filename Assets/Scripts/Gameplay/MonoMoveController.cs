@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using StarPlatinum;
-using UI.Panels.Providers;
-using Player;
+
 using UI.Panels.Providers.DataProviders.StaticBoard;
 
-public class MoveController : MonoBehaviour
+using GamePlay.Player;
+
+public class MonoMoveController : MonoBehaviour
 {
 
 

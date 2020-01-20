@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System;
 using System.Linq;
 using System.Text;
@@ -8,10 +8,10 @@ using System.IO;
 
 namespace StarPlatinum
 {
-	// ´ËÀàÖ»ÓÃÀ´±àĞ´Âß¼­ºÍÊı¾İ£¬²»ÓÃÀ´²Ù×÷·ÇLogicµÄ´úÂë¡£
-	// ĞèÒªºÍÍâ²¿½»»¥µÄ»°£¬ĞèÒªÉú³ÉÊÂ¼ş½»¸øÍâ²¿À´×Ô¼º×¢²á¸ĞĞËÈ¤µÄÊÂ¼ş
-	// Õâ±ßÔİÊ±Ê¹ÓÃ MonoBehaviour ·½±ãµ÷ÊÔ ºóĞø»á°ÑËûÉ¾³ıµôµÄ
-	public class LogicBase : MonoBehaviour
+    // æ­¤ç±»åªç”¨æ¥ç¼–å†™é€»è¾‘å’Œæ•°æ®ï¼Œä¸ç”¨æ¥æ“ä½œéLogicçš„ä»£ç ã€‚
+    // éœ€è¦å’Œå¤–éƒ¨äº¤äº’çš„è¯ï¼Œéœ€è¦ç”Ÿæˆäº‹ä»¶äº¤ç»™å¤–éƒ¨æ¥è‡ªå·±æ³¨å†Œæ„Ÿå…´è¶£çš„äº‹ä»¶
+    // è¿™è¾¹æš‚æ—¶ä½¿ç”¨ MonoBehaviour æ–¹ä¾¿è°ƒè¯• åç»­ä¼šæŠŠä»–åˆ é™¤æ‰çš„
+    public class LogicBase : MonoBehaviour
 	{
 		public delegate bool LogicEventHandler (System.Object vars = null);
 

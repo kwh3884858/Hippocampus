@@ -40,7 +40,7 @@ namespace UI.Panels.GameScene.MainManu
 
         private void OnTalkEnd()
         {
-            Player.PlayerController.Instance().SetMoveEnable(true);
+            GamePlay.Player.PlayerController.Instance().SetMoveEnable(true);
         }
 
         private int i = 0;

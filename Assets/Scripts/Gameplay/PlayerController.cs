@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using StarPlatinum;
 
-namespace Player
+namespace GamePlay.Player
 {
     public class PlayerController : MonoSingleton<PlayerController>
     {
 
         /// <summary>移动控制</summary>
-        public MoveController m_moveCtrl = null;
+        public MonoMoveController m_moveCtrl = null;
 
         public override void SingletonInit()
         {
