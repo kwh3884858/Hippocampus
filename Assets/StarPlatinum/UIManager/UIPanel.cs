@@ -20,10 +20,10 @@ namespace StarPlatinum
 		/// 不需要手动调用，管理器会自动调用
 		/// 只需要手动重写即可
 		/// </summary>
-		public virtual void PanelInit ()
-		{
-			EventManager.Instance.Notify ((int)LogicType.PanelInit);
-		}
+		//public virtual void PanelInit ()
+		//{
+		//	EventManager.Instance.Notify ((int)LogicType.PanelInit);
+		//}
 
 
 		//every open will call
@@ -34,19 +34,19 @@ namespace StarPlatinum
 		/// 不需要手动调用，管理器会自动调用
 		/// 只需要手动重写即可
 		/// </summary>
-		public virtual void PanelOpen ()
-		{
-			EventManager.Instance .Notify ((int)LogicType.PanelOpen);
+		//public virtual void PanelOpen ()
+		//{
+		//	EventManager.Instance .Notify ((int)LogicType.PanelOpen);
 
-		}
+		//}
 
 
 		//every close will call
-		public virtual void PanelClose ()
-		{
-			EventManager.Instance .Notify ((int)LogicType.PanelClose);
+		//public virtual void PanelClose ()
+		//{
+		//	EventManager.Instance .Notify ((int)LogicType.PanelClose);
 
-		}
+		//}
 
 		public T GetControl<T> (string name)
 		{

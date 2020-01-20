@@ -67,7 +67,7 @@ namespace UI.Panels.StaticBoard
             {
                 if (m_color != null)
                 {
-                    content = $"<{m_color}>{content}</color>";
+                    content = $"<#{m_color}>{content}</color>";
                 }
 
                 if (m_font != null)
