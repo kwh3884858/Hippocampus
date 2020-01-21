@@ -19,6 +19,7 @@ namespace UI.Panels.GameScene.MainManu
         public void ShowHud()
         {
             UiDataProvider.StaticBoard.ShowTalk("9", OnTalkEnd);
+            UIManager.Instance().ShowPanel(UIPanelType.JoystickPanel);// 显示UI，wywtsest
         }
 
         public void HidSelef()
@@ -35,6 +36,7 @@ namespace UI.Panels.GameScene.MainManu
         {
             HidSelef();
             CallbackTime(1, ShowHud);
+            UIManager.Instance().ActivatState(GameState.Battle);// 设置当前状态,wywtsest
             StarPlatinum.PrefabManager.Instance.LoadScene(SceneLookupEnum.GoundTestScene, UnityEngine.SceneManagement.LoadSceneMode.Additive);
         }
 

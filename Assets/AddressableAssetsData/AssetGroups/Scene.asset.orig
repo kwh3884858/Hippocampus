@@ -16,6 +16,9 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 052d0ed1e3839014d90c13b3b0494749
+<<<<<<< HEAD
+  m_SerializeEntries: []
+=======
   m_SerializeEntries:
   - m_GUID: 67e9f636bf85cec49aa5259fcd3be769
     m_Address: UITestScene
@@ -25,6 +28,7 @@ MonoBehaviour:
     m_Address: GoundTestScene
     m_ReadOnly: 0
     m_SerializedLabels: []
+>>>>>>> 3f6128c35df01a42ee01a7b47241fa4c34b3e335
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cd5387e64e22b3d47a39edb1e325859e, type: 2}
   m_SchemaSet:
