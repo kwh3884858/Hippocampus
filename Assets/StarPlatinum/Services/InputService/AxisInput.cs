@@ -16,6 +16,10 @@ namespace StarPlatinum
 
         public virtual float Value {
             get {
+                if (m_value >= 0.05f || m_value <= -0.05f)
+                {
+                    return m_value;
+                }
                 return Mathf.Clamp( Input.GetAxisRaw(m_mappingKey), -1f, 1f);
             }
             set {

@@ -250,7 +250,7 @@ MonoBehaviour:
   isSwipeOut: 0
   showPSInspector: 1
   showSpriteInspector: 0
-  showEventInspector: 0
+  showEventInspector: 1
   showBehaviourInspector: 0
   showAxesInspector: 1
   showTouchEventInspector: 0

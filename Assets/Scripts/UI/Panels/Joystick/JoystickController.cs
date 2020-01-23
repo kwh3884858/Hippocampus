@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using GamePlay.Player;
+using System.Collections;
 using System.Collections.Generic;
 using UI.Panels;
 using UI.Panels.Providers;
@@ -17,12 +18,16 @@ public class JoystickController : UIPanel<UIDataProviderGameScene, TalkDataProvi
 
     private void Start()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            joystick.axisX.directTransform = player.transform;
-            joystick.axisY.directTransform = player.transform;
-        }
+        //GameObject player = GameObject.FindGameObjectWithTag("Player");
+        //if (player != null)
+        //{
+        //    joystick.axisX.directTransform = player.transform;
+        //    joystick.axisY.directTransform = player.transform;
+        //}
+
+
+        joystick.onMove.AddListener(PlayerController.Instance().JoystickMoveEvent);
+        joystick.onMoveEnd.AddListener(PlayerController.Instance().JoystickMoveEndEvent);
 
     }
 

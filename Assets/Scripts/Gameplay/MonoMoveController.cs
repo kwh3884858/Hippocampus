@@ -34,7 +34,7 @@ public class MonoMoveController : MonoBehaviour
 	{
         //m_rigidbody2D = transform.GetComponent<Rigidbody2D> ();
         m_boxCollider2D = transform.GetComponent<BoxCollider2D> ();
-        PlayerController.Instance().m_moveCtrl = this;
+        PlayerController.Instance().SetMonoMoveController ( this );
         CameraService.Instance.SetTarget(gameObject);
         count = 0;
 
@@ -42,10 +42,7 @@ public class MonoMoveController : MonoBehaviour
 
     private void OnDestroy()
     {
-        if(PlayerController.Instance().m_moveCtrl == this)
-        {
-            PlayerController.Instance().m_moveCtrl = null;
-        }
+        
     }
 
 	// Update is called once per frame
