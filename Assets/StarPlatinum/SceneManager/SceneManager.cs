@@ -29,7 +29,8 @@ namespace StarPlatinum
         public delegate void callback(SceneLoadedEvent e);
         List<callback> m_loadedSceneEvent = new List<callback>();
 
-        string m_currentSceneName;
+        private string m_currentSceneName;
+        public string CurrentSceneName =>  m_currentSceneName;
 
         public UnityEngine.SceneManagement.Scene m_currentScene
         {

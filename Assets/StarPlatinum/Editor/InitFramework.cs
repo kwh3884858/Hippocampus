@@ -28,17 +28,18 @@ namespace StarPlatinum
 				"Skylight/UI/Overlay",
 				"Skylight/UI/Box",
 				"Effects",              //视觉效果
+                "Character",            //Character
 				"Prefabs",              //存放预设
 				"Plugins",				//插件
 				"Scenes",               //存放场景和场景预设
 				"Models",               //存放模型
                 "Materials",            //材质文件
                 "Shaders",              //shder文件
-				"Images",               //存放图片
-                "Images/Character",
-				"Images/Item",
-				"Images/Map",
-				"Images/Weapon",
+				"Textures",               //存放图片
+                "Textures/Character",
+				"Textures/Item",
+				"Textures/Map",
+				"Textures/Weapon",
 				"Animations",
 				"Animations/Character",
 				"Libraries",				//所依赖的库，例如本地数据库

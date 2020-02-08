@@ -41,7 +41,7 @@ namespace SceneLookupGenerator
 		{
 			m_sceneRootPath = "";
 			m_outputPath = "";
-			m_templatePath = "/Users/cookie/Documents/CSharpProjects/SceneLookupGenerator/SceneLookupGenerator/SceneLookupTemplate.txt";
+			m_templatePath = "";
 		}
 
 		public ErrorType Execute ()
@@ -189,13 +189,5 @@ namespace SceneLookupGenerator
 			return ErrorType.NoError;
 		}
 
-		private ErrorType CheckFilePath (string path, ErrorType pathError)
-		{
-			if (!File.Exists (path)) {
-				return pathError;
-			}
-
-			return ErrorType.NoError;
-		}
 	}
 }

@@ -7,7 +7,6 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
 
-
     public float m_xMargin = 1f;
     public float m_yMargin = 1f;
     public float m_xSmooth = 8f;

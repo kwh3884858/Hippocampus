@@ -18,7 +18,7 @@ namespace SceneLookupGenerator
             Release
         }
 
-        static DevMode m_devMode = DevMode.Release;
+        private readonly static DevMode DEV_MODE = DevMode.Debug;
 
         /// <summary>
         /// Program
@@ -26,13 +26,17 @@ namespace SceneLookupGenerator
 
 
         static SceneLookupGenerator m_sceneLookupGenerator;
+        static SceneConfigGenerator m_sceneConfigGenerator;
 
         //Example: -s /Users/cookie/Documents/UnityProjectFolder/BladeSlayer/Assets/Scenes -o /Users/cookie/Documents/UnityProjectFolder/BladeSlayer/Assets/Scenes
         public static void Main (string [] args)
 		{
 			//Initialize a generator
 			m_sceneLookupGenerator = new SceneLookupGenerator ();
+            m_sceneConfigGenerator = new SceneConfigGenerator();
+
 			Console.WriteLine ("Use -h for help info");
+
 
 			//Argument:
 			//r: set scene root file path.
@@ -43,17 +47,18 @@ namespace SceneLookupGenerator
 
 			ErrorType error = ErrorType.NoError;
 
+            // Default argument
             if(args.Length == 0)
             {
                 string exePath= "None";
-                if (m_devMode == DevMode.Release)
+                if (DEV_MODE == DevMode.Release)
                 {
                     exePath = Environment.CurrentDirectory;
                 }
             
-                if(m_devMode == DevMode.Debug)
+                if(DEV_MODE == DevMode.Debug)
                 {
-                    exePath = "D:\\GithubProjects\\Hippocampus\\Assets\\Scenes";
+                    exePath = "D://GithubRepository//Hippocampus//Assets//Scenes";
                 }
 
                 error = m_sceneLookupGenerator.SetSceneRootPath(exePath);
@@ -62,8 +67,16 @@ namespace SceneLookupGenerator
                 CheckError(error);
                 error = m_sceneLookupGenerator.SetTemplatePath(exePath + "\\SceneLookupTemplate.txt");
                 CheckError(error);
+
+                error = m_sceneConfigGenerator.SetSceneRootPath(exePath);
+                CheckError(error);
+                error = m_sceneConfigGenerator.SetOutputPath(exePath);
+                CheckError(error);
+                error = m_sceneConfigGenerator.SetTemplatePath(exePath + "\\SceneConfigTemplate.txt");
+                CheckError(error);
             }
 
+            // For argument contained
 			for (int i = 0; i < args.Length; i += 2) {
 
 				error = ErrorType.NoError;

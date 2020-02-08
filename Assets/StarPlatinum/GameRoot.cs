@@ -7,7 +7,10 @@ using UnityEngine.SceneManagement;
 namespace StarPlatinum
 {
     public class GameRoot : MonoSingleton<GameRoot>
-	{
+    {
+
+        public SceneLookupEnum m_startScene { get; set; }
+
 
         public override void SingletonInit ()  { }
         VirtualMachineInterface virtualMachineInterface;
@@ -59,8 +62,8 @@ namespace StarPlatinum
             //			AsyncOperation asyncLoad = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync (SceneLookup.Get(SceneLookupEnum.UITestScene), UnityEngine.SceneManagement.LoadSceneMode.Additive); 
 
 
-
-            PrefabManager.Instance.LoadScene(SceneLookupEnum.UITestScene,LoadSceneMode.Additive);
+            
+            PrefabManager.Instance.LoadScene(m_startScene, LoadSceneMode.Additive);
             //PrefabManager.Instance.LoadScene(SceneLookupEnum.GoundTestScene,LoadSceneMode.Additive);
 		}
 

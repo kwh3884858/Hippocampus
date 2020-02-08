@@ -55,9 +55,8 @@ public class PlayFromEmptyGameRoot : MonoBehaviour
 			return;
 		}
 
-
-
-		SceneManager.LoadScene (0);
+        //SceneManager.GetSceneByName();
+        SceneManager.LoadScene (typeof(StarPlatinum.GameRoot).Name);
 
 
 	}

@@ -1,0 +1,61 @@
+﻿#if UNITY_EDITOR
+using UnityEditor;
+#endif
+using System;
+using UnityEngine;
+
+
+namespace StarPlatinum
+{
+
+    public abstract class ConfigSingleton<T> : ScriptableObject where T : ScriptableObject
+    {
+        private static readonly string LOADPATH = $"Assets/Config/{typeof(T).Name}.asset";
+
+        public static T Instance
+        {
+            get
+            {
+                if (m_instance == null)
+                {
+                    m_instance = LoadConfig();
+                }
+
+                return m_instance;
+            }
+        }
+
+        private static T LoadConfig()
+        {
+            if (Application.isPlaying)
+            {
+                PrefabManager.Instance.InstantiateConfigAsync(typeof(T).Name, (result) =>
+                {
+                    Debug.Log($"===========aas:{result.key}加载完成,");
+                    m_instance = result.result as T;
+                });
+
+                return m_instance;
+            }
+            else//Temp For AAS Not Init Success In Edit Mode
+            {
+#if UNITY_EDITOR
+                //var path = $"Assets/StarPlatinum/Config/{typeof(T).Name}.asset";
+
+                m_instance = AssetDatabase.LoadAssetAtPath<T>(LOADPATH);
+
+                if (m_instance == null) { Debug.Log($"{LOADPATH} doesn`t exist {typeof(T).Name}"); return null; }
+
+                Debug.Log($"======resource加载完成name:{typeof(T).Name}, path:{LOADPATH}, config:{m_instance}=====");
+
+                return m_instance;
+#endif
+                
+            }
+            return null;
+        }
+
+        private static T m_instance = null;
+    }
+
+}
