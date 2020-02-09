@@ -29,18 +29,21 @@ namespace StarPlatinum
         public delegate void callback(SceneLoadedEvent e);
         List<callback> m_loadedSceneEvent = new List<callback>();
 
-        private string m_currentSceneName;
-        public string CurrentSceneName =>  m_currentSceneName;
+        //private string m_currentSceneName;
+        //public string CurrentSceneName =>  m_currentSceneName;
 
-        public UnityEngine.SceneManagement.Scene m_currentScene
-        {
-            get; set;
-        }
+        private SceneLookupEnum m_currentScene = SceneLookupEnum.GameRoot;
+        public SceneLookupEnum CurrentScene => m_currentScene;
+
+        //public UnityEngine.SceneManagement.Scene m_currentScene
+        //{
+        //    get; set;
+        //}
 
         public override void SingletonInit()
         {
             base.SingletonInit();
-            EventManager.Instance.AddEventListener<SceneLoadedEvent>(SceneLoadedCallBack);
+            //EventManager.Instance.AddEventListener<SceneLoadedEvent>(SceneLoadedCallBack);
 
             AddSceneLoadedEvent(DisableAllUICanvas);
             AddSceneLoadedEvent(LoadSceneScript);
@@ -56,7 +59,7 @@ namespace StarPlatinum
                 return;
             }
 
-            path += m_currentSceneName;
+            //path += m_currentSceneName;
 
             if (!File.Exists(path))
             {
@@ -86,9 +89,10 @@ namespace StarPlatinum
 
         public void LoadScene(SceneLookupEnum sceneName, SceneLoadMode loadMode, object sceneData = null)
         {
+            m_currentScene = sceneName;
             LoadScene(SceneLookup.Get(sceneName), loadMode, sceneData);
         }
-        public void LoadScene(string sceneName, SceneLoadMode loadMode, object sceneData = null)
+        private void LoadScene(string sceneName, SceneLoadMode loadMode, object sceneData = null)
         {
             //string sceneName = typeof (T).ToString ();
 
@@ -99,7 +103,7 @@ namespace StarPlatinum
             {
                 return;
             }
-            m_currentSceneName = sceneName;
+            //m_currentSceneName = sceneName;
             sceneName = sceneName.ToLower();
             m_loadedScene.Add(sceneName);
             //Debug.Log ("Loaded Perfab : " + perfbName);
@@ -165,7 +169,7 @@ namespace StarPlatinum
 
 
         }
-
+        /*
         public GameObject SetActiveScene<T>(object sceneData = null) where T : BaseScene
         {
             string sceneName = typeof(T).ToString();
@@ -212,7 +216,7 @@ namespace StarPlatinum
             //UnityEngine.SceneManagement.SceneManager.SetActiveScene (m_currentScene);
             return go;
         }
-
+        */
         public void AddSceneLoadedEvent(callback func)
         {
             m_loadedSceneEvent.Add(func);

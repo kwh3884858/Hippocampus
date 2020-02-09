@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using System.Text;
 using UnityEngine.UI;
 
-public class PlayFromEmptyGameRoot : MonoBehaviour
+public class StartPlayModeFromEmptyGameRoot : MonoBehaviour
 {
 
 	const string playFromSceneGameRoot = "Edit/Always Start From Scene GameRoot &p";
@@ -56,7 +56,7 @@ public class PlayFromEmptyGameRoot : MonoBehaviour
 		}
 
         //SceneManager.GetSceneByName();
-        SceneManager.LoadScene (typeof(StarPlatinum.GameRoot).Name);
+        SceneManager.LoadScene (typeof(StarPlatinum.GameRoot).Name,LoadSceneMode.Single);
 
 
 	}

@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using Config.GameRoot;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace StarPlatinum
+namespace StarPlatinum.Service
 {
     /// <summary>
     /// 如果没有摄像机，那么实例化一个摄像机并把固定脚本挂上去
@@ -14,6 +15,7 @@ namespace StarPlatinum
     {
         public enum SceneCameraType
         {
+            None,
             Fixed,
             Moveable
         }
@@ -33,8 +35,6 @@ namespace StarPlatinum
             //EventManager.Instance().RegisterCallback((int)LogicType.SceneOpen, SetCamera);
             //EventManager.Instance().RegisterCallback((int)LogicType.SceneClose, CameraClose);
 
-            UpdateCurrentCamera();
-
         }
 
         public bool UpdateCurrentCamera()
@@ -49,11 +49,20 @@ namespace StarPlatinum
 
             }
 
-            m_cameraController = m_mainCamera.GetComponent<CameraController>();
-            if (m_cameraController == null)
+            SceneLookupEnum sceneEnum = SceneManager.Instance().CurrentScene;
+
+            if (RootConfig.Instance == null) return false;
+            CameraService.SceneCameraType cameraType = RootConfig.Instance.GetCameraTypeBySceneName(sceneEnum.ToString());
+
+            if (cameraType == SceneCameraType.Moveable)
             {
-                m_cameraController = m_mainCamera.AddComponent<CameraController>();
+                m_cameraController = m_mainCamera.GetComponent<CameraController>();
+                if (m_cameraController == null)
+                {
+                    m_cameraController = m_mainCamera.AddComponent<CameraController>();
+                }
             }
+
 
             return true;
         }

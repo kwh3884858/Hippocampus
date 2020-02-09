@@ -15,6 +15,7 @@ namespace StarPlatinum
         SUCCESS,
         FAIL
     }
+
     public struct RequestResult
     {
         public Object result;

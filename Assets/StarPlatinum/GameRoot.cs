@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using StarPlatinum.Service;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -64,6 +65,7 @@ namespace StarPlatinum
 
             
             PrefabManager.Instance.LoadScene(m_startScene, LoadSceneMode.Additive);
+            CameraService.Instance.UpdateCurrentCamera();
             //PrefabManager.Instance.LoadScene(SceneLookupEnum.GoundTestScene,LoadSceneMode.Additive);
 		}
 

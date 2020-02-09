@@ -18,7 +18,7 @@ namespace SceneLookupGenerator
             Release
         }
 
-        private readonly static DevMode DEV_MODE = DevMode.Debug;
+        private readonly static DevMode DEV_MODE = DevMode.Release;
 
         /// <summary>
         /// Program
@@ -58,21 +58,31 @@ namespace SceneLookupGenerator
             
                 if(DEV_MODE == DevMode.Debug)
                 {
-                    exePath = "D://GithubRepository//Hippocampus//Assets//Scenes";
+                    exePath = "D:\\GithubRepository\\Hippocampus\\Assets\\Scenes";
                 }
 
                 error = m_sceneLookupGenerator.SetSceneRootPath(exePath);
                 CheckError(error);
                 error = m_sceneLookupGenerator.SetOutputPath(exePath);
                 CheckError(error);
-                error = m_sceneLookupGenerator.SetTemplatePath(exePath + "\\SceneLookupTemplate.txt");
+                error = m_sceneLookupGenerator.SetTemplateFile(exePath + "\\SceneLookupTemplate.txt");
                 CheckError(error);
 
                 error = m_sceneConfigGenerator.SetSceneRootPath(exePath);
                 CheckError(error);
-                error = m_sceneConfigGenerator.SetOutputPath(exePath);
+
+                //Find Scene Folder "Assets\\Scripts\\Config\\RootConfig.cs"
+                int pos = exePath.LastIndexOf("\\Assets");
+                if (pos < 0) return;
+                string configFath = exePath.Substring(0, pos + 7);
+                configFath += "\\Scripts\\Config\\RootConfig.cs";
+                error = m_sceneConfigGenerator.SetOutputPath(configFath);
                 CheckError(error);
-                error = m_sceneConfigGenerator.SetTemplatePath(exePath + "\\SceneConfigTemplate.txt");
+
+                string inspectorFath = exePath.Substring(0, pos + 7);
+                if (pos < 0) return;
+                inspectorFath += "\\StarPlatinum\\Editor\\GameRootInspector.cs";
+                error = m_sceneConfigGenerator.SetInspectorFile(inspectorFath);
                 CheckError(error);
             }
 
@@ -96,7 +106,7 @@ namespace SceneLookupGenerator
 
 				case "-t":
 					string template = args [i + 1];
-					error = m_sceneLookupGenerator.SetTemplatePath (template);
+					error = m_sceneLookupGenerator.SetTemplateFile (template);
 					break;
 
 				case "-h":
@@ -128,24 +138,14 @@ Generated scene lookup file will put in this path.
 			}
 
 			error = m_sceneLookupGenerator.Execute ();
-			switch (error) {
-			case ErrorType.NoError:
-				break;
 
-			case ErrorType.NoTemplateFile:
-				Console.WriteLine ("Template file is not exist.");
-				return;
+            CheckError(error);
 
-			case ErrorType.NoSceneRootPath:
-				Console.WriteLine ("Scene root is not exist.");
-				return;
+            error = m_sceneConfigGenerator.Execute();
 
-			case ErrorType.NoOutputPath:
-				Console.WriteLine ("Output path is not exist.");
+            CheckError(error);
 
-				return;
-			}
-			Console.WriteLine ("Generate Lookup Successful!");
+            Console.WriteLine ("Generate Lookup Successful!");
 		}
 
 

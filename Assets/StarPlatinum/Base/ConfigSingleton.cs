@@ -5,7 +5,7 @@ using System;
 using UnityEngine;
 
 
-namespace StarPlatinum
+namespace StarPlatinum.Base
 {
 
     public abstract class ConfigSingleton<T> : ScriptableObject where T : ScriptableObject
@@ -27,6 +27,8 @@ namespace StarPlatinum
 
         private static T LoadConfig()
         {
+            m_instance = null;
+
             if (Application.isPlaying)
             {
                 PrefabManager.Instance.InstantiateConfigAsync(typeof(T).Name, (result) =>

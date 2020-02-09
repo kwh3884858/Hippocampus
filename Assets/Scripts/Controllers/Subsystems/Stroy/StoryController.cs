@@ -40,13 +40,19 @@ namespace Controllers.Subsystems.Story
                 yield return null;
             }
             m_config = Data.ConfigProvider.StoryConfig;
-            LoadStory();
+            LoadStoryByID();
             State = SubsystemState.Initialized;
         }
 
-        private void LoadStory()
+        private void LoadStoryByID()
         {
             m_storys = new StoryReader(m_config.StoryPath);
+        }
+
+        public void LoadStoryByID(string storyId)
+        {
+            m_storys = new StoryReader(storyId);
+            State = SubsystemState.Initialized;
         }
 
         public StoryActionContainer GetStory(string ID)

@@ -12,7 +12,7 @@ namespace SceneLookupGenerator
 		NoSceneRootPath,
 		NoOutputPath,
 		NoTemplateFile,
-
+        NotExistInsertFlag
 	}
 
 	public enum MessageType
@@ -22,7 +22,7 @@ namespace SceneLookupGenerator
 
 	public class SceneLookupGenerator
 	{
-		static readonly string m_outputName = "/SceneLookup.cs";
+		static readonly string m_outputName = "\\SceneLookup.cs";
 		static readonly string m_macroConstant = "#CONSTANT#";
 		static readonly string m_macroTotal = "#TOTAL#";
 		static readonly string m_macroSceneName = "#SCENENAME#";
@@ -82,9 +82,9 @@ namespace SceneLookupGenerator
 				UTF8Encoding temp = new UTF8Encoding (true);
 				while (fs.Read (b, 0, b.Length) > 0) {
 
-					m_content = temp.GetString (b);
-
-				}
+					m_content += temp.GetString (b);
+                    Array.Clear(b, 0, b.Length);
+                }
 			}
 
 
@@ -173,7 +173,7 @@ namespace SceneLookupGenerator
 
 		}
 
-		public ErrorType SetTemplatePath (string templatePath)
+		public ErrorType SetTemplateFile (string templatePath)
 		{
 			m_templatePath = templatePath;
 
@@ -189,5 +189,14 @@ namespace SceneLookupGenerator
 			return ErrorType.NoError;
 		}
 
-	}
+        private ErrorType CheckFilePath(string path, ErrorType pathError)
+        {
+            if (!File.Exists(path))
+            {
+                return pathError;
+            }
+
+            return ErrorType.NoError;
+        }
+    }
 }

@@ -6,6 +6,7 @@ using StarPlatinum;
 using UI.Panels.Providers.DataProviders.StaticBoard;
 
 using GamePlay.Player;
+using StarPlatinum.Service;
 
 public class MonoMoveController : MonoBehaviour
 {
