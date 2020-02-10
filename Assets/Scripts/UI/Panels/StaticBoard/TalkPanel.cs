@@ -121,6 +121,7 @@ namespace UI.Panels.StaticBoard
             }
 
             m_actionType = storyAction.Type;
+            SetActionState(ActionState.Actioning);
             switch (storyAction.Type)
             {
                 case StoryActionType.Name:
@@ -163,6 +164,15 @@ namespace UI.Panels.StaticBoard
                     m_textHelp.PushBold();
                     SetActionState(ActionState.End);
                     break;
+                case StoryActionType.ChangeBGM:
+                    SetBgm(storyAction.Content);
+                    break;
+                case StoryActionType.ChangeEffectMusic:
+                    PlayEffectMusic(storyAction.Content);
+                    break;
+                default:
+                    Debug.LogError($"未处理对话行为:{storyAction.Type}");
+                    break;
             }
         }
 
@@ -198,6 +208,18 @@ namespace UI.Panels.StaticBoard
         {
             m_name.text = m_textHelp.GetContent(name);
             ResetContentText();
+            SetActionState(ActionState.End);
+        }
+
+        private void SetBgm(string musicName)
+        {
+            m_uiDataProvider.SoundService.PlayBgm(musicName);
+            SetActionState(ActionState.End);
+        }
+
+        private void PlayEffectMusic(string effectName)
+        {
+            m_uiDataProvider.SoundService.PlayEffect(effectName);
             SetActionState(ActionState.End);
         }
 

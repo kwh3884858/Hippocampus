@@ -22,6 +22,8 @@ namespace Controllers.Subsystems.Story
         Picture,
         PictureMove,
         Bold,
+        ChangeBGM,
+        ChangeEffectMusic,
     }
 
     public class StoryController: ControllerBase

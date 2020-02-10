@@ -25,7 +25,6 @@ namespace Controllers.Subsystems.Story
         public float Duration { get; set; }
     }
 
-
     public class StoryActionContainer
     {
         public StoryActionContainer()
@@ -81,6 +80,16 @@ namespace Controllers.Subsystems.Story
         public void PushBold()
         {
             m_actions.Enqueue(new StoryPictureMoveAction(){Type = StoryActionType.Bold});
+        }
+
+        public void PushChangeBGM(string musicName)
+        {
+            m_actions.Enqueue(new StoryAction(){Type =  StoryActionType.ChangeBGM,Content = musicName});
+        }
+
+        public void PushPlayerEffectMusic(string effectName)
+        {
+            m_actions.Enqueue(new StoryAction(){Type =  StoryActionType.ChangeEffectMusic,Content = effectName});
         }
 
         public StoryAction GetNextAction()
