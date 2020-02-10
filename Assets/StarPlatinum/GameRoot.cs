@@ -13,12 +13,12 @@ namespace StarPlatinum
         public SceneLookupEnum m_startScene { get; set; }
 
 
-        public override void SingletonInit ()  { }
+        public override void SingletonInit() { }
         VirtualMachineInterface virtualMachineInterface;
 
         public void OnGUI()
         {
-            if(GUI.Button(new Rect(0, 0, 200, 50), "Productivity"))
+            if (GUI.Button(new Rect(0, 0, 200, 50), "Productivity"))
             {
 
                 Porductivity();
@@ -38,11 +38,12 @@ namespace StarPlatinum
 
         }
         // Use this for initialization
-        void Start ()
-		{
+        void Start()
+        {
             //SoundService.Instance.PlayBgm("kendo_girls");
             //Console.Instance.Print("Hello, World!");
             Porductivity();
+            ConfigData data = new ConfigData();// 测试
 
             //ReadStorys readStorys = new ReadStorys("Storys/StoryTest");
             //			//DONT CHANGE ORDER
@@ -63,14 +64,14 @@ namespace StarPlatinum
             //			AsyncOperation asyncLoad = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync (SceneLookup.Get(SceneLookupEnum.UITestScene), UnityEngine.SceneManagement.LoadSceneMode.Additive); 
 
 
-            
+
             PrefabManager.Instance.LoadScene(m_startScene, LoadSceneMode.Additive);
             CameraService.Instance.UpdateCurrentCamera();
             //PrefabManager.Instance.LoadScene(SceneLookupEnum.GoundTestScene,LoadSceneMode.Additive);
-		}
+        }
 
-		IEnumerator AfterInitialize ()
-		{
+        IEnumerator AfterInitialize()
+        {
 #if UNITY_EDITOR
 
 
@@ -81,25 +82,25 @@ namespace StarPlatinum
 			}
 #endif
 
-            AddGameObject<SceneManager> ();
-			//AddGameObject<SoundService> ();
+            AddGameObject<SceneManager>();
+            //AddGameObject<SoundService> ();
 
-			AddGameObject<UIManager> ();
+            AddGameObject<UIManager>();
 
-			//AddGameObject<PrefabManager> ();
-			//EventManager.Instance.LogicStart ();
-			//   AddGameObject<CameraService>();
-			//AddGameObject<InputService> ();
-			//AddGameObject<TimerService> ();
-			//AddGameObject<Console> ();
-			AddGameObject<Localization> ();
+            //AddGameObject<PrefabManager> ();
+            //EventManager.Instance.LogicStart ();
+            //   AddGameObject<CameraService>();
+            //AddGameObject<InputService> ();
+            //AddGameObject<TimerService> ();
+            //AddGameObject<Console> ();
+            AddGameObject<Localization>();
 
-			//Add ECS system
-			//AddEntitas ();
+            //Add ECS system
+            //AddEntitas ();
 
-			SceneManager.Instance ().AddSceneLoadedEvent (Handlecallback);
+            SceneManager.Instance().AddSceneLoadedEvent(Handlecallback);
 
-			SceneManager.Instance ().LoadScene (SceneLookupEnum.UITestScene, SceneLoadMode.Additive);
+            SceneManager.Instance().LoadScene(SceneLookupEnum.UITestScene, SceneLoadMode.Additive);
 
 
             yield return null;
@@ -107,51 +108,51 @@ namespace StarPlatinum
         float input = 0;
         float lastInput = 0;
         // Update is called once per frame
-        void Update ()
-		{
+        void Update()
+        {
             //if (virtualMachineInterface != null) {
             //	virtualMachineInterface.Update ();
 
             //}
-       
+
 
             input = InputService.Instance.GetAxis(KeyMap.Horizontal);
 
-            if(input!= lastInput)
+            if (input != lastInput)
             {
                 //Debug.Log(input );
                 lastInput = input;
             }
         }
 
-		void Handlecallback (SceneLoadedEvent loadedEvent)
-		{
-			//Show UI, if you have
-			//if (loadedEvent.GetSceneName () == SceneLookupEnum.PaperPleasePrototype.ToString ().ToLower ()) {
-			//	//UIManager.Instance ().ShowPanel<UIDirectionButtonPanel> ();
-			//	UIManager.Instance ().ShowPanel<UIStartIntroPanel> ();
-			//}
+        void Handlecallback(SceneLoadedEvent loadedEvent)
+        {
+            //Show UI, if you have
+            //if (loadedEvent.GetSceneName () == SceneLookupEnum.PaperPleasePrototype.ToString ().ToLower ()) {
+            //	//UIManager.Instance ().ShowPanel<UIDirectionButtonPanel> ();
+            //	UIManager.Instance ().ShowPanel<UIStartIntroPanel> ();
+            //}
 
-			//virtualMachineInterface = new VirtualMachineInterface ();
-			//virtualMachineInterface.Start ();
-			//SceneManager.Instance ().RemoveSceneLoadedEvent (Handlecallback);
-		}
-
-
-		public void AddSystemManger ()
-		{
+            //virtualMachineInterface = new VirtualMachineInterface ();
+            //virtualMachineInterface.Start ();
+            //SceneManager.Instance ().RemoveSceneLoadedEvent (Handlecallback);
+        }
 
 
-		}
-		private void AddEntitas ()
-		{
-			GameObject entitas = new GameObject ("Entitas.GameControllerBehaviour");
-			entitas.transform.parent = transform;
-
-			//entitas.AddComponent<GameControllerBehaviour> ();
-
-		}
+        public void AddSystemManger()
+        {
 
 
-	}
+        }
+        private void AddEntitas()
+        {
+            GameObject entitas = new GameObject("Entitas.GameControllerBehaviour");
+            entitas.transform.parent = transform;
+
+            //entitas.AddComponent<GameControllerBehaviour> ();
+
+        }
+
+
+    }
 }
