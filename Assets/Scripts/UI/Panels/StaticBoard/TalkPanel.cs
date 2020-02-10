@@ -116,8 +116,7 @@ namespace UI.Panels.StaticBoard
             if (storyAction == null)
             {
                 SetActionState(ActionState.Waiting);
-                InvokeHidePanel();
-                UIPanelDataProvider.OnTalkEnd?.Invoke();
+                m_characterTalkEnd = true;
                 return;
             }
 
@@ -125,7 +124,7 @@ namespace UI.Panels.StaticBoard
             switch (storyAction.Type)
             {
                 case StoryActionType.Name:
-                    SetNameContent(storyAction.Content);
+                    AddNewTalker(storyAction.Content);
                     break;
                 case StoryActionType.Content:
                     StartCoroutine(Typewriter(storyAction.Content));
@@ -189,6 +188,12 @@ namespace UI.Panels.StaticBoard
             SetInfo(id);
         }
 
+        private void AddNewTalker(string name)
+        {
+            m_currentRoleName = name;
+            m_characterTalkEnd = true;
+        }
+        
         private void SetNameContent(string name)
         {
             m_name.text = m_textHelp.GetContent(name);
@@ -204,7 +209,6 @@ namespace UI.Panels.StaticBoard
 
         IEnumerator Typewriter(string content)
         {
-            m_typeing = true;
             foreach (var txt in content)
             {
                 m_content.text += m_textHelp.GetContent(txt.ToString());
@@ -215,8 +219,7 @@ namespace UI.Panels.StaticBoard
                 }
                 yield return new WaitForSeconds(m_skip?0:StoryController.GetContentSpeed());
             }
-            m_typeing = false;
-            m_skip = false;
+            SetActionState(ActionState.End);
         }
 
         public void ShowPicture(string picID, int posID)
@@ -231,29 +234,38 @@ namespace UI.Panels.StaticBoard
 
         public void ClickSkip()
         {
-            if (m_actionType != StoryActionType.Content)
+            if (m_characterTalkEnd == true)
             {
+                EndCharacterTalk();
                 return;
             }
-            if (m_typeing)
+            m_skip = true;
+        }
+
+        public void EndCharacterTalk()
+        {
+            m_characterTalkEnd = false;
+            m_skip = false;
+            if (m_actionType == StoryActionType.Name)
             {
-                if (m_skip == false)
-                {
-                    m_skip = true;
-                }
+                SetNameContent(m_currentRoleName);
+                return;
             }
             else
             {
-                SetActionState(ActionState.End);
+                InvokeHidePanel();
+                UIPanelDataProvider.OnTalkEnd?.Invoke();
             }
         }
-        
+
         [SerializeField] private TMP_Text m_name;
         [SerializeField] private TMP_Text m_content;
 
         private bool m_skip = false;
         private bool m_typeing = false;
+        private bool m_characterTalkEnd = false;
         private string m_currentID;
+        private string m_currentRoleName;
         private StoryActionContainer m_actionContainer;
         private TextHelp m_textHelp;
         private ActionState m_state = ActionState.Waiting;
