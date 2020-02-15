@@ -45,6 +45,6 @@ namespace UI.Panels.GameScene.MainManu
             GamePlay.Player.PlayerController.Instance().SetMoveEnable(true);
         }
 
-        private int i = 0;
+      
     }
 }

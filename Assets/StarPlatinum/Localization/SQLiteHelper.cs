@@ -28,7 +28,7 @@ namespace StarPlatinum
 		/// </summary>
 		/// <param name="connectionString">数据库连接字符串</param>
 		public SQLiteHelper (string connectionString)
-		{
+		{/*
 			try {
 				if (Application.platform == RuntimePlatform.Android) {
 					string path = Application.persistentDataPath + "/" + connectionString;
@@ -58,6 +58,7 @@ namespace StarPlatinum
 				//Console.Instance ().Debug (e.Message);
 				Debug.Log (e.Message);
 			}
+            */
 		}
 
 		/// <summary>

@@ -842,6 +842,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hero
       objectReference: {fileID: 0}
+    - target: {fileID: 279352444008791639, guid: 8768ad9ce733e1b48855b76d5df865fb,
+        type: 3}
+      propertyPath: m_interactableRadius
+      value: 2.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 279352444008791639, guid: 8768ad9ce733e1b48855b76d5df865fb,
+        type: 3}
+      propertyPath: m_showInteractiveUIRadius
+      value: 5.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8768ad9ce733e1b48855b76d5df865fb, type: 3}
 --- !u!1 &1679312238
@@ -1139,7 +1149,7 @@ GameObject:
   - component: {fileID: 2139676014}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Interactive
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1157,7 +1167,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_objectName: cube
-  m_interactiveRadius: 2
 --- !u!65 &2139676015
 BoxCollider:
   m_ObjectHideFlags: 0

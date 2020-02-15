@@ -7,15 +7,18 @@ namespace GamePlay
 {
     // draw a red circle around the scene cube
 
-    [CustomEditor(typeof(InteractiveObject))]
-    public class CubeEditor : Editor
+    [CustomEditor(typeof(MonoMoveController))]
+    public class InteractiveObjectEditor : Editor
     {
         void OnSceneGUI()
         {
-            InteractiveObject interactiveObject = (InteractiveObject)target;
+            MonoMoveController moveController = (MonoMoveController)target;
 
             Handles.color = Color.red;
-            Handles.DrawWireDisc(interactiveObject.transform.position, new Vector3(0, 1, 0), interactiveObject.m_interactiveRadius);
+            Handles.DrawWireDisc(moveController.transform.position, new Vector3(0, 1, 0), moveController.m_showInteractiveUIRadius);
+            Handles.color = Color.green;
+            Handles.DrawWireDisc(moveController.transform.position, new Vector3(0, 1, 0), moveController.m_interactableRadius);
+
         }
     }
 }

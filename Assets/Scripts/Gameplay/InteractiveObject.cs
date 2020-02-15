@@ -8,9 +8,17 @@ namespace GamePlay
 {
     public class InteractiveObject : MonoBehaviour
     {
+        public static readonly string INTERACTABLE_TAG = "Interactive";
+
         public string m_objectName = "";
 
-        public float m_interactiveRadius = 0;
+        public void Start()
+        {
+            if (tag != INTERACTABLE_TAG)
+            {
+                tag = INTERACTABLE_TAG;
+            }
+        }
 
         public void Interact()
         {
