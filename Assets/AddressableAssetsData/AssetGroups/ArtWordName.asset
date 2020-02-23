@@ -10,14 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Packed Assets
+  m_Name: ArtWordName
   m_EditorClassIdentifier: 
-  m_GroupName: Packed Assets
+  m_GroupName: ArtWordName
   m_Data:
     m_SerializedData: []
-  m_GUID: 7f7230c787ea4d44c8fc17638eff4738
-  m_SerializeEntries: []
+  m_GUID: ec2c562d5ef25904a805123d056b4d96
+  m_SerializeEntries:
+  - m_GUID: 2b13eddbf4f880f418eb0ce021faebd6
+    m_Address: ArtWordName_Jojo
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f111fbfba943e1944827e0f78d01a07c
+    m_Address: ArtWordName_Dio
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fca52d9f60551854c9c2e2047917f2b1
+    m_Address: ArtWordName_Joestar
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cd5387e64e22b3d47a39edb1e325859e, type: 2}
   m_SchemaSet:
-    m_Schemas: []
+    m_Schemas:
+    - {fileID: 11400000, guid: f5552bad2dd61e84ea65a6ac76b5fc92, type: 2}
+    - {fileID: 11400000, guid: 8c700f2e43ed57a4c9b69e79c59256fc, type: 2}
