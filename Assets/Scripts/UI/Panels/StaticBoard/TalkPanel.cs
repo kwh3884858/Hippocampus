@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Config;
 using Controllers.Subsystems.Story;
 using TMPro;
 using UI.Panels.Providers;
@@ -90,11 +91,20 @@ namespace UI.Panels.StaticBoard
         }
         
         private StoryController StoryController => UiDataProvider.ControllerManager.StoryController;
+        private StoryConfig StoryConfig => UiDataProvider.ConfigProvider.StoryConfig;
 
         public override void Initialize(UIDataProvider uiDataProvider, UIPanelSettings settings)
         {
             base.Initialize(uiDataProvider, settings);
             m_textHelp = new TextHelp();
+        }
+
+        public override void Hide()
+        {
+            base.Hide();
+            m_autoPlay = false;
+            m_skip = false;
+            
         }
 
         public override void UpdateData(DataProvider data)
@@ -117,6 +127,10 @@ namespace UI.Panels.StaticBoard
             {
                 SetActionState(ActionState.Waiting);
                 m_characterTalkEnd = true;
+                if (m_autoPlay)
+                {
+                    EndCharacterTalk();
+                }
                 return;
             }
 
@@ -201,7 +215,14 @@ namespace UI.Panels.StaticBoard
         private void AddNewTalker(string name)
         {
             m_currentRoleName = name;
-            m_characterTalkEnd = true;
+            if (m_autoPlay)
+            {
+                CallbackTime(UiDataProvider.ConfigProvider.StoryConfig.AutoPlayWaitingTime,EndCharacterTalk);
+            }
+            else
+            {
+                m_characterTalkEnd = true;
+            }
         }
         
         private void SetNameContent(string name)
@@ -244,27 +265,17 @@ namespace UI.Panels.StaticBoard
             SetActionState(ActionState.End);
         }
 
-        public void ShowPicture(string picID, int posID)
+        private void ShowPicture(string picID, int posID)
         {
             
         }
 
-        public void MovePicture(int oldPosID, int targetPosID)
+        private void MovePicture(int oldPosID, int targetPosID)
         {
             
         }
-
-        public void ClickSkip()
-        {
-            if (m_characterTalkEnd == true)
-            {
-                EndCharacterTalk();
-                return;
-            }
-            m_skip = true;
-        }
-
-        public void EndCharacterTalk()
+        
+        private void EndCharacterTalk()
         {
             m_characterTalkEnd = false;
             m_skip = false;
@@ -280,12 +291,33 @@ namespace UI.Panels.StaticBoard
             }
         }
 
+        public void ClickSkip()
+        {
+            if (m_characterTalkEnd && !m_autoPlay)
+            {
+                EndCharacterTalk();
+                return;
+            }
+            m_skip = true;
+        }
+
+        public void AutoPlay()
+        {
+            m_autoPlay = !m_autoPlay;
+            m_autoPlayButtonText.color = m_autoPlay? StoryConfig.AutoPlayButtonActiveColor: StoryConfig.AutoPlayButtonNormalColor;
+            if (m_characterTalkEnd)
+            {
+                EndCharacterTalk();
+            }
+        }
+
         [SerializeField] private TMP_Text m_name;
         [SerializeField] private TMP_Text m_content;
+        [SerializeField] private TMP_Text m_autoPlayButtonText;
 
         private bool m_skip = false;
-        private bool m_typeing = false;
         private bool m_characterTalkEnd = false;
+        private bool m_autoPlay = false;
         private string m_currentID;
         private string m_currentRoleName;
         private StoryActionContainer m_actionContainer;
