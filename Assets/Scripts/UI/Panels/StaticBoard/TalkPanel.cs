@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using Config;
+using Const;
 using Controllers.Subsystems.Story;
+using StarPlatinum;
 using TMPro;
 using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
@@ -111,11 +113,11 @@ namespace UI.Panels.StaticBoard
         {
             base.UpdateData(data);
             SetInfo(UIPanelDataProvider.ID);
-            
         }
 
         private void SetInfo(string talkID)
         {
+            m_isFirstTalk = true;
             m_currentID = talkID;
             m_actionContainer = StoryController.GetStory(m_currentID);
             SetActionState(ActionState.Begin);
@@ -215,6 +217,12 @@ namespace UI.Panels.StaticBoard
         private void AddNewTalker(string name)
         {
             m_currentRoleName = name;
+            if (m_isFirstTalk)
+            {
+                m_isFirstTalk = false;
+                EndCharacterTalk();
+                return;
+            }
             if (m_autoPlay)
             {
                 CallbackTime(UiDataProvider.ConfigProvider.StoryConfig.AutoPlayWaitingTime,EndCharacterTalk);
@@ -227,7 +235,7 @@ namespace UI.Panels.StaticBoard
         
         private void SetNameContent(string name)
         {
-            m_name.text = m_textHelp.GetContent(name);
+            PrefabManager.Instance.SetImage(m_name,RolePictureNameConst.ArtWordName + name);
             ResetContentText();
             SetActionState(ActionState.End);
         }
@@ -311,13 +319,14 @@ namespace UI.Panels.StaticBoard
             }
         }
 
-        [SerializeField] private TMP_Text m_name;
+        [SerializeField] private Image m_name;
         [SerializeField] private TMP_Text m_content;
         [SerializeField] private TMP_Text m_autoPlayButtonText;
 
         private bool m_skip = false;
         private bool m_characterTalkEnd = false;
         private bool m_autoPlay = false;
+        private bool m_isFirstTalk = false;
         private string m_currentID;
         private string m_currentRoleName;
         private StoryActionContainer m_actionContainer;

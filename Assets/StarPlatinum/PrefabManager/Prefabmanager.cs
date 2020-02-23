@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using SQLite4Unity3d;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
 namespace StarPlatinum
@@ -33,6 +35,9 @@ namespace StarPlatinum
     {
 
         Dictionary<string, GameObject> m_allPrefab = new Dictionary<string, GameObject> ();
+        Dictionary<string, Object> m_objects = new Dictionary<string, Object>();
+        
+        Dictionary<string,Action<RequestResult>> m_loadingCallback = new Dictionary<string, Action<RequestResult>>();
         public GameObject LoadPrefab (string prefabName)
         {
             //string name = "Prefabs/" + prefabName;
@@ -95,15 +100,65 @@ namespace StarPlatinum
             };
         }
 
+        public void SetImage(Image image, string key)
+        {
+            LoadAssetAsync<Sprite>(key, (result) =>
+            {
+                if (result.status == RequestStatus.FAIL)
+                {
+                    SetImage(image,"Image_Default");
+
+                    Debug.LogWarning($"图片加载错误 Key:{result.key}");
+                    return;
+                }
+                image.sprite = result.result as Sprite;
+            });
+        }
+
+        private void LoadAssetAsync<T>(string key, Action<RequestResult> callBack, Transform parent = null)where T: UnityEngine.Object
+        {
+            if (m_objects.ContainsKey(key))
+            {
+                var result = new RequestResult(m_objects[key], key, RequestStatus.SUCCESS);
+                callBack?.Invoke(result);
+            }
+            if (m_loadingCallback.ContainsKey(key))
+            {
+                m_loadingCallback[key]+=callBack;
+                return;
+            }
+            Addressables.LoadAsset<T>(key).Completed += operation =>
+            {
+                var result = GetResult(key, operation);
+                m_loadingCallback[key].Invoke(result);
+                m_loadingCallback.Remove(key);
+                m_objects[key] = result.result;
+            };
+            m_loadingCallback[key] = callBack;
+        }
+
         public void LoadAssetsAsync<T>(List<string> keys, Action<RequestResult> callBack, Transform parent = null)where T: UnityEngine.Object
         {
             foreach (var key in keys)
             {
+                if (m_objects.ContainsKey(key))
+                {
+                    var result = new RequestResult(m_objects[key], key, RequestStatus.SUCCESS);
+                    callBack?.Invoke(result);
+                }
+                if (m_loadingCallback.ContainsKey(key))
+                {
+                    m_loadingCallback[key]+=callBack;
+                    continue;
+                }
                 Addressables.LoadAsset<T>(key).Completed += operation =>
                 {
                     var result = GetResult(key, operation);
-                    callBack?.Invoke(result);
+                    m_loadingCallback[key].Invoke(result);
+                    m_loadingCallback.Remove(key);
+                    m_objects[key] = result.result;
                 };
+                m_loadingCallback[key] = callBack;
             }
         }
 
