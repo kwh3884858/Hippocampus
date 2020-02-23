@@ -27,6 +27,9 @@ public:
 
 	static bool copyCharPointer(char* pDest, const char* pSrc);
 	static bool copyWcharPointer(wchar_t* pDest, const wchar_t* pSrc);
+#ifndef _WIN32
+    static char* itoa(int num,char* str, int radix);
+#endif
 
 private:
 

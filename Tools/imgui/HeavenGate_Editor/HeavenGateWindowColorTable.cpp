@@ -16,6 +16,7 @@
 #include "StoryFileManager.h"
 #include "StoryTable.h"
 
+#include "CharacterUtility.h"
 
 namespace HeavenGateEditor {
 
@@ -197,7 +198,11 @@ namespace HeavenGateEditor {
             }
             char buf[14] = "Add Color";
             char bufi[4];
+#ifdef _WIN32
             itoa(i, bufi, 10);
+#else
+            CharacterUtility::itoa(i,bufi, 10);
+#endif
             strcat(buf, bufi);
             if (ImGui::Button(buf))
             {
