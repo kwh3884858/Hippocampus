@@ -14,4 +14,9 @@ Global
 		{5707DE37-7A00-4CFF-8187-81BCF3C21C55}.Release|x86.ActiveCfg = Release|x86
 		{5707DE37-7A00-4CFF-8187-81BCF3C21C55}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		description = @Auto generate scene lookup and scene config. \nStar Platinum Software.
+		version = 0.2
+		outputpath = ../../Assets/Scenes
+	EndGlobalSection
 EndGlobal

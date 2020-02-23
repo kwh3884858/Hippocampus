@@ -8,19 +8,19 @@
 //------------------------------------------------------------------------------
 public static class SceneLookup {
 
-public const int Episode2_Pier = 0;
-public const int GameRoot = 1;
-public const int GoundTestScene = 2;
-public const int UITestScene = 3;
+public const int Scene_Episode2_Pier = 0;
+public const int GoundTestScene = 1;
+public const int UITestScene = 2;
+public const int GameRoot = 3;
 
 
     private const int TotalComponents = 4;
 
     private static readonly string[] sceneLists = {
-"Episode2_Pier",
-"GameRoot",
+"Scene_Episode2_Pier",
 "GoundTestScene",
-"UITestScene"
+"UITestScene",
+"GameRoot"
     };
 
     public static string Get(SceneLookupEnum eScene)
@@ -31,8 +31,8 @@ public const int UITestScene = 3;
 
 public enum SceneLookupEnum
 {
-Episode2_Pier = 0,
-GameRoot = 1,
-GoundTestScene = 2,
-UITestScene = 3
+Scene_Episode2_Pier = 0,
+GoundTestScene = 1,
+UITestScene = 2,
+GameRoot = 3
 }

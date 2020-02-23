@@ -6,44 +6,35 @@ using UnityEngine;
 
 namespace GamePlay
 {
-    public class InteractiveObject : MonoBehaviour
-    {
-        public static readonly string INTERACTABLE_TAG = "Interactive";
+	public class InteractiveObject : MonoBehaviour
+	{
+		public static readonly string INTERACTABLE_TAG = "Interactive";
 
-        public string m_objectName = "";
+		public string m_objectName = "";
 
-        public void Start()
-        {
-            if (tag != INTERACTABLE_TAG)
-            {
-                tag = INTERACTABLE_TAG;
-            }
-        }
+		public void Start ()
+		{
+			if (tag != INTERACTABLE_TAG) {
+				tag = INTERACTABLE_TAG;
+			}
+		}
 
-        public void Interact()
-        {
-            GameObject controller = GameObject.Find("ControllerManager");
-            if (controller == null)
-            {
-                return;
-            }
+		public void Interact ()
+		{
+			GameObject controller = GameObject.Find ("ControllerManager");
+			if (controller == null) {
+				return;
+			}
 
-            StoryController storyController = controller.GetComponent<StoryController>();
-            if (storyController == null)
-            {
-                return;
-            }
+			StoryController storyController = controller.GetComponent<StoryController> ();
+			if (storyController == null) {
+				return;
+			}
 
 
 
-            storyController.LoadStoryByID(GenerateStoryID());
-        }
+			bool result = storyController.LoadStoryByItem (m_objectName);
+		}
 
-        private string GenerateStoryID()
-        {
-            return ChapterManager.Instance.GetCurrentSceneName() +
-                SceneManager.Instance().CurrentScene +
-                m_objectName;
-        }
-    }
+	}
 }

@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: RootConfig
   m_EditorClassIdentifier: 
   StartScene: 0
-  Episode2_PierName: Episode2_Pier
-  Episode2_PierCameraType: 2
-  GameRootName: GameRoot
-  GameRootCameraType: 1
+  Scene_Episode2_PierName: Scene_Episode2_Pier
+  Scene_Episode2_PierCameraType: 2
   GoundTestSceneName: GoundTestScene
   GoundTestSceneCameraType: 2
   UITestSceneName: UITestScene
   UITestSceneCameraType: 2
-  Chapter1Name: 
-  Chapter2Name: Pier
+  GameRootName: GameRoot
+  GameRootCameraType: 1
+  m_chapterName:
+  - Episode1
+  - Pier

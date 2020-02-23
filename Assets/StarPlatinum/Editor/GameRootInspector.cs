@@ -15,13 +15,13 @@ namespace StarPlatinum
 
         //[Camera Type Variable Auto Generated Code Begin]
 
-CameraService.SceneCameraType m_Episode2_PierCameraType; 
-
- CameraService.SceneCameraType m_GameRootCameraType; 
+CameraService.SceneCameraType m_Scene_Episode2_PierCameraType; 
 
  CameraService.SceneCameraType m_GoundTestSceneCameraType; 
 
  CameraService.SceneCameraType m_UITestSceneCameraType; 
+
+ CameraService.SceneCameraType m_GameRootCameraType; 
 
  //[Camera Type Variable Auto Generated Code End]
         override public void OnInspectorGUI ()
@@ -55,18 +55,11 @@ CameraService.SceneCameraType m_Episode2_PierCameraType;
 
             //[Inspector Popup Auto Generated Code Begin]
 
-m_Episode2_PierCameraType = RootConfig.Instance.Episode2_PierCameraType;  
-m_Episode2_PierCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("Episode2_Pier Camera Type: ", m_Episode2_PierCameraType); 
-    if (m_Episode2_PierCameraType != RootConfig.Instance.Episode2_PierCameraType) 
+m_Scene_Episode2_PierCameraType = RootConfig.Instance.Scene_Episode2_PierCameraType;  
+m_Scene_Episode2_PierCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("Scene_Episode2_Pier Camera Type: ", m_Scene_Episode2_PierCameraType); 
+    if (m_Scene_Episode2_PierCameraType != RootConfig.Instance.Scene_Episode2_PierCameraType) 
 { 
-RootConfig.Instance.Episode2_PierCameraType = m_Episode2_PierCameraType; 
-} 
-
-m_GameRootCameraType = RootConfig.Instance.GameRootCameraType;  
-m_GameRootCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("GameRoot Camera Type: ", m_GameRootCameraType); 
-    if (m_GameRootCameraType != RootConfig.Instance.GameRootCameraType) 
-{ 
-RootConfig.Instance.GameRootCameraType = m_GameRootCameraType; 
+RootConfig.Instance.Scene_Episode2_PierCameraType = m_Scene_Episode2_PierCameraType; 
 } 
 
 m_GoundTestSceneCameraType = RootConfig.Instance.GoundTestSceneCameraType;  
@@ -81,6 +74,13 @@ m_UITestSceneCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPop
     if (m_UITestSceneCameraType != RootConfig.Instance.UITestSceneCameraType) 
 { 
 RootConfig.Instance.UITestSceneCameraType = m_UITestSceneCameraType; 
+} 
+
+m_GameRootCameraType = RootConfig.Instance.GameRootCameraType;  
+m_GameRootCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("GameRoot Camera Type: ", m_GameRootCameraType); 
+    if (m_GameRootCameraType != RootConfig.Instance.GameRootCameraType) 
+{ 
+RootConfig.Instance.GameRootCameraType = m_GameRootCameraType; 
 } 
 
 //[Inspector Popup Auto Generated Code End]

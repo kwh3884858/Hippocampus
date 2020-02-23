@@ -12,7 +12,7 @@ namespace SceneLookupGenerator
 		NoSceneRootPath,
 		NoOutputPath,
 		NoTemplateFile,
-        NotExistInsertFlag
+		NotExistInsertFlag
 	}
 
 	public enum MessageType
@@ -22,7 +22,6 @@ namespace SceneLookupGenerator
 
 	public class SceneLookupGenerator
 	{
-		static readonly string m_outputName = "\\SceneLookup.cs";
 		static readonly string m_macroConstant = "#CONSTANT#";
 		static readonly string m_macroTotal = "#TOTAL#";
 		static readonly string m_macroSceneName = "#SCENENAME#";
@@ -33,9 +32,10 @@ namespace SceneLookupGenerator
 		string m_sceneRootPath;
 		string m_outputPath;
 		string m_templatePath;
+		string m_sceneLookupOutputName;
 
 		List<string> scenes;
-		List<string> SceneIds;
+
 
 		public SceneLookupGenerator ()
 		{
@@ -65,13 +65,13 @@ namespace SceneLookupGenerator
 				scenes.Add (info.Name.Remove (info.Name.LastIndexOf (".", StringComparison.Ordinal)));
 			}
 
-            //foreach (FileInfo info in sceneMetaInfos)
-            //{
-            //    scenes.Add(info.Name.Remove(info.Name.LastIndexOf(".", StringComparison.Ordinal)));
-            //}
+			//foreach (FileInfo info in sceneMetaInfos)
+			//{
+			//    scenes.Add(info.Name.Remove(info.Name.LastIndexOf(".", StringComparison.Ordinal)));
+			//}
 
-            //Chceck Template errpr
-            ErrorType error = CheckFilePath (m_templatePath, ErrorType.NoTemplateFile);
+			//Chceck Template errpr
+			ErrorType error = CheckFilePath (m_templatePath, ErrorType.NoTemplateFile);
 			if (error != ErrorType.NoError) {
 				return ErrorType.NoTemplateFile;
 			}
@@ -83,8 +83,8 @@ namespace SceneLookupGenerator
 				while (fs.Read (b, 0, b.Length) > 0) {
 
 					m_content += temp.GetString (b);
-                    Array.Clear(b, 0, b.Length);
-                }
+					Array.Clear (b, 0, b.Length);
+				}
 			}
 
 
@@ -136,7 +136,7 @@ namespace SceneLookupGenerator
 
 			m_content = m_content.Substring (0, m_content.IndexOf ('\0'));
 
-			m_outputPath += m_outputName;
+			m_outputPath += m_sceneLookupOutputName;
 
 			//Write scene lookup
 			if (File.Exists (m_outputPath)) {
@@ -180,6 +180,11 @@ namespace SceneLookupGenerator
 			return CheckFilePath (m_templatePath, ErrorType.NoTemplateFile);
 		}
 
+		public void SetSceneLookupOutputName (string sceneLookupOutputName)
+		{
+			m_sceneLookupOutputName = sceneLookupOutputName;
+		}
+
 		private ErrorType CheckDirectoryPath (string path, ErrorType pathError)
 		{
 			if (!Directory.Exists (path)) {
@@ -189,14 +194,13 @@ namespace SceneLookupGenerator
 			return ErrorType.NoError;
 		}
 
-        private ErrorType CheckFilePath(string path, ErrorType pathError)
-        {
-            if (!File.Exists(path))
-            {
-                return pathError;
-            }
+		private ErrorType CheckFilePath (string path, ErrorType pathError)
+		{
+			if (!File.Exists (path)) {
+				return pathError;
+			}
 
-            return ErrorType.NoError;
-        }
-    }
+			return ErrorType.NoError;
+		}
+	}
 }

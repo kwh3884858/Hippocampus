@@ -22,7 +22,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 76f726a6d946e154aa0feafe8f5a72ad
-    m_Address: Episode2_Pier
+    m_Address: Scene_Episode2_Pier
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: d64d83efff065fe4485fa4ded364df60
