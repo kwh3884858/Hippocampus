@@ -1,4 +1,6 @@
-﻿using StarPlatinum.Service;
+﻿using Config.GameRoot;
+using StarPlatinum.Service;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -12,7 +14,6 @@ namespace StarPlatinum
 
 		public SceneLookupEnum m_startScene { get; set; }
 
-
 		public override void SingletonInit () { }
 		VirtualMachineInterface virtualMachineInterface;
 
@@ -20,12 +21,11 @@ namespace StarPlatinum
 		{
 			if (GUI.Button (new Rect (0, 0, 200, 50), "Productivity")) {
 
-				Porductivity ();
+				Productivity ();
 			}
 		}
 
-
-		void Porductivity ()
+		void Productivity ()
 		{
 			System.Random random = new System.Random ();
 			int ran = random.Next (0, 10);
@@ -39,9 +39,10 @@ namespace StarPlatinum
 		// Use this for initialization
 		void Start ()
 		{
+			PreloadData ();
 			//SoundService.Instance.PlayBgm("kendo_girls");
 			//Console.Instance.Print("Hello, World!");
-			Porductivity ();
+			Productivity ();
 			ConfigData data = new ConfigData ();// 测试
 
 			//ReadStorys readStorys = new ReadStorys("Storys/StoryTest");
@@ -65,8 +66,39 @@ namespace StarPlatinum
 
 
 			//PrefabManager.Instance.LoadScene(m_startScene, LoadSceneMode.Additive);
-			CameraService.Instance.UpdateCurrentCamera ();
 			//PrefabManager.Instance.LoadScene(SceneLookupEnum.GoundTestScene,LoadSceneMode.Additive);
+		}
+
+		void PreloadData ()
+		{
+
+
+			RootConfig rootConfig = RootConfig.Instance;
+			allData.Add (rootConfig);
+
+
+			StartCoroutine (CheckDataLoaded (allData, AfterLoadData));
+		}
+
+		IEnumerator CheckDataLoaded (List<System.Object> allData, Action callback)
+		{
+			RootConfig rootConfig = null;
+
+
+			while (rootConfig == null) {
+				rootConfig = RootConfig.Instance;
+
+				yield return null;
+			}
+
+
+			callback ();
+		}
+
+		void AfterLoadData ()
+		{
+			CameraService.Instance.UpdateCurrentCamera ();
+
 		}
 
 		IEnumerator AfterInitialize ()
@@ -97,7 +129,7 @@ namespace StarPlatinum
 			//Add ECS system
 			//AddEntitas ();
 
-			SceneManager.Instance ().AddSceneLoadedEvent (Handlecallback);
+			//SceneManager.Instance ().AddSceneLoadedEvent (Handlecallback);
 
 			SceneManager.Instance ().LoadScene (SceneLookupEnum.UITestScene, SceneLoadMode.Additive);
 
@@ -151,6 +183,6 @@ namespace StarPlatinum
 
 		}
 
-
+		private List<System.Object> allData = new List<System.Object> ();
 	}
 }

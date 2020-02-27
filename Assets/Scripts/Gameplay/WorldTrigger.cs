@@ -33,6 +33,7 @@ public class WorldTrigger : MonoBehaviour
 
 		Debug.DrawLine (transform.position, Vector3.up, Color.red, 4.0f);
 		//Debug.DrawLine (collision.point, collision.normal, Color.white);
+		m_callback?.Invoke ();
 
 		//foreach (ContactPoint contact in collision.contacts) {
 		//	Gizmos.DrawWireSphere (contact.point, 1);

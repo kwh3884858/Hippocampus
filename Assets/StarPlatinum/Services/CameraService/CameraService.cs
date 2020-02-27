@@ -40,10 +40,12 @@ namespace StarPlatinum.Service
 		public GameObject GetMainCamera ()
 		{
 			if (m_mainCamera == null || m_mainCamera.activeInHierarchy == false) {
-				bool result = UpdateCurrentCamera ();
-				if (!result) {
-					return null;
-				}
+				Debug.Log ("Old camera is expired");
+			}
+
+			bool result = UpdateCurrentCamera ();
+			if (!result) {
+				return null;
 			}
 
 			return m_mainCamera;
@@ -57,12 +59,13 @@ namespace StarPlatinum.Service
 			if (mainCamera == null) {
 				mainCamera = CreateCamera ();
 				if (mainCamera == null) return false;
-
 			}
 
-			SceneLookupEnum sceneEnum = SceneManager.Instance ().CurrentScene;
+			m_mainCamera = mainCamera;
 
-			if (RootConfig.Instance == null) return false;
+			SceneLookupEnum sceneEnum = SceneManager.Instance ().GetCurrentScene;
+
+			//if (RootConfig.Instance == null) return false;
 			CameraService.SceneCameraType cameraType = RootConfig.Instance.GetCameraTypeBySceneName (sceneEnum.ToString ());
 
 			if (cameraType == SceneCameraType.Moveable) {
@@ -72,6 +75,12 @@ namespace StarPlatinum.Service
 				}
 			}
 
+			if (cameraType == SceneCameraType.Fixed) {
+				m_cameraController = m_mainCamera.GetComponent<CameraController> ();
+				if (m_cameraController != null) {
+					GameObject.Destroy (m_cameraController);
+				}
+			}
 
 			return true;
 		}
@@ -117,7 +126,8 @@ namespace StarPlatinum.Service
 
 			if (cameras.Length > 1) {
 				for (int i = 1; i < cameras.Length; i++) {
-					GameObject.Destroy (cameras [i]);
+					cameras [i].gameObject.SetActive (false);
+					GameObject.Destroy (cameras [i].gameObject);
 				}
 			}
 
@@ -130,12 +140,21 @@ namespace StarPlatinum.Service
 			GameObject root = GameObject.Find ("GameRoot");
 			if (root == null) return null;
 
+			PrefabManager.Instance.InstantiateAsync<GameObject> ("MainCamera", (result) => {
+				GameObject cameraGameObject = result.result as GameObject;
 
-			camera = new GameObject ("Main Camera");
-			camera.AddComponent<Camera> ();
+				Camera camera = cameraGameObject.GetComponent<Camera> ();
+				if (camera == null) {
+					cameraGameObject.AddComponent<Camera> ();
+					cameraGameObject.transform.SetParent (root.transform);
+				}
+			});
 
-			//m_cachedCamera = Instantiate (m_cachedCamera);
-			camera.transform.SetParent (root.transform);
+			//camera = new GameObject ("Main Camera");\  
+			//camera.AddComponent<Camera> ();
+
+			////m_cachedCamera = Instantiate (m_cachedCamera);
+			//camera.transform.SetParent (root.transform);
 
 			return camera;
 

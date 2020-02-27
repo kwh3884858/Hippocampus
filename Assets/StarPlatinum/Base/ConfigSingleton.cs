@@ -8,56 +8,55 @@ using UnityEngine;
 namespace StarPlatinum.Base
 {
 
-    public abstract class ConfigSingleton<T> : ScriptableObject where T : ScriptableObject
-    {
-        private static readonly string LOADPATH = $"Assets/Config/{typeof(T).Name}.asset";
+	public abstract class ConfigSingleton<T> : ScriptableObject where T : ScriptableObject
+	{
+		private static readonly string LOADPATH = $"Assets/Config/{typeof (T).Name}.asset";
 
-        public static T Instance
-        {
-            get
-            {
-                if (m_instance == null)
-                {
-                    m_instance = LoadConfig();
-                }
+		public static ref T Instance {
+			get {
+				if (m_instance == null) {
+					m_instance = LoadConfig ();
+				}
 
-                return m_instance;
-            }
-        }
+				return ref m_instance;
+			}
+		}
 
-        private static T LoadConfig()
-        {
-            m_instance = null;
+		//public static void GetConfig (ref T refConfig)
+		//{
+		//	refConfig = m_instance;
+		//}
 
-            if (Application.isPlaying)
-            {
-                PrefabManager.Instance.InstantiateConfigAsync(typeof(T).Name, (result) =>
-                {
-                    Debug.Log($"===========aas:{result.key}加载完成,");
-                    m_instance = result.result as T;
-                });
+		private static T LoadConfig ()
+		{
+			m_instance = null;
 
-                return m_instance;
-            }
-            else//Temp For AAS Not Init Success In Edit Mode
-            {
+			if (Application.isPlaying) {
+				PrefabManager.Instance.InstantiateConfigAsync (typeof (T).Name, (result) => {
+					Debug.Log ($"===========aas:{result.key}加载完成,");
+					m_instance = result.result as T;
+				});
+
+				return m_instance;
+			} else//Temp For AAS Not Init Success In Edit Mode
+			  {
 #if UNITY_EDITOR
-                //var path = $"Assets/StarPlatinum/Config/{typeof(T).Name}.asset";
+				//var path = $"Assets/StarPlatinum/Config/{typeof(T).Name}.asset";
 
-                m_instance = AssetDatabase.LoadAssetAtPath<T>(LOADPATH);
+				m_instance = AssetDatabase.LoadAssetAtPath<T> (LOADPATH);
 
-                if (m_instance == null) { Debug.Log($"{LOADPATH} doesn`t exist {typeof(T).Name}"); return null; }
+				if (m_instance == null) { Debug.Log ($"{LOADPATH} doesn`t exist {typeof (T).Name}"); return null; }
 
-                Debug.Log($"======resource加载完成name:{typeof(T).Name}, path:{LOADPATH}, config:{m_instance}=====");
+				Debug.Log ($"======resource加载完成name:{typeof (T).Name}, path:{LOADPATH}, config:{m_instance}=====");
 
-                return m_instance;
+				return m_instance;
 #endif
-                
-            }
-            return null;
-        }
 
-        private static T m_instance = null;
-    }
+			}
+			return null;
+		}
+
+		private static T m_instance = null;
+	}
 
 }

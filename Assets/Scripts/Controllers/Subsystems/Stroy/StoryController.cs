@@ -88,7 +88,7 @@ namespace Controllers.Subsystems.Story
 		private string GenerateStoryID (string itemId)
 		{
 			return ChapterManager.Instance.GetCurrentSceneName () +
-				SceneManager.Instance ().CurrentScene +
+				SceneManager.Instance ().GetCurrentScene +
 				itemId;
 		}
 
