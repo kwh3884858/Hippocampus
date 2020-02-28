@@ -151,16 +151,24 @@ namespace Controllers.Subsystems.Story
 						container.PushName (m_storys.GetName ());
 						StoryVirtualMachine.Instance.Run (m_storys.GetContent ());
 						container.PushWaiting (1f);
+						m_storys.NextStory ();
 						break;
 
 					case StoryReader.NodeType.jump:
+						//container.PushJump (m_storys.GetJump ());
+						m_storys.NextStory ();
+						break;
+
+					case StoryReader.NodeType.label:
+						//m_storys.NextStory ();
+						m_storys.NextStory ();
 						break;
 
 					default:
 						break;
 					}
 
-					m_storys.Next ();
+
 				}
 			}
 			//while (!m_storys.IsDone())

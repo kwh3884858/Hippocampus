@@ -6,6 +6,7 @@ using Newtonsoft.Json.Linq;
 using System.Linq;
 using System.Data;
 using GamePlay.Global;
+using UI.Panels.StaticBoard;
 
 namespace StarPlatinum.StoryReader
 {
@@ -56,14 +57,22 @@ namespace StarPlatinum.StoryReader
 			return data.content;
 		}
 
-		public string GetJump ()
+		public List<Option> GetJump ()
 		{
 			//for (int i = 0; i < length; i++)
 			//{
-
+			List<Option> options = new List<Option> ();
 			//}
-			StoryJumpData data = m_story [m_index] as StoryJumpData;
-			return data.jump;
+			do {
+
+				StoryJumpData data = m_story [m_index] as StoryJumpData;
+				Option option = new Option (data.jump, data.content);
+				options.Add (option);
+
+				NextStory ();
+
+			} while (m_story [m_index].typename == NodeType.jump.ToString ());
+			return options;
 		}
 
 		public bool JumpToLabel (string label)
@@ -108,7 +117,7 @@ namespace StarPlatinum.StoryReader
 			return NodeType.none;
 		}
 
-		public void Next ()
+		public void NextStory ()
 		{
 			m_index++;
 		}
@@ -127,7 +136,6 @@ namespace StarPlatinum.StoryReader
 					if (labelData.label == label) {
 						return true;
 					}
-
 				}
 			}
 			return false;
