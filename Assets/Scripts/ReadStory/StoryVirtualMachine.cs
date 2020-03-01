@@ -1,4 +1,5 @@
 ﻿using Controllers.Subsystems.Story;
+using Evidence;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,160 +7,150 @@ using UnityEngine;
 
 namespace StarPlatinum.StoryCompile
 {
-    using Token = StoryCompiler.Token;
+	using Token = StoryCompiler.Token;
 
-    public class StoryVirtualMachine : Singleton<StoryVirtualMachine>
-    {
-
-        
-        enum TableType
-        {
-            none,
-            fontSize,
-            color,
-            tip,
-            paintMove,
-            chapter,
-            scene,
-            character,
-            pause
-        };
+	public class StoryVirtualMachine : Singleton<StoryVirtualMachine>
+	{
 
 
-        public StoryVirtualMachine()
-        {
-            m_compiler = new StoryCompiler();
-            m_currentColor = "FFFFFFFF";
-        }
+		enum TableType
+		{
+			none,
+			fontSize,
+			color,
+			tip,
+			paintMove,
+			chapter,
+			scene,
+			character,
+			pause,
+			exhibit
+		};
 
-        public void Run(string content)
-        {
-            if (m_container == null) return;
 
-            List<Token> tokens = m_compiler.Compile(content);
+		public StoryVirtualMachine ()
+		{
+			m_compiler = new StoryCompiler ();
+			m_currentColor = "FFFFFFFF";
+		}
 
-            Parser(ref tokens);
-        }
+		public void Run (string content)
+		{
+			if (m_container == null) return;
 
-        public void SetStoryActionContainer(StoryActionContainer container)
-        {
-            m_container = container;
-        }
-        void Parser(ref List<Token> m_tokens)
-        {
-            TableType currentState;
-            Stack<TableType> editorState = new Stack<TableType>();
-            bool isReadCloseLabel;
+			List<Token> tokens = m_compiler.Compile (content);
 
-            isReadCloseLabel = false;
-            currentState = TableType.none;
+			Parser (ref tokens);
+		}
 
-            for (int i = 0; i < m_tokens.Count; i++)
-            {
-                Token token = m_tokens[i];
-                if (token.m_tokeType == StoryCompiler.TokenType.TokenInstructor)
-                {
-                    if (isReadCloseLabel)
-                    {
-                        // Is closing state
-                        if (editorState.Count == 0)
-                        {
-                            Debug.Log("Close Label is lack\n");
-                            continue;
-                        }
+		public void SetStoryActionContainer (StoryActionContainer container)
+		{
+			m_container = container;
+		}
+		void Parser (ref List<Token> m_tokens)
+		{
+			TableType currentState;
+			Stack<TableType> editorState = new Stack<TableType> ();
+			bool isReadCloseLabel;
 
-                        currentState = editorState.Pop();
+			isReadCloseLabel = false;
+			currentState = TableType.none;
 
-                        isReadCloseLabel = false;
+			for (int i = 0; i < m_tokens.Count; i++) {
+				Token token = m_tokens [i];
+				if (token.m_tokeType == StoryCompiler.TokenType.TokenInstructor) {
+					if (isReadCloseLabel) {
+						// Is closing state
+						if (editorState.Count == 0) {
+							Debug.Log ("Close Label is lack\n");
+							continue;
+						}
 
-                        switch (currentState)
-                        {
-                            case TableType.none:
-                                break;
-                            case TableType.fontSize:
-                                break;
-                            case TableType.color:
-                                m_container.PushColor(m_currentColor);
-                                break;
-                            case TableType.tip:
-                                break;
-                            case TableType.paintMove:
-                                break;
-                            case TableType.pause:
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        // Is start state
-                        if (token.m_content == TableType.fontSize.ToString())
-                        {
-                            editorState.Push(TableType.fontSize);
-                        }
-                        if (token.m_content == TableType.color.ToString())
-                        {
-                            editorState.Push(TableType.color);
-                        }
-                        if (token.m_content == TableType.paintMove.ToString())
-                        {
-                            editorState.Push(TableType.paintMove);
-                        }
-                        if (token.m_content == TableType.pause.ToString())
-                        {
-                            editorState.Push(TableType.pause);
-                        }
-                    }
-                }
-                else if (token.m_tokeType == StoryCompiler.TokenType.TokenIdentity)
-                {
-                    if (editorState.Count == 0)
-                    {
-                        Debug.Log("No Identity Exist. \n");
-                        continue;
-                    }
-                    switch (editorState.Peek())
-                    {
-                        case TableType.none:
-                            break;
-                        case TableType.fontSize:
+						currentState = editorState.Pop ();
 
-                            break;
+						isReadCloseLabel = false;
 
-                        case TableType.color:
+						switch (currentState) {
+						case TableType.none:
+							break;
+						case TableType.fontSize:
+							break;
+						case TableType.color:
+							m_container.PushColor (m_currentColor);
+							break;
+						case TableType.tip:
+							break;
+						case TableType.paintMove:
+							break;
+						case TableType.pause:
+							break;
+						case TableType.exhibit:
+							break;
+						default:
+							break;
+						}
+					} else {
+						// Is start state
+						if (token.m_content == TableType.fontSize.ToString ()) {
+							editorState.Push (TableType.fontSize);
+						}
+						if (token.m_content == TableType.color.ToString ()) {
+							editorState.Push (TableType.color);
+						}
+						if (token.m_content == TableType.paintMove.ToString ()) {
+							editorState.Push (TableType.paintMove);
+						}
+						if (token.m_content == TableType.pause.ToString ()) {
+							editorState.Push (TableType.pause);
+						}
+						if (token.m_content == TableType.exhibit.ToString ()) {
+							editorState.Push (TableType.exhibit);
+						}
+					}
+				} else if (token.m_tokeType == StoryCompiler.TokenType.TokenIdentity) {
+					if (editorState.Count == 0) {
+						Debug.Log ("No Identity Exist. \n");
+						continue;
+					}
+					switch (editorState.Peek ()) {
+					case TableType.none:
+						break;
+					case TableType.fontSize:
 
-                            m_container.PushColor(token.m_content);
-                            m_currentColor = token.m_content;
-                            break;
+						break;
 
-                        case TableType.tip:
-                            break;
-                        case TableType.paintMove:
-                            break;
-                        case TableType.pause:
-                            break;
-                        default:
-                            break;
-                    }
+					case TableType.color:
 
-                }
-                else if (token.m_tokeType == StoryCompiler.TokenType.TokenOpSlash)
-                {
-                    //Start close
-                    isReadCloseLabel = true;
-                }
-                else if(token.m_tokeType == StoryCompiler.TokenType.TokenContent)
-                {
-                    m_container.PushContent(token.m_content);
-                }
+						m_container.PushColor (token.m_content);
+						m_currentColor = token.m_content;
+						break;
 
-            }
-        }
+					case TableType.tip:
+						break;
+					case TableType.paintMove:
+						break;
+					case TableType.pause:
+						break;
+					case TableType.exhibit:
+						EvidenceDataManager.Instance.AddEvidence (token.m_content);
+						break;
+					default:
+						break;
+					}
 
-        string m_currentColor;
+				} else if (token.m_tokeType == StoryCompiler.TokenType.TokenOpSlash) {
+					//Start close
+					isReadCloseLabel = true;
+				} else if (token.m_tokeType == StoryCompiler.TokenType.TokenContent) {
+					m_container.PushContent (token.m_content);
+				}
 
-        StoryCompiler m_compiler;
-        StoryActionContainer m_container;
-    }
+			}
+		}
+
+		string m_currentColor;
+
+		StoryCompiler m_compiler;
+		StoryActionContainer m_container;
+	}
 }
