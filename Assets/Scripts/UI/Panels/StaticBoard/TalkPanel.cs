@@ -6,6 +6,7 @@ using Const;
 using Controllers.Subsystems.Story;
 using StarPlatinum;
 using TMPro;
+using UI.Panels.Element;
 using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
 using UI.Panels.Providers.DataProviders.GameScene;
@@ -95,6 +96,10 @@ namespace UI.Panels.StaticBoard
         private StoryController StoryController => UiDataProvider.ControllerManager.StoryController;
         private StoryConfig StoryConfig => UiDataProvider.ConfigProvider.StoryConfig;
 
+        private float Width => UiDataProvider.Canvas.rectTransform().rect.width; 
+        private float Height => UiDataProvider.Canvas.rectTransform().rect.height; 
+
+
         public override void Initialize(UIDataProvider uiDataProvider, UIPanelSettings settings)
         {
             base.Initialize(uiDataProvider, settings);
@@ -106,9 +111,7 @@ namespace UI.Panels.StaticBoard
             base.Hide();
             m_autoPlay = false;
             m_skip = false;
-            
         }
-
         public override void UpdateData(DataProvider data)
         {
             base.UpdateData(data);
@@ -165,6 +168,15 @@ namespace UI.Panels.StaticBoard
                     ShowJumpOption(jumpAction.Options);
                     break;
                 case StoryActionType.Picture:
+                    var pictureAction = storyAction as StoryShowPictureAction;
+                    if (pictureAction == null)
+                    {
+                        Debug.LogError("pictureAction null!!!!!!!Please check");
+                        SetActionState(ActionState.End);
+                        return;
+                    }
+
+                    ShowPicture(pictureAction.Content, pictureAction.Pos);
                     break;
                 case StoryActionType.Waiting:
                     SetActionState( ActionState.Actioning);
@@ -279,12 +291,32 @@ namespace UI.Panels.StaticBoard
             SetActionState(ActionState.End);
         }
 
-        private void ShowPicture(string picID, int posID)
+        private void ShowPicture(string picID, int pos)
         {
+            if (pos == 0)
+            {
+                if (m_pictureItems.ContainsKey(picID))
+                {
+                    Destroy(m_pictureItems[picID].gameObject);
+                }
+                SetActionState(ActionState.End);
+                return;
+            }
+            UiDataProvider.RolePictureProvider.GetPictureItem(picID, (item) =>
+            {
+                m_pictureItems.Add(picID,item);
+                item.transform.SetParent(m_pictureRoot);
+                item.rectTransform().anchoredPosition = new Vector2(Width/100*(pos-50),0);
+                SetActionState(ActionState.End);
+            });
             
         }
 
         private void MovePicture(int oldPosID, int targetPosID)
+        {
+        }
+
+        private void PictureItem(PictureItem item)
         {
             
         }
@@ -329,7 +361,10 @@ namespace UI.Panels.StaticBoard
         [SerializeField] private TMP_Text m_nameTxt;
         [SerializeField] private TMP_Text m_content;
         [SerializeField] private TMP_Text m_autoPlayButtonText;
+        [SerializeField] private Transform m_pictureRoot;
 
+        private Dictionary<string, PictureItem> m_pictureItems = new Dictionary<string, PictureItem>();
+        
         private bool m_skip = false;
         private bool m_characterTalkEnd = false;
         private bool m_autoPlay = false;

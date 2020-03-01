@@ -25,6 +25,12 @@ namespace Controllers.Subsystems.Story
         public float Duration { get; set; }
     }
 
+    public class StoryShowPictureAction : StoryAction
+    {
+        public int Pos { get; set; }
+    }
+
+
     public class StoryActionContainer
     {
         public StoryActionContainer()
@@ -67,9 +73,9 @@ namespace Controllers.Subsystems.Story
             m_actions.Enqueue(new StoryAction(){Type = StoryActionType.Waiting,Content = waitingTime.ToString()});
         }
 
-        public void PushPicture(string picID)
+        public void PushPicture(string picID,int pos)
         {
-            m_actions.Enqueue(new StoryAction(){Type = StoryActionType.Picture,Content = picID});
+            m_actions.Enqueue(new StoryShowPictureAction(){Type = StoryActionType.Picture,Content = picID,Pos = pos});
         }
         
         public void PushPicMove(string picID,Vector2 distance,float duration)

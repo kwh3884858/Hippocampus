@@ -4,6 +4,7 @@ using Controllers;
 
 using StarPlatinum;
 using UI.Modules;
+using UnityEngine;
 
 namespace UI.Panels.Providers
 {
@@ -35,5 +36,9 @@ namespace UI.Panels.Providers
         }
 
         public UIModuleStaticBoard StaticBoard { get; set; }
+        
+        public RolePictureProvider RolePictureProvider { get; set; }
+        
+        public Canvas Canvas { get; set; }
     }
 }
