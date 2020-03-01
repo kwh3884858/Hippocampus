@@ -53,7 +53,7 @@ namespace GamePlay
 			storyController.LoadStoryFileByName (m_newStoryFileName);
 
 			if (m_showStoryPanel) {
-				UI.UIManager.Instance ().ShowPanel (UIPanelType.TalkPanel, new TalkDataProvider () { ID = m_jumpToLabel });
+				UI.UIManager.Instance ().ShowStaticPanel(UIPanelType.TalkPanel, new TalkDataProvider () { ID = m_jumpToLabel });
 
 			}
 

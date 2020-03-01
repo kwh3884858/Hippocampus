@@ -68,7 +68,12 @@ namespace UI
             m_uiModuleStaticBoard.LateTick();
         }
 
-        public void ShowPanel(UIPanelType type,DataProvider dataProvider = null)
+        public void ShowStaticPanel(UIPanelType type,DataProvider dataProvider = null)
+        {
+            m_uiModuleStaticBoard.ShowPanel(type,dataProvider);
+        }
+
+        public void ShowPanel(UIPanelType type, DataProvider dataProvider = null)
         {
             m_activeModule.ShowPanel(type,dataProvider);
         }
