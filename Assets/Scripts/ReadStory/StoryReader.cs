@@ -128,6 +128,11 @@ namespace StarPlatinum.StoryReader
 			return m_index >= m_story.Count ();
 		}
 
+		private void ResetIndex ()
+		{
+			m_index = 0;
+		}
+
 		public bool RequestLabel (string label)
 		{
 			foreach (StoryBasicData data in m_story) {
@@ -186,7 +191,7 @@ namespace StarPlatinum.StoryReader
 							}
 						}
 
-						m_index = 0;
+						ResetIndex ();
 					}
 				}
 			} else {

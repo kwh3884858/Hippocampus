@@ -21,11 +21,11 @@ namespace GamePlay
 		[ConditionalField ("m_showStoryPanel")]
 		public string m_jumpToLabel;
 
+		public bool m_destoryAfterTrigger = false;
+
 		// Start is called before the first frame update
 		void Start ()
 		{
-			m_showStoryPanel = false;
-
 			if (m_worldTrigger == null) {
 
 				m_worldTrigger = GetComponent<WorldTrigger> ();
@@ -55,6 +55,10 @@ namespace GamePlay
 			if (m_showStoryPanel) {
 				UI.UIManager.Instance ().ShowPanel (UIPanelType.TalkPanel, new TalkDataProvider () { ID = m_jumpToLabel });
 
+			}
+
+			if (m_destoryAfterTrigger) {
+				Destroy (gameObject);
 			}
 		}
 	}

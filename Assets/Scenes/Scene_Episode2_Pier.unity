@@ -512,6 +512,81 @@ Transform:
   m_Father: {fileID: 1199254056}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &853886509
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 853886510}
+  - component: {fileID: 853886513}
+  - component: {fileID: 853886512}
+  - component: {fileID: 853886511}
+  m_Layer: 0
+  m_Name: Ep2_Jeep_Jeep-1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &853886510
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853886509}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.35, y: 0.64, z: -0.41}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1961521307}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &853886511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853886509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b857326fbf89e41cc968d089ae3ac648, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_worldTrigger: {fileID: 853886512}
+  m_newStoryFileName: Ep2_Jeep_Jeep-1
+  m_showStoryPanel: 1
+  m_jumpToLabel: 
+  m_destoryAfterTrigger: 0
+--- !u!114 &853886512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853886509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f60a3516906a40f3a4a5c4dfac68e9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &853886513
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853886509}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.607234, y: 5.9021444, z: 4.5263157}
+  m_Center: {x: -0.303617, y: 2.4510722, z: -1.7631578}
 --- !u!1 &882384889
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,7 +600,7 @@ GameObject:
   - component: {fileID: 882384891}
   - component: {fileID: 882384893}
   m_Layer: 0
-  m_Name: WorldTrigger(Clone)
+  m_Name: Ep2_Pier_Debarkation-2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -583,9 +658,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_worldTrigger: {fileID: 882384891}
-  m_newStoryFileName: Ep2_Pier_Debarkation-1
+  m_newStoryFileName: Ep2_Pier_Debarkation-2
   m_showStoryPanel: 1
   m_jumpToLabel: 
+  m_destoryAfterTrigger: 0
 --- !u!1 &986630021
 GameObject:
   m_ObjectHideFlags: 0
@@ -1260,6 +1336,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 882384890}
+  - {fileID: 853886510}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

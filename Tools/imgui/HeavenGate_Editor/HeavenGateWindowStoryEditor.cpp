@@ -143,6 +143,7 @@ namespace HeavenGateEditor {
 
         char order[8] = "";
         char thumbnail[MAX_CONTENT * 2] = "";
+        
         char currentId[NUM_OF_ID_PART][MAX_ID_COUNT];
         memset(currentId, '\0', NUM_OF_ID_PART*MAX_ID_COUNT);
 
@@ -331,6 +332,8 @@ namespace HeavenGateEditor {
 
                 case NodeType::Jump:
                 {
+
+
                     char jumpConstant[16] = "Jump";
                     char contentConstant[16] = "JumpContent";
                     char chapterConstant[16] = "Chapter";
@@ -413,6 +416,8 @@ namespace HeavenGateEditor {
 
                 case NodeType::Label:
                 {
+
+
                     char LabelConstant[16] = "Label";
 
                     char chapterConstant[16] = "Chapter";
@@ -437,9 +442,9 @@ namespace HeavenGateEditor {
                     if (ImGui::TreeNode((void*)(intptr_t)i, thumbnail))
                     {
                         AddButton(i);
-                        ImGui::Text("Jump Id: %s", jump);
+                        ImGui::Text("Jump Id: %s", label);
 
-                        IdOperator::ParseStringId(jump, currentId);
+                        IdOperator::ParseStringId(label, currentId);
 
                         if (ImGui::BeginCombo(chapterConstant, currentId[(int)ID_PART::CHAPTER], 0)) // The second parameter is the label previewed before opening the combo.
                         {
