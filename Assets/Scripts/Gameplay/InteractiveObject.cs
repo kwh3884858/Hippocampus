@@ -34,7 +34,7 @@ namespace GamePlay
 
 			//bool result = storyController.LoadStoryByItem (m_objectName);
 
-			UI.UIManager.Instance ().ShowPanel (UIPanelType.TalkPanel, new TalkDataProvider () { ID = m_objectName });
+			UI.UIManager.Instance ().ShowStaticPanel (UIPanelType.TalkPanel, new TalkDataProvider () { ID = m_objectName });
 		}
 
 	}
