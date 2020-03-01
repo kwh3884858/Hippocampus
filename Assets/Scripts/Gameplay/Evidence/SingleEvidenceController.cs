@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
+using UnityEngine.UI;
+using UI.Panels.Providers.DataProviders;
 
 namespace Evidence
 {
@@ -9,6 +12,10 @@ namespace Evidence
     /// </summary>
     public class SingleEvidenceController : MonoBehaviour
     {
+
+        [SerializeField]
+        private Text m_name = null;
+
         /// <summary>证据数据</summary>
         private SingleEvidenceData m_data = null;
 
@@ -30,6 +37,10 @@ namespace Evidence
             {
                 this.gameObject.SetActive(true);
             }
+            if(m_name != null)
+            {
+                m_name.text = m_data.exhibit;
+            }
         }
 
         /// <summary>
@@ -38,6 +49,7 @@ namespace Evidence
         public void OnClick()
         {
             // TODO：调用证据显示UI
+            UIManager.Instance().ShowPanel(UIPanelType.Singleevidenceselectpanel, new EvidenceDataProvider() { Data = m_data});// 显示UI，wywtsest
         }
     }
 }

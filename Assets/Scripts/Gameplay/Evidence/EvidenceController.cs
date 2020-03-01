@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UI.Panels;
 using UI.Panels.Providers;
-using UI.Panels.Providers.DataProviders.StaticBoard;
+using UI.Panels.Providers.DataProviders;
 using UnityEngine;
 
 namespace Evidence
 {
-	public class EvidenceController : UIPanel<UIDataProviderGameScene, TalkDataProvider>
+	public class EvidenceController : UIPanel<UIDataProviderEvidence, EvidenceDataProvider>
 	{
 
 		[SerializeField]
@@ -18,7 +18,18 @@ namespace Evidence
 		private EvidenceDataManager m_dataManager = null;
 		private List<SingleEvidenceController> m_evidenceList = new List<SingleEvidenceController> ();
 
-		public void Init ()
+        public override void Initialize(UIDataProvider uiDataProvider, UIPanelSettings settings)
+        {
+            base.Initialize(uiDataProvider, settings);
+        }
+
+        public override void ShowData(DataProvider data)
+        {
+            base.ShowData(data);
+            Init();
+        }
+
+        public void Init ()
 		{
 			SetData ();
 			Show ();
@@ -27,7 +38,7 @@ namespace Evidence
 		private void SetData ()
 		{
 			m_dataManager = EvidenceDataManager.Instance;
-			m_evidenceList.Clear ();
+			//m_evidenceList.Clear ();
 		}
 
 		public void Show ()
