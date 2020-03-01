@@ -51,6 +51,8 @@ namespace HeavenGateEditor {
     const int     SCENE_COLUMN = 2;
     const int     CHARACTER_COLUMN = 2;
     const int     EXHIBIT_COLUMN = 2;
+    const int     EFFECT_COLUMN = 2;
+    const int     BGM_COLUMN = 2;
 
     //Color
     const int    COLOR_VALUE_COLUMN = 4;
@@ -170,6 +172,24 @@ const char* const DELIMITER =
         "\\ExhibitTable.json";
 #else
         "/ExhibitTable.json";
+#endif
+
+    //Relative path from story folder to effect table
+
+    const char* const EFFECT_TABLE_NAME =
+#ifdef _WIN32
+        "\\EffectTable.json";
+#else
+        "/EffectTable.json";
+#endif
+
+    //Relative path from story folder to bgm table
+
+    const char* const BGM_TABLE_NAME =
+#ifdef _WIN32
+        "\\BgmTable.json";
+#else
+        "/BgmTable.json";
 #endif
 
     const char* const PATH_FROM_PROJECT_ROOT_TO_FONT_FOLDER =

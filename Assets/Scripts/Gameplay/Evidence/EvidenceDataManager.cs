@@ -7,6 +7,9 @@ namespace Evidence
     public class EvidenceDataManager
     {
 
+        /// <summary>已经获得的证据</summary>
+        public Dictionary<string, SingleEvidenceData> myEvidenceDic { private set; get; } = null;
+
         public EvidenceDataManager()
         {
             LoadData();
@@ -28,13 +31,13 @@ namespace Evidence
 
             if (m_data.evidenceList == null)
             {
-                m_data.evidenceList = new List<int>();
+                m_data.evidenceList = new List<string>();
             }
             m_evidenceConfig = ConfigData.Instance.evidenceConfig.GetDicDetails();
             if (m_evidenceConfig != null)
             {
                 int l = m_data.evidenceList.Count;
-                int id;
+                string id;
                 EvidenceConfig.Detail data;
                 for (int i = 0; i < l; i++)
                 {
@@ -42,7 +45,7 @@ namespace Evidence
                     if (m_evidenceConfig.ContainsKey(id))
                     {
                         data = m_evidenceConfig[id];
-                        m_myEvidenceDic.Add(data.id, new SingleEvidenceData(data.id, data.exhibit, data.description));
+                        myEvidenceDic.Add(data.exhibit, new SingleEvidenceData(/*data.id, */data.exhibit, data.description));
                     }
                 }
             }
@@ -52,13 +55,13 @@ namespace Evidence
         /// 添加证据
         /// </summary>
         /// <param name="vId"></param>
-        public void AddEvidence(int vId)
+        public void AddEvidence(string vExhibit)
         {
-            if (m_evidenceConfig.ContainsKey(vId))
+            if (m_evidenceConfig.ContainsKey(vExhibit))
             {
-                m_data.evidenceList.Add(vId);
-                EvidenceConfig.Detail data = m_evidenceConfig[vId];
-                m_myEvidenceDic.Add(data.id, new SingleEvidenceData(data.id, data.exhibit, data.description));
+                m_data.evidenceList.Add(vExhibit);
+                EvidenceConfig.Detail data = m_evidenceConfig[vExhibit];
+                myEvidenceDic.Add(data.exhibit, new SingleEvidenceData(/*data.id, */data.exhibit, data.description));
             }
 #if UNITY_EDITOR
             else
@@ -72,12 +75,12 @@ namespace Evidence
         /// 移除证据
         /// </summary>
         /// <param name="vId"></param>
-        public void RemoveEvidence(int vId)
+        public void RemoveEvidence(string vExhibit)
         {
-            if (m_evidenceConfig.ContainsKey(vId))
+            if (m_evidenceConfig.ContainsKey(vExhibit))
             {
-                m_data.evidenceList.Remove(vId);
-                m_myEvidenceDic.Remove(vId);
+                m_data.evidenceList.Remove(vExhibit);
+                myEvidenceDic.Remove(vExhibit);
             }
 #if UNITY_EDITOR
             else
@@ -92,9 +95,9 @@ namespace Evidence
         /// </summary>
         /// <param name="vId"></param>
         /// <returns></returns>
-        public SingleEvidenceData GetEvidenceDetail(int vId)
+        public SingleEvidenceData GetEvidenceDetail(string vExhibit)
         {
-            return m_myEvidenceDic.ContainsKey(vId) ? m_myEvidenceDic[vId] : null;
+            return myEvidenceDic.ContainsKey(vExhibit) ? myEvidenceDic[vExhibit] : null;
         }
 
         /// <summary>
@@ -108,10 +111,8 @@ namespace Evidence
         /// <summary>保存本地的名称</summary>
         private static string evidenceName = "Evidence";
 
-        /// <summary>已经获得的证据</summary>
-        private Dictionary<int, SingleEvidenceData> m_myEvidenceDic = null;
         /// <summary>读取的本地配置文件信息</summary>
-        private Dictionary<int, EvidenceConfig.Detail> m_evidenceConfig = null;
+        private Dictionary<string, EvidenceConfig.Detail> m_evidenceConfig = null;
         /// <summary>本地保存的数据</summary>
         private EvidenceData m_data = null;
     }

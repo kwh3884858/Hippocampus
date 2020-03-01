@@ -1,0 +1,15 @@
+{
+  "type": "exhibit",
+  "value": [
+    {
+      "description": "获得",
+      "exhibit": "赫尔",
+      "id": 1
+    },
+    {
+      "description": "获得2",
+      "exhibit": "赫尔1",
+      "id": 2
+    }
+  ]
+}
