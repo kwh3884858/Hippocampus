@@ -107,6 +107,13 @@ namespace Controllers.Subsystems.Story
 
 		private void PushPicture (StoryActionContainer container, string leftName, string rightName)
 		{
+			container.PushPicture (hero, 0);
+			container.PushPicture (heroine, 0);
+
+			container.PushPicture (jailerMan, 0);
+			container.PushPicture (jailerWoman, 0);
+
+
 			if (leftName.Length != 0) {
 				container.PushPicture (leftName, left);
 			}
@@ -151,15 +158,16 @@ namespace Controllers.Subsystems.Story
 				m_storys.JumpToWordAfterLabel (labelId);
 			}
 
-			if (labelId == "Ep2_Pier_Debarkation-1") {
+			if (m_storys.Chapter == "Ep2" &&
+				m_storys.Scene == "Pier") {
 				PushPicture (container, hero, heroine);
 
 			}
-			if (labelId == "Ep2_Pier_Debarkation-2") {
-				PushPicture (container, hero, heroine);
-			}
-			if (labelId == "Ep2_Jeep_Jeep-1") {
+
+			if (m_storys.Chapter == "Ep2" &&
+				m_storys.Scene == "Jeep") {
 				PushPicture (container, jailerMan, jailerWoman);
+
 			}
 
 			if (labelId == "Ep2_Jeep_PoliceQuestion_0") {
