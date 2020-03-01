@@ -105,6 +105,9 @@ namespace HeavenGateEditor {
         void Clear();
         bool Empty()const;
 
+        bool SetFileName(const char* const fileName);
+        bool GetFileName(char* const outFileName) const;
+
         void SetFullPath(const char* fullPath);
         const char* GetFullPath()const;
         bool IsExistFullPath()const;

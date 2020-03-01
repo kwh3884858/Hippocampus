@@ -312,12 +312,17 @@ PrefabInstance:
     - target: {fileID: 114109849832879468, guid: c25d4133262bcdd4f860536293f84b7f,
         type: 3}
       propertyPath: m_panelsSettings.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114109849832879468, guid: c25d4133262bcdd4f860536293f84b7f,
         type: 3}
       propertyPath: m_panelsSettings.Array.data[1].m_panelType
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114109849832879468, guid: c25d4133262bcdd4f860536293f84b7f,
+        type: 3}
+      propertyPath: m_panelsSettings.Array.data[2].m_panelType
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114312913334382630, guid: c25d4133262bcdd4f860536293f84b7f,
         type: 3}

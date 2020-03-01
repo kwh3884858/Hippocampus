@@ -2,6 +2,7 @@
 using StarPlatinum;
 using System.Collections;
 using System.Collections.Generic;
+using UI.Panels.Providers.DataProviders.StaticBoard;
 using UnityEngine;
 
 namespace GamePlay
@@ -31,9 +32,9 @@ namespace GamePlay
 				return;
 			}
 
+			//bool result = storyController.LoadStoryByItem (m_objectName);
 
-
-			bool result = storyController.LoadStoryByItem (m_objectName);
+			UI.UIManager.Instance ().ShowPanel (UIPanelType.TalkPanel, new TalkDataProvider () { ID = m_objectName });
 		}
 
 	}

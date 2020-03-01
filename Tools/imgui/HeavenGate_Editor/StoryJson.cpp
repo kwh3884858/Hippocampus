@@ -1,4 +1,5 @@
 #include "StoryJson.h"
+#include "CharacterUtility.h"
 
 #include <utility>
 
@@ -357,6 +358,28 @@ namespace HeavenGateEditor {
         memset(m_chapter, '\0', sizeof(m_chapter));
         memset(m_scene, '\0', sizeof(m_scene));
     }
+bool StoryJson::SetFileName(const char* const fileName){
+
+size_t lengthOfFolderPath = strlen(PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER);
+
+   int pos = CharacterUtility::Find(m_fullPath, strlen(m_fullPath), PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER, strlen(PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER));
+
+    if(pos == -1){ return false; }
+    strcpy(m_fullPath + pos + lengthOfFolderPath + 1, fileName);
+
+    return true;
+}
+
+bool StoryJson::GetFileName(char* const outFileName) const{
+ memset(outFileName, '\0', sizeof(outFileName));
+    size_t lengthOfFolderPath = strlen(PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER);
+      int pos = CharacterUtility::Find(m_fullPath, strlen(m_fullPath), PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER, lengthOfFolderPath);
+
+    if(pos == -1){ return false; }
+    strcpy(outFileName, m_fullPath + pos + strlen(DELIMITER) + lengthOfFolderPath);
+
+    return true;
+}
 
     void StoryJson::SetFullPath(const char* fullPath) {
         strcpy(m_fullPath, fullPath);
