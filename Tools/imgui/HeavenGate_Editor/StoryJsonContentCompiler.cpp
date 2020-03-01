@@ -425,7 +425,10 @@ namespace HeavenGateEditor {
                     break;
                 case HeavenGateEditor::TableType::Paint_Move:
                     break;
-                case TableType::Pause:
+                    case HeavenGateEditor::TableType::Exhibit:
+                      
+                        break;
+                case HeavenGateEditor::TableType::Pause:
                 {
                     const StoryTable<PAUSE_MAX_COLUMN>* const pauseTable = StoryTableManager::Instance().GetPauseTable();
 

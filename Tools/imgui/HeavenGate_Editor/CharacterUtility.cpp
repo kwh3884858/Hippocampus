@@ -132,13 +132,8 @@ bool CharacterUtility::copyWcharPointer(wchar_t * pDest, const wchar_t * pSrc)
 }
 
 #ifndef _WIN32
-<<<<<<< HEAD
  char* CharacterUtility::itoa(int num,char* str, int radix){
-    /* 索引表 */
-=======
-char* CharacterUtility::itoa(int num,char* str, int radix){
-    /*索引表*/
->>>>>>> d00e2c7ed079c976de3b1e67bacc961f48b27cbd
+
     char index[]="0123456789ABCDEF";
     unsigned unum;/* 中间变量 */
     int i=0,j,k;
