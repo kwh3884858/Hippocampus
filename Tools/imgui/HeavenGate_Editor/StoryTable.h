@@ -91,6 +91,18 @@ namespace HeavenGateEditor {
         Description = 2
     };
 
+    enum class EffectTableLayout {
+        Type = 0,
+        Effect = 1,
+        Description = 2
+    };
+
+    enum class BgmTableLayout {
+        Type = 0,
+        Bgm = 1,
+        Description = 2
+    };
+
     const char tableString[][MAX_ENUM_LENGTH] = {
         "type",
         "value"
@@ -162,6 +174,20 @@ namespace HeavenGateEditor {
 
     };
 
+    const char effectTableString[][MAX_ENUM_LENGTH] = {
+        "effect",
+        "effect",
+        "description"
+
+    };
+
+    const char bgmTableString[][MAX_ENUM_LENGTH] = {
+        "bgm",
+        "bgm",
+        "description"
+
+    };
+
     template<int column >
     class StoryRow
     {
@@ -192,7 +218,9 @@ namespace HeavenGateEditor {
         Scene,
         Character,
         Pause,
-        Exhibit
+        Exhibit,
+        Effect,
+        Bgm
     };
 
     template<int column >
@@ -718,6 +746,42 @@ namespace HeavenGateEditor {
             break;
         }
 
+        case TableType::Effect:
+        {
+            j[tableString[(int)TableLayout::Type]] = effectTableString[(int)EffectTableLayout::Type];
+            if (p.GetSize() == 0)
+            {
+                j[tableString[(int)TableLayout::Value]] = json::array();
+            }
+            for (int i = 0; i < p.GetSize(); i++)
+            {
+                tmp = p.GetRow(i);
+                j[tableString[(int)TableLayout::Value]].push_back(json{
+    {effectTableString[(int)EffectTableLayout::Effect],          tmp->Get(0) },
+    {effectTableString[(int)EffectTableLayout::Description],          tmp->Get(1) }
+                    });
+            }
+            break;
+        }
+
+        case TableType::Bgm:
+        {
+            j[tableString[(int)TableLayout::Type]] = bgmTableString[(int)BgmTableLayout::Type];
+            if (p.GetSize() == 0)
+            {
+                j[tableString[(int)TableLayout::Value]] = json::array();
+            }
+            for (int i = 0; i < p.GetSize(); i++)
+            {
+                tmp = p.GetRow(i);
+                j[tableString[(int)TableLayout::Value]].push_back(json{
+    {bgmTableString[(int)BgmTableLayout::Bgm],          tmp->Get(0) },
+    {bgmTableString[(int)BgmTableLayout::Description],          tmp->Get(1) }
+                    });
+            }
+            break;
+        }
+
         default:
 
             return;
@@ -895,6 +959,36 @@ namespace HeavenGateEditor {
                 strcpy(content, values[i].at(exhibitTableString[(int)ExhibitTableLayout::Exhibit]).get_ptr<const json::string_t*>()->c_str());
                 p.PushContent(content);
                 strcpy(content, values[i].at(exhibitTableString[(int)ExhibitTableLayout::Description]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
+            }
+
+            return;
+        }
+
+        if (strcmp(typeString, effectTableString[(int)EffectTableLayout::Type]) == 0) {
+            p.SetTableType(TableType::Effect);
+            char content[MAX_COLUMNS_CONTENT_LENGTH];
+            for (int i = 0; i < values.size(); i++)
+            {
+
+                strcpy(content, values[i].at(effectTableString[(int)EffectTableLayout::Effect]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
+                strcpy(content, values[i].at(effectTableString[(int)EffectTableLayout::Description]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
+            }
+
+            return;
+        }
+
+        if (strcmp(typeString, bgmTableString[(int)BgmTableLayout::Type]) == 0) {
+            p.SetTableType(TableType::Bgm);
+            char content[MAX_COLUMNS_CONTENT_LENGTH];
+            for (int i = 0; i < values.size(); i++)
+            {
+
+                strcpy(content, values[i].at(bgmTableString[(int)BgmTableLayout::Bgm]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
+                strcpy(content, values[i].at(bgmTableString[(int)BgmTableLayout::Description]).get_ptr<const json::string_t*>()->c_str());
                 p.PushContent(content);
             }
 

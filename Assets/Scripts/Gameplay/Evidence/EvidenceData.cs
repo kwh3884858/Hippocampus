@@ -7,24 +7,24 @@ namespace Evidence
     [System.Serializable]
     public class EvidenceData
     {
-        public List<int> evidenceList;
+        public List<string> evidenceList;
 
         public EvidenceData()
         {
-            evidenceList = new List<int>();
+            evidenceList = new List<string>();
         }
     }
 
     [System.Serializable]
     public class SingleEvidenceData
     {
-        public int id;
+        //public int id;
         public string exhibit;
         public string description;
 
-        public SingleEvidenceData(int vId, string vExhibit, string vDescription)
+        public SingleEvidenceData(/*int vId,*/ string vExhibit, string vDescription)
         {
-            id = vId;
+            //id = vId;
             exhibit = vExhibit;
             description = vDescription;
         }

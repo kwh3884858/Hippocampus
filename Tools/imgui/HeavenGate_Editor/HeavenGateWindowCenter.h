@@ -18,6 +18,8 @@ namespace HeavenGateEditor {
     class HeavenGateWindowCharacterTable;
     class HeavenGateWindowPauseTable;
     class HeavenGateWindowExhibitTable;
+    class HeavenGateWindowEffectTable;
+    class HeavenGateWindowBgmTable;
 
     class HeavenGateWindowCenter : public HeavenGateEditorBaseWindow
     {
@@ -43,6 +45,8 @@ namespace HeavenGateEditor {
         HeavenGateWindowCharacterTable*  m_characterTable;
         HeavenGateWindowPauseTable*      m_pauseTable;
         HeavenGateWindowExhibitTable*    m_exhibitTable;
+        HeavenGateWindowEffectTable*     m_effectTable;
+        HeavenGateWindowBgmTable*        m_bgmTable;
 
         bool* show_editor_window;
         bool* show_font_size_table_window;
@@ -54,6 +58,8 @@ namespace HeavenGateEditor {
         bool* show_character_table;
         bool* show_pause_table;
         bool* show_exhibit_table;
+        bool* show_effect_table;
+        bool* show_bgm_table;
     };
 
 }

@@ -10,7 +10,7 @@ namespace Evidence
         /// <summary>数据清单</summary>
         private Detail[] details = null;
         /// <summary>基于下限范围的对应清单</summary>
-        private Dictionary<int, Detail> dic = new Dictionary<int, Detail>();
+        private Dictionary<string, Detail> dic = new Dictionary<string, Detail>();
         /// <summary>有效信息量</summary>
         private int totalDetail = 0;
 
@@ -28,14 +28,14 @@ namespace Evidence
                     for (i = 0; i < vCount; i += 1)
                     {
                         vSub = details[i];
-                        if (!dic.ContainsKey(vSub.id))
+                        if (!dic.ContainsKey(vSub.exhibit))
                         {
-                            dic.Add(vSub.id, vSub);
+                            dic.Add(vSub.exhibit, vSub);
                         }
 #if UNITY_EDITOR
                         else
                         {
-                            Debug.LogWarningFormat("证据表的信息重复：{0}", vSub.id);
+                            Debug.LogWarningFormat("证据表的信息重复：{0}", vSub.exhibit);
                         }
 #endif
                     }
@@ -48,11 +48,11 @@ namespace Evidence
         /// </summary>
         /// <param name="vId"></param>
         /// <returns></returns>
-        public Detail GetDetail(int vId)
+        public Detail GetDetail(string vExhibit)
         {
-            if (dic.ContainsKey(vId))
+            if (dic.ContainsKey(vExhibit))
             {
-                return dic[vId];
+                return dic[vExhibit];
             }
             return null;
         }
@@ -61,7 +61,7 @@ namespace Evidence
         /// 提供清单的引用
         /// </summary>
         /// <returns></returns>
-        public Dictionary<int, Detail> GetDicDetails()
+        public Dictionary<string, Detail> GetDicDetails()
         {
             return dic;
         }
@@ -73,8 +73,8 @@ namespace Evidence
         public class Detail
         {
 
-            /// <summary>证据id</summary>
-            public int id;
+            ///// <summary>证据id</summary>
+            //public int id;
             /// <summary>证据名称</summary>
             public string exhibit;
             /// <summary>描述</summary>

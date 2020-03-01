@@ -148,8 +148,10 @@
   <ItemGroup>
     <ClInclude Include="..\..\Dirent\dirent.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\CharacterUtility.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowBgmTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowChapterTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowCharacterTable.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowEffectTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowExhibitTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowPauseTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowSceneTable.h" />
@@ -183,8 +185,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\HeavenGate_Editor\CharacterUtility.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowBgmTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowChapterTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowCharacterTable.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowEffectTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowExhibitTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowPauseTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowSceneTable.cpp" />

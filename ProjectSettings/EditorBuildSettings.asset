@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/GoundTestScene.unity
     guid: d64d83efff065fe4485fa4ded364df60
   - enabled: 0
+    path: Assets/Scenes/Scene_2.unity
+    guid: b605d961fbcf42d44946ebc9c5b0e157
+  - enabled: 0
     path: Assets/Scenes/Scene_Episode2_Pier.unity
     guid: 76f726a6d946e154aa0feafe8f5a72ad
   - enabled: 0
