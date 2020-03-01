@@ -94,12 +94,12 @@ namespace StarPlatinum
 			};
 		}
 
-		public void SetImage (Image image, string key)
+		public void SetImage (Image image, string key, Action failCallBack = null)
 		{
 			LoadAssetAsync<Sprite> (key, (result) => {
 				if (result.status == RequestStatus.FAIL) {
 					SetImage (image, "Image_Default");
-
+					failCallBack?.Invoke();
 					Debug.LogWarning ($"图片加载错误 Key:{result.key}");
 					return;
 				}
