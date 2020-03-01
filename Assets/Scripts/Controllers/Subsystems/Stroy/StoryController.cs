@@ -173,7 +173,11 @@ namespace Controllers.Subsystems.Story
 					case StoryReader.NodeType.jump:
 						container.PushJump (m_storys.GetJump ());
 						//						m_storys.NextStory ();
-						break;
+						m_storys.NextStory ();
+						if (m_storys.GetNodeType () == StoryReader.NodeType.jump) {
+							break;
+						}
+						return container;
 
 					case StoryReader.NodeType.label:
 						//m_storys.NextStory ();
