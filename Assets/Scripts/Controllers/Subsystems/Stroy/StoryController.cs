@@ -127,7 +127,7 @@ namespace Controllers.Subsystems.Story
 			}
 
 			if (!m_storys.RequestLabel (labelId)) {
-				Debug.LogError ("Label doesn`t exist");
+				Debug.LogError ($"Label {labelId} doesn`t exist");
 			} else {
 				m_storys.JumpToWordAfterLabel (labelId);
 			}
@@ -172,7 +172,7 @@ namespace Controllers.Subsystems.Story
 
 					case StoryReader.NodeType.jump:
 						container.PushJump (m_storys.GetJump ());
-//						m_storys.NextStory ();
+						//						m_storys.NextStory ();
 						break;
 
 					case StoryReader.NodeType.label:

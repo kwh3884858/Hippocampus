@@ -86,15 +86,22 @@ namespace StarPlatinum.StoryReader
 
 				if (labelData.label != label) continue;
 
-				//ignore all label and jump
-				for (int j = i + 1; j < m_story.Count (); j++) {
-					if (m_story [j].typename != NodeType.label.ToString ()) {
-						m_index = j;
-						return true;
-					}
+				if (i + 1 >= m_story.Count ()) {
+					m_index = m_story.Count ();
+					return false;
 				}
+
+				m_index = i + 1;
+				return true;
+				//ignore all label and jump
+				//for (int j = i + 1; j < m_story.Count (); j++) {
+				//	if (m_story [j].typename != NodeType.label.ToString ()) {
+				//		m_index = j;
+				//		return true;
+				//	}
+				//}
 				//else, story is end
-				m_index = m_story.Count ();
+
 
 			}
 			return false;
