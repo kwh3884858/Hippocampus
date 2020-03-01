@@ -8,7 +8,7 @@ using UI.Panels.Providers.DataProviders;
 
 namespace Evidence
 {
-    public class SingleEvidenceSelectController : UIPanel<UIDataProviderGameScene, DataProvider>
+    public class SingleEvidenceSelectController : UIPanel<UIDataProviderEvidence, EvidenceDataProvider>
     {
 
         [SerializeField]
@@ -18,6 +18,12 @@ namespace Evidence
 
         /// <summary>证据数据</summary>
         private SingleEvidenceData m_data = null;
+
+        public override void UpdateData(DataProvider data)
+        {
+            base.UpdateData(data);
+            Init(UIPanelDataProvider.Data);
+        }
 
         public void Init(SingleEvidenceData vData)
         {
