@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UI.Panels;
+using UI.Panels.Providers;
+using UI.Panels.Providers.DataProviders.StaticBoard;
 using UnityEngine;
 
 namespace Evidence
 {
-    public class EvidenceController : MonoBehaviour
+    public class EvidenceController : UIPanel<UIDataProviderGameScene, TalkDataProvider>
     {
 
         [SerializeField]
@@ -35,6 +38,7 @@ namespace Evidence
         public void OnClickCloseButton()
         {
             // TODO:关闭显示
+            base.InvokeHidePanel();
         }
 
         /// <summary>
