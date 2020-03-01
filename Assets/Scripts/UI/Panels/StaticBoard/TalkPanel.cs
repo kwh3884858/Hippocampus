@@ -234,7 +234,14 @@ namespace UI.Panels.StaticBoard
         
         private void SetNameContent(string name)
         {
-            PrefabManager.Instance.SetImage(m_name,RolePictureNameConst.ArtWordName + name);
+            m_name.enabled = true;
+            m_nameTxt.gameObject.SetActive(false);
+            PrefabManager.Instance.SetImage(m_name,RolePictureNameConst.ArtWordName + name, () =>
+                {
+                    m_name.enabled = false;
+                    m_nameTxt.gameObject.SetActive(true);
+                    m_nameTxt.text = name;
+                });
             ResetContentText();
             SetActionState(ActionState.End);
         }
@@ -319,6 +326,7 @@ namespace UI.Panels.StaticBoard
         }
 
         [SerializeField] private Image m_name;
+        [SerializeField] private TMP_Text m_nameTxt;
         [SerializeField] private TMP_Text m_content;
         [SerializeField] private TMP_Text m_autoPlayButtonText;
 

@@ -97,7 +97,26 @@ namespace Controllers.Subsystems.Story
 				SceneManager.Instance ().GetCurrentScene +
 				itemId;
 		}
+		//Temp
+		int left = 28;
+		int right = 72;
+		string hero = "Hero";
+		string heroine = "Heroine";
+		string jailerMan = "JailerMan";
+		string jailerWoman = "JailerWoman";
 
+		private void PushPicture (StoryActionContainer container, string leftName, string rightName)
+		{
+			if (leftName.Length != 0) {
+				container.PushPicture (leftName, left);
+			}
+			if (rightName.Length != 0) {
+				container.PushPicture (rightName, right);
+
+			}
+		}
+
+		//Temp
 		public StoryActionContainer GetStory (string labelId)
 		{
 			StoryActionContainer container = new StoryActionContainer ();
@@ -132,65 +151,63 @@ namespace Controllers.Subsystems.Story
 				m_storys.JumpToWordAfterLabel (labelId);
 			}
 
+			if (labelId == "Ep2_Pier_Debarkation-1") {
+				PushPicture (container, hero, heroine);
 
-			if (labelId == "1") {
-				container.PushName ("我");
-				container.PushContent ("如果真的要刮暴风雨，这个雨棚能挡住什么？");
-				container.PushWaiting (1f);
-				container.PushName ("艾琳");
-				container.PushContent ("主要是不想要夏天的时候太阳把车晒太热吧？");
-				container.PushWaiting (1f);
-				container.PushName ("我");
-				container.PushContent ("那还是叫遮阳棚比较好。");
-				container.PushWaiting (1f);
-				container.PushName ("艾琳");
-				container.PushContent ("是你自顾自地叫人家雨棚的吧！");
-				container.PushWaiting (1f);
-			} else if (labelId == "2") {
-				container.PushName ("我");
-				container.PushContent ("是个雨棚。");
-				container.PushWaiting (1f);
-				container.PushName ("艾琳");
-				container.PushContent ("你不刚说了是遮阳棚吗？");
-				container.PushWaiting (1f);
-				container.PushName ("我");
-				container.PushContent ("我反悔了。");
-				container.PushWaiting (1f);
-			} else if (labelId == "3") {
-				container.PushName ("我");
-				container.PushContent ("雨棚。");
-			} else {
-
-				while (!m_storys.IsDone ()) {
-					switch (m_storys.GetNodeType ()) {
-					case StoryReader.NodeType.word:
-						container.PushName (m_storys.GetName ());
-						StoryVirtualMachine.Instance.Run (m_storys.GetContent ());
-						container.PushWaiting (1f);
-						m_storys.NextStory ();
-						break;
-
-					case StoryReader.NodeType.jump:
-						container.PushJump (m_storys.GetJump ());
-						//						m_storys.NextStory ();
-						m_storys.NextStory ();
-						if (m_storys.GetNodeType () == StoryReader.NodeType.jump) {
-							break;
-						}
-						return container;
-
-					case StoryReader.NodeType.label:
-						//m_storys.NextStory ();
-						m_storys.NextStory ();
-						break;
-
-					default:
-						break;
-					}
-
-
-				}
 			}
+			if (labelId == "Ep2_Pier_Debarkation-2") {
+				PushPicture (container, hero, heroine);
+			}
+			if (labelId == "Ep2_Jeep_Jeep-1") {
+				PushPicture (container, jailerMan, jailerWoman);
+			}
+
+			if (labelId == "Ep2_Jeep_PoliceQuestion_0") {
+				PushPicture (container, hero, jailerMan);
+			}
+
+			if (labelId == "Ep2_Jeep_PoliceQuestion_1") {
+				PushPicture (container, hero, jailerWoman);
+
+			}
+			if (labelId == "Ep2_Jeep_PoliceQuestion_2") {
+				PushPicture (container, hero, jailerMan);
+
+			}
+			if (labelId == "Ep2_Jeep_PoliceQuestion_4") {
+				PushPicture (container, hero, jailerWoman);
+			}
+			if (labelId == "Ep2_Jeep_PoliceQuestion_5") {
+				PushPicture (container, jailerMan, jailerWoman);
+			}
+
+			while (!m_storys.IsDone ()) {
+				switch (m_storys.GetNodeType ()) {
+				case StoryReader.NodeType.word:
+					container.PushName (m_storys.GetName ());
+					StoryVirtualMachine.Instance.Run (m_storys.GetContent ());
+					container.PushWaiting (1f);
+					m_storys.NextStory ();
+					break;
+
+				case StoryReader.NodeType.jump:
+					container.PushJump (m_storys.GetJump ());
+					//						m_storys.NextStory ();
+					//Test
+					return container;
+
+				case StoryReader.NodeType.label:
+					//m_storys.NextStory ();
+					m_storys.NextStory ();
+					break;
+
+				default:
+					break;
+				}
+
+
+			}
+
 			//while (!m_storys.IsDone())
 			//{
 			//    switch (m_storys.GetNodeType())
