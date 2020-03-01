@@ -298,7 +298,15 @@ namespace UI.Panels.StaticBoard
                 if (m_pictureItems.ContainsKey(picID))
                 {
                     Destroy(m_pictureItems[picID].gameObject);
+                    m_pictureItems.Remove(picID);
                 }
+                SetActionState(ActionState.End);
+                return;
+            }
+
+            if (m_pictureItems.ContainsKey(picID))
+            {
+                m_pictureItems[picID].rectTransform().anchoredPosition = new Vector2(Width/100*(pos-50),0);
                 SetActionState(ActionState.End);
                 return;
             }
