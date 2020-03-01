@@ -20,7 +20,7 @@ namespace UI.Panels.GameScene.MainManu
 		{
 			UiDataProvider.StaticBoard.ShowTalk ("9", OnTalkEnd);
 			UIManager.Instance ().ShowPanel (UIPanelType.JoystickPanel);// 显示UI，wywtsest
-		}
+        }
 
 		public void HidSelef ()
 		{

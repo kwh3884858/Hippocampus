@@ -60,6 +60,7 @@ namespace Evidence
         public void OnClickCloseButton()
         {
             // TODO:关闭当前UI
+            base.InvokeHidePanel();
         }
 
     }

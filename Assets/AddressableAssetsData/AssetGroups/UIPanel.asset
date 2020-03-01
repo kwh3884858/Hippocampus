@@ -26,7 +26,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 6b8634ccc718ec0498d01281b1d09fb9
-    m_Address: Assets/Art/UI/UIPanel/Prefabs/Evidence/EvidencePanel.prefab
+    m_Address: EvidencePanel
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 8f665e4f0728a1a43a5939dc70d6301b
@@ -34,7 +34,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: a8e6cc436547d6f449d03f1e8e5950b5
-    m_Address: Assets/Art/UI/UIPanel/Prefabs/Evidence/SingleEvidenceSelectPanel.prefab
+    m_Address: SingleEvidenceSelectPanel
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: accb89fa94eb4584a86059229eba676e
