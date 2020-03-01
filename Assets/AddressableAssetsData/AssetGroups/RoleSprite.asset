@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: RoleSprite
+  m_EditorClassIdentifier: 
+  m_GroupName: RoleSprite
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 3783a9ad66043bc44b7bf017ef49d6a4
+  m_SerializeEntries:
+  - m_GUID: 06f8e71834ed9e6438cbdd38886811de
+    m_Address: Role_Heroine
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 648aed96056d2b14794ac7d7f18b404b
+    m_Address: Role_JailerMan
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7b54905876207004da414f6564bbb6f3
+    m_Address: Role_JailerWoman
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f3c5d3643d9dc1c4b900caac43d2c905
+    m_Address: Role_Hero
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: cd5387e64e22b3d47a39edb1e325859e, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 38e24e1e8206448419e21031a4d720d8, type: 2}
+    - {fileID: 11400000, guid: b2ff256a30507ad44983eb60dec1a836, type: 2}

@@ -150,6 +150,8 @@ namespace UI
                 IconProvider = LoadIconProvider(),
                 SoundService = StarPlatinum.SoundService.Instance,
                 StaticBoard = m_uiModuleStaticBoard,
+                RolePictureProvider = new RolePictureProvider(),
+                Canvas = Canvas
             };
 
             uiModule.Initialize(dataProvider, StarPlatinum.PrefabManager.Instance);
