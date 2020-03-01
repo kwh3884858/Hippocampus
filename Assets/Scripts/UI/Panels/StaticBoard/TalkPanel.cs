@@ -204,8 +204,7 @@ namespace UI.Panels.StaticBoard
 
         private void ShowJumpOption(List<Option> options)
         {
-            SetActionState(ActionState.Actioning);
-            UiDataProvider.StaticBoard.ShowOptions(options ,OptionCallback);
+            InvokeShowAsSubpanel(PanelType,UIPanelType.OptionsPanel,new OptionsDataProvider(){ Options = options,Callback = OptionCallback});
         }
 
         private void OptionCallback(string id)

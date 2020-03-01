@@ -51,6 +51,12 @@ namespace UI.Panels.StaticBoard
 
 			for (int i = 0; i < m_options.Count; i++)
 			{
+				//符合条件直接跳转
+				if (m_options[i].Content == "")
+				{
+					Callback(m_options[i].ID);
+					break;
+				}
 				m_optionItems[i].gameObject.SetActive(true);
 				m_optionItems[i].Init(m_options[i].ID,m_options[i].Content);
 			}
@@ -63,6 +69,7 @@ namespace UI.Panels.StaticBoard
 			{
 				item.gameObject.SetActive(false);
 			}
+			InvokeHidePanel();
 		}
 
 		private void CreateOption(int num)
