@@ -125,6 +125,11 @@ namespace StarPlatinum.StoryReader
 			return NodeType.none;
 		}
 
+		public void LastStory ()
+		{
+			m_index--;
+		}
+
 		public void NextStory ()
 		{
 			m_index++;
