@@ -76,6 +76,13 @@ namespace HeavenGateEditor {
     // Story export Folder
     const char* const STORY_EXPORT_FOLDER ="Storys_Export";
 
+// Delimiter
+const char* const DELIMITER =
+#ifdef _WIN32
+        "\\";
+#else
+        "/";
+#endif
 
 //    //Relative path form project root to story export folder
 //    const char* const PATH_FROM_PROJECT_ROOT_TO_STORY_EXPORT_FOLDER =

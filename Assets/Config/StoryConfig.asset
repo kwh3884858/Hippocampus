@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24884f3489c246539f171b9c58b7cfbb, type: 3}
   m_Name: StoryConfig
   m_EditorClassIdentifier: 
-  StoryPath: Storys_Export/StoryTest
+  StoryPath: StoryTest
   ChineseContentSpeed: 0.1
   EnglishContentSpeed: 0
+  PicturePosition: []
+  PictureMovingCurve: []
+  AutoPlayWaitingTime: 0.5
+  AutoPlayButtonActiveColor: {r: 1, g: 0, b: 0, a: 1}
+  AutoPlayButtonNormalColor: {r: 1, g: 1, b: 1, a: 1}

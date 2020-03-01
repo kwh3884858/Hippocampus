@@ -75,7 +75,7 @@ namespace StarPlatinum.StoryReader
 			return options;
 		}
 
-		public bool JumpToLabel (string label)
+		public bool JumpToWordAfterLabel (string label)
 		{
 			int i = -1;
 			foreach (StoryBasicData item in m_story) {
@@ -93,6 +93,7 @@ namespace StarPlatinum.StoryReader
 						return true;
 					}
 				}
+				//else, story is end
 				m_index = m_story.Count ();
 
 			}

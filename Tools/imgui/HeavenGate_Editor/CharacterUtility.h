@@ -23,7 +23,8 @@ public:
     static size_t convertWcsToMbs(char* pDest,const wchar_t* pSrc, int bufferSize = BUFFERSIZE);
     static size_t convertMbsToWcs(wchar_t* pDest, const char* pSrc, int bufferSize = BUFFERSIZE);
 
-    static int Find(const char* pContent, int contentLegth, const char* pFind, int findLength);
+    static int Find(const char* pContent, size_t contentLegth, const char* pFind, size_t findLength);
+    static int FindLast(const char* pContent, size_t cotentLength, const char* pFind, size_t findLength);
 
 	static bool copyCharPointer(char* pDest, const char* pSrc);
 	static bool copyWcharPointer(wchar_t* pDest, const wchar_t* pSrc);
@@ -38,9 +39,9 @@ private:
     public:
         int* m_next;
         char* m_character;
-        int m_characterCount;
-        int m_countentlength;
 
+        int m_countentlength;
+int m_characterCount;
 
         int Get(int characterPos, int pos);
 
@@ -58,6 +59,8 @@ private:
 	static void wreadSuffix(const wchar_t* c, wchar_t* suffix);
 
     static void CreateDFA(const char* findContent,int findLength, DFA* pOutDFA );
+    static void CreateReverseDFA(const char* findContent,size_t findLength, DFA* pOutDFA );
+
 	CharacterUtility();
 	~CharacterUtility();
 };

@@ -523,6 +523,7 @@ GameObject:
   - component: {fileID: 882384890}
   - component: {fileID: 882384892}
   - component: {fileID: 882384891}
+  - component: {fileID: 882384893}
   m_Layer: 0
   m_Name: WorldTrigger(Clone)
   m_TagString: Untagged
@@ -538,7 +539,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 882384889}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.06, y: 0.64, z: -0.22}
+  m_LocalPosition: {x: 4.11, y: 0.64, z: -0.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1961521307}
@@ -569,6 +570,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.3378425, y: 4.5305805, z: 4.5263157}
   m_Center: {x: -1.6689212, y: 3.1368542, z: -1.7631578}
+--- !u!114 &882384893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882384889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b857326fbf89e41cc968d089ae3ac648, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_worldTrigger: {fileID: 882384891}
+  m_newStoryFileName: Ep2_Pier_Debarkation-1
+  m_showStoryPanel: 1
+  m_jumpToLabel: 
 --- !u!1 &986630021
 GameObject:
   m_ObjectHideFlags: 0

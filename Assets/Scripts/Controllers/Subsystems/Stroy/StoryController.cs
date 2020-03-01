@@ -30,6 +30,7 @@ namespace Controllers.Subsystems.Story
 
 	public class StoryController : ControllerBase
 	{
+		public readonly string STORY_FOLDER = "Storys_Export/";
 		public override void Initialize (IControllerProvider args)
 		{
 			base.Initialize (args);
@@ -37,34 +38,39 @@ namespace Controllers.Subsystems.Story
 			StartCoroutine (LoadStoryInfo ());
 		}
 
+		//public bool LoadStoryByItem (string itemId)
+		//{
+		//	if (m_storys == null) {
+		//		return false;
+		//	}
+		//	bool result = true;
+		//	result = m_storys.RequestLabel (itemId);
+		//	if (!result) {
+		//		return false;
+		//	}
+
+		//	result = IsCorrectChapter ();
+
+		//	result = m_storys.JumpToWordAfterLabel (itemId);
+
+		//	return result;
+		//}
+
+
+
 		private IEnumerator LoadStoryInfo ()
 		{
 			while (Data.ConfigProvider.StoryConfig == null) {
 				yield return null;
 			}
 			m_config = Data.ConfigProvider.StoryConfig;
-			LoadStoryByID ();
+			LoadStoryFileByName (m_config.StoryPath);
 			State = SubsystemState.Initialized;
 		}
 
-		private void LoadStoryByID ()
+		public void LoadStoryFileByName (string storyFileName)
 		{
-			m_storys = new StoryReader (m_config.StoryPath);
-		}
-
-		public bool LoadStoryByItem (string itemId)
-		{
-			bool result = true;
-			result = m_storys.RequestLabel (itemId);
-			if (!result) {
-				return false;
-			}
-
-			result = IsCorrectChapter ();
-
-			result = m_storys.JumpToLabel (itemId);
-
-			return result;
+			m_storys = new StoryReader (STORY_FOLDER + storyFileName);
 		}
 
 
@@ -92,13 +98,12 @@ namespace Controllers.Subsystems.Story
 				itemId;
 		}
 
-		public StoryActionContainer GetStory (string ID)
+		public StoryActionContainer GetStory (string labelId)
 		{
 			StoryActionContainer container = new StoryActionContainer ();
 
 			StoryVirtualMachine.Instance.SetStoryActionContainer (container);
 
-			//TODO: Get info from Story Parsing
 			//List<StoryBasicData> datas = m_storys.GetSotry();
 
 			//for(int i = 0; i < datas.Count(); i++)
@@ -116,8 +121,19 @@ namespace Controllers.Subsystems.Story
 
 			//    }
 			//}
+			if (m_storys == null) {
+				Debug.LogError ("Story doesn`t exist.");
+				return null;
+			}
 
-			if (ID == "1") {
+			if (!m_storys.RequestLabel (labelId)) {
+				Debug.LogError ("Label doesn`t exist");
+			} else {
+				m_storys.JumpToWordAfterLabel (labelId);
+			}
+
+
+			if (labelId == "1") {
 				container.PushName ("我");
 				container.PushContent ("如果真的要刮暴风雨，这个雨棚能挡住什么？");
 				container.PushWaiting (1f);
@@ -130,7 +146,7 @@ namespace Controllers.Subsystems.Story
 				container.PushName ("艾琳");
 				container.PushContent ("是你自顾自地叫人家雨棚的吧！");
 				container.PushWaiting (1f);
-			} else if (ID == "2") {
+			} else if (labelId == "2") {
 				container.PushName ("我");
 				container.PushContent ("是个雨棚。");
 				container.PushWaiting (1f);
@@ -140,7 +156,7 @@ namespace Controllers.Subsystems.Story
 				container.PushName ("我");
 				container.PushContent ("我反悔了。");
 				container.PushWaiting (1f);
-			} else if (ID == "3") {
+			} else if (labelId == "3") {
 				container.PushName ("我");
 				container.PushContent ("雨棚。");
 			} else {
