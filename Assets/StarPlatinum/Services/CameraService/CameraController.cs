@@ -18,7 +18,7 @@ public class CameraController : MonoBehaviour
 	[SerializeField]
 	private Transform m_target;
 
-	public void Init (float xMargin = 1f, float yMargin = 1f, float xSmooth = 3f, float ySmooth = 3f, float maxX = 100, float maxY = 100, float minX = -100, float minY = -100, float yOffset = 7)
+	public void Init (float xMargin = 1f, float yMargin = 1f, float xSmooth = 3f, float ySmooth = 3f, float maxX = 100, float maxY = 100, float minX = -100, float minY = -100, float yOffset = 0)
 	{
 		m_xMargin = xMargin;
 		m_yMargin = yMargin;
