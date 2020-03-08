@@ -52,6 +52,11 @@ namespace UI.Panels.Element
             SpriteCount++;
         }
 
+        public void Release()
+        {
+            gameObject.SetActive(false);
+        }
+
         private void ActiveItem(bool status)
         {
             gameObject.SetActive(status);
