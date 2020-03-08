@@ -110,7 +110,7 @@ namespace UI.Panels.StaticBoard
         {
             base.Hide();
             m_autoPlay = false;
-            m_skip = false;
+            m_highSpeed = false;
         }
         public override void UpdateData(DataProvider data)
         {
@@ -121,6 +121,7 @@ namespace UI.Panels.StaticBoard
         private void SetInfo(string talkID)
         {
             m_isFirstTalk = true;
+            m_skip = false;
             m_currentID = talkID;
             m_actionContainer = StoryController.GetStory(m_currentID);
             SetActionState(ActionState.Begin);
@@ -132,13 +133,14 @@ namespace UI.Panels.StaticBoard
             {
                 SetActionState(ActionState.Waiting);
                 m_characterTalkEnd = true;
-                if (m_autoPlay)
+                if (m_autoPlay||m_skip)
                 {
                     EndCharacterTalk();
                 }
+                print($"TalkEnd");
                 return;
             }
-
+            print($"CurrentAction:{storyAction.Type}");
             m_actionType = storyAction.Type;
             SetActionState(ActionState.Actioning);
             switch (storyAction.Type)
@@ -180,7 +182,14 @@ namespace UI.Panels.StaticBoard
                     break;
                 case StoryActionType.Waiting:
                     SetActionState( ActionState.Actioning);
-                    CallbackTime(float.Parse(storyAction.Content),()=>{SetActionState( ActionState.End );});
+                    if (m_skip == false)
+                    {
+                        CallbackTime(float.Parse(storyAction.Content),()=>{SetActionState( ActionState.End );});
+                    }
+                    else
+                    {
+                        SetActionState( ActionState.End);
+                    }
                     break;
                 case StoryActionType.PictureMove:
                     break;
@@ -221,6 +230,7 @@ namespace UI.Panels.StaticBoard
 
         private void OptionCallback(string id)
         {
+            m_skip = false;
             SetActionState(ActionState.End);
             SetInfo(id);
         }
@@ -228,6 +238,11 @@ namespace UI.Panels.StaticBoard
         private void AddNewTalker(string name)
         {
             m_currentRoleName = name;
+            if (m_skip)
+            {
+                EndCharacterTalk();
+                return;
+            }
             if (m_isFirstTalk)
             {
                 m_isFirstTalk = false;
@@ -281,42 +296,53 @@ namespace UI.Panels.StaticBoard
             foreach (var txt in content)
             {
                 m_content.text += m_textHelp.GetContent(txt.ToString());
-                yield return null;
                 if (m_content.textInfo.pageCount > m_content.pageToDisplay)
                 {
                     m_content.pageToDisplay++;
                 }
-                yield return new WaitForSeconds(m_skip?0:StoryController.GetContentSpeed());
+
+                if (m_skip == false)
+                {
+                    yield return new WaitForSeconds(m_highSpeed ? 0 : StoryController.GetContentSpeed());
+                }
             }
             SetActionState(ActionState.End);
         }
 
         private void ShowPicture(string picID, int pos)
         {
-            if (pos == 0)
+            if (m_pictureItems.ContainsKey(picID))
             {
-                if (m_pictureItems.ContainsKey(picID))
+                if (pos == 0)
                 {
-                    Destroy(m_pictureItems[picID].gameObject);
+                    UiDataProvider.RolePictureProvider.ReleasePictureItem(m_pictureItems[picID]);
                     m_pictureItems.Remove(picID);
+                    m_picPos.Remove(picID);
+                }
+                else
+                {
+                    m_pictureItems[picID].rectTransform().anchoredPosition = new Vector2(Width/100*(pos-50),-300f);
+                    m_picPos[picID] = pos;
                 }
                 SetActionState(ActionState.End);
                 return;
             }
-
-            if (m_pictureItems.ContainsKey(picID))
+            if (m_picPos.ContainsKey(picID))
             {
-                m_pictureItems[picID].rectTransform().anchoredPosition = new Vector2(Width/100*(pos-50),0);
-                SetActionState(ActionState.End);
+                m_picPos[picID] = pos;
                 return;
             }
+            else
+            {
+                m_picPos.Add(picID, pos);
+            }
+
             UiDataProvider.RolePictureProvider.GetPictureItem(picID, (item) =>
             {
                 m_pictureItems.Add(picID,item);
                 item.transform.SetParent(m_pictureRoot);
-                item.rectTransform().anchoredPosition = new Vector2(Width/100*(pos-50),0);
-                SetActionState(ActionState.End);
-            });
+                ShowPicture(picID,m_picPos[picID]);
+            }); 
             
         }
 
@@ -332,7 +358,7 @@ namespace UI.Panels.StaticBoard
         private void EndCharacterTalk()
         {
             m_characterTalkEnd = false;
-            m_skip = false;
+            m_highSpeed = false;
             if (m_actionType == StoryActionType.Name)
             {
                 SetNameContent(m_currentRoleName);
@@ -352,7 +378,7 @@ namespace UI.Panels.StaticBoard
                 EndCharacterTalk();
                 return;
             }
-            m_skip = true;
+            m_highSpeed = true;
         }
 
         public void AutoPlay()
@@ -365,18 +391,26 @@ namespace UI.Panels.StaticBoard
             }
         }
 
+        public void Skip()
+        {
+            m_skip = true;
+        }
+
         [SerializeField] private Image m_name;
         [SerializeField] private TMP_Text m_nameTxt;
         [SerializeField] private TMP_Text m_content;
         [SerializeField] private TMP_Text m_autoPlayButtonText;
         [SerializeField] private Transform m_pictureRoot;
+        [SerializeField] private GameObject m_talkObj;
 
         private Dictionary<string, PictureItem> m_pictureItems = new Dictionary<string, PictureItem>();
+        private Dictionary<string,int> m_picPos = new Dictionary<string, int>();
         
-        private bool m_skip = false;
+        private bool m_highSpeed = false;
         private bool m_characterTalkEnd = false;
         private bool m_autoPlay = false;
         private bool m_isFirstTalk = false;
+        private bool m_skip = false;
         private string m_currentID;
         private string m_currentRoleName;
         private StoryActionContainer m_actionContainer;
