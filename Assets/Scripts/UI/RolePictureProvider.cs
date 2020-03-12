@@ -43,6 +43,12 @@ namespace UI
             }
         }
 
+        public void ReleasePictureItem(PictureItem item)
+        {
+            item.Release();
+            m_pictureItems.Enqueue(item);
+        }
+
         private void SetItemInfo(PictureItem item, string id)
         {
             if (item == null&&id.Length!=m_idNum)
