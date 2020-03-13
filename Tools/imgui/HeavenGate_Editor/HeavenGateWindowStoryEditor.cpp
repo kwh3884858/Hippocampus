@@ -665,7 +665,13 @@ void HeavenGateWindowStoryEditor::AddButton(int index)
                 m_storyJson->Swap(index, index + 1);
             }
         }
-        
+
+        if (ImGui::Button("Delete it")) {
+            if (m_storyJson != nullptr) {
+                m_storyJson->Remove(index);
+            }
+        }
+
         ImGui::TreePop();
     }
 }
