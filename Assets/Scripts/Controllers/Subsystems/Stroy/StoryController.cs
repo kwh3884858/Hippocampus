@@ -164,29 +164,20 @@ namespace Controllers.Subsystems.Story
 
 			}
 
-			if (m_storys.Chapter == "Ep2" &&
-				m_storys.Scene == "Jeep") {
-				PushPicture (container, jailerMan, jailerWoman);
-
-			}
-
 			if (labelId == "Ep2_Jeep_PoliceQuestion_0") {
-				PushPicture (container, hero, jailerMan);
+				PushPicture (container, hero, "");
 			}
 
 			if (labelId == "Ep2_Jeep_PoliceQuestion_1") {
-				PushPicture (container, hero, jailerWoman);
+				PushPicture (container, hero, "");
 
 			}
 			if (labelId == "Ep2_Jeep_PoliceQuestion_2") {
-				PushPicture (container, hero, jailerMan);
+				PushPicture (container, hero,"");
 
 			}
 			if (labelId == "Ep2_Jeep_PoliceQuestion_4") {
-				PushPicture (container, hero, jailerWoman);
-			}
-			if (labelId == "Ep2_Jeep_PoliceQuestion_5") {
-				PushPicture (container, jailerMan, jailerWoman);
+				PushPicture (container, hero, "");
 			}
 
 			while (!m_storys.IsDone ()) {

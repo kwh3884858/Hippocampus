@@ -72,8 +72,11 @@ namespace StarPlatinum.Service
 				m_cameraController = m_mainCamera.GetComponent<CameraController> ();
 				if (m_cameraController == null) {
 					m_cameraController = m_mainCamera.AddComponent<CameraController> ();
-				}
-			}
+                    
+                }
+
+                m_cameraController.Refresh(); 
+            }
 
 			if (cameraType == SceneCameraType.Fixed) {
 				m_cameraController = m_mainCamera.GetComponent<CameraController> ();

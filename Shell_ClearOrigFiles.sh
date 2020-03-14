@@ -1,3 +1,2 @@
 #!/bin/bash
-rm **/*.orig
-rm ./*.orig
+find . -name '*.orig' -delete 

@@ -9,28 +9,32 @@ public class CameraController : MonoBehaviour
 
 	public float m_xMargin = 1f;
 	public float m_yMargin = 1f;
-	public float m_xSmooth = 8f;
-	public float m_ySmooth = 8f;
+	public float m_xSmooth = 3f;
+	public float m_ySmooth = 3f;
 	public Vector2 m_maxXAndY = new Vector2 (1000, 1000);
 	public Vector2 m_minXAndY = new Vector2 (-1000, -1000);
-	public float m_yOffset = 7;
+	public float m_yOffset = 0;
 
 	[SerializeField]
 	private Transform m_target;
 
-	public void Init (float xMargin = 1f, float yMargin = 1f, float xSmooth = 3f, float ySmooth = 3f, float maxX = 100, float maxY = 100, float minX = -100, float minY = -100, float yOffset = 0)
+	public void Refresh ()
 	{
-		m_xMargin = xMargin;
-		m_yMargin = yMargin;
+        //m_xMargin = xMargin;
+        //m_yMargin = yMargin;
 
-		m_xSmooth = xSmooth;
-		m_ySmooth = ySmooth;
+        //m_xSmooth = xSmooth;
+        //m_ySmooth = ySmooth;
 
-		m_maxXAndY = new Vector2 (maxX, maxY);
-		m_minXAndY = new Vector2 (minX, minY);
+        //m_maxXAndY = new Vector2 (maxX, maxY);
+        //m_minXAndY = new Vector2 (minX, minY);
 
-		m_yOffset = yOffset;
+        //m_yOffset = yOffset;
 
+        if (m_target != null)
+        {
+            return;
+        }
 
 		GameObject player = GameObject.Find ("Hero");
 		if (player == null) {
@@ -45,7 +49,7 @@ public class CameraController : MonoBehaviour
 
 	void Start ()
 	{
-		Init ();
+		Refresh ();
 
 
 	}
