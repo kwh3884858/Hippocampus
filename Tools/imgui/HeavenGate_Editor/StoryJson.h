@@ -99,7 +99,7 @@ namespace HeavenGateEditor {
         StoryNode* const GetNode(int index);
         const StoryNode* const GetNode(int index) const;
 
-        void RemoveWord();
+        void Remove(int index);
         StoryWord FindWord(int index)const;
         int Size() const;
         void Clear();

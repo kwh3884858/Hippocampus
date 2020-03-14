@@ -224,6 +224,10 @@ namespace HeavenGateEditor {
         return nullptr;
     }
 
+void StoryJson::Remove(int index){
+
+}
+
     HeavenGateEditor::StoryNode * const HeavenGateEditor::StoryJson::GetNode(int index)
     {
         return const_cast<StoryNode*>(
