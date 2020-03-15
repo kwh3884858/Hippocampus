@@ -47,7 +47,7 @@ namespace HeavenGateEditor {
 
     private:
         void AddButton(int index);
-
+        void AddNotification(const char * const notification);
        static int WordContentCallback(ImGuiInputTextCallbackData* data);
     
         //bool m_isWritedUnsavedContent;
@@ -62,6 +62,7 @@ namespace HeavenGateEditor {
         HeavenGateWindowSelectStory* m_selectStoryWindow;
         HeavenGatePopupInputFileName* m_inputFileNamePopup;
 
+        char m_notification[MAX_CONTENT];
     };
 
 

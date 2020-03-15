@@ -224,9 +224,16 @@ namespace HeavenGateEditor {
         return nullptr;
     }
 
-void StoryJson::Remove(int index){
-
-}
+    void StoryJson::Remove(int index) {
+        int i = 0;
+        for (auto iter = m_nodes.cbegin(); iter != m_nodes.cend(); iter++) {
+            if (i == index)
+            {
+                iter = m_nodes.erase(iter);
+            }
+            i++;
+        }
+    }
 
     HeavenGateEditor::StoryNode * const HeavenGateEditor::StoryJson::GetNode(int index)
     {
@@ -362,28 +369,28 @@ void StoryJson::Remove(int index){
         memset(m_chapter, '\0', sizeof(m_chapter));
         memset(m_scene, '\0', sizeof(m_scene));
     }
-bool StoryJson::SetFileName(const char* const fileName){
+    bool StoryJson::SetFileName(const char* const fileName) {
 
-size_t lengthOfFolderPath = strlen(PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER);
+        size_t lengthOfFolderPath = strlen(PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER);
 
-   int pos = CharacterUtility::Find(m_fullPath, strlen(m_fullPath), PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER, strlen(PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER));
+        int pos = CharacterUtility::Find(m_fullPath, strlen(m_fullPath), PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER, strlen(PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER));
 
-    if(pos == -1){ return false; }
-    strcpy(m_fullPath + pos + lengthOfFolderPath + 1, fileName);
+        if (pos == -1) { return false; }
+        strcpy(m_fullPath + pos + lengthOfFolderPath + 1, fileName);
 
-    return true;
-}
+        return true;
+    }
 
-bool StoryJson::GetFileName(char* const outFileName) const{
- memset(outFileName, '\0', sizeof(outFileName));
-    size_t lengthOfFolderPath = strlen(PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER);
-      int pos = CharacterUtility::Find(m_fullPath, strlen(m_fullPath), PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER, lengthOfFolderPath);
+    bool StoryJson::GetFileName(char* const outFileName) const {
+        memset(outFileName, '\0', sizeof(outFileName));
+        size_t lengthOfFolderPath = strlen(PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER);
+        int pos = CharacterUtility::Find(m_fullPath, strlen(m_fullPath), PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER, lengthOfFolderPath);
 
-    if(pos == -1){ return false; }
-    strcpy(outFileName, m_fullPath + pos + strlen(DELIMITER) + lengthOfFolderPath);
+        if (pos == -1) { return false; }
+        strcpy(outFileName, m_fullPath + pos + strlen(DELIMITER) + lengthOfFolderPath);
 
-    return true;
-}
+        return true;
+    }
 
     void StoryJson::SetFullPath(const char* fullPath) {
         strcpy(m_fullPath, fullPath);
@@ -652,7 +659,7 @@ bool StoryJson::GetFileName(char* const outFileName) const{
         int j = 0;
         int indexOfArray = 0;
 
-        for (int i = 0 ; i < strLength; i++)
+        for (int i = 0; i < strLength; i++)
         {
             if (pinStringId[i] == '_')
             {
@@ -677,7 +684,7 @@ bool StoryJson::GetFileName(char* const outFileName) const{
     {
 
         memset(pOutStringId, '\0', MAX_ID);
-        for (int i = 0 ; i < NUM_OF_ID_PART - 1; i++)
+        for (int i = 0; i < NUM_OF_ID_PART - 1; i++)
         {
             strcat(pOutStringId, pInIdArray[i]);
             strcat(pOutStringId, "_");

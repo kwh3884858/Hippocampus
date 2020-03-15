@@ -292,7 +292,7 @@ void CharacterUtility::CreateDFA(const char* findContent,int findLength, DFA* pO
 void CharacterUtility::CreateReverseDFA(const char* findContent,size_t findLength, DFA* pOutDFA ){
 
     int character[265];
-int charCount;
+int charCount = 0;
     memset(character, 0, sizeof(character));
 
     for (int i = 0; i < findLength; i++) {

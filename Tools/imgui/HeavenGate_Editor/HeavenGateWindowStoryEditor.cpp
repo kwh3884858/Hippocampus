@@ -44,7 +44,7 @@ HeavenGateWindowStoryEditor::HeavenGateWindowStoryEditor()
     //m_inputFileNamePopup->SetStoryFileManager(m_storyFileManager);
     
     
-    
+    memset(m_notification, '\0', sizeof(m_notification));
 }
 
 HeavenGateWindowStoryEditor::~HeavenGateWindowStoryEditor()
@@ -65,7 +65,8 @@ HeavenGateWindowStoryEditor::~HeavenGateWindowStoryEditor()
     //m_storyFileManager = nullptr;
     
     m_storyJson = nullptr;
-    
+
+    memset(m_notification, '\0', sizeof(m_notification));
 }
 
 void HeavenGateWindowStoryEditor::UpdateMainWindow()
@@ -82,6 +83,7 @@ void HeavenGateWindowStoryEditor::UpdateMainWindow()
     }
     
     ImGui::Text("Heaven Gate says hello. (%s)", IMGUI_VERSION);
+    ImGui::Text(m_notification);
     ImGui::Spacing();
     if (m_storyJson != nullptr &&
         m_storyJson->IsExistFullPath() == true) {
@@ -507,6 +509,8 @@ void HeavenGateWindowStoryEditor::UpdateMainWindow()
         if (m_storyJson != nullptr)
         {
             m_storyJson->AddWord("", "");
+
+            AddNotification("Add New Story Word");
         }
     }
     
@@ -517,6 +521,8 @@ void HeavenGateWindowStoryEditor::UpdateMainWindow()
         if (m_storyJson != nullptr)
         {
             m_storyJson->AddLabel("");
+
+            AddNotification("Add New Label");
         }
     }
     ImGui::SameLine();
@@ -526,6 +532,8 @@ void HeavenGateWindowStoryEditor::UpdateMainWindow()
         if (m_storyJson != nullptr)
         {
             m_storyJson->AddJump("", "");
+
+            AddNotification("Add New Jump");
         }
     }
     
@@ -560,17 +568,35 @@ void HeavenGateWindowStoryEditor::UpdateMenu()
     }
     if (ImGui::MenuItem("Save", "Ctrl+S")) {
         
-        StoryFileManager::Instance().SaveStoryFile(m_storyJson);
+        bool result = StoryFileManager::Instance().SaveStoryFile(m_storyJson);
+
+        if (result)
+        {
+            AddNotification("Successful to Save File");
+        }
+        else
+        {
+            AddNotification("Failed to Save File");
+        }
         
     }
     if (ImGui::MenuItem("Export", "Ctrl+E")) {
         
-        StoryFileManager::Instance().ExportStoryFile(m_storyJson);
+        bool result = StoryFileManager::Instance().ExportStoryFile(m_storyJson);
+
+        if (result)
+        {
+            AddNotification("Successful to Export File");
+        }
+        else
+        {
+            AddNotification("Failed to Export File");
+        }
         
     }
     if (ImGui::MenuItem("Save As..")) {
         
-        
+        AddNotification("This function is not finish yet.");
     }
     
     
@@ -621,11 +647,13 @@ void HeavenGateWindowStoryEditor::AddButton(int index)
 {
     if (ImGui::TreeNode("Story Operator"))
     {
-        if (ImGui::Button("Add new story")) {
+        if (ImGui::Button("Insert new story")) {
             
             if (m_storyJson != nullptr)
             {
                 m_storyJson->InsertWord("", "", index);
+
+                AddNotification("Insert New Story Word");
             }
         }
         
@@ -635,6 +663,9 @@ void HeavenGateWindowStoryEditor::AddButton(int index)
             if (m_storyJson != nullptr)
             {
                 m_storyJson->InsertLabel("", index);
+
+                AddNotification("Insert New Label");
+
             }
         }
         ImGui::SameLine();
@@ -644,6 +675,9 @@ void HeavenGateWindowStoryEditor::AddButton(int index)
             if (m_storyJson != nullptr)
             {
                 m_storyJson->InsertJump("", "", index);
+
+                AddNotification("Insert New Jump");
+
             }
         }
         
@@ -654,6 +688,8 @@ void HeavenGateWindowStoryEditor::AddButton(int index)
             if (m_storyJson != nullptr)
             {
                 m_storyJson->Swap(index, index - 1);
+
+                AddNotification("Current Node Move Up");
             }
         }
         ImGui::SameLine();
@@ -663,12 +699,18 @@ void HeavenGateWindowStoryEditor::AddButton(int index)
             if (m_storyJson != nullptr)
             {
                 m_storyJson->Swap(index, index + 1);
+
+                AddNotification("Current Node Move Down");
+
             }
         }
 
         if (ImGui::Button("Delete it")) {
             if (m_storyJson != nullptr) {
                 m_storyJson->Remove(index);
+
+                AddNotification("The node was deleted");
+
             }
         }
 
@@ -678,6 +720,11 @@ void HeavenGateWindowStoryEditor::AddButton(int index)
 
 
 
+
+void HeavenGateWindowStoryEditor::AddNotification(const char * const notification)
+{
+    strcpy(m_notification, notification);
+}
 
 int HeavenGateWindowStoryEditor::WordContentCallback(ImGuiInputTextCallbackData * data)
 {
