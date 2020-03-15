@@ -12,6 +12,7 @@
 #include "HeavenGateEditorConstant.h"
 #include "HeavenGateEditorBaseWindow.h"
 
+
 #include "nlohmann/json.hpp"
 #include "imgui.h"
 
@@ -49,7 +50,8 @@ namespace HeavenGateEditor {
         void AddButton(int index);
         void AddNotification(const char * const notification);
        static int WordContentCallback(ImGuiInputTextCallbackData* data);
-    
+
+       void AutoSaveCallback() ;
         //bool m_isWritedUnsavedContent;
         //Model
         //json m_currentStory;
@@ -61,6 +63,7 @@ namespace HeavenGateEditor {
         //View
         HeavenGateWindowSelectStory* m_selectStoryWindow;
         HeavenGatePopupInputFileName* m_inputFileNamePopup;
+
 
         char m_notification[MAX_CONTENT];
     };

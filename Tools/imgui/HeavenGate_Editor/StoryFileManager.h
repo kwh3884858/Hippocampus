@@ -33,6 +33,7 @@ namespace HeavenGateEditor {
         //bool CreateStoryFIle();
         bool LoadStoryFile(const char* pPath, StoryJson* pStoryJson);
         bool SaveStoryFile( StoryJson* const pStoryJson) const;
+        bool AutoSaveStoryFile(StoryJson* const pStoryJson)const;
         bool ExportStoryFile( StoryJson* const pStoryJson) const;
 
         template<int column>
@@ -44,10 +45,12 @@ namespace HeavenGateEditor {
 
         void InitFileList(char(*pOutFileList)[MAX_FOLDER_PATH], int* maxFileCount);
 
+        //Without file suffix
         bool FromFileNameToFullPath(char * filePath, const char* fileName) const;
         void GetFileContent(char* pFullPath, char* pOutContent);
     private:
         bool RenameStoryFileByChapterAndScene(StoryJson* const pStoryJson) const;
+        bool RenameStoryFileByTimeAndPutAutoSaveFolder(StoryJson* const pStoryJson)const;
      
     };
 

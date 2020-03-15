@@ -20,6 +20,7 @@
 #include "StoryJsonContentCompiler.h"
 #include "StoryJsonChecker.h"
 
+
 #include "imgui.h"
 
 namespace HeavenGateEditor {
@@ -34,6 +35,7 @@ namespace HeavenGateEditor {
         StoryTableManager::Instance().Initialize();
         StoryJsonContentCompiler::Instance().Initialize();
         StoryJsonChecker::Instance().Initialize();
+
 
         m_heavenGateEditor = new HeavenGateWindowStoryEditor;
         m_fontSizeTable = new HeavenGateEditorFontSizeTable;
@@ -125,6 +127,7 @@ namespace HeavenGateEditor {
         StoryJsonManager::Instance().Shutdown();
         StoryJsonContentCompiler::Instance().Shutdown();
         StoryJsonChecker::Instance().Shutdown();
+
 
     }
 

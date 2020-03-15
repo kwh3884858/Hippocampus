@@ -3,6 +3,7 @@
 #include "StoryJson.h"
 
 #include "StoryJsonManager.h"
+#include "StoryFileManager.h"
 
 namespace HeavenGateEditor {
     
@@ -10,6 +11,13 @@ namespace HeavenGateEditor {
     bool StoryJsonManager::Initialize()
     {
         m_storyJson = new StoryJson;
+
+        char filePath[MAX_FOLDER_PATH];
+        StoryFileManager::Instance().FromFileNameToFullPath(filePath, DEFAULT_FILE_NAME);
+
+        StoryJson* storyJson = const_cast<StoryJson*>(m_storyJson);
+        storyJson->SetFullPath( const_cast<const char*>( filePath ) );
+
 
         return true;
     }
