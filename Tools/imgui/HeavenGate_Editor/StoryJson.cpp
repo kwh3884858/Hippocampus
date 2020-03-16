@@ -401,7 +401,21 @@ namespace HeavenGateEditor {
     }
 
     bool StoryJson::IsExistFullPath()const {
-        return strlen(m_fullPath) != 0;
+        if (strlen(m_fullPath) == 0)
+        {
+            return false;
+        }
+        char filePath[MAX_FILE_NAME];
+        char defaultName[MAX_FILE_NAME];
+
+        GetFileName(filePath);
+        strcpy(defaultName, DEFAULT_FILE_NAME);
+        strcpy(defaultName, ".json");
+        if (strcmp(filePath, defaultName) == 0)
+        {
+            return false;
+        }
+        return true;
     }
 
 

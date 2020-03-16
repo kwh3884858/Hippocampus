@@ -105,7 +105,9 @@ namespace HeavenGateEditor {
         void Clear();
         bool Empty()const;
 
+        //Nedd .json Suffix
         bool SetFileName(const char* const fileName);
+        //Contain .json suffix
         bool GetFileName(char* const outFileName) const;
 
         void SetFullPath(const char* fullPath);

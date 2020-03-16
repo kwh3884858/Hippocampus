@@ -6,6 +6,7 @@
 #include "HeavenGateWindowSelectStory.h"
 #include "HeavenGatePopupInputFileName.h"
 #include "HeavenGateEditorUtility.h"
+#include "StoryTimer.h"
 
 #include "StoryJsonContentCompiler.h"
 #include "StoryJsonManager.h"
@@ -13,12 +14,12 @@
 #include "StoryTable.h"
 #include "StoryFileManager.h"
 #include "StoryTableManager.h"
+
+
+
 #include <iostream>
 
 #include <stdio.h>
-
-
-
 
 
 namespace HeavenGateEditor {
@@ -45,6 +46,8 @@ HeavenGateWindowStoryEditor::HeavenGateWindowStoryEditor()
     
     
     memset(m_notification, '\0', sizeof(m_notification));
+
+    StoryTimer<HeavenGateWindowStoryEditor>::AddCallback(60 * 1, this, &HeavenGateWindowStoryEditor::AutoSaveCallback);
 }
 
 HeavenGateWindowStoryEditor::~HeavenGateWindowStoryEditor()
@@ -536,7 +539,10 @@ void HeavenGateWindowStoryEditor::UpdateMainWindow()
             AddNotification("Add New Jump");
         }
     }
-    
+
+
+    //Update Auto Save
+    StoryTimer<HeavenGateWindowStoryEditor>::Update();
 }
 
 void HeavenGateWindowStoryEditor::UpdateMenu()
@@ -918,6 +924,24 @@ int HeavenGateWindowStoryEditor::WordContentCallback(ImGuiInputTextCallbackData 
 }
 
 
+
+void HeavenGateWindowStoryEditor::AutoSaveCallback()
+{
+    if (m_storyJson != nullptr)
+    {
+        bool result = StoryFileManager::Instance().AutoSaveStoryFile(m_storyJson);
+
+        if (result)
+        {
+            AddNotification("Successful to Auto Save File");
+        }
+        else
+        {
+            AddNotification("Failed to Auto Save File");
+        }
+
+    }
+}
 
 //void HeavenGateWindowStoryEditor::ShowEditorWindow(bool* isOpenPoint) {
 

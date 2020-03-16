@@ -27,7 +27,7 @@ namespace HeavenGateEditor {
     private:
 
 
-        const StoryJson* m_storyJson;
+         StoryJson* m_storyJson;
 
     };
 
