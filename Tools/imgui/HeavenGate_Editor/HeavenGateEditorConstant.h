@@ -53,6 +53,7 @@ namespace HeavenGateEditor {
     const int     EXHIBIT_COLUMN = 2;
     const int     EFFECT_COLUMN = 2;
     const int     BGM_COLUMN = 2;
+    const int     ROLE_DRAWING_COLUMN = 2;
 
     //Color
     const int    COLOR_VALUE_COLUMN = 4;
@@ -190,6 +191,15 @@ const char* const DELIMITER =
         "\\BgmTable.json";
 #else
         "/BgmTable.json";
+#endif
+
+    //Relative path from story folder to role drawing table
+
+    const char* const ROLE_DRAWING_TABLE_NAME =
+#ifdef _WIN32
+        "\\RoleDrawingTable.json";
+#else
+        "/RoleDrawingTable.json";
 #endif
 
     const char* const PATH_FROM_PROJECT_ROOT_TO_FONT_FOLDER =

@@ -77,6 +77,12 @@ namespace HeavenGateEditor {
 
         m_bgmTable->PushName("Bgm");
         m_bgmTable->PushName("Description");
+
+        m_roleDrawingTable = new StoryTable<ROLE_DRAWING_COLUMN>;
+        m_roleDrawingTable->SetTableType(TableType::RoleDrawing);
+
+        m_roleDrawingTable->PushName("RoleDrawing");
+        m_roleDrawingTable->PushName("Alias");
         return true;
 
     }
@@ -115,6 +121,9 @@ namespace HeavenGateEditor {
 
         delete m_bgmTable;
         m_bgmTable = nullptr;
+
+        delete m_roleDrawingTable;
+        m_roleDrawingTable = nullptr;
 
         return true;
     }
@@ -237,6 +246,17 @@ namespace HeavenGateEditor {
     StoryTable<BGM_COLUMN>* StoryTableManager::GetBgmTable()
     {
         return const_cast<StoryTable<BGM_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetBgmTable());
+
+    }
+
+    const StoryTable<ROLE_DRAWING_COLUMN>* const StoryTableManager::GetRoleDrawingTable() const
+    {
+        return m_roleDrawingTable;
+    }
+
+    StoryTable<ROLE_DRAWING_COLUMN>* StoryTableManager::GetRoleDrawingTable()
+    {
+        return const_cast<StoryTable<ROLE_DRAWING_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetRoleDrawingTable());
 
     }
 }

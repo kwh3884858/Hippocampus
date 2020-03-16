@@ -55,6 +55,7 @@
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowExhibitTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowEffectTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowBgmTable.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowRoleDrawingTable.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\imgui.cpp">
@@ -104,6 +105,7 @@
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowExhibitTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowEffectTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowBgmTable.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowRoleDrawingTable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.txt" />

@@ -57,6 +57,9 @@ namespace HeavenGateEditor {
 
         const StoryTable<BGM_COLUMN>* const GetBgmTable() const;
         StoryTable<BGM_COLUMN>*  GetBgmTable();
+
+        const StoryTable<ROLE_DRAWING_COLUMN>* const GetRoleDrawingTable() const;
+        StoryTable<ROLE_DRAWING_COLUMN>*  GetRoleDrawingTable();
     protected:
     private:
 
@@ -72,6 +75,7 @@ namespace HeavenGateEditor {
         StoryTable<EXHIBIT_COLUMN>* m_exhibitTable;
         StoryTable<EFFECT_COLUMN>* m_effectTable;
         StoryTable<BGM_COLUMN>* m_bgmTable;
+        StoryTable<ROLE_DRAWING_COLUMN>* m_roleDrawingTable;
 
     };
 

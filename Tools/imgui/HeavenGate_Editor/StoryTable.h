@@ -103,6 +103,12 @@ namespace HeavenGateEditor {
         Description = 2
     };
 
+    enum class RoleDrawingTableLayout {
+        Type = 0,
+        RoleDrawing = 1,
+        Alias = 2
+    };
+
     const char tableString[][MAX_ENUM_LENGTH] = {
         "type",
         "value"
@@ -188,6 +194,12 @@ namespace HeavenGateEditor {
 
     };
 
+    const char roleDrawingTableString[][MAX_ENUM_LENGTH] = {
+        "roleDrawing",
+        "roleDrawing",
+        "alias"
+    };
+
     template<int column >
     class StoryRow
     {
@@ -220,7 +232,8 @@ namespace HeavenGateEditor {
         Pause,
         Exhibit,
         Effect,
-        Bgm
+        Bgm,
+        RoleDrawing
     };
 
     template<int column >
@@ -782,6 +795,24 @@ namespace HeavenGateEditor {
             break;
         }
 
+        case TableType::RoleDrawing:
+        {
+            j[tableString[(int)TableLayout::Type]] = roleDrawingTableString[(int)RoleDrawingTableLayout::Type];
+            if (p.GetSize() == 0)
+            {
+                j[tableString[(int)TableLayout::Value]] = json::array();
+            }
+            for (int i = 0; i < p.GetSize(); i++)
+            {
+                tmp = p.GetRow(i);
+                j[tableString[(int)TableLayout::Value]].push_back(json{
+    {roleDrawingTableString[(int)RoleDrawingTableLayout::RoleDrawing],          tmp->Get(0) },
+    {roleDrawingTableString[(int)RoleDrawingTableLayout::Alias],          tmp->Get(1) }
+                    });
+            }
+            break;
+        }
+
         default:
 
             return;
@@ -989,6 +1020,21 @@ namespace HeavenGateEditor {
                 strcpy(content, values[i].at(bgmTableString[(int)BgmTableLayout::Bgm]).get_ptr<const json::string_t*>()->c_str());
                 p.PushContent(content);
                 strcpy(content, values[i].at(bgmTableString[(int)BgmTableLayout::Description]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
+            }
+
+            return;
+        }
+
+        if (strcmp(typeString, roleDrawingTableString[(int)RoleDrawingTableLayout::Type]) == 0) {
+            p.SetTableType(TableType::RoleDrawing);
+            char content[MAX_COLUMNS_CONTENT_LENGTH];
+            for (int i = 0; i < values.size(); i++)
+            {
+
+                strcpy(content, values[i].at(roleDrawingTableString[(int)RoleDrawingTableLayout::RoleDrawing]).get_ptr<const json::string_t*>()->c_str());
+                p.PushContent(content);
+                strcpy(content, values[i].at(roleDrawingTableString[(int)RoleDrawingTableLayout::Alias]).get_ptr<const json::string_t*>()->c_str());
                 p.PushContent(content);
             }
 
