@@ -155,6 +155,7 @@
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowEffectTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowExhibitTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowPauseTable.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowRoleDrawingTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowSceneTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonChecker.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonContentCompiler.h" />
@@ -193,6 +194,7 @@
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowEffectTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowExhibitTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowPauseTable.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowRoleDrawingTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowSceneTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonChecker.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonContentCompiler.cpp" />

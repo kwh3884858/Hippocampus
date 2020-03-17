@@ -13,6 +13,7 @@
 #include "HeavenGateWindowExhibitTable.h"
 #include "HeavenGateWindowEffectTable.h"
 #include "HeavenGateWindowBgmTable.h"
+#include "HeavenGateWindowRoleDrawingTable.h"
 
 #include "StoryJsonManager.h"
 #include "StoryTableManager.h"
@@ -49,6 +50,7 @@ namespace HeavenGateEditor {
         m_exhibitTable = new HeavenGateWindowExhibitTable;
         m_effectTable = new HeavenGateWindowEffectTable;
         m_bgmTable = new HeavenGateWindowBgmTable;
+        m_roleDrawingTable = new HeavenGateWindowRoleDrawingTable;
 
         show_editor_window = m_heavenGateEditor->GetHandle();
         show_font_size_table_window = m_fontSizeTable->GetHandle();
@@ -62,6 +64,7 @@ namespace HeavenGateEditor {
         show_exhibit_table = m_exhibitTable->GetHandle();
         show_effect_table = m_effectTable->GetHandle();
         show_bgm_table = m_bgmTable->GetHandle();
+        show_role_drawing_table = m_roleDrawingTable->GetHandle();
 
     }
 
@@ -79,6 +82,7 @@ namespace HeavenGateEditor {
         *show_exhibit_table = false;
         *show_effect_table = false;
         *show_bgm_table = false;
+        *show_role_drawing_table = false;
 
         show_editor_window = nullptr;
         show_font_size_table_window = nullptr;
@@ -92,6 +96,7 @@ namespace HeavenGateEditor {
         show_exhibit_table = nullptr;
         show_effect_table = nullptr;
         show_bgm_table = nullptr;
+        show_role_drawing_table = nullptr;
 
         //Delete Windows
         delete m_heavenGateEditor;
@@ -106,6 +111,7 @@ namespace HeavenGateEditor {
         delete m_exhibitTable;
         delete m_effectTable;
         delete m_bgmTable;
+        delete m_roleDrawingTable;
 
         m_heavenGateEditor = nullptr;
         m_fontSizeTable = nullptr;
@@ -119,6 +125,7 @@ namespace HeavenGateEditor {
         m_exhibitTable = nullptr;
         m_effectTable = nullptr;
         m_bgmTable = nullptr;
+        m_roleDrawingTable = nullptr;
 
 
         //Delete Data
@@ -146,6 +153,7 @@ namespace HeavenGateEditor {
         ImGui::Checkbox("Exhibit Table", show_exhibit_table);
         ImGui::Checkbox("Effect Table", show_effect_table);
         ImGui::Checkbox("Bgm Table", show_bgm_table);
+        ImGui::Checkbox("Role Drawing Table", show_role_drawing_table);
 
         if (show_editor_window && *show_editor_window)
         {
@@ -205,6 +213,11 @@ namespace HeavenGateEditor {
         if (show_bgm_table && *show_bgm_table)
         {
             m_bgmTable->Update();
+        };
+
+        if (show_role_drawing_table && *show_role_drawing_table)
+        {
+            m_roleDrawingTable->Update();
         };
     }
 
