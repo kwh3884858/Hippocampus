@@ -26,23 +26,38 @@ namespace HeavenGateEditor {
     bool StoryFileManager::LoadStoryFile(const char* pPath, StoryJson* pStoryJson)
     {
         std::ifstream fins;
-        char content[MAX_FULL_CONTENT];
-        memset(content, 0, sizeof(content));
+        
+        char charBuffer = '\0';
+        vector<char> contentBuffer;
+
+        char tcontent[MAX_FULL_CONTENT];
+        memset(tcontent, 0, sizeof(tcontent));
+
+        int i = 0;
+
+        //memset(content, 0, sizeof(content));
 
         if (pPath == nullptr || pStoryJson == nullptr)
         {
             return false;
         }
-
+        
         fins.open(pPath);
+        if (fins.peek() == EOF) {
 
+            std::cerr << "Error: File is empty.";
+            return false;
+
+        }
         // If it could not open the file then exit.
         if (!fins.fail())
         {
-            int i = 0;
+            
             while (!fins.eof())
             {
-                fins >> content[i++];
+                //fins >> tcontent[i++];
+                fins >>  charBuffer;
+                contentBuffer.push_back(charBuffer);
             }
 
             fins.close();
@@ -53,13 +68,30 @@ namespace HeavenGateEditor {
             return false;
         }
 
-        json a = json::parse(content);
+        char* content = new char[contentBuffer.size()];
+        std::copy(contentBuffer.cbegin(), contentBuffer.cend(), content);
+
+        // The last character will push twish, because EOF will not make different with
+        //original character, so we should set the last one to terminal character to
+        //finish the sentense
+        content[contentBuffer.size() - 1] = '\0';
+
+        try {
+            json a = json::parse(content);
+            *pStoryJson = std::move(a);
+            std::cout << a;
+        }
+        catch (json::parse_error &e)
+        {
+            std::cerr << e.what() << std::endl;
+        }
+       
 
 
-        *pStoryJson = std::move(a);
+       /* *pStoryJson = std::move(a);*/
         pStoryJson->SetFullPath(pPath);
 
-        std::cout << a;
+        
         fins.close();
 
         return true;
