@@ -123,10 +123,10 @@ namespace HeavenGateEditor {
 
         json tmpJson = *pStoryJson;
 
-        std::ofstream o(filePath);
-        o << tmpJson << std::endl;
+        std::ofstream outputFileStream(filePath);
+        outputFileStream << tmpJson << std::endl;
 
-        o.close();
+        outputFileStream.close();
 
         //Initialize();
 
@@ -142,6 +142,7 @@ namespace HeavenGateEditor {
         //Rename and put it to auto save folder
         RenameStoryFileByTimeAndPutAutoSaveFolder(pStoryJson);
 
+        strcpy(filePath, pStoryJson->GetFullPath());
 
         if (strlen(filePath) <= 0) {
             return false;
@@ -149,11 +150,23 @@ namespace HeavenGateEditor {
 
         //No gramme check
         json tmpJson = *pStoryJson;
+        std::ofstream outputFileStream(filePath);
 
-        std::ofstream o(filePath);
-        o << tmpJson << std::endl;
+        if (!outputFileStream.fail())
+        {
 
-        o.close();
+
+      
+            outputFileStream << tmpJson << std::endl;
+
+        }
+        else
+        {
+            std::cerr << "Error: " << strerror(errno);
+            return false;
+        }
+
+        outputFileStream.close();
 
         //Initialize();
 
