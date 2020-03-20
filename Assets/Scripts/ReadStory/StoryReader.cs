@@ -16,8 +16,13 @@ namespace StarPlatinum.StoryReader
 		public StoryReader () { }
 		public StoryReader (string path)
 		{
-			LoadStory (path);
+			 LoadStory (path);
 		}
+
+        public bool GetLoadResult()
+        {
+            return m_loadResult;
+        }
 
 		public enum StoryJsonLayout
 		{
@@ -162,7 +167,7 @@ namespace StarPlatinum.StoryReader
 		/// <summary>
 		/// 加载故事
 		/// </summary>
-		private void LoadStory (string path)
+		private bool LoadStory (string path)
 		{
 			TextAsset story = Resources.Load<TextAsset> (path);
 			if (story != null) {
@@ -204,10 +209,22 @@ namespace StarPlatinum.StoryReader
 						}
 
 						ResetIndex ();
-					}
-				}
-			} else {
+                        return true;
+                    }
+                    else
+                    {
+                        Debug.Log("Can`t open story content");
+                        return false;
+                    }
+                }
+                else
+                {
+                    Debug.Log("Can`t parse story scene and chapter");
+                    return false;
+                }
+            } else {
 				Debug.Log ("Can`t open story file");
+                return false;
 			}
 		}
 
@@ -258,6 +275,8 @@ namespace StarPlatinum.StoryReader
 
 		private string m_scene;
 		public string Scene => m_scene;
+
+        private bool m_loadResult = false;
 
 		private List<StoryBasicData> m_story = new List<StoryBasicData> ();
 	}
