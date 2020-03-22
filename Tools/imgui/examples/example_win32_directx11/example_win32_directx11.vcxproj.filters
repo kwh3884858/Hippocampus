@@ -57,6 +57,7 @@
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowBgmTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowRoleDrawingTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryTimer.h" />
+    <ClInclude Include="CircleCache.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\imgui.cpp">
@@ -108,6 +109,7 @@
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowBgmTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowRoleDrawingTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryTimer.cpp" />
+    <ClCompile Include="CircleCache.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.txt" />
