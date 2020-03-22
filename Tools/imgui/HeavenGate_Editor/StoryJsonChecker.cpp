@@ -1,6 +1,9 @@
 #include "StoryJsonChecker.h"
 
 #include "StoryJson.h"
+#include "StoryJsonStoryNode.h"
+#include "StoryJsonLabelNode.h"
+#include "StoryJsonJumpNode.h"
 
 #include <vector>
 
