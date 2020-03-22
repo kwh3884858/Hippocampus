@@ -40,7 +40,39 @@ namespace UI.Panels.GameScene.MainManu
 			StarPlatinum.PrefabManager.Instance.LoadScene (SceneLookupEnum.Scene_Episode2_Pier, UnityEngine.SceneManagement.LoadSceneMode.Additive);
 		}
 
-		private void OnTalkEnd ()
+        /// <summary>
+        /// 点击载入游戏按钮
+        /// </summary>
+        public void OnClickLoadBtn()
+        {
+            UIManager.Instance().ShowPanel(UIPanelType.LoadGamePanel);
+        }
+
+        /// <summary>
+        /// 点击游戏设置按钮
+        /// </summary>
+        public void OnClickSettingBtn()
+        {
+
+        }
+
+        /// <summary>
+        /// 点击制作人员列表按钮
+        /// </summary>
+        public void OnClickProductionStaffBtn()
+        {
+
+        }
+
+        /// <summary>
+        /// 点击退出游戏按钮
+        /// </summary>
+        public void OnClickExitBtn()
+        {
+            Application.Quit();// 退出游戏
+        }
+
+        private void OnTalkEnd ()
 		{
 			GamePlay.Player.PlayerController.Instance ().SetMoveEnable (true);
 		}

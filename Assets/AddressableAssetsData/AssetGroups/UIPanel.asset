@@ -45,6 +45,10 @@ MonoBehaviour:
     m_Address: Assets/Art/UI/UIPanel/Prefabs/Evidence
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: d3a816f690832334bb941ff95645635f
+    m_Address: load_game_panel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: e3e26078347e88447b514d09519bbed7
     m_Address: Assets/AddressableAssetsData/AssetGroups/Scene.asset
     m_ReadOnly: 0
