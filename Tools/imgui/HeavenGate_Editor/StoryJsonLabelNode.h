@@ -26,10 +26,11 @@ public:
     StoryLabel(const StoryLabel& storyLabel);
 
 
-    void to_json(json& j, const StoryLabel& p);
-    void from_json(const json& j, StoryLabel& p);
+
 
 };
 
+void to_json(json& j, const StoryLabel& p);
+void from_json(const json& j, StoryLabel& p);
 }
 #endif /* StoryJsonLabelNode_h */

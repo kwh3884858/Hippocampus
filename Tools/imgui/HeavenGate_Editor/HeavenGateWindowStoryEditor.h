@@ -25,15 +25,20 @@ namespace HeavenGateEditor {
     class HeavenGateWindowSelectStory;
     class HeavenGatePopupInputFileName;
 
-    //class StoryFileManager;
+    //Story node family
     class StoryJson;
+    class StoryWord;
+    class StoryLabel;
+    class StoryJump;
+    class StoryExhibit;
+
     enum class TableType;
     class HeavenGateWindowStoryEditor : public HeavenGateEditorBaseWindow
     {
         WINDOW_DECLARE("Heaven Gate Editor", Window_Type::MainWindow)
 
     public:
-       
+
 
         HeavenGateWindowStoryEditor();
 
@@ -42,23 +47,18 @@ namespace HeavenGateEditor {
         virtual void UpdateMainWindow() override;
         virtual void UpdateMenu() override;
 
-        //void ShowEditorWindow(bool* isOpenPoint);
-        //void ShowEditorMenuFile();
-
-
     private:
+        static int WordContentCallback(ImGuiInputTextCallbackData* data);
+
+        void ShowStoryWord(StoryWord* word, const char* order);
+
         void AddButton(int index);
         void AddNotification(const char * const notification);
-       static int WordContentCallback(ImGuiInputTextCallbackData* data);
 
-       void AutoSaveCallback() ;
-        //bool m_isWritedUnsavedContent;
-        //Model
-        //json m_currentStory;
+        void AutoSaveCallback();
+
+        //Data
         StoryJson* m_storyJson;
-
-        //Controller
-        //StoryFileManager* m_storyFileManager;
 
         //View
         HeavenGateWindowSelectStory* m_selectStoryWindow;

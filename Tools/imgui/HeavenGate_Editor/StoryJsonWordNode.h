@@ -14,20 +14,25 @@
 namespace HeavenGateEditor {
 
     enum class WordLayout :int;
+
     extern char wordNodeString[][MAX_ENUM_LENGTH];
 
-class StoryWord :public StoryNode {
-public:
 
-    char m_name[MAX_NAME];
-    char m_content[MAX_CONTENT];
 
-    StoryWord();
-    StoryWord(const StoryWord& storyWard);
-};
+    class StoryWord :public StoryNode {
+    public:
+
+        char m_name[MAX_NAME];
+        char m_content[MAX_CONTENT];
+
+        StoryWord();
+        StoryWord(const StoryWord& storyWard);
+    };
 
     void to_json(json& j, const StoryWord& p);
     void from_json(const json& j, StoryWord& p);
 
 }
+
+
 #endif /* StoryJsonWordNode_h */

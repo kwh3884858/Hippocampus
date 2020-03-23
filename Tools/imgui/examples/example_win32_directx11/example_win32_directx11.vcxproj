@@ -148,6 +148,12 @@
   <ItemGroup>
     <ClInclude Include="..\..\Dirent\dirent.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\CharacterUtility.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\CircleCache.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonExhibitNode.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonJumpNode.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonLabelNode.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonStoryNode.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonWordNode.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryTimer.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowBgmTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowChapterTable.h" />
@@ -183,11 +189,16 @@
     <ClInclude Include="..\..\nlohmann\json.hpp" />
     <ClInclude Include="..\imgui_impl_dx11.h" />
     <ClInclude Include="..\imgui_impl_win32.h" />
-    <ClInclude Include="CircleCache.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\HeavenGate_Editor\CharacterUtility.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\CircleCache.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonExhibitNode.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonJumpNode.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonLabelNode.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonStoryNode.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonWordNode.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryTimer.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowBgmTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowChapterTable.cpp" />
@@ -221,7 +232,6 @@
     <ClCompile Include="..\..\imgui_widgets.cpp" />
     <ClCompile Include="..\imgui_impl_dx11.cpp" />
     <ClCompile Include="..\imgui_impl_win32.cpp" />
-    <ClCompile Include="CircleCache.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -526,7 +526,13 @@ void FromJsonFactory(const json& j, StoryJson & storyJson)
     {
         char enumString[MAX_ENUM_LENGTH];
         //strcpy(enumString, j[i].at(wordNodeString[(int)WordLayout::NodeTypeName]).get_ptr<const json::string_t *>()->c_str());
-        GetContentException(enumString, j[i], wordNodeString[(int)JumpLayout::NodeTypeName]);
+        GetContentException(enumString, j[i], wordNodeString[0]);
+
+        if (strcmp(enumString, nodeTypeString[(int)NodeType::Word]) == 0) {
+            StoryWord* node = new StoryWord;
+            *node = j[i];
+            storyJson.AddNode(node);
+        }
 
         if (strcmp(enumString, nodeTypeString[(int)NodeType::Label]) == 0) {
             StoryLabel* node = new StoryLabel;
@@ -540,13 +546,8 @@ void FromJsonFactory(const json& j, StoryJson & storyJson)
             storyJson.AddNode(node);
         }
 
-        if (strcmp(enumString, nodeTypeString[(int)NodeType::Word]) == 0) {
-            StoryWord* node = new StoryWord;
-            *node = j[i];
-            storyJson.AddNode(node);
-        }
-
         if(strcmp(enumString, nodeTypeString[(int)NodeType::Exhibit]) == 0){
+            StoryExhibit* node = new StoryExhibit;
             *node = j[i];
             storyJson.AddNode(node);
         }

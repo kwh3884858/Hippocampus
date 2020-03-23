@@ -13,8 +13,10 @@
 
 namespace HeavenGateEditor {
 
-enum class JumpLayout :int;
-extern char jumpNodeString[][MAX_ENUM_LENGTH];
+
+    enum class JumpLayout :int;
+
+    extern char jumpNodeString[][MAX_ENUM_LENGTH];
 
 
 class StoryJump : public StoryNode
