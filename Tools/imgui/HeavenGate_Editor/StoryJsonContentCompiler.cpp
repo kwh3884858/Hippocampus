@@ -4,6 +4,7 @@
 #include "imgui.h"
 
 #include "StoryJson.h"
+#include "StoryJsonWordNode.h"
 #include "StoryTableManager.h"
 
 #include "StoryTable.h"

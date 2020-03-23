@@ -34,20 +34,32 @@ namespace HeavenGateEditor {
     };
 
     template<typename T>
-    __declspec(selectany) T* StoryTimer<T>::m_this = nullptr;
+#ifdef _WIN32
+    __declspec(selectany)
+#endif
+T* StoryTimer<T>::m_this = nullptr;
 
 
     template<typename T>
-    __declspec(selectany) typename StoryTimer<T>::StoryEditorCallback StoryTimer<T>::m_timeCallback  = nullptr;
+    #ifdef _WIN32
+        __declspec(selectany)
+    #endif
+typename StoryTimer<T>::StoryEditorCallback StoryTimer<T>::m_timeCallback  = nullptr;
 
     //__declspec(selectany) void (T::*StoryTimer<T>::m_timeCallback) () = nullptr;
 
 
     template<typename T>
-    __declspec(selectany) time_t StoryTimer<T>::m_lastTime = 0;
+    #ifdef _WIN32
+        __declspec(selectany)
+    #endif
+time_t StoryTimer<T>::m_lastTime = 0;
 
     template<typename T>
-    __declspec(selectany) time_t StoryTimer<T>::m_interval = 0;
+    #ifdef _WIN32
+        __declspec(selectany)
+    #endif
+time_t StoryTimer<T>::m_interval = 0;
  
 
     //template<typename T>

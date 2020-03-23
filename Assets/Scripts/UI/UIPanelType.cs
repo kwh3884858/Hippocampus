@@ -8,4 +8,5 @@ public enum UIPanelType
     [AssetPath("talk_panel")] TalkPanel = 5,
     [AssetPath("EvidencePanel")] Evidencepanel = 6,
     [AssetPath("SingleEvidenceSelectPanel")] Singleevidenceselectpanel = 7,
+    [AssetPath("load_game_panel")] LoadGamePanel = 8,
 }

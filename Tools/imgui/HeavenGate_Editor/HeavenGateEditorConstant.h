@@ -22,6 +22,7 @@ namespace HeavenGateEditor {
     const int     MAX_CONTENT = 265;
     const int     NUM_OF_ID_PART = 4;
     const int     MAX_ID_PART = 32;
+    const int     MAX_EXHIBIT_NAME = 64;
 
     //ID 
     const int     MAX_CHAPTER = MAX_ID_PART;

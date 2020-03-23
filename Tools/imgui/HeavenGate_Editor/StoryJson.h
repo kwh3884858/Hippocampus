@@ -13,66 +13,20 @@ namespace HeavenGateEditor {
     using std::list;
 
 
+    class StoryNode;
+    class StoryWord;
+    class StoryLabel;
+    class StoryJump;
+    class StoryExhibit;
 
-    enum class NodeType
-    {
-        None = 0,
-        Label,
-        Word,
-        Jump
-    };
     enum class StructLayout :int;
     enum class InfoLayout :int;
-    enum class LabelLayout :int;
-    enum class JumpLayout :int;
-    enum class WordLayout :int;
-
 
     extern char StructString[][MAX_ENUM_LENGTH];
     extern char infoString[][MAX_ENUM_LENGTH];
 
-    extern char nodeTypeString[][MAX_ENUM_LENGTH];
-    extern char labelNodeString[][MAX_ENUM_LENGTH];
-    extern char jumpNodeString[][MAX_ENUM_LENGTH];
-    extern char wordNodeString[][MAX_ENUM_LENGTH];
 
-    class StoryNode {
-    public:
 
-        NodeType m_nodeType;
-
-        StoryNode();
-        StoryNode(const StoryNode& storyNode);
-    };
-
-    class StoryLabel :public StoryNode
-    {
-    public:
-        char m_labelId[MAX_ID];
-
-        StoryLabel();
-        StoryLabel(const StoryLabel& storyLabel);
-    };
-
-    class StoryJump : public StoryNode
-    {
-    public:
-        char m_jumpId[MAX_ID];
-        char m_jumpContent[MAX_CONTENT];
-
-        StoryJump();
-        StoryJump(const StoryJump& storyJump);
-    };
-
-    class StoryWord :public StoryNode {
-    public:
-
-        char m_name[MAX_NAME];
-        char m_content[MAX_CONTENT];
-
-        StoryWord();
-        StoryWord(const StoryWord& storyWard);
-    };
 
     class StoryJson {
 
@@ -89,10 +43,15 @@ namespace HeavenGateEditor {
         int AddWord(StoryWord* const word);
         int AddWord(const char* name, const char* content);
         int InsertWord(const char* name, const char* content, int index);
+
         int AddLabel(const char* labelName);
         int InsertLabel(const char* labelName, int index);
+
         int AddJump(const char* jumpName, const char* jumpContent);
         int InsertJump(const char* jumpName, const char* jumpContent, int index);
+
+        int AddExhibit(const char* exhibitName);
+        int InsertExhibit(const char* exhibitName, int index);
 
         void Swap(int lhs, int rhs);
 
@@ -131,19 +90,9 @@ namespace HeavenGateEditor {
 
     };
 
-    void GetContentException(char*const des, const json & j, const char* const index);
-    void GetJsonException(json & des, const json& src, const char* const index);
 
     void to_json(json& j, const StoryJson& p);
-    void to_json(json& j, const StoryWord& p);
-    void to_json(json& j, const StoryLabel& p);
-    void to_json(json& j, const StoryJump& p);
-
-    void from_json(const json& j, StoryWord& p);
     void from_json(const json& j, StoryJson& p);
-    void from_json(const json& j, StoryLabel& p);
-    void from_json(const json& j, StoryJump& p);
-
 
     void ToJsonFactory(json& j, const StoryJson& p);
     void FromJsonFactory(const json& j, StoryJson & p);
