@@ -39,7 +39,6 @@ namespace HeavenGateEditor {
 
     public:
 
-
         HeavenGateWindowStoryEditor();
 
         virtual ~HeavenGateWindowStoryEditor() override;
@@ -50,7 +49,7 @@ namespace HeavenGateEditor {
     private:
         static int WordContentCallback(ImGuiInputTextCallbackData* data);
 
-        void ShowStoryWord(StoryWord* word, const char* order);
+        void ShowStoryWord(StoryWord* word, int index);
 
         void AddButton(int index);
         void AddNotification(const char * const notification);

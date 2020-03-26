@@ -149,6 +149,7 @@
     <ClInclude Include="..\..\Dirent\dirent.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\CharacterUtility.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\CircleCache.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorNodeGraphExample.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonExhibitNode.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonJumpNode.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonLabelNode.h" />
@@ -186,6 +187,7 @@
     <ClInclude Include="..\..\imconfig.h" />
     <ClInclude Include="..\..\imgui.h" />
     <ClInclude Include="..\..\imgui_internal.h" />
+    <ClInclude Include="..\..\imnodes\imnodes.h" />
     <ClInclude Include="..\..\nlohmann\json.hpp" />
     <ClInclude Include="..\imgui_impl_dx11.h" />
     <ClInclude Include="..\imgui_impl_win32.h" />
@@ -194,6 +196,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\HeavenGate_Editor\CharacterUtility.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\CircleCache.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorNodeGraphExample.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonExhibitNode.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonJumpNode.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonLabelNode.cpp" />
@@ -230,6 +233,7 @@
     <ClCompile Include="..\..\imgui_demo.cpp" />
     <ClCompile Include="..\..\imgui_draw.cpp" />
     <ClCompile Include="..\..\imgui_widgets.cpp" />
+    <ClCompile Include="..\..\imnodes\imnodes.cpp" />
     <ClCompile Include="..\imgui_impl_dx11.cpp" />
     <ClCompile Include="..\imgui_impl_win32.cpp" />
     <ClCompile Include="main.cpp" />

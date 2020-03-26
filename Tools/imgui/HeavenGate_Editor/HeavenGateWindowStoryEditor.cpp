@@ -178,7 +178,6 @@ namespace HeavenGateEditor {
                         ImGui::InputTextWithHint(nameConstant, "Enter name here", name, MAX_NAME);
                         ImGui::InputTextWithHint(contentConstant, "Enter Content here", content, MAX_CONTENT, ImGuiInputTextFlags_CallbackAlways, WordContentCallback);
 
-
                         ImGui::TreePop();
                     }
 
@@ -751,7 +750,7 @@ namespace HeavenGateEditor {
                         }
                     }
                 }
-                                                        break;
+                    break;
                 case HeavenGateEditor::TableType::Paint_Move:
                     break;
                 case TableType::Pause:
@@ -775,6 +774,44 @@ namespace HeavenGateEditor {
 
 
 
+
+    void HeavenGateWindowStoryEditor::ShowStoryWord(StoryWord* word, int index)
+    {
+        static char* name = nullptr;
+        static char* content = nullptr;
+        char order[8] = "";
+        char thumbnail[MAX_CONTENT * 2] = "";
+        char nameConstant[16] = "Name ";
+        char contentConstant[16] = "Content ";
+
+
+        sprintf(order, "%d", index);
+        strcat(nameConstant, order);
+        strcat(contentConstant, order);
+
+        //StoryWord* word = static_cast<StoryWord*>(node);
+        name = word->m_name;
+        content = word->m_content;
+
+        strcpy(thumbnail, order);
+        strcat(thumbnail, "_Word_");
+        strcat(thumbnail, name);
+        strcat(thumbnail, ": ");
+        strcat(thumbnail, content);
+
+        if (ImGui::TreeNode((void*)(intptr_t)index, thumbnail))
+        {
+
+            AddButton(index);
+
+            ImGui::InputTextWithHint(nameConstant, "Enter name here", name, MAX_NAME);
+            ImGui::InputTextWithHint(contentConstant, "Enter Content here", content, MAX_CONTENT, ImGuiInputTextFlags_CallbackAlways, WordContentCallback);
+
+
+            ImGui::TreePop();
+        }
+
+    }
 
     void HeavenGateWindowStoryEditor::AutoSaveCallback()
     {

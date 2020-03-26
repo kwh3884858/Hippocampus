@@ -8,6 +8,8 @@
 
 #include "HeavenGateWindowCenter.h"
 
+#include "../imnodes/imnodes.h"
+
 #include "imgui.h"
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
@@ -88,6 +90,7 @@ int main(int, char**)
     ImGui_ImplWin32_Init(hwnd);
     ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
 
+    imnodes::Initialize();
     // Load Fonts
     // - If no fonts are loaded, dear imgui will use the default font. You can also load multiple fonts and use ImGui::PushFont()/PopFont() to select them.
     // - AddFontFromFileTTF() will return the ImFont* so you can store it if you need to select the font among multiple.
@@ -164,10 +167,20 @@ int main(int, char**)
         // 3. Show another simple window.
         if (show_another_window)
         {
+            static const int hardcoded_node_id = 1;
+
             ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-            ImGui::Text("Hello from another window!");
-            if (ImGui::Button("Close Me"))
-                show_another_window = false;
+            //ImGui::Text("Hello from another window!");
+            //if (ImGui::Button("Close Me"))
+            //    show_another_window = false;
+            imnodes::BeginNodeEditor();
+
+            imnodes::BeginNode(hardcoded_node_id);
+            ImGui::Dummy(ImVec2(80.0f, 45.0f));
+            imnodes::EndNode();
+
+            imnodes::EndNodeEditor();
+
             ImGui::End();
         }
 
@@ -187,6 +200,7 @@ int main(int, char**)
     }
 
     // Cleanup
+    imnodes::Shutdown();
     ImGui_ImplDX11_Shutdown();
     ImGui_ImplWin32_Shutdown();
     ImGui::DestroyContext();
