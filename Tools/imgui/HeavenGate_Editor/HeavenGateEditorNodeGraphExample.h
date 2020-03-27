@@ -26,6 +26,8 @@ namespace HeavenGateEditor {
 
         bool m_isInitialization = false;
 
+        bool m_isExample1Open = true;
+
 
     };
 

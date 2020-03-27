@@ -9,9 +9,14 @@ namespace HeavenGateEditor {
 
     HeavenGatePopupResolveConflictFiles::HeavenGatePopupResolveConflictFiles()
     {
-        ResetIsDiscardCurrentFile();
+       
     }
 
+
+    void HeavenGatePopupResolveConflictFiles::Initialize()
+    {
+        ResetIsDiscardCurrentFile();
+    }
 
     void HeavenGatePopupResolveConflictFiles::UpdateMainWindow()
     {

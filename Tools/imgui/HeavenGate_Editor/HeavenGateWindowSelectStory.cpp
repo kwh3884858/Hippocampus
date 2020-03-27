@@ -15,17 +15,27 @@ namespace HeavenGateEditor {
     HeavenGateWindowSelectStory::HeavenGateWindowSelectStory()
     {
 
-        //m_fileManager = new StoryFileManager;
-        m_popupResolveConflictFiles = new HeavenGatePopupResolveConflictFiles;
-        m_isOpenPopupResolveConflictFiles = m_popupResolveConflictFiles->GetHandle();
-
-        Initialize();
     }
 
 
     HeavenGateWindowSelectStory::~HeavenGateWindowSelectStory()
     {
 
+     
+    }
+
+    void HeavenGateWindowSelectStory::Initialize()
+    {
+
+        //m_fileManager = new StoryFileManager;
+        m_popupResolveConflictFiles = new HeavenGatePopupResolveConflictFiles;
+        m_isOpenPopupResolveConflictFiles = m_popupResolveConflictFiles->GetHandle();
+
+        Refresh();
+    }
+
+    void HeavenGateWindowSelectStory::Shutdown()
+    {
         m_isOpenPopupResolveConflictFiles = nullptr;
 
         if (m_popupResolveConflictFiles)
@@ -40,10 +50,10 @@ namespace HeavenGateEditor {
         //}
         //m_fileManager = nullptr;
 
-        Initialize();
+        Refresh();
     }
 
-    void HeavenGateWindowSelectStory::Initialize()
+    void HeavenGateWindowSelectStory::Refresh()
     {
         m_isInitializedFilesList = false;
         m_fileCount = 0;
@@ -356,7 +366,7 @@ namespace HeavenGateEditor {
         ////
 
         if (ImGui::Button("Refresh")) {
-            Initialize();
+            Refresh();
         }
 
         ImGui::SameLine();
@@ -386,7 +396,7 @@ namespace HeavenGateEditor {
             m_popupResolveConflictFiles->ResetIsDiscardCurrentFile();
             m_popupResolveConflictFiles->CloseWindow();
 
-            Initialize();
+            Refresh();
             CloseWindow();
             break;
         }
@@ -396,7 +406,7 @@ namespace HeavenGateEditor {
             m_popupResolveConflictFiles->ResetIsDiscardCurrentFile();
             m_popupResolveConflictFiles->CloseWindow();
 
-            Initialize();
+            Refresh();
             CloseWindow();
 
             break;

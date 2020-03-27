@@ -21,6 +21,8 @@ namespace HeavenGateEditor {
     public:
         HeavenGateEditorFontSizeTable();
         ~HeavenGateEditorFontSizeTable();
+        virtual void Initialize() override;
+        virtual void Shutdown() override;
 
     protected:
 

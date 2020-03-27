@@ -33,33 +33,43 @@ namespace HeavenGateEditor {
 
     HeavenGateWindowStoryEditor::HeavenGateWindowStoryEditor()
     {
+    }
+
+    HeavenGateWindowStoryEditor::~HeavenGateWindowStoryEditor()
+    {
+   
+    }
+
+    void HeavenGateWindowStoryEditor::Initialize()
+    {
         m_storyJson = nullptr;
-
-
         m_selectStoryWindow = new HeavenGateWindowSelectStory();
+        m_selectStoryWindow->Initialize();
+
+        m_inputFileNamePopup = new HeavenGatePopupInputFileName();
+        m_inputFileNamePopup->Initialize();
 
         //Default open select story window
         bool* selectStoryWindowHandle = m_selectStoryWindow->GetHandle();
         *selectStoryWindowHandle = true;
 
-
-        m_inputFileNamePopup = new HeavenGatePopupInputFileName();
-
-
         memset(m_notification, '\0', sizeof(m_notification));
 
         //Auto save callback
         StoryTimer<HeavenGateWindowStoryEditor>::AddCallback(60 * 1, this, &HeavenGateWindowStoryEditor::AutoSaveCallback);
+
     }
 
-    HeavenGateWindowStoryEditor::~HeavenGateWindowStoryEditor()
+    void HeavenGateWindowStoryEditor::Shutdown()
     {
         if (m_selectStoryWindow != nullptr) {
+            m_selectStoryWindow->Shutdown();
             delete m_selectStoryWindow;
         }
         m_selectStoryWindow = nullptr;
 
         if (m_inputFileNamePopup != nullptr) {
+            m_inputFileNamePopup->Shutdown();
             delete m_inputFileNamePopup;
         }
         m_inputFileNamePopup = nullptr;

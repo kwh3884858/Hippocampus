@@ -20,22 +20,11 @@ namespace HeavenGateEditor {
 
     HeavenGateEditorFontSizeTable::HeavenGateEditorFontSizeTable() {
 
-        StoryTable<FONT_SIZE_MAX_COLUMN>* fontSizeTable = StoryTableManager::Instance().GetFontSizeTable();
-
-        memset(m_fullPath, 0, sizeof(m_fullPath));
-      
-
-        HeavenGateEditorUtility::GetStoryPath(m_fullPath);
-        strcat(m_fullPath, FONT_TABLE_NAME);
-
-        bool result = StoryFileManager::Instance().LoadTableFile(m_fullPath, fontSizeTable);
-        if (result == false)
-        {
-            StoryFileManager::Instance().SaveTableFile(m_fullPath, fontSizeTable);
-            StoryFileManager::Instance().LoadTableFile(m_fullPath, fontSizeTable);
-        }
+   
 
     }
+
+   
 
     HeavenGateEditorFontSizeTable:: ~HeavenGateEditorFontSizeTable() {
 
@@ -54,8 +43,28 @@ namespace HeavenGateEditor {
         //fontSizeTable = nullptr;
 
     }
+    void HeavenGateEditorFontSizeTable::Initialize()
+    {
+        StoryTable<FONT_SIZE_MAX_COLUMN>* fontSizeTable = StoryTableManager::Instance().GetFontSizeTable();
+
+        memset(m_fullPath, 0, sizeof(m_fullPath));
 
 
+        HeavenGateEditorUtility::GetStoryPath(m_fullPath);
+        strcat(m_fullPath, FONT_TABLE_NAME);
+
+        bool result = StoryFileManager::Instance().LoadTableFile(m_fullPath, fontSizeTable);
+        if (result == false)
+        {
+            StoryFileManager::Instance().SaveTableFile(m_fullPath, fontSizeTable);
+            StoryFileManager::Instance().LoadTableFile(m_fullPath, fontSizeTable);
+        }
+    }
+
+    void HeavenGateEditorFontSizeTable::Shutdown()
+    {
+
+    }
     void HeavenGateEditorFontSizeTable::UpdateMainWindow()
     {
         StoryTable<FONT_SIZE_MAX_COLUMN>* fontSizeTable = StoryTableManager::Instance().GetFontSizeTable();

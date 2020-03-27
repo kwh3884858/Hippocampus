@@ -91,6 +91,7 @@ int main(int, char**)
     ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
 
     imnodes::Initialize();
+    heavenGateCenter.Initialize();
     // Load Fonts
     // - If no fonts are loaded, dear imgui will use the default font. You can also load multiple fonts and use ImGui::PushFont()/PopFont() to select them.
     // - AddFontFromFileTTF() will return the ImFont* so you can store it if you need to select the font among multiple.
@@ -200,6 +201,7 @@ int main(int, char**)
     }
 
     // Cleanup
+    heavenGateCenter::Shutdown();
     imnodes::Shutdown();
     ImGui_ImplDX11_Shutdown();
     ImGui_ImplWin32_Shutdown();

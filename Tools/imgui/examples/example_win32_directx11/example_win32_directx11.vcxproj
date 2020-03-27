@@ -69,7 +69,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)$(Configuration)\</IntDir>
-    <IncludePath>$(SolutionDir)..\HeavenGate_Editor;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\HeavenGate_Editor;$(SolutionDir)..\imnodes;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
@@ -187,6 +187,10 @@
     <ClInclude Include="..\..\imconfig.h" />
     <ClInclude Include="..\..\imgui.h" />
     <ClInclude Include="..\..\imgui_internal.h" />
+    <ClInclude Include="..\..\imnodes\Example1Simple.h" />
+    <ClInclude Include="..\..\imnodes\Example2SaveLoadEditor.h" />
+    <ClInclude Include="..\..\imnodes\Example3ColorNodeEditor.h" />
+    <ClInclude Include="..\..\imnodes\Example4MultiEditor.h" />
     <ClInclude Include="..\..\imnodes\imnodes.h" />
     <ClInclude Include="..\..\nlohmann\json.hpp" />
     <ClInclude Include="..\imgui_impl_dx11.h" />
@@ -233,6 +237,10 @@
     <ClCompile Include="..\..\imgui_demo.cpp" />
     <ClCompile Include="..\..\imgui_draw.cpp" />
     <ClCompile Include="..\..\imgui_widgets.cpp" />
+    <ClCompile Include="..\..\imnodes\Example1Simple.cpp" />
+    <ClCompile Include="..\..\imnodes\Example2SaveLoadEditor.cpp" />
+    <ClCompile Include="..\..\imnodes\Example3ColorNodeEditor.cpp" />
+    <ClCompile Include="..\..\imnodes\Example4MultiEditor.cpp" />
     <ClCompile Include="..\..\imnodes\imnodes.cpp" />
     <ClCompile Include="..\imgui_impl_dx11.cpp" />
     <ClCompile Include="..\imgui_impl_win32.cpp" />

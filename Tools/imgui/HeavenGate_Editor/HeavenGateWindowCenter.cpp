@@ -32,6 +32,18 @@ namespace HeavenGateEditor {
     HeavenGateWindowCenter::HeavenGateWindowCenter()
     {
 
+    }
+
+    HeavenGateWindowCenter::~HeavenGateWindowCenter()
+    {
+  
+
+    }
+
+
+    void HeavenGateWindowCenter::Initialize()
+    {
+
         StoryJsonManager::Instance().Initialize();
         StoryFileManager::Instance().Initialize();
         StoryTableManager::Instance().Initialize();
@@ -70,7 +82,7 @@ namespace HeavenGateEditor {
         show_node_graph_example = m_nodeGraphExample->GetHandle();
     }
 
-    HeavenGateWindowCenter::~HeavenGateWindowCenter()
+    void HeavenGateWindowCenter::Shutdown()
     {
         *show_editor_window = false;
         *show_font_size_table_window = false;
@@ -140,9 +152,7 @@ namespace HeavenGateEditor {
         StoryJsonContentCompiler::Instance().Shutdown();
         StoryJsonChecker::Instance().Shutdown();
 
-
     }
-
 
     void HeavenGateWindowCenter::UpdateMainWindow()
     {

@@ -18,6 +18,9 @@ public:
     HeavenGateWindowSelectStory();
     ~HeavenGateWindowSelectStory();
 
+    virtual void Initialize() override;
+    virtual void Shutdown() override;
+
     virtual void UpdateMainWindow() override;
     virtual void UpdateMenu() override;
    
@@ -27,7 +30,7 @@ public:
     //void SetStoryFileManager(StoryFileManager* pStoryFileManager);
 
 private:
-    void Initialize();
+    void Refresh();
 
     //bool OpenStoryFile();
     //void InitStoryPath();

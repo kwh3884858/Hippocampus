@@ -100,7 +100,7 @@ int main(int, char**)
         if (!initialized)
         {
             initialized = true;
-            example::NodeEditorInitialize();
+           
         }
 
         example::NodeEditorShow();

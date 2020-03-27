@@ -40,9 +40,11 @@ namespace HeavenGateEditor {
     public:
 
         HeavenGateWindowStoryEditor();
-
         virtual ~HeavenGateWindowStoryEditor() override;
 
+    protected:
+        virtual void Initialize() override;
+        virtual void Shutdown() override;
         virtual void UpdateMainWindow() override;
         virtual void UpdateMenu() override;
 

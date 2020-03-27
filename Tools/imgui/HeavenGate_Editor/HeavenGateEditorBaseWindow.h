@@ -41,6 +41,9 @@ public: \
         void CloseWindow();
         bool IsWindowOpen() const;
 
+        virtual void Initialize() = 0;
+        virtual void Shutdown() = 0;
+
     protected:
         virtual void UpdateMainWindow() = 0;
         virtual void UpdateMenu() = 0;
