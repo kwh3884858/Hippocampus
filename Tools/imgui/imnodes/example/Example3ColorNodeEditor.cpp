@@ -1,9 +1,9 @@
-#include "node_editor.h"
+#include "Example3ColorNodeEditor.h"
 
-#include <imnodes.h>
-#include <imgui.h>
+#include "imnodes.h"
+#include "imgui.h"
 
-#include <SDL_keycode.h>
+//#include <SDL_keycode.h>
 #include <algorithm> // for std::swap
 #include <cassert>
 #include <chrono>
@@ -14,10 +14,12 @@
 #include <utility>
 #include <vector>
 
-namespace example
+namespace Example3
 {
 namespace
 {
+const int Keycode_A = 65;
+const int keycode_X = 88;
 template<class T>
 T clamp(T x, T a, T b)
 {
@@ -688,7 +690,7 @@ public:
         imnodes::EndNodeEditor();
 
         const bool open_popup =
-            ImGui::IsMouseClicked(1) || ImGui::IsKeyReleased(SDL_SCANCODE_A);
+            ImGui::IsMouseClicked(1) || ImGui::IsKeyReleased(Keycode_A);
 
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(8.f, 8.f));
         if (!ImGui::IsAnyItemHovered() && open_popup)
@@ -800,7 +802,7 @@ public:
 
         {
             const int num_selected = imnodes::NumSelectedLinks();
-            if (num_selected > 0 && ImGui::IsKeyReleased(SDL_SCANCODE_X))
+            if (num_selected > 0 && ImGui::IsKeyReleased(keycode_X))
             {
                 static std::vector<int> selected_links;
                 selected_links.resize(static_cast<size_t>(num_selected), -1);
@@ -819,7 +821,7 @@ public:
 
         {
             const int num_selected = imnodes::NumSelectedNodes();
-            if (num_selected > 0 && ImGui::IsKeyReleased(SDL_SCANCODE_X))
+            if (num_selected > 0 && ImGui::IsKeyReleased(keycode_X))
             {
                 static std::vector<int> selected_nodes;
                 selected_nodes.resize(static_cast<size_t>(num_selected), -1);

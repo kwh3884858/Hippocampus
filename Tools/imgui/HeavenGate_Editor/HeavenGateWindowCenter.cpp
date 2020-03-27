@@ -14,6 +14,7 @@
 #include "HeavenGateWindowEffectTable.h"
 #include "HeavenGateWindowBgmTable.h"
 #include "HeavenGateWindowRoleDrawingTable.h"
+#include "HeavenGateEditorNodeGraphExample.h"
 
 #include "StoryJsonManager.h"
 #include "StoryTableManager.h"
@@ -51,6 +52,7 @@ namespace HeavenGateEditor {
         m_effectTable = new HeavenGateWindowEffectTable;
         m_bgmTable = new HeavenGateWindowBgmTable;
         m_roleDrawingTable = new HeavenGateWindowRoleDrawingTable;
+        m_nodeGraphExample = new HeavenGateEditorNodeGraphExample;
 
         show_editor_window = m_heavenGateEditor->GetHandle();
         show_font_size_table_window = m_fontSizeTable->GetHandle();
@@ -65,7 +67,7 @@ namespace HeavenGateEditor {
         show_effect_table = m_effectTable->GetHandle();
         show_bgm_table = m_bgmTable->GetHandle();
         show_role_drawing_table = m_roleDrawingTable->GetHandle();
-
+        show_node_graph_example = m_nodeGraphExample->GetHandle();
     }
 
     HeavenGateWindowCenter::~HeavenGateWindowCenter()
@@ -83,6 +85,7 @@ namespace HeavenGateEditor {
         *show_effect_table = false;
         *show_bgm_table = false;
         *show_role_drawing_table = false;
+        *show_node_graph_example = false;
 
         show_editor_window = nullptr;
         show_font_size_table_window = nullptr;
@@ -97,6 +100,7 @@ namespace HeavenGateEditor {
         show_effect_table = nullptr;
         show_bgm_table = nullptr;
         show_role_drawing_table = nullptr;
+        show_node_graph_example = nullptr;
 
         //Delete Windows
         delete m_heavenGateEditor;
@@ -112,6 +116,7 @@ namespace HeavenGateEditor {
         delete m_effectTable;
         delete m_bgmTable;
         delete m_roleDrawingTable;
+        delete m_nodeGraphExample;
 
         m_heavenGateEditor = nullptr;
         m_fontSizeTable = nullptr;
@@ -126,7 +131,7 @@ namespace HeavenGateEditor {
         m_effectTable = nullptr;
         m_bgmTable = nullptr;
         m_roleDrawingTable = nullptr;
-
+        m_nodeGraphExample = nullptr;
 
         //Delete Data
         StoryTableManager::Instance().Shutdown();
@@ -154,6 +159,7 @@ namespace HeavenGateEditor {
         ImGui::Checkbox("Effect Table", show_effect_table);
         ImGui::Checkbox("Bgm Table", show_bgm_table);
         ImGui::Checkbox("Role Drawing Table", show_role_drawing_table);
+        ImGui::Checkbox("Node Graph Example", show_node_graph_example);
 
         if (show_editor_window && *show_editor_window)
         {
@@ -219,6 +225,10 @@ namespace HeavenGateEditor {
         {
             m_roleDrawingTable->Update();
         };
+
+        if (show_node_graph_example && *show_node_graph_example) {
+            m_nodeGraphExample->Update();
+        }
     }
 
 

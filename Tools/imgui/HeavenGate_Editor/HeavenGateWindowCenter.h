@@ -21,6 +21,7 @@ namespace HeavenGateEditor {
     class HeavenGateWindowEffectTable;
     class HeavenGateWindowBgmTable;
     class HeavenGateWindowRoleDrawingTable;
+    class HeavenGateEditorNodeGraphExample;
 
     class HeavenGateWindowCenter : public HeavenGateEditorBaseWindow
     {
@@ -36,19 +37,20 @@ namespace HeavenGateEditor {
 
     private:
 
-        HeavenGateWindowStoryEditor*     m_heavenGateEditor;
-        HeavenGateEditorFontSizeTable*   m_fontSizeTable;
-        HeavenGateWindowColorTable*      m_colorTable;
-        HeavenGateWindowTipTable*        m_tipTable;
-        HeavenGateWindowPaintMoveTable*  m_heavenGateWindowPaintMoveTable;
-        HeavenGateWindowChapterTable*    m_chapterTable;
-        HeavenGateWindowSceneTable*      m_sceneTable;
-        HeavenGateWindowCharacterTable*  m_characterTable;
-        HeavenGateWindowPauseTable*      m_pauseTable;
-        HeavenGateWindowExhibitTable*    m_exhibitTable;
-        HeavenGateWindowEffectTable*     m_effectTable;
-        HeavenGateWindowBgmTable*        m_bgmTable;
-        HeavenGateWindowRoleDrawingTable*        m_roleDrawingTable;
+        HeavenGateWindowStoryEditor*        m_heavenGateEditor;
+        HeavenGateEditorFontSizeTable*      m_fontSizeTable;
+        HeavenGateWindowColorTable*         m_colorTable;
+        HeavenGateWindowTipTable*           m_tipTable;
+        HeavenGateWindowPaintMoveTable*     m_heavenGateWindowPaintMoveTable;
+        HeavenGateWindowChapterTable*       m_chapterTable;
+        HeavenGateWindowSceneTable*         m_sceneTable;
+        HeavenGateWindowCharacterTable*     m_characterTable;
+        HeavenGateWindowPauseTable*         m_pauseTable;
+        HeavenGateWindowExhibitTable*       m_exhibitTable;
+        HeavenGateWindowEffectTable*        m_effectTable;
+        HeavenGateWindowBgmTable*           m_bgmTable;
+        HeavenGateWindowRoleDrawingTable*   m_roleDrawingTable;
+        HeavenGateEditorNodeGraphExample*   m_nodeGraphExample;
 
         bool* show_editor_window;
         bool* show_font_size_table_window;
@@ -63,6 +65,7 @@ namespace HeavenGateEditor {
         bool* show_effect_table;
         bool* show_bgm_table;
         bool* show_role_drawing_table;
+        bool* show_node_graph_example;
     };
 
 }

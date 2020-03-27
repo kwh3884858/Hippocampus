@@ -32,6 +32,12 @@
 		7696957724278F79004FA4E2 /* StoryJsonJumpNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7696957524278F79004FA4E2 /* StoryJsonJumpNode.cpp */; };
 		7696957A24279476004FA4E2 /* StoryJsonExhibitNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7696957824279476004FA4E2 /* StoryJsonExhibitNode.cpp */; };
 		769737812393948500780634 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4080A9B420B034EA0036BA46 /* OpenGL.framework */; };
+		76A1EAD4242CEDAC00D49F19 /* HeavenGateEditorNodeGraphExample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76A1EAD3242CEDAC00D49F19 /* HeavenGateEditorNodeGraphExample.cpp */; };
+		76A1EAD7242CEDBC00D49F19 /* imnodes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76A1EAD5242CEDBC00D49F19 /* imnodes.cpp */; };
+		76A1EADE242CEDCA00D49F19 /* Example1Simple.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76A1EAD8242CEDCA00D49F19 /* Example1Simple.cpp */; };
+		76A1EAE0242CEDCA00D49F19 /* Example3ColorNodeEditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76A1EADB242CEDCA00D49F19 /* Example3ColorNodeEditor.cpp */; };
+		76A1EAE1242CEDCA00D49F19 /* Example2SaveLoadEditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76A1EADC242CEDCA00D49F19 /* Example2SaveLoadEditor.cpp */; };
+		76A1EAE2242CEDCA00D49F19 /* Example4MultiEditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76A1EADD242CEDCA00D49F19 /* Example4MultiEditor.cpp */; };
 		76EFF37923B7D9880031354F /* HeavenGateWindowCenter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76EFF35323B7D9870031354F /* HeavenGateWindowCenter.cpp */; };
 		76EFF37A23B7D9880031354F /* HeavenGatePopupResolveConflictFiles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76EFF35523B7D9870031354F /* HeavenGatePopupResolveConflictFiles.cpp */; };
 		76EFF37B23B7D9880031354F /* HeavenGateWindowPaintMoveTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76EFF35623B7D9870031354F /* HeavenGateWindowPaintMoveTable.cpp */; };
@@ -114,6 +120,18 @@
 		7696957624278F79004FA4E2 /* StoryJsonJumpNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoryJsonJumpNode.h; sourceTree = "<group>"; };
 		7696957824279476004FA4E2 /* StoryJsonExhibitNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StoryJsonExhibitNode.cpp; sourceTree = "<group>"; };
 		7696957924279476004FA4E2 /* StoryJsonExhibitNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoryJsonExhibitNode.h; sourceTree = "<group>"; };
+		76A1EAD2242CEDAC00D49F19 /* HeavenGateEditorNodeGraphExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeavenGateEditorNodeGraphExample.h; sourceTree = "<group>"; };
+		76A1EAD3242CEDAC00D49F19 /* HeavenGateEditorNodeGraphExample.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HeavenGateEditorNodeGraphExample.cpp; sourceTree = "<group>"; };
+		76A1EAD5242CEDBC00D49F19 /* imnodes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = imnodes.cpp; path = ../imnodes/imnodes.cpp; sourceTree = "<group>"; };
+		76A1EAD6242CEDBC00D49F19 /* imnodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = imnodes.h; path = ../imnodes/imnodes.h; sourceTree = "<group>"; };
+		76A1EAD8242CEDCA00D49F19 /* Example1Simple.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Example1Simple.cpp; path = ../imnodes/example/Example1Simple.cpp; sourceTree = "<group>"; };
+		76A1EADB242CEDCA00D49F19 /* Example3ColorNodeEditor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Example3ColorNodeEditor.cpp; path = ../imnodes/example/Example3ColorNodeEditor.cpp; sourceTree = "<group>"; };
+		76A1EADC242CEDCA00D49F19 /* Example2SaveLoadEditor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Example2SaveLoadEditor.cpp; path = ../imnodes/example/Example2SaveLoadEditor.cpp; sourceTree = "<group>"; };
+		76A1EADD242CEDCA00D49F19 /* Example4MultiEditor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Example4MultiEditor.cpp; path = ../imnodes/example/Example4MultiEditor.cpp; sourceTree = "<group>"; };
+		76A1EAE4242CFD9D00D49F19 /* Example1Simple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Example1Simple.h; path = ../imnodes/example/Example1Simple.h; sourceTree = "<group>"; };
+		76A1EAE5242CFDE800D49F19 /* Example2SaveLoadEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Example2SaveLoadEditor.h; path = ../imnodes/example/Example2SaveLoadEditor.h; sourceTree = "<group>"; };
+		76A1EAE6242D01DE00D49F19 /* Example3ColorNodeEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Example3ColorNodeEditor.h; path = ../imnodes/example/Example3ColorNodeEditor.h; sourceTree = "<group>"; };
+		76A1EAE7242D030900D49F19 /* Example4MultiEditor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Example4MultiEditor.h; path = ../imnodes/example/Example4MultiEditor.h; sourceTree = "<group>"; };
 		76EFF35323B7D9870031354F /* HeavenGateWindowCenter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HeavenGateWindowCenter.cpp; sourceTree = "<group>"; };
 		76EFF35423B7D9870031354F /* CharacterUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterUtility.h; sourceTree = "<group>"; };
 		76EFF35523B7D9870031354F /* HeavenGatePopupResolveConflictFiles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HeavenGatePopupResolveConflictFiles.cpp; sourceTree = "<group>"; };
@@ -213,11 +231,21 @@
 				76EFF35423B7D9870031354F /* CharacterUtility.h */,
 				7696956924274033004FA4E2 /* CircleCache.cpp */,
 				7696956A24274033004FA4E2 /* CircleCache.h */,
+				76A1EAD8242CEDCA00D49F19 /* Example1Simple.cpp */,
+				76A1EAE4242CFD9D00D49F19 /* Example1Simple.h */,
+				76A1EADC242CEDCA00D49F19 /* Example2SaveLoadEditor.cpp */,
+				76A1EAE5242CFDE800D49F19 /* Example2SaveLoadEditor.h */,
+				76A1EADB242CEDCA00D49F19 /* Example3ColorNodeEditor.cpp */,
+				76A1EAE6242D01DE00D49F19 /* Example3ColorNodeEditor.h */,
+				76A1EADD242CEDCA00D49F19 /* Example4MultiEditor.cpp */,
+				76A1EAE7242D030900D49F19 /* Example4MultiEditor.h */,
 				76EFF37323B7D9880031354F /* HeavenGateEditorBaseWindow.cpp */,
 				76EFF36423B7D9870031354F /* HeavenGateEditorBaseWindow.h */,
 				76EFF36F23B7D9880031354F /* HeavenGateEditorConstant.h */,
 				76EFF36123B7D9870031354F /* HeavenGateEditorFontSizeTable.cpp */,
 				76EFF37623B7D9880031354F /* HeavenGateEditorFontSizeTable.h */,
+				76A1EAD3242CEDAC00D49F19 /* HeavenGateEditorNodeGraphExample.cpp */,
+				76A1EAD2242CEDAC00D49F19 /* HeavenGateEditorNodeGraphExample.h */,
 				76EFF37023B7D9880031354F /* HeavenGateEditorUtility.cpp */,
 				76EFF36B23B7D9880031354F /* HeavenGateEditorUtility.h */,
 				76EFF35F23B7D9870031354F /* HeavenGatePopupInputFileName.cpp */,
@@ -252,6 +280,8 @@
 				76EFF36023B7D9870031354F /* HeavenGateWindowStoryEditor.h */,
 				76EFF37723B7D9880031354F /* HeavenGateWindowTipTable.cpp */,
 				76EFF35923B7D9870031354F /* HeavenGateWindowTipTable.h */,
+				76A1EAD5242CEDBC00D49F19 /* imnodes.cpp */,
+				76A1EAD6242CEDBC00D49F19 /* imnodes.h */,
 				76EFF36723B7D9870031354F /* StoryFileManager.cpp */,
 				76EFF36223B7D9870031354F /* StoryFileManager.h */,
 				76EFF36E23B7D9880031354F /* StoryJson.cpp */,
@@ -260,6 +290,10 @@
 				766D00782402EFFF002AD31F /* StoryJsonChecker.h */,
 				76EFF35823B7D9870031354F /* StoryJsonContentCompiler.cpp */,
 				76EFF36823B7D9870031354F /* StoryJsonContentCompiler.h */,
+				7696957824279476004FA4E2 /* StoryJsonExhibitNode.cpp */,
+				7696957924279476004FA4E2 /* StoryJsonExhibitNode.h */,
+				7696957524278F79004FA4E2 /* StoryJsonJumpNode.cpp */,
+				7696957624278F79004FA4E2 /* StoryJsonJumpNode.h */,
 				7696957224278A4A004FA4E2 /* StoryJsonLabelNode.cpp */,
 				7696957324278A4A004FA4E2 /* StoryJsonLabelNode.h */,
 				76EFF35B23B7D9870031354F /* StoryJsonManager.cpp */,
@@ -275,10 +309,6 @@
 				76EFF36D23B7D9880031354F /* StoryTableManager.h */,
 				767052DC2423E16000E5C1CD /* StoryTimer.cpp */,
 				767052DB2423E16000E5C1CD /* StoryTimer.h */,
-				7696957524278F79004FA4E2 /* StoryJsonJumpNode.cpp */,
-				7696957624278F79004FA4E2 /* StoryJsonJumpNode.h */,
-				7696957824279476004FA4E2 /* StoryJsonExhibitNode.cpp */,
-				7696957924279476004FA4E2 /* StoryJsonExhibitNode.h */,
 			);
 			name = HeavenGate_Editor;
 			path = ../../HeavenGate_Editor;
@@ -341,14 +371,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76A1EAE1242CEDCA00D49F19 /* Example2SaveLoadEditor.cpp in Sources */,
 				4080A99820B02D340036BA46 /* main.mm in Sources */,
 				76EFF37A23B7D9880031354F /* HeavenGatePopupResolveConflictFiles.cpp in Sources */,
 				7696957424278A4A004FA4E2 /* StoryJsonLabelNode.cpp in Sources */,
 				76EFF38623B7D9880031354F /* HeavenGateEditorUtility.cpp in Sources */,
 				76EFF38423B7D9880031354F /* StoryTableManager.cpp in Sources */,
+				76A1EADE242CEDCA00D49F19 /* Example1Simple.cpp in Sources */,
 				76EFF37F23B7D9880031354F /* HeavenGatePopupInputFileName.cpp in Sources */,
 				766D007E2402EFFF002AD31F /* HeavenGateWindowExhibitTable.cpp in Sources */,
 				766D00802402EFFF002AD31F /* HeavenGateWindowCharacterTable.cpp in Sources */,
+				76A1EAD7242CEDBC00D49F19 /* imnodes.cpp in Sources */,
 				76EFF37D23B7D9880031354F /* CharacterUtility.cpp in Sources */,
 				76EFF38723B7D9880031354F /* HeavenGateWindowStoryEditor.cpp in Sources */,
 				7696957124276F54004FA4E2 /* StoryJsonStoryNode.cpp in Sources */,
@@ -356,6 +389,7 @@
 				76EFF37B23B7D9880031354F /* HeavenGateWindowPaintMoveTable.cpp in Sources */,
 				76EFF38823B7D9880031354F /* HeavenGateEditorBaseWindow.cpp in Sources */,
 				766D007D2402EFFF002AD31F /* HeavenGateWindowSceneTable.cpp in Sources */,
+				76A1EAE2242CEDCA00D49F19 /* Example4MultiEditor.cpp in Sources */,
 				76EFF37E23B7D9880031354F /* StoryJsonManager.cpp in Sources */,
 				76EFF38323B7D9880031354F /* HeavenGateWindowColorTable.cpp in Sources */,
 				7696956B24274033004FA4E2 /* CircleCache.cpp in Sources */,
@@ -373,10 +407,12 @@
 				76EFF37923B7D9880031354F /* HeavenGateWindowCenter.cpp in Sources */,
 				767052DF2423E16000E5C1CD /* HeavenGateWindowRoleDrawingTable.cpp in Sources */,
 				7696957A24279476004FA4E2 /* StoryJsonExhibitNode.cpp in Sources */,
+				76A1EAE0242CEDCA00D49F19 /* Example3ColorNodeEditor.cpp in Sources */,
 				4080A9B020B0347A0036BA46 /* imgui_impl_osx.mm in Sources */,
 				76EFF38023B7D9880031354F /* HeavenGateEditorFontSizeTable.cpp in Sources */,
 				766D007B2402EFFF002AD31F /* HeavenGateWindowPauseTable.cpp in Sources */,
 				4080A9AE20B0343C0036BA46 /* imgui.cpp in Sources */,
+				76A1EAD4242CEDAC00D49F19 /* HeavenGateEditorNodeGraphExample.cpp in Sources */,
 				766D007F2402EFFF002AD31F /* HeavenGateWindowChapterTable.cpp in Sources */,
 				7696956E24276D43004FA4E2 /* StoryJsonWordNode.cpp in Sources */,
 				76EFF37C23B7D9880031354F /* StoryJsonContentCompiler.cpp in Sources */,

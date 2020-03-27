@@ -1,14 +1,17 @@
-#include "node_editor.h"
-#include <imnodes.h>
-#include <imgui.h>
-#include <SDL_scancode.h>
+#include "Example4MultiEditor.h"
+#include "imnodes.h"
+#include "imgui.h"
+//#include <SDL_scancode.h>
 
 #include <vector>
 
-namespace example
+namespace Example4
 {
 namespace
 {
+
+const int Keycode_A = 65;
+
 struct Node
 {
     int id;
@@ -79,7 +82,7 @@ void show_editor(const char* editor_name, Editor& editor)
         }
     }
 
-    if (ImGui::IsKeyReleased(SDL_SCANCODE_A) &&
+    if (ImGui::IsKeyReleased(Keycode_A) &&
         ImGui::IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows))
     {
         const int node_id = ++editor.current_id;

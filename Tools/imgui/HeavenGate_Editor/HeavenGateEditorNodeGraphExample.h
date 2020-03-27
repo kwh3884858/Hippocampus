@@ -19,6 +19,14 @@ namespace HeavenGateEditor {
         virtual void UpdateMainWindow() override;
         virtual void UpdateMenu()override;
 
+
+    private:
+        void Initialization();
+        void Shutdown();
+
+        bool m_isInitialization = false;
+
+
     };
 
 }
