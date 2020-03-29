@@ -296,10 +296,7 @@ namespace UI.Modules
 
         private string GetPathByAttribute(UIPanelType panelType)
         {
-            var atrs = panelType.GetType().GetMember(panelType.ToString());
-            var attributes = atrs[0].GetCustomAttributes(typeof(AssetPathAttribute), false);
-            var atribute = (AssetPathAttribute)attributes[0];
-            return atribute.Path;
+            return AssetPathAttribute.GetPath<UIPanelType>(panelType);
         }
 
         protected IEnumerator LoadPanelAsync(UIPanelSettings settings)

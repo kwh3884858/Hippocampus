@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Const;
 using Extentions;
 using StarPlatinum;
+using UI.Panels.Element;
 using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
 using UnityEngine;
@@ -148,6 +149,37 @@ namespace UI.Panels
             {
                 callback?.Invoke();
             });
+        }
+
+        protected void GetUIElement<T>(UIElementType type, Action<T> callback) where T: UIElementBase
+        {
+            string assKey = AssetPathAttribute.GetPath(type);
+
+            if (assKey == null)
+            {
+                Debug.Log($"UIElementType:{type},assKey获取错误！！！");
+                callback.Invoke(null);
+                return;
+            }
+            
+            UiDataProvider.PrefabManager.InstantiateComponentAsync<T>(assKey, (result) =>
+            {
+                if (result.status == RequestStatus.FAIL)
+                {
+                    Debug.LogError($"UIElementType:{type},预制加载失败,请检查！");
+                    callback.Invoke(null);
+                    return;
+                }
+
+                var item = result.result as T;
+                callback.Invoke(item);
+            });
+        }
+
+        protected void ReleaseUIElement(UIElementType type,UIElementBase item)
+        {
+            string assKey = AssetPathAttribute.GetPath(type);
+            UiDataProvider.PrefabManager.ReleaseObject(assKey,item.gameObject);
         }
 
         public void ClickSound(int num)

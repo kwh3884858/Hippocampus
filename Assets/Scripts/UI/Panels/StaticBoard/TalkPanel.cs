@@ -140,8 +140,10 @@ namespace UI.Panels.StaticBoard
                 print($"TalkEnd");
                 return;
             }
+            RecordAction(storyAction);
             print($"CurrentAction:{storyAction.Type}");
             m_actionType = storyAction.Type;
+            m_currentAction = storyAction;
             SetActionState(ActionState.Actioning);
             switch (storyAction.Type)
             {
@@ -233,6 +235,15 @@ namespace UI.Panels.StaticBoard
             m_skip = false;
             SetActionState(ActionState.End);
             SetInfo(id);
+
+
+            var option = GetSelectOption(id);
+            if (option == null)
+            {
+                Debug.LogWarning($"未找到选项:{id}");
+                return;
+            }
+            RecordAction(new StoryJumpAction(){Options = new List<Option>(){option},Type = StoryActionType.Jump},false);
         }
 
         private void AddNewTalker(string name)
@@ -371,6 +382,26 @@ namespace UI.Panels.StaticBoard
             }
         }
 
+        private void RecordAction(StoryAction action,bool ignoreJump = true)
+        {
+            if (ignoreJump && action.Type == StoryActionType.Jump)
+            {
+                return;
+            }
+            StoryController.PushRecord(m_currentID,action);
+        }
+
+        private Option GetSelectOption(string selectedID)
+        {
+            if (m_currentAction.Type != StoryActionType.Jump || m_currentAction == null)
+            {
+                return null;
+            }
+            var jumpAction = m_currentAction as StoryJumpAction;
+
+            return jumpAction.Options.Find(x => x.ID == selectedID);
+        }
+
         public void ClickSkip()
         {
             if (m_characterTalkEnd && !m_autoPlay)
@@ -405,7 +436,8 @@ namespace UI.Panels.StaticBoard
 
         private Dictionary<string, PictureItem> m_pictureItems = new Dictionary<string, PictureItem>();
         private Dictionary<string,int> m_picPos = new Dictionary<string, int>();
-        
+
+        private StoryAction m_currentAction = null;
         private bool m_highSpeed = false;
         private bool m_characterTalkEnd = false;
         private bool m_autoPlay = false;

@@ -40,5 +40,7 @@ namespace UI.Panels.Providers
         public RolePictureProvider RolePictureProvider { get; set; }
         
         public Canvas Canvas { get; set; }
+        
+        public PrefabManager PrefabManager { get; set; }
     }
 }

@@ -17,8 +17,16 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: e95755600934a41b3a1aaea6b5cd299b
   m_SerializeEntries:
+  - m_GUID: 6af8ef884ce607845ad15117de078ef4
+    m_Address: talk_record_item
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 7a5918b6174120f4db30fda4dfcd25a9
     m_Address: picture_item
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e7dc1086038804e42bf465b0cd3d05a4
+    m_Address: option_item
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

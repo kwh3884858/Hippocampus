@@ -35,6 +35,7 @@ namespace Controllers.Subsystems.Story
 		{
 			base.Initialize (args);
 			State = SubsystemState.Initialization;
+			m_storyRecord = new StoryRecorder();
 			StartCoroutine (LoadStoryInfo ());
 		}
 
@@ -210,12 +211,9 @@ namespace Controllers.Subsystems.Story
 					//m_storys.NextStory ();
 					m_storys.NextStory ();
 					break;
-
 				default:
 					break;
 				}
-
-
 			}
 
 		
@@ -227,6 +225,22 @@ namespace Controllers.Subsystems.Story
 			return m_config.ChineseContentSpeed;
 		}
 
+		public List<RecordData> GetRecords()
+		{
+			return m_storyRecord.GetRecords();
+		}
+
+		public void PushRecord(string id, StoryAction action)
+		{
+			m_storyRecord.PushRecord(id, action);
+		}
+
+		public void ClearRecord()
+		{
+			m_storyRecord.ClearRecords();
+		}
+
+		private StoryRecorder m_storyRecord;
 		private StoryReader m_storys;
 		private StoryConfig m_config;
         private string m_storyFileName;

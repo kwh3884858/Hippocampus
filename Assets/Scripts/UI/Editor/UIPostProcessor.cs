@@ -8,6 +8,39 @@ using UnityEditor;
 
 namespace UI
 {
+    public enum UIPrefabsType
+    {
+        None = 0,
+        Panel,
+        PanelElement
+    }
+    public class UIPrefabsPathData
+    {
+        public Dictionary<UIPrefabsType, string> Paths;
+        public Dictionary<UIPrefabsType, string> TypeClassName;
+        public Dictionary<UIPrefabsType, string> ScriptPaths;
+
+        public UIPrefabsPathData()
+        {
+            Paths = new Dictionary<UIPrefabsType, string>()
+            {
+                {UIPrefabsType.Panel,"Assets/Art/UI/UIPanel/Prefabs/"},
+                {UIPrefabsType.PanelElement,"Assets/Art/UI/UIPanel/Element/"}
+            };
+            
+            TypeClassName = new Dictionary<UIPrefabsType, string>()
+            {
+                {UIPrefabsType.Panel,"public enum UIPanelType"},
+                {UIPrefabsType.PanelElement,"public enum UIElementType"}
+            };
+
+            ScriptPaths = new Dictionary<UIPrefabsType, string>()
+            {
+                {UIPrefabsType.Panel,"Assets/Scripts/UI/UIPanelType.cs"},
+                {UIPrefabsType.PanelElement,"Assets/Scripts/UI/UIElementType.cs"}
+            };
+        }
+    }
     /// <summary>
     /// Постпросессор для формирования enum с типами ui панелей
     /// </summary>
@@ -15,31 +48,59 @@ namespace UI
     {
         private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
         {
-            foreach (string asset in importedAssets.Where(IsPanelAsset))
+            UIPrefabsType type;
+            foreach (string asset in importedAssets)
             {
-                AddType(asset);
+                type = GetTargetAssetType(asset);
+                if (type != UIPrefabsType.None)
+                {
+                    AddType(asset, type);
+                }
             }
 
-            foreach (string asset in deletedAssets.Where(IsPanelAsset))
+            foreach (string asset in deletedAssets)
             {
-                RemoveType(asset);
+                type = GetTargetAssetType(asset);
+                if (type != UIPrefabsType.None)
+                {
+                    RemoveType(asset, type);
+                }
             }
 
             for (int i = 0; i < movedAssets.Length; i++)
             {
-                if (IsPanelAsset(movedAssets[i]) || IsPanelAsset(movedFromAssetPaths[i]))
+                type = GetTargetAssetType(movedAssets[i]);
+
+                if (type != UIPrefabsType.None)
                 {
-                    ReplaceType(movedFromAssetPaths[i], movedAssets[i]);
+                    type = GetTargetAssetType(movedAssets[i]);
+                    ReplaceType(movedFromAssetPaths[i], movedAssets[i],type);
+                }
+                else
+                {
+                    type = GetTargetAssetType(movedFromAssetPaths[i]);
+                    if (type != UIPrefabsType.None)
+                    {
+                        RemoveType(movedFromAssetPaths[i],type);
+                    }
                 }
             }
         }
 
-        private static bool IsPanelAsset(string assetPath)
+        private static UIPrefabsType GetTargetAssetType(string assetPath)
         {
-            return assetPath.StartsWith(m_path, true, CultureInfo.InvariantCulture);
+            foreach (var value in m_data.Paths)
+            {
+                if (assetPath.StartsWith(value.Value, true, CultureInfo.InvariantCulture))
+                {
+                    return value.Key;
+                }
+            }
+
+            return UIPrefabsType.None;
         }
 
-        private static void AddType(string assetPath)
+        private static void AddType(string assetPath,UIPrefabsType type)
         {
             if (!assetPath.EndsWith(".prefab"))
             {
@@ -53,11 +114,11 @@ namespace UI
             name = name.Replace(" ", "_");
             name = ConvertToPascalCase(name);
 
-            if (File.Exists(m_copyPath))
+            if (File.Exists(m_data.ScriptPaths[type]))
             {
                 List<string> lines = new List<string>();
                 using (StreamReader reader =
-                    new StreamReader(m_copyPath))
+                    new StreamReader(m_data.ScriptPaths[type]))
                 {
                     while (!reader.EndOfStream)
                     {
@@ -73,9 +134,9 @@ namespace UI
                 // Удаляем закрывающую скобку
                 lines.RemoveAt(lines.Count - 1);
                 // Удаялем файл
-                File.Delete(m_copyPath);
+                File.Delete(m_data.ScriptPaths[type]);
 
-                using (StreamWriter outfile = new StreamWriter(m_copyPath))
+                using (StreamWriter outfile = new StreamWriter(m_data.ScriptPaths[type]))
                 {
                     for (int i = 0; i < lines.Count; i++)
                     {
@@ -91,13 +152,13 @@ namespace UI
             }
             else
             {
-                CreateFile();
+                CreateFile(type);
             }
 
-            AssetDatabase.ImportAsset(m_copyPath, ImportAssetOptions.ForceUpdate);
+            AssetDatabase.ImportAsset(m_data.ScriptPaths[type], ImportAssetOptions.ForceUpdate);
         }
 
-        private static void RemoveType(string assetPath)
+        private static void RemoveType(string assetPath,UIPrefabsType type)
         {
             if (!assetPath.EndsWith(".prefab"))
             {
@@ -111,10 +172,10 @@ namespace UI
             name = name.Replace(" ", "_");
             name = ConvertToPascalCase(name);
 
-            if (File.Exists(m_copyPath))
+            if (File.Exists(m_data.ScriptPaths[type]))
             {
                 List<string> lines = new List<string>();
-                using (StreamReader reader = new StreamReader(m_copyPath))
+                using (StreamReader reader = new StreamReader(m_data.ScriptPaths[type]))
                 {
                     while (!reader.EndOfStream)
                     {
@@ -128,10 +189,10 @@ namespace UI
                     }
                 }
                 // Удаялем файл
-                File.Delete(m_copyPath);
+                File.Delete(m_data.ScriptPaths[type]);
 
                 using (StreamWriter outfile =
-                    new StreamWriter(m_copyPath))
+                    new StreamWriter(m_data.ScriptPaths[type]))
                 {
                     for (int i = 0; i < lines.Count; i++)
                     {
@@ -141,13 +202,13 @@ namespace UI
             }
             else
             {
-                CreateFile();
+                CreateFile(type);
             }
 
-            AssetDatabase.ImportAsset(m_copyPath, ImportAssetOptions.ForceUpdate);
+            AssetDatabase.ImportAsset(m_data.ScriptPaths[type], ImportAssetOptions.ForceUpdate);
         }
 
-        private static void ReplaceType(string assetPath, string newAssetPath)
+        private static void ReplaceType(string assetPath, string newAssetPath,UIPrefabsType type)
         {
             if (!assetPath.EndsWith(".prefab"))
             {
@@ -167,11 +228,11 @@ namespace UI
             newName = newName.Replace(" ", "_");
             newName = ConvertToPascalCase(newName);
 
-            if (File.Exists(m_copyPath))
+            if (File.Exists(m_data.ScriptPaths[type]))
             {
                 bool replaced = false;
                 List<string> lines = new List<string>();
-                using (StreamReader reader = new StreamReader(m_copyPath))
+                using (StreamReader reader = new StreamReader(m_data.ScriptPaths[type]))
                 {
                     while (!reader.EndOfStream)
                     {
@@ -187,9 +248,9 @@ namespace UI
                     }
                 }
                 // Удаялем файл
-                File.Delete(m_copyPath);
+                File.Delete(m_data.ScriptPaths[type]);
 
-                using (StreamWriter outfile = new StreamWriter(m_copyPath))
+                using (StreamWriter outfile = new StreamWriter(m_data.ScriptPaths[type]))
                 {
                     for (int i = 0; i < lines.Count; i++)
                     {
@@ -199,53 +260,50 @@ namespace UI
 
                 if (!replaced)
                 {
-                    AddType(newName);
+                    AddType(newName,type);
                 }
             }
             else
             {
-                CreateFile();
+                CreateFile(type);
             }
 
-            AssetDatabase.ImportAsset(m_copyPath, ImportAssetOptions.ForceUpdate);
+            AssetDatabase.ImportAsset(m_data.ScriptPaths[type], ImportAssetOptions.ForceUpdate);
         }
 
-        private static void CreateFile()
+        private static void CreateFile(UIPrefabsType type)
         {
-            Dictionary<string, string> names = new Dictionary<string, string>();
+            List<string> names = new List<string>();
 
-            var files = Directory.GetFiles(m_path, "*.*", SearchOption.AllDirectories);
+            var files = Directory.GetFiles(m_data.Paths[type], "*.*", SearchOption.AllDirectories);
             foreach (string file in files)
             {
                 var name = Path.GetFileNameWithoutExtension(file);
-                var guid = AssetDatabase.AssetPathToGUID(file);
                 var extension = Path.GetExtension(file);
                 if (name.EndsWith(".prefab") || extension.Contains("meta"))
                 {
                     continue;
                 }
 
-                names.Add(name, guid);
+                names.Add(name);
             }
 
-            File.Delete(m_copyPath);
+            File.Delete(m_data.ScriptPaths[type]);
 
-            using (StreamWriter outfile = new StreamWriter(m_copyPath))
+            using (StreamWriter outfile = new StreamWriter(m_data.ScriptPaths[type]))
             {
                 outfile.WriteLine("");
-                outfile.WriteLine("public enum UIPanelType");
+                outfile.WriteLine(m_data.TypeClassName[type]);
                 outfile.WriteLine("{");
                 outfile.WriteLine("    [AssetPath(\"0\")] None = 0,");
-                var namesArray = names.Keys.ToArray();
-                var guids = names.Values.ToArray();
 
                 for (int i = 0; i < names.Count; i++)
                 {
-                    var name = namesArray[i];
-                    var guid = guids[i];
+                    var name = names[i];
+                    var key = name;
                     name = name.Replace(" ", "_");
                     name = ConvertToPascalCase(name);
-                    var line = string.Format("    [AssetPath(\"{0}\")] {1} = {2},", guid, name, i + 1);
+                    var line = string.Format("    [AssetPath(\"{0}\")] {1} = {2},", key, name, i + 1);
                     outfile.WriteLine(line);
                 }
                 outfile.WriteLine("}");
@@ -259,7 +317,6 @@ namespace UI
             return info.ToTitleCase(source).Replace(" ", string.Empty);
         }
 
-        private static string m_path = "Assets/Art/UI/UIPanel/Prefabs/";
-        private static string m_copyPath = "Assets/Scripts/UI/UIPanelType.cs";
+        private static UIPrefabsPathData m_data = new UIPrefabsPathData();
     }
 }

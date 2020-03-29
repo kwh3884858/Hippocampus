@@ -1,12 +1,32 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Controllers.Subsystems.Story
 {
+    public enum RecordType
+    {
+        TalkContent,
+        Jump,
+    }
+
+    public class RecordData
+    {
+        public RecordType Type;
+        public string str1;
+        public string str2;
+
+        public RecordData()
+        {
+            str1 = String.Empty;
+            str2 = String.Empty;
+        }
+    }
     public class StoryRecorder
     {
         public StoryRecorder()
         {
-            m_record = new Dictionary<string, List<StoryAction>>();
+            m_record = new Dictionary<string, List<RecordData>>();
         }
         
         public void PushRecord(string id, StoryAction action)
@@ -18,7 +38,7 @@ namespace Controllers.Subsystems.Story
             
             if (!m_record.ContainsKey(id))
             {
-                m_record[id]= new List<StoryAction>();
+                m_record[id]= new List<RecordData>();
             }
 
             switch (action.Type)
@@ -37,15 +57,17 @@ namespace Controllers.Subsystems.Story
                     PushContent(id, action);
                     break;
                 case StoryActionType.Name:
+                    PushName(id,action);
+                    break;
                 case StoryActionType.Jump:
-                    m_record[id].Add(action);
+                    PushJump(id,action as StoryJumpAction);
                     break;
             }
         }
 
-        public List<StoryAction> GetRecords()
+        public List<RecordData> GetRecords()
         {
-            List<StoryAction> records = new List<StoryAction>();
+            List<RecordData> records = new List<RecordData>();
             foreach (var record in m_record)
             {
                 records.AddRange(record.Value);
@@ -71,11 +93,34 @@ namespace Controllers.Subsystems.Story
                 return;
             }
 
-            StoryAction action = m_record[id][lastActionIndex];
-            if (action.Type == StoryActionType.Content)
+            RecordData action = m_record[id][lastActionIndex];
+            if (action.Type == RecordType.TalkContent)
             {
-                action.Content = content.Content;
+                action.str2 += content.Content;
             }
+            else
+            {
+                Debug.LogWarning($"StoryRecorder 记录对话数据错误，请检查 ID:{id},Type:{content.Type}");
+            }
+        }
+
+        private void PushJump(string id, StoryJumpAction action)
+        {
+
+            if (m_record.ContainsKey(id) || action == null || action.Options.Count == 0)
+            {
+                return;
+            }
+            m_record[id].Add(new RecordData(){Type = RecordType.Jump,str1 = action.Options[0].Content});
+        }
+
+        private void PushName(string id, StoryAction action)
+        {
+            if (m_record.ContainsKey(id) || action == null)
+            {
+                return;
+            }
+            m_record[id].Add(new RecordData(){Type = RecordType.TalkContent,str1 = action.Content});
         }
 
         private string DealTheSameID(string id)
@@ -92,6 +137,6 @@ namespace Controllers.Subsystems.Story
         }
 
         private string m_preID;
-        private Dictionary<string,List<StoryAction>> m_record;
+        private Dictionary<string,List<RecordData>> m_record;
     }
 }
