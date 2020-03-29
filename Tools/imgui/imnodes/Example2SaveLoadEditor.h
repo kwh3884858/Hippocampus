@@ -8,13 +8,15 @@
 
 #ifndef Example2SaveLoadEditor_h
 #define Example2SaveLoadEditor_h
-
-namespace Example2
+#include "ExampleBase.h"
+namespace  Example
 {
-void NodeEditorInitialize();
-void NodeEditorShow();
-void NodeEditorShutdown();
-} // namespace example
+    class Example2 :public ExampleBase
+    {
+        virtual void NodeEditorInitialize() override;
+        virtual void NodeEditorShow()override;
+        virtual void NodeEditorShutdown()override;
+    }; // namespace example
 
-
+}
 #endif /* Example2SaveLoadEditor_h */

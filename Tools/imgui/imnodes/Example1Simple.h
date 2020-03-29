@@ -9,12 +9,16 @@
 #ifndef Example1Sample_h
 #define Example1Sample_h
 
-namespace Example1
+#include "ExampleBase.h"
+namespace  Example
 {
-void NodeEditorInitialize();
-void NodeEditorShow();
-void NodeEditorShutdown();
-} // namespace example
+    class Example1 :public ExampleBase
+    {
+        virtual void NodeEditorInitialize() override;
+        virtual void NodeEditorShow()override;
+        virtual void NodeEditorShutdown()override;
+    }; // namespace example
 
+}
 
 #endif /* Example1Sample_h */

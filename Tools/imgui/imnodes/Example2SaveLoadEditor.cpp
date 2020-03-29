@@ -10,9 +10,9 @@
 #include <utility>
 #include <vector>
 
-namespace Example2
+namespace Example
     {
-    namespace
+    namespace Example2Namespace
         {
 
         const int Keycode_X  = 88;
@@ -33,7 +33,7 @@ namespace Example2
 
             void show()
             {
-                ImGui::Begin("Save & load example");
+                //ImGui::Begin("Save & load example");
 
                 imnodes::BeginNodeEditor();
 
@@ -187,7 +187,7 @@ namespace Example2
                     }
                 }
 
-                ImGui::End();
+                //ImGui::End();
             }
 
             void save()
@@ -306,9 +306,9 @@ namespace Example2
         static SaveLoadEditor editor;
         } // namespace
 
-    void NodeEditorInitialize() { editor.load(); }
+    void Example2::NodeEditorInitialize() { Example2Namespace::editor.load(); }
 
-    void NodeEditorShow() { editor.show(); }
+    void Example2::NodeEditorShow() { Example2Namespace::editor.show(); }
 
-    void NodeEditorShutdown() { editor.save(); }
+    void Example2::NodeEditorShutdown() { Example2Namespace::editor.save(); }
     } // namespace example

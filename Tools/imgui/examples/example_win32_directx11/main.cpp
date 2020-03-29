@@ -201,7 +201,7 @@ int main(int, char**)
     }
 
     // Cleanup
-    heavenGateCenter::Shutdown();
+    heavenGateCenter.Shutdown();
     imnodes::Shutdown();
     ImGui_ImplDX11_Shutdown();
     ImGui_ImplWin32_Shutdown();

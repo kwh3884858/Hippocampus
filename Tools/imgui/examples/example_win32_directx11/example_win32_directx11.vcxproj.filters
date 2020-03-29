@@ -69,6 +69,7 @@
     <ClInclude Include="..\..\imnodes\Example2SaveLoadEditor.h" />
     <ClInclude Include="..\..\imnodes\Example3ColorNodeEditor.h" />
     <ClInclude Include="..\..\imnodes\Example4MultiEditor.h" />
+    <ClInclude Include="..\..\imnodes\ExampleBase.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\imgui.cpp">
@@ -132,6 +133,7 @@
     <ClCompile Include="..\..\imnodes\Example2SaveLoadEditor.cpp" />
     <ClCompile Include="..\..\imnodes\Example3ColorNodeEditor.cpp" />
     <ClCompile Include="..\..\imnodes\Example4MultiEditor.cpp" />
+    <ClCompile Include="..\..\imnodes\ExampleBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.txt" />

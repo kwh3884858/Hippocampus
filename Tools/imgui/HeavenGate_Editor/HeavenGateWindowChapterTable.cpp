@@ -22,21 +22,7 @@ namespace HeavenGateEditor {
     HeavenGateWindowChapterTable::HeavenGateWindowChapterTable()
     {
      
-        StoryTable<CHAPTER_COLUMN>* const chapterTable = StoryTableManager::Instance().GetChapterTable();
-
-
-        memset(m_fullPath, 0, sizeof(m_fullPath));
-
-        HeavenGateEditorUtility::GetStoryPath(m_fullPath);
-        strcat(m_fullPath, CHAPTER_TABLE_NAME);
-
-        bool result = StoryFileManager::Instance().LoadTableFile(m_fullPath, chapterTable);
-        if (result == false)
-        {
-            StoryFileManager::Instance().SaveTableFile(m_fullPath, chapterTable);
-            StoryFileManager::Instance().LoadTableFile(m_fullPath, chapterTable);
-        }
-
+        
 
     }
 
@@ -54,6 +40,30 @@ namespace HeavenGateEditor {
         //    delete chapterTable;
         //}
         //chapterTable = nullptr;
+
+    }
+
+    void HeavenGateWindowChapterTable::Initialize()
+    {
+        StoryTable<CHAPTER_COLUMN>* const chapterTable = StoryTableManager::Instance().GetChapterTable();
+
+
+        memset(m_fullPath, 0, sizeof(m_fullPath));
+
+        HeavenGateEditorUtility::GetStoryPath(m_fullPath);
+        strcat(m_fullPath, CHAPTER_TABLE_NAME);
+
+        bool result = StoryFileManager::Instance().LoadTableFile(m_fullPath, chapterTable);
+        if (result == false)
+        {
+            StoryFileManager::Instance().SaveTableFile(m_fullPath, chapterTable);
+            StoryFileManager::Instance().LoadTableFile(m_fullPath, chapterTable);
+        }
+
+    }
+
+    void HeavenGateWindowChapterTable::Shutdown()
+    {
 
     }
 

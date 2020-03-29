@@ -8,12 +8,17 @@
 
 #ifndef Example3ColorNodeEditor_h
 #define Example3ColorNodeEditor_h
+#include "ExampleBase.h"
 
-namespace Example3
+namespace Example
 {
-void NodeEditorInitialize();
-void NodeEditorShow();
-void NodeEditorShutdown();
+    class Example3 :public ExampleBase
+    {
+        virtual void NodeEditorInitialize() override;
+        virtual void NodeEditorShow()override;
+        virtual void NodeEditorShutdown()override;
+    };
+
 } // namespace example
 
 #endif /* Example3ColorNodeEditor_h */

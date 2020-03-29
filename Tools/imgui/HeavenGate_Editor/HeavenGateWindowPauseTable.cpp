@@ -22,20 +22,7 @@ namespace HeavenGateEditor {
     HeavenGateWindowPauseTable::HeavenGateWindowPauseTable()
     {
      
-        StoryTable<PAUSE_MAX_COLUMN>* const pauseTable = StoryTableManager::Instance().GetPauseTable();
-
-
-        memset(m_fullPath, 0, sizeof(m_fullPath));
-
-        HeavenGateEditorUtility::GetStoryPath(m_fullPath);
-        strcat(m_fullPath, PAUSE_TABLE_NAME);
-
-        bool result = StoryFileManager::Instance().LoadTableFile(m_fullPath, pauseTable);
-        if (result == false)
-        {
-            StoryFileManager::Instance().SaveTableFile(m_fullPath, pauseTable);
-            StoryFileManager::Instance().LoadTableFile(m_fullPath, pauseTable);
-        }
+    
 
 
     }
@@ -54,6 +41,29 @@ namespace HeavenGateEditor {
         //    delete pauseTable;
         //}
         //pauseTable = nullptr;
+
+    }
+
+    void HeavenGateWindowPauseTable::Initialize()
+    {
+        StoryTable<PAUSE_MAX_COLUMN>* const pauseTable = StoryTableManager::Instance().GetPauseTable();
+
+
+        memset(m_fullPath, 0, sizeof(m_fullPath));
+
+        HeavenGateEditorUtility::GetStoryPath(m_fullPath);
+        strcat(m_fullPath, PAUSE_TABLE_NAME);
+
+        bool result = StoryFileManager::Instance().LoadTableFile(m_fullPath, pauseTable);
+        if (result == false)
+        {
+            StoryFileManager::Instance().SaveTableFile(m_fullPath, pauseTable);
+            StoryFileManager::Instance().LoadTableFile(m_fullPath, pauseTable);
+        }
+    }
+
+    void HeavenGateWindowPauseTable::Shutdown()
+    {
 
     }
 

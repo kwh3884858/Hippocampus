@@ -66,6 +66,21 @@ namespace HeavenGateEditor {
         m_roleDrawingTable = new HeavenGateWindowRoleDrawingTable;
         m_nodeGraphExample = new HeavenGateEditorNodeGraphExample;
 
+        m_heavenGateEditor->Initialize();
+        m_fontSizeTable->Initialize();
+        m_colorTable->Initialize();
+        m_tipTable->Initialize();
+        m_heavenGateWindowPaintMoveTable->Initialize();
+        m_chapterTable->Initialize();
+        m_sceneTable->Initialize();
+        m_characterTable->Initialize();
+        m_pauseTable->Initialize();
+        m_exhibitTable->Initialize();
+        m_effectTable->Initialize();
+        m_bgmTable->Initialize();
+        m_roleDrawingTable->Initialize();
+        m_nodeGraphExample->Initialize();
+
         show_editor_window = m_heavenGateEditor->GetHandle();
         show_font_size_table_window = m_fontSizeTable->GetHandle();
         show_color_table_window = m_colorTable->GetHandle();
@@ -113,6 +128,21 @@ namespace HeavenGateEditor {
         show_bgm_table = nullptr;
         show_role_drawing_table = nullptr;
         show_node_graph_example = nullptr;
+
+        m_heavenGateEditor->Shutdown();
+        m_fontSizeTable->Shutdown();
+        m_colorTable->Shutdown();
+        m_tipTable->Shutdown();
+        m_heavenGateWindowPaintMoveTable->Shutdown();
+        m_chapterTable->Shutdown();
+        m_sceneTable->Shutdown();
+        m_characterTable->Shutdown();
+        m_pauseTable->Shutdown();
+        m_exhibitTable->Shutdown();
+        m_effectTable->Shutdown();
+        m_bgmTable->Shutdown();
+        m_roleDrawingTable->Shutdown();
+        m_nodeGraphExample->Shutdown();
 
         //Delete Windows
         delete m_heavenGateEditor;

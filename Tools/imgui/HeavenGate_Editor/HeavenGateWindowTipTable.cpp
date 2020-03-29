@@ -21,6 +21,23 @@ namespace HeavenGateEditor {
 
     HeavenGateWindowTipTable::HeavenGateWindowTipTable()
     {
+ 
+
+    }
+
+    HeavenGateWindowTipTable::~HeavenGateWindowTipTable()
+    {
+
+        //if (tipTable)
+        //{
+        //    delete tipTable;
+        //}
+        //tipTable = nullptr;
+
+    }
+
+    void HeavenGateWindowTipTable::Initialize()
+    {
         //m_fileManager = new StoryFileManager;
 
         StoryTable<TIP_MAX_COLUMN>*const  tipTable = StoryTableManager::Instance().GetTipTable();
@@ -36,17 +53,10 @@ namespace HeavenGateEditor {
             StoryFileManager::Instance().LoadTableFile(m_fullPath, tipTable);
         }
 
-
     }
 
-    HeavenGateWindowTipTable::~HeavenGateWindowTipTable()
+    void HeavenGateWindowTipTable::Shutdown()
     {
-
-        //if (tipTable)
-        //{
-        //    delete tipTable;
-        //}
-        //tipTable = nullptr;
 
     }
 

@@ -20,6 +20,8 @@ namespace HeavenGateEditor {
         WINDOW_DECLARE("HeavenGateWindowColorTable", Window_Type::MainWindow)
 
     public:
+        virtual void Initialize() override;
+        virtual void Shutdown() override;
         HeavenGateWindowColorTable();
         ~HeavenGateWindowColorTable();
 

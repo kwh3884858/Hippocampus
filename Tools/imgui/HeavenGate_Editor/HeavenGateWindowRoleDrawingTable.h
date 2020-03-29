@@ -27,7 +27,8 @@ namespace HeavenGateEditor {
     public:
         HeavenGateWindowRoleDrawingTable();
         ~HeavenGateWindowRoleDrawingTable();
-
+        virtual void Initialize() override;
+        virtual void Shutdown() override;
     protected:
 
         virtual void UpdateMainWindow() override;

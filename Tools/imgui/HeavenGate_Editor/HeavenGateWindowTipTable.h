@@ -27,6 +27,8 @@ namespace HeavenGateEditor {
     public:
         HeavenGateWindowTipTable();
         ~HeavenGateWindowTipTable();
+        virtual void Initialize() override;
+        virtual void Shutdown() override;
 
     protected:
 

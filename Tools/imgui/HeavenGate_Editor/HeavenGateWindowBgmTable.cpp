@@ -22,21 +22,7 @@ namespace HeavenGateEditor {
     HeavenGateWindowBgmTable::HeavenGateWindowBgmTable()
     {
      
-        StoryTable<BGM_COLUMN>* const bgmTable = StoryTableManager::Instance().GetBgmTable();
-
-
-        memset(m_fullPath, 0, sizeof(m_fullPath));
-
-        HeavenGateEditorUtility::GetStoryPath(m_fullPath);
-        strcat(m_fullPath, BGM_TABLE_NAME);
-
-        bool result = StoryFileManager::Instance().LoadTableFile(m_fullPath, bgmTable);
-        if (result == false)
-        {
-            StoryFileManager::Instance().SaveTableFile(m_fullPath, bgmTable);
-            StoryFileManager::Instance().LoadTableFile(m_fullPath, bgmTable);
-        }
-
+   
 
     }
 
@@ -54,6 +40,29 @@ namespace HeavenGateEditor {
         //    delete bgmTable;
         //}
         //bgmTable = nullptr;
+
+    }
+
+    void HeavenGateWindowBgmTable::Initialize()
+    {
+        StoryTable<BGM_COLUMN>* const bgmTable = StoryTableManager::Instance().GetBgmTable();
+
+
+        memset(m_fullPath, 0, sizeof(m_fullPath));
+
+        HeavenGateEditorUtility::GetStoryPath(m_fullPath);
+        strcat(m_fullPath, BGM_TABLE_NAME);
+
+        bool result = StoryFileManager::Instance().LoadTableFile(m_fullPath, bgmTable);
+        if (result == false)
+        {
+            StoryFileManager::Instance().SaveTableFile(m_fullPath, bgmTable);
+            StoryFileManager::Instance().LoadTableFile(m_fullPath, bgmTable);
+        }
+    }
+
+    void HeavenGateWindowBgmTable::Shutdown()
+    {
 
     }
 

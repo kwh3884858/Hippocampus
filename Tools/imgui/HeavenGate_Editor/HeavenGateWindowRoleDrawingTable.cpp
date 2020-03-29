@@ -23,18 +23,6 @@ namespace HeavenGateEditor {
     {
         //m_fileManager = new StoryFileManager;
 
-        StoryTable<ROLE_DRAWING_COLUMN>*const  roleDrawingTable = StoryTableManager::Instance().GetRoleDrawingTable();
-        memset(m_fullPath, 0, sizeof(m_fullPath));
-
-        HeavenGateEditorUtility::GetStoryPath(m_fullPath);
-        strcat(m_fullPath, ROLE_DRAWING_TABLE_NAME);
-
-        bool result = StoryFileManager::Instance().LoadTableFile(m_fullPath, roleDrawingTable);
-        if (result == false)
-        {
-            StoryFileManager::Instance().SaveTableFile(m_fullPath, roleDrawingTable);
-            StoryFileManager::Instance().LoadTableFile(m_fullPath, roleDrawingTable);
-        }
 
 
     }
@@ -47,6 +35,28 @@ namespace HeavenGateEditor {
         //    delete roleDrawingTable;
         //}
         //roleDrawingTable = nullptr;
+
+    }
+
+    void HeavenGateWindowRoleDrawingTable::Initialize()
+    {
+
+        StoryTable<ROLE_DRAWING_COLUMN>*const  roleDrawingTable = StoryTableManager::Instance().GetRoleDrawingTable();
+        memset(m_fullPath, 0, sizeof(m_fullPath));
+
+        HeavenGateEditorUtility::GetStoryPath(m_fullPath);
+        strcat(m_fullPath, ROLE_DRAWING_TABLE_NAME);
+
+        bool result = StoryFileManager::Instance().LoadTableFile(m_fullPath, roleDrawingTable);
+        if (result == false)
+        {
+            StoryFileManager::Instance().SaveTableFile(m_fullPath, roleDrawingTable);
+            StoryFileManager::Instance().LoadTableFile(m_fullPath, roleDrawingTable);
+        }
+    }
+
+    void HeavenGateWindowRoleDrawingTable::Shutdown()
+    {
 
     }
 

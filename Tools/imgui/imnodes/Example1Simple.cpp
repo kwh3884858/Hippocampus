@@ -5,16 +5,16 @@
 #include <unordered_map>
 #include <utility>
 
-namespace Example1
+namespace  Example
     {
-    namespace
+    namespace Example1Namespace
         {
         class SimpleNodeEditor
         {
         public:
             void show()
             {
-                ImGui::Begin("simple node editor");
+                //ImGui::Begin("simple node editor");
 
                 imnodes::BeginNodeEditor();
                 imnodes::BeginNode(1);
@@ -35,20 +35,20 @@ namespace Example1
                 imnodes::EndNode();
                 imnodes::EndNodeEditor();
 
-                ImGui::End();
+                //ImGui::End();
             }
         };
 
         static SimpleNodeEditor editor;
         } // namespace
 
-    void NodeEditorInitialize()
+    void Example1::NodeEditorInitialize()
     {
         imnodes::SetNodeGridSpacePos(1, ImVec2(200.0f, 200.0f));
     }
 
-    void NodeEditorShow() { editor.show(); }
+    void Example1::NodeEditorShow() { Example1Namespace::editor.show(); }
 
-    void NodeEditorShutdown() {}
+    void Example1::NodeEditorShutdown() {}
 
-    } // namespace example
+} // namespace example

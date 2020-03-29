@@ -22,9 +22,19 @@ namespace HeavenGateEditor {
 
 
 
+
+
     HeavenGateWindowColorTable::HeavenGateWindowColorTable()
     {
+    }
 
+    HeavenGateWindowColorTable::~HeavenGateWindowColorTable()
+    {
+
+    }
+
+    void HeavenGateWindowColorTable::Initialize()
+    {
         memset(m_fullPath, '/0', sizeof(m_fullPath));
         memset(m_color, 0, sizeof(m_color));
         m_colorAlpha = nullptr;
@@ -52,10 +62,9 @@ namespace HeavenGateEditor {
             StoryFileManager::Instance().LoadTableFile(m_fullPath, colorTable);
         }
 
-
     }
 
-    HeavenGateWindowColorTable::~HeavenGateWindowColorTable()
+    void HeavenGateWindowColorTable::Shutdown()
     {
 
     }

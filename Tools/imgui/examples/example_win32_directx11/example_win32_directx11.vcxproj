@@ -88,6 +88,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\..;..;%(AdditionalIncludeDirectories);</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -191,6 +192,7 @@
     <ClInclude Include="..\..\imnodes\Example2SaveLoadEditor.h" />
     <ClInclude Include="..\..\imnodes\Example3ColorNodeEditor.h" />
     <ClInclude Include="..\..\imnodes\Example4MultiEditor.h" />
+    <ClInclude Include="..\..\imnodes\ExampleBase.h" />
     <ClInclude Include="..\..\imnodes\imnodes.h" />
     <ClInclude Include="..\..\nlohmann\json.hpp" />
     <ClInclude Include="..\imgui_impl_dx11.h" />
@@ -241,6 +243,7 @@
     <ClCompile Include="..\..\imnodes\Example2SaveLoadEditor.cpp" />
     <ClCompile Include="..\..\imnodes\Example3ColorNodeEditor.cpp" />
     <ClCompile Include="..\..\imnodes\Example4MultiEditor.cpp" />
+    <ClCompile Include="..\..\imnodes\ExampleBase.cpp" />
     <ClCompile Include="..\..\imnodes\imnodes.cpp" />
     <ClCompile Include="..\imgui_impl_dx11.cpp" />
     <ClCompile Include="..\imgui_impl_win32.cpp" />

@@ -22,6 +22,8 @@ namespace HeavenGateEditor {
     public:
         HeavenGateWindowChapterTable();
         ~HeavenGateWindowChapterTable();
+        virtual void Initialize() override;
+        virtual void Shutdown() override;
 
     protected:
 

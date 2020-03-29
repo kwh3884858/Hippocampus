@@ -14,9 +14,9 @@
 #include <utility>
 #include <vector>
 
-namespace Example3
+namespace Example
 {
-namespace
+    namespace Example3Namespace
 {
 const int Keycode_A = 65;
 const int keycode_X = 88;
@@ -421,7 +421,7 @@ public:
     {
         time_context.update();
 
-        ImGui::Begin("Color node editor");
+        //ImGui::Begin("Color node editor");
         ImGui::Text("A -- add node");
         ImGui::Text("X -- delete selected node or link");
 
@@ -881,7 +881,7 @@ public:
 
         ImGui::PushStyleColor(ImGuiCol_WindowBg, color);
         ImGui::Begin("output color");
-        ImGui::End();
+        //ImGui::End();
         ImGui::PopStyleColor();
     }
 
@@ -1042,7 +1042,7 @@ private:
 static ColorNodeEditor color_editor;
 } // namespace
 
-void NodeEditorInitialize()
+void Example3::NodeEditorInitialize()
 {
     auto& style = imnodes::GetStyle();
     style.colors[imnodes::ColorStyle_TitleBar] = IM_COL32(232, 27, 86, 255);
@@ -1060,7 +1060,10 @@ void NodeEditorInitialize()
     style.flags = imnodes::StyleFlags_GridLines;
 }
 
-void NodeEditorShow() { color_editor.show(); }
+void Example3::NodeEditorShow() { Example3Namespace::color_editor.show(); }
 
-void NodeEditorShutdown() {}
+void Example3::NodeEditorShutdown() {}
+
+
+
 } // namespace example

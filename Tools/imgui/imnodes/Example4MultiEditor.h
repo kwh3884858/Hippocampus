@@ -9,11 +9,15 @@
 #ifndef Example4MultiEditor_h
 #define Example4MultiEditor_h
 
-namespace Example4
+#include "ExampleBase.h"
+namespace Example
 {
-void NodeEditorInitialize();
-void NodeEditorShow();
-void NodeEditorShutdown();
-} // namespace example
+    class Example4 :public ExampleBase
+    {
+        virtual void NodeEditorInitialize() override;
+        virtual void NodeEditorShow()override;
+        virtual void NodeEditorShutdown()override;
+    }; // namespace example
 
+}
 #endif /* Example4MultiEditor_h */

@@ -22,6 +22,8 @@ namespace HeavenGateEditor {
     public:
         HeavenGateWindowEffectTable();
         ~HeavenGateWindowEffectTable();
+        virtual void Initialize() override;
+        virtual void Shutdown() override;
 
     protected:
 

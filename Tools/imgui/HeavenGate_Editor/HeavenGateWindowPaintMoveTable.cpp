@@ -22,20 +22,7 @@ namespace HeavenGateEditor {
     HeavenGateWindowPaintMoveTable::HeavenGateWindowPaintMoveTable()
     {
      
-        StoryTable<PAINT_MOVE_MAX_COLUMN>* const paintMoveTable = StoryTableManager::Instance().GetPaintMoveTable();
-
-
-        memset(m_fullPath, 0, sizeof(m_fullPath));
-
-        HeavenGateEditorUtility::GetStoryPath(m_fullPath);
-        strcat(m_fullPath, PAINT_MOVE_TABLE_NAME);
-
-        bool result = StoryFileManager::Instance().LoadTableFile(m_fullPath, paintMoveTable);
-        if (result == false)
-        {
-            StoryFileManager::Instance().SaveTableFile(m_fullPath, paintMoveTable);
-            StoryFileManager::Instance().LoadTableFile(m_fullPath, paintMoveTable);
-        }
+   
 
 
     }
@@ -54,6 +41,29 @@ namespace HeavenGateEditor {
         //    delete paintMoveTable;
         //}
         //paintMoveTable = nullptr;
+
+    }
+
+    void HeavenGateWindowPaintMoveTable::Initialize()
+    {
+        StoryTable<PAINT_MOVE_MAX_COLUMN>* const paintMoveTable = StoryTableManager::Instance().GetPaintMoveTable();
+
+
+        memset(m_fullPath, 0, sizeof(m_fullPath));
+
+        HeavenGateEditorUtility::GetStoryPath(m_fullPath);
+        strcat(m_fullPath, PAINT_MOVE_TABLE_NAME);
+
+        bool result = StoryFileManager::Instance().LoadTableFile(m_fullPath, paintMoveTable);
+        if (result == false)
+        {
+            StoryFileManager::Instance().SaveTableFile(m_fullPath, paintMoveTable);
+            StoryFileManager::Instance().LoadTableFile(m_fullPath, paintMoveTable);
+        }
+    }
+
+    void HeavenGateWindowPaintMoveTable::Shutdown()
+    {
 
     }
 

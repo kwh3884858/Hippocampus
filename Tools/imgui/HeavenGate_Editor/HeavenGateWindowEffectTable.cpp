@@ -22,22 +22,6 @@ namespace HeavenGateEditor {
     HeavenGateWindowEffectTable::HeavenGateWindowEffectTable()
     {
      
-        StoryTable<EFFECT_COLUMN>* const effectTable = StoryTableManager::Instance().GetEffectTable();
-
-
-        memset(m_fullPath, 0, sizeof(m_fullPath));
-
-        HeavenGateEditorUtility::GetStoryPath(m_fullPath);
-        strcat(m_fullPath, EFFECT_TABLE_NAME);
-
-        bool result = StoryFileManager::Instance().LoadTableFile(m_fullPath, effectTable);
-        if (result == false)
-        {
-            StoryFileManager::Instance().SaveTableFile(m_fullPath, effectTable);
-            StoryFileManager::Instance().LoadTableFile(m_fullPath, effectTable);
-        }
-
-
     }
 
     HeavenGateWindowEffectTable::~HeavenGateWindowEffectTable()
@@ -54,6 +38,29 @@ namespace HeavenGateEditor {
         //    delete effectTable;
         //}
         //effectTable = nullptr;
+
+    }
+
+    void HeavenGateWindowEffectTable::Initialize()
+    {
+        StoryTable<EFFECT_COLUMN>* const effectTable = StoryTableManager::Instance().GetEffectTable();
+
+
+        memset(m_fullPath, 0, sizeof(m_fullPath));
+
+        HeavenGateEditorUtility::GetStoryPath(m_fullPath);
+        strcat(m_fullPath, EFFECT_TABLE_NAME);
+
+        bool result = StoryFileManager::Instance().LoadTableFile(m_fullPath, effectTable);
+        if (result == false)
+        {
+            StoryFileManager::Instance().SaveTableFile(m_fullPath, effectTable);
+            StoryFileManager::Instance().LoadTableFile(m_fullPath, effectTable);
+        }
+    }
+
+    void HeavenGateWindowEffectTable::Shutdown()
+    {
 
     }
 

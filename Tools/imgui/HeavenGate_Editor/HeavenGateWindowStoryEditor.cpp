@@ -21,8 +21,6 @@
 #include "StoryFileManager.h"
 #include "StoryTableManager.h"
 
-
-
 #include <iostream>
 
 #include <stdio.h>

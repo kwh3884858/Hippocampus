@@ -5,30 +5,32 @@
 #include "HeavenGateEditorBaseWindow.h"
 
 #include "HeavenGateEditorConstant.h"
-
+namespace Example {
+    class ExampleBase;
+}
 namespace HeavenGateEditor {
+
+
     class HeavenGateEditorNodeGraphExample : public HeavenGateEditorBaseWindow
     {
         WINDOW_DECLARE("HeavenGateEditorNodeGraphExample", Window_Type::MainWindow)
     public:
         HeavenGateEditorNodeGraphExample();
         ~HeavenGateEditorNodeGraphExample();
+        virtual void Initialize() override;
+        virtual void Shutdown() override;
 
     protected:
-
+        
         virtual void UpdateMainWindow() override;
         virtual void UpdateMenu()override;
 
 
     private:
-        void Initialization();
-        void Shutdown();
+        void OpenExample(int index);
 
-        bool m_isInitialization = false;
-
-        bool m_isExample1Open = true;
-
-
+        Example::ExampleBase* m_currentExample;
+        Example::ExampleBase* m_exampleArray[4];
     };
 
 }
