@@ -33,7 +33,7 @@ namespace UI.Panels.StaticBoard.Element
                     m_nameTxt.gameObject.SetActive(false);
                     PrefabManager.Instance.SetImage(m_nameImg,RolePictureNameConst.ArtWordName + data.str1, () =>
                     {
-                        m_nameImg.gameObject.SetActive(true);
+                        m_nameImg.gameObject.SetActive(false);
                         m_nameTxt.gameObject.SetActive(true);
                         m_nameTxt.text = data.str1;
                     });
@@ -50,7 +50,7 @@ namespace UI.Panels.StaticBoard.Element
 
         private void RefreshElement(RecordType type)
         {
-            m_nameObj.gameObject.SetActive(type == RecordType.TalkContent);
+            m_nameObj.SetActive(type == RecordType.TalkContent);
             m_contentTxt.gameObject.SetActive(type == RecordType.Jump || type == RecordType.TalkContent);
         }
         

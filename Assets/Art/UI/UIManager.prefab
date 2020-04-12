@@ -171,6 +171,12 @@ MonoBehaviour:
   - m_panelType: 3
     unLoadMode: 1
     m_showOnStart: 1
+  - m_panelType: 5
+    unLoadMode: 1
+    m_showOnStart: 0
+  - m_panelType: 8
+    unLoadMode: 0
+    m_showOnStart: 0
 --- !u!114 &114109849832879468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,6 +191,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_panelsSettings:
   - m_panelType: 3
+    unLoadMode: 0
+    m_showOnStart: 0
+  - m_panelType: 4
+    unLoadMode: 0
+    m_showOnStart: 0
+  - m_panelType: 5
+    unLoadMode: 0
+    m_showOnStart: 0
+  - m_panelType: 6
+    unLoadMode: 0
+    m_showOnStart: 0
+  - m_panelType: 7
     unLoadMode: 0
     m_showOnStart: 0
 --- !u!114 &114106967399437950
@@ -203,6 +221,9 @@ MonoBehaviour:
   - m_panelType: 1
     unLoadMode: 0
     m_showOnStart: 0
-  - m_panelType: 2
+  - m_panelType: 5
+    unLoadMode: 0
+    m_showOnStart: 0
+  - m_panelType: 9
     unLoadMode: 0
     m_showOnStart: 0

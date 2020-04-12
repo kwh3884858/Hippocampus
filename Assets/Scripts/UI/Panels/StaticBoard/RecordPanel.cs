@@ -14,6 +14,7 @@ using UI.Panels.Providers.DataProviders.StaticBoard;
 using UI.Panels.StaticBoard.Element;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 namespace UI.Panels.StaticBoard
 {
@@ -33,20 +34,24 @@ namespace UI.Panels.StaticBoard
 
         public void SetData(List<RecordData> dataList)
         {
+            ClearItemList();
             if (dataList ==null || dataList.Count ==0)
             {
                 EmptyRecord();
                 return;
             }
-            ClearItemList();
             foreach (var data in dataList)
             {
                 GetUIElement<RecordItem>(UIElementType.TalkRecordItem, (item) =>
                 {
                     item.SetData(data);
                     m_itemList.Add(item);
+                    item.transform.SetParent(m_svContent);
+                    LayoutRebuilder.ForceRebuildLayoutImmediate(m_svContent.rectTransform());
                 });
             }
+            
+            m_scrollView.verticalScrollbar.value = 1;  //让它处于初始拉动状态
         }
 
         private void ClearItemList()
@@ -60,9 +65,16 @@ namespace UI.Panels.StaticBoard
 
         public void EmptyRecord()
         {
-            
+            Debug.LogError("历史记录页面传入数据错误！！！！");
         }
 
+        public void OnClickClose()
+        {
+            InvokeHidePanel();
+        }
         private List<RecordItem> m_itemList = new List<RecordItem>();
+
+        [SerializeField] private Transform m_svContent;
+        [SerializeField] private ScrollRect m_scrollView;
     }
 }

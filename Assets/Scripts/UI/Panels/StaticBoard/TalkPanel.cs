@@ -111,6 +111,7 @@ namespace UI.Panels.StaticBoard
             base.Hide();
             m_autoPlay = false;
             m_highSpeed = false;
+            StoryController.ClearRecord();
         }
         public override void UpdateData(DataProvider data)
         {
@@ -425,6 +426,11 @@ namespace UI.Panels.StaticBoard
         public void Skip()
         {
             m_skip = true;
+        }
+
+        public void ShowHistory()
+        { 
+            InvokeShowAsSubpanel(PanelType,UIPanelType.RecordPanel,new RecordDataProvider() {Records =  StoryController.GetRecords()});
         }
 
         [SerializeField] private Image m_name;

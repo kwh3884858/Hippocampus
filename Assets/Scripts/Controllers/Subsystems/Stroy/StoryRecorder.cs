@@ -27,11 +27,16 @@ namespace Controllers.Subsystems.Story
         public StoryRecorder()
         {
             m_record = new Dictionary<string, List<RecordData>>();
+            m_currentID = null;
         }
         
         public void PushRecord(string id, StoryAction action)
         {
-            if (m_preID != id && m_record.ContainsKey(id))
+            if (m_currentID == null)
+            {
+                m_currentID = id;
+            }
+            if (m_currentID != id && m_record.ContainsKey(id))
             {
                 id = DealTheSameID(id);
             }
@@ -83,12 +88,17 @@ namespace Controllers.Subsystems.Story
                 record.Value.Clear();
             }
             m_record.Clear();
+            m_currentID = null;
         }
 
         private void PushContent(string id,StoryAction content)
         {
+            if (!m_record.ContainsKey(id) || content == null)
+            {
+                return;
+            }
             int lastActionIndex = m_record[id].Count -1;
-            if (lastActionIndex <= 0)
+            if (lastActionIndex < 0)
             {
                 return;
             }
@@ -107,7 +117,7 @@ namespace Controllers.Subsystems.Story
         private void PushJump(string id, StoryJumpAction action)
         {
 
-            if (m_record.ContainsKey(id) || action == null || action.Options.Count == 0)
+            if (!m_record.ContainsKey(id) || action == null || action.Options.Count == 0)
             {
                 return;
             }
@@ -116,7 +126,7 @@ namespace Controllers.Subsystems.Story
 
         private void PushName(string id, StoryAction action)
         {
-            if (m_record.ContainsKey(id) || action == null)
+            if (!m_record.ContainsKey(id) || action == null)
             {
                 return;
             }
@@ -136,7 +146,7 @@ namespace Controllers.Subsystems.Story
             return newID;
         }
 
-        private string m_preID;
+        private string m_currentID;
         private Dictionary<string,List<RecordData>> m_record;
     }
 }
