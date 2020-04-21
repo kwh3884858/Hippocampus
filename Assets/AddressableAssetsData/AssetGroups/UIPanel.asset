@@ -53,6 +53,10 @@ MonoBehaviour:
     m_Address: Assets/AddressableAssetsData/AssetGroups/Scene.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: e9564753c23befb43854a4e5ebdbc20c
+    m_Address: TipsPanel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: f7c40a5bdb671e147a31606c053f8d37
     m_Address: talk_panel
     m_ReadOnly: 0

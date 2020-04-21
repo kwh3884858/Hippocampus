@@ -10,6 +10,7 @@ using StarPlatinum.Service;
 using GamePlay;
 using UI.Panels.GameScene.MainManu;
 using UI;
+using System;
 
 public class MonoMoveController : MonoBehaviour
 {
@@ -65,7 +66,16 @@ public class MonoMoveController : MonoBehaviour
     void Update()
     {
 
-
+        //// tips库测试
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    // 显示tips库
+        //    UIManager.Instance().ShowPanel(UIPanelType.Tipspanel);// 显示UI
+        //}
+        //if(Input.GetKeyDown(KeyCode.W))
+        //{
+        //    Tips.TipsManager.Instance.UnlockTip("Door5", ConvertDateTimeToLong(DateTime.Now));// 添加tip 数据
+        //}
 
     }
 
@@ -171,5 +181,14 @@ public class MonoMoveController : MonoBehaviour
     public void SetMoveEnable(bool isEnable)
     {
         m_isMove = isEnable;
+    }
+
+    public static long ConvertDateTimeToLong(DateTime dt)
+    {
+        DateTime dtStart = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+        TimeSpan toNow = dt.Subtract(dtStart);
+        long timeStamp = toNow.Ticks;
+        timeStamp = long.Parse(timeStamp.ToString().Substring(0, timeStamp.ToString().Length - 4));
+        return timeStamp;
     }
 }
