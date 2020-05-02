@@ -29,6 +29,8 @@ https://www.yuque.com/nxym1s
 - Checklist
 - 集成了Git，SVN
 
+进一步的Task分配请访问团队网站。
+
 ### 技术
 
 - Heaven Gate
