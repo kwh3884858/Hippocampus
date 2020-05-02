@@ -22,6 +22,12 @@ https://www.yuque.com/nxym1s
 
 [GoundZeroWeekly地址: ./Documents/Ground Zero Weekly](./Documents/Ground Zero Weekly)
 
+## 基于Redmine的协作平台
+
+基于开源redmine，我们进一步添加了一些功能：
+
+- Checklist
+- 集成了Git，SVN
 
 ### 技术
 
