@@ -17,48 +17,56 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: e6dda9c5c356a294487d424148d7bcf2
   m_SerializeEntries:
+  - m_GUID: 0127fd26f49bd774282230a15a625154
+    m_Address: Load_Game_Panel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 02d5e2294a996ee41a4c52f2834f50ad
+    m_Address: UI_Common_Picture_Item
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 1608de85b18654f8db00614c562cd8af
     m_Address: MainCamera
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 1c9ec861dbffd6b49b2151eafe3bb512
-    m_Address: main_manu_panel
+  - m_GUID: 1d6ad93c50b4bce43ad383d6595b8a77
+    m_Address: UI_Common_Tip_Item
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 6b8634ccc718ec0498d01281b1d09fb9
-    m_Address: EvidencePanel
+  - m_GUID: 40631b7b6a2577b4ca50ed31d68bed97
+    m_Address: Options_Panel
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 8f665e4f0728a1a43a5939dc70d6301b
-    m_Address: options_panel
+  - m_GUID: 9c1f5d40f08cf5a4aa0984736f2ebfdd
+    m_Address: Talk_Panel
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: a8e6cc436547d6f449d03f1e8e5950b5
-    m_Address: SingleEvidenceSelectPanel
+  - m_GUID: a93a88d49df8a4a499554797762b62d9
+    m_Address: StartManu_MainManu_Panel
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: accb89fa94eb4584a86059229eba676e
-    m_Address: joystick_panel
+  - m_GUID: b86bb223c1516e044b72e2aaa6d73606
+    m_Address: Tips_Panel
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: b48bcfdf451f8ac4499c255ea7f7dc32
-    m_Address: Assets/Art/UI/UIPanel/Prefabs/Evidence
+  - m_GUID: b86d454b99bcb2144adfa31b55f3d086
+    m_Address: Exploration_Joystick_Panel
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: d3a816f690832334bb941ff95645635f
-    m_Address: load_game_panel
+  - m_GUID: da0d9e77f6dee5241a57743ad2c49513
+    m_Address: Evidence_Panel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e0a5dfae6da85c74597343c19ba72c23
+    m_Address: UI_Common_Option_Item
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: e3e26078347e88447b514d09519bbed7
     m_Address: Assets/AddressableAssetsData/AssetGroups/Scene.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: e9564753c23befb43854a4e5ebdbc20c
-    m_Address: TipsPanel
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: f7c40a5bdb671e147a31606c053f8d37
-    m_Address: talk_panel
+  - m_GUID: e8f271f6d04c4a645b15a3ad8e6f75aa
+    m_Address: Single_Evidence_Select_Panel
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

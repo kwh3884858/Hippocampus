@@ -2,12 +2,12 @@
 public enum UIPanelType
 {
     [AssetPath("0")] None = 0,
-    [AssetPath("options_panel")] OptionsPanel = 1,
-    [AssetPath("main_manu_panel")] MainManuPanel = 3,
-    [AssetPath("joystick_panel")] JoystickPanel = 4,
-    [AssetPath("talk_panel")] TalkPanel = 5,
-    [AssetPath("EvidencePanel")] Evidencepanel = 6,
-    [AssetPath("SingleEvidenceSelectPanel")] Singleevidenceselectpanel = 7,
-    [AssetPath("load_game_panel")] LoadGamePanel = 8,
-    [AssetPath("TipsPanel")] Tipspanel = 9,
+    [AssetPath("Options_Panel")] OptionsPanel = 1,
+    [AssetPath("StartManu_MainManu_Panel")] MainManuPanel = 3,
+    [AssetPath("Exploration_Joystick_Panel")] JoystickPanel = 4,
+    [AssetPath("Talk_Panel")] TalkPanel = 5,
+    [AssetPath("Evidence_Panel")] Evidencepanel = 6,
+    [AssetPath("Single_Evidence_Select_Panel")] Singleevidenceselectpanel = 7,
+    [AssetPath("Load_Game_Panel")] LoadGamePanel = 8,
+    [AssetPath("Tips_Panel")] Tipspanel = 9,
 }

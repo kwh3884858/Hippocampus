@@ -5,10 +5,16 @@
 [Bb]uilds/
 [Rr]elease/
 [Rr]eleases/
+.svn/
+
+Assets/data
+Assets/Resources
+Tools/release
+
 Assets/AssetStoreTools*
-Assets/Resources/Storys/AutoSave
 StreamingAssets/
 StreamingAssets.meta
+
 
 # Project
 [Hh]ippocampus.sln
