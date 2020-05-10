@@ -70,19 +70,18 @@ namespace Controllers.Subsystems.Story
 
 		public void LoadStoryFileByName (string storyFileName)
 		{
-            if (m_storyFileName == storyFileName)
-            {
-                return;
-            }
+			if (m_storyFileName == storyFileName) {
+				return;
+			}
 
+			//Assets/Resources/STORY_FOLDER + storyFileName
 			m_storys = new StoryReader (STORY_FOLDER + storyFileName);
-            bool result = m_storys.GetLoadResult();
-            if (result == true)
-            {
-                m_storyFileName = storyFileName;
-            }
+			bool result = m_storys.GetLoadResult ();
+			if (result == true) {
+				m_storyFileName = storyFileName;
+			}
 
-        }
+		}
 
 
 
@@ -184,7 +183,7 @@ namespace Controllers.Subsystems.Story
 
 			}
 			if (labelId == "Ep2_Jeep_PoliceQuestion_2") {
-				PushPicture (container, hero,"");
+				PushPicture (container, hero, "");
 
 			}
 			if (labelId == "Ep2_Jeep_PoliceQuestion_4") {
@@ -218,7 +217,7 @@ namespace Controllers.Subsystems.Story
 
 			}
 
-		
+
 			return container;
 		}
 
@@ -229,7 +228,7 @@ namespace Controllers.Subsystems.Story
 
 		private StoryReader m_storys;
 		private StoryConfig m_config;
-        private string m_storyFileName;
+		private string m_storyFileName;
 
-    }
+	}
 }
