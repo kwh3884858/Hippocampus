@@ -211,9 +211,9 @@ const char* const DELIMITER =
 
     const char* const PATH_FROM_PROJECT_ROOT_TO_FONT_FOLDER =
 #ifdef _WIN32
-        "Assets\\Fonts\\SourceHanSansCN-Regular.ttf";
+        "Assets\\data\\graphics\\Fonts\\SourceHanSansCN-Regular.ttf";
 #else
-        "Assets/Fonts/SourceHanSansCN-Regular.ttf";
+        "Assets/data/graphics/Fonts/SourceHanSansCN-Regular.ttf";
 #endif
 
 }
