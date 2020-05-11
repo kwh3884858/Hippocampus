@@ -21,10 +21,6 @@ MonoBehaviour:
     m_Address: Load_Game_Panel
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 02d5e2294a996ee41a4c52f2834f50ad
-    m_Address: UI_Common_Picture_Item
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 1608de85b18654f8db00614c562cd8af
     m_Address: MainCamera
     m_ReadOnly: 0

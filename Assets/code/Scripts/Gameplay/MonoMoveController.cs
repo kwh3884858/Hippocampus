@@ -72,7 +72,7 @@ public class MonoMoveController : MonoBehaviour
         //    // 显示tips库
         //    UIManager.Instance().ShowPanel(UIPanelType.Tipspanel);// 显示UI
         //}
-        //if(Input.GetKeyDown(KeyCode.W))
+        //if (Input.GetKeyDown(KeyCode.W))
         //{
         //    Tips.TipsManager.Instance.UnlockTip("Door5", ConvertDateTimeToLong(DateTime.Now));// 添加tip 数据
         //}
