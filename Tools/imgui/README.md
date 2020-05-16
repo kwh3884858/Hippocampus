@@ -4,6 +4,13 @@
 
 It`s time to describe our new story editor written by c++, easy to use and friendly to developers. This document will show the framework of Heaven Gate, its data struct and usage. If you are not a developer. then you should directly jump to the last part, about how to use this editor.
 
+## Refactoring for Node Graph
+For the new grapg node function, HG need to refactor
+- Move data from story editor to single data manager.
+- Node graph can open one chapter at once.
+- Story editor, or a new small version editor should be added, will be accpet a part of story from node garph to edit.
+- 
+
 ## The Framework of Heaven Gate
 
 Heaven Gate is base three-part: model, view and controller. But these three names is come from the software engineering area, in Heaven Gate, we will call them data, window and controller for a better semantically understand.
@@ -40,6 +47,3 @@ All window classes are base on Base Window, what you only need to do is write a 
 
 Basically they are different type singleton managers, like Story File Manager is used to control write and read of Story Json and Story Table.
 
-## Data Structure
-
-## Usage

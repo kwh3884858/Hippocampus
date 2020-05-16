@@ -79,7 +79,7 @@ namespace HeavenGateEditor {
     const char* const STORY_EXPORT_FOLDER ="Storys_Export";
 
     // Story auto save folder
-    const char* const AUTO_SAVE_FOLDER = "AutoSave";
+    const char* const AUTO_SAVE_FOLDER = "AutoSave~";
 
     // Story default file name
     const char* const DEFAULT_FILE_NAME = "Untitled";
