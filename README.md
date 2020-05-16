@@ -74,24 +74,14 @@ https://www.yuque.com/nxym1s
 
 加入协作需要注册ProcessOn。
 
-4. 我们需要一个简单的方式来整合通知，包括语雀和GitHub上的更新。
-
-我找到了QQ端的自动机器人，但是这个机器人基于Windows平台，需要通过docker运行在Linux平台上。
-
-[QQ端自动化流程](https://ixyzero.com/blog/archives/4463.html)
-
-目前可以先通过邮件发送来解决，主要问题是这些操作需要一个服务器来运行，但是我的海外服务器总是ssh不了。
-
 [使用 shadowsocks 加速 Mac 自带终端或iTerm 2](https://tech.jandou.com/to-accelerate-the-terminal.html)
 
 5. 把json库放进了项目，已经可以读取json文件了
 
 [Json library Github from nlohmann](https://github.com/nlohmann/json)
 
-现在需要根据需求制定一个可行得json格式，需要能支持后续功能的直接加入而不破坏以有的文件。
-
 6. 添加了license Header
-现在可以添加类似于
+
 ```
 //
 //Copyright (c) 2019 Star Platinum
