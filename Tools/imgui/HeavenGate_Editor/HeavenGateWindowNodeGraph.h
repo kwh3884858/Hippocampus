@@ -16,9 +16,9 @@ namespace HeavenGateEditor {
         virtual ~HeavenGateWindowNodeGraph() override;
 
 
-        virtual void Initialize() override;
-        virtual void Shutdown() override;
-        virtual void UpdateMainWindow() override;
+        virtual void Initialize() override{}
+        virtual void Shutdown() override{}
+        virtual void UpdateMainWindow() override{}
         virtual void UpdateMenu() override {}
 
 

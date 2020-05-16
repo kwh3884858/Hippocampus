@@ -63,7 +63,6 @@
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonLabelNode.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonStoryNode.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonWordNode.h" />
-    <ClInclude Include="..\..\imnodes\imnodes.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorNodeGraphExample.h" />
     <ClInclude Include="..\..\imnodes\Example1Simple.h" />
     <ClInclude Include="..\..\imnodes\Example2SaveLoadEditor.h" />
@@ -72,6 +71,7 @@
     <ClInclude Include="..\..\imnodes\ExampleBase.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowNodeGraph.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryNodeGraph.h" />
+    <ClInclude Include="..\..\imnodes\imnodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\imgui.cpp">
@@ -129,7 +129,6 @@
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonLabelNode.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonStoryNode.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonWordNode.cpp" />
-    <ClCompile Include="..\..\imnodes\imnodes.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorNodeGraphExample.cpp" />
     <ClCompile Include="..\..\imnodes\Example1Simple.cpp" />
     <ClCompile Include="..\..\imnodes\Example2SaveLoadEditor.cpp" />
@@ -138,6 +137,7 @@
     <ClCompile Include="..\..\imnodes\ExampleBase.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowNodeGraph.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryNodeGraph.cpp" />
+    <ClCompile Include="..\..\imnodes\imnodes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.txt" />

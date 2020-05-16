@@ -49,8 +49,13 @@ namespace HeavenGateEditor {
         //        Example4::NodeEditorShutdown();
 
         m_currentExample->NodeEditorShutdown();
+        m_currentExample = nullptr;
 
-        delete[] m_exampleArray;
+        delete m_exampleArray[0];
+        delete m_exampleArray[1];
+        delete m_exampleArray[2];
+        delete m_exampleArray[3];
+
     }
 
     void HeavenGateEditorNodeGraphExample::OpenExample(int index)

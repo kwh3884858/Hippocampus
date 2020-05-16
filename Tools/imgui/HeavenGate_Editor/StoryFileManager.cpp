@@ -9,16 +9,16 @@
 
 #include "StoryTimer.h"
 
-#ifdef _WIN32
+//#ifdef _WIN32
 
-#include "Dirent/dirent.h"
-
-
-#else
 #include <dirent.h>
 
 
-#endif // _WIN32
+//#else
+//#include <dirent.h>
+//
+//
+//#endif // _WIN32
 
 namespace HeavenGateEditor {
 
