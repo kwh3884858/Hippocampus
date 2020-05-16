@@ -22,7 +22,7 @@ namespace HeavenGateEditor {
         m_fontSizeTable->PushName("Font Size Value");
 
 
-        m_tipTable = new StoryTable<TIP_MAX_COLUMN>;
+        m_tipTable = new StoryTable<TIP_MAX_COLUMN, TIP_TABLE_MAX_CONTENT>;
         m_tipTable->SetTableType(TableType::Tips);
 
         m_tipTable->PushName("Tip");
@@ -150,15 +150,15 @@ namespace HeavenGateEditor {
 
     }
 
-    const StoryTable<TIP_MAX_COLUMN>* const StoryTableManager::GetTipTable() const
+    const StoryTable<TIP_MAX_COLUMN, TIP_TABLE_MAX_CONTENT>* const StoryTableManager::GetTipTable() const
     {
         return m_tipTable;
 
     }
 
-    StoryTable<TIP_MAX_COLUMN>* StoryTableManager::GetTipTable()
+    StoryTable<TIP_MAX_COLUMN, TIP_TABLE_MAX_CONTENT>* StoryTableManager::GetTipTable()
     {
-        return const_cast<StoryTable<TIP_MAX_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetTipTable());
+        return const_cast<StoryTable<TIP_MAX_COLUMN, TIP_TABLE_MAX_CONTENT>*>(const_cast<const StoryTableManager*>(this)->GetTipTable());
     }
 
     const StoryTable<PAINT_MOVE_MAX_COLUMN>* const StoryTableManager::GetPaintMoveTable() const

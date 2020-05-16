@@ -9,6 +9,7 @@
 #include "HeavenGateEditorUtility.h"
 #include "CharacterUtility.h"
 #include "HeavenGateEditorConstant.h"
+#include "imnodes.h"
 
 #include <stdio.h>
 #import <Cocoa/Cocoa.h>
@@ -22,6 +23,7 @@
 @interface ImGuiExampleView : NSOpenGLView
 {
     NSTimer*    animationTimer;
+    HeavenGateEditor::HeavenGateWindowCenter* m_heavenGateCenter;
 }
 @end
 
@@ -47,22 +49,21 @@
 -(void)updateAndDrawDemoView
 {
     // Start the Dear ImGui frame
-	ImGui_ImplOpenGL2_NewFrame();
-	ImGui_ImplOSX_NewFrame(self);
+    ImGui_ImplOpenGL2_NewFrame();
+    ImGui_ImplOSX_NewFrame(self);
     ImGui::NewFrame();
 
-
-
-    static HeavenGateEditor::HeavenGateWindowCenter m_center;
+    if (!m_heavenGateCenter) {
+        m_heavenGateCenter = new HeavenGateEditor::HeavenGateWindowCenter();
+        m_heavenGateCenter->Initialize();
+    }
 
     // Global data for the demo
     static bool show_demo_window = true;
     static bool show_another_window = false;
-    static bool* show_center = m_center.GetHandle();
+    static bool* show_center = m_heavenGateCenter->GetHandle();
 
     static ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
-    m_center.Initialize();
 
     // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
     if (show_demo_window)
@@ -105,21 +106,21 @@
 
     // Show Heaven Gate editor window
     if (*show_center) {
-        m_center.Update();
+        m_heavenGateCenter->Update();
     }
 
-	// Rendering
-	ImGui::Render();
-	[[self openGLContext] makeCurrentContext];
+    // Rendering
+    ImGui::Render();
+    [[self openGLContext] makeCurrentContext];
 
     ImDrawData* draw_data = ImGui::GetDrawData();
     GLsizei width  = (GLsizei)(draw_data->DisplaySize.x * draw_data->FramebufferScale.x);
     GLsizei height = (GLsizei)(draw_data->DisplaySize.y * draw_data->FramebufferScale.y);
     glViewport(0, 0, width, height);
 
-	glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
-	glClear(GL_COLOR_BUFFER_BIT);
-	ImGui_ImplOpenGL2_RenderDrawData(draw_data);
+    glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
+    glClear(GL_COLOR_BUFFER_BIT);
+    ImGui_ImplOpenGL2_RenderDrawData(draw_data);
 
     // Present
     [[self openGLContext] flushBuffer];
@@ -157,6 +158,12 @@
 -(void)dealloc
 {
     animationTimer = nil;
+    
+    m_heavenGateCenter->Shutdown();
+    delete m_heavenGateCenter;
+    m_heavenGateCenter = nullptr;
+
+    imnodes::Shutdown();
 }
 
 // Forward Mouse/Keyboard events to dear imgui OSX back-end. It returns true when imgui is expecting to use the event.
@@ -205,7 +212,7 @@
 
 -(void)setupMenu
 {
-	NSMenu* mainMenuBar = [[NSMenu alloc] init];
+    NSMenu* mainMenuBar = [[NSMenu alloc] init];
     NSMenu* appMenu;
     NSMenuItem* menuItem;
 
@@ -229,11 +236,11 @@
 
 -(void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	// Make the application a foreground application (else it won't receive keyboard events)
-	ProcessSerialNumber psn = {0, kCurrentProcess};
-	TransformProcessType(&psn, kProcessTransformToForegroundApplication);
+    // Make the application a foreground application (else it won't receive keyboard events)
+    ProcessSerialNumber psn = {0, kCurrentProcess};
+    TransformProcessType(&psn, kProcessTransformToForegroundApplication);
 
-	// Menu
+    // Menu
     [self setupMenu];
 
     NSOpenGLPixelFormatAttribute attrs[] =
@@ -264,7 +271,7 @@
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
 
     char exePath [HeavenGateEditor::MAX_FOLDER_PATH];
-     HeavenGateEditor::HeavenGateEditorUtility::GetStoryPath(exePath);
+    HeavenGateEditor::HeavenGateEditorUtility::GetStoryPath(exePath);
     int pos = CharacterUtility::Find(exePath,
                                      static_cast<int>(strlen(exePath)),
                                      HeavenGateEditor::ASSET_FOLDER_NAME,
@@ -287,6 +294,7 @@
     // Setup Platform/Renderer bindings
     ImGui_ImplOSX_Init();
     ImGui_ImplOpenGL2_Init();
+    imnodes::Initialize();
 
     // Load Fonts
     // - If no fonts are loaded, dear imgui will use the default font. You can also load multiple fonts and use ImGui::PushFont()/PopFont() to select them.

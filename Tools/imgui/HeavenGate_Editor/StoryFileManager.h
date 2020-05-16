@@ -3,6 +3,7 @@
 #define StoryFileManager_h
 
 #include "HeavenGateEditorConstant.h"
+#include "StoryTableDefine.h"
 
 #include <fstream>
 #include <iostream>
@@ -15,8 +16,6 @@ namespace HeavenGateEditor {
     using json = nlohmann::json;
 
     class StoryJson;
-    template<int column>
-    class StoryTable;
 
     class StoryFileManager final : public StorySingleton<StoryFileManager>
     {
@@ -36,10 +35,10 @@ namespace HeavenGateEditor {
         bool AutoSaveStoryFile(StoryJson* const pStoryJson)const;
         bool ExportStoryFile( StoryJson* const pStoryJson) const;
 
-        template<int column>
-        bool LoadTableFile(const char* pPath, StoryTable<column>*const  pTableJson)const;
-        template<int column>
-        bool SaveTableFile(const char* pPath, const StoryTable<column>* const pTableJson)const;
+        template<int column, int MAX_CONTENT_LENGTH = MAX_COLUMNS_CONTENT_LENGTH>
+        bool LoadTableFile(const char* pPath, StoryTable<column, MAX_CONTENT_LENGTH>* const pTableJson)const;
+        template<int column, int MAX_CONTENT_LENGTH = MAX_COLUMNS_CONTENT_LENGTH>
+        bool SaveTableFile(const char* pPath, const StoryTable<column, MAX_CONTENT_LENGTH>* const pTableJson)const;
 
 
 
@@ -55,9 +54,9 @@ namespace HeavenGateEditor {
     };
 
 
-    template<int column>
+    template<int column, int MAX_CONTENT_LENGTH>
     bool StoryFileManager::LoadTableFile(const char* pPath,
-        StoryTable<column>*const pTableJson) const
+        StoryTable<column, MAX_CONTENT_LENGTH>*const pTableJson) const
     {
         std::ifstream fins;
         char content[MAX_FULL_CONTENT];
@@ -98,9 +97,9 @@ namespace HeavenGateEditor {
         return true;
     }
 
-    template<int column>
+    template<int column, int MAX_CONTENT_LENGTH>
     bool StoryFileManager::SaveTableFile(const char* pPath,
-        const StoryTable<column>* const pTableJson) const
+        const StoryTable<column, MAX_CONTENT_LENGTH>* const pTableJson) const
     {
         if (pPath == nullptr || pTableJson == nullptr)
         {

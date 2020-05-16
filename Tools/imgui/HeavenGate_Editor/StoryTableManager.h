@@ -5,11 +5,9 @@
 #include "StorySingleton.h"
 
 #include "HeavenGateEditorConstant.h"
+#include "StoryTableDefine.h"
 
 namespace HeavenGateEditor {
-
-    template<int column>
-    class StoryTable;
 
     class StoryTableManager final :public StorySingleton<StoryTableManager>
     {
@@ -31,8 +29,8 @@ namespace HeavenGateEditor {
         const StoryTable<FONT_SIZE_MAX_COLUMN>* const GetFontSizeTable() const;
         StoryTable<FONT_SIZE_MAX_COLUMN>*  GetFontSizeTable();
 
-        const StoryTable<TIP_MAX_COLUMN>* const GetTipTable() const;
-        StoryTable<TIP_MAX_COLUMN>*  GetTipTable();
+        const StoryTable<TIP_MAX_COLUMN, TIP_TABLE_MAX_CONTENT>* const GetTipTable() const;
+        StoryTable<TIP_MAX_COLUMN, TIP_TABLE_MAX_CONTENT>*  GetTipTable();
 
         const StoryTable<PAINT_MOVE_MAX_COLUMN>* const GetPaintMoveTable() const;
         StoryTable<PAINT_MOVE_MAX_COLUMN>*  GetPaintMoveTable();
@@ -66,7 +64,7 @@ namespace HeavenGateEditor {
 
         StoryTable<COLOR_MAX_COLUMN>*  m_colorTable;
         StoryTable<FONT_SIZE_MAX_COLUMN>* m_fontSizeTable;
-        StoryTable<TIP_MAX_COLUMN>* m_tipTable;
+        StoryTable<TIP_MAX_COLUMN, TIP_TABLE_MAX_CONTENT>* m_tipTable;
         StoryTable<PAINT_MOVE_MAX_COLUMN>* m_paintMovetable;
         StoryTable<CHAPTER_COLUMN>* m_chapterTable;
         StoryTable<SCENE_COLUMN>* m_sceneTable;

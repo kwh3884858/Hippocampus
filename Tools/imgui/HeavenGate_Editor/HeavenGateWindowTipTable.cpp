@@ -40,7 +40,7 @@ namespace HeavenGateEditor {
     {
         //m_fileManager = new StoryFileManager;
 
-        StoryTable<TIP_MAX_COLUMN>*const  tipTable = StoryTableManager::Instance().GetTipTable();
+        StoryTable<TIP_MAX_COLUMN, TIP_TABLE_MAX_CONTENT>*const  tipTable = StoryTableManager::Instance().GetTipTable();
         memset(m_fullPath, 0, sizeof(m_fullPath));
 
         HeavenGateEditorUtility::GetStoryPath(m_fullPath);
@@ -62,7 +62,7 @@ namespace HeavenGateEditor {
 
     void HeavenGateWindowTipTable::UpdateMainWindow()
     {
-        StoryTable<TIP_MAX_COLUMN>*const  tipTable = StoryTableManager::Instance().GetTipTable();
+        StoryTable<TIP_MAX_COLUMN, TIP_TABLE_MAX_CONTENT>*const  tipTable = StoryTableManager::Instance().GetTipTable();
 
         if (tipTable == nullptr)
         {
@@ -133,7 +133,7 @@ namespace HeavenGateEditor {
                 }
                 strcat(constant, order);
 
-                ImGui::InputText(constant, content, MAX_COLUMNS_CONTENT_LENGTH);
+                ImGui::InputText(constant, content, TIP_TABLE_MAX_CONTENT);
                 ImGui::NextColumn();
             }
 
@@ -155,7 +155,7 @@ namespace HeavenGateEditor {
         }
 
         if (ImGui::MenuItem("Save", "Ctrl+S")) {
-            StoryTable<TIP_MAX_COLUMN>*const  tipTable = StoryTableManager::Instance().GetTipTable();
+            StoryTable<TIP_MAX_COLUMN, TIP_TABLE_MAX_CONTENT>*const  tipTable = StoryTableManager::Instance().GetTipTable();
 
             StoryFileManager::Instance().SaveTableFile(m_fullPath, tipTable);
         }

@@ -747,11 +747,11 @@ namespace HeavenGateEditor {
                     break;
                 }
                 case HeavenGateEditor::TableType::Tips: {
-                    const StoryTable<TIP_MAX_COLUMN>* const tipTable = StoryTableManager::Instance().GetTipTable();
+                    const StoryTable<TIP_MAX_COLUMN,TIP_TABLE_MAX_CONTENT>* const tipTable = StoryTableManager::Instance().GetTipTable();
 
                     for (int i = 0; i < tipTable->GetSize(); i++)
                     {
-                        const StoryRow<TIP_MAX_COLUMN>* const row = tipTable->GetRow(i);
+                        const StoryRow<TIP_MAX_COLUMN, TIP_TABLE_MAX_CONTENT>* const row = tipTable->GetRow(i);
                         if (strcmp(row->Get(0), (*iter)->m_content) == 0)
                         {
                             strcpy(tmpTip, row->Get(1));

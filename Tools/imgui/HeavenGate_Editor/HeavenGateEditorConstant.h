@@ -56,6 +56,9 @@ namespace HeavenGateEditor {
     const int     BGM_COLUMN = 2;
     const int     ROLE_DRAWING_COLUMN = 2;
 
+    //Tip Table
+    const int     TIP_TABLE_MAX_CONTENT = 512;
+
     //Color
     const int    COLOR_VALUE_COLUMN = 4;
     const int    COLOR_RGBA_BASE_VALUE = 255;
