@@ -11,7 +11,7 @@ public class ConfigData : Singleton<ConfigData>
 
     /// <summary>配置表路径</summary>
     public const string LocalTextFilePath = "Storys/ExhibitTable";
-    public const string LocalTipsFilePath = "Storys/TipTable";
+    public const string LocalTipsFilePath = "Storys/TipsTable";
     /// <summary>由Json转换后的对象体</summary>
     GameConfig configPackage = null;
 

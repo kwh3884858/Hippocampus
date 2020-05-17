@@ -53,6 +53,10 @@ MonoBehaviour:
     m_Address: Evidence_Panel
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: dea1a5e90608b264b99111459b12c399
+    m_Address: Get_Tip_Panel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: e0a5dfae6da85c74597343c19ba72c23
     m_Address: UI_Common_Option_Item
     m_ReadOnly: 0

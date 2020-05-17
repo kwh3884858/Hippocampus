@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace Tips
 {
@@ -99,6 +100,19 @@ namespace Tips
                 Debug.LogWarning("tipsData is null!");
             }
 #endif
+        }
+        /// <summary>
+        /// DateTime 转 long
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static long ConvertDateTimeToLong(DateTime dt)
+        {
+            DateTime dtStart = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+            TimeSpan toNow = dt.Subtract(dtStart);
+            long timeStamp = toNow.Ticks;
+            timeStamp = long.Parse(timeStamp.ToString().Substring(0, timeStamp.ToString().Length - 4));
+            return timeStamp;
         }
     }
 }
