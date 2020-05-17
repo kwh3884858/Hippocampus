@@ -131,7 +131,7 @@ namespace StarPlatinum
 
 			//SceneManager.Instance ().AddSceneLoadedEvent (Handlecallback);
 
-			SceneManager.Instance ().LoadScene (SceneLookupEnum.UITestScene, SceneLoadMode.Additive);
+			SceneManager.Instance ().LoadScene (SceneLookupEnum.World_UITestScene, SceneLoadMode.Additive);
 
 
 			yield return null;

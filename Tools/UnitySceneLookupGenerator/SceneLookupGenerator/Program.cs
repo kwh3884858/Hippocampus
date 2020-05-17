@@ -17,12 +17,19 @@ namespace SceneLookupGenerator
 			Release
 		}
 
-		private static DevMode DEV_MODE = DevMode.Release;
-		private static string Path_Scene_Lookup_Template = "\\SceneLookupTemplate.txt";
+		private static DevMode DEV_MODE = DevMode.Debug;
 		private static string Path_Assets = "\\Assets";
-		private static string Path_Scripts_To_RootConfig = "\\Scripts\\Config\\RootConfig.cs";
-		private static string Path_StarPlatinum_To_GameRootInspector = "\\StarPlatinum\\Editor\\GameRootInspector.cs";
+		//Scene Lookup
+		private static string Path_Data_To_World = "\\data\\graphics\\World";
+		private static string Path_Data_To_SceneLookupGenerator = "\\data\\tools\\SceneLookupGenerator";
+		private static string Path_Code_To_File_SceneLookupTemplate = "\\data\\tools\\SceneLookupGenerator\\SceneLookupTemplate.txt";
+
+		private static string Path_Code_To_File_RootConfig = "\\code\\Scripts\\Config\\RootConfig.cs";
+		private static string Path_StarPlatinum_To_GameRootInspector = "\\code\\StarPlatinum\\Editor\\GameRootInspector.cs";
 		private static string Scene_Lookup_OutputName = "\\SceneLookup.cs";
+
+		//Length of "\\Assets"
+		private static readonly int PATH_ASSETS_LENGTH = 7;
 
 		private static string exePath {
 			get {
@@ -32,7 +39,7 @@ namespace SceneLookupGenerator
 				}
 
 				if (DEV_MODE == DevMode.Debug) {
-					exePath = "D:\\GithubRepository\\Hippocampus\\Assets\\Scenes";
+					exePath = "/Users/cookie/Documents/UnityProjectFolder/Hippocampus/Assets/data/tools/SceneLookupGenerator";
 				}
 				return exePath;
 			}
@@ -55,9 +62,13 @@ namespace SceneLookupGenerator
 
 			if (Environment.OSVersion.Platform == PlatformID.Unix ||
 				Environment.OSVersion.Platform == PlatformID.MacOSX) {
-				Path_Scene_Lookup_Template = Path_Scene_Lookup_Template.Replace ('\\', '/');
 				Path_Assets = Path_Assets.Replace ('\\', '/');
-				Path_Scripts_To_RootConfig = Path_Scripts_To_RootConfig.Replace ('\\', '/');
+
+				Path_Data_To_World = Path_Data_To_World.Replace ('\\', '/');
+				Path_Data_To_SceneLookupGenerator = Path_Data_To_SceneLookupGenerator.Replace ('\\', '/');
+				Path_Code_To_File_SceneLookupTemplate = Path_Code_To_File_SceneLookupTemplate.Replace ('\\', '/');
+
+				Path_Code_To_File_RootConfig = Path_Code_To_File_RootConfig.Replace ('\\', '/');
 				Path_StarPlatinum_To_GameRootInspector = Path_StarPlatinum_To_GameRootInspector.Replace ('\\', '/');
 				Scene_Lookup_OutputName = Scene_Lookup_OutputName.Replace ('\\', '/');
 
@@ -85,28 +96,37 @@ namespace SceneLookupGenerator
 				//	exePath = "D:\\GithubRepository\\Hippocampus\\Assets\\Scenes";
 				//}
 
-				error = m_sceneLookupGenerator.SetSceneRootPath (exePath);
-				CheckError (error);
-				error = m_sceneLookupGenerator.SetOutputPath (exePath);
-				CheckError (error);
-				error = m_sceneLookupGenerator.SetTemplateFile (exePath + Path_Scene_Lookup_Template);
-				CheckError (error);
-
-				error = m_sceneConfigGenerator.SetSceneRootPath (exePath);
-				CheckError (error);
-
-				//Find Scene Folder "Assets\\Scripts\\Config\\RootConfig.cs"
 				int pos = exePath.LastIndexOf (Path_Assets);
 				if (pos < 0) return;
 				//sub string to "../Assets"
-				string configFath = exePath.Substring (0, pos + 7);
-				configFath += Path_Scripts_To_RootConfig;
-				error = m_sceneConfigGenerator.SetOutputPath (configFath);
+				string configFath = exePath.Substring (0, pos + PATH_ASSETS_LENGTH);
+
+				//scene root folder "Assets\\data\\graphics\\World"
+				string worldRootPath = configFath + Path_Data_To_World;
+				error = m_sceneLookupGenerator.SetWorldRootPath (worldRootPath);
 				CheckError (error);
 
-				string inspectorFath = exePath.Substring (0, pos + 7);
-				if (pos < 0) return;
-				inspectorFath += Path_StarPlatinum_To_GameRootInspector;
+				//scene output folder "Assets\\data\\tools\\SceneLookupGenerator\\SceneLookup.cs"
+				string lookupOutputPath = configFath + Path_Data_To_SceneLookupGenerator;
+				error = m_sceneLookupGenerator.SetOutputPath (lookupOutputPath);
+				CheckError (error);
+
+				//lookup template folder "Assets\\data\\tools\\SceneLookupGenerator\\SceneLookupTemplate.txt"
+				string templatePath = configFath + Path_Code_To_File_SceneLookupTemplate;
+				error = m_sceneLookupGenerator.SetTemplateFile (templatePath);
+				CheckError (error);
+
+				//scene root folder "Assets\\data\\graphics\\World"
+				error = m_sceneConfigGenerator.SetSceneRootPath (worldRootPath);
+				CheckError (error);
+
+				//Output Path "Assets\\code\\Scripts\\Config\\RootConfig.cs"
+				string rootConfigOutputPath = configFath + Path_Code_To_File_RootConfig;
+				error = m_sceneConfigGenerator.SetOutputPath (rootConfigOutputPath);
+				CheckError (error);
+
+				//inspector path "Assets\\code\\StarPlatinum\\Editor\\GameRootInspector.cs"
+				string inspectorFath = configFath + Path_StarPlatinum_To_GameRootInspector;
 				error = m_sceneConfigGenerator.SetInspectorFile (inspectorFath);
 				CheckError (error);
 			}
@@ -119,7 +139,7 @@ namespace SceneLookupGenerator
 				switch (args [i]) {
 				case "-s":
 					string root = args [i + 1];
-					error = m_sceneLookupGenerator.SetSceneRootPath (root);
+					error = m_sceneLookupGenerator.SetWorldRootPath (root);
 					break;
 
 				case "-o":

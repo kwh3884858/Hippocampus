@@ -33,7 +33,7 @@ namespace StarPlatinum
 		//private string m_currentSceneName;
 		//public string CurrentSceneName =>  m_currentSceneName;
 
-		private SceneLookupEnum m_currentScene = SceneLookupEnum.GameRoot;
+		private SceneLookupEnum m_currentScene = SceneLookupEnum.World_GameRoot;
 		public SceneLookupEnum GetCurrentScene => m_currentScene;
 		public SceneLookupEnum SetCurrentScene (SceneLookupEnum currentScene)
 		{

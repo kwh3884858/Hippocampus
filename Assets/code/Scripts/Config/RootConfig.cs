@@ -28,20 +28,20 @@ namespace Config.GameRoot
         //[Scene Config Auto Generated Code Begin]
 
 [SerializeField]
-private string Scene_Episode2_PierName = "Scene_Episode2_Pier"; 
- public CameraService.SceneCameraType Scene_Episode2_PierCameraType;  
+private string World_GoundTestSceneName = "World_GoundTestScene"; 
+ public CameraService.SceneCameraType World_GoundTestSceneCameraType;  
 
 [SerializeField]
-private string GoundTestSceneName = "GoundTestScene"; 
- public CameraService.SceneCameraType GoundTestSceneCameraType;  
+private string World_Episode2_PierName = "World_Episode2_Pier"; 
+ public CameraService.SceneCameraType World_Episode2_PierCameraType;  
 
 [SerializeField]
-private string UITestSceneName = "UITestScene"; 
- public CameraService.SceneCameraType UITestSceneCameraType;  
+private string World_GameRootName = "World_GameRoot"; 
+ public CameraService.SceneCameraType World_GameRootCameraType;  
 
 [SerializeField]
-private string GameRootName = "GameRoot"; 
- public CameraService.SceneCameraType GameRootCameraType;  
+private string World_UITestSceneName = "World_UITestScene"; 
+ public CameraService.SceneCameraType World_UITestSceneCameraType;  
 
 //[Scene Config Auto Generated Code End]
 
@@ -62,17 +62,17 @@ private string GameRootName = "GameRoot";
             {
                 //[Switch Case Auto Generated Code Begin]
 
-case "Scene_Episode2_Pier" :  
-   return Scene_Episode2_PierCameraType; 
+case "World_GoundTestScene" :  
+   return World_GoundTestSceneCameraType; 
 
-case "GoundTestScene" :  
-   return GoundTestSceneCameraType; 
+case "World_Episode2_Pier" :  
+   return World_Episode2_PierCameraType; 
 
-case "UITestScene" :  
-   return UITestSceneCameraType; 
+case "World_GameRoot" :  
+   return World_GameRootCameraType; 
 
-case "GameRoot" :  
-   return GameRootCameraType; 
+case "World_UITestScene" :  
+   return World_UITestSceneCameraType; 
 
 //[Switch Case Auto Generated Code End]    
                 default:

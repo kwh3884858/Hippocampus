@@ -45,8 +45,6 @@ public class StartPlayModeFromEmptyGameRoot : MonoBehaviour
 	{
 		LogPrinter.ShowSceneInfo ();
 
-
-
 		if (!isPlayFromGameRoot)
 			return;
 
@@ -55,8 +53,8 @@ public class StartPlayModeFromEmptyGameRoot : MonoBehaviour
 			return;
 		}
 
-        //SceneManager.GetSceneByName();
-        SceneManager.LoadScene (typeof(StarPlatinum.GameRoot).Name,LoadSceneMode.Single);
+		//SceneManager.GetSceneByName();
+		SceneManager.LoadScene (SceneLookup.Get (SceneLookupEnum.World_GameRoot), LoadSceneMode.Single);
 
 
 	}

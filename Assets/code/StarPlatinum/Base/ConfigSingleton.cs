@@ -10,7 +10,7 @@ namespace StarPlatinum.Base
 
 	public abstract class ConfigSingleton<T> : ScriptableObject where T : ScriptableObject
 	{
-		private static readonly string LOADPATH = $"Assets/Config/{typeof (T).Name}.asset";
+		private static readonly string LOADPATH = $"Assets/code/Config/{typeof (T).Name}.asset";
 
 		public static ref T Instance {
 			get {
@@ -41,11 +41,11 @@ namespace StarPlatinum.Base
 			} else//Temp For AAS Not Init Success In Edit Mode
 			  {
 #if UNITY_EDITOR
-				//var path = $"Assets/StarPlatinum/Config/{typeof(T).Name}.asset";
+				//var path = $"Assets/code/StarPlatinum/Config/{typeof(T).Name}.asset";
 
 				m_instance = AssetDatabase.LoadAssetAtPath<T> (LOADPATH);
 
-				if (m_instance == null) { Debug.Log ($"{LOADPATH} doesn`t exist {typeof (T).Name}"); return null; }
+				if (m_instance == null) { Debug.LogError ($"{LOADPATH} doesn`t exist {typeof (T).Name}"); return null; }
 
 				Debug.Log ($"======resource加载完成name:{typeof (T).Name}, path:{LOADPATH}, config:{m_instance}=====");
 

@@ -29,7 +29,7 @@ namespace SceneLookupGenerator
 
 		static string m_content;
 
-		string m_sceneRootPath;
+		string m_worldRootPath;
 		string m_outputPath;
 		string m_templatePath;
 		string m_sceneLookupOutputName;
@@ -39,7 +39,7 @@ namespace SceneLookupGenerator
 
 		public SceneLookupGenerator ()
 		{
-			m_sceneRootPath = "";
+			m_worldRootPath = "";
 			m_outputPath = "";
 			m_templatePath = "";
 		}
@@ -48,13 +48,13 @@ namespace SceneLookupGenerator
 		{
 
 			//Find template
-			if (!Directory.Exists (m_sceneRootPath)) {
+			if (!Directory.Exists (m_worldRootPath)) {
 				return ErrorType.NoSceneRootPath;
 			}
 
 
-			DirectoryInfo folder = new DirectoryInfo (m_sceneRootPath);
-			FileInfo [] SceneInfos = folder.GetFiles ("*.unity");
+			DirectoryInfo folder = new DirectoryInfo (m_worldRootPath);
+			FileInfo [] SceneInfos = folder.GetFiles ("*.unity", SearchOption.AllDirectories);
 			//FileInfo [] sceneMetaInfos = folder.GetFiles("*.unity.meta");
 
 			scenes = new List<string> ();
@@ -156,13 +156,13 @@ namespace SceneLookupGenerator
 
 		public string GetSceneRootPath ()
 		{
-			return m_sceneRootPath;
+			return m_worldRootPath;
 		}
 
-		public ErrorType SetSceneRootPath (string projectRoot)
+		public ErrorType SetWorldRootPath (string projectRoot)
 		{
-			m_sceneRootPath = projectRoot;
-			return CheckDirectoryPath (m_sceneRootPath, ErrorType.NoSceneRootPath);
+			m_worldRootPath = projectRoot;
+			return CheckDirectoryPath (m_worldRootPath, ErrorType.NoSceneRootPath);
 		}
 
 		public ErrorType SetOutputPath (string output)
