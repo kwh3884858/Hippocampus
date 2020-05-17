@@ -18,19 +18,15 @@ MonoBehaviour:
   m_GUID: 052d0ed1e3839014d90c13b3b0494749
   m_SerializeEntries:
   - m_GUID: 67e9f636bf85cec49aa5259fcd3be769
-    m_Address: UITestScene
+    m_Address: World_UITestScene
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 76f726a6d946e154aa0feafe8f5a72ad
-    m_Address: Scene_Episode2_Pier
+    m_Address: World_Episode2_Pier
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: d64d83efff065fe4485fa4ded364df60
-    m_Address: GoundTestScene
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: e59ae2862aaea427a8b8b4a0d1462e0e
-    m_Address: GameRoot
+    m_Address: World_GoundTestScene
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
