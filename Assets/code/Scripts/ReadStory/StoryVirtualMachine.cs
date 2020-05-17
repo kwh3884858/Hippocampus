@@ -97,6 +97,9 @@ namespace StarPlatinum.StoryCompile
 						if (token.m_content == TableType.color.ToString ()) {
 							editorState.Push (TableType.color);
 						}
+						if (token.m_content == TableType.tip.ToString ()) {
+							editorState.Push (TableType.tip);
+						}
 						if (token.m_content == TableType.paintMove.ToString ()) {
 							editorState.Push (TableType.paintMove);
 						}
@@ -126,6 +129,8 @@ namespace StarPlatinum.StoryCompile
 						break;
 
 					case TableType.tip:
+						//TODO: Add Tip
+						//m_tipManager.addTip(token.m_content);
 						break;
 					case TableType.paintMove:
 						break;
