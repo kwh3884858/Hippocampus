@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using StarPlatinum;
 using UnityEngine;
 
@@ -24,30 +25,47 @@ namespace Evidence
             myEvidenceDic = new Dictionary<string, SingleEvidenceData>();
             if (LocalData.HasKey(evidenceName))
             {
-                m_data = JsonUtility.FromJson<EvidenceData>(LocalData.ReadStr(evidenceName, ""));
+                //m_data = JsonUtility.FromJson<EvidenceData>(LocalData.ReadStr(evidenceName, ""));
+                m_data = JsonConvert.DeserializeObject<EvidenceData>(LocalData.ReadStr(evidenceName, ""));
             }
             else
             {
                 m_data = new EvidenceData();
             }
 
-            if (m_data.evidenceList == null)
-            {
-                m_data.evidenceList = new List<string>();
-            }
+            //if (m_data.evidenceList == null)
+            //{
+            //    m_data.evidenceList = new List<string>();
+            //}
             m_evidenceConfig = ConfigData.Instance.evidenceConfig.GetDicDetails();
+            //if (m_evidenceConfig != null)
+            //{
+            //    int l = m_data.evidenceList.Count;
+            //    string id;
+            //    EvidenceConfig.Detail data;
+            //    for (int i = 0; i < l; i++)
+            //    {
+            //        id = m_data.evidenceList[i];
+            //        if (m_evidenceConfig.ContainsKey(id))
+            //        {
+            //            data = m_evidenceConfig[id];
+            //            myEvidenceDic.Add(data.exhibit, new SingleEvidenceData(/*data.id, */data.exhibit, data.description));
+            //        }
+            //    }
+            //}
             if (m_evidenceConfig != null)
             {
-                int l = m_data.evidenceList.Count;
-                string id;
-                EvidenceConfig.Detail data;
-                for (int i = 0; i < l; i++)
+                SingleEvidenceData evidenceData;
+                foreach (var data in m_evidenceConfig)
                 {
-                    id = m_data.evidenceList[i];
-                    if (m_evidenceConfig.ContainsKey(id))
+                    if (m_data.evidenceList.ContainsKey(data.Key))
                     {
-                        data = m_evidenceConfig[id];
-                        myEvidenceDic.Add(data.exhibit, new SingleEvidenceData(/*data.id, */data.exhibit, data.description));
+                        evidenceData = m_data.evidenceList[data.Key];
+                        myEvidenceDic.Add(data.Value.exhibit, new SingleEvidenceData(data.Value.exhibit, data.Value.description, false));
+                    }
+                    else
+                    {
+                        myEvidenceDic.Add(data.Value.exhibit, new SingleEvidenceData(data.Value.exhibit, data.Value.description));
                     }
                 }
             }
@@ -65,8 +83,9 @@ namespace Evidence
             }
             if (m_evidenceConfig.ContainsKey(vExhibit))
             {
-                m_data.evidenceList.Add(vExhibit);
+                //m_data.evidenceList.Add(vExhibit);
                 EvidenceConfig.Detail data = m_evidenceConfig[vExhibit];
+                m_data.evidenceList.Add(vExhibit, new SingleEvidenceData(/*data.id, */data.exhibit, data.description));
                 myEvidenceDic.Add(vExhibit, new SingleEvidenceData(/*data.id, */data.exhibit, data.description));
                 SaveData();
             }
@@ -113,11 +132,12 @@ namespace Evidence
         /// </summary>
         public void SaveData()
         {
-            LocalData.WriteStr(evidenceName, JsonUtility.ToJson(m_data));
+            //LocalData.WriteStr(evidenceName, JsonUtility.ToJson(m_data));
+            LocalData.WriteStr(evidenceName, JsonConvert.SerializeObject(m_data));
         }
 
         /// <summary>保存本地的名称</summary>
-        private static string evidenceName = "Evidence";
+        private static string evidenceName = "Evidences";
 
         /// <summary>读取的本地配置文件信息</summary>
         private Dictionary<string, EvidenceConfig.Detail> m_evidenceConfig = null;
