@@ -93,7 +93,7 @@ namespace StarPlatinum
 		public void LoadScene (SceneLookupEnum sceneName, SceneLoadMode loadMode, object sceneData = null)
 		{
 			m_currentScene = sceneName;
-			LoadScene (SceneLookup.Get (sceneName), loadMode, sceneData);
+			LoadScene (SceneLookup.GetString (sceneName), loadMode, sceneData);
 			CameraService.Instance.UpdateCurrentCamera ();
 		}
 		private void LoadScene (string sceneName, SceneLoadMode loadMode, object sceneData = null)

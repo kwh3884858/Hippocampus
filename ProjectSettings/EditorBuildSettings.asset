@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/data/graphics/World/Episode2_Pier/Scene_Word_Episode2_Pier.unity
-    guid: e811478fce0334152ba64e7d5a68ff63
+    path: Assets/data/graphics/World/CoreContainer/World_CoreContainer.unity
+    guid: 056429be9607f47c687afa4aef8818d4
   - enabled: 0
     path: Assets/data/graphics/World/Episode2_Pier/World_Episode2_Pier.unity
     guid: 76f726a6d946e154aa0feafe8f5a72ad

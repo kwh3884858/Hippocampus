@@ -32,6 +32,10 @@ private string World_GoundTestSceneName = "World_GoundTestScene";
  public CameraService.SceneCameraType World_GoundTestSceneCameraType;  
 
 [SerializeField]
+private string World_CoreContainerName = "World_CoreContainer"; 
+ public CameraService.SceneCameraType World_CoreContainerCameraType;  
+
+[SerializeField]
 private string World_Episode2_PierName = "World_Episode2_Pier"; 
  public CameraService.SceneCameraType World_Episode2_PierCameraType;  
 
@@ -64,6 +68,9 @@ private string World_UITestSceneName = "World_UITestScene";
 
 case "World_GoundTestScene" :  
    return World_GoundTestSceneCameraType; 
+
+case "World_CoreContainer" :  
+   return World_CoreContainerCameraType; 
 
 case "World_Episode2_Pier" :  
    return World_Episode2_PierCameraType; 

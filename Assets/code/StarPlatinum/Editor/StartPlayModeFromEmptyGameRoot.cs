@@ -54,7 +54,7 @@ public class StartPlayModeFromEmptyGameRoot : MonoBehaviour
 		}
 
 		//SceneManager.GetSceneByName();
-		SceneManager.LoadScene (SceneLookup.Get (SceneLookupEnum.World_GameRoot), LoadSceneMode.Single);
+		SceneManager.LoadScene (SceneLookup.GetString (SceneLookupEnum.World_GameRoot), LoadSceneMode.Single);
 
 
 	}

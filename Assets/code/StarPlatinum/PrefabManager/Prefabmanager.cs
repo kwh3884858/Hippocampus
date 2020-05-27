@@ -99,7 +99,7 @@ namespace StarPlatinum
 			LoadAssetAsync<Sprite> (key, (result) => {
 				if (result.status == RequestStatus.FAIL) {
 					SetImage (image, "Image_Default");
-					failCallBack?.Invoke();
+					failCallBack?.Invoke ();
 					Debug.LogWarning ($"图片加载错误 Key:{result.key}");
 					return;
 				}
@@ -149,7 +149,7 @@ namespace StarPlatinum
 
 		public void LoadScene (SceneLookupEnum key, LoadSceneMode loadSceneMode)
 		{
-			Addressables.LoadScene (SceneLookup.Get (key), loadSceneMode);
+			Addressables.LoadScene (SceneLookup.GetString (key), loadSceneMode);
 			SceneManager.Instance ().SetCurrentScene (key);
 		}
 

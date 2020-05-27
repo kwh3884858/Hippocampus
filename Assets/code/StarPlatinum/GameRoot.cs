@@ -14,6 +14,10 @@ namespace StarPlatinum
 
 		public SceneLookupEnum m_startScene { get; set; }
 
+#if DevMode
+		public string m_consolePrefabName = "Debug_Console";
+#endif
+
 		public override void SingletonInit () { }
 		VirtualMachineInterface virtualMachineInterface;
 
@@ -90,7 +94,19 @@ namespace StarPlatinum
 
 				yield return null;
 			}
+#if DevMode
+			//add console
+			GameObject console = GameObject.Find (m_consolePrefabName);
+			if (console == null) {
+				PrefabManager.Instance.InstantiateAsync<GameObject> (m_consolePrefabName, (result) => {
+					Debug.Log ($"===========aas:{result.key}加载完成.");
+					console = result.result as GameObject;
+					console.name = m_consolePrefabName;
+				});
 
+			}
+
+#endif
 
 			callback ();
 		}

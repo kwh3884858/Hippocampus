@@ -48,7 +48,7 @@ public class UpdateBuildSettingWhenSceneOpened : Editor
 			scenes [i] = new EditorBuildSettingsScene (scenePath, true);
 			scenes [i].enabled = false;
 
-			if (files [i].Contains (SceneLookup.Get (SceneLookupEnum.World_GameRoot))) // == GameRoot
+			if (files [i].Contains (SceneLookup.GetString (SceneLookupEnum.World_GameRoot))) // == GameRoot
 			{
 				scenes [i].enabled = true;
 			}

@@ -17,6 +17,8 @@ namespace StarPlatinum
 
 CameraService.SceneCameraType m_World_GoundTestSceneCameraType; 
 
+ CameraService.SceneCameraType m_World_CoreContainerCameraType; 
+
  CameraService.SceneCameraType m_World_Episode2_PierCameraType; 
 
  CameraService.SceneCameraType m_World_GameRootCameraType; 
@@ -59,6 +61,13 @@ m_World_GoundTestSceneCameraType = (CameraService.SceneCameraType)EditorGUILayou
     if (m_World_GoundTestSceneCameraType != RootConfig.Instance.World_GoundTestSceneCameraType) 
 { 
 RootConfig.Instance.World_GoundTestSceneCameraType = m_World_GoundTestSceneCameraType; 
+} 
+
+m_World_CoreContainerCameraType = RootConfig.Instance.World_CoreContainerCameraType;  
+m_World_CoreContainerCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_CoreContainer Camera Type: ", m_World_CoreContainerCameraType); 
+    if (m_World_CoreContainerCameraType != RootConfig.Instance.World_CoreContainerCameraType) 
+{ 
+RootConfig.Instance.World_CoreContainerCameraType = m_World_CoreContainerCameraType; 
 } 
 
 m_World_Episode2_PierCameraType = RootConfig.Instance.World_Episode2_PierCameraType;  
