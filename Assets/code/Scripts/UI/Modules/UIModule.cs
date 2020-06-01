@@ -112,11 +112,11 @@ namespace UI.Modules
             }
         }
 
-        public virtual void Initialize(UIDataProvider uiDataProvider, StarPlatinum.PrefabManager content)
+        public virtual void Initialize(UIDataProvider uiDataProvider)
         {
             Log("Initialize");
             UiDataProvider = uiDataProvider;
-            m_content = content;
+            m_content = StarPlatinum.PrefabManager.Instance ;
 
             GameObject root = new GameObject(GetType().Name);
             m_container = root.AddComponent<RectTransform>();
@@ -822,7 +822,7 @@ namespace UI.Modules
                 }
             }
 
-            if (panel.PanelSettings.UnLoadMode == UIPanelUnLoadMode.Destroy)
+            if (panel.PanelSettings.MUnLoadMode == UIPanelUnLoadMode.Destroy)
             {
                 UnloadPanel(type);
             }
@@ -888,8 +888,7 @@ namespace UI.Modules
             return type.ToString() + ": no subpanels";
         }
 
-        [SerializeField]
-        private List<UIPanelSettings> m_panelsSettings = new List<UIPanelSettings>();
+        protected List<UIPanelSettings> m_panelsSettings ;
 
         protected Dictionary<UIPanelType, UIPanel> m_panels = new Dictionary<UIPanelType, UIPanel>();
         protected List<UIPanelType> m_deactivatedPanels = new List<UIPanelType>();
@@ -905,7 +904,6 @@ namespace UI.Modules
         private UIPanelOperation m_currentOperation;
         private Coroutine m_operationCoroutine;
         private Coroutine m_queueCoroutine;
-
         private bool m_isQueue;
     }
 
@@ -916,9 +914,9 @@ namespace UI.Modules
             get; private set;
         }
 
-        public override void Initialize(UIDataProvider uiDataProvider,StarPlatinum.PrefabManager  content)
+        public override void Initialize(UIDataProvider uiDataProvider)
         {
-            base.Initialize(uiDataProvider, content);
+            base.Initialize(uiDataProvider);
             UiDataProvider = base.UiDataProvider as T;
         }
     }

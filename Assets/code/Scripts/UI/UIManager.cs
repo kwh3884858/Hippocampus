@@ -8,6 +8,7 @@ using UI.Panels.Providers.DataProviders;
 using UnityEngine;
 using UnityEngine.Assertions;
 using StarPlatinum;
+using UI.Panels;
 
 namespace UI
 {
@@ -154,7 +155,7 @@ namespace UI
                 Canvas = Canvas
             };
 
-            uiModule.Initialize(dataProvider, StarPlatinum.PrefabManager.Instance);
+            uiModule.Initialize(dataProvider);
             return uiModule;
         }
 

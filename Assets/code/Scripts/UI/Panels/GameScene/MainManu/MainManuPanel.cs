@@ -8,13 +8,8 @@ using UI.Panels.Providers.DataProviders.StaticBoard;
 
 namespace UI.Panels.GameScene.MainManu
 {
-	public class MainManuPanel : UIPanel<UIDataProviderGameScene, DataProvider>
+	public class MainManuPanel : UIPanel<UIDataProvider, DataProvider>
 	{
-		public override void Initialize (UIDataProvider uiDataProvider, UIPanelSettings settings)
-		{
-			base.Initialize (uiDataProvider, settings);
-		}
-
 
 		public void ShowHud ()
 		{
