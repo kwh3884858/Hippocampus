@@ -14,6 +14,7 @@
 #include <vector>
 
 #include "StoryRow.h"
+#include "StoryTableDefine.h"
 
 namespace HeavenGateEditor {
 using json = nlohmann::json;
