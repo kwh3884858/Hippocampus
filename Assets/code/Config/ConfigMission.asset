@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4058dfa938c14ab2924383ed6ebd8a5, type: 3}
+  m_Name: ConfigMission
+  m_EditorClassIdentifier: 
+  Text_Interactable_Object_Group: Interactables
+  Text_Event_Trigger_Group: Triggers
+  Text_Mission_Group: Missions
+  Text_Spawn_Point_Name: Spawn_Point
+  Path_To_InteractableObject: Assets/data/graphics/Interaction/Interaction_Interactable_Object.prefab
+  Path_To_WorldTrigger: Assets/data/graphics/Interaction/Interaction_World_Trigger.prefab
+  Path_To_SpawnPoint: Assets/data/graphics/Interaction/Interaction_Spawn_Point.prefab
+  Path_To_Mission: Assets/data/graphics/Interaction/Interaction_Missions.prefab
+  Prefix_Mission_Folder: Mission_
+  Prefix_Mission_Scene: World_Mission_
+  Path_To_Folder_World: Assets/data/graphics/World

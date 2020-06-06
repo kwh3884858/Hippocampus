@@ -169,11 +169,11 @@ namespace SceneLookupGenerator
 			inputContent.Append (POPUP_CODE_START);
 			inputContent.Append ("\n\n");
 			for (int i = 0; i < scenes.Count; i++) {
-				inputContent.Append ($"m_{scenes [i]}CameraType = RootConfig.Instance.{scenes [i]}CameraType;  \n");
+				inputContent.Append ($"m_{scenes [i]}CameraType = ConfigRoot.Instance.{scenes [i]}CameraType;  \n");
 				inputContent.Append ($"m_{scenes [i]}CameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup(\"{scenes [i]} Camera Type: \", m_{scenes [i]}CameraType); \n");
-				inputContent.Append ($"    if (m_{scenes [i]}CameraType != RootConfig.Instance.{scenes [i]}CameraType) \n");
+				inputContent.Append ($"    if (m_{scenes [i]}CameraType != ConfigRoot.Instance.{scenes [i]}CameraType) \n");
 				inputContent.Append ("{ \n");
-				inputContent.Append ($"RootConfig.Instance.{scenes [i]}CameraType = m_{scenes [i]}CameraType; \n");
+				inputContent.Append ($"ConfigRoot.Instance.{scenes [i]}CameraType = m_{scenes [i]}CameraType; \n");
 				inputContent.Append ("} \n\n");
 
 			}

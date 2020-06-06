@@ -33,6 +33,10 @@ MonoBehaviour:
     m_Address: Options_Panel
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 77b02b5e2281c4fbbaea91122005817f
+    m_Address: Debug_Console
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 9c1f5d40f08cf5a4aa0984736f2ebfdd
     m_Address: Talk_Panel
     m_ReadOnly: 0

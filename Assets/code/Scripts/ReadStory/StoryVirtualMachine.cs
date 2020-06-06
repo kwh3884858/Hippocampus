@@ -3,6 +3,7 @@ using Evidence;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StarPlatinum.Base;
 
 
 namespace StarPlatinum.StoryCompile
@@ -131,7 +132,7 @@ namespace StarPlatinum.StoryCompile
 					case TableType.tip:
 						//TODO: Add Tip
 						//m_tipManager.addTip(token.m_content);
-                        Tips.TipsManager.Instance.UnlockTip(token.m_content, Tips.TipsManager.ConvertDateTimeToLong(System.DateTime.Now));// 添加tip 数据
+						Tips.TipsManager.Instance.UnlockTip (token.m_content, Tips.TipsManager.ConvertDateTimeToLong (System.DateTime.Now));// 添加tip 数据
 						break;
 					case TableType.paintMove:
 						break;

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using StarPlatinum.Base;
 using UnityEngine;
 
 
@@ -13,9 +14,9 @@ namespace StarPlatinum
 
 	}
 
-    /// <summary>
-    /// Define all behavior
-    /// </summary>
+	/// <summary>
+	/// Define all behavior
+	/// </summary>
 	public enum KeyMap
 	{
 		Confirm,
@@ -79,15 +80,15 @@ namespace StarPlatinum
 	public class InputService : Singleton<InputService>
 	{
 
-        public string[] m_PCkeyCode =
+		public string [] m_PCkeyCode =
 {
-        "Confirm",
-        "Cancel",
-        "Horizontal",
-        "Vertical"
-    };
+		"Confirm",
+		"Cancel",
+		"Horizontal",
+		"Vertical"
+	};
 
-        private InputControl m_inputControl;
+		private InputControl m_inputControl;
 
 		/// <summary>
 		/// The is environment stack.
@@ -105,22 +106,22 @@ namespace StarPlatinum
 		//}
 
 
-		public InputService()
+		public InputService ()
 		{
 
 
 			//SwitchDeviceInput (DeviceType.Desktop, true);
 			//让移动模块来决定自己需要的是哪一种输出
-			m_inputControl = new InputControl();
+			m_inputControl = new InputControl ();
 			//初始化的时候会把电脑端的操作开启，并且没有提供特别的对应桌面的输入关闭
-			m_inputControl.Init();
+			m_inputControl.Init ();
 
 			//m_inputs.Add (KeyMap.A, new ButtonInput (KeyCode.A.ToString ()));
 			//m_inputs.Add (KeyMap.D, new ButtonInput (KeyCode.D.ToString ()));
 
-            // For PC
-			m_inputs.Add(KeyMap.Horizontal, new AxisInput(m_PCkeyCode[(int)KeyMap.Horizontal]));
-			m_inputs.Add(KeyMap.Vertical, new AxisInput(m_PCkeyCode[(int)KeyMap.Vertical]));
+			// For PC
+			m_inputs.Add (KeyMap.Horizontal, new AxisInput (m_PCkeyCode [(int)KeyMap.Horizontal]));
+			m_inputs.Add (KeyMap.Vertical, new AxisInput (m_PCkeyCode [(int)KeyMap.Vertical]));
 
 			//EventManager.Instance().AddEventListener<ButtonDownEvent>(HandleButtonDownEvent);
 			//EventManager.Instance().AddEventListener<ButtonUpEvent>(HandleButtonUpEvent);
@@ -310,7 +311,7 @@ namespace StarPlatinum
 				return true;
 			}
 		}
-	
+
 
 	}
 

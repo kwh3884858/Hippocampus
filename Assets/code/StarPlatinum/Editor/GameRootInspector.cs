@@ -17,6 +17,8 @@ namespace StarPlatinum
 
 CameraService.SceneCameraType m_World_GoundTestSceneCameraType; 
 
+ CameraService.SceneCameraType m_World_Mission_DockByPier_World_Episode2_PierCameraType; 
+
  CameraService.SceneCameraType m_World_CoreContainerCameraType; 
 
  CameraService.SceneCameraType m_World_Episode2_PierCameraType; 
@@ -41,54 +43,61 @@ CameraService.SceneCameraType m_World_GoundTestSceneCameraType;
 			m_gameRoot = Selection.activeGameObject.gameObject.GetComponent<GameRoot> ();
 			if (m_gameRoot == null) return;
 
-			if (RootConfig.Instance == null) {
+			if (ConfigRoot.Instance == null) {
 				return;
 			}
 
-			m_enumStartScene = RootConfig.Instance.StartScene;
+			m_enumStartScene = ConfigRoot.Instance.StartScene;
 			m_enumStartScene = (SceneLookupEnum)EditorGUILayout.EnumPopup ("Start Scene:", m_enumStartScene);
 
 			if (m_enumStartScene != m_gameRoot.m_startScene) {
 				m_gameRoot.m_startScene = m_enumStartScene;
-				RootConfig.Instance.StartScene = m_enumStartScene;
+				ConfigRoot.Instance.StartScene = m_enumStartScene;
 				Debug.Log ($"Set {m_enumStartScene.ToString ()} as Start Scene");
 			}
 
 			//[Inspector Popup Auto Generated Code Begin]
 
-m_World_GoundTestSceneCameraType = RootConfig.Instance.World_GoundTestSceneCameraType;  
+m_World_GoundTestSceneCameraType = ConfigRoot.Instance.World_GoundTestSceneCameraType;  
 m_World_GoundTestSceneCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_GoundTestScene Camera Type: ", m_World_GoundTestSceneCameraType); 
-    if (m_World_GoundTestSceneCameraType != RootConfig.Instance.World_GoundTestSceneCameraType) 
+    if (m_World_GoundTestSceneCameraType != ConfigRoot.Instance.World_GoundTestSceneCameraType) 
 { 
-RootConfig.Instance.World_GoundTestSceneCameraType = m_World_GoundTestSceneCameraType; 
+ConfigRoot.Instance.World_GoundTestSceneCameraType = m_World_GoundTestSceneCameraType; 
 } 
 
-m_World_CoreContainerCameraType = RootConfig.Instance.World_CoreContainerCameraType;  
+m_World_Mission_DockByPier_World_Episode2_PierCameraType = ConfigRoot.Instance.World_Mission_DockByPier_World_Episode2_PierCameraType;  
+m_World_Mission_DockByPier_World_Episode2_PierCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_Mission_DockByPier_World_Episode2_Pier Camera Type: ", m_World_Mission_DockByPier_World_Episode2_PierCameraType); 
+    if (m_World_Mission_DockByPier_World_Episode2_PierCameraType != ConfigRoot.Instance.World_Mission_DockByPier_World_Episode2_PierCameraType) 
+{ 
+ConfigRoot.Instance.World_Mission_DockByPier_World_Episode2_PierCameraType = m_World_Mission_DockByPier_World_Episode2_PierCameraType; 
+} 
+
+m_World_CoreContainerCameraType = ConfigRoot.Instance.World_CoreContainerCameraType;  
 m_World_CoreContainerCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_CoreContainer Camera Type: ", m_World_CoreContainerCameraType); 
-    if (m_World_CoreContainerCameraType != RootConfig.Instance.World_CoreContainerCameraType) 
+    if (m_World_CoreContainerCameraType != ConfigRoot.Instance.World_CoreContainerCameraType) 
 { 
-RootConfig.Instance.World_CoreContainerCameraType = m_World_CoreContainerCameraType; 
+ConfigRoot.Instance.World_CoreContainerCameraType = m_World_CoreContainerCameraType; 
 } 
 
-m_World_Episode2_PierCameraType = RootConfig.Instance.World_Episode2_PierCameraType;  
+m_World_Episode2_PierCameraType = ConfigRoot.Instance.World_Episode2_PierCameraType;  
 m_World_Episode2_PierCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_Episode2_Pier Camera Type: ", m_World_Episode2_PierCameraType); 
-    if (m_World_Episode2_PierCameraType != RootConfig.Instance.World_Episode2_PierCameraType) 
+    if (m_World_Episode2_PierCameraType != ConfigRoot.Instance.World_Episode2_PierCameraType) 
 { 
-RootConfig.Instance.World_Episode2_PierCameraType = m_World_Episode2_PierCameraType; 
+ConfigRoot.Instance.World_Episode2_PierCameraType = m_World_Episode2_PierCameraType; 
 } 
 
-m_World_GameRootCameraType = RootConfig.Instance.World_GameRootCameraType;  
+m_World_GameRootCameraType = ConfigRoot.Instance.World_GameRootCameraType;  
 m_World_GameRootCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_GameRoot Camera Type: ", m_World_GameRootCameraType); 
-    if (m_World_GameRootCameraType != RootConfig.Instance.World_GameRootCameraType) 
+    if (m_World_GameRootCameraType != ConfigRoot.Instance.World_GameRootCameraType) 
 { 
-RootConfig.Instance.World_GameRootCameraType = m_World_GameRootCameraType; 
+ConfigRoot.Instance.World_GameRootCameraType = m_World_GameRootCameraType; 
 } 
 
-m_World_UITestSceneCameraType = RootConfig.Instance.World_UITestSceneCameraType;  
+m_World_UITestSceneCameraType = ConfigRoot.Instance.World_UITestSceneCameraType;  
 m_World_UITestSceneCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_UITestScene Camera Type: ", m_World_UITestSceneCameraType); 
-    if (m_World_UITestSceneCameraType != RootConfig.Instance.World_UITestSceneCameraType) 
+    if (m_World_UITestSceneCameraType != ConfigRoot.Instance.World_UITestSceneCameraType) 
 { 
-RootConfig.Instance.World_UITestSceneCameraType = m_World_UITestSceneCameraType; 
+ConfigRoot.Instance.World_UITestSceneCameraType = m_World_UITestSceneCameraType; 
 } 
 
 //[Inspector Popup Auto Generated Code End]

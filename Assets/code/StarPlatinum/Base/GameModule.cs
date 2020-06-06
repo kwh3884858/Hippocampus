@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-
+using StarPlatinum.Base;
 
 namespace StarPlatinum
 {
@@ -10,7 +10,7 @@ namespace StarPlatinum
 	{
 		public override void SingletonInit ()
 		{
-			transform.SetParent (GameRoot.Instance().transform);
+			transform.SetParent (GameRoot.Instance ().transform);
 		}
 	}
 }

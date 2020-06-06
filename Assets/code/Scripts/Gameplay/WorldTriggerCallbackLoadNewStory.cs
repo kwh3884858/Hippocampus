@@ -16,7 +16,7 @@ namespace GamePlay
 
 		public string m_newStoryFileName;
 
-		public bool m_showStoryPanel = false;
+		public bool m_showStoryPanel = true;
 
 		[ConditionalField ("m_showStoryPanel")]
 		public string m_jumpToLabel;
@@ -53,8 +53,7 @@ namespace GamePlay
 			storyController.LoadStoryFileByName (m_newStoryFileName);
 
 			if (m_showStoryPanel) {
-				UI.UIManager.Instance ().ShowStaticPanel(UIPanelType.TalkPanel, new TalkDataProvider () { ID = m_jumpToLabel });
-
+				UI.UIManager.Instance ().ShowStaticPanel (UIPanelType.TalkPanel, new TalkDataProvider () { ID = m_jumpToLabel });
 			}
 
 			if (m_destoryAfterTrigger) {

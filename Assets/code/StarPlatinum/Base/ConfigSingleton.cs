@@ -22,36 +22,28 @@ namespace StarPlatinum.Base
 			}
 		}
 
-		//public static void GetConfig (ref T refConfig)
-		//{
-		//	refConfig = m_instance;
-		//}
-
 		private static T LoadConfig ()
 		{
 			m_instance = null;
 
 			if (Application.isPlaying) {
 				PrefabManager.Instance.InstantiateConfigAsync (typeof (T).Name, (result) => {
-					Debug.Log ($"===========aas:{result.key}加载完成,");
+					Debug.Log ($"===========Aas:{result.key}加载完成,");
 					m_instance = result.result as T;
 				});
 
 				return m_instance;
-			} else//Temp For AAS Not Init Success In Edit Mode
-			  {
+			} else {
 #if UNITY_EDITOR
 				//var path = $"Assets/code/StarPlatinum/Config/{typeof(T).Name}.asset";
 
 				m_instance = AssetDatabase.LoadAssetAtPath<T> (LOADPATH);
-
 				if (m_instance == null) { Debug.LogError ($"{LOADPATH} doesn`t exist {typeof (T).Name}"); return null; }
 
-				Debug.Log ($"======resource加载完成name:{typeof (T).Name}, path:{LOADPATH}, config:{m_instance}=====");
+				Debug.Log ($"======Resource加载完成name:{typeof (T).Name}, path:{LOADPATH}, config:{m_instance}=====");
 
 				return m_instance;
 #endif
-
 			}
 			return null;
 		}

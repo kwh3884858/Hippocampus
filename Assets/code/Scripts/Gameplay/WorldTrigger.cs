@@ -25,16 +25,12 @@ namespace GamePlay
 			}
 		}
 
-		//private void OnDrawGizmos ()
-		//{
-		//	Gizmos.DrawWireSphere (m_boxCollider.center, 1);
-		//}
 
 		private void OnTriggerEnter (Collider collision)
 		{
 			Debug.Log ("Trigger");
 
-			Debug.DrawLine (transform.position, Vector3.up, Color.red, 4.0f);
+			Debug.DrawLine (transform.position, Vector3.up, Color.red, 10.0f);
 			//Debug.DrawLine (collision.point, collision.normal, Color.white);
 			m_callback?.Invoke ();
 

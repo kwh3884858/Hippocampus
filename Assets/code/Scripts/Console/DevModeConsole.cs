@@ -126,15 +126,14 @@ public class DevModeConsole : MonoBehaviour
 	private void ParseCommand (string text)
 	{
 		bool isReadyChangeScene = false;
+		bool isReadyLoadMission = false;
 		text = text.ToLower ();
 		string [] words = text.Split (' ');
 
 		foreach (string word in words) {
 			if (word == "loadscene") {
 				isReadyChangeScene = true;
-				continue;
-			}
-			if (isReadyChangeScene) {
+			} else if (isReadyChangeScene) {
 				isReadyChangeScene = false;
 
 				bool isSceneExist = SceneLookup.IsSceneExist (word, false);
@@ -145,13 +144,21 @@ public class DevModeConsole : MonoBehaviour
 					PrintLog ("All Available Scene");
 					PrintAllValidSceneName ();
 				}
-				continue;
+			} else if (word == "LoadMission") {
+				isReadyLoadMission = true;
+			} else if (isReadyLoadMission) {
+				isReadyLoadMission = false;
+
+
 			}
 		}
 		if (isReadyChangeScene) {
 			isReadyChangeScene = false;
 			PrintLog ("All Available Scene");
 			PrintAllValidSceneName ();
+		}
+		if (isReadyLoadMission) {
+			isReadyLoadMission = false;
 		}
 	}
 

@@ -1,12 +1,12 @@
 using UnityEngine;
 
-namespace StarPlatinum
+namespace StarPlatinum.Base
 {
-    /// <summary>
-    /// Do Not Use In Game Module!!!
-    /// It will make class associate with Mono.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
+	/// <summary>
+	/// Do Not Use In Game Module!!!
+	/// It will make class associate with Mono.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
 	public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
 	{
 		private static T m_Instance = null;
@@ -34,7 +34,7 @@ namespace StarPlatinum
 		/// <summary>
 		/// Only interact with self, should not call other singleton function to make coupling
 		/// </summary>
-		public abstract void SingletonInit();
+		public abstract void SingletonInit ();
 
 		public void AddGameObject<T2> () where T2 : MonoBehaviour
 		{

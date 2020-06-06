@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using StarPlatinum;
+using StarPlatinum.Base;
 
 namespace GamePlay
 {

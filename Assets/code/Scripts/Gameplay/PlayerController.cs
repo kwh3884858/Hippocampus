@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using StarPlatinum;
+using StarPlatinum.Base;
 
 namespace GamePlay.Player
 {

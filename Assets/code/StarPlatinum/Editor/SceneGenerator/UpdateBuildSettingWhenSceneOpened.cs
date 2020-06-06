@@ -8,22 +8,18 @@ using UnityEngine;
 /// Auto update build setting for scenes when user open a new scene.
 /// </summary>
 [InitializeOnLoad]
-public class UpdateBuildSettingWhenSceneOpened : Editor
+public class EdtorSceneAutomaticOperatioin : Editor
 {
 
 	private static readonly string SCENE_ROOT_PATH = "/data/graphics/World";
 
-	static UpdateBuildSettingWhenSceneOpened ()
+	static EdtorSceneAutomaticOperatioin ()
 	{
-
 		UnityEditor.SceneManagement.EditorSceneManager.sceneOpened += OnSceneOpened;
-
 	}
 
-
-	static void OnSceneOpened (UnityEngine.SceneManagement.Scene scene, UnityEditor.SceneManagement.OpenSceneMode mode)
+	static public void UpdateSceneBuildSetting ()
 	{
-		CheckForSceneScript (scene, mode);
 
 		string path = Application.dataPath + SCENE_ROOT_PATH;
 
@@ -64,25 +60,20 @@ public class UpdateBuildSettingWhenSceneOpened : Editor
 		}
 	}
 
+	static void OnSceneOpened (UnityEngine.SceneManagement.Scene scene, UnityEditor.SceneManagement.OpenSceneMode mode)
+	{
+		CheckForSceneScript (scene, mode);
+		UpdateSceneBuildSetting ();
+	}
+
 	static void CheckForSceneScript (UnityEngine.SceneManagement.Scene scene, UnityEditor.SceneManagement.OpenSceneMode mode)
 	{
-		//GameObject[] gameObjects= scene.GetRootGameObjects();
-		//bool isExistSceneRootGameobject = false;
-		//foreach (GameObject go in gameObjects)
-		//{
-		//    if(go.name.IndexOf( scene.name) != -1)
-		//    {
-		//        isExistSceneRootGameobject = true;
-		//    }
-		//}
-
 		GameObject go = GameObject.Find (scene.name);
 
 		if (go == null) {
 			new GameObject (scene.name);
 
 		}
-
 
 		return;
 

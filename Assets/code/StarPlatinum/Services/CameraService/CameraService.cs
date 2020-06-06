@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StarPlatinum.Base;
 
 namespace StarPlatinum.Service
 {
@@ -66,17 +67,17 @@ namespace StarPlatinum.Service
 			SceneLookupEnum sceneEnum = SceneManager.Instance ().GetCurrentScene;
 
 			//if (RootConfig.Instance == null) return false;
-			CameraService.SceneCameraType cameraType = RootConfig.Instance.GetCameraTypeBySceneName (sceneEnum.ToString ());
+			CameraService.SceneCameraType cameraType = ConfigRoot.Instance.GetCameraTypeBySceneName (sceneEnum.ToString ());
 
 			if (cameraType == SceneCameraType.Moveable) {
 				m_cameraController = m_mainCamera.GetComponent<CameraController> ();
 				if (m_cameraController == null) {
 					m_cameraController = m_mainCamera.AddComponent<CameraController> ();
-                    
-                }
 
-                m_cameraController.Refresh(); 
-            }
+				}
+
+				m_cameraController.Refresh ();
+			}
 
 			if (cameraType == SceneCameraType.Fixed) {
 				m_cameraController = m_mainCamera.GetComponent<CameraController> ();
