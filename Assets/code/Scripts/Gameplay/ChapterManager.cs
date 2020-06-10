@@ -5,25 +5,30 @@ using StarPlatinum;
 using Config.GameRoot;
 using StarPlatinum.Base;
 
-public class ChapterManager : Singleton<ChapterManager>
+namespace StarPlatinum.Manager
 {
-	[SerializeField]
-	private string m_sceneName;
 
-	public ChapterManager ()
+
+	public class ChapterManager : Singleton<ChapterManager>
 	{
-		m_sceneName = ConfigRoot.Instance.GetChapterName (0);
-	}
+		[SerializeField]
+		private string m_sceneName;
 
-	public string GetCurrentSceneName () => m_sceneName;
-
-	public void GoToChapter (string chapterName)
-	{
-		bool result = ConfigRoot.Instance.IsExistChapterName (chapterName);
-
-		if (result) {
-			m_sceneName = chapterName;
+		public ChapterManager ()
+		{
+			m_sceneName = ConfigRoot.Instance.GetChapterName (0);
 		}
-	}
 
+		public string GetCurrentSceneName () => m_sceneName;
+
+		public void GoToChapter (string chapterName)
+		{
+			bool result = ConfigRoot.Instance.IsExistChapterName (chapterName);
+
+			if (result) {
+				m_sceneName = chapterName;
+			}
+		}
+
+	}
 }

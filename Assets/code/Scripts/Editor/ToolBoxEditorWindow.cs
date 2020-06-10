@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Config.GameRoot;
 using GamePlay;
+using StarPlatinum.Manager;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -28,6 +29,9 @@ public class ToolBoxEditorWindow : EditorWindow
 
 	void OnGUI ()
 	{
+		if (Application.isPlaying) {
+			return;
+		}
 		GUILayout.Label ("Prefab Object Name", EditorStyles.boldLabel);
 		ConfigMission.Instance.Text_Spawn_Point_Name =
 			EditorGUILayout.TextField ("Spawn Point Name", ConfigMission.Instance.Text_Spawn_Point_Name);
@@ -69,11 +73,11 @@ public class ToolBoxEditorWindow : EditorWindow
 				if (isConfirm) {
 					CreateMissionFolder (folderName);
 
-					bool isExistMissionScene = MissionSceneManager.Instance.IsMissionSceneExist (folderName, sceneName);
+					bool isExistMissionScene = MissionSceneManager.Instance.IsFileMissionSceneExistInAssets (folderName, sceneName);
 					if (!isExistMissionScene) {
 						Scene newScene = EditorSceneManager.NewScene (NewSceneSetup.EmptyScene, NewSceneMode.Additive);
 						newScene.name = sceneName;
-						bool saveOK = EditorSceneManager.SaveScene (newScene, MissionSceneManager.Instance.GenerateScenePath (folderName, sceneName));
+						bool saveOK = EditorSceneManager.SaveScene (newScene, MissionSceneManager.Instance.GenerateFullScenePath (folderName, sceneName));
 						if (!saveOK) {
 							Debug.LogError ("Save is faild. Scene:" + sceneName);
 						} else {
@@ -93,13 +97,13 @@ public class ToolBoxEditorWindow : EditorWindow
 				string sceneName = ConfigMission.Instance.Prefix_Mission_Scene + m_currentMissionEnum.ToString () + "_" + SceneManager.GetActiveScene ().name;
 
 				if (m_currentMissionScene.name != sceneName) {
-					string pathToSceneFolder = MissionSceneManager.Instance.GenerateSceneFolderPath (folderName);
+					string pathToSceneFolder = MissionSceneManager.Instance.GenerateFullSceneFolderPath (folderName);
 					if (!AssetDatabase.IsValidFolder (pathToSceneFolder)) {
 						EditorUtility.DisplayDialog ("Scene Folder Not Exist", "Click [Create Mission Scene] to create new mission scene", "Ok");
 					}
-					bool isExistMissionScene = MissionSceneManager.Instance.IsMissionSceneExist (folderName, sceneName);
+					bool isExistMissionScene = MissionSceneManager.Instance.IsFileMissionSceneExistInAssets (folderName, sceneName);
 					if (isExistMissionScene) {
-						string pathToScene = MissionSceneManager.Instance.GenerateScenePath (folderName, sceneName);
+						string pathToScene = MissionSceneManager.Instance.GenerateFullScenePath (folderName, sceneName);
 						m_currentMissionScene = EditorSceneManager.OpenScene (pathToScene, OpenSceneMode.Additive);
 						EditorSceneManager.SetActiveScene (m_currentMissionScene);
 					} else {
@@ -179,7 +183,7 @@ public class ToolBoxEditorWindow : EditorWindow
 	}
 	private void CreateMissionFolder (string folder)
 	{
-		string pathToSceneFolder = MissionSceneManager.Instance.GenerateSceneFolderPath (folder);
+		string pathToSceneFolder = MissionSceneManager.Instance.GenerateFullSceneFolderPath (folder);
 		if (!AssetDatabase.IsValidFolder (pathToSceneFolder)) {
 			AssetDatabase.CreateFolder (ConfigMission.Instance.Path_To_Folder_World, folder);
 		}

@@ -10,7 +10,7 @@ using UnityEngine.UI;
 using StarPlatinum.Service;
 
 //depend on EventManager
-namespace StarPlatinum
+namespace StarPlatinum.Manager
 {
 	public enum SceneLoadMode
 	{
@@ -18,7 +18,7 @@ namespace StarPlatinum
 		Additive = UnityEngine.SceneManagement.LoadSceneMode.Additive
 
 	}
-	public class SceneManager : GameModule<SceneManager>
+	public class GameSceneManager : GameModule<GameSceneManager>
 	{
 
 		Dictionary<string, GameObject> m_allScenes = new Dictionary<string, GameObject> ();
@@ -34,7 +34,11 @@ namespace StarPlatinum
 		//public string CurrentSceneName =>  m_currentSceneName;
 
 		private SceneLookupEnum m_currentScene = SceneLookupEnum.World_GameRoot;
-		public SceneLookupEnum GetCurrentScene => m_currentScene;
+		public SceneLookupEnum GetCurrentScene ()
+		{
+			return m_currentScene;
+		}
+
 		public SceneLookupEnum SetCurrentScene (SceneLookupEnum currentScene)
 		{
 			m_currentScene = currentScene;

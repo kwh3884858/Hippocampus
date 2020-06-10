@@ -5,6 +5,7 @@ using System.Linq;
 using Config;
 using GamePlay.Global;
 using StarPlatinum;
+using StarPlatinum.Manager;
 using StarPlatinum.StoryCompile;
 using StarPlatinum.StoryReader;
 using UI.Panels.StaticBoard;
@@ -104,7 +105,7 @@ namespace Controllers.Subsystems.Story
 		private string GenerateStoryID (string itemId)
 		{
 			return ChapterManager.Instance.GetCurrentSceneName () +
-				SceneManager.Instance ().GetCurrentScene +
+				GameSceneManager.Instance ().GetCurrentScene () +
 				itemId;
 		}
 		//Temp

@@ -1,172 +1,207 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-
+using StarPlatinum.Manager;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-public class DevModeConsole : MonoBehaviour
+namespace StarPlatinum.Development
 {
-	public GameObject m_parentPanel;
-	public InputField m_inputFiled;
-
-	public Text m_log;
-
-	private QueueArray<string> m_commandHistory;
-
-	private string [] m_commandHistoryCache;
-	private int m_commandHistoryIndex;
-
-	class QueueArray<T>
+	public class DevModeConsole : MonoBehaviour
 	{
-		T [] m_content;
-		uint m_capacity;
+		public GameObject m_parentPanel;
+		public InputField m_inputFiled;
 
-		uint m_endPos;
-		uint m_count;
-		public QueueArray (uint capacity)
+		public Text m_log;
+
+		private QueueArray<string> m_commandHistory;
+
+		private string [] m_commandHistoryCache;
+		private int m_commandHistoryIndex;
+
+		class QueueArray<T>
 		{
-			m_content = new T [capacity];
-			m_capacity = capacity;
-			m_endPos = 0;
-			m_count = 0;
-		}
+			T [] m_content;
+			uint m_capacity;
 
-		public void Push (T item)
-		{
-			m_content [m_endPos++] = item;
-			m_endPos = m_endPos % m_capacity;
-
-			m_count++;
-			if (m_count > m_capacity) {
-				m_count = m_capacity;
-			};
-		}
-
-		public T [] GetAll ()
-		{
-			T [] result = new T [m_count];
-			int index = (int)m_endPos;
-
-			for (int i = 0; i < m_count; i++) {
-				index = (--index < 0) ? index + (int)m_capacity : index;
-				result [i] = m_content [index];
+			uint m_endPos;
+			uint m_count;
+			public QueueArray (uint capacity)
+			{
+				m_content = new T [capacity];
+				m_capacity = capacity;
+				m_endPos = 0;
+				m_count = 0;
 			}
-			return result;
-		}
-	}
 
-	void Start ()
-	{
-		//Default close console
-		m_parentPanel.SetActive (false);
-		m_commandHistory = new QueueArray<string> (30);
-		m_commandHistoryCache = null;
-		m_commandHistoryIndex = 0;
-	}
+			public void Push (T item)
+			{
+				m_content [m_endPos++] = item;
+				m_endPos = m_endPos % m_capacity;
 
+				m_count++;
+				if (m_count > m_capacity) {
+					m_count = m_capacity;
+				};
+			}
 
-	void Update ()
-	{
-		if (Input.GetKeyDown (KeyCode.BackQuote)) {
-			bool isActive = m_parentPanel.activeSelf;
-			m_parentPanel.SetActive (!isActive);
-		}
+			public T [] GetAll ()
+			{
+				T [] result = new T [m_count];
+				int index = (int)m_endPos;
 
-		if (m_inputFiled.text != "" &&
-				(
-				Input.GetKeyDown (KeyCode.Return) ||
-				Input.GetKeyDown (KeyCode.KeypadEnter)
-				)
-			) {
-			string command = m_inputFiled.text;
-			PrintLog (command);
-			m_commandHistory.Push (command);
-			m_commandHistoryCache = m_commandHistory.GetAll ();
-			m_commandHistoryIndex = 0;
-			ParseCommand (command);
-
-			m_inputFiled.text = "";
-		}
-
-		if (m_commandHistoryCache != null &&
-			Input.GetKeyDown (KeyCode.UpArrow)) {
-			m_inputFiled.text = GetCommandHistroy (true);
-		}
-
-		if (m_commandHistoryCache != null &&
-			Input.GetKeyDown (KeyCode.DownArrow)) {
-			m_inputFiled.text = GetCommandHistroy (false);
-		}
-
-	}
-
-	private string GetCommandHistroy (bool isPlus)
-	{
-		if (isPlus) {
-			m_commandHistoryIndex++;
-		} else {
-			m_commandHistoryIndex--;
-		}
-		if (m_commandHistoryIndex < 0) {
-			m_commandHistoryIndex = 0;
-		}
-		if (m_commandHistoryIndex >= m_commandHistoryCache.Length) {
-			m_commandHistoryIndex = m_commandHistoryCache.Length - 1;
-		}
-		return m_commandHistoryCache [m_commandHistoryIndex];
-	}
-
-	private void PrintLog (string log)
-	{
-		m_log.text += log + "\n";
-	}
-
-	private void ParseCommand (string text)
-	{
-		bool isReadyChangeScene = false;
-		bool isReadyLoadMission = false;
-		text = text.ToLower ();
-		string [] words = text.Split (' ');
-
-		foreach (string word in words) {
-			if (word == "loadscene") {
-				isReadyChangeScene = true;
-			} else if (isReadyChangeScene) {
-				isReadyChangeScene = false;
-
-				bool isSceneExist = SceneLookup.IsSceneExist (word, false);
-				if (isSceneExist) {
-					StarPlatinum.PrefabManager.Instance.LoadScene (SceneLookup.GetEnum (word, false), UnityEngine.SceneManagement.LoadSceneMode.Additive);
-				} else {
-					PrintLog ("Scene [" + word + "] Is Not Exist! Please check scene name again!");
-					PrintLog ("All Available Scene");
-					PrintAllValidSceneName ();
+				for (int i = 0; i < m_count; i++) {
+					index = (--index < 0) ? index + (int)m_capacity : index;
+					result [i] = m_content [index];
 				}
-			} else if (word == "LoadMission") {
-				isReadyLoadMission = true;
-			} else if (isReadyLoadMission) {
-				isReadyLoadMission = false;
-
-
+				return result;
 			}
 		}
-		if (isReadyChangeScene) {
-			isReadyChangeScene = false;
-			PrintLog ("All Available Scene");
-			PrintAllValidSceneName ();
-		}
-		if (isReadyLoadMission) {
-			isReadyLoadMission = false;
-		}
-	}
 
-	private void PrintAllValidSceneName ()
-	{
-		string [] sceneList = SceneLookup.GetAllSceneString ();
-		foreach (var sceneName in sceneList) {
-			PrintLog (sceneName);
+		void Start ()
+		{
+			//Default close console
+			m_parentPanel.SetActive (false);
+			m_commandHistory = new QueueArray<string> (30);
+			m_commandHistoryCache = null;
+			m_commandHistoryIndex = 0;
+		}
+
+
+		void Update ()
+		{
+			if (Input.GetKeyDown (KeyCode.BackQuote)) {
+				bool isActive = m_parentPanel.activeSelf;
+				m_parentPanel.SetActive (!isActive);
+			}
+
+			if (m_inputFiled.text != "" &&
+					(
+					Input.GetKeyDown (KeyCode.Return) ||
+					Input.GetKeyDown (KeyCode.KeypadEnter)
+					)
+				) {
+				string command = m_inputFiled.text;
+				PrintLog (command);
+				m_commandHistory.Push (command);
+				m_commandHistoryCache = m_commandHistory.GetAll ();
+				m_commandHistoryIndex = 0;
+				ParseCommand (command);
+
+				m_inputFiled.text = "";
+			}
+
+			if (m_commandHistoryCache != null &&
+				Input.GetKeyDown (KeyCode.UpArrow)) {
+				m_inputFiled.text = GetCommandHistroy (true);
+			}
+
+			if (m_commandHistoryCache != null &&
+				Input.GetKeyDown (KeyCode.DownArrow)) {
+				m_inputFiled.text = GetCommandHistroy (false);
+			}
+
+		}
+
+		private string GetCommandHistroy (bool isPlus)
+		{
+			if (isPlus) {
+				m_commandHistoryIndex++;
+			} else {
+				m_commandHistoryIndex--;
+			}
+			if (m_commandHistoryIndex < 0) {
+				m_commandHistoryIndex = 0;
+			}
+			if (m_commandHistoryIndex >= m_commandHistoryCache.Length) {
+				m_commandHistoryIndex = m_commandHistoryCache.Length - 1;
+			}
+			return m_commandHistoryCache [m_commandHistoryIndex];
+		}
+
+		private void PrintLog (string log)
+		{
+			m_log.text += log + "\n";
+		}
+
+		private void ParseCommand (string text)
+		{
+			bool isReadyChangeScene = false;
+			bool isReadyLoadMission = false;
+			text = text.ToLower ();
+			string [] words = text.Split (' ');
+
+			foreach (string word in words) {
+				if (word.ToLower () == "loadscene") {
+					isReadyChangeScene = true;
+				} else if (isReadyChangeScene) {
+					isReadyChangeScene = false;
+
+					if (!LoadScene (word)) {
+						PrintLog ("Load Scene Failed");
+					}
+
+				} else if (word.ToLower () == "loadmission") {
+					isReadyLoadMission = true;
+				} else if (isReadyLoadMission) {
+					isReadyLoadMission = false;
+					MissionEnum requestMission = MissionManager.Instance.GetMissionEnumBy (word, false);
+					if (requestMission != MissionEnum.None) {
+						if (MissionSceneManager.Instance.IsMissionSceneExist (requestMission)) {
+							MissionManager.Instance.SetCurrentMission (word);
+
+							string sceneName = MissionSceneManager.Instance.GenerateSceneName (requestMission);
+							StarPlatinum.PrefabManager.Instance.LoadScene (SceneLookup.GetEnum (sceneName, false), UnityEngine.SceneManagement.LoadSceneMode.Additive);
+						} else {
+							PrintLog ("Mission Scene [" + word + "] Is Not Exist! Please check mission name again!");
+							PrintAllValidMission ();
+						}
+					} else {
+						PrintLog ("[" + word + "] cant find related mission enumeration! Please check mission name again!");
+						PrintAllValidMission ();
+					}
+
+				}
+			}
+			if (isReadyChangeScene) {
+				isReadyChangeScene = false;
+				PrintAllValidSceneName ();
+			}
+			if (isReadyLoadMission) {
+				isReadyLoadMission = false;
+				PrintAllValidMission ();
+			}
+		}
+
+		private bool LoadScene (string sceneName)
+		{
+			bool isSceneExist = SceneLookup.IsSceneExistNoMatchCase (sceneName);
+			if (isSceneExist) {
+				StarPlatinum.PrefabManager.Instance.LoadScene (SceneLookup.GetEnum (sceneName, false), UnityEngine.SceneManagement.LoadSceneMode.Additive);
+				return true;
+			} else {
+				PrintLog ("Scene [" + sceneName + "] Is Not Exist! Please check scene name again!");
+
+				PrintAllValidSceneName ();
+				return false;
+			}
+		}
+
+		private void PrintAllValidSceneName ()
+		{
+			PrintLog ("All Available Scene");
+			string [] sceneList = SceneLookup.GetAllSceneString ();
+			foreach (var sceneName in sceneList) {
+				PrintLog (sceneName);
+			}
+		}
+
+		private void PrintAllValidMission ()
+		{
+			PrintLog ("All Available Mission:");
+			foreach (var sceneName in MissionManager.Instance.GetAllMission ()) {
+				PrintLog (sceneName.ToString ());
+			}
 		}
 	}
 }

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using SQLite4Unity3d;
 using StarPlatinum.Base;
+using StarPlatinum.Manager;
+using StarPlatinum.Service;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -151,7 +153,8 @@ namespace StarPlatinum
 		public void LoadScene (SceneLookupEnum key, LoadSceneMode loadSceneMode)
 		{
 			Addressables.LoadScene (SceneLookup.GetString (key), loadSceneMode);
-			SceneManager.Instance ().SetCurrentScene (key);
+			GameSceneManager.Instance ().SetCurrentScene (key);
+			CameraService.Instance.UpdateCurrentCamera ();
 		}
 
 		private RequestResult GetResult<T> (string key, AsyncOperationHandle<T> operation) where T : UnityEngine.Object

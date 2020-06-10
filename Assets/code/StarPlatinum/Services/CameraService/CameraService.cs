@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StarPlatinum.Base;
+using StarPlatinum.Manager;
 
 namespace StarPlatinum.Service
 {
@@ -64,7 +65,7 @@ namespace StarPlatinum.Service
 
 			m_mainCamera = mainCamera;
 
-			SceneLookupEnum sceneEnum = SceneManager.Instance ().GetCurrentScene;
+			SceneLookupEnum sceneEnum = GameSceneManager.Instance ().GetCurrentScene ();
 
 			//if (RootConfig.Instance == null) return false;
 			CameraService.SceneCameraType cameraType = ConfigRoot.Instance.GetCameraTypeBySceneName (sceneEnum.ToString ());

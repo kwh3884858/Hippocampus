@@ -29,6 +29,10 @@ MonoBehaviour:
     m_Address: UI_Common_Tip_Item
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 2f289f6fc591d458ea90569d0bd6158f
+    m_Address: ConfigMission
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 40631b7b6a2577b4ca50ed31d68bed97
     m_Address: Options_Panel
     m_ReadOnly: 0

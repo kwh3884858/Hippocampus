@@ -22,6 +22,11 @@ namespace StarPlatinum.Base
 			}
 		}
 
+		public static void Preload ()
+		{
+			LoadConfig ();
+		}
+
 		private static T LoadConfig ()
 		{
 			m_instance = null;
