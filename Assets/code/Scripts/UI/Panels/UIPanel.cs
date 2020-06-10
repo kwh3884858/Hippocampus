@@ -150,6 +150,18 @@ namespace UI.Panels
             });
         }
 
+        protected T FindUI<T>(Transform transform,string path)
+        { 
+            var t = transform.Find(path);
+            if (t == null)
+            {
+                Debug.LogError($"找不到该物体:{path}");
+                return default(T);
+            }
+
+            return t.GetComponent<T>();
+        }
+
         public void ClickSound(int num)
         {
             UiDataProvider.SoundService.PlayEffect(SoundNameConst.UIClickName+num);

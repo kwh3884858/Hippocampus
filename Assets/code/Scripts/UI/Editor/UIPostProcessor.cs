@@ -39,7 +39,7 @@ namespace UI
             return assetPath.StartsWith(m_path, true, CultureInfo.InvariantCulture);
         }
 
-        private static void AddType(string assetPath)
+        public static void AddType(string assetPath)
         {
             if (!assetPath.EndsWith(".prefab"))
             {
@@ -204,7 +204,7 @@ namespace UI
             }
             else
             {
-                CreateFile();
+                
             }
 
             AssetDatabase.ImportAsset(m_copyPath, ImportAssetOptions.ForceUpdate);
@@ -260,6 +260,6 @@ namespace UI
         }
 
         private static string m_path = "Assets/Art/UI/UIPanel/Prefabs/";
-        private static string m_copyPath = "Assets/Scripts/UI/UIPanelType.cs";
+        private static string m_copyPath = "F:/Unity/Hippocampus/Assets/code/Scripts/UI/UIPanelType.cs";
     }
 }
