@@ -10,28 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Config
+  m_Name: MissionScene
   m_EditorClassIdentifier: 
-  m_GroupName: Config
+  m_GroupName: MissionScene
   m_Data:
     m_SerializedData: []
-  m_GUID: 51975007e8779df4fb0f320cf9532c3d
+  m_GUID: d8847950176ef1d4ba64ab08733d92cf
   m_SerializeEntries:
-  - m_GUID: 2f289f6fc591d458ea90569d0bd6158f
-    m_Address: ConfigMission
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 7872aee81a117194cbd8cd381b900edc
-    m_Address: StoryConfig
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: b56b4823a168a2f47ab45dcaa4b3b873
-    m_Address: ConfigRoot
+  - m_GUID: 2a805da4f1cf246f7ba701c23a2c1839
+    m_Address: World_Mission_DockByPier_World_Episode2_Pier
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cd5387e64e22b3d47a39edb1e325859e, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 90b86a5b370e8ad4d992c4f8e36ab642, type: 2}
-    - {fileID: 11400000, guid: 3d4acc994c74d634d95b73a17a87fc15, type: 2}
+    - {fileID: 11400000, guid: 01401bd887ae6624f9f0146addf8d4c2, type: 2}
+    - {fileID: 11400000, guid: da18187b5eee18d48bfa7fcad317fd53, type: 2}

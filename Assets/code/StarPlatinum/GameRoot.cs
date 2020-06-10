@@ -44,14 +44,24 @@ namespace StarPlatinum
 
 		IEnumerator CheckDataLoaded (List<System.Object> allData, Action callback)
 		{
+            bool isLoadRoot = false;
+            bool isLoadMission = false;
 			ConfigRoot rootConfig = null;
+            ConfigMission missionConfig = null;
 
-
-			while (rootConfig == null) {
+            while (rootConfig == null && isLoadRoot == false) {
 				rootConfig = ConfigRoot.Instance;
-
+                isLoadRoot = true;
 				yield return null;
 			}
+
+            while (missionConfig == null && isLoadMission == false)
+            {
+                missionConfig = ConfigMission.Instance;
+                isLoadMission = true;
+                yield return null;
+
+            }
 #if DevMode
 			//add console
 			GameObject console = GameObject.Find (m_consolePrefabName);

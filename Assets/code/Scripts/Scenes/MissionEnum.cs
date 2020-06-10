@@ -7,14 +7,16 @@ public enum MissionEnum
 {
 	None,
 	DockByPier,
+    EnterIsland,
 }
 
 class MissionManager : Singleton<MissionManager>
 {
 	private MissionEnum [] ALL_MISSION = {
 		MissionEnum.None,
-		MissionEnum.DockByPier
-	};
+		MissionEnum.DockByPier,
+        MissionEnum.EnterIsland
+    };
 
 	public MissionEnum [] GetAllMission ()
 	{
