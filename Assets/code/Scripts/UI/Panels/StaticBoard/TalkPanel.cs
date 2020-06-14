@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Config;
+using Config.Data;
 using Const;
 using Controllers.Subsystems.Story;
 using StarPlatinum;
@@ -263,7 +264,13 @@ namespace UI.Panels.StaticBoard
         {
             m_name.enabled = true;
             m_nameTxt.gameObject.SetActive(false);
-            PrefabManager.Instance.SetImage(m_name,RolePictureNameConst.ArtWordName + name, () =>
+            m_curRoleInfo = RoleConfig.GetConfigByKey(name);
+            string artNameKey = "";
+            if (m_curRoleInfo != null)
+            {
+                artNameKey = m_curRoleInfo.artNameKey;
+            }
+            PrefabManager.Instance.SetImage(m_name,artNameKey, () =>
                 {
                     m_name.enabled = false;
                     m_nameTxt.gameObject.SetActive(true);
@@ -300,13 +307,25 @@ namespace UI.Panels.StaticBoard
                 {
                     m_content.pageToDisplay++;
                 }
-
+                
                 if (m_skip == false)
                 {
+                    PlayerTypewriterSound();
                     yield return new WaitForSeconds(m_highSpeed ? 0 : StoryController.GetContentSpeed());
                 }
             }
             SetActionState(ActionState.End);
+        }
+
+        private void PlayerTypewriterSound()
+        {
+            if (m_curRoleInfo == null||string.IsNullOrEmpty(m_curRoleInfo.typewriterSoundKey))
+            {
+                SoundService.Instance.PlayEffect(UiDataProvider.ConfigProvider.StoryConfig.TypewriterDefaultSound);
+                return;
+            }
+            SoundService.Instance.PlayEffect(m_curRoleInfo.typewriterSoundKey);
+
         }
 
         private void ShowPicture(string picID, int pos)
@@ -413,6 +432,7 @@ namespace UI.Panels.StaticBoard
         private bool m_skip = false;
         private string m_currentID;
         private string m_currentRoleName;
+        private RoleConfig m_curRoleInfo;
         private StoryActionContainer m_actionContainer;
         private TextHelp m_textHelp;
         private ActionState m_state = ActionState.Waiting;

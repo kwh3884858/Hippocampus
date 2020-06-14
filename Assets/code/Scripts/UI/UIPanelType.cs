@@ -11,5 +11,4 @@ public enum UIPanelType
     [AssetPath("Load_Game_Panel")] LoadGamePanel = 8,
     [AssetPath("Tips_Panel")] Tipspanel = 9,
     [AssetPath("Get_Tip_Panel")] Tipgetpanel = 10,
-    [AssetPath("UI_Common_Talk_Panel")] UICommonTalkPanel = 11,
 }
