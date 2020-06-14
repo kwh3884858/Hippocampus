@@ -31,7 +31,7 @@ public: \
             Popup
         };
 
-        HeavenGateEditorBaseWindow();
+        HeavenGateEditorBaseWindow(HeavenGateEditorBaseWindow* parent = nullptr);
         virtual ~HeavenGateEditorBaseWindow();
 
         void Update();
@@ -49,9 +49,11 @@ public: \
         virtual void UpdateMenu() = 0;
         virtual const char* GetWindiwName() const = 0;
         virtual Window_Type GetWindowType() const = 0;
+        void SetParentWindow(HeavenGateEditorBaseWindow * parent);
 
-    private:
+    protected:
         bool m_open;
+        HeavenGateEditorBaseWindow *  m_parent;
     };
 
 

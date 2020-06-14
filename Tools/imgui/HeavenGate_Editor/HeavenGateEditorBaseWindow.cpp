@@ -3,14 +3,16 @@
 
 namespace HeavenGateEditor {
 
-    HeavenGateEditorBaseWindow::HeavenGateEditorBaseWindow()
+    HeavenGateEditorBaseWindow::HeavenGateEditorBaseWindow(HeavenGateEditorBaseWindow* parent)
     {
         m_open = false;
+        SetParentWindow(parent);
     }
 
     HeavenGateEditorBaseWindow::~HeavenGateEditorBaseWindow()
     {
         m_open = false;
+        m_parent = nullptr;
     }
 
     void HeavenGateEditorBaseWindow::Update()
@@ -88,17 +90,14 @@ namespace HeavenGateEditor {
 
             ImGui::EndMenuBar();
         }
-       
+
 
         ImGui::End();
     }
 
     void HeavenGateEditorBaseWindow::UpdateMainWindow()
     {
-
         ImGui::Text("Placeholder");
-
-
     }
 
     void HeavenGateEditorBaseWindow::UpdateMenu()
@@ -124,22 +123,31 @@ namespace HeavenGateEditor {
         return Window_Type::MainWindow;
     }
 
+    void HeavenGateEditorBaseWindow::SetParentWindow(HeavenGateEditorBaseWindow * parent)
+    {
+        if (parent)
+        {
+            m_parent = parent;
+        }
+    }
+
 
     bool*const HeavenGateEditorBaseWindow::GetHandle()
-{
+    {
         return &m_open;
     }
 
-    void HeavenGateEditorBaseWindow::OpenWindow() {
+    void HeavenGateEditorBaseWindow::OpenWindow()
+    {
         m_open = true;
     }
+
     void HeavenGateEditorBaseWindow::CloseWindow() {
         switch (GetWindowType())
         {
 
         case Window_Type::Popup:
         {
-
             ImGui::CloseCurrentPopup();
             break;
         }

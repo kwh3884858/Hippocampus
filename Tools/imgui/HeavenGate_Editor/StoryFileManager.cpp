@@ -134,10 +134,14 @@ namespace HeavenGateEditor {
     }
     bool StoryFileManager::AutoSaveStoryFile(StoryJson* const pStoryJson) const
     {
+        char filePath[MAX_FOLDER_PATH];
+        char originalFilePath[MAX_FOLDER_PATH];
+        bool isSuccessful = false;
+
         if (pStoryJson == nullptr) {
             return false;
         }
-        char filePath[MAX_FOLDER_PATH];
+        strcpy(originalFilePath, pStoryJson->GetFullPath());
 
         //Rename and put it to auto save folder
         RenameStoryFileByTimeAndPutAutoSaveFolder(pStoryJson);
@@ -154,23 +158,21 @@ namespace HeavenGateEditor {
 
         if (!outputFileStream.fail())
         {
-
-
-      
             outputFileStream << tmpJson << std::endl;
-
+            isSuccessful = true;
         }
         else
         {
             std::cerr << "Error: " << strerror(errno);
-            return false;
         }
 
         outputFileStream.close();
 
-        //Initialize();
-
-        return true;
+        if (strlen(originalFilePath) != 0)
+        {
+            pStoryJson->SetFullPath(originalFilePath);
+        }
+        return isSuccessful;
     }
 
     bool StoryFileManager::ExportStoryFile(StoryJson* const pStoryJson) const

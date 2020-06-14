@@ -5,6 +5,7 @@
 
 #include "HeavenGateWindowSelectStory.h"
 #include "HeavenGatePopupInputFileName.h"
+#include "HeavenGatePopupMessageBox.h"
 #include "HeavenGateEditorUtility.h"
 #include "StoryTimer.h"
 
@@ -47,6 +48,9 @@ namespace HeavenGateEditor {
         m_inputFileNamePopup = new HeavenGatePopupInputFileName();
         m_inputFileNamePopup->Initialize();
 
+        m_messageBoxPopup = new HeavenGatePopupMessageBox();
+        m_messageBoxPopup->Initialize();
+
         //Default open select story window
         bool* selectStoryWindowHandle = m_selectStoryWindow->GetHandle();
         *selectStoryWindowHandle = true;
@@ -72,6 +76,13 @@ namespace HeavenGateEditor {
         }
         m_inputFileNamePopup = nullptr;
 
+        if (m_messageBoxPopup != nullptr)
+        {
+            m_messageBoxPopup->Shutdown();
+            delete m_messageBoxPopup;
+        }
+        m_messageBoxPopup = nullptr;
+
         m_storyJson = nullptr;
 
         memset(m_notification, '\0', sizeof(m_notification));
@@ -83,6 +94,8 @@ namespace HeavenGateEditor {
 
         //For save as new file
         m_inputFileNamePopup->Update();
+
+        m_messageBoxPopup->Update();
 
         m_storyJson = StoryJsonManager::Instance().GetStoryJson();
         if (m_storyJson == nullptr)
@@ -834,6 +847,8 @@ namespace HeavenGateEditor {
             else
             {
                 AddNotification("Failed to Auto Save File");
+                m_messageBoxPopup->SetMessage(strerror(errno));
+                m_messageBoxPopup->OpenWindow();
             }
 
         }

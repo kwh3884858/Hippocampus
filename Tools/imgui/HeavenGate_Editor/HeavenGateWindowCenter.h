@@ -55,6 +55,7 @@ namespace HeavenGateEditor {
         HeavenGateWindowRoleDrawingTable*   m_roleDrawingTable;
         HeavenGateEditorNodeGraphExample*   m_nodeGraphExample;
 
+
         bool* show_editor_window;
         bool* show_font_size_table_window;
         bool* show_color_table_window;

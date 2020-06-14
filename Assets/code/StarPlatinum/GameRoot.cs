@@ -16,7 +16,6 @@ namespace StarPlatinum
 #if DevMode
 		public static string m_consolePrefabName = "Debug_Console";
 #endif
-
 		VirtualMachineInterface virtualMachineInterface;
 
 		public override void SingletonInit () { }
@@ -25,25 +24,20 @@ namespace StarPlatinum
 		void Start ()
 		{
 			PreloadData ();
-			//SoundService.Instance.PlayBgm("kendo_girls");
-			//Console.Instance.Print("Hello, World!");
 			Productivity ();
 			ConfigData data = new ConfigData ();// 测试
 		}
 
 		void PreloadData ()
 		{
-
-
-			ConfigRoot configRoot = ConfigRoot.Instance;
-			allData.Add (configRoot);
-
-
+			//ConfigRoot configRoot = ConfigRoot.Instance;
+			//allData.Add (configRoot);
 			StartCoroutine (CheckDataLoaded (allData, AfterLoadData));
 		}
 
 		IEnumerator CheckDataLoaded (List<System.Object> allData, Action callback)
 		{
+            //Load Config Root and Config Mission
             bool isLoadRoot = false;
             bool isLoadMission = false;
 			ConfigRoot rootConfig = null;
@@ -71,60 +65,45 @@ namespace StarPlatinum
 					console = result.result as GameObject;
 					console.name = m_consolePrefabName;
 				});
-
 			}
-
 #endif
-
 			callback ();
-		}
-
-		public void OnGUI ()
-		{
-			if (GUI.Button (new Rect (0, 0, 200, 50), "Productivity")) {
-
-				Productivity ();
-			}
 		}
 
 		void AfterLoadData ()
 		{
 			CameraService.Instance.UpdateCurrentCamera ();
-
 		}
 
-		void Productivity ()
+        public void OnGUI()
+        {
+            if (GUI.Button(new Rect(0, 0, 200, 50), "Productivity"))
+            {
+                Productivity();
+            }
+        }
+
+        void Productivity ()
 		{
 			System.Random random = new System.Random ();
 			int ran = random.Next (0, 10);
 
-
 			if (ran < 3) SoundService.Instance.PlayBgm ("U", false);
 			else if (ran < 6) SoundService.Instance.PlayBgm ("Ka", false);
 			else if (ran < 11) SoundService.Instance.PlayBgm ("He", false);
-
 		}
 
-		float input = 0;
-		float lastInput = 0;
 		// Update is called once per frame
 		void Update ()
 		{
-			//if (virtualMachineInterface != null) {
-			//	virtualMachineInterface.Update ();
-
-			//}
-
-
 			input = InputService.Instance.GetAxis (KeyMap.Horizontal);
-
 			if (input != lastInput) {
-				//Debug.Log(input );
 				lastInput = input;
 			}
 		}
 
-
+		float input = 0;
+		float lastInput = 0;
 		private List<System.Object> allData = new List<System.Object> ();
 	}
 }

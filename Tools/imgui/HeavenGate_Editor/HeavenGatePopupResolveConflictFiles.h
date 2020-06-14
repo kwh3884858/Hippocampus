@@ -37,8 +37,5 @@ namespace HeavenGateEditor {
         ResolveConflictFileSelection m_isDiscardCurrentFile;
     };
 
-
-
-
 }
 #endif /* HeavenGatePopupResolveConflictFiles_h */

@@ -24,6 +24,7 @@ namespace HeavenGateEditor {
     using std::deque;
     class HeavenGateWindowSelectStory;
     class HeavenGatePopupInputFileName;
+    class HeavenGatePopupMessageBox;
 
     //Story node family
     class StoryJson;
@@ -65,7 +66,7 @@ namespace HeavenGateEditor {
         //View
         HeavenGateWindowSelectStory* m_selectStoryWindow;
         HeavenGatePopupInputFileName* m_inputFileNamePopup;
-
+        HeavenGatePopupMessageBox* m_messageBoxPopup;
 
         char m_notification[MAX_CONTENT];
     };

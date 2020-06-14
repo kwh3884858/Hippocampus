@@ -39,7 +39,6 @@ CameraService.SceneCameraType m_World_GoundTestSceneCameraType;
 			EditorGUILayout.LabelField ("以及生成root config和该Inspector中的摄像机选择项");
 			EditorGUILayout.LabelField ("再回到GameRoot中添加所需场景");
 
-
 			m_gameRoot = Selection.activeGameObject.gameObject.GetComponent<GameRoot> ();
 			if (m_gameRoot == null) return;
 
@@ -47,18 +46,21 @@ CameraService.SceneCameraType m_World_GoundTestSceneCameraType;
 				return;
 			}
 
-			m_enumStartScene = ConfigRoot.Instance.StartScene;
-			m_enumStartScene = (SceneLookupEnum)EditorGUILayout.EnumPopup ("Start Scene:", m_enumStartScene);
+            GUILayout.Label("Start From This Scene", EditorStyles.boldLabel);
 
+            m_enumStartScene = ConfigRoot.Instance.StartScene;
+			m_enumStartScene = (SceneLookupEnum)EditorGUILayout.EnumPopup ("Start Scene:", m_enumStartScene);
 			if (m_enumStartScene != m_gameRoot.m_startScene) {
 				m_gameRoot.m_startScene = m_enumStartScene;
 				ConfigRoot.Instance.StartScene = m_enumStartScene;
 				Debug.Log ($"Set {m_enumStartScene.ToString ()} as Start Scene");
 			}
 
-			//[Inspector Popup Auto Generated Code Begin]
+            GUILayout.Label("Camera Setting", EditorStyles.boldLabel);
 
-m_World_GoundTestSceneCameraType = ConfigRoot.Instance.World_GoundTestSceneCameraType;  
+            //[Inspector Popup Auto Generated Code Begin]
+
+            m_World_GoundTestSceneCameraType = ConfigRoot.Instance.World_GoundTestSceneCameraType;  
 m_World_GoundTestSceneCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_GoundTestScene Camera Type: ", m_World_GoundTestSceneCameraType); 
     if (m_World_GoundTestSceneCameraType != ConfigRoot.Instance.World_GoundTestSceneCameraType) 
 { 

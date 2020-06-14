@@ -15,6 +15,7 @@
 #include "HeavenGateWindowBgmTable.h"
 #include "HeavenGateWindowRoleDrawingTable.h"
 #include "HeavenGateEditorNodeGraphExample.h"
+#include "HeavenGatePopupMessageBox.h"
 
 #include "StoryJsonManager.h"
 #include "StoryTableManager.h"
@@ -201,6 +202,7 @@ namespace HeavenGateEditor {
         ImGui::Checkbox("Role Drawing Table", show_role_drawing_table);
         ImGui::Checkbox("Node Graph Example", show_node_graph_example);
 
+
         if (show_editor_window && *show_editor_window)
         {
             m_heavenGateEditor->Update();
@@ -266,9 +268,11 @@ namespace HeavenGateEditor {
             m_roleDrawingTable->Update();
         };
 
-        if (show_node_graph_example && *show_node_graph_example) {
+        if (show_node_graph_example && *show_node_graph_example)
+        {
             m_nodeGraphExample->Update();
         }
+
     }
 
 
