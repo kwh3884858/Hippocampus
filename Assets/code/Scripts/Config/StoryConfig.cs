@@ -23,5 +23,7 @@ namespace Config
         public Color AutoPlayButtonActiveColor = Color.red;
         [Header("自动播放未激活颜色")]
         public Color AutoPlayButtonNormalColor = Color.white;
+        [Header("打字机默认音效")] 
+        public string TypewriterDefaultSound = "UI_Typewriter_Default";
     }
 }

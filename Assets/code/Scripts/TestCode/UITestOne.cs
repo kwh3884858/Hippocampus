@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Config;
+using Config.Data;
 using Controllers;
 using Game;
 using StarPlatinum;
@@ -13,6 +14,7 @@ public class UITestOne : MonoBehaviour,IGameRuntimeData
 	public ControllerManager ControllerManager => m_controllerManager;
 	public ConfigProvider ConfigProvider => m_configProvider;
 	public SoundService SoundService => SoundService.Instance;
+	public ConfigDataProvider ConfigDataProvider => m_configDataProvider;
 
 	public GameState State { get; private set; }
 
@@ -58,7 +60,10 @@ public class UITestOne : MonoBehaviour,IGameRuntimeData
 	private void LoadConfig()
 	{
 		m_configProvider = new ConfigProvider();
+		m_configDataProvider = new ConfigDataProvider();
+		
 		StoryConfig.PreloadInGameConfig();
+		m_configDataProvider.InitialInfo();
 	}
 	// Update is called once per frame
 	void Update () {
@@ -69,6 +74,7 @@ public class UITestOne : MonoBehaviour,IGameRuntimeData
 	private void OnDestroy()
 	{
 		m_uiManager.DeInitialize();
+		m_configDataProvider.Dispose();
 		m_controllerManager.TerminateEverything("Game end");
 	}
 	[SerializeField] private GameState m_startState;
@@ -77,4 +83,5 @@ public class UITestOne : MonoBehaviour,IGameRuntimeData
 
 	private GameRunTimeData m_gameRunTimeData;
 	private ConfigProvider m_configProvider;
+	private ConfigDataProvider m_configDataProvider;
 }
