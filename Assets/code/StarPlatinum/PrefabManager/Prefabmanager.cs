@@ -9,6 +9,7 @@ using StarPlatinum.Service;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
@@ -39,6 +40,7 @@ namespace StarPlatinum
 
 		Dictionary<string, GameObject> m_allPrefab = new Dictionary<string, GameObject> ();
 		Dictionary<string, Object> m_objects = new Dictionary<string, Object> ();
+		Dictionary<SceneLookupEnum,SceneInstance> m_scene =new Dictionary<SceneLookupEnum, SceneInstance>();
 
 		Dictionary<string, Action<RequestResult>> m_loadingCallback = new Dictionary<string, Action<RequestResult>> ();
 		public GameObject LoadPrefab (string prefabName)
@@ -152,15 +154,29 @@ namespace StarPlatinum
 
 		public void LoadScene (SceneLookupEnum key, LoadSceneMode loadSceneMode)
 		{
-			Addressables.LoadScene (SceneLookup.GetString (key), loadSceneMode);
+			var scene = Addressables.LoadScene (SceneLookup.GetString (key), loadSceneMode);
+			scene.Completed += (result) =>
+			{
+				if (result.Status == AsyncOperationStatus.Succeeded)
+				{
+					m_scene.Add(key, result.Result);
+				}
+				else
+				{
+					Debug.LogError($"场景======{key} 加载失败!!!");
+				}
+			};
 			GameSceneManager.Instance ().SetCurrentScene (key);
 			CameraService.Instance.UpdateCurrentCamera ();
 		}
 
-        public void UnloadScene(SceneLookupEnum key)
-        {
-            //TODO
-        }
+		public void UnloadScene(SceneLookupEnum key)
+		{
+			if (m_scene.ContainsKey(key))
+			{
+				Addressables.UnloadSceneAsync(m_scene[key]);
+			}
+		}
 
 		private RequestResult GetResult<T> (string key, AsyncOperationHandle<T> operation) where T : UnityEngine.Object
 		{
