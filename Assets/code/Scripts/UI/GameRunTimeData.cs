@@ -1,4 +1,5 @@
 using Config;
+using Config.Data;
 using Controllers;
 using Game;
 
@@ -11,6 +12,8 @@ public class GameRunTimeData
     public ControllerManager ControllerManager => m_data.ControllerManager;
     public ConfigProvider ConfigProvider  => m_data.ConfigProvider;
     public SoundService SoundService => m_data.SoundService;
+
+    public ConfigDataProvider ConfigDataProvider => m_data.ConfigDataProvider;
     
     private IGameRuntimeData m_data;
     public GameRunTimeData(IGameRuntimeData data)
