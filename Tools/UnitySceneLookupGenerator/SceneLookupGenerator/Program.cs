@@ -24,7 +24,7 @@ namespace SceneLookupGenerator
         private static string Path_Data_To_SceneLookupGenerator = "\\data\\tools\\SceneLookupGenerator";
         private static string Path_Code_To_File_SceneLookupTemplate = "\\data\\tools\\SceneLookupGenerator\\SceneLookupTemplate.txt";
 
-        private static string Path_Code_To_File_RootConfig = "\\code\\Scripts\\Config\\RootConfig.cs";
+        private static string Path_Code_To_File_RootConfig = "\\code\\Scripts\\Config\\ConfigRoot.cs";
         private static string Path_StarPlatinum_To_GameRootInspector = "\\code\\StarPlatinum\\Editor\\GameRootInspector.cs";
         private static string Scene_Lookup_OutputName = "\\SceneLookup.cs";
 
@@ -133,7 +133,7 @@ namespace SceneLookupGenerator
                 error = m_sceneConfigGenerator.SetSceneRootPath(worldRootPath);
                 CheckError(error);
 
-                //Output Path "Assets\\code\\Scripts\\Config\\RootConfig.cs"
+                //Output Path "Assets\\code\\Scripts\\Config\\ConfigRoot.cs"
                 string rootConfigOutputPath = configFath + Path_Code_To_File_RootConfig;
                 error = m_sceneConfigGenerator.SetOutputPath(rootConfigOutputPath);
                 CheckError(error);

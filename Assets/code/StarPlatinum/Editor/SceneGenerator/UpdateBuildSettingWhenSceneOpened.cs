@@ -12,7 +12,7 @@ public class EdtorSceneAutomaticOperatioin : Editor
 {
 
 	private static readonly string SCENE_ROOT_PATH = "/data/graphics/World";
-
+    private static readonly string MISSION_SCENE_NAME = "Mission";
 	static EdtorSceneAutomaticOperatioin ()
 	{
 		UnityEditor.SceneManagement.EditorSceneManager.sceneOpened += OnSceneOpened;
@@ -69,13 +69,15 @@ public class EdtorSceneAutomaticOperatioin : Editor
 	static void CheckForSceneScript (UnityEngine.SceneManagement.Scene scene, UnityEditor.SceneManagement.OpenSceneMode mode)
 	{
 		GameObject go = GameObject.Find (scene.name);
+        if (!scene.name.Contains(MISSION_SCENE_NAME))
+        {
+            if (go == null)
+            {
+                new GameObject(scene.name);
+            }
+        }
 
-		if (go == null) {
-			new GameObject (scene.name);
-
-		}
-
-		return;
+        return;
 
 	}
 

@@ -71,15 +71,24 @@ public class ToolBoxEditorWindow : EditorWindow
 			if (m_currentMissionEnum != MissionEnum.None) {
                 RemoveCurrentMissionSceneInternal();
                 CreateMissionSceneInternal(m_currentMissionEnum);
-			}
-		}
+            }
+            else
+            {
+                EditorUtility.DisplayDialog("Select A Mission", "Select a valid mission for edit", "Ok");
+
+            }
+        }
 
 		if (GUILayout.Button ("Load Mission Scene")) {
 			if (m_currentMissionEnum != MissionEnum.None) {
                 RemoveCurrentMissionSceneInternal();
                 LoadMissionSceneInternal(m_currentMissionEnum);
-			}
-		}
+            }
+            else
+            {
+                EditorUtility.DisplayDialog("Select A Mission", "Select a valid mission for edit", "Ok");
+            }
+        }
 
 		if (GUILayout.Button ("Remove Mission Scene")) {
             RemoveCurrentMissionSceneInternal();
