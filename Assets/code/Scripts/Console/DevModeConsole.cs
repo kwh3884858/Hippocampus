@@ -5,6 +5,7 @@ using StarPlatinum.Manager;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 namespace StarPlatinum.Development
 {
 	public class DevModeConsole : MonoBehaviour
@@ -145,14 +146,12 @@ namespace StarPlatinum.Development
 					isReadyLoadMission = true;
 				} else if (isReadyLoadMission) {
 					isReadyLoadMission = false;
-					MissionEnum requestMission = MissionManager.Instance.GetMissionEnumBy (word, false);
+					MissionEnum requestMission = MissionSceneManager.Instance.GetMissionEnumBy (word, false);
 					if (requestMission != MissionEnum.None) {
-						if (MissionSceneManager.Instance.IsMissionSceneExist (requestMission)) {
-							MissionManager.Instance.SetCurrentMission (word);
-
-							string sceneName = MissionSceneManager.Instance.GenerateSceneName (requestMission);
-							StarPlatinum.PrefabManager.Instance.LoadScene (SceneLookup.GetEnum (sceneName, false), UnityEngine.SceneManagement.LoadSceneMode.Additive);
-						} else {
+                        if (MissionSceneManager.Instance.LoadMissionScene(requestMission)){
+                            MissionSceneManager.Instance.SetCurrentMission(word);
+                        }
+                        else{
 							PrintLog ("Mission Scene [" + word + "] Is Not Exist! Please check mission name again!");
 							PrintAllValidMission ();
 						}
@@ -199,7 +198,7 @@ namespace StarPlatinum.Development
 		private void PrintAllValidMission ()
 		{
 			PrintLog ("All Available Mission:");
-			foreach (var sceneName in MissionManager.Instance.GetAllMission ()) {
+			foreach (var sceneName in MissionSceneManager.Instance.GetAllMission ()) {
 				PrintLog (sceneName.ToString ());
 			}
 		}

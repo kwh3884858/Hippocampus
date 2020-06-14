@@ -75,7 +75,6 @@ public class ToolBoxEditorWindow : EditorWindow
             else
             {
                 EditorUtility.DisplayDialog("Select A Mission", "Select a valid mission for edit", "Ok");
-
             }
         }
 

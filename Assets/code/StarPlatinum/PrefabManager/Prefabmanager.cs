@@ -157,6 +157,11 @@ namespace StarPlatinum
 			CameraService.Instance.UpdateCurrentCamera ();
 		}
 
+        public void UnloadScene(SceneLookupEnum key)
+        {
+            //TODO
+        }
+
 		private RequestResult GetResult<T> (string key, AsyncOperationHandle<T> operation) where T : UnityEngine.Object
 		{
 			RequestResult result = new RequestResult ();

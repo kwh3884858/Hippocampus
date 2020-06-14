@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using StarPlatinum.Manager;
 using StarPlatinum.Utility;
 using UI.Panels.Providers.DataProviders.StaticBoard;
 using UnityEngine;
