@@ -191,6 +191,11 @@ namespace StarPlatinum
 			return result;
 		}
 
+		public void UnloadAsset(GameObject gameObject)
+		{
+			GameObject.Destroy(gameObject);
+		}
+
 
 		public void UploadPrefab (string name)
 		{
