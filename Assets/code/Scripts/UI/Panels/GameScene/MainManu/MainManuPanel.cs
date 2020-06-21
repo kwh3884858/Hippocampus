@@ -5,6 +5,7 @@ using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
 using UI.Panels.Providers.DataProviders.GameScene;
 using UI.Panels.Providers.DataProviders.StaticBoard;
+using StarPlatinum.Manager;
 
 namespace UI.Panels.GameScene.MainManu
 {
@@ -30,10 +31,10 @@ namespace UI.Panels.GameScene.MainManu
 		public void OnClickStartBtn ()
 		{
 			HidSelef ();
-
-            //TODO: Load Mission
             //Now we don`t load scene in UI button, we use mission to manager state, and input system UI like HUD should display when player is controllable.
-			//CallbackTime (1, ShowHud);
+            GameSceneManager.Instance.LoadScene(SceneLookupEnum.World_Episode2_Pier);
+            MissionSceneManager.Instance.LoadMissionScene(MissionEnum.DockByPier);
+            CallbackTime (1, ShowHud);
 			//UIManager.Instance ().ActivatState (GameState.Battle);// 设置当前状态,wywtsest
 			//StarPlatinum.PrefabManager.Instance.LoadScene (SceneLookupEnum.World_Episode2_Pier, UnityEngine.SceneManagement.LoadSceneMode.Additive);
 		}

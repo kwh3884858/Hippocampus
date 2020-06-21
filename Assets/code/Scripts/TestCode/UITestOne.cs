@@ -74,8 +74,11 @@ public class UITestOne : MonoBehaviour,IGameRuntimeData
 	private void OnDestroy()
 	{
 		m_uiManager.DeInitialize();
-		m_configDataProvider.Dispose();
-		m_controllerManager.TerminateEverything("Game end");
+        if (m_configDataProvider != null)
+        {
+            m_configDataProvider.Dispose();
+        }
+        m_controllerManager.TerminateEverything("Game end");
 	}
 	[SerializeField] private GameState m_startState;
 	[SerializeField] private UIManager m_uiManager;
