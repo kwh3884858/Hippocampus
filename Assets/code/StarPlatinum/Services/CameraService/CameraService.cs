@@ -65,7 +65,7 @@ namespace StarPlatinum.Service
 
 			m_mainCamera = mainCamera;
 
-			SceneLookupEnum sceneEnum = GameSceneManager.Instance ().GetCurrentScene ();
+			SceneLookupEnum sceneEnum = GameSceneManager.Instance.GetCurrentSceneEnum ();
 
 			//if (RootConfig.Instance == null) return false;
 			CameraService.SceneCameraType cameraType = ConfigRoot.Instance.GetCameraTypeBySceneName (sceneEnum.ToString ());

@@ -15,11 +15,6 @@ namespace StarPlatinum.Development
 
 		public Text m_log;
 
-		private QueueArray<string> m_commandHistory;
-
-		private string [] m_commandHistoryCache;
-		private int m_commandHistoryIndex;
-
 		class QueueArray<T>
 		{
 			T [] m_content;
@@ -176,7 +171,9 @@ namespace StarPlatinum.Development
 		{
 			bool isSceneExist = SceneLookup.IsSceneExistNoMatchCase (sceneName);
 			if (isSceneExist) {
-				StarPlatinum.PrefabManager.Instance.LoadScene (SceneLookup.GetEnum (sceneName, false), UnityEngine.SceneManagement.LoadSceneMode.Additive);
+                SceneLookupEnum scene = SceneLookup.GetEnum(sceneName, false);
+                GameSceneManager.Instance.LoadScene(scene);
+				//StarPlatinum.PrefabManager.Instance.LoadScene(scene, UnityEngine.SceneManagement.LoadSceneMode.Additive);
 				return true;
 			} else {
 				PrintLog ("Scene [" + sceneName + "] Is Not Exist! Please check scene name again!");
@@ -202,5 +199,11 @@ namespace StarPlatinum.Development
 				PrintLog (sceneName.ToString ());
 			}
 		}
-	}
+
+        private QueueArray<string> m_commandHistory;
+
+        private string[] m_commandHistoryCache;
+        private int m_commandHistoryIndex;
+
+    }
 }

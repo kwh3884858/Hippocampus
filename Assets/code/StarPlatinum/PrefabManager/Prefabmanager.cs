@@ -166,7 +166,7 @@ namespace StarPlatinum
 					Debug.LogError($"场景======{key} 加载失败!!!");
 				}
 			};
-			GameSceneManager.Instance ().SetCurrentScene (key);
+
 			CameraService.Instance.UpdateCurrentCamera ();
 		}
 
