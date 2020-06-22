@@ -16,8 +16,8 @@ namespace UI.Panels.GameScene.MainManu
 		public void ShowHud ()
 		{
 			UiDataProvider.StaticBoard.ShowTalk ("9", OnTalkEnd);
-			UIManager.Instance ().ShowPanel (UIPanelType.JoystickPanel);// 显示UI，wywtsest
-		}
+            UIManager.Instance().ShowPanel(UIPanelType.JoystickPanel);// 显示UI，wywtsest
+        }
 
 		public void HidSelef ()
 		{
@@ -36,7 +36,7 @@ namespace UI.Panels.GameScene.MainManu
             GameSceneManager.Instance.LoadScene(SceneLookupEnum.World_Episode2_Pier);
             MissionSceneManager.Instance.LoadMissionScene(MissionEnum.DockByPier);
             CallbackTime (1, ShowHud);
-			//UIManager.Instance ().ActivatState (GameState.Battle);// 设置当前状态,wywtsest
+			UIManager.Instance ().ActivatState (GameState.Battle);// 设置当前状态,wywtsest
 			//StarPlatinum.PrefabManager.Instance.LoadScene (SceneLookupEnum.World_Episode2_Pier, UnityEngine.SceneManagement.LoadSceneMode.Additive);
 		}
 
