@@ -166,17 +166,31 @@ namespace StarPlatinum
 					Debug.LogError($"场景======{key} 加载失败!!!");
 				}
 			};
-
-			CameraService.Instance.UpdateCurrentCamera ();
 		}
 
 		public void UnloadScene(SceneLookupEnum key)
 		{
 			if (m_scene.ContainsKey(key))
 			{
-				Addressables.UnloadSceneAsync(m_scene[key]);
-			}
+                var scene = Addressables.UnloadSceneAsync(m_scene[key]);
+                scene.Completed += (result) =>
+                {
+                    if (result.Status == AsyncOperationStatus.Succeeded)
+                    {
+                        m_scene.Remove(key);
+                    }
+                    else
+                    {
+                        Debug.LogError($"场景======{key} 卸载失败!!!");
+                    }
+                };
+            }
 		}
+
+        public bool IsSceneLoaded(SceneLookupEnum requestScene)
+        {
+           return m_scene.ContainsKey(requestScene);
+        }
 
 		private RequestResult GetResult<T> (string key, AsyncOperationHandle<T> operation) where T : UnityEngine.Object
 		{

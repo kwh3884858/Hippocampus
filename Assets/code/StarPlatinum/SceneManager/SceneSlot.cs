@@ -7,6 +7,7 @@ namespace StarPlatinum.Manager
 {
     public class SceneSlot : MonoBehaviour
     {
+        public delegate void SceneLoadedCallback();
         public bool LoadScene(SceneLookupEnum requestSceneEnum)
         {
             if (SceneLookup.IsSceneExist(requestSceneEnum))
@@ -17,6 +18,7 @@ namespace StarPlatinum.Manager
                 }
                 SetCurrentSceneEnum(requestSceneEnum);
                 PrefabManager.Instance.LoadScene(requestSceneEnum, LoadSceneMode.Additive);
+                StartCoroutine(CheckSceneIsLoaded());
                 return true;
             }
             else
@@ -24,6 +26,7 @@ namespace StarPlatinum.Manager
                 return false;
             }
         }
+
         public SceneLookupEnum GetCurrentSceneEnum()
         {
             return m_currentMissionSceneEnum;
@@ -32,8 +35,21 @@ namespace StarPlatinum.Manager
         {
             m_currentMissionSceneEnum = sceneEnum;
         }
+        public void AddCallbackAfterLoaded(SceneLoadedCallback newCallback)
+        {
+            m_callback += newCallback;
+        }
 
+        private IEnumerator CheckSceneIsLoaded()
+        {
+            while (!PrefabManager.Instance.IsSceneLoaded(m_currentMissionSceneEnum))
+            {
+                yield return null;
+            }
+
+            m_callback?.Invoke();
+        }
         private SceneLookupEnum m_currentMissionSceneEnum = SceneLookupEnum.World_GameRoot;
-
+        private SceneLoadedCallback m_callback = null;
     }
 }

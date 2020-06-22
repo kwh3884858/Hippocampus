@@ -108,8 +108,12 @@ public class CameraController : MonoBehaviour
 	}
 
 	internal void SetTarget (GameObject target)
-	{
-		if (target == null) return;
+    {
+        if (target == null) return;
+        if (m_target != null)
+        {
+            Debug.LogError("Camera Controller is not null, you will replace the original target");
+        }
 		m_target = target.transform;
 	}
 }

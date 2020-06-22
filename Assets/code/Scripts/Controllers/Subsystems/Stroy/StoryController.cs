@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Config;
 using GamePlay.Global;
+using GamePlay.Stage;
 using StarPlatinum;
 using StarPlatinum.Manager;
 using StarPlatinum.StoryCompile;

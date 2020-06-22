@@ -117,7 +117,6 @@ public class MonoMoveController : MonoBehaviour
 
     void FixedUpdate()
     {
-        //if (m_isLightAttack || m_isHeavyAttack) return;
         if (!m_isMove)// 不能进行移动
         {
             return;
@@ -126,25 +125,17 @@ public class MonoMoveController : MonoBehaviour
         float verticalAxis = StarPlatinum.InputService.Instance.GetAxis(StarPlatinum.KeyMap.Vertical);
         if (horizontalAxis > 0.1f || horizontalAxis < -0.1f)
         {
-
-            //m_rigidbody2D.velocity = new Vector2 (horizontalAxis * m_moveSpeed, m_rigidbody2D.velocity.y);
-
             transform.localPosition = new Vector3(
             transform.localPosition.x + horizontalAxis * m_moveSpeed * Time.fixedDeltaTime,
             transform.localPosition.y,
             transform.localPosition.z);
-
         }
         if (verticalAxis > 0.1f || verticalAxis < -0.1f)
         {
-
-            //m_rigidbody2D.velocity = new Vector2 (horizontalAxis * m_moveSpeed, m_rigidbody2D.velocity.y);
-
             transform.localPosition = new Vector3(
             transform.localPosition.x,
             transform.localPosition.y,
             transform.localPosition.z + verticalAxis * m_moveSpeed * Time.fixedDeltaTime);
-
         }
         //No Jump
         //if (verticalAxis > 0.1f) {
@@ -172,13 +163,11 @@ public class MonoMoveController : MonoBehaviour
 
         if (m_isFaceRight != m_isOldFaceRight)
         {
-
             transform.localScale = new Vector3(
              -transform.localScale.x,
              transform.localScale.y,
              transform.localScale.z);
             m_isOldFaceRight = m_isFaceRight;
-
         }
     }
 

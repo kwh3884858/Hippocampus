@@ -9,9 +9,11 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using StarPlatinum.Service;
 using StarPlatinum.Base;
+using StarPlatinum.Manager;
+using UnityEngine.Assertions;
 
 //depend on EventManager
-namespace StarPlatinum.Manager
+namespace GamePlay.Stage
 {
 	//public enum SceneLoadMode
 	//{
@@ -22,6 +24,30 @@ namespace StarPlatinum.Manager
 	public class GameSceneManager : Singleton<GameSceneManager>
 	{
 
+        public GameSceneManager()
+        {
+            Transform root = GameObject.Find("GameRoot").transform;
+            Assert.IsTrue(root != null, "Game Root must always exist.");
+            if (root == null) return;
+
+            GameObject manager = new GameObject(typeof(GameSceneManager).ToString());
+            manager.transform.SetParent(root.transform);
+            m_currentScene = manager.AddComponent<SceneSlot>();
+
+            m_currentScene.AddCallbackAfterLoaded(delegate () {
+                CameraService.Instance.UpdateCurrentCamera();
+            });
+        }
+        public bool LoadScene(SceneLookupEnum scene)
+        {
+            return m_currentScene.LoadScene(scene);
+        }
+        public SceneLookupEnum GetCurrentSceneEnum()
+        {
+            return m_currentScene.GetCurrentSceneEnum();
+        }
+        
+        private SceneSlot m_currentScene;
 		//Dictionary<string, GameObject> m_allScenes = new Dictionary<string, GameObject> ();
 		//private UnityEngine.SceneManagement.Scene mCurrentScene;
 		//AsyncOperation asyncOperation = new AsyncOperation ();
@@ -60,37 +86,21 @@ namespace StarPlatinum.Manager
 
 
 		//}
-        public GameSceneManager()
-        {
-            m_currentScene = new SceneSlot();
-        }
-        public bool LoadScene(SceneLookupEnum scene)
-        {
-            return m_currentScene.LoadScene(scene);
-        }
-        public SceneLookupEnum GetCurrentSceneEnum()
-        {
-            return m_currentScene.GetCurrentSceneEnum();
-        }
-        
 
-        private void LoadSceneScript (SceneLoadedEvent e)
-		{
-			string path = AssetsManager.APPLICATION_PATH;
-			path += "Scripts/Scenes/";
+  //      private void LoadSceneScript (SceneLoadedEvent e)
+		//{
+		//	string path = AssetsManager.APPLICATION_PATH;
+		//	path += "Scripts/Scenes/";
 
-			if (!Directory.Exists (path)) {
-				return;
-			}
+		//	if (!Directory.Exists (path)) {
+		//		return;
+		//	}
 
-			//path += m_currentSceneName;
-
-			if (!File.Exists (path)) {
-				return;
-			}
+		//	if (!File.Exists (path)) {
+		//		return;
+		//	}
             
-		}
-        private SceneSlot m_currentScene;
+		//}
 
         //private void DisableAllUICanvas (SceneLoadedEvent e)
         //{

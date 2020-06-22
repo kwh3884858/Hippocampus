@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using StarPlatinum.Base;
 using StarPlatinum.Manager;
+using GamePlay.Stage;
+using UnityEngine.Assertions;
 
 namespace StarPlatinum.Service
 {
@@ -27,22 +29,24 @@ namespace StarPlatinum.Service
 
 		[SerializeField]
 		private CameraController m_cameraController;
-		public CameraController GetCameraController => m_cameraController;
 
 		public CameraService ()
 		{
 
-			//EventManager.Instance().RegisterCallback((int)LogicType.MainMenuOpen, SetCamera);
-			//EventManager.Instance().RegisterCallback((int)LogicType.MainMenuClose, CameraClose);
-			//EventManager.Instance().RegisterCallback((int)LogicType.SceneOpen, SetCamera);
-			//EventManager.Instance().RegisterCallback((int)LogicType.SceneClose, CameraClose);
-
 		}
 
+        public void SetMainCamera(GameObject mainCamera)
+        {
+            if (m_mainCamera != null)
+            {
+                GameObject.Destroy(m_mainCamera);
+            }
+            m_mainCamera = mainCamera;
+        }
 		public GameObject GetMainCamera ()
 		{
 			if (m_mainCamera == null || m_mainCamera.activeInHierarchy == false) {
-				Debug.Log ("Old camera is expired");
+				Debug.LogError ("Camera is expired");
 			}
 
 			bool result = UpdateCurrentCamera ();
@@ -57,18 +61,10 @@ namespace StarPlatinum.Service
 		{
 			m_cameraController = null;
 
-			GameObject mainCamera = GetCamera ();
-			if (mainCamera == null) {
-				mainCamera = CreateCamera ();
-				if (mainCamera == null) return false;
-			}
-
-			m_mainCamera = mainCamera;
+            CloseAllCamera();
 
 			SceneLookupEnum sceneEnum = GameSceneManager.Instance.GetCurrentSceneEnum ();
-
-			//if (RootConfig.Instance == null) return false;
-			CameraService.SceneCameraType cameraType = ConfigRoot.Instance.GetCameraTypeBySceneName (sceneEnum.ToString ());
+			SceneCameraType cameraType = ConfigRoot.Instance.GetCameraTypeBySceneName (sceneEnum.ToString ());
 
 			if (cameraType == SceneCameraType.Moveable) {
 				m_cameraController = m_mainCamera.GetComponent<CameraController> ();
@@ -97,19 +93,19 @@ namespace StarPlatinum.Service
 			}
 		}
 
-		private bool CloseAllCamera ()
+		private void CloseAllCamera ()
 		{
 			Camera [] cameras = Camera.allCameras;
-			Debug.Log ("Camera Length:" + cameras.Length);
+
+            Assert.IsTrue(cameras.Length > 0, "Camera length is wrong");
+
 			for (int i = 0; i < cameras.Length; i++) {
 				Debug.Log ("Camera" + i + " name: " + cameras [i].name);
-
-				cameras [i].gameObject.SetActive (false);
+                if (cameras[i].gameObject != m_mainCamera)
+                {
+                    cameras[i].gameObject.SetActive(false);
+                }
 			}
-
-			m_mainCamera = null;
-
-			return true;
 		}
 
 		//public override void SingletonInit ()
@@ -124,7 +120,7 @@ namespace StarPlatinum.Service
 			Debug.Log ("Camera Length:" + cameras.Length);
 
 			if (Camera.allCamerasCount == 0) {
-				Debug.Log ("This scene doean`t contain a camera!");
+				Debug.Log ("This scene does`t contain a camera!");
 
 				return null;
 			}
@@ -137,7 +133,6 @@ namespace StarPlatinum.Service
 			}
 
 			return cameras [0].gameObject;
-
 		}
 
 		private GameObject CreateCamera ()
@@ -154,28 +149,8 @@ namespace StarPlatinum.Service
 					cameraGameObject.transform.SetParent (root.transform);
 				}
 			});
-
-			//camera = new GameObject ("Main Camera");\  
-			//camera.AddComponent<Camera> ();
-
-			////m_cachedCamera = Instantiate (m_cachedCamera);
-			//camera.transform.SetParent (root.transform);
-
 			return camera;
-
-
 		}
-
-		//public bool SetCamera (System.Object vars = null)
-		//{
-
-		//	m_mainCamera = GetCamera ();
-		//	if (m_mainCamera == null) {
-		//		CreateCamera (true);
-
-		//	}
-		//	return true;
-		//}
 
 		private GameObject camera;
 	}

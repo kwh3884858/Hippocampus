@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using Config.GameRoot;
 using StarPlatinum;
 using StarPlatinum.Base;
+using StarPlatinum.Manager;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 
-namespace StarPlatinum.Manager
+namespace GamePlay.Stage
 {
     public enum MissionEnum
     {
@@ -20,7 +22,17 @@ namespace StarPlatinum.Manager
     {
         public MissionSceneManager()
         {
-            m_currentMissionScene = new SceneSlot();
+            Transform root = GameObject.Find("GameRoot").transform;
+            Assert.IsTrue(root != null, "Game Root must always exist.");
+            if (root == null) return;
+
+            GameObject manager = new GameObject(typeof(MissionSceneManager).ToString());
+            manager.transform.SetParent(root.transform);
+            m_currentMissionScene = manager.AddComponent<SceneSlot>();
+
+            m_currentMissionScene.AddCallbackAfterLoaded(delegate () {
+                CoreContainer.Instance.SpawnPlayer();
+            });
         }
         public bool LoadMissionScene(MissionEnum requestMission)
         {
@@ -49,6 +61,10 @@ namespace StarPlatinum.Manager
         public MissionEnum GetCurrentMission()
         {
             return m_currentMission;
+        }
+        public SceneLookupEnum GetCurrentMissionScene()
+        {
+            return m_currentMissionScene.GetCurrentSceneEnum();
         }
         public void SetCurrentMission(MissionEnum missionEnum)
         {
@@ -113,6 +129,7 @@ namespace StarPlatinum.Manager
         {
             if (Application.isPlaying)
             {
+                Assert.IsTrue(GameSceneManager.Instance.GetCurrentSceneEnum() != SceneLookupEnum.World_GameRoot, "Current game scene is invalid, please do not try to load a mission scene when game scene is valid.");
                 return ConfigMission.Instance.Prefix_Mission_Scene + missionEnum.ToString() + "_" + GameSceneManager.Instance.GetCurrentSceneEnum().ToString();
             }
             return ConfigMission.Instance.Prefix_Mission_Scene + missionEnum.ToString() + "_" + SceneManager.GetActiveScene().name;
@@ -121,6 +138,11 @@ namespace StarPlatinum.Manager
         //For runtime
         public bool IsMissionSceneExist(MissionEnum mission)
         {
+            if (GameSceneManager.Instance.GetCurrentSceneEnum() == SceneLookupEnum.World_GameRoot)
+            {
+                Debug.LogError("Current game scene is invalid");
+                return false;
+            }
             string missionSceneName = GenerateSceneName(mission);
             if (SceneLookup.IsSceneExistNoMatchCase(missionSceneName))
             {

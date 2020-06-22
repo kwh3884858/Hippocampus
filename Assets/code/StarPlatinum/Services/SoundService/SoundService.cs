@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using StarPlatinum.Base;
+using UnityEngine.Assertions;
 
 namespace StarPlatinum
 {
@@ -22,6 +23,7 @@ namespace StarPlatinum
 		{
 
 			Transform root = GameObject.Find ("GameRoot").transform;
+            Assert.IsTrue(root != null, "Game Root must always exist.");
 			if (root == null) return;
 
 			m_music = new GameObject ("Bgm");

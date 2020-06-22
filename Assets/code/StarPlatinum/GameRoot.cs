@@ -1,4 +1,5 @@
 ﻿using Config.GameRoot;
+using GamePlay.Stage;
 using StarPlatinum.Base;
 using StarPlatinum.Service;
 using System;
@@ -24,11 +25,18 @@ namespace StarPlatinum
 		void Start ()
 		{
 			PreloadData ();
+            LoadCoreContainer();
+
 			Productivity ();
 			ConfigData data = new ConfigData ();// 测试
 		}
 
-		void PreloadData ()
+        private void LoadCoreContainer()
+        {
+            CoreContainer.Instance.Initialize();
+        }
+
+        void PreloadData ()
 		{
 			//ConfigRoot configRoot = ConfigRoot.Instance;
 			//allData.Add (configRoot);
@@ -72,7 +80,6 @@ namespace StarPlatinum
 
 		void AfterLoadData ()
 		{
-			CameraService.Instance.UpdateCurrentCamera ();
 		}
 
         public void OnGUI()

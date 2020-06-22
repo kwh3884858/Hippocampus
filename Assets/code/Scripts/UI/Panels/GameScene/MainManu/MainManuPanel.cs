@@ -6,6 +6,7 @@ using UI.Panels.Providers.DataProviders;
 using UI.Panels.Providers.DataProviders.GameScene;
 using UI.Panels.Providers.DataProviders.StaticBoard;
 using StarPlatinum.Manager;
+using GamePlay.Stage;
 
 namespace UI.Panels.GameScene.MainManu
 {
