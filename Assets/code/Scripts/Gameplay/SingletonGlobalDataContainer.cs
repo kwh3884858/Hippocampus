@@ -12,6 +12,7 @@ namespace GamePlay.Global
 	{
 		public string Scene { get; private set; }
 		public string Chapter { get; private set; }
+        public List<string> m_isStoryTriggered = new List<string>();
 
 		public Dictionary<string, int> m_itemTriggeredCounter;
 
@@ -45,5 +46,15 @@ namespace GamePlay.Global
 			ID = Chapter + "_" + Scene + "_" + item + "_" + counter;
 			return true;
 		}
+
+        public bool IsStoryTriggered( string storyId)
+        {
+            return m_isStoryTriggered.Contains(storyId);
+        }
+
+        public void AddtTriggeredStory(string storyId)
+        {
+            m_isStoryTriggered.Add(storyId);
+        }
 	}
 }

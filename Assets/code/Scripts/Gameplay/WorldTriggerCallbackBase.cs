@@ -5,8 +5,7 @@ namespace GamePlay.EventTrigger
 {
     public abstract class WorldTriggerCallbackBase : MonoBehaviour
     {
-        private WorldTrigger m_worldTrigger;
-
+        
         // Start is called before the first frame update
         void Start()
         {
@@ -20,8 +19,12 @@ namespace GamePlay.EventTrigger
             }
 
             m_worldTrigger.Callback = Callback;
+            AfterStart();
         }
 
+        private WorldTrigger m_worldTrigger;
+        
         protected abstract void Callback();
+        protected virtual void AfterStart() { }
     }
 }
