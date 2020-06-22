@@ -46,6 +46,10 @@ namespace GamePlay.Stage
         {
             return m_currentScene.GetCurrentSceneEnum();
         }
+        public SceneLookupEnum GetLastSceneEnum()
+        {
+            return m_currentScene.GetLastSceneEnum();
+        }
         
         private SceneSlot m_currentScene;
 		//Dictionary<string, GameObject> m_allScenes = new Dictionary<string, GameObject> ();

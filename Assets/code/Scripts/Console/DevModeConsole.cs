@@ -145,7 +145,7 @@ namespace StarPlatinum.Development
 					MissionEnum requestMission = MissionSceneManager.Instance.GetMissionEnumBy (word, false);
 					if (requestMission != MissionEnum.None) {
                         if (MissionSceneManager.Instance.LoadMissionScene(requestMission)){
-                            MissionSceneManager.Instance.SetCurrentMission(word);
+                            //MissionSceneManager.Instance.SetCurrentMission(word);
                         }
                         else{
 							PrintLog ("Mission Scene [" + word + "] Is Not Exist! Please check mission name again!");

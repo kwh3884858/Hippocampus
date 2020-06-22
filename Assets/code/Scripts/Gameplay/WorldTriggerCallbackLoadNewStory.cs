@@ -7,40 +7,19 @@ using StarPlatinum.Utility;
 using UI.Panels.Providers.DataProviders.StaticBoard;
 using UnityEngine;
 
-namespace GamePlay
+namespace GamePlay.EventTrigger
 {
-	public class WorldTriggerCallbackLoadNewStory : MonoBehaviour
-	{
-		[SerializeField]
-		private WorldTrigger m_worldTrigger;
-
+	public class WorldTriggerCallbackLoadNewStory : WorldTriggerCallbackBase
+    {
 		public string m_newStoryFileName;
-
 		public bool m_showStoryPanel = true;
-
 		[ConditionalField ("m_showStoryPanel")]
 		public string m_jumpToLabel;
-
 		public bool m_destoryAfterTrigger = false;
-
-		// Start is called before the first frame update
-		void Start ()
-		{
-			if (m_worldTrigger == null) {
-
-				m_worldTrigger = GetComponent<WorldTrigger> ();
-				if (m_worldTrigger == null) {
-					gameObject.AddComponent<WorldTrigger> ();
-				}
-
-			}
-
-			m_worldTrigger.Callback = LoadNewStory;
-		}
-
-		private void LoadNewStory ()
-		{
-			GameObject controller = GameObject.Find ("ControllerManager");
+        
+        protected override void Callback()
+        {
+            GameObject controller = GameObject.Find ("ControllerManager");
 			if (controller == null) {
 				return;
 			}
@@ -60,5 +39,5 @@ namespace GamePlay
 				Destroy (gameObject);
 			}
 		}
-	}
+    }
 }

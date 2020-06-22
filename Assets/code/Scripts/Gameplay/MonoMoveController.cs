@@ -55,12 +55,6 @@ public class MonoMoveController : MonoBehaviour
         count = 0;
 
     }
-
-    private void OnDestroy()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {

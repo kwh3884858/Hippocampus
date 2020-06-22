@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using Config.GameRoot;
 using StarPlatinum.Service;
 using UnityEngine.Assertions;
+using GamePlay.EventTrigger;
 
 namespace GamePlay.Stage
 {
@@ -38,16 +39,42 @@ namespace GamePlay.Stage
             m_player = player;
             m_isSceneLoaded = loaded;
 
-            m_player.SetActive(false);
+            SetPlayerDisable();
             CameraService.Instance.SetMainCamera(camera);
+        }
+
+        public void SetPlayerDisable()
+        {
+            m_player.SetActive(false);
         }
 
         public void SpawnPlayer()
         {
             SceneLookupEnum sceneEnum = MissionSceneManager.Instance.GetCurrentMissionScene();
             Scene missionScene = SceneManager.GetSceneByName(sceneEnum.ToString());
-
             GameObject[] gameObjects = missionScene.GetRootGameObjects();
+
+            //Teleport from another scene
+            SceneLookupEnum lastGameScene = GameSceneManager.Instance.GetLastSceneEnum();
+            if (lastGameScene != SceneLookupEnum.World_GameRoot)
+            {
+
+                WorldTriggerCallbackTeleportPlayer[] teleports = GameObject.FindObjectsOfType<WorldTriggerCallbackTeleportPlayer>();
+                foreach (WorldTriggerCallbackTeleportPlayer teleport in teleports)
+                {
+                    if (teleport.m_teleportGameScene == lastGameScene)
+                    {
+                        Vector3 direction = WorldTriggerCallbackTeleportPlayer.DirecitonMapping[teleport.m_spawnDirection];
+                        direction *= teleport.m_lengthBetweenTriggerAndSpwanPoint;
+                        m_player.transform.position = teleport.transform.position + direction;
+                        m_player.SetActive(true);
+                        return;
+                    }
+                }
+
+            }
+
+            //Direct find spawn point
             foreach (GameObject go in gameObjects)
             {
                 if (go.name == ConfigMission.Instance.Text_Spawn_Point_Name)
@@ -57,9 +84,14 @@ namespace GamePlay.Stage
                         m_player.transform.position =
                             new Vector3(go.transform.position.x, go.transform.position.y + 0.5f, go.transform.position.z);
                         m_player.SetActive(true);
+                        return;
                     }
                 }
             }
+
+
+
+            Debug.LogError("Can not find spawn point!");
         }
 
         private bool IsValid()
@@ -67,9 +99,11 @@ namespace GamePlay.Stage
             return m_isSceneLoaded == true;
         }
 
-        SceneSlot m_containerScene;
+        private SceneSlot m_containerScene;
 
-        GameObject m_player;
+        private GameObject m_player;
         bool m_isSceneLoaded = false;
+
+
     }
 }

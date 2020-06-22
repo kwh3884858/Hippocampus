@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Config.GameRoot;
 using GamePlay;
+using GamePlay.EventTrigger;
 using GamePlay.Stage;
 using StarPlatinum.Manager;
 using UnityEditor;
@@ -95,7 +96,7 @@ public class ToolBoxEditorWindow : EditorWindow
 		}
 		GUILayout.Label ("Add Gameobject", EditorStyles.boldLabel);
 
-		if (GUILayout.Button ("Interactable Object")) {
+		if (GUILayout.Button ("Create Interactable Object")) {
 			if (IsMissionSceneValid ()) {
 				GameObject interactiablesGroup = GameObject.Find (ConfigMission.Instance.Text_Interactable_Object_Group);
 				if (interactiablesGroup == null) {
@@ -113,27 +114,7 @@ public class ToolBoxEditorWindow : EditorWindow
                 EditorUtility.DisplayDialog("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
             }
 		}
-
-		if (GUILayout.Button ("Event Trigger")) {
-			if (IsMissionSceneValid ()) {
-				GameObject triggersGroup = GameObject.Find (ConfigMission.Instance.Text_Event_Trigger_Group);
-				if (triggersGroup == null) {
-					triggersGroup = new GameObject (ConfigMission.Instance.Text_Event_Trigger_Group);
-				}
-
-				string path = ConfigMission.Instance.Path_To_WorldTrigger;
-				GameObject go = Instantiate (AssetDatabase.LoadAssetAtPath<GameObject> (path)) as GameObject;
-
-				//GameObject go = new GameObject ("New Event Trigger");
-				go.transform.SetParent (triggersGroup.transform);
-				go.AddComponent<WorldTrigger> ();
-            }
-            else
-            {
-                EditorUtility.DisplayDialog("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
-            }
-		}
-
+        
 		if (GUILayout.Button ("Create Spawn Point")) {
 			if (IsMissionSceneValid ()) {
 				GameObject spawnPoint = GameObject.Find (ConfigMission.Instance.Text_Spawn_Point_Name);
@@ -151,26 +132,63 @@ public class ToolBoxEditorWindow : EditorWindow
             }
 		}
 
-		if (GUILayout.Button ("Create New Mission_DO NOT USE")) {
-			if (IsMissionSceneValid ()) {
-
-				GameObject missionGroup = GameObject.Find (ConfigMission.Instance.Text_Mission_Group);
-				if (missionGroup == null) {
-					missionGroup = new GameObject (ConfigMission.Instance.Text_Mission_Group);
-				}
-				string path = ConfigMission.Instance.Path_To_Mission;
-				GameObject go = Instantiate (AssetDatabase.LoadAssetAtPath<GameObject> (path)) as GameObject;
-				go.transform.SetParent (missionGroup.transform);
-				go.AddComponent<Mission> ();
+        if (GUILayout.Button("Create Event Trigger"))
+        {
+            if (IsMissionSceneValid())
+            {
+                CreateEventTrigger();
             }
             else
             {
                 EditorUtility.DisplayDialog("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
             }
-		}
+        }
+        if (GUILayout.Button("Create Event Trigger With [Prefab: Load New Story]"))
+        {
+            if (IsMissionSceneValid())
+            {
+                GameObject loadNewStory = CreateEventTrigger();
+                loadNewStory.name = "Load_New_Story";
+                loadNewStory.AddComponent<WorldTriggerCallbackLoadNewStory>();
+            }
+            else
+            {
+                EditorUtility.DisplayDialog("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
+            }
+        }
+        if (GUILayout.Button ("Create Event Trigger With [Prefab: Create New Teleport Point]")) {
+            if (IsMissionSceneValid())
+            {
+                GameObject loadNewStory = CreateEventTrigger();
+                loadNewStory.name = "Teleport_Point";
+                loadNewStory.AddComponent<WorldTriggerCallbackTeleportPlayer>();
+            }
+            else
+            {
+                EditorUtility.DisplayDialog("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
+            }
+        }
 
 		EditorGUILayout.EndVertical ();
 	}
+
+    private GameObject CreateEventTrigger()
+    {
+        GameObject triggersGroup = GameObject.Find(ConfigMission.Instance.Text_Event_Trigger_Group);
+        if (triggersGroup == null)
+        {
+            triggersGroup = new GameObject(ConfigMission.Instance.Text_Event_Trigger_Group);
+        }
+
+        string path = ConfigMission.Instance.Path_To_WorldTrigger;
+        GameObject go = Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(path)) as GameObject;
+
+        go.name = "Event Trigger";
+        go.transform.SetParent(triggersGroup.transform);
+        go.AddComponent<WorldTrigger>();
+
+        return go;
+    }
 
     private void LoadMissionSceneInternal(MissionEnum missionEnum)
     {

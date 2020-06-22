@@ -8,7 +8,7 @@ namespace GamePlay
     // draw a red circle around the scene cube
 
     [CustomEditor(typeof(MonoMoveController))]
-    public class InteractiveObjectEditor : Editor
+    public class MonoMoveControllerEditor : Editor
     {
         void OnSceneGUI()
         {

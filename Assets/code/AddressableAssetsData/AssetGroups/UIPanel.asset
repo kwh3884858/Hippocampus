@@ -73,6 +73,10 @@ MonoBehaviour:
     m_Address: Single_Evidence_Select_Panel
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: ed9ede3d734f92e42827dd2b875a0b8f
+    m_Address: World_Episode3_Hall
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cd5387e64e22b3d47a39edb1e325859e, type: 2}
   m_SchemaSet:

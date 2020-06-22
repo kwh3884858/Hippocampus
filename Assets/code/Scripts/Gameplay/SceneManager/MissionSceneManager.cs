@@ -22,22 +22,31 @@ namespace GamePlay.Stage
     {
         public MissionSceneManager()
         {
-            Transform root = GameObject.Find("GameRoot").transform;
-            Assert.IsTrue(root != null, "Game Root must always exist.");
-            if (root == null) return;
+            if (Application.isPlaying)
+            {
+                Transform root = GameObject.Find("GameRoot").transform;
+                Assert.IsTrue(root != null, "Game Root must always exist.");
+                if (root == null) return;
 
-            GameObject manager = new GameObject(typeof(MissionSceneManager).ToString());
-            manager.transform.SetParent(root.transform);
-            m_currentMissionScene = manager.AddComponent<SceneSlot>();
+                GameObject manager = new GameObject(typeof(MissionSceneManager).ToString());
+                manager.transform.SetParent(root.transform);
+                m_currentMissionScene = manager.AddComponent<SceneSlot>();
 
-            m_currentMissionScene.AddCallbackAfterLoaded(delegate () {
-                CoreContainer.Instance.SpawnPlayer();
-            });
+                m_currentMissionScene.AddCallbackAfterLoaded(delegate ()
+                {
+                    CoreContainer.Instance.SpawnPlayer();
+                });
+            }
+        }
+        public bool LoadCurrentMissionScene()
+        {
+            return LoadMissionScene(m_currentMission);
         }
         public bool LoadMissionScene(MissionEnum requestMission)
         {
             if (IsMissionSceneExist(requestMission))
             {
+                CoreContainer.Instance.SetPlayerDisable();
                 string sceneName = GenerateSceneName(requestMission);
                 SceneLookupEnum sceneEnum = SceneLookup.GetEnum(sceneName, false);
                 SetCurrentMission(requestMission);
@@ -54,6 +63,7 @@ namespace GamePlay.Stage
             }
         }
 
+
         public MissionEnum[] GetAllMission()
         {
             return ALL_MISSION;
@@ -66,22 +76,10 @@ namespace GamePlay.Stage
         {
             return m_currentMissionScene.GetCurrentSceneEnum();
         }
-        public void SetCurrentMission(MissionEnum missionEnum)
+
+        private void SetCurrentMission(MissionEnum missionEnum)
         {
             m_currentMission = missionEnum;
-        }
-        public bool SetCurrentMission(string mission)
-        {
-            MissionEnum result = GetMissionEnumBy(mission);
-            if (result == MissionEnum.None)
-            {
-                m_currentMission = result;
-                return false;
-            }
-            else
-            {
-                return true;
-            }
         }
 
         public MissionEnum GetMissionEnumBy(string mission, bool isMatchCase = true)
@@ -125,14 +123,22 @@ namespace GamePlay.Stage
             return ConfigMission.Instance.Prefix_Mission_Folder + missionEnum.ToString() + "_" + SceneManager.GetActiveScene().name;
         }
 
+        //Default get current game scene name
         public string GenerateSceneName(MissionEnum missionEnum)
         {
             if (Application.isPlaying)
             {
                 Assert.IsTrue(GameSceneManager.Instance.GetCurrentSceneEnum() != SceneLookupEnum.World_GameRoot, "Current game scene is invalid, please do not try to load a mission scene when game scene is valid.");
-                return ConfigMission.Instance.Prefix_Mission_Scene + missionEnum.ToString() + "_" + GameSceneManager.Instance.GetCurrentSceneEnum().ToString();
+                //return ConfigMission.Instance.Prefix_Mission_Scene + missionEnum.ToString() + "_" + GameSceneManager.Instance.GetCurrentSceneEnum().ToString();
+                return GenerateSceneName(missionEnum, GameSceneManager.Instance.GetCurrentSceneEnum());
             }
             return ConfigMission.Instance.Prefix_Mission_Scene + missionEnum.ToString() + "_" + SceneManager.GetActiveScene().name;
+        }
+
+        private string GenerateSceneName(MissionEnum missionEnum, SceneLookupEnum scene)
+        {
+            return ConfigMission.Instance.Prefix_Mission_Scene + missionEnum.ToString() + "_" + scene.ToString();
+
         }
 
         //For runtime
@@ -150,7 +156,25 @@ namespace GamePlay.Stage
             }
             else
             {
-                Debug.LogWarning("Request mission scene is not exist: " + mission);
+                Debug.LogError("Request mission scene is not exist: " + mission);
+                return false;
+            }
+        }
+        public bool IsGameSceneExistCurrentMission(SceneLookupEnum gameSceneEnum)
+        {
+            if (gameSceneEnum == SceneLookupEnum.World_GameRoot)
+            {
+                Debug.LogError("Game scene enum is invalid");
+                return false;
+            }
+            string missionSceneName = GenerateSceneName(m_currentMission, gameSceneEnum);
+            if (SceneLookup.IsSceneExistNoMatchCase(missionSceneName))
+            {
+                return true;
+            }
+            else
+            {
+                Debug.LogError("Request scene is not exist: " + missionSceneName);
                 return false;
             }
         }
