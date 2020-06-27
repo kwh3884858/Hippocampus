@@ -21,7 +21,8 @@ enum class NodeType
     Label,
     Word,
     Jump,
-    Exhibit
+    Exhibit,
+    End
 };
 extern char nodeTypeString[][MAX_ENUM_LENGTH];
 

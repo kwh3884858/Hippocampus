@@ -73,6 +73,7 @@
     <ClInclude Include="..\..\HeavenGate_Editor\StoryNodeGraph.h" />
     <ClInclude Include="..\..\imnodes\imnodes.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGatePopupMessageBox.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonEndNode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\imgui.cpp">
@@ -140,6 +141,7 @@
     <ClCompile Include="..\..\HeavenGate_Editor\StoryNodeGraph.cpp" />
     <ClCompile Include="..\..\imnodes\imnodes.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGatePopupMessageBox.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonEndNode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.txt" />

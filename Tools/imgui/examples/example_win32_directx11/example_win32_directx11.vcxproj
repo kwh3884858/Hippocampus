@@ -153,6 +153,7 @@
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorNodeGraphExample.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGatePopupMessageBox.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowNodeGraph.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonEndNode.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonExhibitNode.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonJumpNode.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonLabelNode.h" />
@@ -208,6 +209,7 @@
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorNodeGraphExample.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGatePopupMessageBox.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowNodeGraph.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonEndNode.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonExhibitNode.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonJumpNode.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonLabelNode.cpp" />

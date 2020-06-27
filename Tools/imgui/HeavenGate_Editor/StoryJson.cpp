@@ -6,6 +6,7 @@
 #include "StoryJsonJumpNode.h"
 #include "StoryJsonLabelNode.h"
 #include "StoryJsonExhibitNode.h"
+#include "StoryJsonEndNode.h"
 
 #include <utility>
 
@@ -167,6 +168,34 @@ int StoryJson::InsertExhibit(const char* exhibitName, int index){
     return i;
 }
 
+int StoryJson::AddEnd()
+{
+    StoryEnd* end = new StoryEnd;
+    end->m_nodeType = NodeType::End;
+
+    return  AddNode(end);
+}
+
+int StoryJson::InsertEnd(int index)
+{
+    int i = 0;
+    for (auto iter = m_nodes.cbegin(); iter != m_nodes.cend(); iter++)
+    {
+        if (i == index)
+        {
+            StoryEnd* end = new StoryEnd;
+            end->m_nodeType = NodeType::End;
+
+
+            m_nodes.insert(iter, end);
+        }
+
+        i++;
+    }
+
+    return i;
+}
+
 
 void StoryJson::Swap(int lhs, int rhs)
 {
@@ -232,6 +261,7 @@ void StoryJson::Remove(int index) {
         if (i == index)
         {
             iter = m_nodes.erase(iter);
+            return;
         }
         i++;
     }
@@ -291,6 +321,20 @@ StoryJson::StoryJson(const StoryJson& storyJson)
             const StoryNode* node = *iter;
             StoryLabel* label = new StoryLabel(static_cast<const StoryLabel&>(*node));
             m_nodes.push_back(label);
+
+        }
+        else if ((*iter)->m_nodeType == NodeType::Exhibit)
+        {
+            const StoryNode* node = *iter;
+            StoryExhibit* exhibit = new StoryExhibit(static_cast<const StoryExhibit&>(*node));
+            m_nodes.push_back(exhibit);
+
+        }
+        else if ((*iter)->m_nodeType == NodeType::End)
+        {
+            const StoryNode* node = *iter;
+            StoryEnd* end = new StoryEnd(static_cast<const StoryEnd&>(*node));
+            m_nodes.push_back(end);
 
         }
     }
@@ -516,6 +560,12 @@ void ToJsonFactory(json& j, const StoryJson& story)
             const StoryExhibit*const pExhibit = static_cast<const StoryExhibit*const>(pNode);
             j.push_back(*pExhibit);
         }
+
+        if (pNode->m_nodeType == NodeType::End)
+        {
+            const StoryEnd*const pEnd = static_cast<const StoryEnd*const>(pNode);
+            j.push_back(*pEnd);
+        }
     }
 }
 
@@ -547,6 +597,12 @@ void FromJsonFactory(const json& j, StoryJson & storyJson)
 
         if(strcmp(enumString, nodeTypeString[(int)NodeType::Exhibit]) == 0){
             StoryExhibit* node = new StoryExhibit;
+            *node = j[i];
+            storyJson.AddNode(node);
+        }
+
+        if (strcmp(enumString, nodeTypeString[(int)NodeType::End]) == 0) {
+            StoryEnd* node = new StoryEnd;
             *node = j[i];
             storyJson.AddNode(node);
         }

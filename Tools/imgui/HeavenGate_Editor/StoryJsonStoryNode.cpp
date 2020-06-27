@@ -15,7 +15,9 @@ extern char nodeTypeString[][MAX_ENUM_LENGTH] = {
     "none",
     "label",
     "word",
-    "jump"
+    "jump",
+    "Exhibit",
+    "End"
 };
 
 StoryNode::StoryNode()

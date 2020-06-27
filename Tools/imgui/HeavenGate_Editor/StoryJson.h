@@ -53,6 +53,9 @@ namespace HeavenGateEditor {
         int AddExhibit(const char* exhibitName);
         int InsertExhibit(const char* exhibitName, int index);
 
+        int AddEnd();
+        int InsertEnd(int index);
+
         void Swap(int lhs, int rhs);
 
         StoryNode* const GetNode(int index);

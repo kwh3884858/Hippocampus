@@ -16,6 +16,7 @@
 #include "StoryJsonLabelNode.h"
 #include "StoryJsonJumpNode.h"
 #include "StoryJsonExhibitNode.h"
+#include "StoryJsonEndNode.h"
 
 
 #include "StoryTable.h"
@@ -37,7 +38,7 @@ namespace HeavenGateEditor {
 
     HeavenGateWindowStoryEditor::~HeavenGateWindowStoryEditor()
     {
-   
+
     }
 
     void HeavenGateWindowStoryEditor::Initialize()
@@ -104,8 +105,8 @@ namespace HeavenGateEditor {
             return;
         }
 
-        ImGui::Text("Heaven Gate says hello. (%s)", IMGUI_VERSION);
-        ImGui::Text(m_notification);
+        ImGui::Text("Heaven Gate. (%s)\nImgui version. (%s)", EDITOR_VERSION, IMGUI_VERSION);
+        ImGui::TextColored(ImVec4(1.0f, 0.0f, 1.0f, 1.0f), m_notification);
         ImGui::Spacing();
         if (m_storyJson != nullptr &&
             m_storyJson->IsExistFullPath() == true) {
@@ -234,7 +235,7 @@ namespace HeavenGateEditor {
                     jumpContent = pJump->m_jumpContent;
 
                     strcpy(thumbnail, order);
-                    strcat(thumbnail, "_Jump_");
+                    strcat(thumbnail, "_Jump: ");
                     strcat(thumbnail, jump);
 
                     if (ImGui::TreeNode((void*)(intptr_t)i, thumbnail))
@@ -316,7 +317,7 @@ namespace HeavenGateEditor {
                     label = pLabel->m_labelId;
 
                     strcpy(thumbnail, order);
-                    strcat(thumbnail, "_Label_");
+                    strcat(thumbnail, "_Label: ");
                     strcat(thumbnail, label);
 
                     if (ImGui::TreeNode((void*)(intptr_t)i, thumbnail))
@@ -377,6 +378,50 @@ namespace HeavenGateEditor {
                     break;
                 }
 
+                case NodeType::End:
+                {
+                    StoryEnd* end = static_cast<StoryEnd*>(node);
+                    assert(end != nullptr);
+
+                    StoryLabel *pLabel = nullptr;
+                    char decoration[] = " ======== ";
+                    strcpy(thumbnail, decoration);
+                    for (int j = i - 1; j >= 0; j--)
+                    {
+                        StoryNode* relatedNode = m_storyJson->GetNode(j);
+                        if (relatedNode->m_nodeType == NodeType::Label)
+                        {
+                            pLabel = static_cast<StoryLabel*>(relatedNode);
+                            label = pLabel->m_labelId;
+                            strcat(thumbnail, "Label End: ");
+                            strcat(thumbnail, order);
+                            strcat(thumbnail, "  ");
+                            strcat(thumbnail, label);
+                            break;
+                        }
+                    }
+                    if (pLabel == nullptr)
+                    {
+                        strcat(thumbnail, "Empty End");
+                    }
+                    strcat(thumbnail, decoration);
+
+                    if (ImGui::TreeNode((void*)(intptr_t)i, thumbnail))
+                    {
+                        AddButton(i);
+                        if (pLabel != nullptr)
+                        {
+                            ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f),"End label: %s", pLabel->m_labelId);
+                        }
+                        else
+                        {
+                            ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Error! At least need a label before end");
+                        }
+                        ImGui::TreePop();
+                    }
+
+                    break;
+                }
                 default:
                     break;
                 }
@@ -414,6 +459,16 @@ namespace HeavenGateEditor {
                 m_storyJson->AddJump("", "");
 
                 AddNotification("Add New Jump");
+            }
+        }
+        ImGui::SameLine();
+        if (ImGui::Button("Add new end")) {
+
+            if (m_storyJson != nullptr)
+            {
+                m_storyJson->AddEnd();
+
+                AddNotification("Add New End");
             }
         }
 
@@ -622,6 +677,17 @@ namespace HeavenGateEditor {
                 }
             }
 
+            if (ImGui::Button("Insert new end")) {
+
+                if (m_storyJson != nullptr)
+                {
+                    m_storyJson->InsertEnd(index);
+
+                    AddNotification("Insert New End");
+
+                }
+            }
+
             ImGui::SameLine();
 
             if (ImGui::Button("Move Up")) {
@@ -825,7 +891,7 @@ namespace HeavenGateEditor {
                     break;
                 }
                 case HeavenGateEditor::TableType::Tips: {
-                    const StoryTable<TIP_MAX_COLUMN,TIP_TABLE_MAX_CONTENT>* const tipTable = StoryTableManager::Instance().GetTipTable();
+                    const StoryTable<TIP_MAX_COLUMN, TIP_TABLE_MAX_CONTENT>* const tipTable = StoryTableManager::Instance().GetTipTable();
 
                     for (int i = 0; i < tipTable->GetSize(); i++)
                     {
@@ -836,7 +902,7 @@ namespace HeavenGateEditor {
                         }
                     }
                 }
-                    break;
+                                                        break;
                 case HeavenGateEditor::TableType::Paint_Move:
                     break;
                 case TableType::Pause:
