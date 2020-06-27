@@ -25,6 +25,7 @@
 #include <iostream>
 
 #include <stdio.h>
+#include <assert.h>  
 
 
 namespace HeavenGateEditor {
@@ -112,46 +113,47 @@ namespace HeavenGateEditor {
 
         }
 
-        StoryTable<CHAPTER_COLUMN>* const chapterTable = StoryTableManager::Instance().GetChapterTable();
-        StoryTable<SCENE_COLUMN>* const sceneTable = StoryTableManager::Instance().GetSceneTable();
-        if (chapterTable == nullptr || sceneTable == nullptr)
-        {
-            return;
-        }
+        //StoryTable<CHAPTER_COLUMN>* const chapterTable = StoryTableManager::Instance().GetChapterTable();
+        //StoryTable<SCENE_COLUMN>* const sceneTable = StoryTableManager::Instance().GetSceneTable();
+        //if (chapterTable == nullptr || sceneTable == nullptr)
+        //{
+        //    return;
+        //}
 
-        if (ImGui::BeginCombo("Chapter", m_storyJson->GetChapter(), 0)) // The second parameter is the label previewed before opening the combo.
-        {
+        //if (ImGui::BeginCombo("Chapter", m_storyJson->GetChapter(), 0)) // The second parameter is the label previewed before opening the combo.
+        //{
 
-            for (int i = 0; i < chapterTable->GetSize(); i++)
-            {
-                bool is_selected = strcmp(m_storyJson->GetChapter(), chapterTable->GetRow(i)->Get(0)) == 0;
-                if (ImGui::Selectable(chapterTable->GetRow(i)->Get(0), is_selected))
-                    m_storyJson->SetChapter(chapterTable->GetRow(i)->Get(0));
-                if (is_selected)
-                    ImGui::SetItemDefaultFocus();   // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
-
-
-            }
-
-            ImGui::EndCombo();
-        }
-
-        if (ImGui::BeginCombo("Scene", m_storyJson->GetScene(), 0)) // The second parameter is the label previewed before opening the combo.
-        {
-
-            for (int i = 0; i < sceneTable->GetSize(); i++)
-            {
-                bool is_selected = strcmp(m_storyJson->GetScene(), sceneTable->GetRow(i)->Get(0)) == 0;
-                if (ImGui::Selectable(sceneTable->GetRow(i)->Get(0), is_selected))
-                    m_storyJson->SetScene(sceneTable->GetRow(i)->Get(0));
-                if (is_selected)
-                    ImGui::SetItemDefaultFocus();   // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
+        //    for (int i = 0; i < chapterTable->GetSize(); i++)
+        //    {
+        //        bool is_selected = strcmp(m_storyJson->GetChapter(), chapterTable->GetRow(i)->Get(0)) == 0;
+        //        if (ImGui::Selectable(chapterTable->GetRow(i)->Get(0), is_selected))
+        //            m_storyJson->SetChapter(chapterTable->GetRow(i)->Get(0));
+        //        if (is_selected)
+        //            ImGui::SetItemDefaultFocus();   // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
 
 
-            }
+        //    }
 
-            ImGui::EndCombo();
-        }
+        //    ImGui::EndCombo();
+        //}
+
+        //if (ImGui::BeginCombo("Scene", m_storyJson->GetScene(), 0)) // The second parameter is the label previewed before opening the combo.
+        //{
+
+        //    for (int i = 0; i < sceneTable->GetSize(); i++)
+        //    {
+        //        bool is_selected = strcmp(m_storyJson->GetScene(), sceneTable->GetRow(i)->Get(0)) == 0;
+        //        if (ImGui::Selectable(sceneTable->GetRow(i)->Get(0), is_selected))
+        //            m_storyJson->SetScene(sceneTable->GetRow(i)->Get(0));
+        //        if (is_selected)
+        //            ImGui::SetItemDefaultFocus();   // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
+
+
+        //    }
+
+        //    ImGui::EndCombo();
+        //}
+
 
         static char* name = nullptr;
         static char* content = nullptr;
@@ -162,6 +164,7 @@ namespace HeavenGateEditor {
         char order[8] = "";
         char thumbnail[MAX_CONTENT * 2] = "";
 
+        assert(NUM_OF_ID_PART * MAX_ID_COUNT + NUM_OF_ID_PART == MAX_ID);
         char currentId[NUM_OF_ID_PART][MAX_ID_COUNT];
         memset(currentId, '\0', NUM_OF_ID_PART*MAX_ID_COUNT);
 
@@ -176,31 +179,36 @@ namespace HeavenGateEditor {
                 switch (node->m_nodeType) {
                 case NodeType::Word:
                 {
-                    char nameConstant[16] = "Name";
-                    char contentConstant[16] = "Content";
-                    strcat(nameConstant, order);
-                    strcat(contentConstant, order);
-
                     StoryWord* word = static_cast<StoryWord*>(node);
-                    name = word->m_name;
-                    content = word->m_content;
+                    ShowStoryWord(word, i);
+                    //char nameConstant[16] = "Name";
+                    //char contentConstant[16] = "Content";
+                    //strcat(nameConstant, order);
+                    //strcat(contentConstant, order);
 
-                    strcpy(thumbnail, order);
-                    strcat(thumbnail, "_Word_");
-                    strcat(thumbnail, name);
-                    strcat(thumbnail, ": ");
-                    strcat(thumbnail, content);
+                    //StoryWord* word = static_cast<StoryWord*>(node);
+                    //assert(word != nullptr);
+                    //assert(word->m_name != nullptr);
+                    //assert(word->m_content != nullptr);
+                    //name = word->m_name;
+                    //content = word->m_content;
 
-                    if (ImGui::TreeNode((void*)(intptr_t)i, thumbnail))
-                    {
+                    //strcpy(thumbnail, order);
+                    //strcat(thumbnail, "_Word_");
+                    //strcat(thumbnail, name);
+                    //strcat(thumbnail, ": ");
+                    //strcat(thumbnail, content);
 
-                        AddButton(i);
+                    //if (ImGui::TreeNode((void*)(intptr_t)i, thumbnail))
+                    //{
 
-                        ImGui::InputTextWithHint(nameConstant, "Enter name here", name, MAX_NAME);
-                        ImGui::InputTextWithHint(contentConstant, "Enter Content here", content, MAX_CONTENT, ImGuiInputTextFlags_CallbackAlways, WordContentCallback);
+                    //    AddButton(i);
 
-                        ImGui::TreePop();
-                    }
+                    //    ImGui::InputTextWithHint(nameConstant, "Enter name here", name, MAX_NAME);
+                    //    ImGui::InputTextWithHint(contentConstant, "Enter Content here", content, MAX_CONTENT, ImGuiInputTextFlags_CallbackAlways, WordContentCallback);
+
+                    //    ImGui::TreePop();
+                    //}
 
 
                     break;
@@ -208,18 +216,16 @@ namespace HeavenGateEditor {
 
                 case NodeType::Jump:
                 {
-
-
                     char jumpConstant[16] = "Jump";
                     char contentConstant[16] = "JumpContent";
-                    char chapterConstant[16] = "Chapter";
-                    char sceneConstant[16] = "Scene";
+                    //char chapterConstant[16] = "Chapter";
+                    //char sceneConstant[16] = "Scene";
                     char idTitileConstant[16] = "Id Title";
                     char idCountConstant[16] = "Id Count";
                     strcat(jumpConstant, order);
                     strcat(contentConstant, order);
-                    strcat(chapterConstant, order);
-                    strcat(sceneConstant, order);
+                    //strcat(chapterConstant, order);
+                    //strcat(sceneConstant, order);
                     strcat(idTitileConstant, order);
                     strcat(idCountConstant, order);
 
@@ -238,45 +244,46 @@ namespace HeavenGateEditor {
                         ImGui::Text("Jump Id: %s", jump);
 
                         IdOperator::ParseStringId(jump, currentId);
-
-                        if (ImGui::BeginCombo(chapterConstant, currentId[(int)ID_PART::CHAPTER], 0)) // The second parameter is the label previewed before opening the combo.
-                        {
-
-                            for (int i = 0; i < chapterTable->GetSize(); i++)
-                            {
-                                bool is_selected = strcmp(currentId[(int)ID_PART::CHAPTER], chapterTable->GetRow(i)->Get(0)) == 0;
-                                if (ImGui::Selectable(chapterTable->GetRow(i)->Get(0), is_selected)) {
-                                    strcpy(currentId[(int)ID_PART::CHAPTER], chapterTable->GetRow(i)->Get(0));
-
-                                }
-                                if (is_selected)
-                                    ImGui::SetItemDefaultFocus();   // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
-
-                            }
-
-                            ImGui::EndCombo();
+                        if (!IsNum(currentId[(int)ID_PART::COUNT])) {
+                            strcpy(currentId[(int)ID_PART::COUNT], "0");
                         }
+                        //if (ImGui::BeginCombo(chapterConstant, currentId[(int)ID_PART::CHAPTER], 0)) // The second parameter is the label previewed before opening the combo.
+                        //{
 
-                        if (ImGui::BeginCombo(sceneConstant, currentId[(int)ID_PART::SCENE], 0)) // The second parameter is the label previewed before opening the combo.
-                        {
+                        //    for (int i = 0; i < chapterTable->GetSize(); i++)
+                        //    {
+                        //        bool is_selected = strcmp(currentId[(int)ID_PART::CHAPTER], chapterTable->GetRow(i)->Get(0)) == 0;
+                        //        if (ImGui::Selectable(chapterTable->GetRow(i)->Get(0), is_selected)) {
+                        //            strcpy(currentId[(int)ID_PART::CHAPTER], chapterTable->GetRow(i)->Get(0));
 
-                            for (int i = 0; i < sceneTable->GetSize(); i++)
-                            {
-                                bool is_selected = strcmp(currentId[(int)ID_PART::SCENE], sceneTable->GetRow(i)->Get(0)) == 0;
-                                if (ImGui::Selectable(sceneTable->GetRow(i)->Get(0), is_selected)) {
-                                    strcpy(currentId[(int)ID_PART::SCENE], sceneTable->GetRow(i)->Get(0));
+                        //        }
+                        //        if (is_selected)
+                        //            ImGui::SetItemDefaultFocus();   // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
 
-                                }
-                                if (is_selected)
-                                    ImGui::SetItemDefaultFocus();   // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
+                        //    }
 
-                            }
+                        //    ImGui::EndCombo();
+                        //}
 
-                            ImGui::EndCombo();
-                        }
+                        //if (ImGui::BeginCombo(sceneConstant, currentId[(int)ID_PART::SCENE], 0)) // The second parameter is the label previewed before opening the combo.
+                        //{
+
+                        //    for (int i = 0; i < sceneTable->GetSize(); i++)
+                        //    {
+                        //        bool is_selected = strcmp(currentId[(int)ID_PART::SCENE], sceneTable->GetRow(i)->Get(0)) == 0;
+                        //        if (ImGui::Selectable(sceneTable->GetRow(i)->Get(0), is_selected)) {
+                        //            strcpy(currentId[(int)ID_PART::SCENE], sceneTable->GetRow(i)->Get(0));
+
+                        //        }
+                        //        if (is_selected)
+                        //            ImGui::SetItemDefaultFocus();   // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
+
+                        //    }
+
+                        //    ImGui::EndCombo();
+                        //}
 
                         ImGui::InputText(idTitileConstant, currentId[(int)ID_PART::TITLE], MAX_ID_TITLE, ImGuiInputTextFlags_CharsNoBlank);
-
                         ImGui::InputText(idCountConstant, currentId[(int)ID_PART::COUNT], MAX_ID_COUNT, ImGuiInputTextFlags_CharsDecimal);
 
                         IdOperator::CombineStringId(pJump->m_jumpId, currentId);
@@ -292,18 +299,16 @@ namespace HeavenGateEditor {
 
                 case NodeType::Label:
                 {
-
-
                     char LabelConstant[16] = "Label";
-                    char chapterConstant[16] = "Chapter";
-                    char sceneConstant[16] = "Scene";
+                    //char chapterConstant[16] = "Chapter";
+                    //char sceneConstant[16] = "Scene";
                     char idTitileConstant[16] = "Id Title";
                     char idCountConstant[16] = "Id Count";
 
                     strcat(LabelConstant, order);
 
-                    strcat(chapterConstant, order);
-                    strcat(sceneConstant, order);
+                    //strcat(chapterConstant, order);
+                    //strcat(sceneConstant, order);
                     strcat(idTitileConstant, order);
                     strcat(idCountConstant, order);
 
@@ -320,41 +325,43 @@ namespace HeavenGateEditor {
                         ImGui::Text("Jump Id: %s", label);
 
                         IdOperator::ParseStringId(label, currentId);
-
-                        if (ImGui::BeginCombo(chapterConstant, currentId[(int)ID_PART::CHAPTER], 0)) // The second parameter is the label previewed before opening the combo.
-                        {
-
-                            for (int i = 0; i < chapterTable->GetSize(); i++)
-                            {
-                                bool is_selected = strcmp(currentId[(int)ID_PART::CHAPTER], chapterTable->GetRow(i)->Get(0)) == 0;
-                                if (ImGui::Selectable(chapterTable->GetRow(i)->Get(0), is_selected)) {
-                                    strcpy(currentId[(int)ID_PART::CHAPTER], chapterTable->GetRow(i)->Get(0));
-
-                                }
-                                if (is_selected)
-                                    ImGui::SetItemDefaultFocus();   // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
-
-                            }
-
-                            ImGui::EndCombo();
+                        if (!IsNum(currentId[(int)ID_PART::COUNT])) {
+                            strcpy(currentId[(int)ID_PART::COUNT], "0");
                         }
+                        //if (ImGui::BeginCombo(chapterConstant, currentId[(int)ID_PART::CHAPTER], 0)) // The second parameter is the label previewed before opening the combo.
+                        //{
 
-                        if (ImGui::BeginCombo(sceneConstant, currentId[(int)ID_PART::SCENE], 0)) // The second parameter is the label previewed before opening the combo.
-                        {
+                        //    for (int i = 0; i < chapterTable->GetSize(); i++)
+                        //    {
+                        //        bool is_selected = strcmp(currentId[(int)ID_PART::CHAPTER], chapterTable->GetRow(i)->Get(0)) == 0;
+                        //        if (ImGui::Selectable(chapterTable->GetRow(i)->Get(0), is_selected)) {
+                        //            strcpy(currentId[(int)ID_PART::CHAPTER], chapterTable->GetRow(i)->Get(0));
 
-                            for (int i = 0; i < sceneTable->GetSize(); i++)
-                            {
-                                bool is_selected = strcmp(currentId[(int)ID_PART::SCENE], sceneTable->GetRow(i)->Get(0)) == 0;
-                                if (ImGui::Selectable(sceneTable->GetRow(i)->Get(0), is_selected)) {
-                                    strcpy(currentId[(int)ID_PART::SCENE], sceneTable->GetRow(i)->Get(0));
+                        //        }
+                        //        if (is_selected)
+                        //            ImGui::SetItemDefaultFocus();   // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
 
-                                }
-                                if (is_selected)
-                                    ImGui::SetItemDefaultFocus();   // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
-                            }
+                        //    }
 
-                            ImGui::EndCombo();
-                        }
+                        //    ImGui::EndCombo();
+                        //}
+
+                        //if (ImGui::BeginCombo(sceneConstant, currentId[(int)ID_PART::SCENE], 0)) // The second parameter is the label previewed before opening the combo.
+                        //{
+
+                        //    for (int i = 0; i < sceneTable->GetSize(); i++)
+                        //    {
+                        //        bool is_selected = strcmp(currentId[(int)ID_PART::SCENE], sceneTable->GetRow(i)->Get(0)) == 0;
+                        //        if (ImGui::Selectable(sceneTable->GetRow(i)->Get(0), is_selected)) {
+                        //            strcpy(currentId[(int)ID_PART::SCENE], sceneTable->GetRow(i)->Get(0));
+
+                        //        }
+                        //        if (is_selected)
+                        //            ImGui::SetItemDefaultFocus();   // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
+                        //    }
+
+                        //    ImGui::EndCombo();
+                        //}
 
                         ImGui::InputText(idTitileConstant, currentId[(int)ID_PART::TITLE], MAX_ID_TITLE, ImGuiInputTextFlags_CharsNoBlank);
 
@@ -410,6 +417,64 @@ namespace HeavenGateEditor {
             }
         }
 
+
+        {
+            static char importContent[1024 * 32] = "\0";
+
+            ImGui::Text("Import (Test function) MAX Content limit: 1024 * 16(line length limit)");
+            static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
+            ImGui::InputTextMultiline("##source", importContent, IM_ARRAYSIZE(importContent), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 16), flags);
+            if (ImGui::Button("import")) {
+                char cache[1024] = "";
+                int cacheLength = 0;
+                bool isName = true;
+                int index = -1;
+
+                int i = 0;
+                for (; i < 1024 * 32 && importContent[i] != '\0'; i++)
+                {
+                    if (importContent[i] == '\n')
+                    {
+                        //new line
+                        if (strlen(cache) != 0)
+                        {
+                            if (isName)
+                            {
+                                if (m_storyJson != nullptr)
+                                {
+                                    index = m_storyJson->AddWord(cache, "");
+                                    isName = false;
+                                }
+                            }
+                            else
+                            {
+                                if (index > 0)
+                                {
+                                    if (m_storyJson != nullptr)
+                                    {
+                                        StoryNode* node = m_storyJson->GetNode(index);
+                                        if (node != nullptr)
+                                        {
+                                            StoryWord* word = static_cast<StoryWord*>(node);
+                                            strcpy(word->m_content, cache);
+                                            isName = true;
+                                        }
+                                    }
+                                }
+                            }
+                            memset(cache, '\0', 1024);
+                            cacheLength = 0;
+
+                        }
+                    }
+                    else
+                    {
+                        cache[cacheLength] = importContent[i];
+                        cacheLength++;
+                    }
+                }
+            }
+        }
 
         //Update Auto Save
         StoryTimer<HeavenGateWindowStoryEditor>::Update();
@@ -798,6 +863,10 @@ namespace HeavenGateEditor {
 
     void HeavenGateWindowStoryEditor::ShowStoryWord(StoryWord* word, int index)
     {
+        assert(word != nullptr);
+        assert(word->m_name != nullptr);
+        assert(word->m_content != nullptr);
+
         static char* name = nullptr;
         static char* content = nullptr;
         char order[8] = "";
@@ -852,6 +921,23 @@ namespace HeavenGateEditor {
             }
 
         }
+    }
+
+    bool HeavenGateWindowStoryEditor::IsNum(const char * const content)
+    {
+        for (int i = 0; i < strlen(content); i++)
+        {
+            int tmp = (int)content[i];
+            if (tmp >= 48 && tmp <= 57)
+            {
+                continue;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     //void HeavenGateWindowStoryEditor::ShowEditorWindow(bool* isOpenPoint) {

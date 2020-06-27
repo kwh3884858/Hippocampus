@@ -54,11 +54,11 @@ namespace HeavenGateEditor {
         static int WordContentCallback(ImGuiInputTextCallbackData* data);
 
         void ShowStoryWord(StoryWord* word, int index);
-
         void AddButton(int index);
         void AddNotification(const char * const notification);
-
         void AutoSaveCallback();
+
+        bool IsNum(const char * const);
 
         //Data
         StoryJson* m_storyJson;

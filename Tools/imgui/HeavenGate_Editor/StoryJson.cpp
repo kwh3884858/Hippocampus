@@ -15,26 +15,26 @@
 namespace HeavenGateEditor {
 //using NodeType = StoryNode::NodeType;
 enum class StructLayout {
-    Info,
+    //Info,
     Value
 };
-enum class InfoLayout {
-    Chapter,
-    Scene
-};
+//enum class InfoLayout {
+//    Chapter,
+//    Scene
+//};
 
 
 
 
 
 extern char StructString[][MAX_ENUM_LENGTH] = {
-    "info",
+    //"info",
     "value"
 };
-extern char infoString[][MAX_ENUM_LENGTH] = {
-    "chapter",
-    "scene"
-};
+//extern char infoString[][MAX_ENUM_LENGTH] = {
+//    "chapter",
+//    "scene"
+//};
 
 
 
@@ -45,13 +45,12 @@ int HeavenGateEditor::StoryJson::AddNode(StoryNode* const node) {
     }
 
     m_nodes.push_back(node);
-    return static_cast<int>(m_nodes.size());
+    return static_cast<int>(m_nodes.size() -1 );
 }
 
 int HeavenGateEditor::StoryJson::AddWord(StoryWord * const word)
 {
-    m_nodes.push_back(word);
-    return static_cast<int>(m_nodes.size());
+    return AddNode(static_cast<StoryNode*>(word));
 }
 
 int  HeavenGateEditor::StoryJson::AddWord(const char* name, const char* content) {
@@ -253,8 +252,8 @@ int StoryJson::Size() const
 StoryJson::StoryJson()
 {
     memset(m_fullPath, '\0', sizeof(m_fullPath));
-    memset(m_chapter, '\0', sizeof(m_chapter));
-    memset(m_scene, '\0', sizeof(m_scene));
+    //memset(m_chapter, '\0', sizeof(m_chapter));
+    //memset(m_scene, '\0', sizeof(m_scene));
 
 }
 
@@ -267,11 +266,11 @@ StoryJson::StoryJson(const StoryJson& storyJson)
     memset(m_fullPath, '\0', sizeof(m_fullPath));
     strcpy(m_fullPath, storyJson.m_fullPath);
 
-    memset(m_chapter, '\0', sizeof(m_chapter));
-    strcpy(m_chapter, storyJson.m_chapter);
+    //memset(m_chapter, '\0', sizeof(m_chapter));
+    //strcpy(m_chapter, storyJson.m_chapter);
 
-    memset(m_scene, '\0', sizeof(m_scene));
-    strcpy(m_scene, storyJson.m_scene);
+    //memset(m_scene, '\0', sizeof(m_scene));
+    //strcpy(m_scene, storyJson.m_scene);
 
     for (auto iter = storyJson.m_nodes.cbegin(); iter != storyJson.m_nodes.cend(); iter++) {
         if ((*iter)->m_nodeType == NodeType::Word)
@@ -306,11 +305,11 @@ StoryJson::StoryJson(StoryJson&& storyJson) noexcept
     memset(m_fullPath, '\0', sizeof(m_fullPath));
     strcpy(m_fullPath, storyJson.m_fullPath);
 
-    memset(m_chapter, '\0', sizeof(m_chapter));
-    strcpy(m_chapter, storyJson.m_chapter);
+    //memset(m_chapter, '\0', sizeof(m_chapter));
+    //strcpy(m_chapter, storyJson.m_chapter);
 
-    memset(m_scene, '\0', sizeof(m_scene));
-    strcpy(m_scene, storyJson.m_scene);
+    //memset(m_scene, '\0', sizeof(m_scene));
+    //strcpy(m_scene, storyJson.m_scene);
 
     m_nodes = storyJson.m_nodes;
 
@@ -337,11 +336,11 @@ StoryJson& StoryJson::operator=(StoryJson&& storyJson) noexcept
     memset(m_fullPath, '\0', sizeof(m_fullPath));
     strcpy(m_fullPath, storyJson.m_fullPath);
 
-    memset(m_chapter, '\0', sizeof(m_chapter));
-    strcpy(m_chapter, storyJson.m_chapter);
+    //memset(m_chapter, '\0', sizeof(m_chapter));
+    //strcpy(m_chapter, storyJson.m_chapter);
 
-    memset(m_scene, '\0', sizeof(m_scene));
-    strcpy(m_scene, storyJson.m_scene);
+    //memset(m_scene, '\0', sizeof(m_scene));
+    //strcpy(m_scene, storyJson.m_scene);
     m_nodes = storyJson.m_nodes;
 
     for (auto iter = storyJson.m_nodes.begin(); iter != storyJson.m_nodes.end(); iter++) {
@@ -369,8 +368,8 @@ void StoryJson::Clear()
     m_nodes.clear();
 
     memset(m_fullPath, '\0', sizeof(m_fullPath));
-    memset(m_chapter, '\0', sizeof(m_chapter));
-    memset(m_scene, '\0', sizeof(m_scene));
+    //memset(m_chapter, '\0', sizeof(m_chapter));
+    //memset(m_scene, '\0', sizeof(m_scene));
 }
 bool StoryJson::SetFileName(const char* const fileName) {
 
@@ -431,10 +430,10 @@ bool StoryJson::IsExistFullPath()const {
 
 void to_json(json & j, const StoryJson & story)
 {
-    j[StructString[(int)StructLayout::Info]] = json::array();
-    j[StructString[(int)StructLayout::Info]] = json{
-        {infoString[(int)InfoLayout::Chapter],       story.GetChapter()},
-        {infoString[(int)InfoLayout::Scene],         story.GetScene()} };
+    //j[StructString[(int)StructLayout::Info]] = json::array();
+    //j[StructString[(int)StructLayout::Info]] = json{
+    //    {infoString[(int)InfoLayout::Chapter],       story.GetChapter()},
+    //    {infoString[(int)InfoLayout::Scene],         story.GetScene()} };
 
 
     j[StructString[(int)StructLayout::Value]] = json::array();
@@ -459,12 +458,12 @@ void from_json(const json & j, StoryJson & p)
 {
     json tmpJson;
 
-    GetJsonException(tmpJson, j, StructString[(int)StructLayout::Info]);
-    if (!tmpJson.empty())
-    {
-        GetContentException(p.GetChapter(), tmpJson, infoString[(int)InfoLayout::Chapter]);
-        GetContentException(p.GetScene(), tmpJson, infoString[(int)InfoLayout::Scene]);
-    }
+    //GetJsonException(tmpJson, j, StructString[(int)StructLayout::Info]);
+    //if (!tmpJson.empty())
+    //{
+    //    GetContentException(p.GetChapter(), tmpJson, infoString[(int)InfoLayout::Chapter]);
+    //    GetContentException(p.GetScene(), tmpJson, infoString[(int)InfoLayout::Scene]);
+    //}
 
     GetJsonException(tmpJson, j, StructString[(int)StructLayout::Value]);
     if (!tmpJson.empty())
@@ -569,20 +568,21 @@ void IdOperator::ParseStringId(const char* const pinStringId, char(*pOutIdArray)
     {
         if (pinStringId[i] == '_')
         {
-
             strcpy(pOutIdArray[indexOfArray++], tmpPartId);
-
             j = 0;
             memset(tmpPartId, '\0', MAX_ID);
+            if (indexOfArray == NUM_OF_ID_PART) return;
         }
         else {
             tmpPartId[j++] = pinStringId[i];
         }
     }
-    if (indexOfArray > 3)
-    {
-        return;
-    }
+    //if (indexOfArray > 3)
+    //{
+    //    return;
+    //}
+    
+    //Read last part element
     strcpy(pOutIdArray[indexOfArray++], tmpPartId);
 }
 

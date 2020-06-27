@@ -175,10 +175,13 @@ namespace StarPlatinum.StoryReader
 				JObject json = JObject.Parse (story.text);
 				//object json = JsonConvert.DeserializeObject(story.text);
 				if (json != null) {
-					m_chapter = json [StoryJsonLayout.info.ToString ()] [InfoLayout.chapter.ToString ()].ToString ();
-					m_scene = json [StoryJsonLayout.info.ToString ()] [InfoLayout.scene.ToString ()].ToString ();
-
-					JArray storyJson = JArray.Parse (json [StoryJsonLayout.value.ToString ()].ToString ());
+                    JToken info = json.SelectToken(StoryJsonLayout.info.ToString());
+                    if(info != null && info.Type != JTokenType.Null)
+                    {
+                        m_chapter = info[InfoLayout.chapter.ToString()].ToString();
+                        m_scene = info[InfoLayout.scene.ToString()].ToString();
+                    }
+                    JArray storyJson = JArray.Parse (json [StoryJsonLayout.value.ToString ()].ToString ());
 					if (storyJson != null) {
 						int count = storyJson.Count;
 						NodeType type;
@@ -270,10 +273,12 @@ namespace StarPlatinum.StoryReader
 		/// </summary>
 		private int m_index = 0;
 
+        //DO NOT USE
 		private string m_chapter;
 		public string Chapter => m_chapter;
 
-		private string m_scene;
+        //DO NOT USE
+        private string m_scene;
 		public string Scene => m_scene;
 
         private bool m_loadResult = false;

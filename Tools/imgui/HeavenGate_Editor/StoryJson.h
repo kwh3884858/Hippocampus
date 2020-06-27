@@ -20,10 +20,10 @@ namespace HeavenGateEditor {
     class StoryExhibit;
 
     enum class StructLayout :int;
-    enum class InfoLayout :int;
+    //enum class InfoLayout :int;
 
     extern char StructString[][MAX_ENUM_LENGTH];
-    extern char infoString[][MAX_ENUM_LENGTH];
+    //extern char infoString[][MAX_ENUM_LENGTH];
 
 
 
@@ -72,7 +72,7 @@ namespace HeavenGateEditor {
         void SetFullPath(const char* fullPath);
         const char* GetFullPath()const;
         bool IsExistFullPath()const;
-
+/*
         void SetChapter(const char* chapter) { strcpy(m_chapter, chapter); }
         const char *const GetChapter()const { return m_chapter; }
         char* GetChapter() { return const_cast<char*>(const_cast<const StoryJson*>(this)->GetChapter()); }
@@ -80,13 +80,13 @@ namespace HeavenGateEditor {
         void SetScene(const char* scene) { strcpy(m_scene, scene); }
         const char* const GetScene()const { return m_scene; }
         char* GetScene() { return const_cast<char*>(const_cast<const StoryJson*>(this)->GetScene()); }
-
+*/
     private:
         list<StoryNode*> m_nodes;
         char m_fullPath[MAX_FOLDER_PATH];
 
-        char m_chapter[MAX_FOLDER_PATH];
-        char m_scene[MAX_FOLDER_PATH];
+        //char m_chapter[MAX_FOLDER_PATH];
+        //char m_scene[MAX_FOLDER_PATH];
 
     };
 

@@ -10,7 +10,7 @@
 #define HeavenGateEditorConstant_h
 
 namespace HeavenGateEditor {
-
+    const char* const   EDITOR_VERSION = "0.0.01";
     const int     MAX_FOLDER_PATH = 265;
 
     const int     MAX_FILE_NAME = 64;
@@ -20,20 +20,20 @@ namespace HeavenGateEditor {
     //For story content limit
     const int     MAX_NAME = 64;
     const int     MAX_CONTENT = 265;
-    const int     NUM_OF_ID_PART = 4;
+    const int     NUM_OF_ID_PART = 2;
     const int     MAX_ID_PART = 32;
     const int     MAX_EXHIBIT_NAME = 64;
 
     //ID 
-    const int     MAX_CHAPTER = MAX_ID_PART;
-    const int     MAX_SCENE = MAX_ID_PART;
+    //const int     MAX_CHAPTER = MAX_ID_PART;
+    //const int     MAX_SCENE = MAX_ID_PART;
     const int     MAX_ID_TITLE = MAX_ID_PART;
     const int     MAX_ID_COUNT = MAX_ID_PART;
-    const int     MAX_ID = MAX_CHAPTER + MAX_SCENE + MAX_ID_TITLE + MAX_ID_COUNT + NUM_OF_ID_PART;
+    const int     MAX_ID = /*MAX_CHAPTER + MAX_SCENE + */MAX_ID_TITLE + MAX_ID_COUNT + NUM_OF_ID_PART;
     enum class ID_PART
     {
-        CHAPTER = 0,
-        SCENE,
+        //CHAPTER = 0,
+        //SCENE,
         TITLE,
         COUNT
     };

@@ -105,7 +105,7 @@ namespace HeavenGateEditor {
         char filePath[MAX_FOLDER_PATH];
 
         //Rename Start
-        RenameStoryFileByChapterAndScene(pStoryJson);
+        //RenameStoryFileByChapterAndScene(pStoryJson);
         //Rename End
 
         strcpy(filePath, pStoryJson->GetFullPath());
@@ -186,7 +186,7 @@ namespace HeavenGateEditor {
         }
 
         //Rename Start
-        RenameStoryFileByChapterAndScene(pStoryJson);
+        //RenameStoryFileByChapterAndScene(pStoryJson);
         //Rename End
 
         char filePath[MAX_FOLDER_PATH];
@@ -378,46 +378,46 @@ namespace HeavenGateEditor {
     }
 
 
-    bool StoryFileManager::RenameStoryFileByChapterAndScene(StoryJson* const pStoryJson) const {
+    //bool StoryFileManager::RenameStoryFileByChapterAndScene(StoryJson* const pStoryJson) const {
 
-        char filePath[MAX_FOLDER_PATH];
-        strcpy(filePath, pStoryJson->GetFullPath());
+    //    char filePath[MAX_FOLDER_PATH];
+    //    strcpy(filePath, pStoryJson->GetFullPath());
 
-        const char* const pChapater = pStoryJson->GetChapter();
-        const char* const pScene = pStoryJson->GetScene();
+    //    const char* const pChapater = pStoryJson->GetChapter();
+    //    const char* const pScene = pStoryJson->GetScene();
 
-        if (pChapater == nullptr || pScene == nullptr) {
-            return false;
-        }
+    //    if (pChapater == nullptr || pScene == nullptr) {
+    //        return false;
+    //    }
 
-        bool isChapterExist = CharacterUtility::Find(filePath, strlen(filePath), pChapater, strlen(pChapater)) != -1;
-        bool isSceneExist = CharacterUtility::Find(filePath, strlen(filePath), pScene, strlen(pScene)) != -1;
+    //    bool isChapterExist = CharacterUtility::Find(filePath, strlen(filePath), pChapater, strlen(pChapater)) != -1;
+    //    bool isSceneExist = CharacterUtility::Find(filePath, strlen(filePath), pScene, strlen(pScene)) != -1;
 
-        if (!isChapterExist || !isSceneExist) {
-            //Reform file name, add ID of chapter and scene.
-            char newFileName[MAX_FILE_NAME] = { '\0' };
-            char oldFileName[MAX_FILE_NAME] = { '\0' };
+    //    if (!isChapterExist || !isSceneExist) {
+    //        //Reform file name, add ID of chapter and scene.
+    //        char newFileName[MAX_FILE_NAME] = { '\0' };
+    //        char oldFileName[MAX_FILE_NAME] = { '\0' };
 
-            pStoryJson->GetFileName(oldFileName);
+    //        pStoryJson->GetFileName(oldFileName);
 
-            int pos = CharacterUtility::FindLast(oldFileName, strlen(oldFileName), "_", 1);
+    //        int pos = CharacterUtility::FindLast(oldFileName, strlen(oldFileName), "_", 1);
 
-            if (pos != -1) {
-                strcpy(oldFileName, oldFileName + pos);
-            }
+    //        if (pos != -1) {
+    //            strcpy(oldFileName, oldFileName + pos);
+    //        }
 
-            strcpy(newFileName, pChapater);
-            strcat(newFileName, "_");
-            strcat(newFileName, pScene);
-            strcat(newFileName, "_");
-            strcat(newFileName, oldFileName);
+    //        strcpy(newFileName, pChapater);
+    //        strcat(newFileName, "_");
+    //        strcat(newFileName, pScene);
+    //        strcat(newFileName, "_");
+    //        strcat(newFileName, oldFileName);
 
-            pStoryJson->SetFileName(newFileName);
-        }
+    //        pStoryJson->SetFileName(newFileName);
+    //    }
 
-        return true;
+    //    return true;
 
-    }
+    //}
 
     bool StoryFileManager::RenameStoryFileByTimeAndPutAutoSaveFolder(StoryJson* const pStoryJson) const
     {

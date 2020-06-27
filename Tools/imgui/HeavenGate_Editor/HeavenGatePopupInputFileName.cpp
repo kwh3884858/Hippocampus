@@ -16,37 +16,12 @@
 namespace HeavenGateEditor {
 
     HeavenGatePopupInputFileName::HeavenGatePopupInputFileName() {
-
         Initialize();
-
     }
 
     HeavenGatePopupInputFileName::~HeavenGatePopupInputFileName() {
 
-        //m_storyFileManager = nullptr;
-        //m_ppStory = nullptr;
     }
-
-    //bool HeavenGateWindowFileManager::SaveStoryFile(const StoryJson* pStoryJson) {
-
-    //    if (m_storyFileManager != nullptr)
-    //    {
-
-    //        if (!m_storyFileManager->SaveStoryFile(pStoryJson)) {
-    //            printf("new file path is illegal");
-    //            return false;
-    //        }
-    //        m_storyFileManager->Initialize();
-
-    //    }
-    //    else {
-
-    //        OpenWindow();
-
-    //    }
-    //}
-
-
 
     void HeavenGateEditor::HeavenGatePopupInputFileName::UpdateMainWindow()
     {
@@ -75,6 +50,8 @@ namespace HeavenGateEditor {
                 }
 
                 story->SetFullPath(m_filePath);
+                //Default Node
+                story->AddLabel(m_fileName);
 
                 Initialize();
 

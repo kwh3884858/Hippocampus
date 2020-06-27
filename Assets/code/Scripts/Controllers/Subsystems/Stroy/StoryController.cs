@@ -88,27 +88,27 @@ namespace Controllers.Subsystems.Story
 
 
 
-		private bool IsCorrectChapter ()
-		{
-			bool result = true;
-			result = SingletonGlobalDataContainer.Instance.Chapter == m_storys.Chapter;
-			if (result == false) {
-				return false;
-			}
+		//private bool IsCorrectChapter ()
+		//{
+		//	bool result = true;
+		//	result = SingletonGlobalDataContainer.Instance.Chapter == m_storys.Chapter;
+		//	if (result == false) {
+		//		return false;
+		//	}
 
-			result = SingletonGlobalDataContainer.Instance.Scene == m_storys.Scene;
-			if (result == false) {
-				return false;
-			}
+		//	result = SingletonGlobalDataContainer.Instance.Scene == m_storys.Scene;
+		//	if (result == false) {
+		//		return false;
+		//	}
 
-			return result;
-		}
-		private string GenerateStoryID (string itemId)
-		{
-			return ChapterManager.Instance.GetCurrentSceneName () +
-				GameSceneManager.Instance.GetCurrentSceneEnum ().ToString() +
-				itemId;
-		}
+		//	return result;
+		//}
+		//private string GenerateStoryID (string itemId)
+		//{
+		//	return ChapterManager.Instance.GetCurrentSceneName () +
+		//		GameSceneManager.Instance.GetCurrentSceneEnum ().ToString() +
+		//		itemId;
+		//}
 		//Temp
 		int left = 28;
 		int right = 72;
@@ -170,11 +170,11 @@ namespace Controllers.Subsystems.Story
 				m_storys.JumpToWordAfterLabel (labelId);
 			}
 
-			if (m_storys.Chapter == "Ep2" &&
-				m_storys.Scene == "Pier") {
-				PushPicture (container, hero, heroine);
+			//if (m_storys.Chapter == "Ep2" &&
+			//	m_storys.Scene == "Pier") {
+			//	PushPicture (container, hero, heroine);
 
-			}
+			//}
 
 			if (labelId == "Ep2_Jeep_PoliceQuestion_0") {
 				PushPicture (container, hero, "");
