@@ -25,9 +25,6 @@ enum class StructLayout {
 //};
 
 
-
-
-
 extern char StructString[][MAX_ENUM_LENGTH] = {
     //"info",
     "value"

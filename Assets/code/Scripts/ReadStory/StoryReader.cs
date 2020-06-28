@@ -41,7 +41,8 @@ namespace StarPlatinum.StoryReader
 			none,
 			label,
 			word,
-			jump
+			jump,
+            end
 		};
 
 		//public List<StoryBasicData> GetSotry()
@@ -125,9 +126,13 @@ namespace StarPlatinum.StoryReader
 				return NodeType.jump;
 			} else if (m_story [m_index].typename == NodeType.label.ToString ()) {
 				return NodeType.label;
-			}
+            }
+            else if (m_story[m_index].typename == NodeType.end.ToString())
+            {
+                return NodeType.end;
+            }
 
-			return NodeType.none;
+            return NodeType.none;
 		}
 
 		public void LastStory ()
@@ -168,8 +173,9 @@ namespace StarPlatinum.StoryReader
 		/// 加载故事
 		/// </summary>
 		private bool LoadStory (string path)
-		{
-			TextAsset story = Resources.Load<TextAsset> (path);
+        {
+            m_loadResult = false;
+               TextAsset story = Resources.Load<TextAsset> (path);
 			if (story != null) {
 				//DataSet json = JsonConvert.DeserializeObject<DataSet>(story.text);
 				JObject json = JObject.Parse (story.text);
@@ -193,25 +199,30 @@ namespace StarPlatinum.StoryReader
 							data = storyJson [i].ToString ();
 							switch (type) {
 
-							case NodeType.word:
-								ReadWord (data);
-								break;
+                                case NodeType.word:
+                                    ReadWord(data);
+                                    break;
 
-							case NodeType.label:
-								ReadLabel (data);
-								break;
+                                case NodeType.label:
+                                    ReadLabel(data);
+                                    break;
 
-							case NodeType.jump:
-								ReadJump (data);
-								break;
+                                case NodeType.jump:
+                                    ReadJump(data);
+                                    break;
 
-							default:
-								break;
+                                case NodeType.end:
+                                    ReadEnd(data);
+                                    break;
+
+                                default:
+                                    break;
 
 							}
 						}
 
 						ResetIndex ();
+                        m_loadResult = true;
                         return true;
                     }
                     else
@@ -268,10 +279,16 @@ namespace StarPlatinum.StoryReader
 
 		}
 
-		/// <summary>
-		/// 基础数据
-		/// </summary>
-		private int m_index = 0;
+        private void ReadEnd(string json)
+        {
+            StoryEndData data = JsonConvert.DeserializeObject<StoryEndData>(json);
+            m_story.Add(data);
+        }
+
+        /// <summary>
+        /// 基础数据
+        /// </summary>
+        private int m_index = 0;
 
         //DO NOT USE
 		private string m_chapter;
@@ -320,4 +337,9 @@ namespace StarPlatinum.StoryReader
 		public string jump;
 		public string content;
 	}
+
+    [System.Serializable]
+    public class StoryEndData : StoryBasicData
+    {
+    }
 }

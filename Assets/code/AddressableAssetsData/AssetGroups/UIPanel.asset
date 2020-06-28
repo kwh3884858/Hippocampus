@@ -21,6 +21,10 @@ MonoBehaviour:
     m_Address: Load_Game_Panel
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 08031112a9b306b49ae7520f78a91d99
+    m_Address: World_Episode4_DoctorRoom
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 1608de85b18654f8db00614c562cd8af
     m_Address: MainCamera
     m_ReadOnly: 0

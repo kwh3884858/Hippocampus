@@ -21,6 +21,8 @@ CameraService.SceneCameraType m_World_CoreContainerCameraType;
 
  CameraService.SceneCameraType m_World_Episode3_HallCameraType; 
 
+ CameraService.SceneCameraType m_World_Episode4_DoctorRoomCameraType; 
+
  CameraService.SceneCameraType m_World_GameRootCameraType; 
 
  CameraService.SceneCameraType m_World_GoundTestSceneCameraType; 
@@ -83,6 +85,13 @@ m_World_Episode3_HallCameraType = (CameraService.SceneCameraType)EditorGUILayout
     if (m_World_Episode3_HallCameraType != ConfigRoot.Instance.World_Episode3_HallCameraType) 
 { 
 ConfigRoot.Instance.World_Episode3_HallCameraType = m_World_Episode3_HallCameraType; 
+} 
+
+m_World_Episode4_DoctorRoomCameraType = ConfigRoot.Instance.World_Episode4_DoctorRoomCameraType;  
+m_World_Episode4_DoctorRoomCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_Episode4_DoctorRoom Camera Type: ", m_World_Episode4_DoctorRoomCameraType); 
+    if (m_World_Episode4_DoctorRoomCameraType != ConfigRoot.Instance.World_Episode4_DoctorRoomCameraType) 
+{ 
+ConfigRoot.Instance.World_Episode4_DoctorRoomCameraType = m_World_Episode4_DoctorRoomCameraType; 
 } 
 
 m_World_GameRootCameraType = ConfigRoot.Instance.World_GameRootCameraType;  

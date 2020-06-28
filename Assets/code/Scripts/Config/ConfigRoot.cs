@@ -40,6 +40,10 @@ private string World_Episode3_HallName = "World_Episode3_Hall";
  public CameraService.SceneCameraType World_Episode3_HallCameraType;  
 
 [SerializeField]
+private string World_Episode4_DoctorRoomName = "World_Episode4_DoctorRoom"; 
+ public CameraService.SceneCameraType World_Episode4_DoctorRoomCameraType;  
+
+[SerializeField]
 private string World_GameRootName = "World_GameRoot"; 
  public CameraService.SceneCameraType World_GameRootCameraType;  
 
@@ -85,6 +89,9 @@ case "World_Episode2_Pier" :
 
 case "World_Episode3_Hall" :  
    return World_Episode3_HallCameraType; 
+
+case "World_Episode4_DoctorRoom" :  
+   return World_Episode4_DoctorRoomCameraType; 
 
 case "World_GameRoot" :  
    return World_GameRootCameraType; 

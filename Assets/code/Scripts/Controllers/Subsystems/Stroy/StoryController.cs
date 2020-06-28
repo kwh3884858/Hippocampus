@@ -194,26 +194,32 @@ namespace Controllers.Subsystems.Story
 
 			while (!m_storys.IsDone ()) {
 				switch (m_storys.GetNodeType ()) {
-				case StoryReader.NodeType.word:
-					container.PushName (m_storys.GetName ());
-					StoryVirtualMachine.Instance.Run (m_storys.GetContent ());
-					container.PushWaiting (1f);
-					m_storys.NextStory ();
-					break;
 
-				case StoryReader.NodeType.jump:
-					container.PushJump (m_storys.GetJump ());
-					//						m_storys.NextStory ();
-					//Test
-					return container;
+				    case StoryReader.NodeType.word:
+					    container.PushName (m_storys.GetName ());
+					    StoryVirtualMachine.Instance.Run (m_storys.GetContent ());
+					    container.PushWaiting (1f);
+					    m_storys.NextStory ();
+					    break;
 
-				case StoryReader.NodeType.label:
-					//m_storys.NextStory ();
-					m_storys.NextStory ();
-					break;
+				    case StoryReader.NodeType.jump:
+					    container.PushJump (m_storys.GetJump ());
+					    //						m_storys.NextStory ();
+					    //Test
+					    return container;
 
-				default:
-					break;
+				    case StoryReader.NodeType.label:
+					    //m_storys.NextStory ();
+					    m_storys.NextStory ();
+					    break;
+
+                    case StoryReader.NodeType.end:
+                        m_storys.NextStory();
+                        return container;
+
+                    default:
+                        Debug.LogError("Unknown Node Type");
+                        break;
 				}
 
 

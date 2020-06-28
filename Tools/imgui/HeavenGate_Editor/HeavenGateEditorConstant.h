@@ -78,6 +78,13 @@ namespace HeavenGateEditor {
         "Assets/Resources/Storys";
 #endif
 
+    const char* const PATH_FROM_PROJECT_ROOT_TO_AUTOSAVE_FOLDER =
+#ifdef _WIN32
+        "Assets\\Resources\\Storys\\AutoSave~";
+#else
+        "Assets/Resources/Storys/AutoSave~";
+#endif
+
     // Story export Folder
     const char* const STORY_EXPORT_FOLDER ="Storys_Export";
 

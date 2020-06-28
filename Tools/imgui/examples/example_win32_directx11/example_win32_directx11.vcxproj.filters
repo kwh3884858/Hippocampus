@@ -24,7 +24,6 @@
     <ClInclude Include="..\imgui_impl_dx11.h">
       <Filter>sources</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Dirent\dirent.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\CharacterUtility.h" />
     <ClInclude Include="..\..\nlohmann\json.hpp" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJson.h" />
@@ -74,6 +73,7 @@
     <ClInclude Include="..\..\imnodes\imnodes.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGatePopupMessageBox.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonEndNode.h" />
+    <ClInclude Include="..\..\Dirent\dirent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\imgui.cpp">

@@ -5,7 +5,7 @@
 //  Created by 威化饼干 on 28/11/2019.
 //  Copyright © 2019 ImGui. All rights reserved.
 //
-
+#include <stdio.h>
 #include "HeavenGateEditorUtility.h"
 #include "HeavenGateEditorConstant.h"
 
@@ -31,8 +31,7 @@ namespace HeavenGateEditor {
     {
 
     }
-    void HeavenGateEditorUtility::GetStoryPath(char* const pOutExePath) {
-
+    string HeavenGateEditorUtility::GetRootPath() {
         char cBuffer[MAX_FOLDER_PATH];
 
 #ifdef _WIN32
@@ -53,12 +52,48 @@ namespace HeavenGateEditor {
         string::size_type pos = path.find(TOOL_FOLDER_NAME);
 
         path = path.substr(0, pos);
+
+        return path;
+    }
+    void HeavenGateEditorUtility::GetStoryPath(char* const pOutExePath) {
+
+//        char cBuffer[MAX_FOLDER_PATH];
+//
+//#ifdef _WIN32
+//
+//        wchar_t buffer[MAX_FOLDER_PATH];
+//        GetModuleFileName(NULL, buffer, MAX_FOLDER_PATH);
+//        CharacterUtility::convertWcsToMbs(cBuffer, buffer, MAX_FOLDER_PATH);
+//#else
+//        bool result = GetModuleFileNameOSX(cBuffer);
+//
+//        if (!result) {
+//            return;
+//        }
+//#endif
+//
+//        //TODO: Need to write a string function to find tool folder name
+//        string path(cBuffer);
+//        string::size_type pos = path.find(TOOL_FOLDER_NAME);
+//
+//        path = path.substr(0, pos);
+        string path = GetRootPath();
         path = path.append(PATH_FROM_PROJECT_ROOT_TO_STORY_FOLDER);
         printf("  %s  \n", path.c_str());
         strcpy(pOutExePath, path.c_str());
 
         return;
     }
+
+    void HeavenGateEditorUtility::GetStoryAutoSavePath(char* const outAutoSavePath) {
+        string path = GetRootPath();
+        path = path.append(PATH_FROM_PROJECT_ROOT_TO_AUTOSAVE_FOLDER);
+        printf("  %s  \n", path.c_str());
+        strcpy(outAutoSavePath, path.c_str());
+
+        return;
+    }
+
 
     ImVec4 HeavenGateEditorUtility::ConvertRGBAToFloat4(ImVec4 const originalRGBAValue)
     {

@@ -48,6 +48,7 @@ namespace HeavenGateEditor {
         bool FromFileNameToFullPath(char * filePath, const char* fileName) const;
         void GetFileContent(char* pFullPath, char* pOutContent);
     private:
+        void InitAutoSaveFolder() const;
         //bool RenameStoryFileByChapterAndScene(StoryJson* const pStoryJson) const;
         bool RenameStoryFileByTimeAndPutAutoSaveFolder(StoryJson* const pStoryJson)const;
      

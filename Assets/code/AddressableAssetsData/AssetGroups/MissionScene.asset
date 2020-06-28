@@ -25,6 +25,10 @@ MonoBehaviour:
     m_Address: World_Mission_DockByPier_World_Episode3_Hall
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 71ec58a1ef8a2834aa253a4a720a1e8b
+    m_Address: World_Mission_DockByPier_World_Episode4_DoctorRoom
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cd5387e64e22b3d47a39edb1e325859e, type: 2}
   m_SchemaSet:
