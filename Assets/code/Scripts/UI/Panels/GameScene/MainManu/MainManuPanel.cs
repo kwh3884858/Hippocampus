@@ -19,7 +19,7 @@ namespace UI.Panels.GameScene.MainManu
             UIManager.Instance().ShowPanel(UIPanelType.JoystickPanel);// 显示UI，wywtsest
         }
 
-		public void HidSelef ()
+        public void HidSelef ()
 		{
 			base.InvokeHidePanel ();
 			// 测试

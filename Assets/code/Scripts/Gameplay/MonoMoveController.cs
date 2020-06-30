@@ -58,12 +58,12 @@ public class MonoMoveController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         //// tips库测试
         //if (Input.GetKeyDown(KeyCode.Escape))
         //{
         //    // 显示tips库
         //UIManager.Instance().ShowPanel(UIPanelType.Tipspanel);// 显示UI
+        //UIManager.Instance().ShowStaticPanel(UIPanelType.Tipspanel);// 显示UI
         //}
         //if (Input.GetKeyDown(KeyCode.W))
         //{
@@ -107,6 +107,12 @@ public class MonoMoveController : MonoBehaviour
         {
             UIManager.Instance().ShowPanel(UIPanelType.Evidencepanel);// 显示UI
         }
+
+        if (GUI.Button(new Rect(0, 150, 200, 50), "Tips"))
+        {
+            UIManager.Instance().ShowStaticPanel(UIPanelType.Tipspanel);// 显示UI
+        }
+
     }
 
     void FixedUpdate()
