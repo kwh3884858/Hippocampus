@@ -67,7 +67,7 @@ public class MonoMoveController : MonoBehaviour
         //}
         //if (Input.GetKeyDown(KeyCode.W))
         //{
-        //    Tips.TipsManager.Instance.UnlockTip("Door5", ConvertDateTimeToLong(DateTime.Now));// 添加tip 数据
+        //    Tips.TipsManager.Instance.UnlockTip("Assassin's Creed ", Tips.TipsManager.ConvertDateTimeToLong(System.DateTime.Now));// 添加tip 数据
         //}
         //if(Input.GetKeyDown(KeyCode.W))
         //{

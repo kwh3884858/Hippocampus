@@ -71,7 +71,8 @@ namespace UI.Panels
             new UIPanelSettings(UIPanelType.OptionsPanel,UIPanelUnLoadMode.Disabled),
             new UIPanelSettings(UIPanelType.LoadGamePanel,UIPanelUnLoadMode.Destroy),
             new UIPanelSettings(UIPanelType.Singleevidenceselectpanel,UIPanelUnLoadMode.Disabled),
+            new UIPanelSettings(UIPanelType.Tipgetpanel,UIPanelUnLoadMode.Destroy),
         };
-        
+
     }
 }
