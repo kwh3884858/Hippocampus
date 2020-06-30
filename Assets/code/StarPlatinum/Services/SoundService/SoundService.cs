@@ -23,7 +23,7 @@ namespace StarPlatinum
 		{
 
 			Transform root = GameObject.Find ("GameRoot").transform;
-            Assert.IsTrue(root != null, "Game Root must always exist.");
+			Assert.IsTrue (root != null, "Game Root must always exist.");
 			if (root == null) return;
 
 			m_music = new GameObject ("Bgm");
@@ -137,17 +137,18 @@ namespace StarPlatinum
 			m_effectCache.Add (name, audioSource);
 
 			if (!isLoop) {
-				var clearTime = clip.length * ((Time.timeScale >= 0.01f) ? Time.timeScale : 0.01f);
+				if (clip != null) {
+					var clearTime = clip.length * ((Time.timeScale >= 0.01f) ? Time.timeScale : 0.01f);
 
-				CoroutineComponent coroutine = effectGameObject.AddComponent<CoroutineComponent> ();
-				coroutine.InvokeCoroutine (DelayToInvokeDo (() => {
-					GameObject.Destroy (effectGameObject);
-					m_effectCache.Remove (name);
-				},
-				clearTime));
-
-
-
+					CoroutineComponent coroutine = effectGameObject.AddComponent<CoroutineComponent> ();
+					coroutine.InvokeCoroutine (DelayToInvokeDo (() => {
+						GameObject.Destroy (effectGameObject);
+						m_effectCache.Remove (name);
+					},
+					clearTime));
+				} else {
+					Debug.LogError ("Cannot find Effect/" + _name + ". clip is null");
+				}
 			}
 
 		}
