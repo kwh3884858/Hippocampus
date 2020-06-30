@@ -105,7 +105,8 @@ public class MonoMoveController : MonoBehaviour
         }
         if (GUI.Button(new Rect(0, 100, 200, 50), "Evidence"))
         {
-            UIManager.Instance().ShowPanel(UIPanelType.Evidencepanel);// 显示UI
+            //UIManager.Instance().ShowPanel(UIPanelType.Evidencepanel);// 显示UI
+            UIManager.Instance().ShowStaticPanel(UIPanelType.Evidencepanel);// 显示UI
         }
 
         if (GUI.Button(new Rect(0, 150, 200, 50), "Tips"))
