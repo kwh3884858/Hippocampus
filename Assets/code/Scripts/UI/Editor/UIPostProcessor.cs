@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using Extentions;
 using UnityEditor;
+using UnityEngine;
 
 namespace UI
 {
@@ -13,31 +14,6 @@ namespace UI
     /// </summary>
     public class UIPostProcessor : AssetPostprocessor
     {
-        private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
-        {
-            foreach (string asset in importedAssets.Where(IsPanelAsset))
-            {
-                AddType(asset);
-            }
-
-            foreach (string asset in deletedAssets.Where(IsPanelAsset))
-            {
-                RemoveType(asset);
-            }
-
-            for (int i = 0; i < movedAssets.Length; i++)
-            {
-                if (IsPanelAsset(movedAssets[i]) || IsPanelAsset(movedFromAssetPaths[i]))
-                {
-                    ReplaceType(movedFromAssetPaths[i], movedAssets[i]);
-                }
-            }
-        }
-
-        private static bool IsPanelAsset(string assetPath)
-        {
-            return assetPath.StartsWith(m_path, true, CultureInfo.InvariantCulture);
-        }
 
         public static void AddType(string assetPath)
         {
@@ -91,7 +67,7 @@ namespace UI
             }
             else
             {
-                CreateFile();
+                // CreateFile();
             }
 
             AssetDatabase.ImportAsset(m_copyPath, ImportAssetOptions.ForceUpdate);
@@ -260,6 +236,6 @@ namespace UI
         }
 
         private static string m_path = "Assets/Art/UI/UIPanel/Prefabs/";
-        private static string m_copyPath = "F:/Unity/Hippocampus/Assets/code/Scripts/UI/UIPanelType.cs";
+        private static string m_copyPath = Application.dataPath +"/code/Scripts/UI/UIPanelType.cs";
     }
 }

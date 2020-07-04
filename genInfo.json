@@ -1,0 +1,10 @@
+{
+	"6874112fcbaa4b149baec58339db8950":{
+		"type":3,
+		"prefabPath":"Assets/data/graphics/UI/Common/CGScene/Prefabs/UI_Common_CGScene_Panel.prefab",
+		"codePath":"Assets/code/Scripts/UI/Panels/AutoCreate/CommonCGScenePanel.cs",
+		"mediatorPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonCGScenePanel.cs",
+		"modelPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonCGSceneModel.cs",
+		"GUID":"6874112fcbaa4b149baec58339db8950"
+	}
+}

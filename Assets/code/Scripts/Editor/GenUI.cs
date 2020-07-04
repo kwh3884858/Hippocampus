@@ -251,7 +251,9 @@ public class GenMVC : ScriptableObject
         {
             GenInfo info = CreateTemplate(obj,m_s_ViewCodeDir + csName, m_s_tempRoot + "ViewTemplate.txt", members.ToString(), finds.ToString(),bindInfo);
             UIPostProcessor.AddType(info.prefabPath);
-            string mdPath = savepath.Replace("Panel.cs", "Mediator.cs");
+            info.codePath = savepath.Substring(Application.dataPath.Replace("Assets", "").Length);
+
+            string mdPath = savepath;
             if (File.Exists(mdPath) == false)
             {
                 CreateTemplate(obj,mdPath, m_s_tempRoot + "MediatorTemplate.txt", members.ToString(), finds.ToString(),bindInfo);
