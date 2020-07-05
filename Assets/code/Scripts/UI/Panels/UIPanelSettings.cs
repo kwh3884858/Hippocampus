@@ -6,7 +6,9 @@ namespace UI.Panels
 {
     public enum UIPanelUnLoadMode
     {
+        //在场景中隐藏
         Disabled = 0,
+        //直接销毁
         Destroy = 1
     }
 
@@ -37,12 +39,11 @@ namespace UI.Panels
             set { m_showOnStart = value; }
         }
 
-        [SerializeField]
-        private UIPanelType m_panelType = UIPanelType.None;
-        [SerializeField]
-        private UIPanelUnLoadMode m_unLoadMode = UIPanelUnLoadMode.Destroy;
-        [SerializeField]
-        private bool m_showOnStart;
+        [SerializeField] private UIPanelType m_panelType = UIPanelType.None;
+        //关闭方式
+        [SerializeField] private UIPanelUnLoadMode m_unLoadMode = UIPanelUnLoadMode.Destroy;
+        //是否在Module加载后立刻显示
+        [SerializeField] private bool m_showOnStart;
 
         public UIPanelSettings(UIPanelType _panelType, UIPanelUnLoadMode _unLoadMode = UIPanelUnLoadMode.Destroy, bool _showOnStart = false)
         {
