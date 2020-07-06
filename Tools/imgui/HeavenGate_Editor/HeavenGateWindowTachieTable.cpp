@@ -9,7 +9,7 @@
 
 #include "imgui.h"
 
-#include "HeavenGateWindowRoleDrawingTable.h"
+#include "HeavenGateWindowTachieTable.h"
 #include "HeavenGateEditorUtility.h"
 
 #include "StoryTableManager.h"
@@ -19,7 +19,7 @@ namespace HeavenGateEditor {
 
 
 
-    HeavenGateWindowRoleDrawingTable::HeavenGateWindowRoleDrawingTable()
+    HeavenGateWindowTachieTable::HeavenGateWindowTachieTable()
     {
         //m_fileManager = new StoryFileManager;
 
@@ -27,7 +27,7 @@ namespace HeavenGateEditor {
 
     }
 
-    HeavenGateWindowRoleDrawingTable::~HeavenGateWindowRoleDrawingTable()
+    HeavenGateWindowTachieTable::~HeavenGateWindowTachieTable()
     {
 
         //if (roleDrawingTable)
@@ -38,31 +38,31 @@ namespace HeavenGateEditor {
 
     }
 
-    void HeavenGateWindowRoleDrawingTable::Initialize()
+    void HeavenGateWindowTachieTable::Initialize()
     {
 
-        StoryTable<ROLE_DRAWING_COLUMN>*const  roleDrawingTable = StoryTableManager::Instance().GetRoleDrawingTable();
+        StoryTable<TACHIE_COLUMN>*const  tachieTable = StoryTableManager::Instance().GetTachieTable();
         memset(m_fullPath, 0, sizeof(m_fullPath));
 
         HeavenGateEditorUtility::GetStoryPath(m_fullPath);
         strcat(m_fullPath, ROLE_DRAWING_TABLE_NAME);
 
-        bool result = StoryFileManager::Instance().LoadTableFile(m_fullPath, roleDrawingTable);
+        bool result = StoryFileManager::Instance().LoadTableFile(m_fullPath, tachieTable);
         if (result == false)
         {
-            StoryFileManager::Instance().SaveTableFile(m_fullPath, roleDrawingTable);
-            StoryFileManager::Instance().LoadTableFile(m_fullPath, roleDrawingTable);
+            StoryFileManager::Instance().SaveTableFile(m_fullPath, tachieTable);
+            StoryFileManager::Instance().LoadTableFile(m_fullPath, tachieTable);
         }
     }
 
-    void HeavenGateWindowRoleDrawingTable::Shutdown()
+    void HeavenGateWindowTachieTable::Shutdown()
     {
 
     }
 
-    void HeavenGateWindowRoleDrawingTable::UpdateMainWindow()
+    void HeavenGateWindowTachieTable::UpdateMainWindow()
     {
-        StoryTable<ROLE_DRAWING_COLUMN>*const  roleDrawingTable = StoryTableManager::Instance().GetRoleDrawingTable();
+        StoryTable<TACHIE_COLUMN>*const  roleDrawingTable = StoryTableManager::Instance().GetTachieTable();
 
         if (roleDrawingTable == nullptr)
         {
@@ -83,10 +83,10 @@ namespace HeavenGateEditor {
             roleDrawingTable->RemoveRow();
         }
 
-        ImGui::Columns(ROLE_DRAWING_COLUMN + 1, "Role Drawing"); // 4-ways, with border
+        ImGui::Columns(TACHIE_COLUMN + 1, "Role Drawing"); // 4-ways, with border
         ImGui::Separator();
         ImGui::Text("Index");    ImGui::NextColumn();
-        for (int i = 0; i < ROLE_DRAWING_COLUMN; i++)
+        for (int i = 0; i < TACHIE_COLUMN; i++)
         {
             ImGui::Text(roleDrawingTable->GetName(i));   ImGui::NextColumn();
         }
@@ -116,7 +116,7 @@ namespace HeavenGateEditor {
             //ImGui::Text(paths[i]); ImGui::NextColumn();
             //ImGui::Text("%d", hovered); ImGui::NextColumn();
 
-            for (int j = 0; j < ROLE_DRAWING_COLUMN; j++)
+            for (int j = 0; j < TACHIE_COLUMN; j++)
             {
                 char * content = roleDrawingTable->GetContent(i, j);
 
@@ -143,7 +143,7 @@ namespace HeavenGateEditor {
         ImGui::Separator();
     }
 
-    void HeavenGateWindowRoleDrawingTable::UpdateMenu()
+    void HeavenGateWindowTachieTable::UpdateMenu()
     {
         //   ImGui::MenuItem("(dummy menu)", NULL, false, false);
         if (ImGui::MenuItem("New")) {
@@ -155,7 +155,7 @@ namespace HeavenGateEditor {
         }
 
         if (ImGui::MenuItem("Save", "Ctrl+S")) {
-            StoryTable<ROLE_DRAWING_COLUMN>*const  roleDrawingTable = StoryTableManager::Instance().GetRoleDrawingTable();
+            StoryTable<TACHIE_COLUMN>*const  roleDrawingTable = StoryTableManager::Instance().GetTachieTable();
 
             StoryFileManager::Instance().SaveTableFile(m_fullPath, roleDrawingTable);
         }

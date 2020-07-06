@@ -7,6 +7,7 @@
 //
 
 #include "StoryJsonLabelNode.h"
+#include "JsonUtility.h"
 
 namespace HeavenGateEditor {
 
@@ -45,7 +46,6 @@ void from_json(const json& j, StoryLabel& p) {
     p.m_nodeType = NodeType::Label;
     //strcpy(p.m_labelId, j.at(labelNodeString[(int)LabelLayout::Label]).get_ptr<const json::string_t *>()->c_str());
     GetContentException(p.m_labelId, j, labelNodeString[(int)LabelLayout::Label]);
-
 }
 
 }

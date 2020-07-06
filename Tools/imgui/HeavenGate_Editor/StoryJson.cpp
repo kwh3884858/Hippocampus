@@ -1,5 +1,6 @@
 #include "StoryJson.h"
 #include "CharacterUtility.h"
+#include "JsonUtility.h"
 
 #include "StoryJsonStoryNode.h"
 #include "StoryJsonWordNode.h"

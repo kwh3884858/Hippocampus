@@ -16,17 +16,12 @@
 
 namespace HeavenGateEditor {
 
-    //template<int column>
-    //class StoryTable;
-
-    //class StoryFileManager;
-
-    class HeavenGateWindowRoleDrawingTable : public HeavenGateEditorBaseWindow {
+    class HeavenGateWindowTachieTable : public HeavenGateEditorBaseWindow {
         WINDOW_DECLARE("HeavenGateWindowRoleDrawingTable", Window_Type::MainWindow)
 
     public:
-        HeavenGateWindowRoleDrawingTable();
-        ~HeavenGateWindowRoleDrawingTable();
+        HeavenGateWindowTachieTable();
+        ~HeavenGateWindowTachieTable();
         virtual void Initialize() override;
         virtual void Shutdown() override;
     protected:
@@ -36,12 +31,6 @@ namespace HeavenGateEditor {
 
     private:
         char m_fullPath[MAX_FOLDER_PATH];
-
-
-
-        //StoryFileManager* m_fileManager;
-
-
     };
 }
 

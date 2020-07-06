@@ -7,6 +7,7 @@
 //
 
 #include "StoryJsonWordNode.h"
+#include "JsonUtility.h"
 
 namespace HeavenGateEditor {
 

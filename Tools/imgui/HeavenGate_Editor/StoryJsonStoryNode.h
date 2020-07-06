@@ -36,11 +36,6 @@ public:
 };
 
 
-
-void GetContentException(char*const des, const json & j, const char* const index);
-void GetJsonException(json & des, const json& src, const char* const index);
-
-
 }
 
 #endif /* StoryJsonStoryNode_h */

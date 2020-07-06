@@ -56,8 +56,12 @@ namespace HeavenGateEditor {
         const StoryTable<BGM_COLUMN>* const GetBgmTable() const;
         StoryTable<BGM_COLUMN>*  GetBgmTable();
 
-        const StoryTable<ROLE_DRAWING_COLUMN>* const GetRoleDrawingTable() const;
-        StoryTable<ROLE_DRAWING_COLUMN>*  GetRoleDrawingTable();
+        const StoryTable<TACHIE_COLUMN>* const GetTachieTable() const;
+        StoryTable<TACHIE_COLUMN>*  GetTachieTable();
+
+        const StoryTable<TACHIE_POSITION_COLUMN>* const GetTachiePositionTable() const;
+        StoryTable<TACHIE_POSITION_COLUMN>*  GetTachiePositionTable();
+
     protected:
     private:
 
@@ -73,8 +77,8 @@ namespace HeavenGateEditor {
         StoryTable<EXHIBIT_COLUMN>* m_exhibitTable;
         StoryTable<EFFECT_COLUMN>* m_effectTable;
         StoryTable<BGM_COLUMN>* m_bgmTable;
-        StoryTable<ROLE_DRAWING_COLUMN>* m_roleDrawingTable;
-
+        StoryTable<TACHIE_COLUMN>* m_tachieTable;
+        StoryTable<TACHIE_POSITION_COLUMN>* m_tachiePositionTable;
     };
 
 

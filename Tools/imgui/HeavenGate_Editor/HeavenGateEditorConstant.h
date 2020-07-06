@@ -54,7 +54,8 @@ namespace HeavenGateEditor {
     const int     EXHIBIT_COLUMN = 2;
     const int     EFFECT_COLUMN = 2;
     const int     BGM_COLUMN = 2;
-    const int     ROLE_DRAWING_COLUMN = 2;
+    const int     TACHIE_COLUMN = 2;
+    const int     TACHIE_POSITION_COLUMN = 3;
 
     //Tip Table
     const int     TIP_TABLE_MAX_CONTENT = 512;
@@ -110,6 +111,10 @@ const char* const DELIMITER =
 //        "Assets/Resources/Storys";
 //#endif
 //
+
+    //Suffix of tables
+const char* const TableSuffix = "Table";
+
     //Relative path from story folder to font size table
 
     const char* const FONT_TABLE_NAME = 

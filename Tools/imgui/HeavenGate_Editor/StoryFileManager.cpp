@@ -8,16 +8,16 @@
 #include "StoryJsonContentCompiler.h"
 
 #include "StoryTimer.h"
-#include "dirent.h"
 
 #ifdef _WIN32
 #include <direct.h>
 #include <io.h>
-
+#include "dirent.h"
 #else
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <dirent.h>
 #endif // _WIN32
 
 namespace HeavenGateEditor {
@@ -275,6 +275,16 @@ namespace HeavenGateEditor {
                     continue;
                 }
 
+                //Skip tables
+                if (CharacterUtility::Find(
+                      ent->d_name,
+                      strlen(ent->d_name),
+                      TableSuffix,
+                      strlen(TableSuffix)) != -1)
+                  {
+                      continue;
+                  }
+
                 strcpy(pOutFileList[fileCount], ent->d_name);
                 fileCount++;
             }
@@ -395,16 +405,21 @@ namespace HeavenGateEditor {
         HeavenGateEditorUtility::GetStoryAutoSavePath(exePath);
         printf("Current Auto Path:%s", exePath);
 
+#ifdef _WIN32
         if (0 != _access(exePath, 0))
         {
-#ifdef _WIN32
             // if this folder not exist, create a new one.
             int result = _mkdir(exePath);
             assert(result != -1);
-#else
-            _mkdir(exePath, 0777);
-#endif
         }
+
+        #else
+        if (0 != access(exePath, 0))
+              {
+                  int result =   mkdir(exePath, 0777);
+                  assert(result != -1);
+              }
+        #endif
     }
 
 

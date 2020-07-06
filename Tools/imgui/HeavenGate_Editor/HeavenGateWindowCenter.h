@@ -20,8 +20,9 @@ namespace HeavenGateEditor {
     class HeavenGateWindowExhibitTable;
     class HeavenGateWindowEffectTable;
     class HeavenGateWindowBgmTable;
-    class HeavenGateWindowRoleDrawingTable;
+    class HeavenGateWindowTachieTable;
     class HeavenGateEditorNodeGraphExample;
+    class HeavenGateWindowTachiePositionTable;
 
     class HeavenGateWindowCenter : public HeavenGateEditorBaseWindow
     {
@@ -40,20 +41,21 @@ namespace HeavenGateEditor {
 
     private:
 
-        HeavenGateWindowStoryEditor*        m_heavenGateEditor;
-        HeavenGateEditorFontSizeTable*      m_fontSizeTable;
-        HeavenGateWindowColorTable*         m_colorTable;
-        HeavenGateWindowTipTable*           m_tipTable;
-        HeavenGateWindowPaintMoveTable*     m_heavenGateWindowPaintMoveTable;
+        HeavenGateWindowStoryEditor*            m_heavenGateEditor;
+        HeavenGateEditorFontSizeTable*          m_fontSizeTable;
+        HeavenGateWindowColorTable*             m_colorTable;
+        HeavenGateWindowTipTable*               m_tipTable;
+        HeavenGateWindowPaintMoveTable*         m_heavenGateWindowPaintMoveTable;
         //HeavenGateWindowChapterTable*       m_chapterTable;
         //HeavenGateWindowSceneTable*         m_sceneTable;
-        HeavenGateWindowCharacterTable*     m_characterTable;
-        HeavenGateWindowPauseTable*         m_pauseTable;
-        HeavenGateWindowExhibitTable*       m_exhibitTable;
-        HeavenGateWindowEffectTable*        m_effectTable;
-        HeavenGateWindowBgmTable*           m_bgmTable;
-        HeavenGateWindowRoleDrawingTable*   m_roleDrawingTable;
-        HeavenGateEditorNodeGraphExample*   m_nodeGraphExample;
+        HeavenGateWindowCharacterTable*         m_characterTable;
+        HeavenGateWindowPauseTable*             m_pauseTable;
+        HeavenGateWindowExhibitTable*           m_exhibitTable;
+        HeavenGateWindowEffectTable*            m_effectTable;
+        HeavenGateWindowBgmTable*               m_bgmTable;
+        HeavenGateWindowTachieTable*            m_tachieTable;
+        HeavenGateEditorNodeGraphExample*       m_nodeGraphExample;
+        HeavenGateWindowTachiePositionTable*    m_tachiePositionTable;
 
 
         bool* show_editor_window;
@@ -68,8 +70,9 @@ namespace HeavenGateEditor {
         bool* show_exhibit_table;
         bool* show_effect_table;
         bool* show_bgm_table;
-        bool* show_role_drawing_table;
+        bool* show_tachie_table;
         bool* show_node_graph_example;
+        bool* show_tachie_poisition_table;
     };
 
 }

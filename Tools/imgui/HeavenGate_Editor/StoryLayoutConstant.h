@@ -15,13 +15,15 @@ enum class TableType
     Exhibit,
     Effect,
     Bgm,
-    RoleDrawing
+    Tachie,
+    Tachie_Position
 };
 
 
 enum class TableLayout {
     Type = 0,
-    Value = 1
+    Header = 1,
+    Value = 2
 };
 
 enum class FontSizeTableLayout {
@@ -96,14 +98,40 @@ enum class BgmTableLayout {
     Description = 2
 };
 
-enum class RoleDrawingTableLayout {
+enum class TachieTableLayout {
     Type = 0,
-    RoleDrawing = 1,
-    Alias = 2
+    Alias = 1,
+    FileName = 2
 };
+
+enum class TachiePositionTableLayout{
+    Type = 0,
+    Alias = 1,
+    PositionX = 2,
+    PositionY = 3
+};
+
+const char TableTypeString[][MAX_ENUM_LENGTH] ={
+    "None",
+    "Font_Size",
+    "Color",
+    "Tips",
+    "Paint_Move",
+    "Chapter",
+    "Scene",
+    "Character",
+    "Pause",
+    "Exhibit",
+    "Effect",
+    "Bgm",
+    "Tachie",
+    "Tachie_Position"
+};
+
 
 const char tableString[][MAX_ENUM_LENGTH] = {
     "type",
+    "header",
     "value"
 };
 
@@ -187,12 +215,17 @@ const char bgmTableString[][MAX_ENUM_LENGTH] = {
 
 };
 
-const char roleDrawingTableString[][MAX_ENUM_LENGTH] = {
+const char tachieTableString[][MAX_ENUM_LENGTH] = {
     "roleDrawing",
-    "roleDrawing",
-    "alias"
+    "alias",
+    "fileName"
 };
 
-
+const char tachiePositionTableString[][MAX_ENUM_LENGTH] = {
+    "tachiePosition",
+    "alias",
+    "positionX",
+    "positionY"
+};
 
 }

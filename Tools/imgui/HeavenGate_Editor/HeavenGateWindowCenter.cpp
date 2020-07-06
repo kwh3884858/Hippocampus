@@ -13,9 +13,10 @@
 #include "HeavenGateWindowExhibitTable.h"
 #include "HeavenGateWindowEffectTable.h"
 #include "HeavenGateWindowBgmTable.h"
-#include "HeavenGateWindowRoleDrawingTable.h"
+#include "HeavenGateWindowTachieTable.h"
 #include "HeavenGateEditorNodeGraphExample.h"
 #include "HeavenGatePopupMessageBox.h"
+#include "HeavenGateWindowTachiePositionTable.h"
 
 #include "StoryJsonManager.h"
 #include "StoryTableManager.h"
@@ -64,8 +65,9 @@ namespace HeavenGateEditor {
         m_exhibitTable = new HeavenGateWindowExhibitTable;
         m_effectTable = new HeavenGateWindowEffectTable;
         m_bgmTable = new HeavenGateWindowBgmTable;
-        m_roleDrawingTable = new HeavenGateWindowRoleDrawingTable;
+        m_tachieTable = new HeavenGateWindowTachieTable;
         m_nodeGraphExample = new HeavenGateEditorNodeGraphExample;
+        m_tachiePositionTable = new HeavenGateWindowTachiePositionTable;
 
         m_heavenGateEditor->Initialize();
         m_fontSizeTable->Initialize();
@@ -79,8 +81,9 @@ namespace HeavenGateEditor {
         m_exhibitTable->Initialize();
         m_effectTable->Initialize();
         m_bgmTable->Initialize();
-        m_roleDrawingTable->Initialize();
+        m_tachieTable->Initialize();
         m_nodeGraphExample->Initialize();
+        m_tachiePositionTable->Initialize();
 
         show_editor_window = m_heavenGateEditor->GetHandle();
         show_font_size_table_window = m_fontSizeTable->GetHandle();
@@ -94,8 +97,9 @@ namespace HeavenGateEditor {
         show_exhibit_table = m_exhibitTable->GetHandle();
         show_effect_table = m_effectTable->GetHandle();
         show_bgm_table = m_bgmTable->GetHandle();
-        show_role_drawing_table = m_roleDrawingTable->GetHandle();
+        show_tachie_table = m_tachieTable->GetHandle();
         show_node_graph_example = m_nodeGraphExample->GetHandle();
+        show_tachie_poisition_table = m_tachiePositionTable->GetHandle();
     }
 
     void HeavenGateWindowCenter::Shutdown()
@@ -112,8 +116,9 @@ namespace HeavenGateEditor {
         *show_exhibit_table = false;
         *show_effect_table = false;
         *show_bgm_table = false;
-        *show_role_drawing_table = false;
+        *show_tachie_table = false;
         *show_node_graph_example = false;
+        *show_tachie_poisition_table = false;
 
         show_editor_window = nullptr;
         show_font_size_table_window = nullptr;
@@ -127,8 +132,9 @@ namespace HeavenGateEditor {
         show_exhibit_table = nullptr;
         show_effect_table = nullptr;
         show_bgm_table = nullptr;
-        show_role_drawing_table = nullptr;
+        show_tachie_table = nullptr;
         show_node_graph_example = nullptr;
+        show_tachie_poisition_table = nullptr;
 
         m_heavenGateEditor->Shutdown();
         m_fontSizeTable->Shutdown();
@@ -142,8 +148,9 @@ namespace HeavenGateEditor {
         m_exhibitTable->Shutdown();
         m_effectTable->Shutdown();
         m_bgmTable->Shutdown();
-        m_roleDrawingTable->Shutdown();
+        m_tachieTable->Shutdown();
         m_nodeGraphExample->Shutdown();
+        m_tachiePositionTable->Shutdown();
 
         //Delete Windows
         delete m_heavenGateEditor;
@@ -158,8 +165,9 @@ namespace HeavenGateEditor {
         delete m_exhibitTable;
         delete m_effectTable;
         delete m_bgmTable;
-        delete m_roleDrawingTable;
+        delete m_tachieTable;
         delete m_nodeGraphExample;
+        delete m_tachiePositionTable;
 
         m_heavenGateEditor = nullptr;
         m_fontSizeTable = nullptr;
@@ -173,8 +181,9 @@ namespace HeavenGateEditor {
         m_exhibitTable = nullptr;
         m_effectTable = nullptr;
         m_bgmTable = nullptr;
-        m_roleDrawingTable = nullptr;
+        m_tachieTable = nullptr;
         m_nodeGraphExample = nullptr;
+        m_tachiePositionTable = nullptr;
 
         //Delete Data
         StoryTableManager::Instance().Shutdown();
@@ -200,8 +209,10 @@ namespace HeavenGateEditor {
         ImGui::Checkbox("Exhibit Table", show_exhibit_table);
         ImGui::Checkbox("Effect Table", show_effect_table);
         ImGui::Checkbox("Bgm Table", show_bgm_table);
-        ImGui::Checkbox("Role Drawing Table", show_role_drawing_table);
+        ImGui::Checkbox("Tachie Table", show_tachie_table);
+        ImGui::Checkbox("Tachie Position Table", show_tachie_poisition_table);
         ImGui::Checkbox("Node Graph Example", show_node_graph_example);
+
 
 
         if (show_editor_window && *show_editor_window)
@@ -264,14 +275,18 @@ namespace HeavenGateEditor {
             m_bgmTable->Update();
         };
 
-        if (show_role_drawing_table && *show_role_drawing_table)
+        if (show_tachie_table && *show_tachie_table)
         {
-            m_roleDrawingTable->Update();
+            m_tachieTable->Update();
         };
 
         if (show_node_graph_example && *show_node_graph_example)
         {
             m_nodeGraphExample->Update();
+        }
+
+        if (show_tachie_poisition_table && *show_tachie_poisition_table) {
+            m_tachiePositionTable->Update();
         }
 
     }

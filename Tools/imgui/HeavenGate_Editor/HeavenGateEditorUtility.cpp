@@ -41,10 +41,8 @@ namespace HeavenGateEditor {
         CharacterUtility::convertWcsToMbs(cBuffer, buffer, MAX_FOLDER_PATH);
 #else
         bool result = GetModuleFileNameOSX(cBuffer);
-
-        if (!result) {
-            return;
-        }
+        assert(result == true);
+        
 #endif
 
         //TODO: Need to write a string function to find tool folder name

@@ -14,21 +14,17 @@ namespace HeavenGateEditor {
         m_colorTable->PushName("Color name");
         m_colorTable->PushName("RGB Value");
 
-
         m_fontSizeTable = new StoryTable< FONT_SIZE_MAX_COLUMN>;
         m_fontSizeTable->SetTableType(TableType::Font_Size);
 
         m_fontSizeTable->PushName("Size Key");
         m_fontSizeTable->PushName("Font Size Value");
 
-
         m_tipTable = new StoryTable<TIP_MAX_COLUMN, TIP_TABLE_MAX_CONTENT>;
         m_tipTable->SetTableType(TableType::Tips);
 
         m_tipTable->PushName("Tip");
         m_tipTable->PushName("Description");
-
-
 
         m_paintMovetable = new StoryTable<PAINT_MOVE_MAX_COLUMN>;
         m_paintMovetable->SetTableType(TableType::Paint_Move);
@@ -78,11 +74,19 @@ namespace HeavenGateEditor {
         m_bgmTable->PushName("Bgm");
         m_bgmTable->PushName("Description");
 
-        m_roleDrawingTable = new StoryTable<ROLE_DRAWING_COLUMN>;
-        m_roleDrawingTable->SetTableType(TableType::RoleDrawing);
+        m_tachieTable = new StoryTable<TACHIE_COLUMN>;
+        m_tachieTable->SetTableType(TableType::Tachie);
 
-        m_roleDrawingTable->PushName("RoleDrawing");
-        m_roleDrawingTable->PushName("Alias");
+        m_tachieTable->PushName("Tachie");
+        m_tachieTable->PushName("File Name");
+
+        m_tachiePositionTable = new StoryTable<TACHIE_POSITION_COLUMN>;
+        m_tachiePositionTable->SetTableType(TableType::Tachie_Position);
+
+        m_tachiePositionTable->PushName("Alias");
+        m_tachiePositionTable->PushName("Pos X");
+        m_tachiePositionTable->PushName("Pos Y");
+
         return true;
 
     }
@@ -122,8 +126,11 @@ namespace HeavenGateEditor {
         delete m_bgmTable;
         m_bgmTable = nullptr;
 
-        delete m_roleDrawingTable;
-        m_roleDrawingTable = nullptr;
+        delete m_tachieTable;
+        m_tachieTable = nullptr;
+
+        delete m_tachiePositionTable;
+        m_tachiePositionTable = nullptr;
 
         return true;
     }
@@ -249,14 +256,24 @@ namespace HeavenGateEditor {
 
     }
 
-    const StoryTable<ROLE_DRAWING_COLUMN>* const StoryTableManager::GetRoleDrawingTable() const
+    const StoryTable<TACHIE_COLUMN>* const StoryTableManager::GetTachieTable() const
     {
-        return m_roleDrawingTable;
+        return m_tachieTable;
     }
 
-    StoryTable<ROLE_DRAWING_COLUMN>* StoryTableManager::GetRoleDrawingTable()
+    StoryTable<TACHIE_COLUMN>* StoryTableManager::GetTachieTable()
     {
-        return const_cast<StoryTable<ROLE_DRAWING_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetRoleDrawingTable());
+        return const_cast<StoryTable<TACHIE_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetTachieTable());
 
+    }
+
+    const StoryTable<TACHIE_POSITION_COLUMN>* const StoryTableManager::GetTachiePositionTable() const
+    {
+        return m_tachiePositionTable;
+    }
+
+    StoryTable<TACHIE_POSITION_COLUMN>*  StoryTableManager::GetTachiePositionTable()
+    {
+        return const_cast<StoryTable<TACHIE_POSITION_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetTachiePositionTable());
     }
 }

@@ -99,10 +99,10 @@ namespace HeavenGateEditor {
 
         m_messageBoxPopup->Update();
 
-        m_storyJson = StoryJsonManager::Instance().GetStoryJson();
         if (m_storyJson == nullptr)
         {
-            return;
+            m_storyJson = StoryJsonManager::Instance().GetStoryJson();
+            if(m_storyJson == nullptr)  return;
         }
 
         ImGui::Text("Heaven Gate. (%s)\nImgui version. (%s)", EDITOR_VERSION, IMGUI_VERSION);
