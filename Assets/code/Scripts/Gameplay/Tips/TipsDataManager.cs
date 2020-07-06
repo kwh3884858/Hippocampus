@@ -126,7 +126,8 @@ namespace Tips
                     MyTipsDic[vTip].isUnlock = true;
                     MyTipsDic[vTip].time = vTime;
                     SaveData();
-                    UIManager.Instance().ShowPanel(UIPanelType.Tipgetpanel, new UI.Panels.Providers.DataProviders.TipDataProvider() { Data = MyTipsDic[vTip] });// 显示UI
+                    //UIManager.Instance().ShowPanel(UIPanelType.Tipgetpanel, new UI.Panels.Providers.DataProviders.TipDataProvider() { Data = MyTipsDic[vTip] });// 显示UI
+                    UIManager.Instance().ShowStaticPanel(UIPanelType.Tipgetpanel, new UI.Panels.Providers.DataProviders.TipDataProvider() { Data = MyTipsDic[vTip] });// 显示UI
                 }
 #if UNITY_EDITOR
                 else

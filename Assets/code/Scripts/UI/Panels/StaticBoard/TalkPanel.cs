@@ -328,11 +328,11 @@ namespace UI.Panels.StaticBoard
 
         }
 
-        private void ShowPicture(string picID, int pos)
+        private void ShowPicture(string picID, Vector2 pos)
         {
             if (m_pictureItems.ContainsKey(picID))
             {
-                if (pos == 0)
+                if (pos.x== 0 || pos.y ==0)
                 {
                     UiDataProvider.RolePictureProvider.ReleasePictureItem(m_pictureItems[picID]);
                     m_pictureItems.Remove(picID);
@@ -340,7 +340,7 @@ namespace UI.Panels.StaticBoard
                 }
                 else
                 {
-                    m_pictureItems[picID].rectTransform().anchoredPosition = new Vector2(Width/100*(pos-50),-300f);
+                    m_pictureItems[picID].rectTransform().anchoredPosition = new Vector2(Width/100*(pos.x - 50),Height/100*(pos.y - 50));
                     m_picPos[picID] = pos;
                 }
                 SetActionState(ActionState.End);
@@ -423,7 +423,7 @@ namespace UI.Panels.StaticBoard
         [SerializeField] private GameObject m_talkObj;
 
         private Dictionary<string, PictureItem> m_pictureItems = new Dictionary<string, PictureItem>();
-        private Dictionary<string,int> m_picPos = new Dictionary<string, int>();
+        private Dictionary<string,Vector2> m_picPos = new Dictionary<string, Vector2>();
         
         private bool m_highSpeed = false;
         private bool m_characterTalkEnd = false;

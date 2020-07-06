@@ -37,6 +37,10 @@ MonoBehaviour:
     m_Address: Options_Panel
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 6874112fcbaa4b149baec58339db8950
+    m_Address: UI_Common_CGScene_Panel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 77b02b5e2281c4fbbaea91122005817f
     m_Address: Debug_Console
     m_ReadOnly: 0
