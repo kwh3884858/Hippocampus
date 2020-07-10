@@ -217,11 +217,11 @@ const char* const TableSuffix = "Table";
 
     //Relative path from story folder to role drawing table
 
-    const char* const ROLE_DRAWING_TABLE_NAME =
+    const char* const TACHIE_TABLE_NAME =
 #ifdef _WIN32
-        "\\RoleDrawingTable.json";
+        "\\TachieTable.json";
 #else
-        "/RoleDrawingTable.json";
+        "/TachieTable.json";
 #endif
 
     const char* const PATH_FROM_PROJECT_ROOT_TO_FONT_FOLDER =

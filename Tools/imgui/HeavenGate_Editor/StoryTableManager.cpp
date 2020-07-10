@@ -11,81 +11,81 @@ namespace HeavenGateEditor {
         m_colorTable = new StoryTable<COLOR_MAX_COLUMN>;
         m_colorTable->SetTableType(TableType::Color);
 
-        m_colorTable->PushName("Color name");
-        m_colorTable->PushName("RGB Value");
+//        m_colorTable->PushName("Color name");
+//        m_colorTable->PushName("RGB Value");
 
         m_fontSizeTable = new StoryTable< FONT_SIZE_MAX_COLUMN>;
         m_fontSizeTable->SetTableType(TableType::Font_Size);
 
-        m_fontSizeTable->PushName("Size Key");
-        m_fontSizeTable->PushName("Font Size Value");
+//        m_fontSizeTable->PushName("Size Key");
+//        m_fontSizeTable->PushName("Font Size Value");
 
         m_tipTable = new StoryTable<TIP_MAX_COLUMN, TIP_TABLE_MAX_CONTENT>;
         m_tipTable->SetTableType(TableType::Tips);
 
-        m_tipTable->PushName("Tip");
-        m_tipTable->PushName("Description");
+//        m_tipTable->PushName("Tip");
+//        m_tipTable->PushName("Description");
 
         m_paintMovetable = new StoryTable<PAINT_MOVE_MAX_COLUMN>;
         m_paintMovetable->SetTableType(TableType::Paint_Move);
 
-        m_paintMovetable->PushName("Angle Value");
-        m_paintMovetable->PushName("Move Distance");
+//        m_paintMovetable->PushName("Angle Value");
+//        m_paintMovetable->PushName("Move Distance");
 
         m_chapterTable = new StoryTable<CHAPTER_COLUMN>;
         m_chapterTable->SetTableType(TableType::Chapter);
 
-        m_chapterTable->PushName("Chapter");
-        m_chapterTable->PushName("Description");
+//        m_chapterTable->PushName("Chapter");
+//        m_chapterTable->PushName("Description");
 
         m_sceneTable = new StoryTable<SCENE_COLUMN>;
         m_sceneTable->SetTableType(TableType::Scene);
 
-        m_sceneTable->PushName("Scene");
-        m_sceneTable->PushName("Description");
+//        m_sceneTable->PushName("Scene");
+//        m_sceneTable->PushName("Description");
 
         m_characterTable = new StoryTable<CHARACTER_COLUMN>;
         m_characterTable->SetTableType(TableType::Character);
 
-        m_characterTable->PushName("Character");
-        m_characterTable->PushName("Description");
+//        m_characterTable->PushName("Character");
+//        m_characterTable->PushName("Description");
 
         m_pauseTable = new StoryTable<PAUSE_MAX_COLUMN>;
         m_pauseTable->SetTableType(TableType::Pause);
 
-        m_pauseTable->PushName("Pause");
-        m_pauseTable->PushName("Time");
+//        m_pauseTable->PushName("Pause");
+//        m_pauseTable->PushName("Time");
 
         m_exhibitTable = new StoryTable<EXHIBIT_COLUMN>;
         m_exhibitTable->SetTableType(TableType::Exhibit);
 
-        m_exhibitTable->PushName("Exhibit");
-        m_exhibitTable->PushName("Description");
+//        m_exhibitTable->PushName("Exhibit");
+//        m_exhibitTable->PushName("Description");
 
         m_effectTable = new StoryTable<EFFECT_COLUMN>;
         m_effectTable->SetTableType(TableType::Effect);
 
-        m_effectTable->PushName("Effect");
-        m_effectTable->PushName("Description");
+//        m_effectTable->PushName("Effect");
+//        m_effectTable->PushName("Description");
 
         m_bgmTable = new StoryTable<BGM_COLUMN>;
         m_bgmTable->SetTableType(TableType::Bgm);
 
-        m_bgmTable->PushName("Bgm");
-        m_bgmTable->PushName("Description");
+//        m_bgmTable->PushName("Bgm");
+//        m_bgmTable->PushName("Description");
 
         m_tachieTable = new StoryTable<TACHIE_COLUMN>;
         m_tachieTable->SetTableType(TableType::Tachie);
 
-        m_tachieTable->PushName("Tachie");
-        m_tachieTable->PushName("File Name");
+//        m_tachieTable->PushName("Tachie");
+//        m_tachieTable->PushName("File Name");
 
         m_tachiePositionTable = new StoryTable<TACHIE_POSITION_COLUMN>;
         m_tachiePositionTable->SetTableType(TableType::Tachie_Position);
 
-        m_tachiePositionTable->PushName("Alias");
-        m_tachiePositionTable->PushName("Pos X");
-        m_tachiePositionTable->PushName("Pos Y");
+//        m_tachiePositionTable->PushName("Alias");
+//        m_tachiePositionTable->PushName("Pos X");
+//        m_tachiePositionTable->PushName("Pos Y");
 
         return true;
 

@@ -45,11 +45,12 @@ namespace HeavenGateEditor {
         memset(m_fullPath, 0, sizeof(m_fullPath));
 
         HeavenGateEditorUtility::GetStoryPath(m_fullPath);
-        strcat(m_fullPath, ROLE_DRAWING_TABLE_NAME);
+        strcat(m_fullPath, TACHIE_TABLE_NAME);
 
         bool result = StoryFileManager::Instance().LoadTableFile(m_fullPath, tachieTable);
         if (result == false)
         {
+            tachieTable->UpdateName();
             StoryFileManager::Instance().SaveTableFile(m_fullPath, tachieTable);
             StoryFileManager::Instance().LoadTableFile(m_fullPath, tachieTable);
         }

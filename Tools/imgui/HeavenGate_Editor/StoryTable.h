@@ -15,6 +15,7 @@
 
 #include "StoryRow.h"
 #include "StoryTableDefine.h"
+#include "StoryLayoutConstant.h"
 #include "JsonUtility.h"
 
 namespace HeavenGateEditor {
@@ -38,10 +39,11 @@ public:
 
     bool PushName(const char* name);
     bool SetName(int index, const char* name);
+    inline const char* GetName(int index)const;
+    void UpdateName();
 
     bool PushContent(const char* content);
     bool SetContent(int rowIndex, int index, const char* content);
-    inline const char* GetName(int index)const;
     inline const char* GetContent(int rowIndex, int index)const;
     char* GetContent(int rowIndex, int index);
 
@@ -54,6 +56,7 @@ public:
     void SetTableType(TableType tableType);
     TableType GetTableType()const;
 private:
+    const char* GetHeaderName(int index) const;
     void Clear();
 
     StoryRow<column, MAX_CONTENT_LENGTH>* m_name;
@@ -107,6 +110,13 @@ StoryTable<column, MAX_CONTENT_LENGTH>::~StoryTable()
 {
     Clear();
 }
+
+template<int column, int MAX_CONTENT_LENGTH>
+const char* StoryTable<column, MAX_CONTENT_LENGTH>::GetHeaderName(int index) const{
+    const char (*tableString)[MAX_ENUM_LENGTH] =(const char (*)[MAX_ENUM_LENGTH]) GetLayoutString(m_tableType);
+    return tableString[index];
+}
+
 
 template<int column, int MAX_CONTENT_LENGTH>
 void StoryTable<column, MAX_CONTENT_LENGTH>::Clear()
@@ -211,6 +221,14 @@ const char* StoryTable<column, MAX_CONTENT_LENGTH>::GetName(int index)const
          return nullptr;
      }
     return m_name->Get(index);
+}
+
+template<int column, int MAX_CONTENT_LENGTH>
+void StoryTable<column, MAX_CONTENT_LENGTH>::UpdateName(){
+   int layoutAmount = GetLayoutAmount(m_tableType);
+    for (int i = 1; i < layoutAmount; i++) {
+        PushName(GetHeaderName(i));
+    }
 }
 
 template<int column, int MAX_CONTENT_LENGTH>
@@ -519,26 +537,30 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
     json values;
     GetJsonException(headers, j, tableString[(int)TableLayout::Header]);
     GetJsonException(values, j, tableString[(int)TableLayout::Value]);
-    
+
     /*get_ptr<const json::string_t *>()->c_str();*/
 
-    if(!headers.is_null())
-    {
-        for(int i = 0; i < headers.size(); i++){
-            char content[MAX_COLUMNS_CONTENT_LENGTH];
-            strcpy(content, headers[i].get_ptr<const json::string_t*>()->c_str());
-            p.PushContent(content);
-        }
-    }
 
     if (strcmp(typeString, fontSizeTableString[(int)FontSizeTableLayout::Type]) == 0) {
         p.SetTableType(TableType::Font_Size);
+        char header[MAX_COLUMNS_CONTENT_LENGTH];
+        if(!headers.is_null())
+        {
+            for(int i = 0; i < headers.size(); i++){
+                strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+                p.PushName(header);
+            }
+        }else{
+            for (int i = 1; i < (int)FontSizeTableLayout::Amount; i++) {
+                p.PushName(fontSizeTableString[i]);
+            }
+        }
         char content[MAX_COLUMNS_CONTENT_LENGTH];
         for (int i = 0; i < values.size(); i++)
         {
-            strcpy(content, values[i].at(fontSizeTableString[(int)FontSizeTableLayout::Alias]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], fontSizeTableString[(int)FontSizeTableLayout::Alias]);
             p.PushContent(content);
-            strcpy(content, values[i].at(fontSizeTableString[(int)FontSizeTableLayout::Size]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], fontSizeTableString[(int)FontSizeTableLayout::Size]);
             p.PushContent(content);
         }
         return;
@@ -546,18 +568,30 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
 
     if (strcmp(typeString, colorTableString[(int)ColorTableLayout::Type]) == 0) {
         p.SetTableType(TableType::Color);
+        char header[MAX_COLUMNS_CONTENT_LENGTH];
+        if(!headers.is_null())
+        {
+            for(int i = 0; i < headers.size(); i++){
+                strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+                p.PushName(header);
+            }
+        }else{
+            for (int i = 1; i < (int)ColorTableLayout::Amount; i++) {
+                p.PushName(colorTableString[i]);
+            }
+        }
         char content[MAX_COLUMNS_CONTENT_LENGTH];
         for (int i = 0; i < values.size(); i++)
         {
-            strcpy(content, values[i].at(colorTableString[(int)ColorTableLayout::Alias]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], colorTableString[(int)ColorTableLayout::Alias]);
             p.PushContent(content);
-            strcpy(content, values[i].at(colorTableString[(int)ColorTableLayout::R]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], colorTableString[(int)ColorTableLayout::R]);
             p.PushContent(content);
-            strcpy(content, values[i].at(colorTableString[(int)ColorTableLayout::G]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], colorTableString[(int)ColorTableLayout::G]);
             p.PushContent(content);
-            strcpy(content, values[i].at(colorTableString[(int)ColorTableLayout::B]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], colorTableString[(int)ColorTableLayout::B]);
             p.PushContent(content);
-            strcpy(content, values[i].at(colorTableString[(int)ColorTableLayout::A]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], colorTableString[(int)ColorTableLayout::A]);
             p.PushContent(content);
         }
         return;
@@ -565,12 +599,24 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
 
     if (strcmp(typeString, tipTableString[(int)TipTableLayout::Type]) == 0) {
         p.SetTableType(TableType::Tips);
+        char header[MAX_COLUMNS_CONTENT_LENGTH];
+        if(!headers.is_null())
+        {
+            for(int i = 0; i < headers.size(); i++){
+                strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+                p.PushName(header);
+            }
+        }else{
+            for (int i = 1; i < (int)TipTableLayout::Amount; i++) {
+                p.PushName(tipTableString[i]);
+            }
+        }
         char content[TIP_TABLE_MAX_CONTENT];
         for (int i = 0; i < values.size(); i++)
         {
-            strcpy(content, values[i].at(tipTableString[(int)TipTableLayout::Tip]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], tipTableString[(int)TipTableLayout::Tip]);
             p.PushContent(content);
-            strcpy(content, values[i].at(tipTableString[(int)TipTableLayout::Description]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], tipTableString[(int)TipTableLayout::Description]);
             p.PushContent(content);
         }
         return;
@@ -578,16 +624,28 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
 
     if (strcmp(typeString, paintMoveTableString[(int)PaintMoveTableLayout::Type]) == 0) {
         p.SetTableType(TableType::Paint_Move);
+        char header[MAX_COLUMNS_CONTENT_LENGTH];
+        if(!headers.is_null())
+        {
+            for(int i = 0; i < headers.size(); i++){
+                strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+                p.PushName(header);
+            }
+        }else{
+            for (int i = 1; i < (int)PaintMoveTableLayout::Amount; i++) {
+                p.PushName(paintMoveTableString[i]);
+            }
+        }
         char content[MAX_COLUMNS_CONTENT_LENGTH];
         for (int i = 0; i < values.size(); i++)
         {
-            strcpy(content, values[i].at(paintMoveTableString[(int)PaintMoveTableLayout::MoveAlias]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], paintMoveTableString[(int)PaintMoveTableLayout::MoveAlias]);
             p.PushContent(content);
-            strcpy(content, values[i].at(paintMoveTableString[(int)PaintMoveTableLayout::StartPoint]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], paintMoveTableString[(int)PaintMoveTableLayout::StartPoint]);
             p.PushContent(content);
-            strcpy(content, values[i].at(paintMoveTableString[(int)PaintMoveTableLayout::EndPoint]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], paintMoveTableString[(int)PaintMoveTableLayout::EndPoint]);
             p.PushContent(content);
-            strcpy(content, values[i].at(paintMoveTableString[(int)PaintMoveTableLayout::MoveType]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], paintMoveTableString[(int)PaintMoveTableLayout::MoveType]);
             p.PushContent(content);
         }
         return;
@@ -595,12 +653,24 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
 
     if (strcmp(typeString, chapterTableString[(int)ChapterTableLayout::Type]) == 0) {
         p.SetTableType(TableType::Chapter);
+        char header[MAX_COLUMNS_CONTENT_LENGTH];
+        if(!headers.is_null())
+        {
+            for(int i = 0; i < headers.size(); i++){
+                strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+                p.PushName(header);
+            }
+        }else{
+            for (int i = 1; i < (int)ChapterTableLayout::Amount; i++) {
+                p.PushName(chapterTableString[i]);
+            }
+        }
         char content[MAX_COLUMNS_CONTENT_LENGTH];
         for (int i = 0; i < values.size(); i++)
         {
-            strcpy(content, values[i].at(chapterTableString[(int)ChapterTableLayout::Chapter]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], chapterTableString[(int)ChapterTableLayout::Chapter]);
             p.PushContent(content);
-            strcpy(content, values[i].at(chapterTableString[(int)ChapterTableLayout::Description]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], chapterTableString[(int)ChapterTableLayout::Description]);
             p.PushContent(content);
         }
         return;
@@ -608,12 +678,24 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
 
     if (strcmp(typeString, sceneTableString[(int)SceneTableLayout::Type]) == 0) {
         p.SetTableType(TableType::Scene);
+        char header[MAX_COLUMNS_CONTENT_LENGTH];
+        if(!headers.is_null())
+        {
+            for(int i = 0; i < headers.size(); i++){
+                strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+                p.PushName(header);
+            }
+        }else{
+            for (int i = 1; i < (int)SceneTableLayout::Amount; i++) {
+                p.PushName(sceneTableString[i]);
+            }
+        }
         char content[MAX_COLUMNS_CONTENT_LENGTH];
         for (int i = 0; i < values.size(); i++)
         {
-            strcpy(content, values[i].at(sceneTableString[(int)SceneTableLayout::Scene]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], sceneTableString[(int)SceneTableLayout::Scene]);
             p.PushContent(content);
-            strcpy(content, values[i].at(sceneTableString[(int)SceneTableLayout::Description]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], sceneTableString[(int)SceneTableLayout::Description]);
             p.PushContent(content);
         }
         return;
@@ -621,12 +703,24 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
 
     if (strcmp(typeString, characterTableString[(int)CharacterTableLayout::Type]) == 0) {
         p.SetTableType(TableType::Character);
+        char header[MAX_COLUMNS_CONTENT_LENGTH];
+        if(!headers.is_null())
+        {
+            for(int i = 0; i < headers.size(); i++){
+                strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+                p.PushName(header);
+            }
+        }else{
+            for (int i = 1; i < (int)CharacterTableLayout::Amount; i++) {
+                p.PushName(characterTableString[i]);
+            }
+        }
         char content[MAX_COLUMNS_CONTENT_LENGTH];
         for (int i = 0; i < values.size(); i++)
         {
-            strcpy(content, values[i].at(characterTableString[(int)CharacterTableLayout::Character]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], characterTableString[(int)CharacterTableLayout::Character]);
             p.PushContent(content);
-            strcpy(content, values[i].at(characterTableString[(int)CharacterTableLayout::Description]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], characterTableString[(int)CharacterTableLayout::Description]);
             p.PushContent(content);
         }
         return;
@@ -634,12 +728,24 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
 
     if (strcmp(typeString, pauseTableString[(int)PauseTableLayout::Type]) == 0) {
         p.SetTableType(TableType::Pause);
+        char header[MAX_COLUMNS_CONTENT_LENGTH];
+        if(!headers.is_null())
+        {
+            for(int i = 0; i < headers.size(); i++){
+                strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+                p.PushName(header);
+            }
+        }else{
+            for (int i = 1; i < (int)PauseTableLayout::Amount; i++) {
+                p.PushName(pauseTableString[i]);
+            }
+        }
         char content[MAX_COLUMNS_CONTENT_LENGTH];
         for (int i = 0; i < values.size(); i++)
         {
-            strcpy(content, values[i].at(pauseTableString[(int)PauseTableLayout::Pause]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], pauseTableString[(int)PauseTableLayout::Pause]);
             p.PushContent(content);
-            strcpy(content, values[i].at(pauseTableString[(int)PauseTableLayout::Time]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], pauseTableString[(int)PauseTableLayout::Time]);
             p.PushContent(content);
         }
         return;
@@ -647,26 +753,49 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
 
     if (strcmp(typeString, exhibitTableString[(int)ExhibitTableLayout::Type]) == 0) {
         p.SetTableType(TableType::Exhibit);
+        char header[MAX_COLUMNS_CONTENT_LENGTH];
+        if(!headers.is_null())
+        {
+            for(int i = 0; i < headers.size(); i++){
+                strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+                p.PushName(header);
+            }
+        }else{
+            for (int i = 1; i < (int)ExhibitTableLayout::Amount; i++) {
+                p.PushName(exhibitTableString[i]);
+            }
+        }
         char content[MAX_COLUMNS_CONTENT_LENGTH];
         for (int i = 0; i < values.size(); i++)
         {
-            strcpy(content, values[i].at(exhibitTableString[(int)ExhibitTableLayout::Exhibit]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], exhibitTableString[(int)ExhibitTableLayout::Exhibit]);
             p.PushContent(content);
-            strcpy(content, values[i].at(exhibitTableString[(int)ExhibitTableLayout::Description]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], exhibitTableString[(int)ExhibitTableLayout::Description]);
             p.PushContent(content);
         }
-
         return;
     }
 
     if (strcmp(typeString, effectTableString[(int)EffectTableLayout::Type]) == 0) {
         p.SetTableType(TableType::Effect);
+        char header[MAX_COLUMNS_CONTENT_LENGTH];
+        if(!headers.is_null())
+        {
+            for(int i = 0; i < headers.size(); i++){
+                strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+                p.PushName(header);
+            }
+        }else{
+            for (int i = 1; i < (int)EffectTableLayout::Amount; i++) {
+                p.PushName(effectTableString[i]);
+            }
+        }
         char content[MAX_COLUMNS_CONTENT_LENGTH];
         for (int i = 0; i < values.size(); i++)
         {
-            strcpy(content, values[i].at(effectTableString[(int)EffectTableLayout::Effect]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], effectTableString[(int)EffectTableLayout::Effect]);
             p.PushContent(content);
-            strcpy(content, values[i].at(effectTableString[(int)EffectTableLayout::Description]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], effectTableString[(int)EffectTableLayout::Description]);
             p.PushContent(content);
         }
         return;
@@ -674,12 +803,24 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
 
     if (strcmp(typeString, bgmTableString[(int)BgmTableLayout::Type]) == 0) {
         p.SetTableType(TableType::Bgm);
+        char header[MAX_COLUMNS_CONTENT_LENGTH];
+        if(!headers.is_null())
+        {
+            for(int i = 0; i < headers.size(); i++){
+                strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+                p.PushName(header);
+            }
+        }else{
+            for (int i = 1; i < (int)BgmTableLayout::Amount; i++) {
+                p.PushName(bgmTableString[i]);
+            }
+        }
         char content[MAX_COLUMNS_CONTENT_LENGTH];
         for (int i = 0; i < values.size(); i++)
         {
-            strcpy(content, values[i].at(bgmTableString[(int)BgmTableLayout::Bgm]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], bgmTableString[(int)BgmTableLayout::Bgm]);
             p.PushContent(content);
-            strcpy(content, values[i].at(bgmTableString[(int)BgmTableLayout::Description]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], bgmTableString[(int)BgmTableLayout::Description]);
             p.PushContent(content);
         }
         return;
@@ -687,12 +828,24 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
 
     if (strcmp(typeString, tachieTableString[(int)TachieTableLayout::Type]) == 0) {
         p.SetTableType(TableType::Tachie);
+        char header[MAX_COLUMNS_CONTENT_LENGTH];
+        if(!headers.is_null())
+        {
+            for(int i = 0; i < headers.size(); i++){
+                strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+                p.PushName(header);
+            }
+        }else{
+            for (int i = 1; i < (int)TachieTableLayout::Amount; i++) {
+                p.PushName(tachieTableString[i]);
+            }
+        }
         char content[MAX_COLUMNS_CONTENT_LENGTH];
         for (int i = 0; i < values.size(); i++)
         {
-            strcpy(content, values[i].at(tachieTableString[(int)TachieTableLayout::Alias]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], tachieTableString[(int)TachieTableLayout::Alias]);
             p.PushContent(content);
-            strcpy(content, values[i].at(tachieTableString[(int)TachieTableLayout::FileName]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], tachieTableString[(int)TachieTableLayout::FileName]);
             p.PushContent(content);
         }
         return;
@@ -701,14 +854,26 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
     if(strcmp(typeString, tachiePositionTableString[(int)TachiePositionTableLayout::Type]) == 0)
     {
         p.SetTableType(TableType::Tachie_Position);
+        char header[MAX_COLUMNS_CONTENT_LENGTH];
+        if(!headers.is_null())
+        {
+            for(int i = 0; i < headers.size(); i++){
+                strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+                p.PushName(header);
+            }
+        }else{
+            for (int i = 1; i < (int)TachiePositionTableLayout::Amount; i++) {
+                p.PushName(tachiePositionTableString[i]);
+            }
+        }
         char content[MAX_COLUMNS_CONTENT_LENGTH];
         for (int i = 0; i < values.size(); i++)
         {
-            strcpy(content, values[i].at(tachiePositionTableString[(int)TachiePositionTableLayout::Alias]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], tachiePositionTableString[(int)TachiePositionTableLayout::Alias]);
             p.PushContent(content);
-            strcpy(content, values[i].at(tachiePositionTableString[(int)TachiePositionTableLayout::PositionX]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], tachiePositionTableString[(int)TachiePositionTableLayout::PositionX]);
             p.PushContent(content);
-            strcpy(content, values[i].at(tachiePositionTableString[(int)TachiePositionTableLayout::PositionY]).get_ptr<const json::string_t*>()->c_str());
+            GetContentException(content, values[i], tachiePositionTableString[(int)TachiePositionTableLayout::PositionY]);
             p.PushContent(content);
         }
         return;
