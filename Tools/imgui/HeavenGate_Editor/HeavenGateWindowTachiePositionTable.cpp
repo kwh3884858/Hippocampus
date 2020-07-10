@@ -35,11 +35,12 @@ namespace HeavenGateEditor {
         memset(m_fullPath, 0, sizeof(m_fullPath));
 
         HeavenGateEditorUtility::GetStoryPath(m_fullPath);
-        strcat(m_fullPath, TACHIE_TABLE_NAME);
+        strcat(m_fullPath, TACHIE_POSITION_TABLE_NAME);
 
         bool result = StoryFileManager::Instance().LoadTableFile(m_fullPath, tachiePositionTable);
         if (result == false)
         {
+            tachiePositionTable->UpdateName();
             StoryFileManager::Instance().SaveTableFile(m_fullPath, tachiePositionTable);
             StoryFileManager::Instance().LoadTableFile(m_fullPath, tachiePositionTable);
         }

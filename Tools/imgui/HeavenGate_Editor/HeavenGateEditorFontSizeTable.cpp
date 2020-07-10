@@ -56,6 +56,7 @@ namespace HeavenGateEditor {
         bool result = StoryFileManager::Instance().LoadTableFile(m_fullPath, fontSizeTable);
         if (result == false)
         {
+            fontSizeTable->UpdateName();
             StoryFileManager::Instance().SaveTableFile(m_fullPath, fontSizeTable);
             StoryFileManager::Instance().LoadTableFile(m_fullPath, fontSizeTable);
         }

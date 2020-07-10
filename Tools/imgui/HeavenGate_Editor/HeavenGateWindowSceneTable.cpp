@@ -57,6 +57,7 @@ namespace HeavenGateEditor {
         bool result = StoryFileManager::Instance().LoadTableFile(m_fullPath, sceneTable);
         if (result == false)
         {
+            sceneTable->UpdateName();
             StoryFileManager::Instance().SaveTableFile(m_fullPath, sceneTable);
             StoryFileManager::Instance().LoadTableFile(m_fullPath, sceneTable);
         }

@@ -215,13 +215,22 @@ const char* const TableSuffix = "Table";
         "/BgmTable.json";
 #endif
 
-    //Relative path from story folder to role drawing table
+    //Relative path from story folder to tachie table
 
     const char* const TACHIE_TABLE_NAME =
 #ifdef _WIN32
         "\\TachieTable.json";
 #else
         "/TachieTable.json";
+#endif
+
+    //Relative path from story folder to tachie position table
+
+    const char* const TACHIE_POSITION_TABLE_NAME =
+#ifdef _WIN32
+        "\\TachiePositionTable.json";
+#else
+        "/TachiePositionTable.json";
 #endif
 
     const char* const PATH_FROM_PROJECT_ROOT_TO_FONT_FOLDER =
