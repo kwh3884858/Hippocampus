@@ -25,7 +25,6 @@ using std::vector;
 //enum class TableLayout :int;
 //enum class FontSizeTableLayout :int;
 
-
 template<int column, int MAX_CONTENT_LENGTH>
 class StoryTable {
 

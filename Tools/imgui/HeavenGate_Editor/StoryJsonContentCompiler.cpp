@@ -430,7 +430,7 @@ namespace HeavenGateEditor {
                     for (int i = 0; i < tachieTable->GetSize(); i++)
                     {
                         const StoryRow<TACHIE_MAX_COLUMN>* const row = tachieTable->GetRow(i);
-                        if (strcmp(row->Get(0), tachieCommand[0]))
+                        if (strcmp(row->Get(0), tachieCommand[0]) == 0)
                         {
                             strcpy(tachieCommand[0], row->Get(1));
                         }
@@ -438,7 +438,7 @@ namespace HeavenGateEditor {
                     for (int i = 0; i < tachiePositionTable->GetSize(); i++)
                     {
                         const StoryRow<TACHIE_POSITION_MAX_COLUMN>* const row = tachiePositionTable->GetRow(i);
-                        if (strcmp(row->Get(0), tachieCommand[1]))
+                        if (strcmp(row->Get(0), tachieCommand[1]) == 0)
                         {
                             strcpy(tachieCommand[1], row->Get(1));
                             strcat(tachieCommand[1], ",");

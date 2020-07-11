@@ -13,10 +13,9 @@
 
 #include "HeavenGateEditorConstant.h"
 #include "HeavenGateEditorBaseWindow.h"
-
 namespace HeavenGateEditor {
     class StoryJson;
-
+    class HeavenGateWindowStoryEditor;
 
     class HeavenGatePopupInputFileName : public HeavenGateEditorBaseWindow{
         WINDOW_DECLARE("HeavenGateEditorFileManager", Window_Type::Popup)

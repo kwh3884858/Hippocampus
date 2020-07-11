@@ -9,6 +9,7 @@
 
 
 #include "HeavenGatePopupInputFileName.h"
+#include "HeavenGateWindowStoryEditor.h"
 #include "StoryFileManager.h"
 #include "StoryJsonManager.h"
 #include "StoryJson.h"
@@ -16,7 +17,7 @@
 namespace HeavenGateEditor {
 
     HeavenGatePopupInputFileName::HeavenGatePopupInputFileName(HeavenGateEditorBaseWindow* parent)
-        :m_parent(parent)
+        : HeavenGateEditorBaseWindow(parent)
     {
         Initialize();
     }
@@ -37,13 +38,14 @@ namespace HeavenGateEditor {
         if (ImGui::Button("OK", ImVec2(120, 0))) {
             if (m_parent !=nullptr && m_callback != nullptr)
             {
-                (m_parent->*m_callback)(m_fileName);
+                HeavenGateWindowStoryEditor* const storyEditor = static_cast<HeavenGateWindowStoryEditor*>(m_parent);
+                (storyEditor->*m_callback)(m_fileName);
             }
             else
             {
                 printf("Lack of callback");
             }
-            m_inputFileNamePopup->SetCallbackAfterClickOk(nullptr);
+            SetCallbackAfterClickOk(nullptr);
             CloseWindow();
         }
 

@@ -2,7 +2,10 @@
 #include "imgui.h"
 
 namespace HeavenGateEditor {
-
+    HeavenGateEditorBaseWindow::HeavenGateEditorBaseWindow(){
+        m_open = false;
+        SetParentWindow(nullptr);
+    }
     HeavenGateEditorBaseWindow::HeavenGateEditorBaseWindow(HeavenGateEditorBaseWindow* parent)
     {
         m_open = false;
