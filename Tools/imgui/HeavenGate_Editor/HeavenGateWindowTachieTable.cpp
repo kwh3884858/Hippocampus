@@ -41,7 +41,7 @@ namespace HeavenGateEditor {
     void HeavenGateWindowTachieTable::Initialize()
     {
 
-        StoryTable<TACHIE_COLUMN>*const  tachieTable = StoryTableManager::Instance().GetTachieTable();
+        StoryTable<TACHIE_MAX_COLUMN>*const  tachieTable = StoryTableManager::Instance().GetTachieTable();
         memset(m_fullPath, 0, sizeof(m_fullPath));
 
         HeavenGateEditorUtility::GetStoryPath(m_fullPath);
@@ -63,7 +63,7 @@ namespace HeavenGateEditor {
 
     void HeavenGateWindowTachieTable::UpdateMainWindow()
     {
-        StoryTable<TACHIE_COLUMN>*const  roleDrawingTable = StoryTableManager::Instance().GetTachieTable();
+        StoryTable<TACHIE_MAX_COLUMN>*const  roleDrawingTable = StoryTableManager::Instance().GetTachieTable();
 
         if (roleDrawingTable == nullptr)
         {
@@ -84,10 +84,10 @@ namespace HeavenGateEditor {
             roleDrawingTable->RemoveRow();
         }
 
-        ImGui::Columns(TACHIE_COLUMN + 1, "Role Drawing"); // 4-ways, with border
+        ImGui::Columns(TACHIE_MAX_COLUMN + 1, "Role Drawing"); // 4-ways, with border
         ImGui::Separator();
         ImGui::Text("Index");    ImGui::NextColumn();
-        for (int i = 0; i < TACHIE_COLUMN; i++)
+        for (int i = 0; i < TACHIE_MAX_COLUMN; i++)
         {
             ImGui::Text(roleDrawingTable->GetName(i));   ImGui::NextColumn();
         }
@@ -117,7 +117,7 @@ namespace HeavenGateEditor {
             //ImGui::Text(paths[i]); ImGui::NextColumn();
             //ImGui::Text("%d", hovered); ImGui::NextColumn();
 
-            for (int j = 0; j < TACHIE_COLUMN; j++)
+            for (int j = 0; j < TACHIE_MAX_COLUMN; j++)
             {
                 char * content = roleDrawingTable->GetContent(i, j);
 
@@ -156,7 +156,7 @@ namespace HeavenGateEditor {
         }
 
         if (ImGui::MenuItem("Save", "Ctrl+S")) {
-            StoryTable<TACHIE_COLUMN>*const  roleDrawingTable = StoryTableManager::Instance().GetTachieTable();
+            StoryTable<TACHIE_MAX_COLUMN>*const  roleDrawingTable = StoryTableManager::Instance().GetTachieTable();
 
             StoryFileManager::Instance().SaveTableFile(m_fullPath, roleDrawingTable);
         }

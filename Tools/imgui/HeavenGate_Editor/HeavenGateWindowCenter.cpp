@@ -285,7 +285,8 @@ namespace HeavenGateEditor {
             m_nodeGraphExample->Update();
         }
 
-        if (show_tachie_poisition_table && *show_tachie_poisition_table) {
+        if (show_tachie_poisition_table && *show_tachie_poisition_table)
+        {
             m_tachiePositionTable->Update();
         }
 

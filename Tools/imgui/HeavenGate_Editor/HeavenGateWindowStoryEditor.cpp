@@ -47,7 +47,7 @@ namespace HeavenGateEditor {
         m_selectStoryWindow = new HeavenGateWindowSelectStory();
         m_selectStoryWindow->Initialize();
 
-        m_inputFileNamePopup = new HeavenGatePopupInputFileName();
+        m_inputFileNamePopup = new HeavenGatePopupInputFileName(this);
         m_inputFileNamePopup->Initialize();
 
         m_messageBoxPopup = new HeavenGatePopupMessageBox();
@@ -102,7 +102,7 @@ namespace HeavenGateEditor {
         if (m_storyJson == nullptr)
         {
             m_storyJson = StoryJsonManager::Instance().GetStoryJson();
-            if(m_storyJson == nullptr)  return;
+            if (m_storyJson == nullptr)  return;
         }
 
         ImGui::Text("Heaven Gate. (%s)\nImgui version. (%s)", EDITOR_VERSION, IMGUI_VERSION);
@@ -244,7 +244,7 @@ namespace HeavenGateEditor {
                         AddButton(i);
                         ImGui::Text("Jump Id: %s", jump);
 
-                        IdOperator::ParseStringId<MAX_ID_PART, NUM_OF_ID_PART>(jump, currentId);
+                        IdOperator::ParseStringId<'_', MAX_ID_PART, NUM_OF_ID_PART>(jump, currentId);
                         if (!IsNum(currentId[(int)ID_PART::COUNT])) {
                             strcpy(currentId[(int)ID_PART::COUNT], "0");
                         }
@@ -287,7 +287,7 @@ namespace HeavenGateEditor {
                         ImGui::InputText(idTitileConstant, currentId[(int)ID_PART::TITLE], MAX_ID_TITLE, ImGuiInputTextFlags_CharsNoBlank);
                         ImGui::InputText(idCountConstant, currentId[(int)ID_PART::COUNT], MAX_ID_COUNT, ImGuiInputTextFlags_CharsDecimal);
 
-                        IdOperator::CombineStringId<MAX_ID_PART, NUM_OF_ID_PART>(pJump->m_jumpId, currentId);
+                        IdOperator::CombineStringId<'_', MAX_ID_PART, NUM_OF_ID_PART>(pJump->m_jumpId, currentId);
 
 
                         ImGui::TextColored(ImVec4(1.0f, 0.0f, 1.0f, 1.0f), jump);
@@ -325,7 +325,7 @@ namespace HeavenGateEditor {
                         AddButton(i);
                         ImGui::Text("Jump Id: %s", label);
 
-                        IdOperator::ParseStringId<MAX_ID_PART, NUM_OF_ID_PART>(label, currentId);
+                        IdOperator::ParseStringId<'_', MAX_ID_PART, NUM_OF_ID_PART>(label, currentId);
                         if (!IsNum(currentId[(int)ID_PART::COUNT])) {
                             strcpy(currentId[(int)ID_PART::COUNT], "0");
                         }
@@ -368,7 +368,7 @@ namespace HeavenGateEditor {
 
                         ImGui::InputText(idCountConstant, currentId[(int)ID_PART::COUNT], MAX_ID_COUNT, ImGuiInputTextFlags_CharsDecimal);
 
-                        IdOperator::CombineStringId<MAX_ID_PART, NUM_OF_ID_PART>(pLabel->m_labelId, currentId);
+                        IdOperator::CombineStringId<'_', MAX_ID_PART, NUM_OF_ID_PART>(pLabel->m_labelId, currentId);
 
                         //ImGui::InputTextWithHint(LabelConstant, "Enter label ID here", label, MAX_NAME);
                         ImGui::InputTextWithHint(LabelConstant, "Enter label ID here", label, MAX_ID);
@@ -411,7 +411,7 @@ namespace HeavenGateEditor {
                         AddButton(i);
                         if (pLabel != nullptr)
                         {
-                            ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f),"End label: %s", pLabel->m_labelId);
+                            ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "End label: %s", pLabel->m_labelId);
                         }
                         else
                         {
@@ -472,7 +472,6 @@ namespace HeavenGateEditor {
             }
         }
 
-
         {
             static char importContent[1024 * 32] = "\0";
 
@@ -530,16 +529,19 @@ namespace HeavenGateEditor {
                 }
             }
         }
-
         //Update Auto Save
         StoryTimer<HeavenGateWindowStoryEditor>::Update();
     }
+
 
     void HeavenGateWindowStoryEditor::UpdateMenu()
     {
 
         if (ImGui::MenuItem("New")) {
             m_inputFileNamePopup->OpenWindow();
+            m_inputFileNamePopup->SetCallbackAfterClickOk(&HeavenGateWindowStoryEditor::CallbackNewFile);
+
+          
         }
         if (ImGui::MenuItem("Open", "Ctrl+O")) {
             m_selectStoryWindow->OpenWindow();
@@ -563,18 +565,7 @@ namespace HeavenGateEditor {
             ImGui::EndMenu();
         }
         if (ImGui::MenuItem("Save", "Ctrl+S")) {
-
-            bool result = StoryFileManager::Instance().SaveStoryFile(m_storyJson);
-
-            if (result)
-            {
-                AddNotification("Successful to Save File");
-            }
-            else
-            {
-                AddNotification("Failed to Save File");
-            }
-
+            SaveStoryFile();
         }
         if (ImGui::MenuItem("Export", "Ctrl+E")) {
 
@@ -590,9 +581,11 @@ namespace HeavenGateEditor {
             }
 
         }
-        if (ImGui::MenuItem("Save As..")) {
+        if (ImGui::MenuItem("Rename"))
+        {
+            m_inputFileNamePopup->OpenWindow();
+            m_inputFileNamePopup->SetCallbackAfterClickOk(&HeavenGateWindowStoryEditor::CallbackRenameFile);
 
-            AddNotification("This function is not finish yet.");
         }
 
 
@@ -756,10 +749,15 @@ namespace HeavenGateEditor {
         char tmpExhibit[MAX_COLUMNS_CONTENT_LENGTH];
         memset(tmpExhibit, '\0', MAX_COLUMNS_CONTENT_LENGTH);
 
+        char tmpTachieCommand[NUM_OF_TACHIE_COMMAND][MAX_COLUMNS_CONTENT_LENGTH];
+        memset(tmpTachieCommand, '\0', NUM_OF_TACHIE_COMMAND * MAX_COLUMNS_CONTENT_LENGTH);
+
         bool isExhibit = false;
 
         //Color
         ImVec4 colorBlue = ImVec4(0.0f, 0.0f, 1.0f, 1.0f);
+        ImVec4 colorRed = ImVec4(1.0f, 0.0f, 0.0f, 1.0f);
+        ImVec4 colorBlack = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
 
         ImGui::Text("Preview:");
 
@@ -792,7 +790,7 @@ namespace HeavenGateEditor {
                     case HeavenGateEditor::TableType::Font_Size:
                         break;
                     case HeavenGateEditor::TableType::Color:
-                        color = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+                        color = colorBlack;
                         break;
                     case HeavenGateEditor::TableType::Tips:
                         ImGui::TextColored(color, "[Show Tip Here: %s]", tmpTip);
@@ -807,6 +805,10 @@ namespace HeavenGateEditor {
                         }
                         break;
                     case TableType::Pause:
+                        break;
+                    case TableType::Tachie:
+                        ImGui::TextColored(colorRed, "[Display Tachie: %s] [Tachie Position: %s]", tmpTachieCommand[0], tmpTachieCommand[1]);
+                        ImGui::SameLine(0, 0);
                         break;
                     default:
                         break;
@@ -837,6 +839,10 @@ namespace HeavenGateEditor {
                     }
                     if (strcmp((*iter)->m_content, exhibitTableString[(int)ExhibitTableLayout::Type]) == 0) {
                         editorState.push_back(TableType::Exhibit);
+                    }
+                    if (strcmp((*iter)->m_content, tachieTableString[(int)TachieTableLayout::Type]) == 0)
+                    {
+                        editorState.push_back(TableType::Tachie);
                     }
                 }
             }
@@ -890,7 +896,8 @@ namespace HeavenGateEditor {
                     isExhibit = true;
                     break;
                 }
-                case HeavenGateEditor::TableType::Tips: {
+                case HeavenGateEditor::TableType::Tips:
+                {
                     const StoryTable<TIP_MAX_COLUMN, TIP_TABLE_MAX_CONTENT>* const tipTable = StoryTableManager::Instance().GetTipTable();
 
                     for (int i = 0; i < tipTable->GetSize(); i++)
@@ -902,10 +909,37 @@ namespace HeavenGateEditor {
                         }
                     }
                 }
-                                                        break;
+                break;
                 case HeavenGateEditor::TableType::Paint_Move:
                     break;
                 case TableType::Pause:
+                    break;
+                case TableType::Tachie:
+                {
+                    IdOperator::ParseStringId<'+', MAX_COLUMNS_CONTENT_LENGTH, NUM_OF_TACHIE_COMMAND>((*iter)->m_content, tmpTachieCommand);
+
+                    const StoryTable<TACHIE_MAX_COLUMN>* const tachieTable = StoryTableManager::Instance().GetTachieTable();
+                    const StoryTable<TACHIE_POSITION_MAX_COLUMN>* const tachiePositionTable = StoryTableManager::Instance().GetTachiePositionTable();
+                    for (int i = 0; i < tachieTable->GetSize(); i++)
+                    {
+                        const StoryRow<TACHIE_MAX_COLUMN>* const row = tachieTable->GetRow(i);
+                        if (strcmp(row->Get(0), tmpTachieCommand[0]) == 0)
+                        {
+                            strcpy(tmpTachieCommand[0], row->Get(1));
+                        }
+                    }
+                    for (int i = 0; i < tachiePositionTable->GetSize(); i++)
+                    {
+                        const StoryRow<TACHIE_POSITION_MAX_COLUMN>* const row = tachiePositionTable->GetRow(i);
+                        if (strcmp(row->Get(0), tmpTachieCommand[1]) == 0)
+                        {
+                            strcpy(tmpTachieCommand[1], row->Get(1));
+                            strcat(tmpTachieCommand[1], ",");
+                            strcat(tmpTachieCommand[1], row->Get(2));
+                        }
+                    }
+
+                }
                     break;
                 default:
                     break;
@@ -989,6 +1023,21 @@ namespace HeavenGateEditor {
         }
     }
 
+    void HeavenGateWindowStoryEditor::SaveStoryFile() 
+    {
+        bool result = StoryFileManager::Instance().SaveStoryFile(m_storyJson);
+
+        if (result)
+        {
+            AddNotification("Successful to Save File");
+        }
+        else
+        {
+            AddNotification("Failed to Save File");
+        }
+
+    }
+
     bool HeavenGateWindowStoryEditor::IsNum(const char * const content)
     {
         for (int i = 0; i < strlen(content); i++)
@@ -1004,6 +1053,58 @@ namespace HeavenGateEditor {
             }
         }
         return true;
+    }
+
+    void HeavenGateWindowStoryEditor::CallbackNewFile(const char* fileName)
+    {
+
+        char filePath[MAX_FILE_NAME];
+        //const char* fileName = m_inputFileNamePopup->GetFileName();
+        if (strlen(fileName) < 1)
+        {
+            printf("File name is not a valid value");
+            return;
+        }
+
+        if (StoryFileManager::Instance().FromFileNameToFullPath(filePath, fileName)) {
+            //StoryJson* story = StoryJsonManager::Instance().GetStoryJson();
+            //If already have a file
+            if (m_storyJson->IsExistFullPath() == true) {
+                StoryFileManager::Instance().SaveStoryFile(m_storyJson);
+                m_storyJson->Clear();
+            }
+            else {
+                //If story don`t loaded
+                return;
+            }
+            m_storyJson->SetFullPath(filePath);
+            //Default Node
+            m_storyJson->AddLabel(fileName);
+            m_inputFileNamePopup->Initialize();
+        }
+        else {
+            printf("Illegal File Name");
+        }
+    }
+
+    void HeavenGateWindowStoryEditor::CallbackRenameFile(const char* fileName)
+    {
+        char filePath[MAX_FILE_NAME];
+        //const char* fileName = m_inputFileNamePopup->GetFileName();
+        if (strlen(fileName) < 1)
+        {
+            printf("File name is not a valid value");
+            return;
+        }
+        if (StoryFileManager::Instance().FromFileNameToFullPath(filePath, fileName)) {
+            m_storyJson->SetFullPath(filePath);
+            m_inputFileNamePopup->Initialize();
+            SaveStoryFile();
+        }
+        else {
+            printf("Illegal File Name");
+        }
+
     }
 
     //void HeavenGateWindowStoryEditor::ShowEditorWindow(bool* isOpenPoint) {

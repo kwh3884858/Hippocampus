@@ -22,15 +22,18 @@ namespace HeavenGateEditor {
         WINDOW_DECLARE("HeavenGateEditorFileManager", Window_Type::Popup)
 
     public:
-        HeavenGatePopupInputFileName();
+        typedef void (HeavenGateWindowStoryEditor::*Callback)(const char* fileName);
+        HeavenGatePopupInputFileName(HeavenGateEditorBaseWindow* parent);
         virtual ~HeavenGatePopupInputFileName() override;
 
         
         virtual void Initialize() override;
-        virtual void Shutdown() override { }
+        virtual void Shutdown() override;
         virtual void UpdateMainWindow() override;
         virtual void UpdateMenu() override {}
 
+        const char* GetFileName() const;
+        void SetCallbackAfterClickOk(Callback callback);
         //void SetStoryFileManager(StoryFileManager* pStoryFileManager);
         //void SetStoryJsonPonter(StoryJson** ppStory);
     private:
@@ -38,7 +41,8 @@ namespace HeavenGateEditor {
         //bool SaveStoryFile(StoryJson* pStory, bool* pIsSavedFile);
         //void SetNewFilePath(const char* filePath);
         char m_fileName[MAX_FOLDER_PATH];
-        char m_filePath[MAX_FILE_NAME];
+        Callback m_callback;
+        //char m_filePath[MAX_FILE_NAME];
 
         //StoryFileManager* m_storyFileManager;
         //StoryJson** m_ppStory;

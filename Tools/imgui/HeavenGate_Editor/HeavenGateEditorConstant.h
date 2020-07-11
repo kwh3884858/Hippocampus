@@ -38,8 +38,8 @@ namespace HeavenGateEditor {
     const int     EXHIBIT_COLUMN = 2;
     const int     EFFECT_COLUMN = 2;
     const int     BGM_COLUMN = 2;
-    const int     TACHIE_COLUMN = 2;
-    const int     TACHIE_POSITION_COLUMN = 3;
+    const int     TACHIE_MAX_COLUMN = 2;
+    const int     TACHIE_POSITION_MAX_COLUMN = 3;
 
     //ID
     //Max ID must be (part + 1) * count, which means the total number of each part then plus the number of parts.

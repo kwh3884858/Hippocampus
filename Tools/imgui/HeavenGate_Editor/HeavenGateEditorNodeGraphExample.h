@@ -16,7 +16,7 @@ namespace HeavenGateEditor {
         WINDOW_DECLARE("HeavenGateEditorNodeGraphExample", Window_Type::MainWindow)
     public:
         HeavenGateEditorNodeGraphExample();
-        ~HeavenGateEditorNodeGraphExample();
+        virtual ~HeavenGateEditorNodeGraphExample() override;
         virtual void Initialize() override;
         virtual void Shutdown() override;
 

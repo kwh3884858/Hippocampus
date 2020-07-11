@@ -202,9 +202,9 @@ namespace HeavenGateEditor {
         {
         case CompilerState::Error:
             break;
-        
 
-        case CompilerState::StateString: 
+
+        case CompilerState::StateString:
             if (m_currentState == CompilerState::StateStopBracket)
             {
                 m_currentState = nextState;
@@ -222,7 +222,7 @@ namespace HeavenGateEditor {
                 m_currentState = CompilerState::StateInstructor;
             }
             break;
-        
+
         case CompilerState::StateInstructor:
             if (m_currentState == CompilerState::StateStartBracket)
             {
@@ -235,7 +235,7 @@ namespace HeavenGateEditor {
                 m_currentState = nextState;
             }
             break;
-        case CompilerState::StateStartBracket: 
+        case CompilerState::StateStartBracket:
             if (m_currentState == CompilerState::StateString)
             {
                 m_currentState = nextState;
@@ -245,7 +245,7 @@ namespace HeavenGateEditor {
                 m_currentState = nextState;
             }
             break;
-        case CompilerState::StateStopBracket: 
+        case CompilerState::StateStopBracket:
             if (m_currentState == CompilerState::StateIdentity)
             {
                 m_currentState = nextState;
@@ -256,7 +256,7 @@ namespace HeavenGateEditor {
                 m_currentState = nextState;
             }
             break;
-        case CompilerState::StateOp: 
+        case CompilerState::StateOp:
             if (m_currentState == CompilerState::StateInstructor)
             {
                 m_currentState = nextState;
@@ -395,7 +395,7 @@ namespace HeavenGateEditor {
                             unsigned int unsignedColor = HeavenGateEditorUtility::ConvertRGBAToUnsignedInt(color);
 
                             sprintf(token->m_content, "%x", unsignedColor);
-                           
+
                         }
 
                     }
@@ -410,7 +410,6 @@ namespace HeavenGateEditor {
                 case HeavenGateEditor::TableType::Pause:
                 {
                     const StoryTable<PAUSE_MAX_COLUMN>* const pauseTable = StoryTableManager::Instance().GetPauseTable();
-
                     for (int i = 0; i < pauseTable->GetSize(); i++)
                     {
                         const StoryRow<PAUSE_MAX_COLUMN>* const row = pauseTable->GetRow(i);
@@ -419,20 +418,43 @@ namespace HeavenGateEditor {
                             strcpy(token->m_content, row->Get(1));
                         }
                     }
-
-                    break;
                 }
+                break;
                 case HeavenGateEditor::TableType::Tachie:
+                {
+                    char tachieCommand[NUM_OF_TACHIE_COMMAND][MAX_COLUMNS_CONTENT_LENGTH];
+                    IdOperator::ParseStringId<'+', MAX_COLUMNS_CONTENT_LENGTH, NUM_OF_TACHIE_COMMAND>(token->m_content, tachieCommand);
+
+                    const StoryTable<TACHIE_MAX_COLUMN>* const tachieTable = StoryTableManager::Instance().GetTachieTable();
+                    const StoryTable<TACHIE_POSITION_MAX_COLUMN>* const tachiePositionTable = StoryTableManager::Instance().GetTachiePositionTable();
+                    for (int i = 0; i < tachieTable->GetSize(); i++)
                     {
-                        char tachie[MAX_COLUMNS_CONTENT_LENGTH];
-                        char tachiePosition[MAX_COLUMNS_CONTENT_LENGTH];
-                        
+                        const StoryRow<TACHIE_MAX_COLUMN>* const row = tachieTable->GetRow(i);
+                        if (strcmp(row->Get(0), tachieCommand[0]))
+                        {
+                            strcpy(tachieCommand[0], row->Get(1));
+                        }
                     }
-                    break;
+                    for (int i = 0; i < tachiePositionTable->GetSize(); i++)
+                    {
+                        const StoryRow<TACHIE_POSITION_MAX_COLUMN>* const row = tachiePositionTable->GetRow(i);
+                        if (strcmp(row->Get(0), tachieCommand[1]))
+                        {
+                            strcpy(tachieCommand[1], row->Get(1));
+                            strcat(tachieCommand[1], ",");
+                            strcat(tachieCommand[1], row->Get(2));
+
+                        }
+                    }
+                    IdOperator::CombineStringId<'+', MAX_COLUMNS_CONTENT_LENGTH, NUM_OF_TACHIE_COMMAND>(token->m_content, tachieCommand);
+
+                }
+                break;
+
                 default:
                     break;
                 }
-              
+
             }
             else if (token->m_tokeType == StoryJsonContentCompiler::TokenType::TokenOpSlash)
             {

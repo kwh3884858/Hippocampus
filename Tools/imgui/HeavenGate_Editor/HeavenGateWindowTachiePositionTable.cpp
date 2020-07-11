@@ -31,7 +31,7 @@ namespace HeavenGateEditor {
     void HeavenGateWindowTachiePositionTable::Initialize()
     {
 
-        StoryTable<TACHIE_POSITION_COLUMN>*const  tachiePositionTable = StoryTableManager::Instance().GetTachiePositionTable();
+        StoryTable<TACHIE_POSITION_MAX_COLUMN>*const  tachiePositionTable = StoryTableManager::Instance().GetTachiePositionTable();
         memset(m_fullPath, 0, sizeof(m_fullPath));
 
         HeavenGateEditorUtility::GetStoryPath(m_fullPath);
@@ -53,7 +53,7 @@ namespace HeavenGateEditor {
 
     void HeavenGateWindowTachiePositionTable::UpdateMainWindow()
     {
-        StoryTable<TACHIE_POSITION_COLUMN>*const  tachiePositionTable = StoryTableManager::Instance().GetTachiePositionTable();
+        StoryTable<TACHIE_POSITION_MAX_COLUMN>*const  tachiePositionTable = StoryTableManager::Instance().GetTachiePositionTable();
 
         if (tachiePositionTable == nullptr)
         {
@@ -74,10 +74,10 @@ namespace HeavenGateEditor {
             tachiePositionTable->RemoveRow();
         }
 
-        ImGui::Columns(TACHIE_POSITION_COLUMN + 1, "Tachie Position"); // 4-ways, with border
+        ImGui::Columns(TACHIE_POSITION_MAX_COLUMN + 1, "Tachie Position"); // 4-ways, with border
         ImGui::Separator();
         ImGui::Text("Index");    ImGui::NextColumn();
-        for (int i = 0; i < TACHIE_POSITION_COLUMN; i++)
+        for (int i = 0; i < TACHIE_POSITION_MAX_COLUMN; i++)
         {
             const char* name = tachiePositionTable->GetName(i);
             if (name != nullptr) {
@@ -108,21 +108,22 @@ namespace HeavenGateEditor {
             sprintf(order, "%d", i);
             ImGui::NextColumn();
 
-            for (int j = 0; j < TACHIE_POSITION_COLUMN; j++)
+            for (int j = 0; j < TACHIE_POSITION_MAX_COLUMN; j++)
             {
                 char * content = tachiePositionTable->GetContent(i, j);
 
                 char constant[16];
-//                if (j % 2 == 0)
-//                {
-//                    strcpy(constant, "Role Drawing ");
-//
-//                }
-//                else
-//                {
-//                    strcpy(constant, "Alias ");
-//
-//                }
+                switch (j) {
+                case 0:
+                    strcpy(constant, tachiePositionTableString[(int)TachiePositionTableLayout::Alias]);
+                    break;
+                case 1:
+                    strcpy(constant, tachiePositionTableString[(int)TachiePositionTableLayout::PositionX]);
+                    break;
+                case 2:
+                    strcpy(constant, tachiePositionTableString[(int)TachiePositionTableLayout::PositionY]);
+                    break;
+                }
                 strcat(constant, order);
 
                 ImGui::InputText(constant, content, MAX_COLUMNS_CONTENT_LENGTH);
@@ -146,7 +147,7 @@ namespace HeavenGateEditor {
         }
 
         if (ImGui::MenuItem("Save", "Ctrl+S")) {
-             StoryTable<TACHIE_POSITION_COLUMN>*const  tachiePositionTable = StoryTableManager::Instance().GetTachiePositionTable();
+             StoryTable<TACHIE_POSITION_MAX_COLUMN>*const  tachiePositionTable = StoryTableManager::Instance().GetTachiePositionTable();
 
             StoryFileManager::Instance().SaveTableFile(m_fullPath, tachiePositionTable);
         }

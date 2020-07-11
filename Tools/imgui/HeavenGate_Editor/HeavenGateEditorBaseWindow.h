@@ -30,7 +30,7 @@ public: \
             SubWindow,
             Popup
         };
-
+        HeavenGateEditorBaseWindow() = delete;
         HeavenGateEditorBaseWindow(HeavenGateEditorBaseWindow* parent = nullptr);
         virtual ~HeavenGateEditorBaseWindow();
 

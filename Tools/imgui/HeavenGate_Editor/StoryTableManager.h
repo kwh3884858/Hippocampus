@@ -35,11 +35,11 @@ namespace HeavenGateEditor {
         const StoryTable<PAINT_MOVE_MAX_COLUMN>* const GetPaintMoveTable() const;
         StoryTable<PAINT_MOVE_MAX_COLUMN>*  GetPaintMoveTable();
 
-        const StoryTable<CHAPTER_COLUMN>* const GetChapterTable() const;
-        StoryTable<CHAPTER_COLUMN>*  GetChapterTable();
+        //const StoryTable<CHAPTER_COLUMN>* const GetChapterTable() const;
+        //StoryTable<CHAPTER_COLUMN>*  GetChapterTable();
 
-        const StoryTable<SCENE_COLUMN>* const GetSceneTable() const;
-        StoryTable<SCENE_COLUMN>*  GetSceneTable();
+        //const StoryTable<SCENE_COLUMN>* const GetSceneTable() const;
+        //StoryTable<SCENE_COLUMN>*  GetSceneTable();
 
         const StoryTable<CHARACTER_COLUMN>* const GetCharacterTable() const;
         StoryTable<CHARACTER_COLUMN>*  GetCharacterTable();
@@ -56,11 +56,11 @@ namespace HeavenGateEditor {
         const StoryTable<BGM_COLUMN>* const GetBgmTable() const;
         StoryTable<BGM_COLUMN>*  GetBgmTable();
 
-        const StoryTable<TACHIE_COLUMN>* const GetTachieTable() const;
-        StoryTable<TACHIE_COLUMN>*  GetTachieTable();
+        const StoryTable<TACHIE_MAX_COLUMN>* const GetTachieTable() const;
+        StoryTable<TACHIE_MAX_COLUMN>*  GetTachieTable();
 
-        const StoryTable<TACHIE_POSITION_COLUMN>* const GetTachiePositionTable() const;
-        StoryTable<TACHIE_POSITION_COLUMN>*  GetTachiePositionTable();
+        const StoryTable<TACHIE_POSITION_MAX_COLUMN>* const GetTachiePositionTable() const;
+        StoryTable<TACHIE_POSITION_MAX_COLUMN>*  GetTachiePositionTable();
 
     protected:
     private:
@@ -70,15 +70,15 @@ namespace HeavenGateEditor {
         StoryTable<FONT_SIZE_MAX_COLUMN>* m_fontSizeTable;
         StoryTable<TIP_MAX_COLUMN, TIP_TABLE_MAX_CONTENT>* m_tipTable;
         StoryTable<PAINT_MOVE_MAX_COLUMN>* m_paintMovetable;
-        StoryTable<CHAPTER_COLUMN>* m_chapterTable;
-        StoryTable<SCENE_COLUMN>* m_sceneTable;
+        //StoryTable<CHAPTER_COLUMN>* m_chapterTable;
+        //StoryTable<SCENE_COLUMN>* m_sceneTable;
         StoryTable<CHARACTER_COLUMN>* m_characterTable;
         StoryTable<PAUSE_MAX_COLUMN>* m_pauseTable;
         StoryTable<EXHIBIT_COLUMN>* m_exhibitTable;
         StoryTable<EFFECT_COLUMN>* m_effectTable;
         StoryTable<BGM_COLUMN>* m_bgmTable;
-        StoryTable<TACHIE_COLUMN>* m_tachieTable;
-        StoryTable<TACHIE_POSITION_COLUMN>* m_tachiePositionTable;
+        StoryTable<TACHIE_MAX_COLUMN>* m_tachieTable;
+        StoryTable<TACHIE_POSITION_MAX_COLUMN>* m_tachiePositionTable;
     };
 
 

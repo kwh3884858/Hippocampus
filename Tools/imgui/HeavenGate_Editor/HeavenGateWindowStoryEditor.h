@@ -57,8 +57,11 @@ namespace HeavenGateEditor {
         void AddButton(int index);
         void AddNotification(const char * const notification);
         void AutoSaveCallback();
-
+        void SaveStoryFile();
         bool IsNum(const char * const);
+
+        void CallbackNewFile(const char* fileName);
+        void CallbackRenameFile(const char* fileName);
 
         //Data
         StoryJson* m_storyJson;

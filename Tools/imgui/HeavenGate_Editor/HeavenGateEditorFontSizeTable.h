@@ -20,7 +20,7 @@ namespace HeavenGateEditor {
 
     public:
         HeavenGateEditorFontSizeTable();
-        ~HeavenGateEditorFontSizeTable();
+        virtual ~HeavenGateEditorFontSizeTable() override;
         virtual void Initialize() override;
         virtual void Shutdown() override;
 

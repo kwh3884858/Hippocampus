@@ -15,12 +15,13 @@
 
 namespace HeavenGateEditor {
 
-    HeavenGatePopupInputFileName::HeavenGatePopupInputFileName() {
+    HeavenGatePopupInputFileName::HeavenGatePopupInputFileName(HeavenGateEditorBaseWindow* parent)
+        :m_parent(parent)
+    {
         Initialize();
     }
 
     HeavenGatePopupInputFileName::~HeavenGatePopupInputFileName() {
-
     }
 
     void HeavenGateEditor::HeavenGatePopupInputFileName::UpdateMainWindow()
@@ -34,34 +35,16 @@ namespace HeavenGateEditor {
         ImGui::PopStyleVar();
 
         if (ImGui::Button("OK", ImVec2(120, 0))) {
-            if (StoryFileManager::Instance().FromFileNameToFullPath(m_filePath, m_fileName)) {
-
-
-                StoryJson* story = StoryJsonManager::Instance().GetStoryJson();
-                //If already have a file
-                if (story->IsExistFullPath() == true) {
-
-                    StoryFileManager::Instance().SaveStoryFile(story);
-                    story->Clear();
-                }
-                else {
-                    //If story don`t loaded
-                    return;
-                }
-
-                story->SetFullPath(m_filePath);
-                //Default Node
-                story->AddLabel(m_fileName);
-
-                Initialize();
-
-                CloseWindow();
-
+            if (m_parent !=nullptr && m_callback != nullptr)
+            {
+                (m_parent->*m_callback)(m_fileName);
             }
-            else {
-                printf("Illegal File Name");
-                //strcpy(fileNameHandle, "Illegal File Name");
+            else
+            {
+                printf("Lack of callback");
             }
+            m_inputFileNamePopup->SetCallbackAfterClickOk(nullptr);
+            CloseWindow();
         }
 
         ImGui::SetItemDefaultFocus();
@@ -73,45 +56,28 @@ namespace HeavenGateEditor {
         }
 
     }
-    //
-    //    bool HeavenGateWindowFileManager::SaveStoryFile(StoryJson* pStory, bool* pIsSavedFile)
-    //{
-    //        if (m_storyFileManager == nullptr||pStory == nullptr || pIsSavedFile==nullptr)
-    //        {
-    //            return false;
-    //        }
-    //
-    //        //Length of string new file path must large than 0 
-    //        if (m_storyFileManager->IsNewFilePathExist())
-    //        {
-    //            if (!SaveStoryFile(pStory)) {
-    //                return;
-    //            }
-    //            const char* filePath = m_storyFileManager->GetNewFilePath();
-    //            pStory->SetFullPath(filePath);
-    //            *pIsSavedFile = true;
-    //
-    //            //Clear
-    //            m_storyFileManager->Initialize();
-    //        }
-    //    }
-    //
-    //void HeavenGatePopupInputFileName::SetStoryFileManager(StoryFileManager* pStoryFileManager)
-    //{
-    //    m_storyFileManager = pStoryFileManager;
-    //}
 
-
-    //void HeavenGatePopupInputFileName::SetStoryJsonPonter(StoryJson** ppStory)
-    //{
-    //    m_ppStory = ppStory;
-    //}
 
     void HeavenGatePopupInputFileName::Initialize()
     {
         memset(m_fileName, 0, sizeof(m_fileName));
-        memset(m_filePath, 0, sizeof(m_filePath));
+        //memset(m_filePath, 0, sizeof(m_filePath));
+        m_callback = nullptr;
+    }
 
+    void HeavenGatePopupInputFileName::Shutdown()
+    {
+        m_callback = nullptr;
+    }
+
+    const char* HeavenGatePopupInputFileName::GetFileName()const
+    {
+        return m_fileName;
+    }
+
+    void HeavenGatePopupInputFileName::SetCallbackAfterClickOk(Callback callback)
+    {
+        m_callback = callback;
     }
 
     //void HeavenGateWindowFileManager::SetNewFilePath(const char* filePath) {

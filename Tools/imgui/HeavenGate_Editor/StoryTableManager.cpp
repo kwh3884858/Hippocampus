@@ -32,14 +32,14 @@ namespace HeavenGateEditor {
 //        m_paintMovetable->PushName("Angle Value");
 //        m_paintMovetable->PushName("Move Distance");
 
-        m_chapterTable = new StoryTable<CHAPTER_COLUMN>;
-        m_chapterTable->SetTableType(TableType::Chapter);
+        //m_chapterTable = new StoryTable<CHAPTER_COLUMN>;
+        //m_chapterTable->SetTableType(TableType::Chapter);
 
 //        m_chapterTable->PushName("Chapter");
 //        m_chapterTable->PushName("Description");
 
-        m_sceneTable = new StoryTable<SCENE_COLUMN>;
-        m_sceneTable->SetTableType(TableType::Scene);
+        //m_sceneTable = new StoryTable<SCENE_COLUMN>;
+        //m_sceneTable->SetTableType(TableType::Scene);
 
 //        m_sceneTable->PushName("Scene");
 //        m_sceneTable->PushName("Description");
@@ -74,13 +74,13 @@ namespace HeavenGateEditor {
 //        m_bgmTable->PushName("Bgm");
 //        m_bgmTable->PushName("Description");
 
-        m_tachieTable = new StoryTable<TACHIE_COLUMN>;
+        m_tachieTable = new StoryTable<TACHIE_MAX_COLUMN>;
         m_tachieTable->SetTableType(TableType::Tachie);
 
 //        m_tachieTable->PushName("Tachie");
 //        m_tachieTable->PushName("File Name");
 
-        m_tachiePositionTable = new StoryTable<TACHIE_POSITION_COLUMN>;
+        m_tachiePositionTable = new StoryTable<TACHIE_POSITION_MAX_COLUMN>;
         m_tachiePositionTable->SetTableType(TableType::Tachie_Position);
 
 //        m_tachiePositionTable->PushName("Alias");
@@ -105,11 +105,11 @@ namespace HeavenGateEditor {
         delete m_paintMovetable;
         m_paintMovetable = nullptr;
 
-        delete m_chapterTable;
-        m_chapterTable = nullptr;
+        //delete m_chapterTable;
+        //m_chapterTable = nullptr;
 
-        delete m_sceneTable;
-        m_sceneTable = nullptr;
+        //delete m_sceneTable;
+        //m_sceneTable = nullptr;
 
         delete m_characterTable;
         m_characterTable = nullptr;
@@ -179,27 +179,27 @@ namespace HeavenGateEditor {
 
     }
 
-    const StoryTable<CHAPTER_COLUMN>* const StoryTableManager::GetChapterTable() const
-    {
-        return m_chapterTable;
-    }
+    //const StoryTable<CHAPTER_COLUMN>* const StoryTableManager::GetChapterTable() const
+    //{
+    //    return m_chapterTable;
+    //}
 
-    StoryTable<CHAPTER_COLUMN>* StoryTableManager::GetChapterTable()
-    {
-        return const_cast<StoryTable<CHAPTER_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetChapterTable());
+    //StoryTable<CHAPTER_COLUMN>* StoryTableManager::GetChapterTable()
+    //{
+    //    return const_cast<StoryTable<CHAPTER_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetChapterTable());
 
-    }
+    //}
 
-    const StoryTable<SCENE_COLUMN>* const StoryTableManager::GetSceneTable() const
-    {
-        return m_sceneTable;
-    }
+    //const StoryTable<SCENE_COLUMN>* const StoryTableManager::GetSceneTable() const
+    //{
+    //    return m_sceneTable;
+    //}
 
-    StoryTable<SCENE_COLUMN>* StoryTableManager::GetSceneTable()
-    {
-        return const_cast<StoryTable<SCENE_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetSceneTable());
+    //StoryTable<SCENE_COLUMN>* StoryTableManager::GetSceneTable()
+    //{
+    //    return const_cast<StoryTable<SCENE_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetSceneTable());
 
-    }
+    //}
 
     const StoryTable<CHARACTER_COLUMN>* const StoryTableManager::GetCharacterTable() const
     {
@@ -256,24 +256,24 @@ namespace HeavenGateEditor {
 
     }
 
-    const StoryTable<TACHIE_COLUMN>* const StoryTableManager::GetTachieTable() const
+    const StoryTable<TACHIE_MAX_COLUMN>* const StoryTableManager::GetTachieTable() const
     {
         return m_tachieTable;
     }
 
-    StoryTable<TACHIE_COLUMN>* StoryTableManager::GetTachieTable()
+    StoryTable<TACHIE_MAX_COLUMN>* StoryTableManager::GetTachieTable()
     {
-        return const_cast<StoryTable<TACHIE_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetTachieTable());
+        return const_cast<StoryTable<TACHIE_MAX_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetTachieTable());
 
     }
 
-    const StoryTable<TACHIE_POSITION_COLUMN>* const StoryTableManager::GetTachiePositionTable() const
+    const StoryTable<TACHIE_POSITION_MAX_COLUMN>* const StoryTableManager::GetTachiePositionTable() const
     {
         return m_tachiePositionTable;
     }
 
-    StoryTable<TACHIE_POSITION_COLUMN>*  StoryTableManager::GetTachiePositionTable()
+    StoryTable<TACHIE_POSITION_MAX_COLUMN>*  StoryTableManager::GetTachiePositionTable()
     {
-        return const_cast<StoryTable<TACHIE_POSITION_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetTachiePositionTable());
+        return const_cast<StoryTable<TACHIE_POSITION_MAX_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetTachiePositionTable());
     }
 }
