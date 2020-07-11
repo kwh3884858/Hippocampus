@@ -72,8 +72,10 @@ namespace Controllers.Subsystems.Story
             m_actions.Enqueue(new StoryAction(){Type = StoryActionType.Waiting,Content = waitingTime.ToString()});
         }
 
-        public void PushPicture(string picID,int posX,int posY=50)
+        public void PushPicture(string picID,int posX,int posY=150)
         {
+            posX -= 100;
+            posY -= 100;
             m_actions.Enqueue(new StoryShowPictureAction(){Type = StoryActionType.Picture,Content = picID,Pos = new Vector2(posX,posY)});
         }
         
