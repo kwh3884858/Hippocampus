@@ -102,26 +102,61 @@ namespace HeavenGateEditor {
 
 
     namespace IdOperator {
-        void ParseStringId(const char* const pinStringId, char(*pOutIdArray)[MAX_ID_COUNT]);
-        void CombineStringId(char* const pOutStringId, char(*pInIdArray)[MAX_ID_COUNT]);
-    }
-    //void to_json(json& j, const StoryWord* p) {
-    //    j = json{ {"name", p->m_name}, {"content", p->m_content} };
-    //}
+//        void ParseStringId(const char* const pinStringId, char(*pOutIdArray)[MAX_ID_COUNT]);
+//        void CombineStringId(char* const pOutStringId, char(*pInIdArray)[MAX_ID_COUNT]);
 
-    //void from_json(const json& j, StoryWord* p) {
-    //    j.at("name").get_to(p.m_name);
-    //    j.at("content").get_to(p.m_content);
-    //}
-    //void to_json(json& j, const StoryJson& p){
-    //    for (int i = 0 ; i < p.m_nodes.size(); i++) {
-    //
-    //    }
-    //}
-    //
-    // void from_json(const json& j, StoryJson& p) {
-    //
-    //     }
+        template<int PART_LENGTH, int NUM_OF_PART>
+        void ParseStringId(const char* const pinStringId, char(*pOutIdArray)[PART_LENGTH]);
+
+        template<int PART_LENGTH, int NUM_OF_PART>
+        void CombineStringId(char* const pOutStringId, char(*pInIdArray)[PART_LENGTH]);
+    }
+
+        template<int PART_LENGTH, int NUM_OF_PART>
+void IdOperator::ParseStringId(const char* const pinStringId, char(*pOutIdArray)[PART_LENGTH])
+{
+    int strLength = strlen(pinStringId);
+    if (strLength < 1) {
+        return;
+    }
+
+    char tmpPartId[PART_LENGTH];
+    memset(tmpPartId, '\0', PART_LENGTH);
+
+    int j = 0;
+    int indexOfArray = 0;
+
+    for (int i = 0; i < strLength; i++)
+    {
+        if (pinStringId[i] == '_')
+        {
+            strcpy(pOutIdArray[indexOfArray++], tmpPartId);
+            j = 0;
+            memset(tmpPartId, '\0', PART_LENGTH);
+            if (indexOfArray == NUM_OF_PART) return;
+        }
+        else {
+            tmpPartId[j++] = pinStringId[i];
+        }
+    }
+    //Read last part element
+    strcpy(pOutIdArray[indexOfArray++], tmpPartId);
+}
+
+template<int PART_LENGTH, int NUM_OF_PART>
+void IdOperator::CombineStringId(char* const pOutStringId, char(*pInIdArray)[PART_LENGTH])
+{
+
+    memset(pOutStringId, '\0', PART_LENGTH * NUM_OF_PART + NUM_OF_PART - 1);
+    for (int i = 0; i < NUM_OF_PART - 1; i++)
+    {
+        strcat(pOutStringId, pInIdArray[i]);
+        strcat(pOutStringId, "_");
+    }
+    strcat(pOutStringId, pInIdArray[NUM_OF_PART - 1]);
+
+}
+
 }
 
 #endif /* StoryJson_h */

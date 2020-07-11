@@ -244,7 +244,7 @@ namespace HeavenGateEditor {
                         AddButton(i);
                         ImGui::Text("Jump Id: %s", jump);
 
-                        IdOperator::ParseStringId(jump, currentId);
+                        IdOperator::ParseStringId<MAX_ID_PART, NUM_OF_ID_PART>(jump, currentId);
                         if (!IsNum(currentId[(int)ID_PART::COUNT])) {
                             strcpy(currentId[(int)ID_PART::COUNT], "0");
                         }
@@ -287,7 +287,7 @@ namespace HeavenGateEditor {
                         ImGui::InputText(idTitileConstant, currentId[(int)ID_PART::TITLE], MAX_ID_TITLE, ImGuiInputTextFlags_CharsNoBlank);
                         ImGui::InputText(idCountConstant, currentId[(int)ID_PART::COUNT], MAX_ID_COUNT, ImGuiInputTextFlags_CharsDecimal);
 
-                        IdOperator::CombineStringId(pJump->m_jumpId, currentId);
+                        IdOperator::CombineStringId<MAX_ID_PART, NUM_OF_ID_PART>(pJump->m_jumpId, currentId);
 
 
                         ImGui::TextColored(ImVec4(1.0f, 0.0f, 1.0f, 1.0f), jump);
@@ -325,7 +325,7 @@ namespace HeavenGateEditor {
                         AddButton(i);
                         ImGui::Text("Jump Id: %s", label);
 
-                        IdOperator::ParseStringId(label, currentId);
+                        IdOperator::ParseStringId<MAX_ID_PART, NUM_OF_ID_PART>(label, currentId);
                         if (!IsNum(currentId[(int)ID_PART::COUNT])) {
                             strcpy(currentId[(int)ID_PART::COUNT], "0");
                         }
@@ -368,7 +368,7 @@ namespace HeavenGateEditor {
 
                         ImGui::InputText(idCountConstant, currentId[(int)ID_PART::COUNT], MAX_ID_COUNT, ImGuiInputTextFlags_CharsDecimal);
 
-                        IdOperator::CombineStringId(pLabel->m_labelId, currentId);
+                        IdOperator::CombineStringId<MAX_ID_PART, NUM_OF_ID_PART>(pLabel->m_labelId, currentId);
 
                         //ImGui::InputTextWithHint(LabelConstant, "Enter label ID here", label, MAX_NAME);
                         ImGui::InputTextWithHint(LabelConstant, "Enter label ID here", label, MAX_ID);

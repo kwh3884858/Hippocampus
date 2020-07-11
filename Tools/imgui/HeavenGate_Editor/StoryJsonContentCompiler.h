@@ -24,10 +24,10 @@ namespace HeavenGateEditor {
             StateInstructor,        //key word
             StateIdentity,          //variable
 
-            StateStartBracket,
-            StateStopBracket,
-            StateSlash,
-            StateOp,
+            StateStartBracket,      // <
+            StateStopBracket,       // >
+            StateSlash,             // /
+            StateOp,                // :
         };
 
         enum class TokenType

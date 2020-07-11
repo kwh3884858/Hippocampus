@@ -59,21 +59,16 @@ namespace HeavenGateEditor {
         char tmp[MAX_CONTENT];
         memset(tmp, '\0', sizeof(tmp));
 
-
         int length = strlen(word->m_content);
-
         for (int j = 0; j < length; j++)
         {
             switch (word->m_content[j])
             {
             case '<':
-
                 SwitchCompilerState(CompilerState::StateStartBracket);
-
                 break;
 
             case '>':
-
                 SwitchCompilerState(CompilerState::StateStopBracket);
                 break;
 
@@ -88,8 +83,6 @@ namespace HeavenGateEditor {
             default:
                 SwitchCompilerState(CompilerState::StateString);
                 break;
-
-
             }
 
 
@@ -112,10 +105,7 @@ namespace HeavenGateEditor {
             char c[2] = "a";
             c[0] = word->m_content[j];
             strcat(tmp, c);
-
         }
-
-
         CreateToken(tmp, m_lastState);
     }
 
@@ -211,7 +201,6 @@ namespace HeavenGateEditor {
         switch (nextState)
         {
         case CompilerState::Error:
-        
             break;
         
 
@@ -232,28 +221,20 @@ namespace HeavenGateEditor {
             {
                 m_currentState = CompilerState::StateInstructor;
             }
-          
-
             break;
         
         case CompilerState::StateInstructor:
-        
             if (m_currentState == CompilerState::StateStartBracket)
             {
                 m_currentState = nextState;
             }
             break;
-
-        
         case CompilerState::StateIdentity:
-        
             if (m_currentState == CompilerState::StateOp)
             {
                 m_currentState = nextState;
             }
-
             break;
-        
         case CompilerState::StateStartBracket: 
             if (m_currentState == CompilerState::StateString)
             {
@@ -263,9 +244,7 @@ namespace HeavenGateEditor {
             {
                 m_currentState = nextState;
             }
-
             break;
-        
         case CompilerState::StateStopBracket: 
             if (m_currentState == CompilerState::StateIdentity)
             {
@@ -276,9 +255,7 @@ namespace HeavenGateEditor {
             {
                 m_currentState = nextState;
             }
-
             break;
-        
         case CompilerState::StateOp: 
             if (m_currentState == CompilerState::StateInstructor)
             {
@@ -288,10 +265,7 @@ namespace HeavenGateEditor {
             {
                 m_currentState = nextState;
             }
-
             break;
-        
-
         case CompilerState::StateSlash:
             if (m_currentState == CompilerState::StateStartBracket) {
                 m_currentState = nextState;
@@ -301,8 +275,6 @@ namespace HeavenGateEditor {
         default:
             break;
         }
-
-        //m_lastState = m_state;
     }
 
 
@@ -347,6 +319,8 @@ namespace HeavenGateEditor {
                         break;
                     case TableType::Pause:
                         break;
+                    case TableType::Tachie:
+                        break;
                     default:
                         break;
                     }
@@ -370,10 +344,15 @@ namespace HeavenGateEditor {
                     {
                         editorState.push_back(TableType::Pause);
                     }
+                    if (strcmp(token->m_content, tachieTableString[(int)TachieTableLayout::Type]) == 0)
+                    {
+                        editorState.push_back(TableType::Tachie);
+                    }
                 }
             }
             else if (token->m_tokeType == TokenType::TokenIdentity)
             {
+                //Modify data from editor envirenment to runtime
                 if (editorState.empty())
                 {
                     printf("No Identity Exist. \n");
@@ -426,9 +405,8 @@ namespace HeavenGateEditor {
                     break;
                 case HeavenGateEditor::TableType::Paint_Move:
                     break;
-                    case HeavenGateEditor::TableType::Exhibit:
-                      
-                        break;
+                case HeavenGateEditor::TableType::Exhibit:
+                    break;
                 case HeavenGateEditor::TableType::Pause:
                 {
                     const StoryTable<PAUSE_MAX_COLUMN>* const pauseTable = StoryTableManager::Instance().GetPauseTable();
@@ -444,6 +422,13 @@ namespace HeavenGateEditor {
 
                     break;
                 }
+                case HeavenGateEditor::TableType::Tachie:
+                    {
+                        char tachie[MAX_COLUMNS_CONTENT_LENGTH];
+                        char tachiePosition[MAX_COLUMNS_CONTENT_LENGTH];
+                        
+                    }
+                    break;
                 default:
                     break;
                 }

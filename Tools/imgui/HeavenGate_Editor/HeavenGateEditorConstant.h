@@ -20,24 +20,8 @@ namespace HeavenGateEditor {
     //For story content limit
     const int     MAX_NAME = 64;
     const int     MAX_CONTENT = 265;
-    const int     NUM_OF_ID_PART = 2;
     const int     MAX_ID_PART = 32;
     const int     MAX_EXHIBIT_NAME = 64;
-
-    //ID 
-    //const int     MAX_CHAPTER = MAX_ID_PART;
-    //const int     MAX_SCENE = MAX_ID_PART;
-    const int     MAX_ID_TITLE = MAX_ID_PART;
-    const int     MAX_ID_COUNT = MAX_ID_PART;
-    const int     MAX_ID = /*MAX_CHAPTER + MAX_SCENE + */MAX_ID_TITLE + MAX_ID_COUNT + NUM_OF_ID_PART;
-    enum class ID_PART
-    {
-        //CHAPTER = 0,
-        //SCENE,
-        TITLE,
-        COUNT
-    };
-
 
     const int     MAX_ENUM_LENGTH = 16;
 
@@ -56,6 +40,27 @@ namespace HeavenGateEditor {
     const int     BGM_COLUMN = 2;
     const int     TACHIE_COLUMN = 2;
     const int     TACHIE_POSITION_COLUMN = 3;
+
+    //ID
+    //Max ID must be (part + 1) * count, which means the total number of each part then plus the number of parts.
+    const int     NUM_OF_ID_PART = 2;
+    const int     MAX_ID_TITLE = MAX_ID_PART;
+    const int     MAX_ID_COUNT = MAX_ID_PART;
+    const int     MAX_ID = MAX_ID_TITLE + MAX_ID_COUNT + NUM_OF_ID_PART;
+    enum class ID_PART
+    {
+        TITLE,
+        COUNT
+    };
+
+    const int NUM_OF_TACHIE_COMMAND = 2;
+    const int MAX_TACHIE_ALIAS = MAX_COLUMNS_CONTENT_LENGTH;
+    const int MAX_TACHIE_POSITION_ALIAS = MAX_COLUMNS_CONTENT_LENGTH;
+    const int MAX_TACHIE = MAX_TACHIE_ALIAS + MAX_TACHIE_POSITION_ALIAS + NUM_OF_TACHIE_COMMAND;
+    enum class TACHIE_COMMAND_PART{
+        TACHIE_ALIAS,
+        TACHIE_POSITION_ALIAS
+    };
 
     //Tip Table
     const int     TIP_TABLE_MAX_CONTENT = 512;
