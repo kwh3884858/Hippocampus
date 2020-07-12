@@ -46,6 +46,7 @@ namespace HeavenGateEditor {
                 printf("Lack of callback");
             }
             SetCallbackAfterClickOk(nullptr);
+            Initialize();
             CloseWindow();
         }
 
@@ -53,7 +54,6 @@ namespace HeavenGateEditor {
         ImGui::SameLine();
         if (ImGui::Button("Cancel", ImVec2(120, 0))) {
             Initialize();
-
             CloseWindow();
         }
 
@@ -62,7 +62,7 @@ namespace HeavenGateEditor {
 
     void HeavenGatePopupInputFileName::Initialize()
     {
-        memset(m_fileName, 0, sizeof(m_fileName));
+        memset(m_fileName, '\0', sizeof(m_fileName));
         //memset(m_filePath, 0, sizeof(m_filePath));
         m_callback = nullptr;
     }

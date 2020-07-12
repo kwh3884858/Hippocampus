@@ -44,12 +44,15 @@ namespace HeavenGateEditor {
     void HeavenGateWindowStoryEditor::Initialize()
     {
         m_storyJson = nullptr;
+        m_selectStoryWindow = nullptr;
         m_selectStoryWindow = new HeavenGateWindowSelectStory();
         m_selectStoryWindow->Initialize();
 
+        m_inputFileNamePopup = nullptr;
         m_inputFileNamePopup = new HeavenGatePopupInputFileName(this);
         m_inputFileNamePopup->Initialize();
 
+        m_messageBoxPopup = nullptr;
         m_messageBoxPopup = new HeavenGatePopupMessageBox();
         m_messageBoxPopup->Initialize();
 
@@ -541,7 +544,7 @@ namespace HeavenGateEditor {
             m_inputFileNamePopup->OpenWindow();
             m_inputFileNamePopup->SetCallbackAfterClickOk(&HeavenGateWindowStoryEditor::CallbackNewFile);
 
-          
+
         }
         if (ImGui::MenuItem("Open", "Ctrl+O")) {
             m_selectStoryWindow->OpenWindow();
@@ -940,7 +943,7 @@ namespace HeavenGateEditor {
                     }
 
                 }
-                    break;
+                break;
                 default:
                     break;
                 }
@@ -1016,14 +1019,17 @@ namespace HeavenGateEditor {
             else
             {
                 AddNotification("Failed to Auto Save File");
-                m_messageBoxPopup->SetMessage(strerror(errno));
-                m_messageBoxPopup->OpenWindow();
+                if (m_messageBoxPopup)
+                {
+                    m_messageBoxPopup->SetMessage(strerror(errno));
+                    m_messageBoxPopup->OpenWindow();
+                }
             }
 
         }
     }
 
-    void HeavenGateWindowStoryEditor::SaveStoryFile() 
+    void HeavenGateWindowStoryEditor::SaveStoryFile()
     {
         bool result = StoryFileManager::Instance().SaveStoryFile(m_storyJson);
 
@@ -1058,29 +1064,28 @@ namespace HeavenGateEditor {
     void HeavenGateWindowStoryEditor::CallbackNewFile(const char* fileName)
     {
 
-        char filePath[MAX_FILE_NAME];
+        char folderPath[MAX_FOLDER_PATH];
+
         //const char* fileName = m_inputFileNamePopup->GetFileName();
-        if (strlen(fileName) < 1)
+        if (fileName == nullptr || strlen(fileName) < 1)
         {
             printf("File name is not a valid value");
             return;
         }
-
-        if (StoryFileManager::Instance().FromFileNameToFullPath(filePath, fileName)) {
-            //StoryJson* story = StoryJsonManager::Instance().GetStoryJson();
+        if (StoryFileManager::Instance().FromFileNameToFullPath(folderPath, fileName)) {
+            StoryJson* story = StoryJsonManager::Instance().GetStoryJson();
             //If already have a file
-            if (m_storyJson->IsExistFullPath() == true) {
-                StoryFileManager::Instance().SaveStoryFile(m_storyJson);
-                m_storyJson->Clear();
+            if (story->IsExistFullPath() == true) {
+                StoryFileManager::Instance().SaveStoryFile(story);
+                story->Clear();
             }
             else {
                 //If story don`t loaded
                 return;
             }
-            m_storyJson->SetFullPath(filePath);
+            story->SetFullPath(folderPath);
             //Default Node
-            m_storyJson->AddLabel(fileName);
-            m_inputFileNamePopup->Initialize();
+            story->AddLabel(fileName);
         }
         else {
             printf("Illegal File Name");
@@ -1089,16 +1094,19 @@ namespace HeavenGateEditor {
 
     void HeavenGateWindowStoryEditor::CallbackRenameFile(const char* fileName)
     {
-        char filePath[MAX_FILE_NAME];
+        char folderPath[MAX_FOLDER_PATH];
+
         //const char* fileName = m_inputFileNamePopup->GetFileName();
-        if (strlen(fileName) < 1)
+        if (fileName == nullptr || strlen(fileName) < 1)
         {
             printf("File name is not a valid value");
             return;
         }
-        if (StoryFileManager::Instance().FromFileNameToFullPath(filePath, fileName)) {
-            m_storyJson->SetFullPath(filePath);
-            m_inputFileNamePopup->Initialize();
+        if (StoryFileManager::Instance().FromFileNameToFullPath(folderPath, fileName)) {
+            StoryJson* story = StoryJsonManager::Instance().GetStoryJson();
+
+            story->SetFullPath(folderPath);
+
             SaveStoryFile();
         }
         else {

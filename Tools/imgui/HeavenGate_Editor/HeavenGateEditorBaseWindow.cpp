@@ -15,7 +15,7 @@ namespace HeavenGateEditor {
     HeavenGateEditorBaseWindow::~HeavenGateEditorBaseWindow()
     {
         m_open = false;
-        m_parent = nullptr;
+        SetParentWindow(nullptr);
     }
 
     void HeavenGateEditorBaseWindow::Update()
@@ -128,10 +128,7 @@ namespace HeavenGateEditor {
 
     void HeavenGateEditorBaseWindow::SetParentWindow(HeavenGateEditorBaseWindow * parent)
     {
-        if (parent)
-        {
-            m_parent = parent;
-        }
+        m_parent = parent;
     }
 
 

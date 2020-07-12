@@ -6,7 +6,7 @@
 
 namespace HeavenGateEditor {
 
-    class HeavenGateWindowStoryEditor;
+    //class HeavenGateWindowStoryEditor;
 
     template<typename T>
     class StoryTimer final
