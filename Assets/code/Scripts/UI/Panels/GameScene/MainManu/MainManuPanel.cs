@@ -15,7 +15,7 @@ namespace UI.Panels.GameScene.MainManu
 
 		public void ShowHud ()
 		{
-			UiDataProvider.StaticBoard.ShowTalk ("9", OnTalkEnd);
+//			UiDataProvider.StaticBoard.ShowTalk ("9", OnTalkEnd);
             UIManager.Instance().ShowPanel(UIPanelType.JoystickPanel);// 显示UI，wywtsest
         }
 

@@ -34,7 +34,6 @@ public class UITestOne : MonoBehaviour,IGameRuntimeData
 	{
 		State = state;
 		m_uiManager.ActivatState(State);
-		Debug.Log($"!!!!!!!!!!!!!!!!!!!!!!Current state:{m_gameRunTimeData.State}");
 		yield break;
 	}
 
