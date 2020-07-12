@@ -29,6 +29,10 @@ MonoBehaviour:
     m_Address: MainCamera
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 19f1df012f9b71f4a902322d005c609d
+    m_Address: UI_Common_ESC_Main_Menu_Panel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 1d6ad93c50b4bce43ad383d6595b8a77
     m_Address: UI_Common_Tip_Item
     m_ReadOnly: 0

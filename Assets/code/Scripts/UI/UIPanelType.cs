@@ -12,4 +12,5 @@ public enum UIPanelType
     [AssetPath("Tips_Panel")] Tipspanel = 9,
     [AssetPath("Get_Tip_Panel")] Tipgetpanel = 10,
     [AssetPath("UI_Common_CGScene_Panel")] UICommonCgscenePanel = 11,
+    [AssetPath("UI_Common_ESC_Main_Menu_Panel")] UICommonESCMainMenuPanel = 12,
 }

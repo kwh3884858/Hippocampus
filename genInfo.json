@@ -6,5 +6,13 @@
 		"mediatorPath":"Assets/code/Scripts/UI/Panels/AutoCreate/CommonCGScenePanel.cs",
 		"modelPath":"Assets/code/Scripts/UI/Panels/AutoCreate/CommonCGSceneModel.cs",
 		"GUID":"6874112fcbaa4b149baec58339db8950"
+	},
+	"19f1df012f9b71f4a902322d005c609d":{
+		"type":3,
+		"prefabPath":"Assets/data/graphics/UI/Common/ESCMainMenu/Prefabs/UI_Common_ESC_Main_Menu_Panel.prefab",
+		"codePath":"Assets/code/Scripts/UI/Panels/AutoCreate/CommonESCMainMenuPanel.cs",
+		"mediatorPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonESCMainMenuPanel.cs",
+		"modelPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonESCMainMenuModel.cs",
+		"GUID":"19f1df012f9b71f4a902322d005c609d"
 	}
 }
