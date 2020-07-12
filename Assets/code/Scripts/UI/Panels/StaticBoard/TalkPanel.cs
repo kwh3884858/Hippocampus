@@ -68,6 +68,14 @@ namespace UI.Panels.StaticBoard
                 m_bold = !m_bold;
             }
 
+            public void ClearData()
+            {
+                m_color = null;
+                m_fontSize = null;
+                m_font = null;
+                m_bold = false;
+            }
+
             public string GetContent(string content)
             {
                 if (m_color != null)
@@ -116,11 +124,17 @@ namespace UI.Panels.StaticBoard
         public override void UpdateData(DataProvider data)
         {
             base.UpdateData(data);
+            Debug.Log($"开始对话 ID:{UIPanelDataProvider.ID}");
             SetInfo(UIPanelDataProvider.ID);
         }
 
         private void SetInfo(string talkID)
         {
+            if (m_state != ActionState.Waiting)
+            {
+                Debug.LogWarning("当前对话未结束！！！！");
+            }
+            ClearData();
             m_isFirstTalk = true;
             m_skip = false;
             m_currentID = talkID;
@@ -128,6 +142,7 @@ namespace UI.Panels.StaticBoard
             SetActionState(ActionState.Begin);
         }
 
+        
         private void SetNextAction(StoryAction storyAction)
         {
             if (storyAction == null)
@@ -138,10 +153,8 @@ namespace UI.Panels.StaticBoard
                 {
                     EndCharacterTalk();
                 }
-                print($"TalkEnd");
                 return;
             }
-            print($"CurrentAction:{storyAction.Type}");
             m_actionType = storyAction.Type;
             SetActionState(ActionState.Actioning);
             switch (storyAction.Type)
@@ -150,7 +163,11 @@ namespace UI.Panels.StaticBoard
                     AddNewTalker(storyAction.Content);
                     break;
                 case StoryActionType.Content:
-                    StartCoroutine(Typewriter(storyAction.Content));
+                    if (m_typewriterCoroutine != null)
+                    {
+                        StopCoroutine(m_typewriterCoroutine);
+                    }
+                    m_typewriterCoroutine = StartCoroutine(Typewriter(storyAction.Content));
                     break;
                 case StoryActionType.Color:
                     m_textHelp.PushColor(storyAction.Content);
@@ -390,6 +407,15 @@ namespace UI.Panels.StaticBoard
             }
         }
 
+        private void ClearData()
+        {
+            if (m_typewriterCoroutine != null)
+            {
+                StopCoroutine(m_typewriterCoroutine);
+            }
+            m_textHelp.ClearData();
+        }
+
         public void ClickSkip()
         {
             if (m_characterTalkEnd && !m_autoPlay)
@@ -437,6 +463,7 @@ namespace UI.Panels.StaticBoard
         private TextHelp m_textHelp;
         private ActionState m_state = ActionState.Waiting;
         private StoryActionType m_actionType = StoryActionType.Waiting;
+        private Coroutine m_typewriterCoroutine = null;
 //        private bool isReset;
     }
 }
