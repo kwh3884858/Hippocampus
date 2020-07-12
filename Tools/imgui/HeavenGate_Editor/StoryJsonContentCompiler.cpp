@@ -394,7 +394,7 @@ namespace HeavenGateEditor {
                             );
                             unsigned int unsignedColor = HeavenGateEditorUtility::ConvertRGBAToUnsignedInt(color);
 
-                            sprintf(token->m_content, "%x", unsignedColor);
+                            sprintf(token->m_content, "%08x", unsignedColor);
 
                         }
 
