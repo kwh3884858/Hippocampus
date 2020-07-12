@@ -64,8 +64,14 @@ namespace UI.Panels
 		}
 		#endregion
 
+		private void SetSceneID(string sceneID)
+		{
+			
+		}
+
 		#region Member
 
+		public string m_sceneID;
 
 		#endregion
 	}

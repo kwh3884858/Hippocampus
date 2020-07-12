@@ -1,7 +1,14 @@
-﻿using UI.Panels.Providers.DataProviders;
+﻿using System.Collections.Generic;
+using Config.Data;
+using UI.Panels.Providers.DataProviders;
 
 namespace UI.Panels
 {
+    public class PointInfo
+    {
+        public int ID;
+        public int touchNum;
+    }
     public class CommonCGSceneModel: UIModel
     {
         #region template method
@@ -50,9 +57,30 @@ namespace UI.Panels
             base.SubpanelDataChanged(type,data);
         }
         #endregion
+
+        private void SetSceneID(string sceneID)
+        {
+            m_sceneID = sceneID;
+            m_sceneInfo = CGSceneConfig.GetConfigByKey(sceneID);
+            m_pointInfos.Clear();
+            foreach (var info in m_sceneInfo.pointIDs)
+            {
+                m_pointInfos.Add(new PointInfo(){ID = info,touchNum = 0});
+            }
+        }
+
+        private List<PointInfo> GetPointInfos()
+        {
+            return m_pointInfos;
+        }
+
         
         #region Member
-		
+
+        public string m_sceneID;
+        private CGSceneConfig m_sceneInfo;
+        private List<PointInfo> m_pointInfos = new List<PointInfo>();
+        
         #endregion
     }
 }

@@ -18,9 +18,7 @@ namespace code.Scripts.Editor
             if (Directory.Exists(m_configPath)){  
                 DirectoryInfo direction = new DirectoryInfo(m_configPath);  
                 FileInfo[] files = direction.GetFiles("*",SearchOption.AllDirectories);  
-  
-                Debug.Log(files.Length);  
-  
+                
                 for(int i=0;i<files.Length;i++){  
                     if (!files[i].Name.EndsWith(".csv")){  
                         continue;  
@@ -39,10 +37,7 @@ namespace code.Scripts.Editor
 
         /// <summary>  
         /// 将Csv读入DataTable  及返回json数据
-        /// </summary>  
-        /// <param name="filePath">csv文件路径</param>  
-        /// <param name="n">表示第n行是字段title,第n+1行是记录开始</param>  
-        /// <param name="k">可选参数表示最后K行不算记录默认0</param>  
+        /// </summary>
         public static string CsvRead(string filePath) 
         {
             DataTable dt = new DataTable();
@@ -96,7 +91,6 @@ namespace code.Scripts.Editor
         /// <summary>     
         /// Datatable转换为Json     
         /// </summary>    
-        /// <param name="table">Datatable对象</param>     
         /// <returns>Json字符串</returns>     
         public static string DataTableToJson(DataTable dt,List<Type> types)
         {
