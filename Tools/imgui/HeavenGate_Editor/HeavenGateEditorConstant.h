@@ -10,7 +10,7 @@
 #define HeavenGateEditorConstant_h
 
 namespace HeavenGateEditor {
-    const char* const   EDITOR_VERSION = "0.0.01";
+    const char* const   EDITOR_VERSION = "0.0.02";
     const int     MAX_FOLDER_PATH = 265;
 
     const int     MAX_FILE_NAME = 64;

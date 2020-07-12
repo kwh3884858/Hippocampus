@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StarPlatinum.Base;
-
+using System;
 
 namespace StarPlatinum.StoryCompile
 {
@@ -21,11 +21,12 @@ namespace StarPlatinum.StoryCompile
 			color,
 			tip,
 			paintMove,
-			chapter,
-			scene,
+			//chapter,
+			//scene,
 			character,
 			pause,
-			exhibit
+			exhibit,
+			tachie
 		};
 
 
@@ -87,6 +88,8 @@ namespace StarPlatinum.StoryCompile
 							break;
 						case TableType.exhibit:
 							break;
+						case TableType.tachie:
+							break;
 						default:
 							break;
 						}
@@ -109,6 +112,9 @@ namespace StarPlatinum.StoryCompile
 						}
 						if (token.m_content == TableType.exhibit.ToString ()) {
 							editorState.Push (TableType.exhibit);
+						}
+						if (token.m_content == TableType.tachie.ToString ()) {
+							editorState.Push (TableType.tachie);
 						}
 					}
 				} else if (token.m_tokeType == StoryCompiler.TokenType.TokenIdentity) {
@@ -140,6 +146,11 @@ namespace StarPlatinum.StoryCompile
 						break;
 					case TableType.exhibit:
 						EvidenceDataManager.Instance.AddEvidence (token.m_content);
+						break;
+					case TableType.tachie:
+						string [] words = token.m_content.Split ('+');
+						string [] pos = words [1].Split (',');
+						m_container.PushPicture (words [0], Int32.Parse (pos [0]) + 100, Int32.Parse (pos [1]) + 100);
 						break;
 					default:
 						break;
