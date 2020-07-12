@@ -19,10 +19,10 @@ namespace HeavenGateEditor {
     HeavenGatePopupInputFileName::HeavenGatePopupInputFileName(HeavenGateEditorBaseWindow* parent)
         : HeavenGateEditorBaseWindow(parent)
     {
-        Initialize();
     }
 
-    HeavenGatePopupInputFileName::~HeavenGatePopupInputFileName() {
+    HeavenGatePopupInputFileName::~HeavenGatePopupInputFileName()
+    {
     }
 
     void HeavenGateEditor::HeavenGatePopupInputFileName::UpdateMainWindow()
