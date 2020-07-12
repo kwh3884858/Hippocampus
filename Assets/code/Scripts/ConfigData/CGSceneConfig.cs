@@ -3,30 +3,30 @@ using UnityEngine;
 
 namespace Config.Data
 {
-    public class RoleConfig : BaseConfig
+    public class CGSceneConfig: BaseConfig
     {
         public string ID;
-        public string artNameKey;
-        public string typewriterSoundKey;
+        public List<int> pointIDs;
+        public string CGKey;
 
-        public static RoleConfig GetConfigByKey(string key)
+        public static CGSceneConfig GetConfigByKey(string key)
         {
             if (string.IsNullOrEmpty(key))
             {
                 return null;
             }
 
-            RoleConfig ret;
+            CGSceneConfig ret;
             if(!_configCache.TryGetValue(key, out ret))
             {
-                Debug.LogError($"ConfigData:{typeof(RoleConfig).Name}找不到Key:{key}");
+                Debug.LogError($"ConfigData:{typeof(CGSceneConfig).Name}找不到Key:{key}");
             }
             return ret;
         }
         
-        private static Dictionary<string, RoleConfig> _configCache;
+        private static Dictionary<string, CGSceneConfig> _configCache;
 
-        public static void Init(Dictionary<string,RoleConfig> configCache)
+        public static void Init(Dictionary<string,CGSceneConfig> configCache)
         {
             _configCache = configCache;
         }
