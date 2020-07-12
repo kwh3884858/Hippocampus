@@ -30,14 +30,14 @@ namespace Evidence
         public string exhibit;
         public string description;
         /// <summary>是否锁定</summary>
-        public bool isLock;
+        //public bool isLock;
 
-        public SingleEvidenceData(/*int vId,*/ string vExhibit, string vDescription, bool vIsLock = true)
+        public SingleEvidenceData(/*int vId,*/ string vExhibit, string vDescription/*, bool vIsLock = true*/)
         {
             //id = vId;
             exhibit = vExhibit;
             description = vDescription;
-            isLock = vIsLock;
+            //isLock = vIsLock;
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Evidence
         public void Show()
         {
             // TODO：设置显示
-            if (!m_data.isLock && this.gameObject != null)
+            if (/*!m_data.isLock && */this.gameObject != null)
             {
                 this.gameObject.SetActive(true);
             }
@@ -49,7 +49,7 @@ namespace Evidence
         public void OnClick()
         {
             // TODO：调用证据显示UI
-            UIManager.Instance().ShowPanel(UIPanelType.Singleevidenceselectpanel, new EvidenceDataProvider() { Data = m_data });// 显示UI，wywtsest
+            UIManager.Instance().ShowStaticPanel(UIPanelType.Singleevidenceselectpanel, new EvidenceDataProvider() { Data = m_data });// 显示UI，wywtsest
         }
     }
 }

@@ -74,7 +74,14 @@ public class MonoMoveController : MonoBehaviour
         //    var data = new Tips.TipData("测试", "www");
         //    UIManager.Instance().ShowPanel(UIPanelType.Tipgetpanel, new UI.Panels.Providers.DataProviders.TipDataProvider() { Data = data });// 显示UI
         //}
-
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Evidence.EvidenceDataManager.Instance.AddEvidence("赫尔");
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonESCMainMenuPanel);// 显示UI
+        }
     }
 
     private void OnGUI()
