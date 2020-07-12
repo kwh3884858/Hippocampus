@@ -52,7 +52,7 @@ namespace HeavenGateEditor {
         // If it could not open the file then exit.
         if (!fins.fail())
         {
-            
+            fins >> std::noskipws;
             while (!fins.eof())
             {
                 //fins >> tcontent[i++];
@@ -386,6 +386,7 @@ namespace HeavenGateEditor {
         // If it could not open the file then exit.
         if (!fin.fail())
         {
+                        fin >> std::noskipws;
             int i = 0;
             while (!fin.eof() && i < MAX_FULL_CONTENT)
             {

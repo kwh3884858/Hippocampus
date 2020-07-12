@@ -74,6 +74,7 @@ namespace HeavenGateEditor {
         if (!fins.fail())
         {
             int i = 0;
+            fins >> std::noskipws;
             while (!fins.eof())
             {
                 fins >> content[i++];
