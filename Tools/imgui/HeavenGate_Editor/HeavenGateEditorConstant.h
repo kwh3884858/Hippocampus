@@ -143,7 +143,7 @@ const char* const TableSuffix = "Table";
 
     const char* const TIP_TABLE_NAME =
 #ifdef _WIN32
-        "\\TipTable.json";
+        "\\TipsTable.json";
 #else
         "/TipsTable.json";
 #endif
