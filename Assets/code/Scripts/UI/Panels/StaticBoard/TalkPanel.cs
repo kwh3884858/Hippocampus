@@ -226,7 +226,7 @@ namespace UI.Panels.StaticBoard
                 case StoryActionType.ChangeEffectMusic:
                     PlayEffectMusic(storyAction.Content);
                     break;
-                case StoryActionType.ShowExhibit:
+                case StoryActionType.ShowEvidence:
 //                    InvokeShowPanel(UIPanelType.Singleevidenceselectpanel);
                     Debug.LogError($"显示证据选择面板");
                     SetActionState(ActionState.End);
