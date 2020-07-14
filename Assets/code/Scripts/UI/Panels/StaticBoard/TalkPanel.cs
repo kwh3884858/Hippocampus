@@ -5,6 +5,7 @@ using Config;
 using Config.Data;
 using Const;
 using Controllers.Subsystems.Story;
+using Evidence;
 using StarPlatinum;
 using TMPro;
 using UI.Panels.Element;
@@ -224,6 +225,11 @@ namespace UI.Panels.StaticBoard
                     break;
                 case StoryActionType.ChangeEffectMusic:
                     PlayEffectMusic(storyAction.Content);
+                    break;
+                case StoryActionType.ShowExhibit:
+//                    InvokeShowPanel(UIPanelType.Singleevidenceselectpanel);
+                    Debug.LogError($"显示证据选择面板");
+                    SetActionState(ActionState.End);
                     break;
                 default:
                     Debug.LogError($"未处理对话行为:{storyAction.Type}");

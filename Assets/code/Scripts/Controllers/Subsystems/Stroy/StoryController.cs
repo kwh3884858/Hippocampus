@@ -28,6 +28,7 @@ namespace Controllers.Subsystems.Story
 		Bold,
 		ChangeBGM,
 		ChangeEffectMusic,
+		ShowExhibit, 
 	}
 
 	public class StoryController : ControllerBase

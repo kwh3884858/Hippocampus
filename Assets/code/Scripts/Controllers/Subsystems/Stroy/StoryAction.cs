@@ -99,6 +99,11 @@ namespace Controllers.Subsystems.Story
             m_actions.Enqueue(new StoryAction(){Type =  StoryActionType.ChangeEffectMusic,Content = effectName});
         }
 
+        public void PushShowExhibit()
+        {
+            m_actions.Enqueue(new StoryAction(){Type =  StoryActionType.ShowExhibit});
+        }
+
         public StoryAction GetNextAction()
         {
             if (m_actions.Count > 0)
