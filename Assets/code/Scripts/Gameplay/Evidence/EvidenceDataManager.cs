@@ -144,6 +144,15 @@ namespace Evidence
             LocalData.WriteStr(evidenceName, JsonConvert.SerializeObject(m_data));
         }
 
+        /// <summary>
+        /// 设置证物id
+        /// </summary>
+        /// <param name="evidenceID">证物id</param>
+        public void SetCorrectEvidenceID(string evidenceID)
+        {
+            m_curCorrectEvidenceID = evidenceID;
+        }
+
         /// <summary>保存本地的名称</summary>
         private static string evidenceName = "Evidences";
 
@@ -151,5 +160,7 @@ namespace Evidence
         private Dictionary<string, EvidenceConfig.Detail> m_evidenceConfig = null;
         /// <summary>本地保存的数据</summary>
         private EvidenceData m_data = new EvidenceData();
+        /// <summary>当前正确的证据id</summary>
+        private string m_curCorrectEvidenceID = "";
     }
 }
