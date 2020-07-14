@@ -99,9 +99,9 @@ namespace Controllers.Subsystems.Story
             m_actions.Enqueue(new StoryAction(){Type =  StoryActionType.ChangeEffectMusic,Content = effectName});
         }
 
-        public void PushShowEvidence()
+        public void PushShowEvidence(string evidenceID)
         {
-            m_actions.Enqueue(new StoryAction(){Type =  StoryActionType.ShowEvidence});
+            m_actions.Enqueue(new StoryAction(){Type =  StoryActionType.ShowEvidence , Content = evidenceID});
         }
 
         public StoryAction GetNextAction()

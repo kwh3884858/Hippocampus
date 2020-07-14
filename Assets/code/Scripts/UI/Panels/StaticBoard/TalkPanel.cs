@@ -228,7 +228,7 @@ namespace UI.Panels.StaticBoard
                     break;
                 case StoryActionType.ShowEvidence:
 //                    InvokeShowPanel(UIPanelType.Singleevidenceselectpanel);
-                    Debug.LogError($"显示证据选择面板");
+                    Debug.Log($"显示证据选择面板 正确证物:{storyAction.Content}");
                     SetActionState(ActionState.End);
                     break;
                 default:
