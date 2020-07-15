@@ -12,6 +12,10 @@ Assets/data
 Assets/Resources
 Tools/release
 
+Assets/data.meta
+Assets/code.meta
+Assets/Resources.meta
+
 Assets/AssetStoreTools*
 Assets/Resources/Storys/AutoSave~
 StreamingAssets/
