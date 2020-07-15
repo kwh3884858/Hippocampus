@@ -26,6 +26,8 @@ namespace StarPlatinum.StoryCompile
 			character,
 			pause,
 			exhibit,
+			effect,
+			bgm,
 			tachie
 		};
 
@@ -88,6 +90,10 @@ namespace StarPlatinum.StoryCompile
 							break;
 						case TableType.exhibit:
 							break;
+						case TableType.bgm:
+							break;
+						case TableType.effect:
+							break;
 						case TableType.tachie:
 							break;
 						default:
@@ -112,6 +118,12 @@ namespace StarPlatinum.StoryCompile
 						}
 						if (token.m_content == TableType.exhibit.ToString ()) {
 							editorState.Push (TableType.exhibit);
+						}
+						if (token.m_content == TableType.bgm.ToString ()) {
+							editorState.Push (TableType.bgm);
+						}
+						if (token.m_content == TableType.effect.ToString ()) {
+							editorState.Push (TableType.effect);
 						}
 						if (token.m_content == TableType.tachie.ToString ()) {
 							editorState.Push (TableType.tachie);
@@ -146,6 +158,12 @@ namespace StarPlatinum.StoryCompile
 						break;
 					case TableType.exhibit:
 						EvidenceDataManager.Instance.AddEvidence (token.m_content);
+						break;
+					case TableType.bgm:
+						m_container.PushChangeBGM (token.m_content);
+						break;
+					case TableType.effect:
+						m_container.PushPlayerEffectMusic (token.m_content);
 						break;
 					case TableType.tachie:
 						string [] words = token.m_content.Split ('+');
