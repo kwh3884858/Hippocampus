@@ -5,6 +5,7 @@ using Config;
 using Config.Data;
 using Const;
 using Controllers.Subsystems.Story;
+using Evidence;
 using StarPlatinum;
 using TMPro;
 using UI.Panels.Element;
@@ -32,6 +33,7 @@ namespace UI.Panels.StaticBoard
             private string m_fontSize;
             private string m_font;
             private bool m_bold;
+            public float TypewriterInterval = StoryConfig.Ins.ChineseContentSpeed;
 
             public void PushColor(string color)
             {
@@ -67,7 +69,7 @@ namespace UI.Panels.StaticBoard
             {
                 m_bold = !m_bold;
             }
-
+            
             public void ClearData()
             {
                 m_color = null;
@@ -225,6 +227,15 @@ namespace UI.Panels.StaticBoard
                 case StoryActionType.ChangeEffectMusic:
                     PlayEffectMusic(storyAction.Content);
                     break;
+                case StoryActionType.ShowEvidence:
+//                    InvokeShowPanel(UIPanelType.Singleevidenceselectpanel);
+                    Debug.Log($"显示证据选择面板 正确证物:{storyAction.Content}");
+                    SetActionState(ActionState.End);
+                    break;
+                case StoryActionType.TypewriterInterval:
+                    m_textHelp.TypewriterInterval = float.Parse(storyAction.Content);
+                    SetActionState(ActionState.End);
+                    break;
                 default:
                     Debug.LogError($"未处理对话行为:{storyAction.Type}");
                     break;
@@ -328,7 +339,7 @@ namespace UI.Panels.StaticBoard
                 if (m_skip == false)
                 {
                     PlayerTypewriterSound();
-                    yield return new WaitForSeconds(m_highSpeed ? 0 : StoryController.GetContentSpeed());
+                    yield return new WaitForSeconds(m_highSpeed ? 0 : m_textHelp.TypewriterInterval);
                 }
             }
             SetActionState(ActionState.End);

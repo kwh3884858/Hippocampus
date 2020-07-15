@@ -99,6 +99,17 @@ namespace Controllers.Subsystems.Story
             m_actions.Enqueue(new StoryAction(){Type =  StoryActionType.ChangeEffectMusic,Content = effectName});
         }
 
+        public void PushShowEvidence(string evidenceID)
+        {
+            m_actions.Enqueue(new StoryAction(){Type =  StoryActionType.ShowEvidence , Content = evidenceID});
+        }
+
+        public void PushTypeWriterInterval(float intervalTime)
+        {
+            m_actions.Enqueue(new StoryAction(){Type =  StoryActionType.ShowEvidence , Content = intervalTime.ToString()});
+
+        }
+
         public StoryAction GetNextAction()
         {
             if (m_actions.Count > 0)

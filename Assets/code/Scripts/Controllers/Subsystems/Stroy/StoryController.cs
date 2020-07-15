@@ -21,6 +21,7 @@ namespace Controllers.Subsystems.Story
 		Content,
 		Color,
 		FontSize,
+		TypewriterInterval,
 		Jump,
 		Font,
 		Waiting,
@@ -29,6 +30,7 @@ namespace Controllers.Subsystems.Story
 		Bold,
 		ChangeBGM,
 		ChangeEffectMusic,
+		ShowEvidence,
 	}
 
 	public class StoryController : ControllerBase
@@ -237,11 +239,6 @@ namespace Controllers.Subsystems.Story
 
 
 			return container;
-		}
-
-		public float GetContentSpeed ()
-		{
-			return m_config.ChineseContentSpeed;
 		}
 
 		private StoryReader m_storys;
