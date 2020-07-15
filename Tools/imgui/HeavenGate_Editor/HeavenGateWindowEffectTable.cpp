@@ -76,7 +76,7 @@ namespace HeavenGateEditor {
 
         ImGui::Separator();
 
-        ImGui::Text("Scene Table");
+        ImGui::Text("Effect Table");
 
         if (ImGui::Button("Add New Row"))
         {
