@@ -224,7 +224,7 @@ namespace Controllers.Subsystems.Story
 					break;
 
 				case StoryReader.NodeType.exhibit:
-					EvidenceDataManager.Instance.SetCorrectEvidenceID (m_storys.GetExhibit ());
+					container.PushShowEvidence (m_storys.GetExhibit ());
 					m_storys.NextStory ();
 					//return container;
 					break;
