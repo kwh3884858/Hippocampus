@@ -228,9 +228,10 @@ namespace UI.Panels.StaticBoard
                     PlayEffectMusic(storyAction.Content);
                     break;
                 case StoryActionType.ShowEvidence:
-//                    InvokeShowPanel(UIPanelType.Singleevidenceselectpanel);
-                    Debug.Log($"显示证据选择面板 正确证物:{storyAction.Content}");
-                    SetActionState(ActionState.End);
+                    InvokeShowPanel(UIPanelType.Singleevidenceselectpanel,new EvidenceDataProvider()
+                    {
+                        CloseEvidenceUI = OnSelectEvidenceEnd,
+                    });
                     break;
                 case StoryActionType.TypewriterInterval:
                     m_textHelp.TypewriterInterval = float.Parse(storyAction.Content);
@@ -400,6 +401,11 @@ namespace UI.Panels.StaticBoard
         private void PictureItem(PictureItem item)
         {
             
+        }
+
+        private void OnSelectEvidenceEnd()
+        {
+            SetActionState(ActionState.End);
         }
         
         private void EndCharacterTalk()
