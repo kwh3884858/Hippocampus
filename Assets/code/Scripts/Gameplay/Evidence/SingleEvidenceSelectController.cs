@@ -60,10 +60,18 @@ namespace Evidence
         /// </summary>
         public void OnClickShowButton()
         {
-            m_closeEvidenceUI?.Invoke();
-            m_closeEvidenceUI = null;
-            m_onShowEvidence?.Invoke();
-            m_onShowEvidence = null;
+            // 目前由证物系统对错误结果进行处理
+            if (EvidenceDataManager.Instance.IsCorrectEvidence(m_data.exhibit))
+            {
+                m_closeEvidenceUI?.Invoke();
+                m_closeEvidenceUI = null;
+                m_onShowEvidence?.Invoke();
+                m_onShowEvidence = null;
+            }
+            else
+            {
+                // TODO: 提示选择错误
+            }
             InvokeHidePanel();
         }
 

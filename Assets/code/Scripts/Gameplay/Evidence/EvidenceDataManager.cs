@@ -153,6 +153,11 @@ namespace Evidence
             m_curCorrectEvidenceID = evidenceID;
         }
 
+        public bool IsCorrectEvidence(string evidenceID)
+        {
+            return m_curCorrectEvidenceID == evidenceID;
+        }
+
         /// <summary>保存本地的名称</summary>
         private static string evidenceName = "Evidences";
 
