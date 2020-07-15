@@ -7,6 +7,8 @@ using System.Linq;
 using System.Data;
 using GamePlay.Global;
 using UI.Panels.StaticBoard;
+using System;
+using UnityEngine.Assertions;
 
 namespace StarPlatinum.StoryReader
 {
@@ -16,13 +18,13 @@ namespace StarPlatinum.StoryReader
 		public StoryReader () { }
 		public StoryReader (string path)
 		{
-			 LoadStory (path);
+			LoadStory (path);
 		}
 
-        public bool GetLoadResult()
-        {
-            return m_loadResult;
-        }
+		public bool GetLoadResult ()
+		{
+			return m_loadResult;
+		}
 
 		public enum StoryJsonLayout
 		{
@@ -42,7 +44,8 @@ namespace StarPlatinum.StoryReader
 			label,
 			word,
 			jump,
-            end
+			exhibit,
+			end
 		};
 
 		//public List<StoryBasicData> GetSotry()
@@ -52,6 +55,8 @@ namespace StarPlatinum.StoryReader
 
 		public string GetName ()
 		{
+			Assert.IsTrue (m_story [m_index].typename == NodeType.word.ToString ());
+
 			StoryWordData data = m_story [m_index] as StoryWordData;
 			return data.name;
 
@@ -59,12 +64,24 @@ namespace StarPlatinum.StoryReader
 
 		public string GetContent ()
 		{
+			Assert.IsTrue (m_story [m_index].typename == NodeType.word.ToString ());
+
 			StoryWordData data = m_story [m_index] as StoryWordData;
 			return data.content;
 		}
 
+		public string GetExhibit ()
+		{
+			Assert.IsTrue (m_story [m_index].typename == NodeType.exhibit.ToString ());
+
+			StoryExhibitData data = m_story [m_index] as StoryExhibitData;
+			return data.exhibitName;
+		}
+
 		public List<Option> GetJump ()
 		{
+			Assert.IsTrue (m_story [m_index].typename == NodeType.jump.ToString ());
+
 			//for (int i = 0; i < length; i++)
 			//{
 			List<Option> options = new List<Option> ();
@@ -80,6 +97,7 @@ namespace StarPlatinum.StoryReader
 			} while (m_story [m_index].typename == NodeType.jump.ToString ());
 			return options;
 		}
+
 
 		public bool JumpToWordAfterLabel (string label)
 		{
@@ -126,13 +144,13 @@ namespace StarPlatinum.StoryReader
 				return NodeType.jump;
 			} else if (m_story [m_index].typename == NodeType.label.ToString ()) {
 				return NodeType.label;
-            }
-            else if (m_story[m_index].typename == NodeType.end.ToString())
-            {
-                return NodeType.end;
-            }
+			} else if (m_story [m_index].typename == NodeType.exhibit.ToString ()) {
+				return NodeType.exhibit;
+			} else if (m_story [m_index].typename == NodeType.end.ToString ()) {
+				return NodeType.end;
+			}
 
-            return NodeType.none;
+			return NodeType.none;
 		}
 
 		public void LastStory ()
@@ -173,21 +191,20 @@ namespace StarPlatinum.StoryReader
 		/// 加载故事
 		/// </summary>
 		private bool LoadStory (string path)
-        {
-            m_loadResult = false;
-               TextAsset story = Resources.Load<TextAsset> (path);
+		{
+			m_loadResult = false;
+			TextAsset story = Resources.Load<TextAsset> (path);
 			if (story != null) {
 				//DataSet json = JsonConvert.DeserializeObject<DataSet>(story.text);
 				JObject json = JObject.Parse (story.text);
 				//object json = JsonConvert.DeserializeObject(story.text);
 				if (json != null) {
-                    JToken info = json.SelectToken(StoryJsonLayout.info.ToString());
-                    if(info != null && info.Type != JTokenType.Null)
-                    {
-                        m_chapter = info[InfoLayout.chapter.ToString()].ToString();
-                        m_scene = info[InfoLayout.scene.ToString()].ToString();
-                    }
-                    JArray storyJson = JArray.Parse (json [StoryJsonLayout.value.ToString ()].ToString ());
+					JToken info = json.SelectToken (StoryJsonLayout.info.ToString ());
+					if (info != null && info.Type != JTokenType.Null) {
+						m_chapter = info [InfoLayout.chapter.ToString ()].ToString ();
+						m_scene = info [InfoLayout.scene.ToString ()].ToString ();
+					}
+					JArray storyJson = JArray.Parse (json [StoryJsonLayout.value.ToString ()].ToString ());
 					if (storyJson != null) {
 						int count = storyJson.Count;
 						NodeType type;
@@ -199,46 +216,46 @@ namespace StarPlatinum.StoryReader
 							data = storyJson [i].ToString ();
 							switch (type) {
 
-                                case NodeType.word:
-                                    ReadWord(data);
-                                    break;
+							case NodeType.word:
+								ReadWord (data);
+								break;
 
-                                case NodeType.label:
-                                    ReadLabel(data);
-                                    break;
+							case NodeType.label:
+								ReadLabel (data);
+								break;
 
-                                case NodeType.jump:
-                                    ReadJump(data);
-                                    break;
+							case NodeType.jump:
+								ReadJump (data);
+								break;
 
-                                case NodeType.end:
-                                    ReadEnd(data);
-                                    break;
+							case NodeType.end:
+								ReadEnd (data);
+								break;
 
-                                default:
-                                    break;
+							case NodeType.exhibit:
+								ReadExhibit (data);
+								break;
+
+							default:
+								break;
 
 							}
 						}
 
 						ResetIndex ();
-                        m_loadResult = true;
-                        return true;
-                    }
-                    else
-                    {
-                        Debug.Log("Can`t open story content");
-                        return false;
-                    }
-                }
-                else
-                {
-                    Debug.Log("Can`t parse story scene and chapter");
-                    return false;
-                }
-            } else {
+						m_loadResult = true;
+						return true;
+					} else {
+						Debug.Log ("Can`t open story content");
+						return false;
+					}
+				} else {
+					Debug.Log ("Can`t parse story scene and chapter");
+					return false;
+				}
+			} else {
 				Debug.Log ("Can`t open story file");
-                return false;
+				return false;
 			}
 		}
 
@@ -279,26 +296,31 @@ namespace StarPlatinum.StoryReader
 
 		}
 
-        private void ReadEnd(string json)
-        {
-            StoryEndData data = JsonConvert.DeserializeObject<StoryEndData>(json);
-            m_story.Add(data);
-        }
+		private void ReadEnd (string json)
+		{
+			StoryEndData data = JsonConvert.DeserializeObject<StoryEndData> (json);
+			m_story.Add (data);
+		}
 
-        /// <summary>
-        /// 基础数据
-        /// </summary>
-        private int m_index = 0;
+		private void ReadExhibit (string json)
+		{
+			StoryExhibitData data = JsonConvert.DeserializeObject<StoryExhibitData> (json);
+			m_story.Add (data);
+		}
+		/// <summary>
+		/// 基础数据
+		/// </summary>
+		private int m_index = 0;
 
-        //DO NOT USE
+		//DO NOT USE
 		private string m_chapter;
 		public string Chapter => m_chapter;
 
-        //DO NOT USE
-        private string m_scene;
+		//DO NOT USE
+		private string m_scene;
 		public string Scene => m_scene;
 
-        private bool m_loadResult = false;
+		private bool m_loadResult = false;
 
 		private List<StoryBasicData> m_story = new List<StoryBasicData> ();
 	}
@@ -338,8 +360,14 @@ namespace StarPlatinum.StoryReader
 		public string content;
 	}
 
-    [System.Serializable]
-    public class StoryEndData : StoryBasicData
-    {
-    }
+	[System.Serializable]
+	public class StoryEndData : StoryBasicData
+	{
+	}
+
+	[System.Serializable]
+	public class StoryExhibitData : StoryBasicData
+	{
+		public string exhibitName;
+	}
 }

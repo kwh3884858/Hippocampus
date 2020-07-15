@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Config;
+using Evidence;
 using GamePlay.Global;
 using GamePlay.Stage;
 using StarPlatinum;
@@ -176,50 +177,59 @@ namespace Controllers.Subsystems.Story
 
 			//}
 
-			if (labelId == "Ep2_Jeep_PoliceQuestion_0") {
-				PushPicture (container, hero, "");
-			}
+			//if (labelId == "Ep2_Jeep_PoliceQuestion_0") {
+			//	PushPicture (container, hero, "");
+			//}
 
-			if (labelId == "Ep2_Jeep_PoliceQuestion_1") {
-				PushPicture (container, hero, "");
+			//if (labelId == "Ep2_Jeep_PoliceQuestion_1") {
+			//	PushPicture (container, hero, "");
 
-			}
-			if (labelId == "Ep2_Jeep_PoliceQuestion_2") {
-				PushPicture (container, hero, "");
+			//}
+			//if (labelId == "Ep2_Jeep_PoliceQuestion_2") {
+			//	PushPicture (container, hero, "");
 
-			}
-			if (labelId == "Ep2_Jeep_PoliceQuestion_4") {
-				PushPicture (container, hero, "");
-			}
+			//}
+			//if (labelId == "Ep2_Jeep_PoliceQuestion_4") {
+			//	PushPicture (container, hero, "");
+			//}
 
 			while (!m_storys.IsDone ()) {
 				switch (m_storys.GetNodeType ()) {
 
-				    case StoryReader.NodeType.word:
-					    container.PushName (m_storys.GetName ());
-					    StoryVirtualMachine.Instance.Run (m_storys.GetContent ());
-					    container.PushWaiting (1f);
-					    m_storys.NextStory ();
-					    break;
+				case StoryReader.NodeType.word:
+					container.PushName (m_storys.GetName ());
+					StoryVirtualMachine.Instance.Run (m_storys.GetContent ());
+					container.PushWaiting (1f);
+					m_storys.NextStory ();
+					break;
 
-				    case StoryReader.NodeType.jump:
-					    container.PushJump (m_storys.GetJump ());
-					    //						m_storys.NextStory ();
-					    //Test
-					    return container;
+				case StoryReader.NodeType.jump:
+					container.PushJump (m_storys.GetJump ());
+					//						m_storys.NextStory ();
+					//Test
+					return container;
+					break;
 
-				    case StoryReader.NodeType.label:
-					    //m_storys.NextStory ();
-					    m_storys.NextStory ();
-					    break;
+				case StoryReader.NodeType.label:
+					//m_storys.NextStory ();
+					m_storys.NextStory ();
+					break;
+					break;
 
-                    case StoryReader.NodeType.end:
-                        m_storys.NextStory();
-                        return container;
+				case StoryReader.NodeType.end:
+					m_storys.NextStory ();
+					return container;
+					break;
 
-                    default:
-                        Debug.LogError("Unknown Node Type");
-                        break;
+				case StoryReader.NodeType.exhibit:
+					EvidenceDataManager.Instance.SetCorrectEvidenceID (m_storys.GetExhibit ());
+					m_storys.NextStory ();
+					//return container;
+					break;
+
+				default:
+					Debug.LogError ("Unknown Node Type");
+					break;
 				}
 
 
