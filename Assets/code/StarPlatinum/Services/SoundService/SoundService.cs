@@ -61,10 +61,13 @@ namespace StarPlatinum
 				m_backgoundSound.volume = 0f;
 			}
 			m_backgoundSound.loop = isloop;
-			m_backgoundSound.clip = LoadAudioClip ("Bgm/" + name);
-			m_backgoundSound.volume = volumn;
-			if (m_backgoundSound.clip != null) {
-				m_backgoundSound.Play ();
+			var clip = LoadAudioClip ("Bgm/" + name);
+			if (clip) {
+				m_backgoundSound.clip = clip;
+				m_backgoundSound.volume = volumn;
+				if (m_backgoundSound.clip != null) {
+					m_backgoundSound.Play ();
+				}
 			}
 		}
 
