@@ -32,12 +32,12 @@ namespace HeavenGateEditor {
     const int     TIP_MAX_COLUMN = 2;
     const int     PAINT_MOVE_MAX_COLUMN = 4;
     const int     PAUSE_MAX_COLUMN = 2;
-    const int     CHAPTER_COLUMN = 2;
-    const int     SCENE_COLUMN = 2;
+//    const int     CHAPTER_COLUMN = 2;
+//    const int     SCENE_COLUMN = 2;
     const int     CHARACTER_COLUMN = 2;
     const int     EXHIBIT_COLUMN = 2;
-    const int     EFFECT_COLUMN = 2;
-    const int     BGM_COLUMN = 2;
+    const int     EFFECT_MAX_COLUMN = 2;
+    const int     BGM_MAX_COLUMN = 2;
     const int     TACHIE_MAX_COLUMN = 2;
     const int     TACHIE_POSITION_MAX_COLUMN = 3;
 

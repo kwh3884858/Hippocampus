@@ -162,6 +162,7 @@ namespace HeavenGateEditor {
         static char* name = nullptr;
         static char* content = nullptr;
         static char* label = nullptr;
+        static char* exhibitName = nullptr;
         static char* jump = nullptr;
         static char* jumpContent = nullptr;
 
@@ -422,10 +423,46 @@ namespace HeavenGateEditor {
                         }
                         ImGui::TreePop();
                     }
-
-                    break;
                 }
-                default:
+                        break;
+
+                    case NodeType::Exhibit :
+                    {
+                        StoryExhibit* exhibit = static_cast<StoryExhibit*>(node);
+                        assert(exhibit != nullptr);
+
+                        char exhibitContent[16] = "Exhibit";
+                        char tmpExhibit[32] = "No Exhibit";
+                        strcat(exhibitContent, order);
+
+                        exhibitName = exhibit->m_exhibitName;
+                        strcpy(thumbnail, order);
+                        strcat(thumbnail, "_Exhibit: ");
+                        strcat(thumbnail, exhibitName);
+
+                        if (ImGui::TreeNode((void*)(intptr_t)i, thumbnail))
+                        {
+                            AddButton(i);
+                            ImGui::InputTextWithHint(exhibitContent, "Enter Exhibit ID here", exhibitName, MAX_ID);
+
+                            const StoryTable<EXHIBIT_COLUMN>* const exhibitTable = StoryTableManager::Instance().GetExhibitTable();
+
+                            for (int i = 0; i < exhibitTable->GetSize(); i++)
+                            {
+                                const StoryRow<EXHIBIT_COLUMN>* const row = exhibitTable->GetRow(i);
+                                if (strcmp(row->Get(0), exhibitName) == 0)
+                                {
+                                    strcpy(tmpExhibit, "Exhibit: ");
+                                    strcpy(tmpExhibit, row->Get(0));
+                                }
+                            }
+                            ImGui::TextColored(ImVec4(1.0f, 0.0f, 1.0f, 1.0f), tmpExhibit);
+                            ImGui::TreePop();
+                        }
+                    }
+                        break;
+
+                    default:
                     break;
                 }
 
@@ -433,23 +470,26 @@ namespace HeavenGateEditor {
         }
 
         if (ImGui::Button("Add new story")) {
-
             if (m_storyJson != nullptr)
             {
                 m_storyJson->AddWord("", "");
-
                 AddNotification("Add New Story Word");
             }
         }
+        ImGui::SameLine();
 
+        if (ImGui::Button("Add new exhibit")) {
+            if (m_storyJson != nullptr) {
+                m_storyJson->AddExhibit("");
+                AddNotification("Add New Exhibit");
+            }
+        }
         ImGui::SameLine();
 
         if (ImGui::Button("Add new label")) {
-
             if (m_storyJson != nullptr)
             {
                 m_storyJson->AddLabel("");
-
                 AddNotification("Add New Label");
             }
         }
@@ -640,90 +680,67 @@ namespace HeavenGateEditor {
         if (ImGui::TreeNode("Story Operator"))
         {
             if (ImGui::Button("Insert new story")) {
-
                 if (m_storyJson != nullptr)
                 {
                     m_storyJson->InsertWord("", "", index);
-
                     AddNotification("Insert New Story Word");
                 }
             }
-
+            ImGui::SameLine();
+            if (ImGui::Button("Insert New Exhibit")) {
+                if (m_storyJson != nullptr) {
+                    m_storyJson->InsertExhibit("", index);
+                    AddNotification("Insert New Exhibit");
+                }
+            }
             ImGui::SameLine();
             if (ImGui::Button("Insert new label")) {
-
                 if (m_storyJson != nullptr)
                 {
                     m_storyJson->InsertLabel("", index);
-
                     AddNotification("Insert New Label");
-
                 }
             }
             ImGui::SameLine();
-
             if (ImGui::Button("Insert new jump")) {
-
                 if (m_storyJson != nullptr)
                 {
                     m_storyJson->InsertJump("", "", index);
-
                     AddNotification("Insert New Jump");
-
                 }
             }
-
             if (ImGui::Button("Insert new end")) {
-
                 if (m_storyJson != nullptr)
                 {
                     m_storyJson->InsertEnd(index);
-
                     AddNotification("Insert New End");
-
                 }
             }
-
             ImGui::SameLine();
-
             if (ImGui::Button("Move Up")) {
-
                 if (m_storyJson != nullptr)
                 {
                     m_storyJson->Swap(index, index - 1);
-
                     AddNotification("Current Node Move Up");
                 }
             }
             ImGui::SameLine();
-
             if (ImGui::Button("Move Down")) {
-
                 if (m_storyJson != nullptr)
                 {
                     m_storyJson->Swap(index, index + 1);
-
                     AddNotification("Current Node Move Down");
-
                 }
             }
-
             if (ImGui::Button("Delete it")) {
                 if (m_storyJson != nullptr) {
                     m_storyJson->Remove(index);
-
                     AddNotification("The node was deleted");
-
                 }
             }
-
             ImGui::TreePop();
         }
     }
-
-
-
-
     void HeavenGateWindowStoryEditor::AddNotification(const char * const notification)
     {
         strcpy(m_notification, notification);
@@ -731,7 +748,6 @@ namespace HeavenGateEditor {
 
     int HeavenGateWindowStoryEditor::WordContentCallback(ImGuiInputTextCallbackData * data)
     {
-
         TableType currentState;
         deque<TableType> editorState;
         bool isReadCloseLabel;
@@ -752,6 +768,12 @@ namespace HeavenGateEditor {
         char tmpExhibit[MAX_COLUMNS_CONTENT_LENGTH];
         memset(tmpExhibit, '\0', MAX_COLUMNS_CONTENT_LENGTH);
 
+        char tmpBgm[MAX_COLUMNS_CONTENT_LENGTH];
+        memset(tmpBgm, '\0', MAX_COLUMNS_CONTENT_LENGTH);
+
+        char tmpEffect[MAX_COLUMNS_CONTENT_LENGTH];
+        memset(tmpEffect, '\0', MAX_COLUMNS_CONTENT_LENGTH);
+
         char tmpTachieCommand[NUM_OF_TACHIE_COMMAND][MAX_COLUMNS_CONTENT_LENGTH];
         memset(tmpTachieCommand, '\0', NUM_OF_TACHIE_COMMAND * MAX_COLUMNS_CONTENT_LENGTH);
 
@@ -760,7 +782,8 @@ namespace HeavenGateEditor {
         //Color
         ImVec4 colorBlue = ImVec4(0.0f, 0.0f, 1.0f, 1.0f);
         ImVec4 colorRed = ImVec4(1.0f, 0.0f, 0.0f, 1.0f);
-        ImVec4 colorBlack = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+        ImVec4 colorGreen = ImVec4(0.0f, 1.0f, 0.0f, 1.0f);
+        ImVec4 colorWhite = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
 
         ImGui::Text("Preview:");
 
@@ -793,7 +816,7 @@ namespace HeavenGateEditor {
                     case HeavenGateEditor::TableType::Font_Size:
                         break;
                     case HeavenGateEditor::TableType::Color:
-                        color = colorBlack;
+                        color = colorWhite;
                         break;
                     case HeavenGateEditor::TableType::Tips:
                         ImGui::TextColored(color, "[Show Tip Here: %s]", tmpTip);
@@ -809,8 +832,31 @@ namespace HeavenGateEditor {
                         break;
                     case TableType::Pause:
                         break;
+                        case TableType::Bgm:
+                            if (strlen(tmpBgm) != 0) {
+                                ImGui::TextColored(colorGreen, "[Play Bgm: %s]", tmpBgm);
+
+                            }else{
+                                ImGui::TextColored(colorRed, "Can not find bgm");
+                            }
+                            ImGui::SameLine(0, 0);
+                            break;
+                        case TableType::Effect:
+                        if (strlen(tmpEffect) != 0) {
+                                      ImGui::TextColored(colorGreen, "[Play Effect: %s]", tmpEffect);
+
+                                  }else{
+                                      ImGui::TextColored(colorRed, "Can not find effect");
+                                  }
+                                  ImGui::SameLine(0, 0);
+                            break;
                     case TableType::Tachie:
-                        ImGui::TextColored(colorRed, "[Display Tachie: %s] [Tachie Position: %s]", tmpTachieCommand[0], tmpTachieCommand[1]);
+                            if (strlen(tmpTachieCommand[0]) == 0) {
+                                ImGui::TextColored(colorRed,"Tchie is wrong");
+                            }else if (strlen(tmpTachieCommand[1]) == 0){
+  ImGui::TextColored(colorRed,"Tchie position is wrong");
+                            }
+                        ImGui::TextColored(colorGreen, "[Display Tachie: %s] [Tachie Position: %s]", tmpTachieCommand[0], tmpTachieCommand[1]);
                         ImGui::SameLine(0, 0);
                         break;
                     default:
@@ -839,6 +885,12 @@ namespace HeavenGateEditor {
                     if (strcmp((*iter)->m_content, tipTableString[(int)TipTableLayout::Type]) == 0)
                     {
                         editorState.push_back(TableType::Tips);
+                    }
+                    if (strcmp((*iter)->m_content, bgmTableString[(int)BgmTableLayout::Type]) == 0) {
+                        editorState.push_back(TableType::Bgm);
+                    }
+                    if (strcmp((*iter)->m_content, effectTableString[(int)EffectTableLayout::Type]) == 0) {
+                        editorState.push_back(TableType::Effect);
                     }
                     if (strcmp((*iter)->m_content, exhibitTableString[(int)ExhibitTableLayout::Type]) == 0) {
                         editorState.push_back(TableType::Exhibit);
@@ -917,6 +969,33 @@ namespace HeavenGateEditor {
                     break;
                 case TableType::Pause:
                     break;
+                    case TableType::Bgm:
+                    {
+                        const StoryTable<BGM_MAX_COLUMN>* const bgmTable = StoryTableManager::Instance().GetBgmTable();
+                        for (int i = 0; i < bgmTable->GetSize(); i++)
+                        {
+                            const StoryRow<BGM_MAX_COLUMN>* const row = bgmTable->GetRow(i);
+                            if (strcmp(row->Get(0), (*iter)->m_content) == 0)
+                            {
+                                strcpy(tmpBgm, row->Get(1));
+                            }
+                        }
+                    }
+                        break;
+
+                    case TableType::Effect:
+                    {
+                        const StoryTable<EFFECT_MAX_COLUMN>* const effectTable = StoryTableManager::Instance().GetEffectTable();
+                        for (int i = 0; i < effectTable->GetSize(); i++)
+                        {
+                            const StoryRow<EFFECT_MAX_COLUMN>* const row = effectTable->GetRow(i);
+                            if (strcmp(row->Get(0), (*iter)->m_content) == 0)
+                            {
+                                strcpy(tmpEffect, row->Get(1));
+                            }
+                        }
+                    }
+                        break;
                 case TableType::Tachie:
                 {
                     IdOperator::ParseStringId<'+', MAX_COLUMNS_CONTENT_LENGTH, NUM_OF_TACHIE_COMMAND>((*iter)->m_content, tmpTachieCommand);

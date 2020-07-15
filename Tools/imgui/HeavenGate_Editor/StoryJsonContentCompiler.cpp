@@ -321,6 +321,10 @@ namespace HeavenGateEditor {
                         break;
                     case TableType::Tachie:
                         break;
+                        case TableType::Bgm:
+                            break;
+                        case  TableType::Effect:
+                            break;
                     default:
                         break;
                     }
@@ -347,6 +351,12 @@ namespace HeavenGateEditor {
                     if (strcmp(token->m_content, tachieTableString[(int)TachieTableLayout::Type]) == 0)
                     {
                         editorState.push_back(TableType::Tachie);
+                    }
+                    if (strcmp(token->m_content, bgmTableString[(int)BgmTableLayout::Type]) == 0) {
+                        editorState.push_back(TableType::Bgm);
+                    }
+                    if (strcmp(token->m_content, effectTableString[(int)EffectTableLayout::Type]) == 0) {
+                        editorState.push_back(TableType::Effect);
                     }
                 }
             }
@@ -402,10 +412,12 @@ namespace HeavenGateEditor {
                     break;
                 }
                 case HeavenGateEditor::TableType::Tips:
+                        //Do Not Modify
                     break;
                 case HeavenGateEditor::TableType::Paint_Move:
                     break;
                 case HeavenGateEditor::TableType::Exhibit:
+                        //Do Not Modify
                     break;
                 case HeavenGateEditor::TableType::Pause:
                 {
@@ -419,7 +431,35 @@ namespace HeavenGateEditor {
                         }
                     }
                 }
-                break;
+                        break;
+
+                    case TableType::Bgm:
+                    {
+                        const StoryTable<BGM_MAX_COLUMN>* const bgmTable = StoryTableManager::Instance().GetBgmTable();
+                        for (int i = 0; i < bgmTable->GetSize(); i++)
+                        {
+                            const StoryRow<BGM_MAX_COLUMN>* const row = bgmTable->GetRow(i);
+                            if (strcmp(row->Get(0), token->m_content) == 0)
+                            {
+                                strcpy(token->m_content, row->Get(1));
+                            }
+                        }
+                    }
+                        break;
+
+                    case TableType::Effect:
+                    {
+                        const StoryTable<EFFECT_MAX_COLUMN>* const effectTable = StoryTableManager::Instance().GetEffectTable();
+                        for (int i = 0; i < effectTable->GetSize(); i++)
+                        {
+                            const StoryRow<EFFECT_MAX_COLUMN>* const row = effectTable->GetRow(i);
+                            if (strcmp(row->Get(0), token->m_content) == 0)
+                            {
+                                strcpy(token->m_content, row->Get(1));
+                            }
+                        }
+                    }
+                        break;
                 case HeavenGateEditor::TableType::Tachie:
                 {
                     char tachieCommand[NUM_OF_TACHIE_COMMAND][MAX_COLUMNS_CONTENT_LENGTH];
@@ -450,6 +490,7 @@ namespace HeavenGateEditor {
 
                 }
                 break;
+
 
                 default:
                     break;

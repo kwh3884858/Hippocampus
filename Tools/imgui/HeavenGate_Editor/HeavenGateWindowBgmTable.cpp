@@ -45,7 +45,7 @@ namespace HeavenGateEditor {
 
     void HeavenGateWindowBgmTable::Initialize()
     {
-        StoryTable<BGM_COLUMN>* const bgmTable = StoryTableManager::Instance().GetBgmTable();
+        StoryTable<BGM_MAX_COLUMN>* const bgmTable = StoryTableManager::Instance().GetBgmTable();
 
 
         memset(m_fullPath, 0, sizeof(m_fullPath));
@@ -69,7 +69,7 @@ namespace HeavenGateEditor {
 
     void HeavenGateWindowBgmTable::UpdateMainWindow()
     {
-        StoryTable<BGM_COLUMN>* const bgmTable = StoryTableManager::Instance().GetBgmTable();
+        StoryTable<BGM_MAX_COLUMN>* const bgmTable = StoryTableManager::Instance().GetBgmTable();
 
         if (bgmTable == nullptr)
         {
@@ -90,10 +90,10 @@ namespace HeavenGateEditor {
             bgmTable->RemoveRow();
         }
 
-        ImGui::Columns(BGM_COLUMN + 1, "Bgm"); // 4-ways, with border
+        ImGui::Columns(BGM_MAX_COLUMN + 1, "Bgm"); // 4-ways, with border
         ImGui::Separator();
         ImGui::Text("Index");    ImGui::NextColumn();
-        for (int i = 0; i < BGM_COLUMN; i++)
+        for (int i = 0; i < BGM_MAX_COLUMN; i++)
         {
             ImGui::Text(bgmTable->GetName(i));   ImGui::NextColumn();
         }
@@ -123,7 +123,7 @@ namespace HeavenGateEditor {
             //ImGui::Text(paths[i]); ImGui::NextColumn();
             //ImGui::Text("%d", hovered); ImGui::NextColumn();
 
-            for (int j = 0; j < BGM_COLUMN; j++)
+            for (int j = 0; j < BGM_MAX_COLUMN; j++)
             {
                 char * content = bgmTable->GetContent(i, j);
 
@@ -174,7 +174,7 @@ namespace HeavenGateEditor {
         }
 
         if (ImGui::MenuItem("Save", "Ctrl+S")) {
-            StoryTable<BGM_COLUMN>* const bgmTable = StoryTableManager::Instance().GetBgmTable();
+            StoryTable<BGM_MAX_COLUMN>* const bgmTable = StoryTableManager::Instance().GetBgmTable();
 
             StoryFileManager::Instance().SaveTableFile(m_fullPath, bgmTable);
         }

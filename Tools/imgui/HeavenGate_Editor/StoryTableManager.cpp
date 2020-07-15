@@ -62,13 +62,13 @@ namespace HeavenGateEditor {
 //        m_exhibitTable->PushName("Exhibit");
 //        m_exhibitTable->PushName("Description");
 
-        m_effectTable = new StoryTable<EFFECT_COLUMN>;
+        m_effectTable = new StoryTable<EFFECT_MAX_COLUMN>;
         m_effectTable->SetTableType(TableType::Effect);
 
 //        m_effectTable->PushName("Effect");
 //        m_effectTable->PushName("Description");
 
-        m_bgmTable = new StoryTable<BGM_COLUMN>;
+        m_bgmTable = new StoryTable<BGM_MAX_COLUMN>;
         m_bgmTable->SetTableType(TableType::Bgm);
 
 //        m_bgmTable->PushName("Bgm");
@@ -234,25 +234,25 @@ namespace HeavenGateEditor {
 
     }
 
-    const StoryTable<EFFECT_COLUMN>* const StoryTableManager::GetEffectTable() const
+    const StoryTable<EFFECT_MAX_COLUMN>* const StoryTableManager::GetEffectTable() const
     {
         return m_effectTable;
     }
 
-    StoryTable<EFFECT_COLUMN>* StoryTableManager::GetEffectTable()
+    StoryTable<EFFECT_MAX_COLUMN>* StoryTableManager::GetEffectTable()
     {
-        return const_cast<StoryTable<EFFECT_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetEffectTable());
+        return const_cast<StoryTable<EFFECT_MAX_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetEffectTable());
 
     }
 
-    const StoryTable<BGM_COLUMN>* const StoryTableManager::GetBgmTable() const
+    const StoryTable<BGM_MAX_COLUMN>* const StoryTableManager::GetBgmTable() const
     {
         return m_bgmTable;
     }
 
-    StoryTable<BGM_COLUMN>* StoryTableManager::GetBgmTable()
+    StoryTable<BGM_MAX_COLUMN>* StoryTableManager::GetBgmTable()
     {
-        return const_cast<StoryTable<BGM_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetBgmTable());
+        return const_cast<StoryTable<BGM_MAX_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetBgmTable());
 
     }
 

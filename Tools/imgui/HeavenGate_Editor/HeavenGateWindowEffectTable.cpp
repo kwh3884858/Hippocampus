@@ -43,7 +43,7 @@ namespace HeavenGateEditor {
 
     void HeavenGateWindowEffectTable::Initialize()
     {
-        StoryTable<EFFECT_COLUMN>* const effectTable = StoryTableManager::Instance().GetEffectTable();
+        StoryTable<EFFECT_MAX_COLUMN>* const effectTable = StoryTableManager::Instance().GetEffectTable();
 
 
         memset(m_fullPath, 0, sizeof(m_fullPath));
@@ -67,7 +67,7 @@ namespace HeavenGateEditor {
 
     void HeavenGateWindowEffectTable::UpdateMainWindow()
     {
-        StoryTable<EFFECT_COLUMN>* const effectTable = StoryTableManager::Instance().GetEffectTable();
+        StoryTable<EFFECT_MAX_COLUMN>* const effectTable = StoryTableManager::Instance().GetEffectTable();
 
         if (effectTable == nullptr)
         {
@@ -88,10 +88,10 @@ namespace HeavenGateEditor {
             effectTable->RemoveRow();
         }
 
-        ImGui::Columns(EFFECT_COLUMN + 1, "Effect"); // 4-ways, with border
+        ImGui::Columns(EFFECT_MAX_COLUMN + 1, "Effect"); // 4-ways, with border
         ImGui::Separator();
         ImGui::Text("Index");    ImGui::NextColumn();
-        for (int i = 0; i < EFFECT_COLUMN; i++)
+        for (int i = 0; i < EFFECT_MAX_COLUMN; i++)
         {
             ImGui::Text(effectTable->GetName(i));   ImGui::NextColumn();
         }
@@ -121,7 +121,7 @@ namespace HeavenGateEditor {
             //ImGui::Text(paths[i]); ImGui::NextColumn();
             //ImGui::Text("%d", hovered); ImGui::NextColumn();
 
-            for (int j = 0; j < EFFECT_COLUMN; j++)
+            for (int j = 0; j < EFFECT_MAX_COLUMN; j++)
             {
                 char * content = effectTable->GetContent(i, j);
 
@@ -172,7 +172,7 @@ namespace HeavenGateEditor {
         }
 
         if (ImGui::MenuItem("Save", "Ctrl+S")) {
-            StoryTable<EFFECT_COLUMN>* const effectTable = StoryTableManager::Instance().GetEffectTable();
+            StoryTable<EFFECT_MAX_COLUMN>* const effectTable = StoryTableManager::Instance().GetEffectTable();
 
             StoryFileManager::Instance().SaveTableFile(m_fullPath, effectTable);
         }

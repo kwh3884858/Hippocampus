@@ -175,7 +175,7 @@ namespace HeavenGateEditor {
         }
 
         if (ImGui::MenuItem("Save", "Ctrl+S")) {
-            StoryTable<SCENE_COLUMN>* const exhibitTable = StoryTableManager::Instance().GetExhibitTable();
+            StoryTable<EXHIBIT_COLUMN>* const exhibitTable = StoryTableManager::Instance().GetExhibitTable();
 
             StoryFileManager::Instance().SaveTableFile(m_fullPath, exhibitTable);
         }
