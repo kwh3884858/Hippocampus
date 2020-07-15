@@ -4,6 +4,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.UI;
 using UI.Panels.Providers.DataProviders;
+using System;
 
 namespace Evidence
 {
@@ -19,9 +20,11 @@ namespace Evidence
         /// <summary>证据数据</summary>
         private SingleEvidenceData m_data = null;
 
-        public void Init(SingleEvidenceData vData)
+        public void Init(SingleEvidenceData vData, Action closeEvidenceUI, Action onShowEvidence = null)
         {
             SetData(vData);
+            m_closeEvidenceUI = closeEvidenceUI;
+            m_onShowEvidence = onShowEvidence;
             Show();
         }
 
@@ -49,7 +52,16 @@ namespace Evidence
         public void OnClick()
         {
             // TODO：调用证据显示UI
-            UIManager.Instance().ShowStaticPanel(UIPanelType.Singleevidenceselectpanel, new EvidenceDataProvider() { Data = m_data });// 显示UI，wywtsest
+            UIManager.Instance().ShowStaticPanel(UIPanelType.Singleevidenceselectpanel,
+                new EvidenceDataProvider()
+                {
+                    Data = m_data,
+                    CloseEvidenceUI = m_closeEvidenceUI,
+                    OnShowEvidence = m_onShowEvidence
+                });// 显示UI，wywtsest
         }
+
+        private Action m_closeEvidenceUI = null;
+        private Action m_onShowEvidence = null;
     }
 }

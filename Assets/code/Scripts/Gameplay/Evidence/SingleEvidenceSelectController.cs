@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UI.Panels;
 using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
+using UI;
 
 namespace Evidence
 {
@@ -22,12 +23,14 @@ namespace Evidence
         public override void UpdateData(DataProvider data)
         {
             base.UpdateData(data);
-            Init(UIPanelDataProvider.Data);
+            Init(UIPanelDataProvider.Data, UIPanelDataProvider.CloseEvidenceUI, UIPanelDataProvider.OnShowEvidence);
         }
 
-        public void Init(SingleEvidenceData vData)
+        public void Init(SingleEvidenceData vData, System.Action closeEvidenceUI, System.Action onShowEvidence)
         {
             SetData(vData);
+            m_closeEvidenceUI = closeEvidenceUI;
+            m_onShowEvidence = onShowEvidence;
             Show();
         }
 
@@ -57,7 +60,11 @@ namespace Evidence
         /// </summary>
         public void OnClickShowButton()
         {
-
+            m_closeEvidenceUI?.Invoke();
+            m_closeEvidenceUI = null;
+            m_onShowEvidence?.Invoke();
+            m_onShowEvidence = null;
+            InvokeHidePanel();
         }
 
         /// <summary>
@@ -68,6 +75,9 @@ namespace Evidence
             // TODO:关闭当前UI
             base.InvokeHidePanel();
         }
+
+        private System.Action m_closeEvidenceUI = null;
+        private System.Action m_onShowEvidence = null;
 
     }
 }
