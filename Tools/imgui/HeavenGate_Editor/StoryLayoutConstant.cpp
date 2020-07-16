@@ -17,10 +17,10 @@ namespace HeavenGateEditor {
             return (const char *)tipTableString;
         case TableType::Paint_Move:
             return (const char *)paintMoveTableString;
-        case TableType::Chapter:
-            return (const char *)sceneTableString;
-        case TableType::Scene:
-            return (const char *)sceneTableString;
+//        case TableType::Chapter:
+//            return (const char *)sceneTableString;
+//        case TableType::Scene:
+//            return (const char *)sceneTableString;
         case TableType::Character:
             return (const char *)characterTableString;
         case TableType::Pause:
@@ -54,10 +54,10 @@ namespace HeavenGateEditor {
             return (int)TipTableLayout::Amount;
         case TableType::Paint_Move:
             return (int)PaintMoveTableLayout::Amount;
-        case TableType::Chapter:
-            return (int)ChapterTableLayout::Amount;
-        case TableType::Scene:
-            return (int)SceneTableLayout::Amount;
+//        case TableType::Chapter:
+//            return (int)ChapterTableLayout::Amount;
+//        case TableType::Scene:
+//            return (int)SceneTableLayout::Amount;
         case TableType::Character:
             return (int)CharacterTableLayout::Amount;
         case TableType::Pause:
