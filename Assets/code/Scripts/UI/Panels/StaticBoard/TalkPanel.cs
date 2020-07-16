@@ -242,10 +242,7 @@ namespace UI.Panels.StaticBoard
                     PlayEffectMusic(storyAction.Content);
                     break;
                 case StoryActionType.ShowEvidence:
-                    InvokeShowPanel(UIPanelType.Singleevidenceselectpanel,new EvidenceDataProvider()
-                    {
-                        CloseEvidenceUI = OnSelectEvidenceEnd,
-                    });
+                    WaitClickEnd();
                     break;
                 case StoryActionType.TypewriterInterval:
                     m_textHelp.TypewriterInterval = float.Parse(storyAction.Content);
@@ -282,6 +279,11 @@ namespace UI.Panels.StaticBoard
         private void AddNewTalker(string name)
         {
             m_currentRoleName = name;
+            WaitClickEnd();
+        }
+
+        private void WaitClickEnd()
+        {
             if (m_skip)
             {
                 EndCharacterTalk();
@@ -426,15 +428,21 @@ namespace UI.Panels.StaticBoard
         {
             m_characterTalkEnd = false;
             m_highSpeed = false;
-            if (m_actionType == StoryActionType.Name)
+            switch (m_actionType)
             {
-                SetNameContent(m_currentRoleName);
-                return;
-            }
-            else
-            {
-                InvokeHidePanel();
-                UIPanelDataProvider.OnTalkEnd?.Invoke();
+                case StoryActionType.Name:
+                    SetNameContent(m_currentRoleName);
+                    break;
+                case StoryActionType.ShowEvidence:
+                    InvokeShowPanel(UIPanelType.Singleevidenceselectpanel,new EvidenceDataProvider()
+                    {
+                        CloseEvidenceUI = OnSelectEvidenceEnd,
+                    });
+                    break;
+                default:
+                    InvokeHidePanel();
+                    UIPanelDataProvider.OnTalkEnd?.Invoke();
+                    break;
             }
         }
 
@@ -470,6 +478,18 @@ namespace UI.Panels.StaticBoard
         public void Skip()
         {
             m_skip = true;
+        }
+
+        private bool CheckWriting(StoryActionType type)
+        {
+            switch (type)
+            {
+                case StoryActionType.Name:
+                case StoryActionType.ShowEvidence:
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         [SerializeField] private Image m_name;

@@ -106,7 +106,7 @@ namespace Controllers.Subsystems.Story
 
         public void PushTypeWriterInterval(float intervalTime)
         {
-            m_actions.Enqueue(new StoryAction(){Type =  StoryActionType.ShowEvidence , Content = intervalTime.ToString()});
+            m_actions.Enqueue(new StoryAction(){Type =  StoryActionType.TypewriterInterval , Content = intervalTime.ToString()});
 
         }
 
