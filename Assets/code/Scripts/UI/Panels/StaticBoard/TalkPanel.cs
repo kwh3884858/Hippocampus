@@ -33,7 +33,21 @@ namespace UI.Panels.StaticBoard
             private string m_fontSize;
             private string m_font;
             private bool m_bold;
-            public float TypewriterInterval = StoryConfig.Ins.ChineseContentSpeed;
+            private float m_typewriterInterval = StoryConfig.Ins.ChineseContentSpeed;
+
+            public float TypewriterInterval
+            {
+                get { return m_typewriterInterval; }
+                set
+                {
+                    if (m_typewriterInterval.Equals(value))
+                    {
+                        m_typewriterInterval = Config.StoryConfig.Ins.ChineseContentSpeed;
+                        return;
+                    }
+                    m_typewriterInterval = value;
+                }
+            }
 
             public void PushColor(string color)
             {
