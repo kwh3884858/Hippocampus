@@ -271,6 +271,9 @@
   <ItemGroup>
     <ResourceCompile Include="example_win32_directx11.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\Resources\Heaven Gate Icon.ico" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
