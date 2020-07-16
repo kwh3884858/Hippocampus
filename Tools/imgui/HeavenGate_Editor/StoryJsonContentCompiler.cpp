@@ -370,23 +370,24 @@ namespace HeavenGateEditor {
                 }
                 switch (editorState.back())
                 {
-                case HeavenGateEditor::TableType::None:
-                    break;
-                case HeavenGateEditor::TableType::Font_Size: {
-                    const StoryTable<FONT_SIZE_MAX_COLUMN>* const fontSizeTable = StoryTableManager::Instance().GetFontSizeTable();
-                    for (int i = 0; i < fontSizeTable->GetSize(); i++)
+                    case HeavenGateEditor::TableType::None:
+                        break;
+                    case HeavenGateEditor::TableType::Font_Size:
                     {
-                        const StoryRow<FONT_SIZE_MAX_COLUMN>* const row = fontSizeTable->GetRow(i);
-                        if (strcmp(row->Get(0), token->m_content) == 0)
+                        const StoryTable<FONT_SIZE_MAX_COLUMN>* const fontSizeTable = StoryTableManager::Instance().GetFontSizeTable();
+                        for (int i = 0; i < fontSizeTable->GetSize(); i++)
                         {
-                            strcpy(token->m_content, row->Get(1));
+                            const StoryRow<FONT_SIZE_MAX_COLUMN>* const row = fontSizeTable->GetRow(i);
+                            if (strcmp(row->Get(0), token->m_content) == 0)
+                            {
+                                strcpy(token->m_content, row->Get(1));
+                            }
                         }
                     }
-                    break;
-                }
-                case HeavenGateEditor::TableType::Color:
-                {
-                    char colorAlias[MAX_COLUMNS_CONTENT_LENGTH];
+                        break;
+                    case HeavenGateEditor::TableType::Color:
+                    {
+                        char colorAlias[MAX_COLUMNS_CONTENT_LENGTH];
 
                     StoryTable<COLOR_MAX_COLUMN>* colorTable = StoryTableManager::Instance().GetColorTable();
                     for (int i = 0; i < colorTable->GetSize(); i++)

@@ -78,6 +78,7 @@ namespace StarPlatinum.StoryCompile
 						case TableType.none:
 							break;
 						case TableType.fontSize:
+							m_container.PushFontSize (m_currentFontSize);
 							break;
 						case TableType.color:
 							m_container.PushColor (m_currentColor);
@@ -87,6 +88,7 @@ namespace StarPlatinum.StoryCompile
 						case TableType.paintMove:
 							break;
 						case TableType.pause:
+							m_container.PushTypeWriterInterval (m_currentTypeWriterInterval);
 							break;
 						case TableType.exhibit:
 							break;
@@ -138,7 +140,8 @@ namespace StarPlatinum.StoryCompile
 					case TableType.none:
 						break;
 					case TableType.fontSize:
-
+						m_currentFontSize = token.m_content;
+						m_container.PushFontSize (m_currentFontSize);
 						break;
 
 					case TableType.color:
@@ -155,6 +158,8 @@ namespace StarPlatinum.StoryCompile
 					case TableType.paintMove:
 						break;
 					case TableType.pause:
+						m_currentTypeWriterInterval = float.Parse (token.m_content);
+						m_container.PushTypeWriterInterval (m_currentTypeWriterInterval);
 						break;
 					case TableType.exhibit:
 						EvidenceDataManager.Instance.AddEvidence (token.m_content);
@@ -185,6 +190,8 @@ namespace StarPlatinum.StoryCompile
 		}
 
 		string m_currentColor;
+		string m_currentFontSize;
+		float m_currentTypeWriterInterval;
 
 		StoryCompiler m_compiler;
 		StoryActionContainer m_container;

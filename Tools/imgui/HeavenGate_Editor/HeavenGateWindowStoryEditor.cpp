@@ -777,6 +777,12 @@ namespace HeavenGateEditor {
         char tmpTachieCommand[NUM_OF_TACHIE_COMMAND][MAX_COLUMNS_CONTENT_LENGTH];
         memset(tmpTachieCommand, '\0', NUM_OF_TACHIE_COMMAND * MAX_COLUMNS_CONTENT_LENGTH);
 
+        char tmpFontSize[MAX_COLUMNS_CONTENT_LENGTH];
+        memset(tmpFontSize, '\0', MAX_COLUMNS_CONTENT_LENGTH);
+
+        char tmpPause[MAX_COLUMNS_CONTENT_LENGTH];
+        memset(tmpPause, '\0', MAX_COLUMNS_CONTENT_LENGTH);
+        
         bool isExhibit = false;
 
         //Color
@@ -814,6 +820,12 @@ namespace HeavenGateEditor {
                     case HeavenGateEditor::TableType::None:
                         break;
                     case HeavenGateEditor::TableType::Font_Size:
+                            if (strlen(tmpFontSize) != 0) {
+                                ImGui::TextColored(colorGreen, "[End font size]");
+                            }else{
+                                ImGui::TextColored(colorRed, "Can not find font size");
+                            }
+                            ImGui::SameLine(0, 0);
                         break;
                     case HeavenGateEditor::TableType::Color:
                         color = colorWhite;
@@ -831,6 +843,12 @@ namespace HeavenGateEditor {
                         }
                         break;
                     case TableType::Pause:
+                            if (strlen(tmpPause) != 0) {
+                                      ImGui::TextColored(colorGreen, "[End interval time]");
+                                  }else{
+                                      ImGui::TextColored(colorRed, "Can not find interval time");
+                                  }
+                                  ImGui::SameLine(0, 0);
                         break;
                         case TableType::Bgm:
                             if (strlen(tmpBgm) != 0) {
@@ -839,6 +857,7 @@ namespace HeavenGateEditor {
                             }else{
                                 ImGui::TextColored(colorRed, "Can not find bgm");
                             }
+
                             ImGui::SameLine(0, 0);
                             break;
                         case TableType::Effect:
@@ -914,7 +933,24 @@ namespace HeavenGateEditor {
                 case HeavenGateEditor::TableType::None:
                     break;
                 case HeavenGateEditor::TableType::Font_Size:
-                    break;
+                    {
+                        const StoryTable<FONT_SIZE_MAX_COLUMN>* const fontSizeTable = StoryTableManager::Instance().GetFontSizeTable();
+                        for (int i = 0; i < fontSizeTable->GetSize(); i++)
+                        {
+                            const StoryRow<FONT_SIZE_MAX_COLUMN>* const row = fontSizeTable->GetRow(i);
+                            if (strcmp(row->Get(0), (*iter)->m_content) == 0)
+                            {
+                                strcpy(tmpFontSize, row->Get(1));
+                            }
+                        }
+                        if (strlen(tmpFontSize) != 0) {
+                            ImGui::TextColored(colorGreen, "[Start font size: %s]", tmpFontSize);
+                        }else{
+                            ImGui::TextColored(colorRed, "Can not find font size");
+                        }
+                        ImGui::SameLine(0, 0);
+                    }
+                        break;
                 case HeavenGateEditor::TableType::Color:
                 {
                     char colorAlias[MAX_COLUMNS_CONTENT_LENGTH];
@@ -968,6 +1004,23 @@ namespace HeavenGateEditor {
                 case HeavenGateEditor::TableType::Paint_Move:
                     break;
                 case TableType::Pause:
+                    {
+                        const StoryTable<PAUSE_MAX_COLUMN>* const pauseTable = StoryTableManager::Instance().GetPauseTable();
+                        for (int i = 0; i < pauseTable->GetSize(); i++)
+                        {
+                            const StoryRow<PAUSE_MAX_COLUMN>* const row = pauseTable->GetRow(i);
+                            if (strcmp(row->Get(0), (*iter)->m_content) == 0)
+                            {
+                                strcpy(tmpPause, row->Get(1));
+                            }
+                        }
+                        if (strlen(tmpPause) != 0) {
+                            ImGui::TextColored(colorGreen, "[Start interval time between words : %s]", tmpPause);
+                        }else{
+                            ImGui::TextColored(colorRed, "Can not find interval time");
+                        }
+                        ImGui::SameLine(0, 0);
+                    }
                     break;
                     case TableType::Bgm:
                     {
