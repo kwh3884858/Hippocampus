@@ -11,8 +11,8 @@ namespace HeavenGateEditor
         Color,
         Tips,
         Paint_Move,
-        Chapter,
-        Scene,
+//        Chapter,
+//        Scene,
         Character,
         Pause,
         Exhibit,
@@ -74,23 +74,23 @@ namespace HeavenGateEditor
         Amount
     };
 
-    enum class ChapterTableLayout
-    {
-        Type = 0,
-        Chapter = 1,
-        Description = 2,
-
-        Amount
-    };
-
-    enum class SceneTableLayout
-    {
-        Type = 0,
-        Scene = 1,
-        Description = 2,
-
-        Amount
-    };
+//    enum class ChapterTableLayout
+//    {
+//        Type = 0,
+//        Chapter = 1,
+//        Description = 2,
+//
+//        Amount
+//    };
+//
+//    enum class SceneTableLayout
+//    {
+//        Type = 0,
+//        Scene = 1,
+//        Description = 2,
+//
+//        Amount
+//    };
 
     enum class CharacterTableLayout
     {
@@ -205,19 +205,19 @@ namespace HeavenGateEditor
 
     };
 
-    const char chapterTableString[][MAX_ENUM_LENGTH] = {
-        "chapter",
-        "chapter",
-        "description"
-
-    };
-
-    const char sceneTableString[][MAX_ENUM_LENGTH] = {
-        "scene",
-        "scene",
-        "description"
-
-    };
+//    const char chapterTableString[][MAX_ENUM_LENGTH] = {
+//        "chapter",
+//        "chapter",
+//        "description"
+//
+//    };
+//
+//    const char sceneTableString[][MAX_ENUM_LENGTH] = {
+//        "scene",
+//        "scene",
+//        "description"
+//
+//    };
 
     const char characterTableString[][MAX_ENUM_LENGTH] = {
         "character",

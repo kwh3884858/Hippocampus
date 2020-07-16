@@ -379,33 +379,33 @@ void to_json(json& j, const StoryTable<column, MAX_CONTENT_LENGTH>& p) {
             break;
         }
 
-        case TableType::Chapter:
-        {
-            j[tableString[(int)TableLayout::Type]] = chapterTableString[(int)ChapterTableLayout::Type];
-            for (int i = 0; i < p.GetSize(); i++)
-            {
-                tmp = p.GetRow(i);
-                j[tableString[(int)TableLayout::Value]].push_back(json{
-                    {chapterTableString[(int)ChapterTableLayout::Chapter],          tmp->Get(0) },
-                    {chapterTableString[(int)ChapterTableLayout::Description],          tmp->Get(1) }
-                });
-            }
-            break;
-        }
-
-        case TableType::Scene:
-        {
-            j[tableString[(int)TableLayout::Type]] = sceneTableString[(int)SceneTableLayout::Type];
-            for (int i = 0; i < p.GetSize(); i++)
-            {
-                tmp = p.GetRow(i);
-                j[tableString[(int)TableLayout::Value]].push_back(json{
-                    {sceneTableString[(int)SceneTableLayout::Scene],          tmp->Get(0) },
-                    {sceneTableString[(int)SceneTableLayout::Description],          tmp->Get(1) }
-                });
-            }
-            break;
-        }
+//        case TableType::Chapter:
+//        {
+//            j[tableString[(int)TableLayout::Type]] = chapterTableString[(int)ChapterTableLayout::Type];
+//            for (int i = 0; i < p.GetSize(); i++)
+//            {
+//                tmp = p.GetRow(i);
+//                j[tableString[(int)TableLayout::Value]].push_back(json{
+//                    {chapterTableString[(int)ChapterTableLayout::Chapter],          tmp->Get(0) },
+//                    {chapterTableString[(int)ChapterTableLayout::Description],          tmp->Get(1) }
+//                });
+//            }
+//            break;
+//        }
+//
+//        case TableType::Scene:
+//        {
+//            j[tableString[(int)TableLayout::Type]] = sceneTableString[(int)SceneTableLayout::Type];
+//            for (int i = 0; i < p.GetSize(); i++)
+//            {
+//                tmp = p.GetRow(i);
+//                j[tableString[(int)TableLayout::Value]].push_back(json{
+//                    {sceneTableString[(int)SceneTableLayout::Scene],          tmp->Get(0) },
+//                    {sceneTableString[(int)SceneTableLayout::Description],          tmp->Get(1) }
+//                });
+//            }
+//            break;
+//        }
 
         case TableType::Character:
         {
@@ -649,56 +649,56 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
         }
         return;
     }
-
-    if (strcmp(typeString, chapterTableString[(int)ChapterTableLayout::Type]) == 0) {
-        p.SetTableType(TableType::Chapter);
-        char header[MAX_COLUMNS_CONTENT_LENGTH];
-        if(!headers.is_null())
-        {
-            for(int i = 0; i < headers.size(); i++){
-                strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
-                p.PushName(header);
-            }
-        }else{
-            for (int i = 1; i < (int)ChapterTableLayout::Amount; i++) {
-                p.PushName(chapterTableString[i]);
-            }
-        }
-        char content[MAX_COLUMNS_CONTENT_LENGTH];
-        for (int i = 0; i < values.size(); i++)
-        {
-            GetContentException(content, values[i], chapterTableString[(int)ChapterTableLayout::Chapter]);
-            p.PushContent(content);
-            GetContentException(content, values[i], chapterTableString[(int)ChapterTableLayout::Description]);
-            p.PushContent(content);
-        }
-        return;
-    }
-
-    if (strcmp(typeString, sceneTableString[(int)SceneTableLayout::Type]) == 0) {
-        p.SetTableType(TableType::Scene);
-        char header[MAX_COLUMNS_CONTENT_LENGTH];
-        if(!headers.is_null())
-        {
-            for(int i = 0; i < headers.size(); i++){
-                strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
-                p.PushName(header);
-            }
-        }else{
-            for (int i = 1; i < (int)SceneTableLayout::Amount; i++) {
-                p.PushName(sceneTableString[i]);
-            }
-        }
-        char content[MAX_COLUMNS_CONTENT_LENGTH];
-        for (int i = 0; i < values.size(); i++)
-        {
-            GetContentException(content, values[i], sceneTableString[(int)SceneTableLayout::Scene]);
-            p.PushContent(content);
-            GetContentException(content, values[i], sceneTableString[(int)SceneTableLayout::Description]);
-            p.PushContent(content);
-        }
-        return;
-    }
+//
+//    if (strcmp(typeString, chapterTableString[(int)ChapterTableLayout::Type]) == 0) {
+//        p.SetTableType(TableType::Chapter);
+//        char header[MAX_COLUMNS_CONTENT_LENGTH];
+//        if(!headers.is_null())
+//        {
+//            for(int i = 0; i < headers.size(); i++){
+//                strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+//                p.PushName(header);
+//            }
+//        }else{
+//            for (int i = 1; i < (int)ChapterTableLayout::Amount; i++) {
+//                p.PushName(chapterTableString[i]);
+//            }
+//        }
+//        char content[MAX_COLUMNS_CONTENT_LENGTH];
+//        for (int i = 0; i < values.size(); i++)
+//        {
+//            GetContentException(content, values[i], chapterTableString[(int)ChapterTableLayout::Chapter]);
+//            p.PushContent(content);
+//            GetContentException(content, values[i], chapterTableString[(int)ChapterTableLayout::Description]);
+//            p.PushContent(content);
+//        }
+//        return;
+//    }
+//
+//    if (strcmp(typeString, sceneTableString[(int)SceneTableLayout::Type]) == 0) {
+//        p.SetTableType(TableType::Scene);
+//        char header[MAX_COLUMNS_CONTENT_LENGTH];
+//        if(!headers.is_null())
+//        {
+//            for(int i = 0; i < headers.size(); i++){
+//                strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+//                p.PushName(header);
+//            }
+//        }else{
+//            for (int i = 1; i < (int)SceneTableLayout::Amount; i++) {
+//                p.PushName(sceneTableString[i]);
+//            }
+//        }
+//        char content[MAX_COLUMNS_CONTENT_LENGTH];
+//        for (int i = 0; i < values.size(); i++)
+//        {
+//            GetContentException(content, values[i], sceneTableString[(int)SceneTableLayout::Scene]);
+//            p.PushContent(content);
+//            GetContentException(content, values[i], sceneTableString[(int)SceneTableLayout::Description]);
+//            p.PushContent(content);
+//        }
+//        return;
+//    }
 
     if (strcmp(typeString, characterTableString[(int)CharacterTableLayout::Type]) == 0) {
         p.SetTableType(TableType::Character);
