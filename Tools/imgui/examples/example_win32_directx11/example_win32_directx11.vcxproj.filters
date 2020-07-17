@@ -160,6 +160,6 @@
     <ResourceCompile Include="example_win32_directx11.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\Resources\Heaven Gate Icon.ico" />
+    <Image Include="icon1.ico" />
   </ItemGroup>
 </Project>
