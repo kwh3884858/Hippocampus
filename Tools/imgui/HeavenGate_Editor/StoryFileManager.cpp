@@ -139,7 +139,12 @@ namespace HeavenGateEditor {
             outputFileStream << tmpJson << std::endl;
          }
          catch (nlohmann::json::type_error& e) {
-             printf("%s: %s (%s:%d)", __FUNCTION__, e.what(),__builtin_FILE(), __builtin_LINE());
+
+#ifndef _WIN32
+             printf("%s: %s (%s:%d)", __FUNCTION__, e.what(), __builtin_FILE(), __builtin_LINE());
+#else
+             printf("%s: %s", __FUNCTION__, e.what());
+#endif
              return false;
          }
 
@@ -191,7 +196,11 @@ namespace HeavenGateEditor {
                 outputFileStream << tmpJson << std::endl;
              }
              catch (nlohmann::json::type_error& e) {
-                 printf("%s: %s (%s:%d)", __FUNCTION__, e.what(),__builtin_FILE(), __builtin_LINE());
+#ifndef _WIN32
+                 printf("%s: %s (%s:%d)", __FUNCTION__, e.what(), __builtin_FILE(), __builtin_LINE());
+#else
+                 printf("%s: %s", __FUNCTION__, e.what());
+#endif
                  return false;
              }
             isSuccessful = true;
@@ -269,7 +278,11 @@ namespace HeavenGateEditor {
              o << tmpJson << std::endl;
          }
          catch (nlohmann::json::type_error& e) {
-             printf("%s: %s (%s:%d)", __FUNCTION__, e.what(),__builtin_FILE(), __builtin_LINE());
+#ifndef _WIN32
+             printf("%s: %s (%s:%d)", __FUNCTION__, e.what(), __builtin_FILE(), __builtin_LINE());
+#else
+             printf("%s: %s", __FUNCTION__, e.what());
+#endif
              return false;
          }
 
