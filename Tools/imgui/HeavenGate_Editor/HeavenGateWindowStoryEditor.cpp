@@ -578,7 +578,7 @@ namespace HeavenGateEditor {
             }
             else
             {
-                AddNotification("Failed to Export File");
+                AddNotification("Failed to Export File. Please check console for more informations");
             }
 
         }

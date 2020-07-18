@@ -134,7 +134,15 @@ namespace HeavenGateEditor {
         json tmpJson = *pStoryJson;
 
         std::ofstream outputFileStream(filePath);
-        outputFileStream << tmpJson << std::endl;
+
+        try {
+            outputFileStream << tmpJson << std::endl;
+         }
+         catch (nlohmann::json::type_error& e) {
+             printf("%s: %s (%s:%d)", __FUNCTION__, e.what(),__builtin_FILE(), __builtin_LINE());
+             return false;
+         }
+
 
         outputFileStream.close();
 
@@ -179,7 +187,13 @@ namespace HeavenGateEditor {
 
         if (!outputFileStream.fail())
         {
-            outputFileStream << tmpJson << std::endl;
+            try {
+                outputFileStream << tmpJson << std::endl;
+             }
+             catch (nlohmann::json::type_error& e) {
+                 printf("%s: %s (%s:%d)", __FUNCTION__, e.what(),__builtin_FILE(), __builtin_LINE());
+                 return false;
+             }
             isSuccessful = true;
         }
         else
@@ -248,8 +262,16 @@ namespace HeavenGateEditor {
         StoryJsonContentCompiler::Instance().Compile(&copyStory);
         json tmpJson = copyStory;
 
+
+
         std::ofstream o(filePath);
-        o << tmpJson << std::endl;
+        try {
+             o << tmpJson << std::endl;
+         }
+         catch (nlohmann::json::type_error& e) {
+             printf("%s: %s (%s:%d)", __FUNCTION__, e.what(),__builtin_FILE(), __builtin_LINE());
+             return false;
+         }
 
         o.close();
 
