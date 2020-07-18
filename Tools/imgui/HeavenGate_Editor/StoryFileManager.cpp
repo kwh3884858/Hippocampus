@@ -99,6 +99,7 @@ namespace HeavenGateEditor {
 
     bool StoryFileManager::SaveStoryFile(StoryJson* const pStoryJson) const
     {
+        bool result = false;
         if (pStoryJson == nullptr) {
             return false;
         }
@@ -108,15 +109,24 @@ namespace HeavenGateEditor {
         //RenameStoryFileByChapterAndScene(pStoryJson);
         //Rename End
 
-        strcpy(filePath, pStoryJson->GetFullPath());
-
-        if (strlen(filePath) <= 0) {
+        //Test content length for avoid the crash of incomplete UTF-8
+        result = StoryJsonChecker::Instance().CheckJsonNameAndContentlengthLimit(pStoryJson);
+        if (!result)
+        {
+            printf("Content length over the max limit, please re-check content. \n");
             return false;
         }
 
-        bool result = StoryJsonChecker::Instance().CheckJsonStory(pStoryJson);
+        strcpy(filePath, pStoryJson->GetFullPath());
+        if (strlen(filePath) <= 0) {
+            printf("Story file path is invalid \n");
+            return false;
+        }
+
+        result = StoryJsonChecker::Instance().CheckJsonStory(pStoryJson);
         if (!result)
         {
+            printf("Json content contain invalid struct, please re-check label and jump sequence. \n");
             return false;
         }
 
@@ -134,6 +144,8 @@ namespace HeavenGateEditor {
     }
     bool StoryFileManager::AutoSaveStoryFile(StoryJson* const pStoryJson) const
     {
+        bool result = false;
+
         char filePath[MAX_FOLDER_PATH];
         char originalFilePath[MAX_FOLDER_PATH];
         bool isSuccessful = false;
@@ -141,6 +153,14 @@ namespace HeavenGateEditor {
         if (pStoryJson == nullptr) {
             return false;
         }
+
+        result = StoryJsonChecker::Instance().CheckJsonNameAndContentlengthLimit(pStoryJson);
+        if (!result)
+        {
+            printf("Content length over the max limit, please re-check content. \n");
+            return false;
+        }
+
         strcpy(originalFilePath, pStoryJson->GetFullPath());
 
         //Rename and put it to auto save folder
@@ -149,6 +169,7 @@ namespace HeavenGateEditor {
         strcpy(filePath, pStoryJson->GetFullPath());
 
         if (strlen(filePath) <= 0) {
+            printf("Story file path is invalid \n");
             return false;
         }
 
@@ -177,6 +198,8 @@ namespace HeavenGateEditor {
 
     bool StoryFileManager::ExportStoryFile(StoryJson* const pStoryJson) const
     {
+        bool result = false;
+
         const char STORY_FOLDER[] = "Storys";
         char tmpPath[MAX_FOLDER_PATH];
         const int folderLength = strlen(STORY_FOLDER);
@@ -189,16 +212,25 @@ namespace HeavenGateEditor {
         //RenameStoryFileByChapterAndScene(pStoryJson);
         //Rename End
 
+        result = StoryJsonChecker::Instance().CheckJsonNameAndContentlengthLimit(pStoryJson);
+        if (!result)
+        {
+            printf("Content length over the max limit, please re-check content. \n");
+            return false;
+        }
+
         char filePath[MAX_FOLDER_PATH];
         strcpy(filePath, pStoryJson->GetFullPath());
 
         if (strlen(filePath) <= 0) {
+            printf("Story file path is invalid \n");
             return false;
         }
 
-        bool result = StoryJsonChecker::Instance().CheckJsonStory(pStoryJson);
+        result = StoryJsonChecker::Instance().CheckJsonStory(pStoryJson);
         if (!result)
         {
+            printf("Json content contain invalid struct, please re-check label and jump sequence. \n");
             return false;
         }
 

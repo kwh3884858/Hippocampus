@@ -51,6 +51,8 @@ namespace HeavenGateEditor {
         virtual void UpdateMenu() override;
 
     private:
+        bool ImportContentInternal(StoryJson* const importedStory, const char* const needImportedContent);
+
         static int WordContentCallback(ImGuiInputTextCallbackData* data);
 
         void ShowStoryWord(StoryWord* word, int index);
@@ -62,6 +64,8 @@ namespace HeavenGateEditor {
 
         void CallbackNewFile(const char* fileName);
         void CallbackRenameFile(const char* fileName);
+
+        bool CheckStringLength(const char* string, int stringLengthLimit);
 
         //Data
         StoryJson* m_storyJson;

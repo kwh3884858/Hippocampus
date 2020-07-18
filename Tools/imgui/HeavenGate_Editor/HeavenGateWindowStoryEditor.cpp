@@ -521,54 +521,12 @@ namespace HeavenGateEditor {
             ImGui::Text("Import (Test function) MAX Content limit: 1024 * 16(line length limit)");
             static ImGuiInputTextFlags flags = ImGuiInputTextFlags_AllowTabInput;
             ImGui::InputTextMultiline("##source", importContent, IM_ARRAYSIZE(importContent), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 16), flags);
-            if (ImGui::Button("import")) {
-                char cache[1024] = "";
-                int cacheLength = 0;
-                bool isName = true;
-                int index = -1;
-
-                int i = 0;
-                for (; i < 1024 * 32 && importContent[i] != '\0'; i++)
+            if (ImGui::Button("import"))
+            {
+                bool result = ImportContentInternal(m_storyJson, importContent);
+                if (!result)
                 {
-                    if (importContent[i] == '\n')
-                    {
-                        //new line
-                        if (strlen(cache) != 0)
-                        {
-                            if (isName)
-                            {
-                                if (m_storyJson != nullptr)
-                                {
-                                    index = m_storyJson->AddWord(cache, "");
-                                    isName = false;
-                                }
-                            }
-                            else
-                            {
-                                if (index > 0)
-                                {
-                                    if (m_storyJson != nullptr)
-                                    {
-                                        StoryNode* node = m_storyJson->GetNode(index);
-                                        if (node != nullptr)
-                                        {
-                                            StoryWord* word = static_cast<StoryWord*>(node);
-                                            strcpy(word->m_content, cache);
-                                            isName = true;
-                                        }
-                                    }
-                                }
-                            }
-                            memset(cache, '\0', 1024);
-                            cacheLength = 0;
-
-                        }
-                    }
-                    else
-                    {
-                        cache[cacheLength] = importContent[i];
-                        cacheLength++;
-                    }
+                    AddNotification("Import Failed. Please check the length of imported name and content");
                 }
             }
         }
@@ -744,6 +702,67 @@ namespace HeavenGateEditor {
     void HeavenGateWindowStoryEditor::AddNotification(const char * const notification)
     {
         strcpy(m_notification, notification);
+    }
+
+    bool HeavenGateWindowStoryEditor::ImportContentInternal(StoryJson* const importedStory, const char* const needImportedContent)
+    {
+        char cache[1024] = "";
+        int cacheLength = 0;
+        bool isName = true;
+        int index = -1;
+
+        int i = 0;
+        for (; i < 1024 * 32 && needImportedContent[i] != '\0'; i++)
+        {
+            if (needImportedContent[i] == '\n')
+            {
+                //new line
+                int cacheLenth = strlen(cache);
+                if (cacheLenth != 0)
+                {
+                    if (isName)
+                    {
+                        if (importedStory != nullptr)
+                        {
+                            if (!CheckStringLength(cache, MAX_NAME_LIMIT))
+                            {
+                                return false;
+                            }
+                            index = importedStory->AddWord(cache, "");
+                            isName = false;
+                        }
+                    }
+                    else
+                    {
+                        if (index > 0)
+                        {
+                            if (importedStory != nullptr)
+                            {
+                                StoryNode* node = importedStory->GetNode(index);
+                                if (node != nullptr)
+                                {
+                                    if (!CheckStringLength(cache, MAX_CONTENT_LIMIT))
+                                    {
+                                        return false;
+                                    }
+                                    StoryWord* word = static_cast<StoryWord*>(node);
+                                    strcpy(word->m_content, cache);
+                                    isName = true;
+                                }
+                            }
+                        }
+                    }
+                    memset(cache, '\0', 1024);
+                    cacheLength = 0;
+                }
+            }
+            else
+            {
+                cache[cacheLength] = needImportedContent[i];
+                cacheLength++;
+            }
+        }
+        return true;
     }
 
     int HeavenGateWindowStoryEditor::WordContentCallback(ImGuiInputTextCallbackData * data)
@@ -1245,6 +1264,11 @@ namespace HeavenGateEditor {
             printf("Illegal File Name");
         }
 
+    }
+
+    bool HeavenGateWindowStoryEditor::CheckStringLength(const char* string, int stringLengthLimit)
+    {
+        return strlen(string) <= stringLengthLimit;
     }
 
     //void HeavenGateWindowStoryEditor::ShowEditorWindow(bool* isOpenPoint) {

@@ -20,7 +20,7 @@ namespace HeavenGateEditor {
         virtual bool Shutdown() override { return true; };
 
         bool CheckJsonStory(const StoryJson* const story) const;
-
+        bool CheckJsonNameAndContentlengthLimit(const StoryJson* const story)const;
     private:
         //Checker mainly prevents two behavior:
         //One: A label node`s next node is corresponding jump node,

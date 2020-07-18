@@ -2,6 +2,7 @@
 
 #include "StoryJson.h"
 #include "StoryJsonStoryNode.h"
+#include "StoryJsonWordNode.h"
 #include "StoryJsonLabelNode.h"
 #include "StoryJsonJumpNode.h"
 
@@ -30,16 +31,15 @@ namespace HeavenGateEditor {
     bool StoryJsonChecker::CheckLabelAndJumpPosition(const StoryJson* const story) const
     {
         vector<const StoryLabel* > readedList;
-        for (int i = 0 ; i < story->Size(); i++)
+        for (int i = 0; i < story->Size(); i++)
         {
-            const StoryNode* const node  = story->GetNode(i);
+            const StoryNode* const node = story->GetNode(i);
             if (node->m_nodeType == NodeType::Label)
             {
                 const StoryLabel* const label = static_cast<const StoryLabel*const>(node);
                 readedList.push_back(label);
-
             }
-            else if(node->m_nodeType == NodeType::Jump)
+            else if (node->m_nodeType == NodeType::Jump)
             {
                 const StoryJump*const jump = static_cast<const StoryJump*const>(node);
                 if (!readedList.empty())
@@ -62,5 +62,24 @@ namespace HeavenGateEditor {
         return true;
     }
 
+    bool StoryJsonChecker::CheckJsonNameAndContentlengthLimit(const StoryJson* const story) const
+    {
+        for (int i = 0; i < story->Size(); i++)
+        {
+            const StoryNode* const node = story->GetNode(i);
+            if (node->m_nodeType == NodeType::Word)
+            {
+                const StoryWord*const word = static_cast<const StoryWord*const>(node);
+                if (strlen(word->m_name) >= MAX_NAME_LIMIT) {
+                    return false;
+                }
+                if (strlen(word->m_content) >= MAX_CONTENT_LIMIT)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
 }
