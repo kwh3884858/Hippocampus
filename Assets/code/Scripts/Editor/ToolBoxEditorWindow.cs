@@ -17,6 +17,7 @@ public class ToolBoxEditorWindow : EditorWindow
 {
 	private MissionEnum m_currentMissionEnum = MissionEnum.None;
 	private Scene m_currentMissionScene = new Scene ();
+	private Scene m_currentGameScene = new Scene ();
 	bool groupEnabled;
 	bool myBool = true;
 	float myFloat = 1.23f;
@@ -66,33 +67,33 @@ public class ToolBoxEditorWindow : EditorWindow
 		GUILayout.Label ("Mission", EditorStyles.boldLabel);
 
 		EditorGUILayout.BeginVertical ();
-		EditorGUILayout.LabelField ("Current Active Sccene:  " + SceneManager.GetActiveScene ().name);
+		if (m_currentGameScene.name == null || m_currentGameScene.name == "") {
+			m_currentGameScene = SceneManager.GetActiveScene ();
+		}
+		EditorGUILayout.LabelField ("Current Active Game Sccene:  " + m_currentGameScene.name);
 		EditorGUILayout.LabelField ("Current Active Mission Scene:  " + m_currentMissionScene.name);
+
 		m_currentMissionEnum = (MissionEnum)EditorGUILayout.EnumPopup ("Current Mission", m_currentMissionEnum);
 		if (GUILayout.Button ("Create Mission Scene")) {
 			if (m_currentMissionEnum != MissionEnum.None) {
-                RemoveCurrentMissionSceneInternal();
-                CreateMissionSceneInternal(m_currentMissionEnum);
-            }
-            else
-            {
-                EditorUtility.DisplayDialog("Select A Mission", "Select a valid mission for edit", "Ok");
-            }
-        }
+				RemoveCurrentMissionSceneInternal ();
+				CreateMissionSceneInternal (m_currentMissionEnum);
+			} else {
+				EditorUtility.DisplayDialog ("Select A Mission", "Select a valid mission for edit", "Ok");
+			}
+		}
 
 		if (GUILayout.Button ("Load Mission Scene")) {
 			if (m_currentMissionEnum != MissionEnum.None) {
-                RemoveCurrentMissionSceneInternal();
-                LoadMissionSceneInternal(m_currentMissionEnum);
-            }
-            else
-            {
-                EditorUtility.DisplayDialog("Select A Mission", "Select a valid mission for edit", "Ok");
-            }
-        }
+				RemoveCurrentMissionSceneInternal ();
+				LoadMissionSceneInternal (m_currentMissionEnum);
+			} else {
+				EditorUtility.DisplayDialog ("Select A Mission", "Select a valid mission for edit", "Ok");
+			}
+		}
 
 		if (GUILayout.Button ("Remove Mission Scene")) {
-            RemoveCurrentMissionSceneInternal();
+			RemoveCurrentMissionSceneInternal ();
 		}
 		GUILayout.Label ("Add Gameobject", EditorStyles.boldLabel);
 
@@ -108,13 +109,11 @@ public class ToolBoxEditorWindow : EditorWindow
 
 				go.transform.SetParent (interactiablesGroup.transform);
 				go.AddComponent<InteractiveObject> ();
-            }
-            else
-            {
-                EditorUtility.DisplayDialog("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
-            }
+			} else {
+				EditorUtility.DisplayDialog ("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
+			}
 		}
-        
+
 		if (GUILayout.Button ("Create Spawn Point")) {
 			if (IsMissionSceneValid ()) {
 				GameObject spawnPoint = GameObject.Find (ConfigMission.Instance.Text_Spawn_Point_Name);
@@ -125,156 +124,138 @@ public class ToolBoxEditorWindow : EditorWindow
 					GameObject go = Instantiate (AssetDatabase.LoadAssetAtPath<GameObject> (path)) as GameObject;
 					go.name = ConfigMission.Instance.Text_Spawn_Point_Name;
 				}
-            }
-            else
-            {
-                EditorUtility.DisplayDialog("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
-            }
+			} else {
+				EditorUtility.DisplayDialog ("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
+			}
 		}
 
-        if (GUILayout.Button("Create Event Trigger"))
-        {
-            if (IsMissionSceneValid())
-            {
-                CreateEventTrigger();
-            }
-            else
-            {
-                EditorUtility.DisplayDialog("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
-            }
-        }
-        if (GUILayout.Button("Create Event Trigger With [Prefab: Load New Story]"))
-        {
-            if (IsMissionSceneValid())
-            {
-                GameObject loadNewStory = CreateEventTrigger();
-                loadNewStory.name = "Load_New_Story";
-                loadNewStory.AddComponent<WorldTriggerCallbackLoadNewStory>();
-            }
-            else
-            {
-                EditorUtility.DisplayDialog("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
-            }
-        }
-        if (GUILayout.Button ("Create Event Trigger With [Prefab: Create New Teleport Point]")) {
-            if (IsMissionSceneValid())
-            {
-                GameObject loadNewStory = CreateEventTrigger();
-                loadNewStory.name = "Teleport_Point";
-                loadNewStory.AddComponent<WorldTriggerCallbackTeleportPlayer>();
-            }
-            else
-            {
-                EditorUtility.DisplayDialog("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
-            }
-        }
+		if (GUILayout.Button ("Create Event Trigger")) {
+			if (IsMissionSceneValid ()) {
+				CreateEventTrigger ();
+			} else {
+				EditorUtility.DisplayDialog ("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
+			}
+		}
+		if (GUILayout.Button ("Create Event Trigger With [Prefab: Load New Story]")) {
+			if (IsMissionSceneValid ()) {
+				GameObject loadNewStory = CreateEventTrigger ();
+				loadNewStory.name = "Load_New_Story";
+				loadNewStory.AddComponent<WorldTriggerCallbackLoadNewStory> ();
+			} else {
+				EditorUtility.DisplayDialog ("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
+			}
+		}
+		if (GUILayout.Button ("Create Event Trigger With [Prefab: Create New Teleport Point]")) {
+			if (IsGameSceneValid ()) {
+				GameObject loadNewStory = CreateEventTrigger (m_currentGameScene);
+				loadNewStory.name = "Teleport_Point";
+				loadNewStory.AddComponent<WorldTriggerCallbackTeleportPlayer> ();
+			} else {
+				EditorUtility.DisplayDialog ("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
+			}
+		}
 
 		EditorGUILayout.EndVertical ();
 	}
 
-    private GameObject CreateEventTrigger()
-    {
-        GameObject triggersGroup = GameObject.Find(ConfigMission.Instance.Text_Event_Trigger_Group);
-        if (triggersGroup == null)
-        {
-            triggersGroup = new GameObject(ConfigMission.Instance.Text_Event_Trigger_Group);
-        }
+	private GameObject CreateEventTrigger ()
+	{
+		GameObject triggersGroup = GameObject.Find (ConfigMission.Instance.Text_Event_Trigger_Group);
+		if (triggersGroup == null) {
+			triggersGroup = new GameObject (ConfigMission.Instance.Text_Event_Trigger_Group);
+		}
 
-        string path = ConfigMission.Instance.Path_To_WorldTrigger;
-        GameObject go = Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(path)) as GameObject;
+		string path = ConfigMission.Instance.Path_To_WorldTrigger;
+		GameObject go = Instantiate (AssetDatabase.LoadAssetAtPath<GameObject> (path)) as GameObject;
 
-        go.name = "Event Trigger";
-        go.transform.SetParent(triggersGroup.transform);
-        go.AddComponent<WorldTrigger>();
+		go.name = "Event Trigger";
+		go.transform.SetParent (triggersGroup.transform);
+		go.AddComponent<WorldTrigger> ();
 
-        return go;
-    }
+		return go;
+	}
 
-    private void LoadMissionSceneInternal(MissionEnum missionEnum)
-    {
-        string folderName = ConfigMission.Instance.Prefix_Mission_Folder + missionEnum.ToString() + "_" + SceneManager.GetActiveScene().name;
-        string sceneName = ConfigMission.Instance.Prefix_Mission_Scene + missionEnum.ToString() + "_" + SceneManager.GetActiveScene().name;
+	private GameObject CreateEventTrigger (Scene activeScene)
+	{
+		Scene currentActiveScene = SceneManager.GetActiveScene ();
+		SceneManager.SetActiveScene (activeScene);
+		GameObject go = CreateEventTrigger ();
+		SceneManager.SetActiveScene (currentActiveScene);
+		return go;
+	}
 
-        if (m_currentMissionScene.name != sceneName)
-        {
-            string pathToSceneFolder = MissionSceneManager.Instance.GenerateFullSceneFolderPath(folderName);
-            if (!AssetDatabase.IsValidFolder(pathToSceneFolder))
-            {
-                EditorUtility.DisplayDialog("Scene Folder Not Exist", "Click [Create Mission Scene] to create new mission scene", "Ok");
-            }
-            bool isExistMissionScene = MissionSceneManager.Instance.IsFileMissionSceneExistInAssets(folderName, sceneName);
-            if (isExistMissionScene)
-            {
-                string pathToScene = MissionSceneManager.Instance.GenerateFullScenePath(folderName, sceneName);
-                m_currentMissionScene = EditorSceneManager.OpenScene(pathToScene, OpenSceneMode.Additive);
-                EditorSceneManager.SetActiveScene(m_currentMissionScene);
-            }
-            else
-            {
-                EditorUtility.DisplayDialog("Scene Not Exist", "Click [Create Mission Scene] to create new mission scene", "Ok");
-            }
-        }
-    }
+	private void LoadMissionSceneInternal (MissionEnum missionEnum)
+	{
+		string folderName = ConfigMission.Instance.Prefix_Mission_Folder + missionEnum.ToString () + "_" + SceneManager.GetActiveScene ().name;
+		string sceneName = ConfigMission.Instance.Prefix_Mission_Scene + missionEnum.ToString () + "_" + SceneManager.GetActiveScene ().name;
 
-    private void RemoveCurrentMissionSceneInternal()
-    {
-        if (IsMissionSceneValid())
-        {
-            EditorSceneManager.SaveScene(m_currentMissionScene);
-            EditorSceneManager.CloseScene(m_currentMissionScene, true);
-            SetCurrentScene(new Scene());
-        }
-    }
+		if (m_currentMissionScene.name != sceneName) {
+			string pathToSceneFolder = MissionSceneManager.Instance.GenerateFullSceneFolderPath (folderName);
+			if (!AssetDatabase.IsValidFolder (pathToSceneFolder)) {
+				EditorUtility.DisplayDialog ("Scene Folder Not Exist", "Click [Create Mission Scene] to create new mission scene", "Ok");
+			}
+			bool isExistMissionScene = MissionSceneManager.Instance.IsFileMissionSceneExistInAssets (folderName, sceneName);
+			if (isExistMissionScene) {
+				string pathToScene = MissionSceneManager.Instance.GenerateFullScenePath (folderName, sceneName);
+				m_currentMissionScene = EditorSceneManager.OpenScene (pathToScene, OpenSceneMode.Additive);
+				EditorSceneManager.SetActiveScene (m_currentMissionScene);
+			} else {
+				EditorUtility.DisplayDialog ("Scene Not Exist", "Click [Create Mission Scene] to create new mission scene", "Ok");
+			}
+		}
+	}
 
-    private void CreateMissionSceneInternal(MissionEnum missionEnum)
-    {
-        string folderName = MissionSceneManager.Instance.GenerateFolderName(missionEnum);
-        string sceneName = MissionSceneManager.Instance.GenerateSceneName(missionEnum);
-        bool isConfirm = EditorUtility.DisplayDialog("Create New Scene", "New scene file will be create.\nScene Name: " + sceneName + "\nLocation: data/graphics/World/" + folderName, "Ok, create it", "Cancel");
-        if (isConfirm)
-        {
-            CreateMissionFolder(folderName);
+	private void RemoveCurrentMissionSceneInternal ()
+	{
+		if (IsMissionSceneValid ()) {
+			EditorSceneManager.SaveScene (m_currentMissionScene);
+			EditorSceneManager.CloseScene (m_currentMissionScene, true);
+			SetCurrentScene (new Scene ());
+		}
+	}
 
-            bool isExistMissionScene = MissionSceneManager.Instance.IsFileMissionSceneExistInAssets(folderName, sceneName);
-            if (!isExistMissionScene)
-            {
-                Scene newScene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
-                newScene.name = sceneName;
-                string fullScenePath = MissionSceneManager.Instance.GenerateFullScenePath(folderName, sceneName);
+	private void CreateMissionSceneInternal (MissionEnum missionEnum)
+	{
+		string folderName = MissionSceneManager.Instance.GenerateFolderName (missionEnum);
+		string sceneName = MissionSceneManager.Instance.GenerateSceneName (missionEnum);
+		bool isConfirm = EditorUtility.DisplayDialog ("Create New Scene", "New scene file will be create.\nScene Name: " + sceneName + "\nLocation: data/graphics/World/" + folderName, "Ok, create it", "Cancel");
+		if (isConfirm) {
+			CreateMissionFolder (folderName);
 
-                bool saveOK = EditorSceneManager.SaveScene(newScene, fullScenePath);
-                UnityEditor.AddressableAssets.Settings.AddressableAssetSettings settings = AddressableAssetSettingsDefaultObject.GetSettings(false);
+			bool isExistMissionScene = MissionSceneManager.Instance.IsFileMissionSceneExistInAssets (folderName, sceneName);
+			if (!isExistMissionScene) {
+				Scene newScene = EditorSceneManager.NewScene (NewSceneSetup.EmptyScene, NewSceneMode.Additive);
+				newScene.name = sceneName;
+				string fullScenePath = MissionSceneManager.Instance.GenerateFullScenePath (folderName, sceneName);
 
-                //Make a gameobject an addressable
-                AddressableAssetGroup missionSceneGroup = settings.FindGroup("MissionScene");
-                string guid = AssetDatabase.AssetPathToGUID(fullScenePath);
+				bool saveOK = EditorSceneManager.SaveScene (newScene, fullScenePath);
+				UnityEditor.AddressableAssets.Settings.AddressableAssetSettings settings = AddressableAssetSettingsDefaultObject.GetSettings (false);
 
-                //This is the function that actually makes the object addressable
-                var entry = settings.CreateOrMoveEntry(guid, missionSceneGroup ? missionSceneGroup : settings.DefaultGroup);
-                entry.address = sceneName;
+				//Make a gameobject an addressable
+				AddressableAssetGroup missionSceneGroup = settings.FindGroup ("MissionScene");
+				string guid = AssetDatabase.AssetPathToGUID (fullScenePath);
 
-                //You'll need these to run to save the changes!
-                settings.SetDirty(AddressableAssetSettings.ModificationEvent.EntryMoved, entry, true);
-                AssetDatabase.SaveAssets();
+				//This is the function that actually makes the object addressable
+				var entry = settings.CreateOrMoveEntry (guid, missionSceneGroup ? missionSceneGroup : settings.DefaultGroup);
+				entry.address = sceneName;
 
-                if (!saveOK)
-                {
-                    Debug.LogError("Save is faild. Scene:" + sceneName);
-                }
-                else
-                {
-                    SetCurrentScene(newScene);
-                    EdtorSceneAutomaticOperatioin.UpdateSceneBuildSetting();
-                }
-            }
-            else
-            {
-                EditorUtility.DisplayDialog("Scene Conflict", "Scene file Already Exist, Please load this scene.\nScene Name: " + sceneName + "\nLocation: data/graphics/World" + folderName, "Ok");
-            }
-        }
-    }
+				//You'll need these to run to save the changes!
+				settings.SetDirty (AddressableAssetSettings.ModificationEvent.EntryMoved, entry, true);
+				AssetDatabase.SaveAssets ();
 
-    private void CreateMissionFolder (string folder)
+				if (!saveOK) {
+					Debug.LogError ("Save is faild. Scene:" + sceneName);
+				} else {
+					SetCurrentScene (newScene);
+					EdtorSceneAutomaticOperatioin.UpdateSceneBuildSetting ();
+				}
+			} else {
+				EditorUtility.DisplayDialog ("Scene Conflict", "Scene file Already Exist, Please load this scene.\nScene Name: " + sceneName + "\nLocation: data/graphics/World" + folderName, "Ok");
+			}
+		}
+	}
+
+	private void CreateMissionFolder (string folder)
 	{
 		string pathToSceneFolder = MissionSceneManager.Instance.GenerateFullSceneFolderPath (folder);
 		if (!AssetDatabase.IsValidFolder (pathToSceneFolder)) {
@@ -291,9 +272,19 @@ public class ToolBoxEditorWindow : EditorWindow
 		}
 	}
 
-    private void SetCurrentScene(Scene scene) {
-        m_currentMissionScene = scene;
-    }
+	private bool IsGameSceneValid ()
+	{
+		if (m_currentGameScene == null || m_currentGameScene.name == null || m_currentGameScene.name == "") {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	private void SetCurrentScene (Scene scene)
+	{
+		m_currentMissionScene = scene;
+	}
 
 
 	//private static string Text_Interactable_Object_Group = "Interactables";
