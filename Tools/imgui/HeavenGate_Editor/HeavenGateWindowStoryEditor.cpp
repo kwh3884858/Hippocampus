@@ -857,7 +857,7 @@ namespace HeavenGateEditor {
                         break;
                     case HeavenGateEditor::TableType::Exhibit:
                         if (isExhibit == true) {
-                            ImGui::TextColored(colorBlue, "[Show Exhibit Here: %s]", tmpExhibit);
+                            ImGui::TextColored(colorGreen, "[Show Exhibit Here: %s]", tmpExhibit);
                             isExhibit = false;
                         }
                         break;
