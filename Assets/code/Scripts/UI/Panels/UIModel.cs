@@ -36,6 +36,10 @@ namespace UI.Panels
         {
         }
 
+        public virtual void UpdateData(DataProvider data)
+        {
+        }
+        
         public virtual void Tick()
         {
         }
