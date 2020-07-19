@@ -1,5 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Config.Data;
+using StarPlatinum;
+using UI.Panels.Element;
 using UnityEngine;
 using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
@@ -39,6 +42,13 @@ namespace UI.Panels
 			base.ShowData(data);
 		}
 
+		public override void UpdateData(DataProvider data)
+		{
+			m_model.UpdateData(data);
+			base.UpdateData(data);
+			RefreshInfo();
+		}
+
 		public override void Tick()
 		{
 			m_model.Tick();
@@ -64,14 +74,52 @@ namespace UI.Panels
 		}
 		#endregion
 
-		private void SetSceneID(string sceneID)
+		private void RefreshInfo()
 		{
-			
+			var config = m_model.SceneInfo;
+			PrefabManager.Instance.SetImage(m_img_cg_Image,config.CGKey);
+			RefreshPointInfos();
+		}
+
+		private void RefreshPointInfos()
+		{
+			ClearPointItem();
+			var pointInfos = m_model.GetPointInfos();
+			for (int i = 0; i < pointInfos.Count; i++)
+			{
+				if (m_items.Count >= i)
+				{
+					PrefabManager.Instance.InstantiateAsync<CGScenePointItem>("CGScenePointItem", (result) =>
+					{
+						if (result.status != RequestStatus.SUCCESS)
+						{
+							return;
+						}
+
+						var item = result.result as CGScenePointItem;
+						m_items.Add(item);
+						item.SetPointInfo(pointInfos[i]);
+					},m_go_interactionPoints);
+					continue;
+				}
+				m_items[i].SetPointInfo(pointInfos[i]);
+				m_items[i].gameObject.SetActive(true);
+			}
+		}
+		
+		
+
+		private void ClearPointItem()
+		{
+			foreach (var pointItem in m_items)
+			{
+				pointItem.gameObject.SetActive(false);
+			}
 		}
 
 		#region Member
 
-		public string m_sceneID;
+		private List<CGScenePointItem> m_items = new List<CGScenePointItem>();
 
 		#endregion
 	}

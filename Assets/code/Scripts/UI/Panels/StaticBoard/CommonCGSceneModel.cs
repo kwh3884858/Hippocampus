@@ -1,14 +1,10 @@
 ﻿using System.Collections.Generic;
 using Config.Data;
+using Controllers.Subsystems;
 using UI.Panels.Providers.DataProviders;
 
 namespace UI.Panels
 {
-    public class PointInfo
-    {
-        public int ID;
-        public int touchNum;
-    }
     public class CommonCGSceneModel: UIModel
     {
         #region template method
@@ -36,6 +32,13 @@ namespace UI.Panels
         {
             base.ShowData(data);
         }
+        
+        public override void UpdateData(DataProvider data)
+        {
+            base.UpdateData(data);
+            var cgSceneData = data as CGSceneDataProvider;
+            SetSceneID(cgSceneData.CGSceneID);
+        }
 
         public override void Tick()
         {
@@ -58,18 +61,18 @@ namespace UI.Panels
         }
         #endregion
 
-        private void SetSceneID(string sceneID)
+        public void SetSceneID(string sceneID)
         {
-            m_sceneID = sceneID;
-            m_sceneInfo = CGSceneConfig.GetConfigByKey(sceneID);
+            SceneID = sceneID;
+            SceneInfo = CGSceneConfig.GetConfigByKey(sceneID);
             m_pointInfos.Clear();
-            foreach (var info in m_sceneInfo.pointIDs)
+            foreach (var info in SceneInfo.pointIDs)
             {
-                m_pointInfos.Add(new PointInfo(){ID = info,touchNum = 0});
+                m_pointInfos.Add(CGSceneController.GetScenePointInfo(info));
             }
         }
 
-        private List<PointInfo> GetPointInfos()
+        public List<CGScenePointInfo> GetPointInfos()
         {
             return m_pointInfos;
         }
@@ -77,9 +80,11 @@ namespace UI.Panels
         
         #region Member
 
-        public string m_sceneID;
-        private CGSceneConfig m_sceneInfo;
-        private List<PointInfo> m_pointInfos = new List<PointInfo>();
+        public CGSceneController CGSceneController => UiDataProvider.ControllerManager.CGSceneController;
+
+        public string SceneID;
+        public CGSceneConfig SceneInfo;
+        private List<CGScenePointInfo> m_pointInfos = new List<CGScenePointInfo>();
         
         #endregion
     }

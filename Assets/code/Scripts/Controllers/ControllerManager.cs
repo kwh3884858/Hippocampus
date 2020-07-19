@@ -20,11 +20,13 @@ namespace Controllers
     {
         public GameRunTimeData Data { get; private set; }
         public StoryController StoryController { get; private set; }
+        public CGSceneController CGSceneController { get; private set; }
 
         public Action OnInitialized;
         public void Awake()
         {
             StoryController = RegisterController<StoryController>();
+            CGSceneController = RegisterController<CGSceneController>();
         }
 
         public async Task<ControllerinitializedStep> InitializedControllers(GameRunTimeData data)
