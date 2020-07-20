@@ -153,7 +153,7 @@ namespace HeavenGateEditor {
                 //}
                 strcat(constant, order);
 
-                ImGui::InputText(constant, content, MAX_COLUMNS_CONTENT_LENGTH);
+                ImGui::InputText(constant, content, EXHIBIT_TABLE_MAX_CONTENT - 4);
                 ImGui::NextColumn();
             }
 

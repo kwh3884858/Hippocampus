@@ -134,7 +134,7 @@ namespace HeavenGateEditor {
                 }
                 strcat(constant, order);
 
-                ImGui::InputText(constant, content, TIP_TABLE_MAX_CONTENT);
+                ImGui::InputText(constant, content, TIP_TABLE_MAX_CONTENT - 4);
                 ImGui::NextColumn();
             }
 
