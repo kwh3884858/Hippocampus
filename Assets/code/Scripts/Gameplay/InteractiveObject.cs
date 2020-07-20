@@ -1,4 +1,5 @@
 ﻿using Controllers.Subsystems.Story;
+using GamePlay.Global;
 using StarPlatinum;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +19,15 @@ namespace GamePlay
 			if (tag != INTERACTABLE_TAG) {
 				tag = INTERACTABLE_TAG;
 			}
+
+			if (m_objectName != null || m_objectName != "") {
+				bool result = SingletonGlobalDataContainer.Instance.RegisterNewObject (m_objectName);
+				//if (result == false) {
+				//	Debug.LogError ("Global data container alraedy contain " + m_objectName);
+				//}
+			} else {
+				Debug.LogError ("Interactive object Doesn`t have name");
+			}
 		}
 
 		public void Interact ()
@@ -32,10 +42,33 @@ namespace GamePlay
 				return;
 			}
 
+			if (m_objectName == null || m_objectName == "") {
+				return;
+			}
 			//bool result = storyController.LoadStoryByItem (m_objectName);
+			if (!m_objectName.Contains ("_")) {
+				int outCounterValue = -1;
+				bool result = SingletonGlobalDataContainer.Instance.GetObjectCounter (m_objectName, out outCounterValue);
+				if (result == false) {
+					return;
+				}
+				if (outCounterValue == -1) {
+					return;
+				}
+				string jumpLabel = m_objectName + "_" + outCounterValue;
+				if (storyController.IsLabelExist (jumpLabel)) {
+					UI.UIManager.Instance ().ShowStaticPanel (UIPanelType.TalkPanel, new TalkDataProvider () { ID = jumpLabel });
+					SingletonGlobalDataContainer.Instance.ModifyCounterValue (m_objectName, 1);
+				} else {
+					SingletonGlobalDataContainer.Instance.ModifyCounterValue (m_objectName, -1);
+					SingletonGlobalDataContainer.Instance.GetObjectCounter (m_objectName, out outCounterValue);
 
-			UI.UIManager.Instance ().ShowStaticPanel (UIPanelType.TalkPanel, new TalkDataProvider () { ID = m_objectName });
+					jumpLabel = m_objectName + "_" + outCounterValue;
+					UI.UIManager.Instance ().ShowStaticPanel (UIPanelType.TalkPanel, new TalkDataProvider () { ID = jumpLabel });
+				}
+			} else {
+				UI.UIManager.Instance ().ShowStaticPanel (UIPanelType.TalkPanel, new TalkDataProvider () { ID = m_objectName });
+			}
 		}
-
 	}
 }

@@ -177,7 +177,6 @@ namespace StarPlatinum.StoryReader
 		{
 			foreach (StoryBasicData data in m_story) {
 				if (data.typename == NodeType.label.ToString ()) {
-
 					StoryLabelData labelData = data as StoryLabelData;
 					if (labelData.label == label) {
 						return true;

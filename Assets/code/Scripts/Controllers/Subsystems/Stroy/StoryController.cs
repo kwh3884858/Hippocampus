@@ -88,8 +88,10 @@ namespace Controllers.Subsystems.Story
 
 		}
 
-
-
+		public bool IsLabelExist (string label)
+		{
+			return m_storys.RequestLabel (label);
+		}
 
 		//private bool IsCorrectChapter ()
 		//{

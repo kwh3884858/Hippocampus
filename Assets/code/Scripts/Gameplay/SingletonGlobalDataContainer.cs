@@ -12,9 +12,9 @@ namespace GamePlay.Global
 	{
 		//public string Scene { get; private set; }
 		//public string Chapter { get; private set; }
-        public List<string> m_isStoryTriggered = new List<string>();
+		public List<string> m_isStoryTriggered = new List<string> ();
 
-		public Dictionary<string, int> m_itemTriggeredCounter;
+		public Dictionary<string, int> m_objectTriggeredCounter = new Dictionary<string, int> ();
 
 		//public void SetScene (string scene)
 		//{
@@ -24,15 +24,34 @@ namespace GamePlay.Global
 		//{
 		//	Chapter = chapter;
 		//}
-
-		public bool RegisterNewItem (string item)
+		//public void ClearItem
+		public bool RegisterNewObject (string item)
 		{
 			int tmp;
-			if (m_itemTriggeredCounter.TryGetValue (item, out tmp)) {
+			if (m_objectTriggeredCounter.TryGetValue (item, out tmp)) {
 				return false;
 			}
-			m_itemTriggeredCounter.Add (item, 0);
+			m_objectTriggeredCounter.Add (item, 0);
 			return true;
+		}
+
+		public bool GetObjectCounter (string gameObjectName, out int outValue)
+		{
+			return m_objectTriggeredCounter.TryGetValue (gameObjectName, out outValue);
+		}
+
+		public bool ModifyCounterValue (string gameObjectName, int modifiedValue)
+		{
+			int tmp;
+			if (m_objectTriggeredCounter.TryGetValue (gameObjectName, out tmp)) {
+				m_objectTriggeredCounter [gameObjectName] += modifiedValue;
+				if (m_objectTriggeredCounter [gameObjectName] < 0) {
+					m_objectTriggeredCounter [gameObjectName] = 0;
+				}
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		//public bool TriggeredItemGenerateID (string item, out string ID)
@@ -47,14 +66,14 @@ namespace GamePlay.Global
 		//	return true;
 		//}
 
-        public bool IsStoryTriggered( string storyId)
-        {
-            return m_isStoryTriggered.Contains(storyId);
-        }
+		public bool IsStoryTriggered (string storyId)
+		{
+			return m_isStoryTriggered.Contains (storyId);
+		}
 
-        public void AddtTriggeredStory(string storyId)
-        {
-            m_isStoryTriggered.Add(storyId);
-        }
+		public void AddtTriggeredStory (string storyId)
+		{
+			m_isStoryTriggered.Add (storyId);
+		}
 	}
 }
