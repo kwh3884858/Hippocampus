@@ -172,6 +172,7 @@ namespace UI.Panels.StaticBoard
                 return;
             }
             m_actionType = storyAction.Type;
+            m_curAction = storyAction;
             SetActionState(ActionState.Actioning);
             switch (storyAction.Type)
             {
@@ -424,6 +425,7 @@ namespace UI.Panels.StaticBoard
             SetActionState(ActionState.End);
         }
         
+        
         private void EndCharacterTalk()
         {
             m_characterTalkEnd = false;
@@ -434,9 +436,10 @@ namespace UI.Panels.StaticBoard
                     SetNameContent(m_currentRoleName);
                     break;
                 case StoryActionType.ShowEvidence:
-                    InvokeShowPanel(UIPanelType.Singleevidenceselectpanel,new EvidenceDataProvider()
+                    EvidenceDataManager.Instance.SetCorrectEvidenceID(m_curAction.Content);
+                    InvokeShowPanel(UIPanelType.Evidencepanel,new EvidenceDataProvider()
                     {
-                        CloseEvidenceUI = OnSelectEvidenceEnd,
+                        OnShowEvidence = OnSelectEvidenceEnd,
                     });
                     break;
                 default:
@@ -515,6 +518,7 @@ namespace UI.Panels.StaticBoard
         private ActionState m_state = ActionState.Waiting;
         private StoryActionType m_actionType = StoryActionType.Waiting;
         private Coroutine m_typewriterCoroutine = null;
+        private StoryAction m_curAction;
 //        private bool isReset;
     }
 }

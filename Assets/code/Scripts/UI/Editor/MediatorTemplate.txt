@@ -39,6 +39,12 @@ namespace UI.Panels
 			base.ShowData(data);
 		}
 
+		public override void UpdateData(DataProvider data)
+		{
+			m_model.UpdateData(data);
+			base.UpdateData(data);
+		}
+
 		public override void Tick()
 		{
 			m_model.Tick();

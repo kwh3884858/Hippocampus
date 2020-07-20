@@ -30,6 +30,11 @@ namespace UI.Panels
             base.ShowData(data);
         }
 
+        public override void UpdateData(DataProvider data)
+        {
+            base.UpdateData(data);
+        }
+
         public override void Tick()
         {
             base.Tick();
