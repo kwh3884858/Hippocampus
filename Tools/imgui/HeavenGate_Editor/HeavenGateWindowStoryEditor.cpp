@@ -890,9 +890,10 @@ namespace HeavenGateEditor {
                             break;
                     case TableType::Tachie:
                             if (strlen(tmpTachieCommand[0]) == 0) {
-                                ImGui::TextColored(colorRed,"Tchie is wrong");
-                            }else if (strlen(tmpTachieCommand[1]) == 0){
-  ImGui::TextColored(colorRed,"Tchie position is wrong");
+                                ImGui::TextColored(colorRed,"Tchie is empty");
+                            }
+                            if (strlen(tmpTachieCommand[1]) == 0){
+                                ImGui::TextColored(colorRed,"Tchie position is empty");
                             }
                         ImGui::TextColored(colorGreen, "[Display Tachie: %s] [Tachie Position: %s]", tmpTachieCommand[0], tmpTachieCommand[1]);
                         ImGui::SameLine(0, 0);
