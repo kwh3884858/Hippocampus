@@ -131,14 +131,14 @@ public class ToolBoxEditorWindow : EditorWindow
 
 		if (GUILayout.Button ("Create Event Trigger")) {
 			if (IsMissionSceneValid ()) {
-				CreateEventTrigger ();
+				CreateEventTrigger (m_currentMissionScene);
 			} else {
 				EditorUtility.DisplayDialog ("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
 			}
 		}
 		if (GUILayout.Button ("Create Event Trigger With [Prefab: Load New Story]")) {
 			if (IsMissionSceneValid ()) {
-				GameObject loadNewStory = CreateEventTrigger ();
+				GameObject loadNewStory = CreateEventTrigger (m_currentMissionScene);
 				loadNewStory.name = "Load_New_Story";
 				loadNewStory.AddComponent<WorldTriggerCallbackLoadNewStory> ();
 			} else {
@@ -158,9 +158,18 @@ public class ToolBoxEditorWindow : EditorWindow
 		EditorGUILayout.EndVertical ();
 	}
 
-	private GameObject CreateEventTrigger ()
+	private GameObject CreateEventTrigger (Scene activeScene)
 	{
-		GameObject triggersGroup = GameObject.Find (ConfigMission.Instance.Text_Event_Trigger_Group);
+		Scene currentActiveScene = SceneManager.GetActiveScene ();
+		SceneManager.SetActiveScene (activeScene);
+
+		GameObject triggersGroup = null;
+		GameObject [] rootGameObjects = activeScene.GetRootGameObjects ();
+		foreach (GameObject rootObject in rootGameObjects) {
+			if (rootObject.name == ConfigMission.Instance.Text_Event_Trigger_Group) {
+				triggersGroup = rootObject;
+			}
+		}
 		if (triggersGroup == null) {
 			triggersGroup = new GameObject (ConfigMission.Instance.Text_Event_Trigger_Group);
 		}
@@ -172,14 +181,6 @@ public class ToolBoxEditorWindow : EditorWindow
 		go.transform.SetParent (triggersGroup.transform);
 		go.AddComponent<WorldTrigger> ();
 
-		return go;
-	}
-
-	private GameObject CreateEventTrigger (Scene activeScene)
-	{
-		Scene currentActiveScene = SceneManager.GetActiveScene ();
-		SceneManager.SetActiveScene (activeScene);
-		GameObject go = CreateEventTrigger ();
 		SceneManager.SetActiveScene (currentActiveScene);
 		return go;
 	}
