@@ -56,7 +56,7 @@ namespace HeavenGateEditor {
 //        m_pauseTable->PushName("Pause");
 //        m_pauseTable->PushName("Time");
 
-        m_exhibitTable = new StoryTable<EXHIBIT_COLUMN>;
+        m_exhibitTable = new StoryTable<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>;
         m_exhibitTable->SetTableType(TableType::Exhibit);
 
 //        m_exhibitTable->PushName("Exhibit");
@@ -223,14 +223,14 @@ namespace HeavenGateEditor {
 
     }
 
-    const StoryTable<EXHIBIT_COLUMN>* const StoryTableManager::GetExhibitTable() const
+    const StoryTable<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>* const StoryTableManager::GetExhibitTable() const
     {
         return m_exhibitTable;
     }
 
-    StoryTable<EXHIBIT_COLUMN>* StoryTableManager::GetExhibitTable()
+    StoryTable<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>* StoryTableManager::GetExhibitTable()
     {
-        return const_cast<StoryTable<EXHIBIT_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetExhibitTable());
+        return const_cast<StoryTable<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>*>(const_cast<const StoryTableManager*>(this)->GetExhibitTable());
 
     }
 

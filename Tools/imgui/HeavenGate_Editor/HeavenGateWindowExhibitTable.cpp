@@ -46,7 +46,7 @@ namespace HeavenGateEditor {
 
     void HeavenGateWindowExhibitTable::Initialize()
     {
-        StoryTable<EXHIBIT_COLUMN>* const exhibitTable = StoryTableManager::Instance().GetExhibitTable();
+        StoryTable<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>* const exhibitTable = StoryTableManager::Instance().GetExhibitTable();
 
 
         memset(m_fullPath, 0, sizeof(m_fullPath));
@@ -70,7 +70,7 @@ namespace HeavenGateEditor {
 
     void HeavenGateWindowExhibitTable::UpdateMainWindow()
     {
-        StoryTable<EXHIBIT_COLUMN>* const exhibitTable = StoryTableManager::Instance().GetExhibitTable();
+        StoryTable<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>* const exhibitTable = StoryTableManager::Instance().GetExhibitTable();
 
         if (exhibitTable == nullptr)
         {
@@ -175,7 +175,7 @@ namespace HeavenGateEditor {
         }
 
         if (ImGui::MenuItem("Save", "Ctrl+S")) {
-            StoryTable<EXHIBIT_COLUMN>* const exhibitTable = StoryTableManager::Instance().GetExhibitTable();
+            StoryTable<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>* const exhibitTable = StoryTableManager::Instance().GetExhibitTable();
 
             StoryFileManager::Instance().SaveTableFile(m_fullPath, exhibitTable);
         }

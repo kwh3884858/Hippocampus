@@ -445,11 +445,11 @@ namespace HeavenGateEditor {
                             AddButton(i);
                             ImGui::InputTextWithHint(exhibitContent, "Enter Exhibit ID here", exhibitName, MAX_ID);
 
-                            const StoryTable<EXHIBIT_COLUMN>* const exhibitTable = StoryTableManager::Instance().GetExhibitTable();
+                            const StoryTable<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>* const exhibitTable = StoryTableManager::Instance().GetExhibitTable();
 
                             for (int i = 0; i < exhibitTable->GetSize(); i++)
                             {
-                                const StoryRow<EXHIBIT_COLUMN>* const row = exhibitTable->GetRow(i);
+                                const StoryRow<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>* const row = exhibitTable->GetRow(i);
                                 if (strcmp(row->Get(0), exhibitName) == 0)
                                 {
                                     strcpy(tmpExhibit, "Exhibit: ");
@@ -993,11 +993,11 @@ namespace HeavenGateEditor {
                     break;
                 }
                 case HeavenGateEditor::TableType::Exhibit: {
-                    const StoryTable<EXHIBIT_COLUMN>* const exhibitTable = StoryTableManager::Instance().GetExhibitTable();
+                    const StoryTable<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>* const exhibitTable = StoryTableManager::Instance().GetExhibitTable();
 
                     for (int i = 0; i < exhibitTable->GetSize(); i++)
                     {
-                        const StoryRow<EXHIBIT_COLUMN>* const row = exhibitTable->GetRow(i);
+                        const StoryRow<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>* const row = exhibitTable->GetRow(i);
                         if (strcmp(row->Get(0), (*iter)->m_content) == 0)
                         {
                             strcpy(tmpExhibit, row->Get(0));

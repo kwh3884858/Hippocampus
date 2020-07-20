@@ -66,6 +66,7 @@ namespace HeavenGateEditor {
 
     //Tip Table
     const int     TIP_TABLE_MAX_CONTENT = 512;
+    const int     EXHIBIT_TABLE_MAX_CONTENT = 512;
 
     //Color
     const int    COLOR_VALUE_COLUMN = 4;

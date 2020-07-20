@@ -47,8 +47,8 @@ namespace HeavenGateEditor {
         const StoryTable<PAUSE_MAX_COLUMN>* const GetPauseTable() const;
         StoryTable<PAUSE_MAX_COLUMN>*  GetPauseTable();
 
-        const StoryTable<EXHIBIT_COLUMN>* const GetExhibitTable() const;
-        StoryTable<EXHIBIT_COLUMN>*  GetExhibitTable();
+        const StoryTable<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>* const GetExhibitTable() const;
+        StoryTable<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>*  GetExhibitTable();
 
         const StoryTable<EFFECT_MAX_COLUMN>* const GetEffectTable() const;
         StoryTable<EFFECT_MAX_COLUMN>*  GetEffectTable();
@@ -74,7 +74,7 @@ namespace HeavenGateEditor {
         //StoryTable<SCENE_COLUMN>* m_sceneTable;
         StoryTable<CHARACTER_COLUMN>* m_characterTable;
         StoryTable<PAUSE_MAX_COLUMN>* m_pauseTable;
-        StoryTable<EXHIBIT_COLUMN>* m_exhibitTable;
+        StoryTable<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>* m_exhibitTable;
         StoryTable<EFFECT_MAX_COLUMN>* m_effectTable;
         StoryTable<BGM_MAX_COLUMN>* m_bgmTable;
         StoryTable<TACHIE_MAX_COLUMN>* m_tachieTable;
