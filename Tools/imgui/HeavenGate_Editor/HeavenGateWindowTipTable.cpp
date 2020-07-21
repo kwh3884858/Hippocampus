@@ -16,24 +16,12 @@
 #include "StoryFileManager.h"
 #include "StoryTable.h"
 namespace HeavenGateEditor {
-
-
-
     HeavenGateWindowTipTable::HeavenGateWindowTipTable()
     {
- 
-
     }
 
     HeavenGateWindowTipTable::~HeavenGateWindowTipTable()
     {
-
-        //if (tipTable)
-        //{
-        //    delete tipTable;
-        //}
-        //tipTable = nullptr;
-
     }
 
     void HeavenGateWindowTipTable::Initialize()

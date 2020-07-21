@@ -24,6 +24,7 @@ namespace HeavenGateEditor {
     const int     MAX_CONTENT_LIMIT = MAX_CONTENT - 4;
     const int     MAX_ID_PART = 32;
     const int     MAX_EXHIBIT_NAME = 64;
+    const int     MAX_EVENT_NAME = 64;
 
     const int     MAX_ENUM_LENGTH = 16;
 

@@ -7,6 +7,7 @@
 #include "StoryJsonJumpNode.h"
 #include "StoryJsonLabelNode.h"
 #include "StoryJsonExhibitNode.h"
+#include "StoryJsonEventNode.h"
 #include "StoryJsonEndNode.h"
 
 #include <utility>
@@ -155,14 +156,35 @@ int StoryJson::InsertExhibit(const char* exhibitName, int index){
             StoryExhibit* exhibit = new StoryExhibit;
             exhibit->m_nodeType = NodeType::Exhibit;
             strcpy(exhibit->m_exhibitName, exhibitName);
-
-
             m_nodes.insert(iter, exhibit);
         }
 
         i++;
     }
 
+    return i;
+}
+
+int StoryJson::AddEvent(const char* eventName){
+    StoryEvent* event = new StoryEvent;
+    event->m_nodeType = NodeType::Event;
+    strcpy(event->m_eventName, eventName);
+    return AddNode(event);
+}
+
+int StoryJson::InsertEvent(const char* eventName, int index){
+    int i = 0;
+    for (auto iter = m_nodes.cbegin(); iter != m_nodes.cend(); iter++)
+    {
+        if (i == index)
+        {
+            StoryEvent* event = new StoryEvent;
+            event->m_nodeType = NodeType::Event;
+            strcpy(event->m_eventName, eventName);
+            m_nodes.insert(iter, event);
+        }
+        i++;
+    }
     return i;
 }
 
@@ -312,28 +334,24 @@ StoryJson::StoryJson(const StoryJson& storyJson)
             const StoryNode* node = *iter;
             StoryJump* jump = new StoryJump(static_cast<const StoryJump&>(*node));
             m_nodes.push_back(jump);
-
         }
         else if ((*iter)->m_nodeType == NodeType::Label)
         {
             const StoryNode* node = *iter;
             StoryLabel* label = new StoryLabel(static_cast<const StoryLabel&>(*node));
             m_nodes.push_back(label);
-
         }
         else if ((*iter)->m_nodeType == NodeType::Exhibit)
         {
             const StoryNode* node = *iter;
             StoryExhibit* exhibit = new StoryExhibit(static_cast<const StoryExhibit&>(*node));
             m_nodes.push_back(exhibit);
-
         }
         else if ((*iter)->m_nodeType == NodeType::End)
         {
             const StoryNode* node = *iter;
             StoryEnd* end = new StoryEnd(static_cast<const StoryEnd&>(*node));
             m_nodes.push_back(end);
-
         }
     }
 }
@@ -559,6 +577,11 @@ void ToJsonFactory(json& j, const StoryJson& story)
             j.push_back(*pExhibit);
         }
 
+        if (pNode->m_nodeType == NodeType::Event) {
+            const StoryEvent* const pEvent = static_cast<const StoryEvent* const>(pNode);
+            j.push_back(*pEvent);
+        }
+
         if (pNode->m_nodeType == NodeType::End)
         {
             const StoryEnd*const pEnd = static_cast<const StoryEnd*const>(pNode);
@@ -595,6 +618,12 @@ void FromJsonFactory(const json& j, StoryJson & storyJson)
 
         if(strcmp(enumString, nodeTypeString[(int)NodeType::Exhibit]) == 0){
             StoryExhibit* node = new StoryExhibit;
+            *node = j[i];
+            storyJson.AddNode(node);
+        }
+
+        if (strcmp(enumString, nodeTypeString[(int)NodeType::Event]) == 0) {
+            StoryEvent* node = new StoryEvent;
             *node = j[i];
             storyJson.AddNode(node);
         }

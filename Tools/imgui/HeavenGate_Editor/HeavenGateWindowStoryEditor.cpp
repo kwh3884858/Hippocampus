@@ -16,6 +16,7 @@
 #include "StoryJsonLabelNode.h"
 #include "StoryJsonJumpNode.h"
 #include "StoryJsonExhibitNode.h"
+#include "StoryJsonEventNode.h"
 #include "StoryJsonEndNode.h"
 
 
@@ -163,6 +164,7 @@ namespace HeavenGateEditor {
         static char* content = nullptr;
         static char* label = nullptr;
         static char* exhibitName = nullptr;
+        static char* eventName = nullptr;
         static char* jump = nullptr;
         static char* jumpContent = nullptr;
 
@@ -443,7 +445,7 @@ namespace HeavenGateEditor {
                         if (ImGui::TreeNode((void*)(intptr_t)i, thumbnail))
                         {
                             AddButton(i);
-                            ImGui::InputTextWithHint(exhibitContent, "Enter Exhibit ID here", exhibitName, MAX_ID);
+                            ImGui::InputTextWithHint(exhibitContent, "Enter Exhibit ID here", exhibitName, MAX_EXHIBIT_NAME);
 
                             const StoryTable<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>* const exhibitTable = StoryTableManager::Instance().GetExhibitTable();
 
@@ -461,7 +463,47 @@ namespace HeavenGateEditor {
                         }
                     }
                         break;
+                    case NodeType::Event:
+                    {
+                        StoryEvent* event = static_cast<StoryEvent*>(node);
+                        assert(event != nullptr);
 
+                        char eventContent[16] = "Event";
+                        char tmpEvent[32] = "No Exhibit";
+                        strcat(eventContent, order);
+
+                        eventName = event->m_eventName;
+                        strcpy(thumbnail, order);
+                        strcat(thumbnail, "_Event: ");
+                        strcat(thumbnail, eventName);
+
+                        if (ImGui::TreeNode((void*)(intptr_t)i, thumbnail))
+                        {
+                            EventType eventType = event->m_eventType;
+                            AddButton(i);
+
+                            if (ImGui::BeginCombo("Event Type", eventTypeString[(int)eventType], 0))
+                            {
+
+                                for (int i = 0; i < EventTypeAmount; i++)
+                                {
+                                    bool is_selected = eventType == (EventType)i;
+                                    if (ImGui::Selectable(eventTypeString[i], is_selected)) {
+                                        event->m_eventType = (EventType)i;
+                                    }
+                                    if (is_selected)
+                                        ImGui::SetItemDefaultFocus();   // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
+                                }
+
+                                ImGui::EndCombo();
+                            }
+                            ImGui::InputTextWithHint(eventContent, "Enter Event ID here", eventName, MAX_EVENT_NAME);
+
+                            ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), eventName);
+                            ImGui::TreePop();
+                        }
+                    }
+                        break;
                     default:
                     break;
                 }
@@ -486,6 +528,12 @@ namespace HeavenGateEditor {
         }
         ImGui::SameLine();
 
+        if (ImGui::Button("Add new event")) {
+            if (m_storyJson != nullptr) {
+                m_storyJson->AddEvent("");
+                AddNotification("Add New Event");
+            }
+        }
         if (ImGui::Button("Add new label")) {
             if (m_storyJson != nullptr)
             {
@@ -649,6 +697,13 @@ namespace HeavenGateEditor {
                 if (m_storyJson != nullptr) {
                     m_storyJson->InsertExhibit("", index);
                     AddNotification("Insert New Exhibit");
+                }
+            }
+            ImGui::SameLine();
+            if (ImGui::Button("Insert New Event")) {
+                if (m_storyJson != nullptr) {
+                    m_storyJson->InsertEvent("", index);
+                    AddNotification("Insert New Event");
                 }
             }
             ImGui::SameLine();

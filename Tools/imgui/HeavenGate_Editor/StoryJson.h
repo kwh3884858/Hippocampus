@@ -18,6 +18,7 @@ namespace HeavenGateEditor {
     class StoryLabel;
     class StoryJump;
     class StoryExhibit;
+    class StoryEvent;
 
     enum class StructLayout :int;
     //enum class InfoLayout :int;
@@ -52,6 +53,9 @@ namespace HeavenGateEditor {
 
         int AddExhibit(const char* exhibitName);
         int InsertExhibit(const char* exhibitName, int index);
+
+        int AddEvent(const char* eventName);
+        int InsertEvent(const char* eventName, int index);
 
         int AddEnd();
         int InsertEnd(int index);

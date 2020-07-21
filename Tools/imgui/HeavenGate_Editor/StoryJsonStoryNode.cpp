@@ -17,6 +17,7 @@ extern char nodeTypeString[][MAX_ENUM_LENGTH] = {
     "word",
     "jump",
     "exhibit",
+    "event",
     "end"
 };
 
