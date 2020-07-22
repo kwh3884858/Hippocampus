@@ -7,30 +7,30 @@ namespace HeavenGateEditor {
 
     enum class EventLayout {
         NodeTypeName = 0,
-EventType,
+        EventType,
         EventName
 
     };
 
     extern char eventString[][MAX_ENUM_LENGTH] = {
         "typename",
-"eventType",
+        "eventType",
         "eventName"
     };
 
-enum class EventType{
+    enum class EventType {
         InvokeEvent,
         LoadMission,
-    Amount
-};
+        Amount
+    };
 
-extern char eventTypeString[][MAX_ENUM_LENGTH]={
-    "InvokeEvent",
-    "loadMission"
+    extern char eventTypeString[][MAX_ENUM_LENGTH] = {
+        "InvokeEvent",
+        "loadMission"
 
-};
+    };
 
-extern int EventTypeAmount = (int)EventType::Amount;
+    extern int EventTypeAmount = (int)EventType::Amount;
 
     StoryEvent::StoryEvent() {
         m_nodeType = NodeType::Event;
@@ -62,7 +62,8 @@ extern int EventTypeAmount = (int)EventType::Amount;
         //Different event type
         if (strcmp(tmpEventType, eventTypeString[(int)EventType::LoadMission]) == 0) {
             p.m_eventType = EventType::LoadMission;
-        }else if (strcmp(tmpEventType, eventTypeString[(int)EventType::InvokeEvent]) == 0){
+        }
+        else if (strcmp(tmpEventType, eventTypeString[(int)EventType::InvokeEvent]) == 0) {
             p.m_eventType = EventType::InvokeEvent;
         }
     }

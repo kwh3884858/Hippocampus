@@ -23,7 +23,7 @@ namespace HeavenGateEditor {
     const int     MAX_CONTENT = 265;
     const int     MAX_CONTENT_LIMIT = MAX_CONTENT - 4;
     const int     MAX_ID_PART = 32;
-    const int     MAX_EXHIBIT_NAME = 64;
+    const int     MAX_EXHIBIT_NAME = 512;
     const int     MAX_EVENT_NAME = 64;
 
     const int     MAX_ENUM_LENGTH = 16;
@@ -67,7 +67,7 @@ namespace HeavenGateEditor {
 
     //Tip Table
     const int     TIP_TABLE_MAX_CONTENT = 512;
-    const int     EXHIBIT_TABLE_MAX_CONTENT = 512;
+    const int     EXHIBIT_TABLE_MAX_CONTENT = MAX_EXHIBIT_NAME;
 
     //Color
     const int    COLOR_VALUE_COLUMN = 4;

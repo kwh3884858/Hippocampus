@@ -426,85 +426,85 @@ namespace HeavenGateEditor {
                         ImGui::TreePop();
                     }
                 }
-                        break;
+                break;
 
-                    case NodeType::Exhibit :
+                case NodeType::Exhibit:
+                {
+                    StoryExhibit* exhibit = static_cast<StoryExhibit*>(node);
+                    assert(exhibit != nullptr);
+
+                    char exhibitContent[16] = "Exhibit";
+                    char tmpExhibit[32] = "No Exhibit";
+                    strcat(exhibitContent, order);
+
+                    exhibitName = exhibit->m_exhibitName;
+                    strcpy(thumbnail, order);
+                    strcat(thumbnail, "_Exhibit: ");
+                    strcat(thumbnail, exhibitName);
+
+                    if (ImGui::TreeNode((void*)(intptr_t)i, thumbnail))
                     {
-                        StoryExhibit* exhibit = static_cast<StoryExhibit*>(node);
-                        assert(exhibit != nullptr);
+                        AddButton(i);
+                        ImGui::InputTextWithHint(exhibitContent, "Enter Exhibit ID here", exhibitName, MAX_EXHIBIT_NAME);
 
-                        char exhibitContent[16] = "Exhibit";
-                        char tmpExhibit[32] = "No Exhibit";
-                        strcat(exhibitContent, order);
+                        const StoryTable<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>* const exhibitTable = StoryTableManager::Instance().GetExhibitTable();
 
-                        exhibitName = exhibit->m_exhibitName;
-                        strcpy(thumbnail, order);
-                        strcat(thumbnail, "_Exhibit: ");
-                        strcat(thumbnail, exhibitName);
-
-                        if (ImGui::TreeNode((void*)(intptr_t)i, thumbnail))
+                        for (int i = 0; i < exhibitTable->GetSize(); i++)
                         {
-                            AddButton(i);
-                            ImGui::InputTextWithHint(exhibitContent, "Enter Exhibit ID here", exhibitName, MAX_EXHIBIT_NAME);
-
-                            const StoryTable<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>* const exhibitTable = StoryTableManager::Instance().GetExhibitTable();
-
-                            for (int i = 0; i < exhibitTable->GetSize(); i++)
+                            const StoryRow<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>* const row = exhibitTable->GetRow(i);
+                            if (strcmp(row->Get(0), exhibitName) == 0)
                             {
-                                const StoryRow<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>* const row = exhibitTable->GetRow(i);
-                                if (strcmp(row->Get(0), exhibitName) == 0)
-                                {
-                                    strcpy(tmpExhibit, "Exhibit: ");
-                                    strcpy(tmpExhibit, row->Get(0));
-                                }
+                                strcpy(tmpExhibit, "Exhibit: ");
+                                strcpy(tmpExhibit, row->Get(0));
                             }
-                            ImGui::TextColored(ImVec4(1.0f, 0.0f, 1.0f, 1.0f), tmpExhibit);
-                            ImGui::TreePop();
                         }
+                        ImGui::TextColored(ImVec4(1.0f, 0.0f, 1.0f, 1.0f), tmpExhibit);
+                        ImGui::TreePop();
                     }
-                        break;
-                    case NodeType::Event:
+                }
+                break;
+                case NodeType::Event:
+                {
+                    StoryEvent* event = static_cast<StoryEvent*>(node);
+                    assert(event != nullptr);
+
+                    char eventContent[16] = "Event";
+                    char tmpEvent[32] = "No Exhibit";
+                    strcat(eventContent, order);
+
+                    eventName = event->m_eventName;
+                    strcpy(thumbnail, order);
+                    strcat(thumbnail, "_Event: ");
+                    strcat(thumbnail, eventName);
+
+                    if (ImGui::TreeNode((void*)(intptr_t)i, thumbnail))
                     {
-                        StoryEvent* event = static_cast<StoryEvent*>(node);
-                        assert(event != nullptr);
+                        EventType eventType = event->m_eventType;
+                        AddButton(i);
 
-                        char eventContent[16] = "Event";
-                        char tmpEvent[32] = "No Exhibit";
-                        strcat(eventContent, order);
-
-                        eventName = event->m_eventName;
-                        strcpy(thumbnail, order);
-                        strcat(thumbnail, "_Event: ");
-                        strcat(thumbnail, eventName);
-
-                        if (ImGui::TreeNode((void*)(intptr_t)i, thumbnail))
+                        if (ImGui::BeginCombo("Event Type", eventTypeString[(int)eventType], 0))
                         {
-                            EventType eventType = event->m_eventType;
-                            AddButton(i);
 
-                            if (ImGui::BeginCombo("Event Type", eventTypeString[(int)eventType], 0))
+                            for (int i = 0; i < EventTypeAmount; i++)
                             {
-
-                                for (int i = 0; i < EventTypeAmount; i++)
-                                {
-                                    bool is_selected = eventType == (EventType)i;
-                                    if (ImGui::Selectable(eventTypeString[i], is_selected)) {
-                                        event->m_eventType = (EventType)i;
-                                    }
-                                    if (is_selected)
-                                        ImGui::SetItemDefaultFocus();   // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
+                                bool is_selected = eventType == (EventType)i;
+                                if (ImGui::Selectable(eventTypeString[i], is_selected)) {
+                                    event->m_eventType = (EventType)i;
                                 }
-
-                                ImGui::EndCombo();
+                                if (is_selected)
+                                    ImGui::SetItemDefaultFocus();   // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
                             }
-                            ImGui::InputTextWithHint(eventContent, "Enter Event ID here", eventName, MAX_EVENT_NAME);
 
-                            ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), eventName);
-                            ImGui::TreePop();
+                            ImGui::EndCombo();
                         }
+                        ImGui::InputTextWithHint(eventContent, "Enter Event ID here", eventName, MAX_EVENT_NAME);
+
+                        ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), eventName);
+                        ImGui::TreePop();
                     }
-                        break;
-                    default:
+                }
+                break;
+                default:
                     break;
                 }
 
@@ -839,8 +839,8 @@ namespace HeavenGateEditor {
         char tmpTip[MAX_COLUMNS_CONTENT_LENGTH];
         memset(tmpTip, '\0', MAX_COLUMNS_CONTENT_LENGTH);
 
-        char tmpExhibit[MAX_COLUMNS_CONTENT_LENGTH];
-        memset(tmpExhibit, '\0', MAX_COLUMNS_CONTENT_LENGTH);
+        char tmpExhibit[EXHIBIT_TABLE_MAX_CONTENT];
+        memset(tmpExhibit, '\0', EXHIBIT_TABLE_MAX_CONTENT);
 
         char tmpBgm[MAX_COLUMNS_CONTENT_LENGTH];
         memset(tmpBgm, '\0', MAX_COLUMNS_CONTENT_LENGTH);
@@ -856,7 +856,7 @@ namespace HeavenGateEditor {
 
         char tmpPause[MAX_COLUMNS_CONTENT_LENGTH];
         memset(tmpPause, '\0', MAX_COLUMNS_CONTENT_LENGTH);
-        
+
         bool isExhibit = false;
 
         //Color
@@ -894,12 +894,13 @@ namespace HeavenGateEditor {
                     case HeavenGateEditor::TableType::None:
                         break;
                     case HeavenGateEditor::TableType::Font_Size:
-                            if (strlen(tmpFontSize) != 0) {
-                                ImGui::TextColored(colorGreen, "[End font size]");
-                            }else{
-                                ImGui::TextColored(colorRed, "Can not find font size");
-                            }
-                            ImGui::SameLine(0, 0);
+                        if (strlen(tmpFontSize) != 0) {
+                            ImGui::TextColored(colorGreen, "[End font size]");
+                        }
+                        else {
+                            ImGui::TextColored(colorRed, "Can not find font size");
+                        }
+                        ImGui::SameLine(0, 0);
                         break;
                     case HeavenGateEditor::TableType::Color:
                         color = colorWhite;
@@ -917,39 +918,42 @@ namespace HeavenGateEditor {
                         }
                         break;
                     case TableType::Pause:
-                            if (strlen(tmpPause) != 0) {
-                                      ImGui::TextColored(colorGreen, "[End interval time]");
-                                  }else{
-                                      ImGui::TextColored(colorRed, "Can not find interval time");
-                                  }
-                                  ImGui::SameLine(0, 0);
+                        if (strlen(tmpPause) != 0) {
+                            ImGui::TextColored(colorGreen, "[End interval time]");
+                        }
+                        else {
+                            ImGui::TextColored(colorRed, "Can not find interval time");
+                        }
+                        ImGui::SameLine(0, 0);
                         break;
-                        case TableType::Bgm:
-                            if (strlen(tmpBgm) != 0) {
-                                ImGui::TextColored(colorGreen, "[Play Bgm: %s]", tmpBgm);
+                    case TableType::Bgm:
+                        if (strlen(tmpBgm) != 0) {
+                            ImGui::TextColored(colorGreen, "[Play Bgm: %s]", tmpBgm);
 
-                            }else{
-                                ImGui::TextColored(colorRed, "Can not find bgm");
-                            }
+                        }
+                        else {
+                            ImGui::TextColored(colorRed, "Can not find bgm");
+                        }
 
-                            ImGui::SameLine(0, 0);
-                            break;
-                        case TableType::Effect:
+                        ImGui::SameLine(0, 0);
+                        break;
+                    case TableType::Effect:
                         if (strlen(tmpEffect) != 0) {
-                                      ImGui::TextColored(colorGreen, "[Play Effect: %s]", tmpEffect);
+                            ImGui::TextColored(colorGreen, "[Play Effect: %s]", tmpEffect);
 
-                                  }else{
-                                      ImGui::TextColored(colorRed, "Can not find effect");
-                                  }
-                                  ImGui::SameLine(0, 0);
-                            break;
+                        }
+                        else {
+                            ImGui::TextColored(colorRed, "Can not find effect");
+                        }
+                        ImGui::SameLine(0, 0);
+                        break;
                     case TableType::Tachie:
-                            if (strlen(tmpTachieCommand[0]) == 0) {
-                                ImGui::TextColored(colorRed,"Tchie is empty");
-                            }
-                            if (strlen(tmpTachieCommand[1]) == 0){
-                                ImGui::TextColored(colorRed,"Tchie position is empty");
-                            }
+                        if (strlen(tmpTachieCommand[0]) == 0) {
+                            ImGui::TextColored(colorRed, "Tchie is empty");
+                        }
+                        if (strlen(tmpTachieCommand[1]) == 0) {
+                            ImGui::TextColored(colorRed, "Tchie position is empty");
+                        }
                         ImGui::TextColored(colorGreen, "[Display Tachie: %s] [Tachie Position: %s]", tmpTachieCommand[0], tmpTachieCommand[1]);
                         ImGui::SameLine(0, 0);
                         break;
@@ -1008,24 +1012,25 @@ namespace HeavenGateEditor {
                 case HeavenGateEditor::TableType::None:
                     break;
                 case HeavenGateEditor::TableType::Font_Size:
+                {
+                    const StoryTable<FONT_SIZE_MAX_COLUMN>* const fontSizeTable = StoryTableManager::Instance().GetFontSizeTable();
+                    for (int i = 0; i < fontSizeTable->GetSize(); i++)
                     {
-                        const StoryTable<FONT_SIZE_MAX_COLUMN>* const fontSizeTable = StoryTableManager::Instance().GetFontSizeTable();
-                        for (int i = 0; i < fontSizeTable->GetSize(); i++)
+                        const StoryRow<FONT_SIZE_MAX_COLUMN>* const row = fontSizeTable->GetRow(i);
+                        if (strcmp(row->Get(0), (*iter)->m_content) == 0)
                         {
-                            const StoryRow<FONT_SIZE_MAX_COLUMN>* const row = fontSizeTable->GetRow(i);
-                            if (strcmp(row->Get(0), (*iter)->m_content) == 0)
-                            {
-                                strcpy(tmpFontSize, row->Get(1));
-                            }
+                            strcpy(tmpFontSize, row->Get(1));
                         }
-                        if (strlen(tmpFontSize) != 0) {
-                            ImGui::TextColored(colorGreen, "[Start font size: %s]", tmpFontSize);
-                        }else{
-                            ImGui::TextColored(colorRed, "Can not find font size");
-                        }
-                        ImGui::SameLine(0, 0);
                     }
-                        break;
+                    if (strlen(tmpFontSize) != 0) {
+                        ImGui::TextColored(colorGreen, "[Start font size: %s]", tmpFontSize);
+                    }
+                    else {
+                        ImGui::TextColored(colorRed, "Can not find font size");
+                    }
+                    ImGui::SameLine(0, 0);
+                }
+                break;
                 case HeavenGateEditor::TableType::Color:
                 {
                     char colorAlias[MAX_COLUMNS_CONTENT_LENGTH];
@@ -1079,51 +1084,52 @@ namespace HeavenGateEditor {
                 case HeavenGateEditor::TableType::Paint_Move:
                     break;
                 case TableType::Pause:
+                {
+                    const StoryTable<PAUSE_MAX_COLUMN>* const pauseTable = StoryTableManager::Instance().GetPauseTable();
+                    for (int i = 0; i < pauseTable->GetSize(); i++)
                     {
-                        const StoryTable<PAUSE_MAX_COLUMN>* const pauseTable = StoryTableManager::Instance().GetPauseTable();
-                        for (int i = 0; i < pauseTable->GetSize(); i++)
+                        const StoryRow<PAUSE_MAX_COLUMN>* const row = pauseTable->GetRow(i);
+                        if (strcmp(row->Get(0), (*iter)->m_content) == 0)
                         {
-                            const StoryRow<PAUSE_MAX_COLUMN>* const row = pauseTable->GetRow(i);
-                            if (strcmp(row->Get(0), (*iter)->m_content) == 0)
-                            {
-                                strcpy(tmpPause, row->Get(1));
-                            }
-                        }
-                        if (strlen(tmpPause) != 0) {
-                            ImGui::TextColored(colorGreen, "[Start interval time between words : %s]", tmpPause);
-                        }else{
-                            ImGui::TextColored(colorRed, "Can not find interval time");
-                        }
-                        ImGui::SameLine(0, 0);
-                    }
-                    break;
-                    case TableType::Bgm:
-                    {
-                        const StoryTable<BGM_MAX_COLUMN>* const bgmTable = StoryTableManager::Instance().GetBgmTable();
-                        for (int i = 0; i < bgmTable->GetSize(); i++)
-                        {
-                            const StoryRow<BGM_MAX_COLUMN>* const row = bgmTable->GetRow(i);
-                            if (strcmp(row->Get(0), (*iter)->m_content) == 0)
-                            {
-                                strcpy(tmpBgm, row->Get(1));
-                            }
+                            strcpy(tmpPause, row->Get(1));
                         }
                     }
-                        break;
+                    if (strlen(tmpPause) != 0) {
+                        ImGui::TextColored(colorGreen, "[Start interval time between words : %s]", tmpPause);
+                    }
+                    else {
+                        ImGui::TextColored(colorRed, "Can not find interval time");
+                    }
+                    ImGui::SameLine(0, 0);
+                }
+                break;
+                case TableType::Bgm:
+                {
+                    const StoryTable<BGM_MAX_COLUMN>* const bgmTable = StoryTableManager::Instance().GetBgmTable();
+                    for (int i = 0; i < bgmTable->GetSize(); i++)
+                    {
+                        const StoryRow<BGM_MAX_COLUMN>* const row = bgmTable->GetRow(i);
+                        if (strcmp(row->Get(0), (*iter)->m_content) == 0)
+                        {
+                            strcpy(tmpBgm, row->Get(1));
+                        }
+                    }
+                }
+                break;
 
-                    case TableType::Effect:
+                case TableType::Effect:
+                {
+                    const StoryTable<EFFECT_MAX_COLUMN>* const effectTable = StoryTableManager::Instance().GetEffectTable();
+                    for (int i = 0; i < effectTable->GetSize(); i++)
                     {
-                        const StoryTable<EFFECT_MAX_COLUMN>* const effectTable = StoryTableManager::Instance().GetEffectTable();
-                        for (int i = 0; i < effectTable->GetSize(); i++)
+                        const StoryRow<EFFECT_MAX_COLUMN>* const row = effectTable->GetRow(i);
+                        if (strcmp(row->Get(0), (*iter)->m_content) == 0)
                         {
-                            const StoryRow<EFFECT_MAX_COLUMN>* const row = effectTable->GetRow(i);
-                            if (strcmp(row->Get(0), (*iter)->m_content) == 0)
-                            {
-                                strcpy(tmpEffect, row->Get(1));
-                            }
+                            strcpy(tmpEffect, row->Get(1));
                         }
                     }
-                        break;
+                }
+                break;
                 case TableType::Tachie:
                 {
                     IdOperator::ParseStringId<'+', MAX_COLUMNS_CONTENT_LENGTH, NUM_OF_TACHIE_COMMAND>((*iter)->m_content, tmpTachieCommand);
