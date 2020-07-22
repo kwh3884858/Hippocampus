@@ -14,7 +14,7 @@ namespace HeavenGateEditor {
     const int     MAX_FOLDER_PATH = 265;
 
     const int     MAX_FILE_NAME = 64;
-    const int     MAX_FOLDER_LIST = 32;
+    const int     MAX_FOLDER_LIST = 265;
     const int     MAX_FULL_CONTENT = 6144;
 
     //For story content limit

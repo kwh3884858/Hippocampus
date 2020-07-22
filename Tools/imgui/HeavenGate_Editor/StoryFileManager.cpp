@@ -354,6 +354,7 @@ namespace HeavenGateEditor {
 
                 strcpy(pOutFileList[fileCount], ent->d_name);
                 fileCount++;
+                assert(fileCount < MAX_FOLDER_LIST);
             }
             closedir(dir);
 
