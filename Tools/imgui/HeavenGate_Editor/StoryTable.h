@@ -764,7 +764,7 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
                 p.PushName(exhibitTableString[i]);
             }
         }
-        char content[MAX_COLUMNS_CONTENT_LENGTH];
+        char content[EXHIBIT_TABLE_MAX_CONTENT];
         for (int i = 0; i < values.size(); i++)
         {
             GetContentException(content, values[i], exhibitTableString[(int)ExhibitTableLayout::Exhibit]);
