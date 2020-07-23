@@ -2,8 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace StarPlatinum
+
+namespace StarPlatinum.EventManager
 {
+	public class RaiseEvent : EventArgs
+	{
+		public StoryReader.StoryReader.EventType m_eventType;
+		public string m_eventName;
+	}
+
 	abstract public class SceneEvent : EventArgs
 	{
 
