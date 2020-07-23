@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using GamePlay.Stage;
+using StarPlatinum.EventManager;
 using UI.Panels.StaticBoard;
 using UnityEngine;
 
@@ -28,6 +31,16 @@ namespace Controllers.Subsystems.Story
     public class StoryShowPictureAction : StoryAction
     {
         public Vector2 Pos { get; set; }
+    }
+
+    public class StoryLoadMissionAction : StoryAction
+    {
+        public MissionEnum Mission { get; set; }
+    }
+
+    public class StoryEventAction : StoryAction
+    {
+        public RaiseEvent Event { get; set; }
     }
 
     public class StoryActionContainer
@@ -108,6 +121,26 @@ namespace Controllers.Subsystems.Story
         {
             m_actions.Enqueue(new StoryAction(){Type =  StoryActionType.TypewriterInterval , Content = intervalTime.ToString()});
 
+        }
+
+        public void PushLoadGameScene(string sceneID)
+        {
+            m_actions.Enqueue(new StoryAction(){Type =  StoryActionType.LoadGameScene , Content = sceneID});
+        }
+
+        public void LoadMission(MissionEnum mission)
+        {
+            m_actions.Enqueue(new StoryLoadMissionAction(){Type =  StoryActionType.LoadMission ,  Mission= mission});
+        }
+
+        public void TriggerEvent(RaiseEvent raiseEvent)
+        {
+            m_actions.Enqueue(new StoryEventAction(){Type =  StoryActionType.TriggerEvent , Event = raiseEvent});
+        }
+
+        public void PlayAnimtion(string animtionID)
+        {
+            m_actions.Enqueue(new StoryAction(){Type =  StoryActionType.PlayAnimation , Content = animtionID});
         }
 
         public StoryAction GetNextAction()

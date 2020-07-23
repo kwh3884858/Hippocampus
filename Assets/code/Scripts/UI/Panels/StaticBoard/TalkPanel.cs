@@ -6,7 +6,9 @@ using Config.Data;
 using Const;
 using Controllers.Subsystems.Story;
 using Evidence;
+using GamePlay.Stage;
 using StarPlatinum;
+using StarPlatinum.EventManager;
 using TMPro;
 using UI.Panels.Element;
 using UI.Panels.Providers;
@@ -249,6 +251,17 @@ namespace UI.Panels.StaticBoard
                     m_textHelp.TypewriterInterval = float.Parse(storyAction.Content);
                     SetActionState(ActionState.End);
                     break;
+                case StoryActionType.LoadGameScene:
+                    WaitClickEnd();
+                    break;
+                case StoryActionType.LoadMission:
+                    WaitClickEnd();
+                    break;
+                case StoryActionType.PlayAnimation:
+                    WaitClickEnd();
+                    break;
+                case StoryActionType.TriggerEvent:
+                    break;
                 default:
                     Debug.LogError($"未处理对话行为:{storyAction.Type}");
                     break;
@@ -441,6 +454,20 @@ namespace UI.Panels.StaticBoard
                     {
                         OnShowEvidence = OnSelectEvidenceEnd,
                     });
+                    break;
+                case StoryActionType.LoadGameScene:
+                    GameSceneManager.Instance.LoadScene(SceneLookup.GetEnum(m_curAction.Content));
+                    break;
+                case StoryActionType.LoadMission:
+                    var action = m_curAction as StoryLoadMissionAction;
+                    MissionSceneManager.Instance.LoadMissionScene(action.Mission);
+                    break;
+                case StoryActionType.TriggerEvent:
+                    var triggerAction = m_curAction as StoryEventAction;
+                    EventManager.Instance.SendEvent(triggerAction.Event);
+                    break;
+                case StoryActionType.PlayAnimation:
+                    //TODO:播放动画
                     break;
                 default:
                     InvokeHidePanel();

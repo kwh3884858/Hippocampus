@@ -31,6 +31,10 @@ namespace Controllers.Subsystems.Story
 		ChangeBGM,
 		ChangeEffectMusic,
 		ShowEvidence,
+		LoadGameScene,
+		LoadMission,
+		TriggerEvent,
+		PlayAnimation,
 	}
 
 	public class StoryController : ControllerBase
