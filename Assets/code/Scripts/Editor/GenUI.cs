@@ -162,7 +162,7 @@ public class GenMVC : ScriptableObject
                     {
                         nameDic.Add(member_name, true);
                         string member = string.Format("\t\t[HideInInspector] public {0}_SubView m_{1};", classType, member_name);
-                        string find = string.Format("\t\t\tm_{0} = new {1}_SubView(FindUI<RectTransform>(transform ,\"{2}\"));", member_name, classType, path);
+                        string find = string.Format("\t\t\tm_{0}.Init(FindUI<RectTransform>(transform ,\"{2}\"));", member_name, classType, path);
                         members.AppendLine(member);
                         finds.AppendLine(find);
                     }
@@ -385,7 +385,7 @@ public class GenMVC : ScriptableObject
                     {
                         nameDic.Add(member_name, true);
                         string member = string.Format("\t\t[HideInInspector] public {0}_SubView m_{1};", classType, member_name);
-                        string find = string.Format("\t\t\tm_{0} = new {1}_SubView(FindUI<RectTransform>(gameObject.transform ,\"{2}\"));", member_name, classType, path);
+                        string find = string.Format("\t\t\tm_{0}.Init(FindUI<RectTransform>(gameObject.transform ,\"{2}\"));", member_name, classType, path);
                         members.AppendLine(member);
                         finds.AppendLine(find);
                     }
@@ -590,7 +590,7 @@ public class GenMVC : ScriptableObject
                     {
                         nameDic.Add(member_name, true);
                         string member = string.Format("\t\t[HideInInspector] public {0}_SubView m_{1};", classType, member_name);
-                        string find = string.Format("\t\t\tm_{0} = new {1}_SubView(FindUI<RectTransform>(transform ,\"{2}\"));", member_name, classType, path);
+                        string find = string.Format("\t\t\tm_{0}.Init(FindUI<RectTransform>(transform ,\"{2}\"));", member_name, classType, path);
                         members.AppendLine(member);
                         finds.AppendLine(find);
                     }
