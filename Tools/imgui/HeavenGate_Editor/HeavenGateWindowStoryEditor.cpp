@@ -463,7 +463,7 @@ namespace HeavenGateEditor {
                     }
                 }
                 break;
-                case NodeType::Event:
+                case NodeType::raiseEvent:
                 {
                     StoryEvent* event = static_cast<StoryEvent*>(node);
                     assert(event != nullptr);

@@ -167,7 +167,7 @@ int StoryJson::InsertExhibit(const char* exhibitName, int index){
 
 int StoryJson::AddEvent(const char* eventName){
     StoryEvent* event = new StoryEvent;
-    event->m_nodeType = NodeType::Event;
+    event->m_nodeType = NodeType::raiseEvent;
     strcpy(event->m_eventName, eventName);
     return AddNode(event);
 }
@@ -179,7 +179,7 @@ int StoryJson::InsertEvent(const char* eventName, int index){
         if (i == index)
         {
             StoryEvent* event = new StoryEvent;
-            event->m_nodeType = NodeType::Event;
+            event->m_nodeType = NodeType::raiseEvent;
             strcpy(event->m_eventName, eventName);
             m_nodes.insert(iter, event);
         }
@@ -346,6 +346,11 @@ StoryJson::StoryJson(const StoryJson& storyJson)
             const StoryNode* node = *iter;
             StoryExhibit* exhibit = new StoryExhibit(static_cast<const StoryExhibit&>(*node));
             m_nodes.push_back(exhibit);
+        }
+        else if((*iter)->m_nodeType == NodeType::raiseEvent){
+            const StoryNode* node = *iter;
+            StoryEvent* event = new StoryEvent(static_cast<const StoryEvent&>(*node));
+            m_nodes.push_back(event);
         }
         else if ((*iter)->m_nodeType == NodeType::End)
         {
@@ -577,7 +582,7 @@ void ToJsonFactory(json& j, const StoryJson& story)
             j.push_back(*pExhibit);
         }
 
-        if (pNode->m_nodeType == NodeType::Event) {
+        if (pNode->m_nodeType == NodeType::raiseEvent) {
             const StoryEvent* const pEvent = static_cast<const StoryEvent* const>(pNode);
             j.push_back(*pEvent);
         }
@@ -622,7 +627,7 @@ void FromJsonFactory(const json& j, StoryJson & storyJson)
             storyJson.AddNode(node);
         }
 
-        if (strcmp(enumString, nodeTypeString[(int)NodeType::Event]) == 0) {
+        if (strcmp(enumString, nodeTypeString[(int)NodeType::raiseEvent]) == 0) {
             StoryEvent* node = new StoryEvent;
             *node = j[i];
             storyJson.AddNode(node);

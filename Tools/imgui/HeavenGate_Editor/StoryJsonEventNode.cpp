@@ -21,24 +21,27 @@ namespace HeavenGateEditor {
     enum class EventType {
         InvokeEvent,
         LoadMission,
+        LoadScene,
+        PlayAnimation,
         Amount
     };
 
     extern char eventTypeString[][MAX_ENUM_LENGTH] = {
-        "InvokeEvent",
-        "loadMission"
-
+        "invokeEvent",
+        "loadMission",
+        "loadScene",
+        "playAnimation"
     };
 
     extern int EventTypeAmount = (int)EventType::Amount;
 
     StoryEvent::StoryEvent() {
-        m_nodeType = NodeType::Event;
+        m_nodeType = NodeType::raiseEvent;
         m_eventType = EventType::InvokeEvent;
     }
 
     StoryEvent::StoryEvent(const StoryEvent& storyEvent) {
-        m_nodeType = NodeType::Event;
+        m_nodeType = NodeType::raiseEvent;
         strcpy(m_eventName, storyEvent.m_eventName);
         m_eventType = storyEvent.m_eventType;
     }
@@ -52,7 +55,7 @@ namespace HeavenGateEditor {
         };
     }
     void from_json(const json& j, StoryEvent& p) {
-        p.m_nodeType = NodeType::Event;
+        p.m_nodeType = NodeType::raiseEvent;
         char tmpEventType[MAX_ENUM_LENGTH];
         GetContentException(tmpEventType, j, eventString[(int)EventLayout::EventType]);
         GetContentException(p.m_eventName, j, eventString[(int)EventLayout::EventName]);
@@ -65,6 +68,10 @@ namespace HeavenGateEditor {
         }
         else if (strcmp(tmpEventType, eventTypeString[(int)EventType::InvokeEvent]) == 0) {
             p.m_eventType = EventType::InvokeEvent;
+        }else if (strcmp(tmpEventType, eventTypeString[(int)EventType::LoadScene]) == 0){
+            p.m_eventType = EventType::LoadScene;
+        }else if (strcmp(tmpEventType, eventTypeString[(int)EventType::PlayAnimation]) == 0){
+            p.m_eventType = EventType::PlayAnimation;
         }
     }
 

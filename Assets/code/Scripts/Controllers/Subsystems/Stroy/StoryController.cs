@@ -231,6 +231,11 @@ namespace Controllers.Subsystems.Story
 					//return container;
 					break;
 
+				case StoryReader.NodeType.raiseEvent:
+
+					m_storys.NextStory ();
+					break;
+
 				default:
 					Debug.LogError ("Unknown Node Type");
 					break;

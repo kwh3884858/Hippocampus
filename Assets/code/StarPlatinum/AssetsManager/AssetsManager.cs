@@ -160,14 +160,14 @@ namespace StarPlatinum
 		{
 			base.SingletonInit ();
 
-            //AssetBundleLoad.Initialize (ASSETBUNDLE_FILENAME + "/" + AssetsUtility.GetPlatformName () + "/" + AssetsUtility.GetPlatformName ());
+			//AssetBundleLoad.Initialize (ASSETBUNDLE_FILENAME + "/" + AssetsUtility.GetPlatformName () + "/" + AssetsUtility.GetPlatformName ());
 
-            //AssetBundleLoad.overrideBaseDownloadingURL += OverrideBaseDownloadingURLWithPlatform;
+			//AssetBundleLoad.overrideBaseDownloadingURL += OverrideBaseDownloadingURLWithPlatform;
 
 #if UNITY_EDITOR
-            //abm = new AssetBundleManager();
-            //abm.SetPrioritizationStrategy(AssetBundleManager.PrioritizationStrategy.PrioritizeStreamingAssets);
-            //abm.UseSimulatedUri();
+			//abm = new AssetBundleManager();
+			//abm.SetPrioritizationStrategy(AssetBundleManager.PrioritizationStrategy.PrioritizeStreamingAssets);
+			//abm.UseSimulatedUri();
 #else
 
             abm = new AssetBundleManager ();
@@ -175,9 +175,9 @@ namespace StarPlatinum
 			abm.UseSimulatedUri ();
 			abm.Initialize (OnAssetBundleManagerInitialized);
 #endif
-        }
+		}
 
-        private void OnAssetBundleManagerInitialized (bool success)
+		private void OnAssetBundleManagerInitialized (bool success)
 		{
 			if (success) {
 				Debug.Log ("Assetbundle Manager loaded finish.");
@@ -203,15 +203,15 @@ namespace StarPlatinum
 			//	Debug.LogError ("Error initializing ABM.");
 			//}
 
-            //string strName = "Assets/" + path + ".prefab";
-            //T go = AssetDatabase.LoadAssetAtPath<T> (strName);
+			//string strName = "Assets/" + path + ".prefab";
+			//T go = AssetDatabase.LoadAssetAtPath<T> (strName);
 
-            //return go;
+			//return go;
 
-            //Console.Instance ().Debug (path);
-            //path = path.ToLower ();
-            //T go = AssetBundleLoad.LoadGameObject (path) as T;
-            //return go;
+			//Console.Instance ().Debug (path);
+			//path = path.ToLower ();
+			//T go = AssetBundleLoad.LoadGameObject (path) as T;
+			//return go;
 #else
 
 				//Console.Instance ().Debug (path);
@@ -221,18 +221,18 @@ namespace StarPlatinum
 				Debug.LogError ("Error initializing ABM.");
 			}
 #endif
-        }
-        
-        public T LoadPrefab<T>(string path) where T: UnityEngine.Object
-        {
-            string strName = "Assets/" + path + ".prefab";
-            T go = PrefabManager.Instance.LoadPrefab(strName) as T;
+		}
 
-            return go;
-        }
+		public T LoadPrefab<T> (string path) where T : UnityEngine.Object
+		{
+			string strName = "Assets/" + path + ".prefab";
+			T go = PrefabManager.Instance.LoadPrefab (strName) as T;
+
+			return go;
+		}
 
 
-        public void LoadScene (
+		public void LoadScene (
 			string sceneName,
 			UnityEngine.SceneManagement.LoadSceneMode mode
 			)
@@ -321,48 +321,48 @@ namespace StarPlatinum
 
 		//	}
 
-			//string strName = "Assets/" + sceneName + ".unity";
-			//AssetBundleCreateRequest bundleLoadRequest = AssetBundle.LoadFromFileAsync (Path.Combine (STREAMING_PATH, sceneName));
-			//yield return bundleLoadRequest;
+		//string strName = "Assets/" + sceneName + ".unity";
+		//AssetBundleCreateRequest bundleLoadRequest = AssetBundle.LoadFromFileAsync (Path.Combine (STREAMING_PATH, sceneName));
+		//yield return bundleLoadRequest;
 
-			//AssetBundle myLoadedAssetBundle = bundleLoadRequest.assetBundle;
-			//if (myLoadedAssetBundle == null) {
-			//	Debug.Log ("Failed to load AssetBundle!");
-			//	yield break;
-			//}
+		//AssetBundle myLoadedAssetBundle = bundleLoadRequest.assetBundle;
+		//if (myLoadedAssetBundle == null) {
+		//	Debug.Log ("Failed to load AssetBundle!");
+		//	yield break;
+		//}
 
-			//var assetLoadRequest = myLoadedAssetBundle.LoadAssetAsync<GameObject> ("MyObject");
-			//yield return assetLoadRequest;
+		//var assetLoadRequest = myLoadedAssetBundle.LoadAssetAsync<GameObject> ("MyObject");
+		//yield return assetLoadRequest;
 
-			//GameObject prefab = assetLoadRequest.asset as GameObject;
-			//Instantiate (prefab);
-			//myLoadedAssetBundle.Unload (false);
+		//GameObject prefab = assetLoadRequest.asset as GameObject;
+		//Instantiate (prefab);
+		//myLoadedAssetBundle.Unload (false);
 
-			//asyncOperation.allowSceneActivation = false;
-			//while (!asyncOperation.isDone) {
+		//asyncOperation.allowSceneActivation = false;
+		//while (!asyncOperation.isDone) {
 
-			//	//Output the current progress
-			//	Debug.Log ("Loading progress: " + (asyncOperation.progress * 100) + "%");
+		//	//Output the current progress
+		//	Debug.Log ("Loading progress: " + (asyncOperation.progress * 100) + "%");
 
-			//	// Check if the load has finished
-			//	if (asyncOperation.progress >= 0.9f) {
-			//		//Change the Text to show the Scene is ready
-			//		Debug.Log ("Press the space bar to continue");
-			//		//Wait to you press the space key to activate the Scene
-			//		if (Input.GetKeyDown (KeyCode.Space))
-			//			//Activate the Scene
-			//			asyncOperation.allowSceneActivation = true;
-			//	}
+		//	// Check if the load has finished
+		//	if (asyncOperation.progress >= 0.9f) {
+		//		//Change the Text to show the Scene is ready
+		//		Debug.Log ("Press the space bar to continue");
+		//		//Wait to you press the space key to activate the Scene
+		//		if (Input.GetKeyDown (KeyCode.Space))
+		//			//Activate the Scene
+		//			asyncOperation.allowSceneActivation = true;
+		//	}
 
-			//	yield return null;
-			//}
-			////if current scene is the now loaded scene, set it to variety
-			//UnityEngine.SceneManagement.Scene scene =
-			//UnityEngine.SceneManagement.SceneManager.GetActiveScene ();
+		//	yield return null;
+		//}
+		////if current scene is the now loaded scene, set it to variety
+		//UnityEngine.SceneManagement.Scene scene =
+		//UnityEngine.SceneManagement.SceneManager.GetActiveScene ();
 
-			//if (scene.name == sceneName) {
-			//	m_currentScene = scene;
-			//}
+		//if (scene.name == sceneName) {
+		//	m_currentScene = scene;
+		//}
 
 		//}
 
@@ -372,7 +372,7 @@ namespace StarPlatinum
 			// This is particularly good for creating loading screens.
 			// You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
 			// a sceneBuildIndex of 1 as shown in Build Settings.
-			
+
 			AsyncOperation asyncLoad = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync (sceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive);
 
 
@@ -381,32 +381,32 @@ namespace StarPlatinum
 				yield return null;
 			}
 
-			EventManager.Instance .SendEvent<SceneLoadedEvent> (new SceneLoadedEvent (sceneName));
+			//EventManager.Instance .SendEvent<SceneLoadedEvent> (new SceneLoadedEvent (sceneName));
 
 		}
-//		public static GameObject LoadMaterialPrefabs (string path)
-//		{
-//#if UNITY_EDITOR
-//			//string strName = "Assets/Prefabs/" + path + ".prefab";
-//			//T go = AssetDatabase.LoadAssetAtPath<T> (strName);
-//			//			Debug.Log (path);
-//			path = path.ToLower ();
-//			GameObject go = AssetBundleLoad.LoadGameObject (path) as GameObject;
-//			//         string strName = "Assets/" + path + ".prefab";
-//			//T go = AssetDatabase.LoadAssetAtPath<T> (strName);
-//			go.GetComponent<Renderer> ().sharedMaterial.shader = Shader.Find (go.GetComponent<Renderer> ().sharedMaterial.shader.name);
-//			return go;
-//#else
-//			//string strName = ASSETBUNDLE_PATH + path;
-//            //Debug.Log(strName);
-//			//GameObject.Find ("Console").GetComponent <Text>().text += "\n" + strName;
-//			path = path.ToLower ();
-//			GameObject go = AssetBundleLoad.LoadGameObject (path) as GameObject;
-//            go.GetComponent<Renderer>().sharedMaterial.shader = Shader.Find(go.GetComponent<Renderer>().sharedMaterial.shader.name);
+		//		public static GameObject LoadMaterialPrefabs (string path)
+		//		{
+		//#if UNITY_EDITOR
+		//			//string strName = "Assets/Prefabs/" + path + ".prefab";
+		//			//T go = AssetDatabase.LoadAssetAtPath<T> (strName);
+		//			//			Debug.Log (path);
+		//			path = path.ToLower ();
+		//			GameObject go = AssetBundleLoad.LoadGameObject (path) as GameObject;
+		//			//         string strName = "Assets/" + path + ".prefab";
+		//			//T go = AssetDatabase.LoadAssetAtPath<T> (strName);
+		//			go.GetComponent<Renderer> ().sharedMaterial.shader = Shader.Find (go.GetComponent<Renderer> ().sharedMaterial.shader.name);
+		//			return go;
+		//#else
+		//			//string strName = ASSETBUNDLE_PATH + path;
+		//            //Debug.Log(strName);
+		//			//GameObject.Find ("Console").GetComponent <Text>().text += "\n" + strName;
+		//			path = path.ToLower ();
+		//			GameObject go = AssetBundleLoad.LoadGameObject (path) as GameObject;
+		//            go.GetComponent<Renderer>().sharedMaterial.shader = Shader.Find(go.GetComponent<Renderer>().sharedMaterial.shader.name);
 
-//            return go;
-//#endif
-//		}
+		//            return go;
+		//#endif
+		//		}
 		public static T LoadAnimationController<T> (string path) where T : UnityEngine.Object
 		{
 #if UNITY_EDITOR

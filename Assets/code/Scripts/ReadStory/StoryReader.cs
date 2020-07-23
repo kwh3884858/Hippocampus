@@ -9,6 +9,7 @@ using GamePlay.Global;
 using UI.Panels.StaticBoard;
 using System;
 using UnityEngine.Assertions;
+using Newtonsoft.Json.Converters;
 
 namespace StarPlatinum.StoryReader
 {
@@ -45,9 +46,17 @@ namespace StarPlatinum.StoryReader
 			word,
 			jump,
 			exhibit,
+			raiseEvent,
 			end
 		};
 
+		public enum EventType
+		{
+			invokeEvent,
+			loadMission,
+			loadScene,
+			playAnimation
+		};
 		//public List<StoryBasicData> GetSotry()
 		//{
 		//    return m_story;
@@ -76,6 +85,22 @@ namespace StarPlatinum.StoryReader
 
 			StoryExhibitData data = m_story [m_index] as StoryExhibitData;
 			return data.exhibitName;
+		}
+
+		public EventType GetEventType ()
+		{
+			Assert.IsTrue (m_story [m_index].typename == NodeType.raiseEvent.ToString ());
+
+			StoryEventData data = m_story [m_index] as StoryEventData;
+			return data.eventType;
+		}
+
+		public string GetEventName ()
+		{
+			Assert.IsTrue (m_story [m_index].typename == NodeType.raiseEvent.ToString ());
+
+			StoryEventData data = m_story [m_index] as StoryEventData;
+			return data.eventName;
 		}
 
 		public List<Option> GetJump ()
@@ -148,6 +173,8 @@ namespace StarPlatinum.StoryReader
 				return NodeType.exhibit;
 			} else if (m_story [m_index].typename == NodeType.end.ToString ()) {
 				return NodeType.end;
+			} else if (m_story [m_index].typename == NodeType.raiseEvent.ToString ()) {
+				return NodeType.raiseEvent;
 			}
 
 			return NodeType.none;
@@ -231,6 +258,10 @@ namespace StarPlatinum.StoryReader
 								ReadEnd (data);
 								break;
 
+							case NodeType.raiseEvent:
+								ReadEvent (data);
+								break;
+
 							case NodeType.exhibit:
 								ReadExhibit (data);
 								break;
@@ -306,6 +337,12 @@ namespace StarPlatinum.StoryReader
 			StoryExhibitData data = JsonConvert.DeserializeObject<StoryExhibitData> (json);
 			m_story.Add (data);
 		}
+
+		private void ReadEvent (string json)
+		{
+			StoryEventData data = JsonConvert.DeserializeObject<StoryEventData> (json);
+			m_story.Add (data);
+		}
 		/// <summary>
 		/// 基础数据
 		/// </summary>
@@ -369,4 +406,27 @@ namespace StarPlatinum.StoryReader
 	{
 		public string exhibitName;
 	}
+
+	[System.Serializable]
+	public class StoryEventData : StoryBasicData
+	{
+		public string eventName;
+
+		//[JsonConverter (typeof (StringEnumConverter))]
+		public StoryReader.EventType eventType;
+	}
+
+	//public class FooTypeEnumConverter : StringEnumConverter
+	//{
+	//	public StoryReader.EventType DefaultValue { get; set; }
+
+	//	public override object ReadJson (JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+	//	{
+	//		try {
+	//			return base.ReadJson (reader, objectType, existingValue, serializer);
+	//		} catch (JsonSerializationException) {
+	//			return DefaultValue;
+	//		}
+	//	}
+	//}
 }
