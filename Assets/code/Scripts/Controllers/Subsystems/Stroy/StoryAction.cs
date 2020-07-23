@@ -138,7 +138,7 @@ namespace Controllers.Subsystems.Story
             m_actions.Enqueue(new StoryEventAction(){Type =  StoryActionType.TriggerEvent , Event = raiseEvent});
         }
 
-        public void PlayAnimtion(string animtionID)
+        public void PlayAnimation(string animtionID)
         {
             m_actions.Enqueue(new StoryAction(){Type =  StoryActionType.PlayAnimation , Content = animtionID});
         }

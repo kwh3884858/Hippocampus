@@ -454,7 +454,8 @@ namespace UI.Panels.StaticBoard
                     {
                         OnShowEvidence = OnSelectEvidenceEnd,
                     });
-                    break;
+                    SetActionState(ActionState.End);
+                    return;
                 case StoryActionType.LoadGameScene:
                     GameSceneManager.Instance.LoadScene(SceneLookup.GetEnum(m_curAction.Content));
                     break;
@@ -465,15 +466,18 @@ namespace UI.Panels.StaticBoard
                 case StoryActionType.TriggerEvent:
                     var triggerAction = m_curAction as StoryEventAction;
                     EventManager.Instance.SendEvent(triggerAction.Event);
-                    break;
+                    SetActionState(ActionState.End);
+                    return;
                 case StoryActionType.PlayAnimation:
+                    SetActionState(ActionState.End);
                     //TODO:播放动画
-                    break;
+                    return;
                 default:
-                    InvokeHidePanel();
-                    UIPanelDataProvider.OnTalkEnd?.Invoke();
                     break;
             }
+            InvokeHidePanel();
+            UIPanelDataProvider.OnTalkEnd?.Invoke();
+
         }
 
         private void ClearData()
