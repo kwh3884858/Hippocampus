@@ -92,6 +92,11 @@ namespace UI.Panels
             UIManager.Instance().ShowStaticPanel(UIPanelType.Tipspanel);// 显示tips列表
         }
 
+        public void OnClickContinue()
+        {
+            InvokeHidePanel();// 隐藏界面显示
+        }
+
         public void OnClickSave()
         {
             InvokeHidePanel();// 隐藏界面显示
