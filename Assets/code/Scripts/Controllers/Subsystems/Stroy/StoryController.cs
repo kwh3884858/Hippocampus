@@ -245,7 +245,7 @@ namespace Controllers.Subsystems.Story
 					case StoryReader.EventType.loadMission:
 						MissionEnum needLoadMission =MissionSceneManager.Instance.GetMissionEnumBy (eventName,false);
 						if (needLoadMission == MissionEnum.None) {
-							Debug.LogWarning (eventName + " is not exist.");
+							Debug.LogError (eventName + " is not exist.");
 						} else {
 							container.LoadMission (needLoadMission);
 						}

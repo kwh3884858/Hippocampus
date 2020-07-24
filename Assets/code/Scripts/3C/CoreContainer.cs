@@ -55,6 +55,8 @@ namespace GamePlay.Stage
 			GameObject [] gameObjects = missionScene.GetRootGameObjects ();
 
 			//Teleport from another scene
+			m_player.transform.position = Vector3.zero;
+
 			SceneLookupEnum lastGameScene = GameSceneManager.Instance.GetLastSceneEnum ();
 			if (lastGameScene != SceneLookupEnum.World_GameRoot) {
 

@@ -30,10 +30,7 @@ namespace GamePlay.EventTrigger
 
 		protected override void Callback ()
 		{
-			if (m_newStoryFileName == "") {
-				Debug.LogError ("New Story File Name is empty");
-				return;
-			}
+
 			GameObject controller = GameObject.Find ("ControllerManager");
 			if (controller == null) {
 				return;
@@ -42,8 +39,11 @@ namespace GamePlay.EventTrigger
 			if (storyController == null) {
 				return;
 			}
-
-			storyController.LoadStoryFileByName (m_newStoryFileName);
+			if (m_newStoryFileName == "") {
+				Debug.LogWarning ("New Story File Name is empty");
+			} else {
+				storyController.LoadStoryFileByName (m_newStoryFileName);
+			}
 			if (m_showStoryPanel) {
 				CheckJumpLabel ();
 				if (!m_onlyTiriggerOnce && !m_jumpToLabel.Contains ("_")) {
