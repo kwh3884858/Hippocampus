@@ -82,7 +82,7 @@ namespace GamePlay.Stage
             m_currentMission = missionEnum;
         }
 
-        public MissionEnum GetMissionEnumBy(string mission, bool isMatchCase = true)
+        public MissionEnum GetMissionEnumBy(string mission, bool isMatchCase = false)
         {
             foreach (MissionEnum item in ALL_MISSION)
             {

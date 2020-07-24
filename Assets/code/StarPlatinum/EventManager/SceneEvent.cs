@@ -7,8 +7,14 @@ namespace StarPlatinum.EventManager
 {
 	public class RaiseEvent : EventArgs
 	{
-		public StoryReader.StoryReader.EventType m_eventType;
-		public string m_eventName;
+		public StoryReader.StoryReader.EventType m_eventType = StoryReader.StoryReader.EventType.none;
+		public string m_eventName = "";
+
+		public RaiseEvent (StoryReader.StoryReader.EventType eventType, string eventName)
+		{
+			m_eventType = eventType;
+			m_eventName = eventName;
+		}
 	}
 
 	abstract public class SceneEvent : EventArgs

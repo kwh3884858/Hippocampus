@@ -52,6 +52,7 @@ namespace StarPlatinum.StoryReader
 
 		public enum EventType
 		{
+			none,
 			invokeEvent,
 			loadMission,
 			loadScene,

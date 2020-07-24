@@ -236,7 +236,32 @@ namespace Controllers.Subsystems.Story
 					break;
 
 				case StoryReader.NodeType.raiseEvent:
+					string eventName =m_storys.GetEventName ();
 
+					switch (m_storys.GetEventType ()) {
+					case StoryReader.EventType.loadScene:
+						container.PushLoadGameScene (eventName);
+						break;
+					case StoryReader.EventType.loadMission:
+						MissionEnum needLoadMission =MissionSceneManager.Instance.GetMissionEnumBy (eventName,false);
+						if (needLoadMission == MissionEnum.None) {
+							Debug.LogWarning (eventName + " is not exist.");
+						} else {
+							container.LoadMission (needLoadMission);
+						}
+						break;
+					case StoryReader.EventType.invokeEvent:
+						container.TriggerEvent (new StarPlatinum.EventManager.RaiseEvent (
+							StoryReader.EventType.invokeEvent,
+							eventName));
+						break;
+					case StoryReader.EventType.playAnimation:
+						container.PlayAnimation (eventName);
+						break;
+
+					default:
+						break;
+					}
 					m_storys.NextStory ();
 					break;
 

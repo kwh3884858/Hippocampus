@@ -28,16 +28,32 @@ namespace Config.GameRoot
 		//[Scene Config Auto Generated Code Begin]
 
 [SerializeField]
+private string World_GoundTestSceneName = "World_GoundTestScene"; 
+ public CameraService.SceneCameraType World_GoundTestSceneCameraType;  
+
+[SerializeField]
+private string World_Mission_DockByPier_World_Episode2_PierName = "World_Mission_DockByPier_World_Episode2_Pier"; 
+ public CameraService.SceneCameraType World_Mission_DockByPier_World_Episode2_PierCameraType;  
+
+[SerializeField]
 private string World_CoreContainerName = "World_CoreContainer"; 
  public CameraService.SceneCameraType World_CoreContainerCameraType;  
 
 [SerializeField]
-private string World_Episode2_PierName = "World_Episode2_Pier"; 
- public CameraService.SceneCameraType World_Episode2_PierCameraType;  
+private string World_Mission_DockByPier_World_Episode3_HallName = "World_Mission_DockByPier_World_Episode3_Hall"; 
+ public CameraService.SceneCameraType World_Mission_DockByPier_World_Episode3_HallCameraType;  
+
+[SerializeField]
+private string World_Mission_DockByPier_World_Episode4_DoctorRoomName = "World_Mission_DockByPier_World_Episode4_DoctorRoom"; 
+ public CameraService.SceneCameraType World_Mission_DockByPier_World_Episode4_DoctorRoomCameraType;  
 
 [SerializeField]
 private string World_Episode3_HallName = "World_Episode3_Hall"; 
  public CameraService.SceneCameraType World_Episode3_HallCameraType;  
+
+[SerializeField]
+private string World_Episode2_PierName = "World_Episode2_Pier"; 
+ public CameraService.SceneCameraType World_Episode2_PierCameraType;  
 
 [SerializeField]
 private string World_Episode4_DoctorRoomName = "World_Episode4_DoctorRoom"; 
@@ -48,16 +64,8 @@ private string World_GameRootName = "World_GameRoot";
  public CameraService.SceneCameraType World_GameRootCameraType;  
 
 [SerializeField]
-private string World_GoundTestSceneName = "World_GoundTestScene"; 
- public CameraService.SceneCameraType World_GoundTestSceneCameraType;  
-
-[SerializeField]
-private string World_Mission_DockByPier_World_Episode2_PierName = "World_Mission_DockByPier_World_Episode2_Pier"; 
- public CameraService.SceneCameraType World_Mission_DockByPier_World_Episode2_PierCameraType;  
-
-[SerializeField]
-private string World_Mission_DockByPier_World_Episode3_HallName = "World_Mission_DockByPier_World_Episode3_Hall"; 
- public CameraService.SceneCameraType World_Mission_DockByPier_World_Episode3_HallCameraType;  
+private string World_Mission_EnterIsland_World_Episode2_PierName = "World_Mission_EnterIsland_World_Episode2_Pier"; 
+ public CameraService.SceneCameraType World_Mission_EnterIsland_World_Episode2_PierCameraType;  
 
 [SerializeField]
 private string World_UITestSceneName = "World_UITestScene"; 
@@ -81,14 +89,26 @@ private string World_UITestSceneName = "World_UITestScene";
 			switch (name) {
 			//[Switch Case Auto Generated Code Begin]
 
+case "World_GoundTestScene" :  
+   return World_GoundTestSceneCameraType; 
+
+case "World_Mission_DockByPier_World_Episode2_Pier" :  
+   return World_Mission_DockByPier_World_Episode2_PierCameraType; 
+
 case "World_CoreContainer" :  
    return World_CoreContainerCameraType; 
 
-case "World_Episode2_Pier" :  
-   return World_Episode2_PierCameraType; 
+case "World_Mission_DockByPier_World_Episode3_Hall" :  
+   return World_Mission_DockByPier_World_Episode3_HallCameraType; 
+
+case "World_Mission_DockByPier_World_Episode4_DoctorRoom" :  
+   return World_Mission_DockByPier_World_Episode4_DoctorRoomCameraType; 
 
 case "World_Episode3_Hall" :  
    return World_Episode3_HallCameraType; 
+
+case "World_Episode2_Pier" :  
+   return World_Episode2_PierCameraType; 
 
 case "World_Episode4_DoctorRoom" :  
    return World_Episode4_DoctorRoomCameraType; 
@@ -96,14 +116,8 @@ case "World_Episode4_DoctorRoom" :
 case "World_GameRoot" :  
    return World_GameRootCameraType; 
 
-case "World_GoundTestScene" :  
-   return World_GoundTestSceneCameraType; 
-
-case "World_Mission_DockByPier_World_Episode2_Pier" :  
-   return World_Mission_DockByPier_World_Episode2_PierCameraType; 
-
-case "World_Mission_DockByPier_World_Episode3_Hall" :  
-   return World_Mission_DockByPier_World_Episode3_HallCameraType; 
+case "World_Mission_EnterIsland_World_Episode2_Pier" :  
+   return World_Mission_EnterIsland_World_Episode2_PierCameraType; 
 
 case "World_UITestScene" :  
    return World_UITestSceneCameraType; 

@@ -32,26 +32,26 @@ namespace GamePlay.Stage
 
             GameObject manager = new GameObject(typeof(GameSceneManager).ToString());
             manager.transform.SetParent(root.transform);
-            m_currentScene = manager.AddComponent<SceneSlot>();
+            m_currentSceneSlot = manager.AddComponent<SceneSlot>();
 
-            m_currentScene.AddCallbackAfterLoaded(delegate () {
+            m_currentSceneSlot.AddCallbackAfterLoaded(delegate () {
                 CameraService.Instance.UpdateCurrentCamera();
             });
         }
         public bool LoadScene(SceneLookupEnum scene)
         {
-            return m_currentScene.LoadScene(scene);
+            return m_currentSceneSlot.LoadScene(scene);
         }
         public SceneLookupEnum GetCurrentSceneEnum()
         {
-            return m_currentScene.GetCurrentSceneEnum();
+            return m_currentSceneSlot.GetCurrentSceneEnum();
         }
         public SceneLookupEnum GetLastSceneEnum()
         {
-            return m_currentScene.GetLastSceneEnum();
+            return m_currentSceneSlot.GetLastSceneEnum();
         }
         
-        private SceneSlot m_currentScene;
+        private SceneSlot m_currentSceneSlot;
 		//Dictionary<string, GameObject> m_allScenes = new Dictionary<string, GameObject> ();
 		//private UnityEngine.SceneManagement.Scene mCurrentScene;
 		//AsyncOperation asyncOperation = new AsyncOperation ();

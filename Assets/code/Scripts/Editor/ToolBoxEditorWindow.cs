@@ -180,6 +180,7 @@ public class ToolBoxEditorWindow : EditorWindow
 		go.name = "Event Trigger";
 		go.transform.SetParent (triggersGroup.transform);
 		go.AddComponent<WorldTrigger> ();
+		go.AddComponent<EventRegister> ();
 
 		SceneManager.SetActiveScene (currentActiveScene);
 		return go;

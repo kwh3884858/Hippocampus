@@ -457,7 +457,12 @@ namespace UI.Panels.StaticBoard
                     SetActionState(ActionState.End);
                     return;
                 case StoryActionType.LoadGameScene:
-                    GameSceneManager.Instance.LoadScene(SceneLookup.GetEnum(m_curAction.Content));
+                    GameSceneManager.Instance.LoadScene(SceneLookup.GetEnum(m_curAction.Content, false));
+                    bool result = MissionSceneManager.Instance.LoadCurrentMissionScene ();
+				    if (result == false) {
+                        Debug.LogError ("Current Game Scene: " + m_curAction.Content + " doesn`t contain Mission Scene " +
+                            MissionSceneManager.Instance.GetCurrentMission().ToString ());
+                    }
                     break;
                 case StoryActionType.LoadMission:
                     var action = m_curAction as StoryLoadMissionAction;
