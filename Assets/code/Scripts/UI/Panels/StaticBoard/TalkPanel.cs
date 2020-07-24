@@ -199,6 +199,7 @@ namespace UI.Panels.StaticBoard
                     SetActionState(ActionState.End);
                     break;
                 case StoryActionType.Jump:
+                    m_skip = false;
                     var jumpAction = storyAction as StoryJumpAction;
                     if (jumpAction == null)
                     {
@@ -247,6 +248,7 @@ namespace UI.Panels.StaticBoard
                     PlayEffectMusic(storyAction.Content);
                     break;
                 case StoryActionType.ShowEvidence:
+                    m_skip = false;
                     WaitClickEnd();
                     break;
                 case StoryActionType.TypewriterInterval:
@@ -287,7 +289,6 @@ namespace UI.Panels.StaticBoard
 
         private void OptionCallback(string id)
         {
-            m_skip = false;
             SetActionState(ActionState.End);
             SetInfo(id);
         }
@@ -438,6 +439,7 @@ namespace UI.Panels.StaticBoard
         private void OnSelectEvidenceEnd()
         {
             SetActionState(ActionState.End);
+            ClickSkip();
         }
         
         
@@ -456,7 +458,6 @@ namespace UI.Panels.StaticBoard
                     {
                         OnShowEvidence = OnSelectEvidenceEnd,
                     });
-                    SetActionState(ActionState.End);
                     return;
                 case StoryActionType.LoadGameScene:
                     GameSceneManager.Instance.LoadScene(SceneLookup.GetEnum(m_curAction.Content, false));
