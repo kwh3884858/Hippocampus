@@ -1,0 +1,29 @@
+using TMPro;
+using UI.UIComponent;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace UI.Panels.Element
+{
+    public partial class #ClassName# : UIElementBase
+    {
+		public const string VIEW_NAME = "#ViewName#";
+
+        public void Init (RectTransform transform) 
+        {
+            m_root_RectTransform = transform;
+            UIFinder();
+        }
+
+        #region gen ui code 
+#MemberUI#
+
+        private void UIFinder()
+        {       
+#MemberFinder#
+			BindEvent();
+        }
+
+        #endregion
+    }
+}

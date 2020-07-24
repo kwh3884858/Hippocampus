@@ -176,6 +176,8 @@ namespace UI.Panels.StaticBoard
             m_actionType = storyAction.Type;
             m_curAction = storyAction;
             SetActionState(ActionState.Actioning);
+            Debug.LogWarning($"当前行为:{m_actionType}");
+
             switch (storyAction.Type)
             {
                 case StoryActionType.Name:
@@ -447,7 +449,7 @@ namespace UI.Panels.StaticBoard
             {
                 case StoryActionType.Name:
                     SetNameContent(m_currentRoleName);
-                    break;
+                    return;
                 case StoryActionType.ShowEvidence:
                     EvidenceDataManager.Instance.SetCorrectEvidenceID(m_curAction.Content);
                     InvokeShowPanel(UIPanelType.Evidencepanel,new EvidenceDataProvider()
