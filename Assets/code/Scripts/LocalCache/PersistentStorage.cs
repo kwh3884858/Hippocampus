@@ -11,17 +11,22 @@ namespace LocalCache
         {
             StreamWriter sw;
             FileInfo fileInfo = new FileInfo(m_path+ "//" + path);
-            if (!fileInfo.Exists)
-            {
-                sw = fileInfo.CreateText();
-            }
-            else
-            {
-                sw = fileInfo.AppendText();
-            }
+            sw = fileInfo.CreateText();
             sw.WriteLine(file);
             sw.Close();
-            sw.Dispose();
+        }
+
+        public static void Delete(string path)
+        {
+            FileInfo fi = new FileInfo(m_path+ "//" + path);
+            try
+            {
+                fi.Delete();
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine(e.Message);
+            }        
         }
 
         public static string Load(string path)
@@ -38,6 +43,7 @@ namespace LocalCache
                 return  null;
             }
             txt = sr.ReadToEnd();
+            sr.Close();
             return txt;
         }
 

@@ -65,6 +65,10 @@ MonoBehaviour:
     m_Address: Exploration_Joystick_Panel
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: ce746111dacdf23438cb6b0fd00095ac
+    m_Address: UI_Common_LoadArchive_Panel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: da0d9e77f6dee5241a57743ad2c49513
     m_Address: Evidence_Panel
     m_ReadOnly: 0

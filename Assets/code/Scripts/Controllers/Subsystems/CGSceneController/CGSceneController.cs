@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using LocalCache;
 
 namespace Controllers.Subsystems
 {
@@ -26,9 +27,10 @@ namespace Controllers.Subsystems
 
         public CGScenePointInfo GetScenePointInfo(int pointID)
         {
-            return m_pointInfos[pointID];
+            return m_data.PointInfos[pointID];
         }
 
-        private Dictionary<int, CGScenePointInfo> m_pointInfos = new Dictionary<int, CGScenePointInfo>();
+        private CGSceneArchiveData m_data;
+
     }
 }

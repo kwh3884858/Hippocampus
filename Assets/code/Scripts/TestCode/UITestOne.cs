@@ -5,6 +5,7 @@ using Config;
 using Config.Data;
 using Controllers;
 using Game;
+using LocalCache;
 using StarPlatinum;
 using UnityEngine;
 using UIManager = UI.UIManager;
@@ -15,6 +16,7 @@ public class UITestOne : MonoBehaviour,IGameRuntimeData
 	public ConfigProvider ConfigProvider => m_configProvider;
 	public SoundService SoundService => SoundService.Instance;
 	public ConfigDataProvider ConfigDataProvider => m_configDataProvider;
+	public LocalCacheManager LocalCacheManager { get; private set; }
 
 	public GameState State { get; private set; }
 
@@ -23,7 +25,9 @@ public class UITestOne : MonoBehaviour,IGameRuntimeData
 	{
 		State = GameState.Invalid;
 		LoadConfig();
+		LocalCacheManager = new LocalCacheManager("0");
 		m_gameRunTimeData = new GameRunTimeData(this);
+		GameRunTimeData.Instance = m_gameRunTimeData;
 		m_gameRunTimeData.State = State;
 		m_uiManager.Initialize(m_gameRunTimeData);
 		StartCoroutine(InitializeControllerByArgs());

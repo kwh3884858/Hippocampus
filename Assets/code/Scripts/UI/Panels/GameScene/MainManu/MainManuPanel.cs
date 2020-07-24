@@ -7,11 +7,25 @@ using UI.Panels.Providers.DataProviders.GameScene;
 using UI.Panels.Providers.DataProviders.StaticBoard;
 using StarPlatinum.Manager;
 using GamePlay.Stage;
+using StarPlatinum;
+using StarPlatinum.EventManager;
 
 namespace UI.Panels.GameScene.MainManu
 {
 	public class MainManuPanel : UIPanel<UIDataProvider, DataProvider>
 	{
+		public override void ShowData(DataProvider data)
+		{
+			base.ShowData(data);
+			EventManager.Instance.AddEventListener<PlayerLoadArchiveEvent>(OnPlayerLoadArchive);
+		}
+
+		public override void Hide()
+		{
+			base.Hide();
+			EventManager.Instance.RemoveEventListener<PlayerLoadArchiveEvent>(OnPlayerLoadArchive);
+
+		}
 
 		public void ShowHud ()
 		{
@@ -32,6 +46,12 @@ namespace UI.Panels.GameScene.MainManu
 		/// </summary>
 		public void OnClickStartBtn ()
 		{
+			//未读取存档
+			if (UiDataProvider.ControllerManager.PlayerArchiveController.CurrentSaveIndex == 0)
+			{
+				UiDataProvider.ControllerManager.PlayerArchiveController.LoadData(0);
+			}
+
 			HidSelef ();
             //Now we don`t load scene in UI button, we use mission to manager state, and input system UI like HUD should display when player is controllable.
             GameSceneManager.Instance.LoadScene(SceneLookupEnum.World_Episode2_Pier);
@@ -46,7 +66,8 @@ namespace UI.Panels.GameScene.MainManu
 		/// </summary>
 		public void OnClickLoadBtn ()
 		{
-			UIManager.Instance ().ShowPanel (UIPanelType.LoadGamePanel);
+//			UIManager.Instance ().ShowPanel (UIPanelType.LoadGamePanel);
+			UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonLoadarchivePanel, new ArchiveDataProvider(){ Type = ArchivePanelType.Load});
 		}
 
 		/// <summary>
@@ -78,6 +99,9 @@ namespace UI.Panels.GameScene.MainManu
 			GamePlay.Player.PlayerController.Instance ().SetMoveEnable (true);
 		}
 
-
+		private void OnPlayerLoadArchive(object sender, PlayerLoadArchiveEvent e)
+		{
+			OnClickStartBtn();
+		}
 	}
 }

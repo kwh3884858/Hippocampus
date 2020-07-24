@@ -24,7 +24,13 @@ namespace LocalCache
                 m_dicData=new DictionaryCache();
             }
         }
-        
+
+        public void Clear()
+        {
+            m_data.Clear();
+            m_dicData = new DictionaryCache();
+        }
+
         public int GetInt(string key)
         {
             if (m_dicData != null && m_dicData.IntDic.ContainsKey(key))
@@ -139,6 +145,12 @@ namespace LocalCache
             }
         }
 
+        public void DeleteCache()
+        {
+            PersistentStorage.Delete(Path + m_saveID);
+            Clear();
+        }
+
         private void Save()
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -171,14 +183,16 @@ namespace LocalCache
             {
                 return;
             }
-            for(int i = 1; i < strings.Length-1; i++)
+
+            for (int i = 1; i < strings.Length - 1; i++)
             {
-                Type type =Type.GetType(strings[i++]);
-                LocalCacheBase obj = LocalCacheJsonUtil.Deserialize(type,strings[i])as LocalCacheBase;
+                Type type = Type.GetType(strings[i++]);
+                LocalCacheBase obj = LocalCacheJsonUtil.Deserialize(type, strings[i]) as LocalCacheBase;
                 if (obj == null)
                 {
                     continue;
                 }
+                
                 m_data.Add(strings[i - 1], obj);
             }
         }

@@ -10,6 +10,8 @@ using StarPlatinum.Service;
 using GamePlay;
 using UI.Panels.GameScene.MainManu;
 using UI;
+using UI.Panels;
+using UI.Panels.Providers.DataProviders;
 
 public class MonoMoveController : MonoBehaviour
 {
@@ -115,6 +117,11 @@ public class MonoMoveController : MonoBehaviour
         if (GUI.Button(new Rect(0, 150, 200, 50), "Tips"))
         {
             UIManager.Instance().ShowStaticPanel(UIPanelType.Tipspanel);// 显示UI
+        }
+        
+        if (GUI.Button(new Rect(0, 200, 200, 50), "Save"))
+        {
+            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonLoadarchivePanel,new ArchiveDataProvider(){Type = ArchivePanelType.Save});// 显示UI
         }
 
     }

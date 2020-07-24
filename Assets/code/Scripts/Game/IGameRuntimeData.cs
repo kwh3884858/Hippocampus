@@ -1,6 +1,7 @@
 using Config;
 using Config.Data;
 using Controllers;
+using LocalCache;
 using StarPlatinum;
 
 namespace Game
@@ -11,5 +12,6 @@ namespace Game
         ConfigProvider ConfigProvider { get; }
         SoundService SoundService { get; }
         ConfigDataProvider ConfigDataProvider { get; }
+        LocalCacheManager LocalCacheManager { get; }
     }
 }

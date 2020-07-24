@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Controllers.Subsystems;
+using Controllers.Subsystems.Role;
 using Controllers.Subsystems.Story;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -19,12 +20,14 @@ namespace Controllers
     public class ControllerManager: MonoBehaviour,IControllerProvider
     {
         public GameRunTimeData Data { get; private set; }
+        public PlayerArchiveController PlayerArchiveController { get; private set; }
         public StoryController StoryController { get; private set; }
         public CGSceneController CGSceneController { get; private set; }
 
         public Action OnInitialized;
         public void Awake()
         {
+            PlayerArchiveController = RegisterController<PlayerArchiveController>();
             StoryController = RegisterController<StoryController>();
             CGSceneController = RegisterController<CGSceneController>();
         }
