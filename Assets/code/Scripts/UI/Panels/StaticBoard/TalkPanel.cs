@@ -265,6 +265,7 @@ namespace UI.Panels.StaticBoard
                     WaitClickEnd();
                     break;
                 case StoryActionType.TriggerEvent:
+                    WaitClickEnd();
                     break;
                 default:
                     Debug.LogError($"未处理对话行为:{storyAction.Type}");
