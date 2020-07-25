@@ -16,7 +16,8 @@ namespace UI.Panels.Element
         }
 
         #region gen ui code 
-		[HideInInspector] public RectTransform m_UI_Common_LoadArchive_Item;
+		[HideInInspector] public UI_Common_LoadArchive_Item_SubView m_UI_Common_LoadArchive_Item_UI_Common_LoadArchive_Item_SubView;
+
 		[HideInInspector] public RectTransform m_go_archiveInfo;
 		[HideInInspector] public TextMeshProUGUI m_lbl_playTime_TextMeshProUGUI;
 
@@ -34,7 +35,6 @@ namespace UI.Panels.Element
 
 		[HideInInspector] public TextMeshProUGUI m_lbl_lastPlayTime_TextMeshProUGUI;
 
-		[HideInInspector] public Image m_btn_selectArchive_Image;
 		[HideInInspector] public Button m_btn_selectArchive_Button;
 
 		[HideInInspector] public RectTransform m_go_addNewArchive;
@@ -45,7 +45,8 @@ namespace UI.Panels.Element
 
         private void UIFinder()
         {       
-			m_UI_Common_LoadArchive_Item = gameObject.GetComponent<RectTransform>();
+			m_UI_Common_LoadArchive_Item_UI_Common_LoadArchive_Item_SubView = gameObject.GetComponent<UI_Common_LoadArchive_Item_SubView>();
+
 			m_go_archiveInfo = FindUI<RectTransform>(gameObject.transform ,"bg/go_archiveInfo");
 			m_lbl_playTime_TextMeshProUGUI = FindUI<TextMeshProUGUI>(gameObject.transform ,"bg/go_archiveInfo/playTime/lbl_playTime");
 
@@ -63,7 +64,6 @@ namespace UI.Panels.Element
 
 			m_lbl_lastPlayTime_TextMeshProUGUI = FindUI<TextMeshProUGUI>(gameObject.transform ,"bg/go_archiveInfo/lbl_lastPlayTime");
 
-			m_btn_selectArchive_Image = FindUI<Image>(gameObject.transform ,"bg/go_archiveInfo/btn_selectArchive");
 			m_btn_selectArchive_Button = FindUI<Button>(gameObject.transform ,"bg/go_archiveInfo/btn_selectArchive");
 
 			m_go_addNewArchive = FindUI<RectTransform>(gameObject.transform ,"bg/go_addNewArchive");
