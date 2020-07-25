@@ -102,6 +102,7 @@ namespace Controllers.Subsystems.Role
             SortArchivePreViewData();
             Data.LocalCacheManager.SetData(ArchivePreviewData);
             m_localCacheManager = new LocalCacheManager(previewData.SaveTime.ToString());
+            EventManager.Instance.SendEvent(new PlayerPreSaveArchiveEvent());
             m_localCacheManager.SetData(CurrentArchiveData);
             EventManager.Instance.SendEvent(new PlayerSaveArchiveEvent());
 

@@ -26,6 +26,7 @@ namespace UI.Panels
 
 		[HideInInspector] public RectTransform m_pl_createNewArchive;
 		[HideInInspector] public Image m_btn_createNewArchive_Image;
+		[HideInInspector] public HorizontalLayoutGroup m_btn_createNewArchive_HorizontalLayoutGroup;
 		[HideInInspector] public Button m_btn_createNewArchive_Button;
 
 		[HideInInspector] public TextMeshProUGUI m_lbl_title_TextMeshProUGUI;
@@ -45,6 +46,7 @@ namespace UI.Panels
 
 			m_pl_createNewArchive = FindUI<RectTransform>(transform ,"pl_mid/pl_createNewArchive");
 			m_btn_createNewArchive_Image = FindUI<Image>(transform ,"pl_mid/pl_createNewArchive/btn_createNewArchive");
+			m_btn_createNewArchive_HorizontalLayoutGroup = FindUI<HorizontalLayoutGroup>(transform ,"pl_mid/pl_createNewArchive/btn_createNewArchive");
 			m_btn_createNewArchive_Button = FindUI<Button>(transform ,"pl_mid/pl_createNewArchive/btn_createNewArchive");
 
 			m_lbl_title_TextMeshProUGUI = FindUI<TextMeshProUGUI>(transform ,"lbl_title");
