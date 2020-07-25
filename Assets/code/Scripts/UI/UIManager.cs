@@ -80,6 +80,13 @@ namespace UI
             m_activeModule.ShowPanel(type,dataProvider);
         }
 
+        public void HidePanel(UIPanelType type)
+		{
+            if (m_activeModule.IsPanelShow (type)) {
+                m_activeModule.HidePanel (type);
+            }
+		}
+
         public void UnloadActiveModule()
         {
             OnActiveModuleDeactivate?.Invoke();
