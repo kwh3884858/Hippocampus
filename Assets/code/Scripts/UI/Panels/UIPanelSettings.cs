@@ -58,6 +58,7 @@ namespace UI.Panels
         public static List<UIPanelSettings> BattleInfo = new List<UIPanelSettings>()
         {
             new UIPanelSettings(UIPanelType.JoystickPanel,UIPanelUnLoadMode.Destroy),
+            new UIPanelSettings(UIPanelType.UIGameplayPromptwidgetPanel,UIPanelUnLoadMode.Disabled),
 
         };
         public static List<UIPanelSettings> MenuInfo = new List<UIPanelSettings>()

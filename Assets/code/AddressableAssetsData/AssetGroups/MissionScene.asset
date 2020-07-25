@@ -21,6 +21,10 @@ MonoBehaviour:
     m_Address: World_Mission_DockByPier_World_Episode2_Pier
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 2c5a0362cd4174fdb9dfaf14d6230d0c
+    m_Address: World_Mission_EnterIsland_World_Episode3_Hall
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 4838297a085504d40bbdb8f264ca3ac2
     m_Address: World_Mission_EnterIsland_World_Episode2_Pier
     m_ReadOnly: 0

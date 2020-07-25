@@ -73,6 +73,10 @@ MonoBehaviour:
     m_Address: Evidence_Panel
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: da708069400df4e3ab6f9850ef8088e7
+    m_Address: UI_Gameplay_PromptWidget_Panel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: dea1a5e90608b264b99111459b12c399
     m_Address: Get_Tip_Panel
     m_ReadOnly: 0
@@ -87,10 +91,6 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: e8f271f6d04c4a645b15a3ad8e6f75aa
     m_Address: Single_Evidence_Select_Panel
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: ed9ede3d734f92e42827dd2b875a0b8f
-    m_Address: World_Episode3_Hall
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
