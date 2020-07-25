@@ -134,7 +134,7 @@ namespace HeavenGateEditor {
                         strcpy(constant, "bgm ");
                         break;
                     case 1:
-                        strcpy(constant, "description ");
+                        strcpy(constant, "fileName ");
                         break;
                         break;
                 default:

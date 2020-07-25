@@ -132,7 +132,7 @@ namespace HeavenGateEditor {
                         strcpy(constant, "effect ");
                         break;
                     case 1:
-                        strcpy(constant, "description ");
+                        strcpy(constant, "fileName ");
                         break;
                         break;
                 default:
