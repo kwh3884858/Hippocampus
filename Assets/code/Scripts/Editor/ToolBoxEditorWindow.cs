@@ -105,7 +105,7 @@ public class ToolBoxEditorWindow : EditorWindow
 				}
 
 				string path = ConfigMission.Instance.Path_To_InteractableObject;
-				GameObject go = Instantiate (AssetDatabase.LoadAssetAtPath<GameObject> (path)) as GameObject;
+				GameObject go = PrefabUtility.InstantiatePrefab (AssetDatabase.LoadAssetAtPath<GameObject> (path)) as GameObject;
 
 				go.transform.SetParent (interactiablesGroup.transform);
 				go.AddComponent<InteractiveObject> ();
@@ -121,7 +121,7 @@ public class ToolBoxEditorWindow : EditorWindow
 					EditorUtility.DisplayDialog ("Error", "Already contain a spawn point in scene.", "Ok");
 				} else {
 					string path = ConfigMission.Instance.Path_To_SpawnPoint;
-					GameObject go = Instantiate (AssetDatabase.LoadAssetAtPath<GameObject> (path)) as GameObject;
+					GameObject go = PrefabUtility.InstantiatePrefab (AssetDatabase.LoadAssetAtPath<GameObject> (path)) as GameObject;
 					go.name = ConfigMission.Instance.Text_Spawn_Point_Name;
 				}
 			} else {
@@ -175,8 +175,7 @@ public class ToolBoxEditorWindow : EditorWindow
 		}
 
 		string path = ConfigMission.Instance.Path_To_WorldTrigger;
-		GameObject go = Instantiate (AssetDatabase.LoadAssetAtPath<GameObject> (path)) as GameObject;
-
+		GameObject go = PrefabUtility.InstantiatePrefab (AssetDatabase.LoadAssetAtPath<GameObject> (path)) as GameObject;
 		go.name = "Event Trigger";
 		go.transform.SetParent (triggersGroup.transform);
 		go.AddComponent<WorldTrigger> ();
