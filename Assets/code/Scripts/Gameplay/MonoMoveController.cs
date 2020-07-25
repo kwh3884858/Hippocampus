@@ -23,7 +23,7 @@ public class MonoMoveController : MonoBehaviour
     void Start()
     {
         //m_rigidbody2D = transform.GetComponent<Rigidbody2D> ();
-        m_boxCollider2D = transform.GetComponent<BoxCollider2D>();
+        m_boxCollider2D = transform.GetComponent<BoxCollider>();
 		if (m_boxCollider2D == null) {
             Debug.LogError ("Player Collision Is Lost.");
 		}
@@ -69,44 +69,42 @@ public class MonoMoveController : MonoBehaviour
 
     private void OnGUI()
     {
-        if (GUI.Button(new Rect(0, 50, 200, 50), "Interact"))
-        {
+        int maxColliders = 10;
+        Collider [] hitColliders = new Collider [maxColliders];
+        Dictionary<Collider, float> colliders = new Dictionary<Collider, float>();
 
-            int maxColliders = 10;
-            Collider [] hitColliders = new Collider [maxColliders];
-            int numColliders = Physics.OverlapSphereNonAlloc (transform.position, m_interactableRadius , hitColliders);
+        Collider interactCollider = null;
+        float smallestLength = 10000;
 
-            for (int i = 0; i < numColliders; i++) {
-				if (hitColliders[i].CompareTag(InteractiveObject.INTERACTABLE_TAG)) {
-                    Collider hitCollider = hitColliders [i];
-                    Debug.Log ("Did Interactive: " + hitCollider.gameObject);
-                    hitCollider.GetComponent<InteractiveObject> ().Interact ();
-
-                    Debug.DrawRay (hitCollider.transform.position, Vector3.up * 3, Color.yellow);
-                    break;
-                }
+        int numColliders = Physics.OverlapSphereNonAlloc (transform.position, m_interactableRadius, hitColliders, m_interactableLayer.value);
+        //Debug.Log ("Num of Collisions: " + numColliders);
+        for (int i = 0; i < numColliders; i++) {
+            if (hitColliders [i].CompareTag (InteractiveObject.INTERACTABLE_TAG)) {
+                colliders.Add (hitColliders [i], Vector3.SqrMagnitude (hitColliders [i].transform.position - transform.position));
             }
-            
-            //RaycastHit hit;
-            //if (result)
-            //{
-            //    if (hit.collider.CompareTag(InteractiveObject.INTERACTABLE_TAG))
-            //    {
-            //        Debug.Log("Did Interactive");
-            //        // TODO:接触可交互物体，触发对话
-            //        count++;
-            //        //UI.UIManager.Instance ().ShowPanel (UIPanelType.TalkPanel, new TalkDataProvider () { ID = count.ToString () });
+        }
+		foreach (var pair in colliders) {
+			if (pair.Value < smallestLength) {
+                smallestLength = pair.Value;
+                interactCollider = pair.Key;
+            }
+		}
 
-            //        hit.collider.GetComponent<InteractiveObject>().Interact();
-            //    }
-            //    Debug.DrawRay(transform.position, m_isFaceRight ? Vector3.right : Vector3.left * hit.distance, Color.yellow);
-            //    //Debug.Log("Did Hit");
-            //}
-            //else
-            //{
-            //    Debug.DrawRay(transform.position, m_isFaceRight ? Vector3.right : Vector3.left * 1000, Color.white);
+		if (interactCollider != null) {
+            UIManager.Instance ().ShowPanel (UIPanelType.UIGameplayPromptwidgetPanel, new PromptWidgetDataProvider { m_interactiableObject = interactCollider.gameObject });
 
-            //}
+            if (GUI.Button (new Rect (0, 50, 200, 50), "Interact")) {
+
+                Debug.Log ("Did Interactive: " + interactCollider.gameObject);
+                interactCollider.GetComponent<InteractiveObject> ().Interact ();
+
+                Debug.DrawRay (interactCollider.transform.position, Vector3.up * 3, Color.yellow);
+
+            }
+
+		} else {
+            UIManager.Instance ().HidePanel (UIPanelType.UIGameplayPromptwidgetPanel);
+
         }
         if (GUI.Button(new Rect(0, 100, 200, 50), "Evidence"))
         {
@@ -203,6 +201,7 @@ public class MonoMoveController : MonoBehaviour
     public float m_interactableRadius = 0.5f;
     public float m_interactableRaycastAngle = 90;
     public float m_interactableRaycastAngleInterval = 10;
+    public LayerMask m_interactableLayer ;
 
 
     [Header ("Private, Physics Data")]
@@ -216,7 +215,7 @@ public class MonoMoveController : MonoBehaviour
     private SpriteRenderer m_spriteRender;
     //private Rigidbody2D m_rigidbody2D;
     [SerializeField]
-    private BoxCollider2D m_boxCollider2D;
+    private BoxCollider m_boxCollider2D;
 
     private bool m_isMove = false;
     private int count = 0;// 测试计数 Delete in future
