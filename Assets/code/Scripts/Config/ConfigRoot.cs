@@ -71,6 +71,10 @@ private string World_Mission_EnterIsland_World_Episode2_PierName = "World_Missio
 private string World_UITestSceneName = "World_UITestScene"; 
  public CameraService.SceneCameraType World_UITestSceneCameraType;  
 
+[SerializeField]
+private string World_Mission_EnterIsland_World_Episode3_HallName = "World_Mission_EnterIsland_World_Episode3_Hall"; 
+ public CameraService.SceneCameraType World_Mission_EnterIsland_World_Episode3_HallCameraType;  
+
 //[Scene Config Auto Generated Code End]
 
 		[Header ("Chapter Config, Please Modify Them In Code")]
@@ -121,6 +125,9 @@ case "World_Mission_EnterIsland_World_Episode2_Pier" :
 
 case "World_UITestScene" :  
    return World_UITestSceneCameraType; 
+
+case "World_Mission_EnterIsland_World_Episode3_Hall" :  
+   return World_Mission_EnterIsland_World_Episode3_HallCameraType; 
 
 //[Switch Case Auto Generated Code End]    
 			default:

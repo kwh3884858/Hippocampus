@@ -37,6 +37,8 @@ CameraService.SceneCameraType m_World_GoundTestSceneCameraType;
 
  CameraService.SceneCameraType m_World_UITestSceneCameraType; 
 
+ CameraService.SceneCameraType m_World_Mission_EnterIsland_World_Episode3_HallCameraType; 
+
  //[Camera Type Variable Auto Generated Code End]
 		override public void OnInspectorGUI ()
 		{
@@ -145,6 +147,13 @@ m_World_UITestSceneCameraType = (CameraService.SceneCameraType)EditorGUILayout.E
     if (m_World_UITestSceneCameraType != ConfigRoot.Instance.World_UITestSceneCameraType) 
 { 
 ConfigRoot.Instance.World_UITestSceneCameraType = m_World_UITestSceneCameraType; 
+} 
+
+m_World_Mission_EnterIsland_World_Episode3_HallCameraType = ConfigRoot.Instance.World_Mission_EnterIsland_World_Episode3_HallCameraType;  
+m_World_Mission_EnterIsland_World_Episode3_HallCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_Mission_EnterIsland_World_Episode3_Hall Camera Type: ", m_World_Mission_EnterIsland_World_Episode3_HallCameraType); 
+    if (m_World_Mission_EnterIsland_World_Episode3_HallCameraType != ConfigRoot.Instance.World_Mission_EnterIsland_World_Episode3_HallCameraType) 
+{ 
+ConfigRoot.Instance.World_Mission_EnterIsland_World_Episode3_HallCameraType = m_World_Mission_EnterIsland_World_Episode3_HallCameraType; 
 } 
 
 //[Inspector Popup Auto Generated Code End]
