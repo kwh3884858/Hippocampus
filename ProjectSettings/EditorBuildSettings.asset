@@ -36,6 +36,9 @@ EditorBuildSettings:
     path: Assets/data/graphics/World/Mission_EnterIsland_World_Episode2_Pier/World_Mission_EnterIsland_World_Episode2_Pier.unity
     guid: 4838297a085504d40bbdb8f264ca3ac2
   - enabled: 0
+    path: Assets/data/graphics/World/Mission_EnterIsland_World_Episode3_Hall/World_Mission_EnterIsland_World_Episode3_Hall.unity
+    guid: 2c5a0362cd4174fdb9dfaf14d6230d0c
+  - enabled: 0
     path: Assets/data/graphics/World/UITestScene/World_UITestScene.unity
     guid: 67e9f636bf85cec49aa5259fcd3be769
   m_configObjects:
