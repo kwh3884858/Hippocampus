@@ -122,7 +122,9 @@ namespace Controllers.Subsystems.Role
             return data.SaveTime.ToString();
         }
 
+        //当前存档数据
         public PlayerArchiveData CurrentArchiveData { get; private set; }
+        //存档预览数据
         public PlayerArchivePreviewData ArchivePreviewData { get; private set; }
         public int CurrentSaveIndex { get; private set; } = 0;
         private LocalCacheManager m_localCacheManager;
