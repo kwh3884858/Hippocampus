@@ -30,7 +30,7 @@ namespace UI.Panels.GameScene.MainManu
 		public void ShowHud ()
 		{
             //			UiDataProvider.StaticBoard.ShowTalk ("9", OnTalkEnd);
-            GamePlay.Player.PlayerController.Instance().SetMoveEnable(true);
+            //GamePlay.Player.PlayerController.Instance().SetMoveEnable(true);
 #if UNITY_ANDROID || UNITY_IPHONE
             UIManager.Instance().ShowPanel(UIPanelType.JoystickPanel);// 显示摇杆UI，wywtsest
 #endif
@@ -60,13 +60,14 @@ namespace UI.Panels.GameScene.MainManu
             MissionSceneManager.Instance.LoadMissionScene(MissionEnum.DockByPier);
             CallbackTime (1, ShowHud);
 			UIManager.Instance ().ActivatState (GameState.Battle);// 设置当前状态,wywtsest
-			//StarPlatinum.PrefabManager.Instance.LoadScene (SceneLookupEnum.World_Episode2_Pier, UnityEngine.SceneManagement.LoadSceneMode.Additive);
-		}
+            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonGameplayPanel);// 显示助手UI
+            //StarPlatinum.PrefabManager.Instance.LoadScene (SceneLookupEnum.World_Episode2_Pier, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+        }
 
-		/// <summary>
-		/// 点击载入游戏按钮
-		/// </summary>
-		public void OnClickLoadBtn ()
+        /// <summary>
+        /// 点击载入游戏按钮
+        /// </summary>
+        public void OnClickLoadBtn ()
 		{
 //			UIManager.Instance ().ShowPanel (UIPanelType.LoadGamePanel);
 			UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonLoadarchivePanel, new ArchiveDataProvider(){ Type = ArchivePanelType.Load});

@@ -106,16 +106,16 @@ public class MonoMoveController : MonoBehaviour
             UIManager.Instance ().HidePanel (UIPanelType.UIGameplayPromptwidgetPanel);
 
         }
-        if (GUI.Button(new Rect(0, 100, 200, 50), "Evidence"))
-        {
-            //UIManager.Instance().ShowPanel(UIPanelType.Evidencepanel);// 显示UI
-            UIManager.Instance().ShowStaticPanel(UIPanelType.Evidencepanel);// 显示UI
-        }
+        //if (GUI.Button(new Rect(0, 100, 200, 50), "Evidence"))
+        //{
+        //    //UIManager.Instance().ShowPanel(UIPanelType.Evidencepanel);// 显示UI
+        //    UIManager.Instance().ShowStaticPanel(UIPanelType.Evidencepanel);// 显示UI
+        //}
 
-        if (GUI.Button(new Rect(0, 150, 200, 50), "Tips"))
-        {
-            UIManager.Instance().ShowStaticPanel(UIPanelType.Tipspanel);// 显示UI
-        }
+        //if (GUI.Button(new Rect(0, 150, 200, 50), "Tips"))
+        //{
+        //    UIManager.Instance().ShowStaticPanel(UIPanelType.Tipspanel);// 显示UI
+        //}
         
         if (GUI.Button(new Rect(0, 200, 200, 50), "Save"))
         {
