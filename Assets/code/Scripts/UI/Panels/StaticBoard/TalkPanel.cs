@@ -138,13 +138,13 @@ namespace UI.Panels.StaticBoard
             base.Hide();
             m_autoPlay = false;
             m_highSpeed = false;
-            GamePlay.Player.PlayerController.Instance().SetMoveEnable(false);
+            GamePlay.Player.PlayerController.Instance().SetMoveEnable(true);
         }
 
         public override void ShowData(DataProvider data)
         {
             base.ShowData(data);
-            GamePlay.Player.PlayerController.Instance().SetMoveEnable(true);
+            GamePlay.Player.PlayerController.Instance().SetMoveEnable(false);
         }
 
         public override void UpdateData(DataProvider data)
