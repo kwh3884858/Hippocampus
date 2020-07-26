@@ -5,26 +5,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StarPlatinum.Base;
+using StarPlatinum.EventManager;
+using System;
+using Controllers.Subsystems;
+using Controllers.Subsystems.Role;
 
 namespace GamePlay.Global
 {
 	public class SingletonGlobalDataContainer : Singleton<SingletonGlobalDataContainer>
 	{
-		//public string Scene { get; private set; }
-		//public string Chapter { get; private set; }
-		public List<string> m_isStoryTriggered = new List<string> ();
+		public void Initialize ()
+		{
+			EventManager.Instance.AddEventListener<PlayerPreSaveArchiveEvent> (OnPlayerPreSaveArchive);
+			EventManager.Instance.AddEventListener<PlayerLoadArchiveEvent> (OnPlayerLoadArchive);
+		}
 
-		public Dictionary<string, int> m_objectTriggeredCounter = new Dictionary<string, int> ();
+		public void Shutdown ()
+		{
+			EventManager.Instance.RemoveEventListener<PlayerPreSaveArchiveEvent> (OnPlayerPreSaveArchive);
+			EventManager.Instance.RemoveEventListener<PlayerLoadArchiveEvent> (OnPlayerLoadArchive);
+		}
 
-		//public void SetScene (string scene)
-		//{
-		//	Scene = scene;
-		//}
-		//public void SetChapter (string chapter)
-		//{
-		//	Chapter = chapter;
-		//}
-		//public void ClearItem
 		public bool RegisterNewObject (string item)
 		{
 			int tmp;
@@ -54,18 +55,7 @@ namespace GamePlay.Global
 			}
 		}
 
-		//public bool TriggeredItemGenerateID (string item, out string ID)
-		//{
-		//	int counter;
-		//	if (!m_itemTriggeredCounter.TryGetValue (item, out counter)) {
-		//		ID = "ERROR, NOT REGISTERED ITEM";
-		//		return false;
-		//	}
-
-		//	ID = Chapter + "_" + Scene + "_" + item + "_" + counter;
-		//	return true;
-		//}
-
+		//-----------------------------------------------
 		public bool IsStoryTriggered (string storyId)
 		{
 			return m_isStoryTriggered.Contains (storyId);
@@ -75,5 +65,27 @@ namespace GamePlay.Global
 		{
 			m_isStoryTriggered.Add (storyId);
 		}
+
+		//-----------------------------------------------
+		private void OnPlayerPreSaveArchive (object sender, PlayerPreSaveArchiveEvent e)
+		{
+			GlobalManager.GetControllerManager().PlayerArchiveController.CurrentArchiveData.MissionArchieData.StoryTriggered = m_isStoryTriggered;
+			GlobalManager.GetControllerManager().PlayerArchiveController.CurrentArchiveData.MissionArchieData.ObjectTriggeredCounter = m_objectTriggeredCounter;
+
+		}
+
+		private void OnPlayerLoadArchive (object sender, PlayerLoadArchiveEvent e)
+		{
+			m_isStoryTriggered = GlobalManager.GetControllerManager ().PlayerArchiveController.CurrentArchiveData.MissionArchieData.StoryTriggered;
+			m_objectTriggeredCounter = GlobalManager.GetControllerManager ().PlayerArchiveController.CurrentArchiveData.MissionArchieData.ObjectTriggeredCounter;
+
+		}
+
+		//After switch scene, destory already triggered story.
+		public List<string> m_isStoryTriggered = new List<string> ();
+
+		//Interactable objects trigger counter to calculate the num of be triggered for showing the correct story.
+		public Dictionary<string, int> m_objectTriggeredCounter = new Dictionary<string, int> ();
+
 	}
 }
