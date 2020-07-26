@@ -48,6 +48,11 @@ namespace GamePlay.Stage
 			m_player.SetActive (false);
 		}
 
+		public void SetPlayerPosition (Vector3 pos)
+		{
+			m_player.transform.position = pos;
+		}
+
 		public void SpawnPlayer ()
 		{
 			SceneLookupEnum sceneEnum = MissionSceneManager.Instance.GetCurrentMissionScene ();
@@ -84,9 +89,6 @@ namespace GamePlay.Stage
 					}
 				}
 			}
-
-
-
 			Debug.LogError ("Can not find spawn point!");
 		}
 
