@@ -31,7 +31,9 @@ namespace UI.Panels.GameScene.MainManu
 		{
             //			UiDataProvider.StaticBoard.ShowTalk ("9", OnTalkEnd);
             GamePlay.Player.PlayerController.Instance().SetMoveEnable(true);
-            UIManager.Instance().ShowPanel(UIPanelType.JoystickPanel);// 显示UI，wywtsest
+#if UNITY_ANDROID || UNITY_IPHONE
+            UIManager.Instance().ShowPanel(UIPanelType.JoystickPanel);// 显示摇杆UI，wywtsest
+#endif
         }
 
         public void HidSelef ()
