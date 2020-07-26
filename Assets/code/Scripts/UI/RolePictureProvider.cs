@@ -69,7 +69,7 @@ namespace UI
                     return;
                 }
                 item.SetBody(RequestResult.result as Sprite);
-            } );
+            },null );
 
 
         }

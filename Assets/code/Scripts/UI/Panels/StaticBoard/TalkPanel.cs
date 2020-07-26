@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Mime;
 using Config;
 using Config.Data;
 using Const;
+using Controllers.Subsystems;
 using Controllers.Subsystems.Story;
 using Evidence;
 using GamePlay.Stage;
@@ -16,6 +18,7 @@ using UI.Panels.Providers.DataProviders;
 using UI.Panels.Providers.DataProviders.GameScene;
 using UI.Panels.Providers.DataProviders.StaticBoard;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI.Panels.StaticBoard
@@ -121,6 +124,7 @@ namespace UI.Panels.StaticBoard
         }
         
         private StoryController StoryController => UiDataProvider.ControllerManager.StoryController;
+        private LogController LogController => UiDataProvider.ControllerManager.LogController;
         private StoryConfig StoryConfig => UiDataProvider.ConfigProvider.StoryConfig;
 
         private float Width => UiDataProvider.Canvas.rectTransform().rect.width; 
@@ -131,11 +135,13 @@ namespace UI.Panels.StaticBoard
         {
             base.Initialize(uiDataProvider, settings);
             m_textHelp = new TextHelp();
+            
         }
 
         public override void Hide()
         {
             base.Hide();
+            LogController.LogEnd();
             m_autoPlay = false;
             m_highSpeed = false;
             GamePlay.Player.PlayerController.Instance().SetMoveEnable(true);
@@ -174,7 +180,7 @@ namespace UI.Panels.StaticBoard
             if (storyAction == null)
             {
                 SetActionState(ActionState.Waiting);
-                m_characterTalkEnd = true;
+                SetTalkContentEnd(true);
                 if (m_autoPlay||m_skip)
                 {
                     EndCharacterTalk();
@@ -284,6 +290,12 @@ namespace UI.Panels.StaticBoard
             m_state = state;
             if ( state == ActionState.Begin||state == ActionState.End)
             {
+                //记录
+                if (state == ActionState.End &&m_curAction.Type != StoryActionType.Jump)
+                {
+                    UiDataProvider.ControllerManager.LogController.PushLog(m_curAction);
+                }
+                
                 m_actionType = StoryActionType.Waiting;
                 SetNextAction(m_actionContainer.GetNextAction());
             }
@@ -297,6 +309,7 @@ namespace UI.Panels.StaticBoard
         private void OptionCallback(string id)
         {
             m_skip = false;
+            LogController.PushLog(m_curAction,id);
             SetActionState(ActionState.End);
             SetInfo(id);
         }
@@ -326,10 +339,15 @@ namespace UI.Panels.StaticBoard
             }
             else
             {
-                m_characterTalkEnd = true;
+                SetTalkContentEnd(true);
             }
         }
-        
+
+        private void SetTalkContentEnd(bool isEnd)
+        {
+            m_characterTalkEnd = isEnd;
+            m_contentEnd.SetActive(isEnd);
+        }
         private void SetNameContent(string name)
         {
             m_name.enabled = true;
@@ -370,9 +388,9 @@ namespace UI.Panels.StaticBoard
 
         IEnumerator Typewriter(string content)
         {
-            foreach (var txt in content)
+            for (int i = 0; i < content.Length; i++)
             {
-                m_content.text += m_textHelp.GetContent(txt.ToString());
+                m_content.text += m_textHelp.GetContent(content[i].ToString());
                 if (m_content.textInfo.pageCount > m_content.pageToDisplay)
                 {
                     m_content.pageToDisplay++;
@@ -381,7 +399,10 @@ namespace UI.Panels.StaticBoard
                 if (m_skip == false)
                 {
                     PlayerTypewriterSound();
-                    yield return new WaitForSeconds(m_highSpeed ? 0 : m_textHelp.TypewriterInterval);
+                    if (i + 1 < content.Length)
+                    {
+                        yield return new WaitForSeconds(m_highSpeed ? 0 : m_textHelp.TypewriterInterval);
+                    }
                 }
             }
             SetActionState(ActionState.End);
@@ -454,7 +475,7 @@ namespace UI.Panels.StaticBoard
         
         private void EndCharacterTalk()
         {
-            m_characterTalkEnd = false;
+            SetTalkContentEnd(false);
             m_highSpeed = false;
             switch (m_actionType)
             {
@@ -519,11 +540,16 @@ namespace UI.Panels.StaticBoard
         public void AutoPlay()
         {
             m_autoPlay = !m_autoPlay;
-            m_autoPlayButtonText.color = m_autoPlay? StoryConfig.AutoPlayButtonActiveColor: StoryConfig.AutoPlayButtonNormalColor;
+            m_autoPlayImg.color = m_autoPlay? StoryConfig.AutoPlayButtonActiveColor: StoryConfig.AutoPlayButtonNormalColor;
             if (m_characterTalkEnd)
             {
                 EndCharacterTalk();
             }
+        }
+
+        public void ClickShowLog()
+        {
+            InvokeShowAsSubpanel(PanelType,UIPanelType.UICommonLogPanel);
         }
 
         public void Skip()
@@ -546,9 +572,10 @@ namespace UI.Panels.StaticBoard
         [SerializeField] private Image m_name;
         [SerializeField] private TMP_Text m_nameTxt;
         [SerializeField] private TMP_Text m_content;
-        [SerializeField] private TMP_Text m_autoPlayButtonText;
+        [SerializeField] private Image m_autoPlayImg;
         [SerializeField] private Transform m_pictureRoot;
         [SerializeField] private GameObject m_talkObj;
+        [SerializeField] private GameObject m_contentEnd;
 
         private Dictionary<string, PictureItem> m_pictureItems = new Dictionary<string, PictureItem>();
         private Dictionary<string,Vector2> m_picPos = new Dictionary<string, Vector2>();
