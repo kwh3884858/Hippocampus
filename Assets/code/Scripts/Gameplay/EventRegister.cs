@@ -16,11 +16,11 @@ public class EventRegister : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_worldTrigger = GetComponent<WorldTrigger> ();
-		if (m_worldTrigger != null) {
+        m_boxCollider = GetComponent<BoxCollider> ();
+		if (m_boxCollider != null) {
             EventManager.Instance.AddEventListener<RaiseEvent> (EventHandle);
 		    if (m_operationAfterReceiveEvent == OperationAfterReceiveEvent.EnableGameobject) {
-                m_worldTrigger.enabled = false;
+                m_boxCollider.enabled = false;
 		    }
         }
 
@@ -37,11 +37,11 @@ public class EventRegister : MonoBehaviour
 
 		switch (m_operationAfterReceiveEvent) {
         case OperationAfterReceiveEvent.EnableGameobject:
-            m_worldTrigger.enabled = true;
+            m_boxCollider.enabled = true;
             break;
 
         case OperationAfterReceiveEvent.DisableGameobject:
-            m_worldTrigger.enabled = false;
+            m_boxCollider.enabled = false;
             break;
 
         default:
@@ -51,5 +51,5 @@ public class EventRegister : MonoBehaviour
 
     public OperationAfterReceiveEvent m_operationAfterReceiveEvent = OperationAfterReceiveEvent.None;
     public string m_eventName = "";
-    private WorldTrigger m_worldTrigger = null;
+    private BoxCollider m_boxCollider = null;
 }
