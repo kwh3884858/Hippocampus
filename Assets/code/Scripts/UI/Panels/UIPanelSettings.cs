@@ -67,6 +67,7 @@ namespace UI.Panels
                   };
         public static List<UIPanelSettings> StaticBoardInfo = new List<UIPanelSettings>()
         {
+            new UIPanelSettings(UIPanelType.UICommonGameplayPanel,UIPanelUnLoadMode.Disabled),
             new UIPanelSettings(UIPanelType.TalkPanel,UIPanelUnLoadMode.Disabled),
             new UIPanelSettings(UIPanelType.Tipspanel,UIPanelUnLoadMode.Disabled),
             new UIPanelSettings(UIPanelType.Evidencepanel,UIPanelUnLoadMode.Destroy),
@@ -76,6 +77,7 @@ namespace UI.Panels
             new UIPanelSettings(UIPanelType.Tipgetpanel,UIPanelUnLoadMode.Destroy),
             new UIPanelSettings(UIPanelType.UICommonESCMainMenuPanel,UIPanelUnLoadMode.Disabled),
             new UIPanelSettings(UIPanelType.UICommonLoadarchivePanel),
+            new UIPanelSettings(UIPanelType.UICommonLogPanel,UIPanelUnLoadMode.Disabled)
         };
 
     }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Config;
@@ -13,20 +13,19 @@ using UI.Panels.Providers.DataProviders.GameScene;
 using UI.Panels.Providers.DataProviders.StaticBoard;
 using UnityEngine;
 using UnityEngine.UI;
-using UI.UIComponent;
 
 namespace UI.Panels
 {
-    public partial class #ClassName# : UIPanel<UIDataProvider, DataProvider>
+    public partial class CommonGamePlayPanel : UIPanel<UIDataProvider, DataProvider>
     {
          #region gen ui code 
-#MemberUI#
-         private #ModelName# m_model;
+
+         private CommonGamePlayModel m_model;
 
          private void UIFinder()
          {
-#MemberFinder#
-m_model = new #ModelName# ();
+
+m_model = new CommonGamePlayModel ();
 
          }
          #endregion

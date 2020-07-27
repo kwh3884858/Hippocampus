@@ -49,6 +49,10 @@ MonoBehaviour:
     m_Address: World_2F_East_Corrider
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 36140db7e341ae1489398e42dec1a1d3
+    m_Address: UI_Common_Log_Panel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 40631b7b6a2577b4ca50ed31d68bed97
     m_Address: Options_Panel
     m_ReadOnly: 0

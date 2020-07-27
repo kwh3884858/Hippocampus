@@ -1,4 +1,5 @@
 ﻿using Config.GameRoot;
+using GamePlay.Global;
 using GamePlay.Stage;
 using StarPlatinum.Base;
 using StarPlatinum.Service;
@@ -29,6 +30,8 @@ namespace StarPlatinum
 
 			Productivity ();
 			ConfigData data = new ConfigData ();// 测试
+
+			SingletonGlobalDataContainer.Instance.Initialize ();
 		}
 
         private void LoadCoreContainer()
@@ -90,15 +93,6 @@ namespace StarPlatinum
             }
         }
 
-        void Productivity ()
-		{
-			System.Random random = new System.Random ();
-			int ran = random.Next (0, 10);
-
-			if (ran < 3) SoundService.Instance.PlayBgm ("U", false);
-			else if (ran < 6) SoundService.Instance.PlayBgm ("Ka", false);
-			else if (ran < 11) SoundService.Instance.PlayBgm ("He", false);
-		}
 
 		// Update is called once per frame
 		void Update ()
@@ -109,6 +103,20 @@ namespace StarPlatinum
 			}
 		}
 
+		void OnDestroy ()
+		{
+			SingletonGlobalDataContainer.Instance.Shutdown ();
+		}
+
+		private void Productivity ()
+		{
+			System.Random random = new System.Random ();
+			int ran = random.Next (0, 10);
+
+			if (ran < 3) SoundService.Instance.PlayBgm ("U", false);
+			else if (ran < 6) SoundService.Instance.PlayBgm ("Ka", false);
+			else if (ran < 11) SoundService.Instance.PlayBgm ("He", false);
+		}
 		float input = 0;
 		float lastInput = 0;
 		private List<System.Object> allData = new List<System.Object> ();

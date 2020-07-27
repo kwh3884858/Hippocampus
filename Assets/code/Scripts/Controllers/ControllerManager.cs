@@ -23,6 +23,7 @@ namespace Controllers
         public PlayerArchiveController PlayerArchiveController { get; private set; }
         public StoryController StoryController { get; private set; }
         public CGSceneController CGSceneController { get; private set; }
+        public LogController LogController { get; private set; }
 
         public Action OnInitialized;
         public void Awake()
@@ -30,6 +31,7 @@ namespace Controllers
             PlayerArchiveController = RegisterController<PlayerArchiveController>();
             StoryController = RegisterController<StoryController>();
             CGSceneController = RegisterController<CGSceneController>();
+            LogController = RegisterController<LogController>();
         }
 
         public async Task<ControllerinitializedStep> InitializedControllers(GameRunTimeData data)
