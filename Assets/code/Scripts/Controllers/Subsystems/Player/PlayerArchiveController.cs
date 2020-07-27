@@ -47,8 +47,12 @@ namespace Controllers.Subsystems.Role
             if (selectIndex == 0)
             {
                 CurrentArchiveData = new PlayerArchiveData();
+                CurrentArchiveData.MissionArchieData= new MissionArchiveData();
+                CurrentArchiveData.CgSceneArchiveData = new CGSceneArchiveData();
                 m_playTime = 0;
+                CurrentSaveIndex = 0;
                 m_localCacheManager = null;
+                EventManager.Instance.SendEvent(new PlayerLoadArchiveEvent());
                 return;
             }
             if (m_localCacheManager != null)
@@ -126,7 +130,7 @@ namespace Controllers.Subsystems.Role
         public PlayerArchiveData CurrentArchiveData { get; private set; }
         //存档预览数据
         public PlayerArchivePreviewData ArchivePreviewData { get; private set; }
-        public int CurrentSaveIndex { get; private set; } = 0;
+        public int CurrentSaveIndex { get; private set; } = -1;
         private LocalCacheManager m_localCacheManager;
         private float m_playTime=0;
         private float m_lastSaveInterval=0;

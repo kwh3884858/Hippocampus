@@ -59,8 +59,8 @@ namespace UI.Panels.Element
             PrefabManager.Instance.SetImage(m_img_name_Image,artNameKey, () =>
             {
                 m_img_name_Image.enabled = false;
-                m_lbl_name_TextMeshProUGUI.gameObject.SetActive(true);
-                m_lbl_name_TextMeshProUGUI.text = artNameKey;
+//                m_lbl_name_TextMeshProUGUI.gameObject.SetActive(true);
+//                m_lbl_name_TextMeshProUGUI.text = artNameKey;
             });
 
             m_lbl_name_TextMeshProUGUI.text = logInfo.Name;

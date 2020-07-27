@@ -29,6 +29,10 @@ MonoBehaviour:
     m_Address: UI_Common_LoadArchive_Item
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: d6ce8b79d5d17ba459722069e090acfa
+    m_Address: UI_Common_CGScenePoint_IItem
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: d8a0f139ab01bc148b16661c6ac85f6a
     m_Address: UI_Common_CGPoint_Item
     m_ReadOnly: 0

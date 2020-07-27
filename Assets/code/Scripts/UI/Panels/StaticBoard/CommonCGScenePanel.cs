@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Config.Data;
+using Controllers.Subsystems;
 using StarPlatinum;
+using StarPlatinum.EventManager;
 using UI.Panels.Element;
 using UnityEngine;
 using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
+using UI.Panels.Providers.DataProviders.StaticBoard;
 
 namespace UI.Panels
 {
@@ -16,12 +19,16 @@ namespace UI.Panels
 		{
 			base.Initialize (uiDataProvider, settings);
 			m_model.Initialize(this);	
+			
+			m_btn_back_Button.onClick.AddListener(()=>{InvokeHidePanel();});
+			EventManager.Instance.AddEventListener<CGScenePointInfoChangeEvent>(OnCGScenePointInfoChange);
 		}
 
 		public override void DeInitialize()
 		{
 			m_model.Deactivate();
 			base.DeInitialize();
+			EventManager.Instance.RemoveEventListener<CGScenePointInfoChangeEvent>(OnCGScenePointInfoChange);
 		}
 
 		public override void Hide()
@@ -79,6 +86,7 @@ namespace UI.Panels
 			var config = m_model.SceneInfo;
 			PrefabManager.Instance.SetImage(m_img_cg_Image,config.CGKey);
 			RefreshPointInfos();
+			m_btn_back_Button.gameObject.SetActive(CgSceneController.CheckCGIsClear(m_model.SceneID));
 		}
 
 		private void RefreshPointInfos()
@@ -87,9 +95,10 @@ namespace UI.Panels
 			var pointInfos = m_model.GetPointInfos();
 			for (int i = 0; i < pointInfos.Count; i++)
 			{
-				if (m_items.Count >= i)
+				var pointInfo = pointInfos[i];
+				if (m_items.Count <= i)
 				{
-					PrefabManager.Instance.InstantiateAsync<CGScenePointItem>("CGScenePointItem", (result) =>
+					PrefabManager.Instance.InstantiateAsync<CGScenePointItem>("UI_Common_CGScenePoint_IItem", (result) =>
 					{
 						if (result.status != RequestStatus.SUCCESS)
 						{
@@ -98,16 +107,20 @@ namespace UI.Panels
 
 						var item = result.result as CGScenePointItem;
 						m_items.Add(item);
-						item.SetPointInfo(pointInfos[i]);
+						item.ClickCallback += OnClickPoint;
+						item.SetPointInfo(pointInfo);
 					},m_go_interactionPoints);
 					continue;
 				}
-				m_items[i].SetPointInfo(pointInfos[i]);
+				m_items[i].SetPointInfo(pointInfo);
 				m_items[i].gameObject.SetActive(true);
 			}
 		}
-		
-		
+
+		private void OnCGScenePointInfoChange(object sender, CGScenePointInfoChangeEvent e)
+		{
+			RefreshPointInfos();
+		}
 
 		private void ClearPointItem()
 		{
@@ -117,8 +130,15 @@ namespace UI.Panels
 			}
 		}
 
+		private void OnClickPoint(int pointID)
+		{
+			var storyID = CgSceneController.TouchPointAndGetStoryID(pointID);
+			InvokeShowPanel(UIPanelType.TalkPanel,new TalkDataProvider(){ID = storyID});
+		}
+
 		#region Member
 
+		public CGSceneController CgSceneController => UiDataProvider.ControllerManager.CGSceneController;
 		private List<CGScenePointItem> m_items = new List<CGScenePointItem>();
 
 		#endregion

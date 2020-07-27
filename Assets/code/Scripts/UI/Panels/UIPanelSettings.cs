@@ -77,7 +77,8 @@ namespace UI.Panels
             new UIPanelSettings(UIPanelType.Tipgetpanel,UIPanelUnLoadMode.Destroy),
             new UIPanelSettings(UIPanelType.UICommonESCMainMenuPanel,UIPanelUnLoadMode.Disabled),
             new UIPanelSettings(UIPanelType.UICommonLoadarchivePanel),
-            new UIPanelSettings(UIPanelType.UICommonLogPanel,UIPanelUnLoadMode.Disabled)
+            new UIPanelSettings(UIPanelType.UICommonLogPanel,UIPanelUnLoadMode.Disabled),
+            new UIPanelSettings(UIPanelType.UICommonCgscenePanel),
         };
 
     }

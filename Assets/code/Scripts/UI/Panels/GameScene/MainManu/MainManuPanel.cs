@@ -50,9 +50,10 @@ namespace UI.Panels.GameScene.MainManu
 		public void OnClickStartBtn ()
 		{
 			//未读取存档
-			if (UiDataProvider.ControllerManager.PlayerArchiveController.CurrentSaveIndex == 0)
+			if (UiDataProvider.ControllerManager.PlayerArchiveController.CurrentSaveIndex == -1)
 			{
 				UiDataProvider.ControllerManager.PlayerArchiveController.LoadData(0);
+				return;
 			}
 
 			HidSelef ();

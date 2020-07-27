@@ -13,6 +13,7 @@ using UI.Panels.Providers.DataProviders.GameScene;
 using UI.Panels.Providers.DataProviders.StaticBoard;
 using UnityEngine;
 using UnityEngine.UI;
+using UI.UIComponent;
 
 namespace UI.Panels
 {
@@ -22,6 +23,9 @@ namespace UI.Panels
 		[HideInInspector] public Image m_img_cg_Image;
 
 		[HideInInspector] public RectTransform m_go_interactionPoints;
+		[HideInInspector] public Image m_btn_back_Image;
+		[HideInInspector] public Button m_btn_back_Button;
+
 
          private CommonCGSceneModel m_model;
 
@@ -30,6 +34,9 @@ namespace UI.Panels
 			m_img_cg_Image = FindUI<Image>(transform ,"img_cg");
 
 			m_go_interactionPoints = FindUI<RectTransform>(transform ,"go_interactionPoints");
+			m_btn_back_Image = FindUI<Image>(transform ,"btn_back");
+			m_btn_back_Button = FindUI<Button>(transform ,"btn_back");
+
 
 m_model = new CommonCGSceneModel ();
 

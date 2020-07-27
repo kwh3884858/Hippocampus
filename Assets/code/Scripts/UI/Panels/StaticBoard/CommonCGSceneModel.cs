@@ -65,16 +65,17 @@ namespace UI.Panels
         {
             SceneID = sceneID;
             SceneInfo = CGSceneConfig.GetConfigByKey(sceneID);
-            m_pointInfos.Clear();
-            foreach (var info in SceneInfo.pointIDs)
-            {
-                m_pointInfos.Add(CGSceneController.GetScenePointInfo(info));
-            }
         }
 
         public List<CGScenePointInfo> GetPointInfos()
         {
-            return m_pointInfos;
+            List<CGScenePointInfo> pointInfos = new List<CGScenePointInfo>();
+
+            foreach (var info in SceneInfo.pointIDs)
+            {
+                pointInfos.Add(CGSceneController.GetScenePointInfo(info));
+            }
+            return pointInfos;
         }
 
         
@@ -84,7 +85,6 @@ namespace UI.Panels
 
         public string SceneID;
         public CGSceneConfig SceneInfo;
-        private List<CGScenePointInfo> m_pointInfos = new List<CGScenePointInfo>();
         
         #endregion
     }

@@ -61,13 +61,14 @@ namespace StarPlatinum
 
 		public void InstantiateAsync<T> (string key, Action<RequestResult> callBack, Transform parent = null) where T : UnityEngine.Object
 		{
-			Addressables.LoadAsset<T> (key).Completed += operation => {
+			Addressables.LoadAsset<GameObject> (key).Completed += operation => {
 				var result = GetResult (key, operation);
 				if (result.status == RequestStatus.FAIL) {
 					callBack?.Invoke (result);
 					return;
 				}
-				result.result = Object.Instantiate (operation.Result, parent);
+				var obj = Object.Instantiate (operation.Result, parent);
+				result.result = obj.GetComponent<T> ();
 				callBack?.Invoke (result);
 			};
 		}
@@ -112,7 +113,7 @@ namespace StarPlatinum
 			});
 		}
 
-		private void LoadAssetAsync<T> (string key, Action<RequestResult> callBack, Transform parent = null) where T : UnityEngine.Object
+		public void LoadAssetAsync<T> (string key, Action<RequestResult> callBack, Transform parent = null) where T : UnityEngine.Object
 		{
 			if (m_objects.ContainsKey (key)) {
 				var result = new RequestResult (m_objects [key], key, RequestStatus.SUCCESS);

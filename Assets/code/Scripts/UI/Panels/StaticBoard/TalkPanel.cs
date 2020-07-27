@@ -361,8 +361,8 @@ namespace UI.Panels.StaticBoard
             PrefabManager.Instance.SetImage(m_name,artNameKey, () =>
                 {
                     m_name.enabled = false;
-                    m_nameTxt.gameObject.SetActive(true);
-                    m_nameTxt.text = name;
+//                    m_nameTxt.gameObject.SetActive(true);
+//                    m_nameTxt.text = name;
                 });
             ResetContentText();
             SetActionState(ActionState.End);
