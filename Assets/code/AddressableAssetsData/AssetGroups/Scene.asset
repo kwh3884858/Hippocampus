@@ -17,8 +17,24 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 052d0ed1e3839014d90c13b3b0494749
   m_SerializeEntries:
+  - m_GUID: 02f6831757af9d240aea412f2322e3ae
+    m_Address: World_2F_South_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 056429be9607f47c687afa4aef8818d4
     m_Address: World_CoreContainer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 08031112a9b306b49ae7520f78a91d99
+    m_Address: World_Episode4_DoctorRoom
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0841a4a00d3e5234d9836661a0ffcbb7
+    m_Address: World_1F_Middle_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 239b4ffd2d37f1c4d9766a24281c5120
+    m_Address: World_2F_East_Corrider
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 67e9f636bf85cec49aa5259fcd3be769
@@ -29,12 +45,32 @@ MonoBehaviour:
     m_Address: World_Episode2_Pier
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 794fe0dd20d0d9842ae8abbdd7f03b1c
+    m_Address: World_2F_North_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 973e004b6ca0227488b6da93a9ef02be
+    m_Address: World_1F_West_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: d64d83efff065fe4485fa4ded364df60
     m_Address: World_GoundTestScene
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: e3e26078347e88447b514d09519bbed7
+    m_Address: Assets/AddressableAssetsData/AssetGroups/Scene.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: ed9ede3d734f92e42827dd2b875a0b8f
     m_Address: World_Episode3_Hall
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f14695477dccae34c9e5da240881ab58
+    m_Address: World_1F_West_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f79125c6d14d82d48802f42aaaf5b074
+    m_Address: World_1F_South_Corrider
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

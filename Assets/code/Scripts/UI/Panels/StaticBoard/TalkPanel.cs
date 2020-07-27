@@ -554,6 +554,10 @@ namespace UI.Panels.StaticBoard
 
         public void Skip()
         {
+            if (m_characterTalkEnd)
+            {
+                EndCharacterTalk();
+            }
             m_skip = true;
         }
 
@@ -585,6 +589,7 @@ namespace UI.Panels.StaticBoard
         private bool m_autoPlay = false;
         private bool m_isFirstTalk = false;
         private bool m_skip = false;
+        private bool m_waitingEnd = false;
         private string m_currentID;
         private string m_currentRoleName;
         private RoleConfig m_curRoleInfo;
