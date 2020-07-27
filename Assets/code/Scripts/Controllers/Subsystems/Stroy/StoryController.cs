@@ -35,6 +35,7 @@ namespace Controllers.Subsystems.Story
 		LoadMission,
 		TriggerEvent,
 		PlayAnimation,
+		ChangeBackground,
 	}
 
 	public class StoryController : ControllerBase

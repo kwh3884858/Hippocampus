@@ -157,6 +157,7 @@ namespace UI.Panels.StaticBoard
         {
             base.UpdateData(data);
             Debug.Log($"开始对话 ID:{UIPanelDataProvider.ID}");
+            m_backgroundImg.gameObject.SetActive(false);
             SetInfo(UIPanelDataProvider.ID);
         }
 
@@ -278,6 +279,16 @@ namespace UI.Panels.StaticBoard
                     break;
                 case StoryActionType.TriggerEvent:
                     WaitClickEnd();
+                    break;
+                case StoryActionType.ChangeBackground:
+                    if (string.IsNullOrEmpty(storyAction.Content))
+                    {
+                        m_backgroundImg.gameObject.SetActive(false);
+                        return;
+                    }
+                    m_backgroundImg.gameObject.SetActive(true);
+                    PrefabManager.Instance.SetImage(m_backgroundImg,storyAction.Content);
+                    SetActionState(ActionState.End);
                     break;
                 default:
                     Debug.LogError($"未处理对话行为:{storyAction.Type}");
@@ -578,7 +589,7 @@ namespace UI.Panels.StaticBoard
         [SerializeField] private TMP_Text m_content;
         [SerializeField] private Image m_autoPlayImg;
         [SerializeField] private Transform m_pictureRoot;
-        [SerializeField] private GameObject m_talkObj;
+        [SerializeField] private Image m_backgroundImg;
         [SerializeField] private GameObject m_contentEnd;
 
         private Dictionary<string, PictureItem> m_pictureItems = new Dictionary<string, PictureItem>();
