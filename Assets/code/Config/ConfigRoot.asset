@@ -12,51 +12,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d456984042316f49ad3c9ec6bcfa894, type: 3}
   m_Name: ConfigRoot
   m_EditorClassIdentifier: 
-  StartScene: 8
-  StartMission: 1
-  World_1F_Middle_CorriderName: World_1F_Middle_Corrider
-  World_1F_Middle_CorriderCameraType: 0
-  World_1F_South_CorriderName: World_1F_South_Corrider
-  World_1F_South_CorriderCameraType: 0
-  World_1F_West_CorriderName: World_1F_West_Corrider
-  World_1F_West_CorriderCameraType: 0
-  World_2F_East_CorriderName: World_2F_East_Corrider
-  World_2F_East_CorriderCameraType: 0
-  World_2F_North_CorriderName: World_2F_North_Corrider
-  World_2F_North_CorriderCameraType: 0
-  World_2F_South_CorriderName: World_2F_South_Corrider
-  World_2F_South_CorriderCameraType: 0
-  World_2F_West_CorriderName: World_2F_West_Corrider
-  World_2F_West_CorriderCameraType: 0
-  World_CoreContainerName: World_CoreContainer
-  World_CoreContainerCameraType: 0
-  World_Episode2_PierName: World_Episode2_Pier
-  World_Episode2_PierCameraType: 2
-  World_Episode3_HallName: World_Episode3_Hall
-  World_Episode3_HallCameraType: 0
-  World_Episode4_DoctorRoomName: World_Episode4_DoctorRoom
-  World_Episode4_DoctorRoomCameraType: 0
-  World_GameRootName: World_GameRoot
-  World_GameRootCameraType: 1
+  StartScene: 14
+  StartMission: 3
   World_GoundTestSceneName: World_GoundTestScene
   World_GoundTestSceneCameraType: 2
-  World_Kitchen_CorriderName: World_Kitchen_Corrider
-  World_Kitchen_CorriderCameraType: 0
+  World_1F_South_CorriderName: World_1F_South_Corrider
+  World_1F_South_CorriderCameraType: 0
   World_Mission_DockByPier_World_Episode2_PierName: World_Mission_DockByPier_World_Episode2_Pier
   World_Mission_DockByPier_World_Episode2_PierCameraType: 0
+  World_CoreContainerName: World_CoreContainer
+  World_CoreContainerCameraType: 0
   World_Mission_DockByPier_World_Episode3_HallName: World_Mission_DockByPier_World_Episode3_Hall
   World_Mission_DockByPier_World_Episode3_HallCameraType: 0
   World_Mission_DockByPier_World_Episode4_DoctorRoomName: World_Mission_DockByPier_World_Episode4_DoctorRoom
   World_Mission_DockByPier_World_Episode4_DoctorRoomCameraType: 0
-  World_Mission_EnterIsland_World_Episode2_PierName: World_Mission_EnterIsland_World_Episode2_Pier
-  World_Mission_EnterIsland_World_Episode2_PierCameraType: 0
-  World_Mission_EnterIsland_World_Episode3_HallName: World_Mission_EnterIsland_World_Episode3_Hall
-  World_Mission_EnterIsland_World_Episode3_HallCameraType: 0
-  World_Mission_EP02_01_1F_South_Corrider_World_1F_South_CorriderName: World_Mission_EP02_01_1F_South_Corrider_World_1F_South_Corrider
-  World_Mission_EP02_01_1F_South_Corrider_World_1F_South_CorriderCameraType: 0
+  World_2F_North_CorriderName: World_2F_North_Corrider
+  World_2F_North_CorriderCameraType: 0
   World_Mission_EP02_09_2F_East_Corrider_World_2F_West_CorriderName: World_Mission_EP02_09_2F_East_Corrider_World_2F_West_Corrider
   World_Mission_EP02_09_2F_East_Corrider_World_2F_West_CorriderCameraType: 0
-  World_Mission_EP02_11_1F_South_Corrider_World_1F_South_CorriderName: World_Mission_EP02_11_1F_South_Corrider_World_1F_South_Corrider
-  World_Mission_EP02_11_1F_South_Corrider_World_1F_South_CorriderCameraType: 0
+  World_1F_West_CorriderName: World_1F_West_Corrider
+  World_1F_West_CorriderCameraType: 0
+  World_Episode3_HallName: World_Episode3_Hall
+  World_Episode3_HallCameraType: 0
+  World_Mission_EP01_03_Poison_Island_PierName: World_Mission_EP01_03_Poison_Island_Pier
+  World_Mission_EP01_03_Poison_Island_PierCameraType: 0
+  World_Kitchen_CorriderName: World_Kitchen_Corrider
+  World_Kitchen_CorriderCameraType: 0
+  World_2F_West_CorriderName: World_2F_West_Corrider
+  World_2F_West_CorriderCameraType: 0
+  World_2F_East_CorriderName: World_2F_East_Corrider
+  World_2F_East_CorriderCameraType: 0
+  Poison_Island_PierName: Poison_Island_Pier
+  Poison_Island_PierCameraType: 0
+  World_Mission_EP01_01_Poison_Island_PierName: World_Mission_EP01_01_Poison_Island_Pier
+  World_Mission_EP01_01_Poison_Island_PierCameraType: 0
+  World_Mission_EP02_01_1F_South_Corrider_World_1F_South_CorriderName: World_Mission_EP02_01_1F_South_Corrider_World_1F_South_Corrider
+  World_Mission_EP02_01_1F_South_Corrider_World_1F_South_CorriderCameraType: 0
+  World_Mission_EP01_02_Poison_Island_PierName: World_Mission_EP01_02_Poison_Island_Pier
+  World_Mission_EP01_02_Poison_Island_PierCameraType: 0
+  World_2F_South_CorriderName: World_2F_South_Corrider
+  World_2F_South_CorriderCameraType: 0
+  World_Episode4_DoctorRoomName: World_Episode4_DoctorRoom
+  World_Episode4_DoctorRoomCameraType: 0
+  World_GameRootName: World_GameRoot
+  World_GameRootCameraType: 1
+  World_Mission_EnterIsland_World_Episode2_PierName: World_Mission_EnterIsland_World_Episode2_Pier
+  World_Mission_EnterIsland_World_Episode2_PierCameraType: 0
   World_UITestSceneName: World_UITestScene
   World_UITestSceneCameraType: 1
+  World_1F_Middle_CorriderName: World_1F_Middle_Corrider
+  World_1F_Middle_CorriderCameraType: 0
+  World_Mission_EP02_11_1F_South_Corrider_World_1F_South_CorriderName: World_Mission_EP02_11_1F_South_Corrider_World_1F_South_Corrider
+  World_Mission_EP02_11_1F_South_Corrider_World_1F_South_CorriderCameraType: 0
+  World_Mission_EnterIsland_World_Episode3_HallName: World_Mission_EnterIsland_World_Episode3_Hall
+  World_Mission_EnterIsland_World_Episode3_HallCameraType: 0

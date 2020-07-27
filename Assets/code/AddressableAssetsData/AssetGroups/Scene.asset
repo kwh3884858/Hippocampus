@@ -41,10 +41,6 @@ MonoBehaviour:
     m_Address: World_UITestScene
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 76f726a6d946e154aa0feafe8f5a72ad
-    m_Address: World_Episode2_Pier
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 794fe0dd20d0d9842ae8abbdd7f03b1c
     m_Address: World_2F_North_Corrider
     m_ReadOnly: 0
