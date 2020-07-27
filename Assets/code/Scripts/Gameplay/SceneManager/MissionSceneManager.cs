@@ -15,7 +15,11 @@ namespace GamePlay.Stage
     {
         None,
         DockByPier,
-        EnterIsland
+        EnterIsland,
+        EP02_01_1F_South_Corrider,
+        EP02_09_2F_East_Corrider,
+        EP02_11_1F_South_Corrider,
+
     };
 
     public class MissionSceneManager : Singleton<MissionSceneManager>
@@ -216,7 +220,10 @@ namespace GamePlay.Stage
         private MissionEnum[] ALL_MISSION = {
         MissionEnum.None,
         MissionEnum.DockByPier,
-        MissionEnum.EnterIsland};
+        MissionEnum.EnterIsland,
+        MissionEnum.EP02_01_1F_South_Corrider,
+        MissionEnum.EP02_09_2F_East_Corrider,
+        MissionEnum.EP02_11_1F_South_Corrider,};
 
     }
 }

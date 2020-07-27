@@ -21,8 +21,16 @@ MonoBehaviour:
     m_Address: Load_Game_Panel
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 02f6831757af9d240aea412f2322e3ae
+    m_Address: World_2F_South_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 08031112a9b306b49ae7520f78a91d99
     m_Address: World_Episode4_DoctorRoom
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0841a4a00d3e5234d9836661a0ffcbb7
+    m_Address: World_1F_Middle_Corrider
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 1608de85b18654f8db00614c562cd8af
@@ -37,6 +45,10 @@ MonoBehaviour:
     m_Address: UI_Common_Tip_Item
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 239b4ffd2d37f1c4d9766a24281c5120
+    m_Address: World_2F_East_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 40631b7b6a2577b4ca50ed31d68bed97
     m_Address: Options_Panel
     m_ReadOnly: 0
@@ -47,6 +59,14 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 77b02b5e2281c4fbbaea91122005817f
     m_Address: Debug_Console
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 794fe0dd20d0d9842ae8abbdd7f03b1c
+    m_Address: World_2F_North_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 973e004b6ca0227488b6da93a9ef02be
+    m_Address: World_1F_West_Corrider
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 9c1f5d40f08cf5a4aa0984736f2ebfdd
@@ -91,6 +111,14 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: e8f271f6d04c4a645b15a3ad8e6f75aa
     m_Address: Single_Evidence_Select_Panel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f14695477dccae34c9e5da240881ab58
+    m_Address: World_1F_West_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f79125c6d14d82d48802f42aaaf5b074
+    m_Address: World_1F_South_Corrider
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

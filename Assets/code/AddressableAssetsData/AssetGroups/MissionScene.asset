@@ -33,8 +33,20 @@ MonoBehaviour:
     m_Address: World_Mission_DockByPier_World_Episode3_Hall
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 63df8179ebd29174fa6ae5d06672a97b
+    m_Address: World_Mission_EP02_01_1F_South_Corrider_World_1F_South_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 71ec58a1ef8a2834aa253a4a720a1e8b
     m_Address: World_Mission_DockByPier_World_Episode4_DoctorRoom
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 766b075c6750a59478b6ddc22eaa61e0
+    m_Address: World_Mission_EP02_09_2F_East_Corrider_World_2F_East_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7ab9f493c99bb7d4cb283a0e55849701
+    m_Address: World_Mission_EP02_11_1F_South_Corrider_World_1F_South_Corrider
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

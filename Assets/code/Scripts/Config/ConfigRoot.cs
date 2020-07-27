@@ -28,32 +28,44 @@ namespace Config.GameRoot
 		//[Scene Config Auto Generated Code Begin]
 
 [SerializeField]
-private string World_GoundTestSceneName = "World_GoundTestScene"; 
- public CameraService.SceneCameraType World_GoundTestSceneCameraType;  
+private string World_1F_Middle_CorriderName = "World_1F_Middle_Corrider"; 
+ public CameraService.SceneCameraType World_1F_Middle_CorriderCameraType;  
 
 [SerializeField]
-private string World_Mission_DockByPier_World_Episode2_PierName = "World_Mission_DockByPier_World_Episode2_Pier"; 
- public CameraService.SceneCameraType World_Mission_DockByPier_World_Episode2_PierCameraType;  
+private string World_1F_South_CorriderName = "World_1F_South_Corrider"; 
+ public CameraService.SceneCameraType World_1F_South_CorriderCameraType;  
+
+[SerializeField]
+private string World_1F_West_CorriderName = "World_1F_West_Corrider"; 
+ public CameraService.SceneCameraType World_1F_West_CorriderCameraType;  
+
+[SerializeField]
+private string World_2F_East_CorriderName = "World_2F_East_Corrider"; 
+ public CameraService.SceneCameraType World_2F_East_CorriderCameraType;  
+
+[SerializeField]
+private string World_2F_North_CorriderName = "World_2F_North_Corrider"; 
+ public CameraService.SceneCameraType World_2F_North_CorriderCameraType;  
+
+[SerializeField]
+private string World_2F_South_CorriderName = "World_2F_South_Corrider"; 
+ public CameraService.SceneCameraType World_2F_South_CorriderCameraType;  
+
+[SerializeField]
+private string World_2F_West_CorriderName = "World_2F_West_Corrider"; 
+ public CameraService.SceneCameraType World_2F_West_CorriderCameraType;  
 
 [SerializeField]
 private string World_CoreContainerName = "World_CoreContainer"; 
  public CameraService.SceneCameraType World_CoreContainerCameraType;  
 
 [SerializeField]
-private string World_Mission_DockByPier_World_Episode3_HallName = "World_Mission_DockByPier_World_Episode3_Hall"; 
- public CameraService.SceneCameraType World_Mission_DockByPier_World_Episode3_HallCameraType;  
-
-[SerializeField]
-private string World_Mission_DockByPier_World_Episode4_DoctorRoomName = "World_Mission_DockByPier_World_Episode4_DoctorRoom"; 
- public CameraService.SceneCameraType World_Mission_DockByPier_World_Episode4_DoctorRoomCameraType;  
+private string World_Episode2_PierName = "World_Episode2_Pier"; 
+ public CameraService.SceneCameraType World_Episode2_PierCameraType;  
 
 [SerializeField]
 private string World_Episode3_HallName = "World_Episode3_Hall"; 
  public CameraService.SceneCameraType World_Episode3_HallCameraType;  
-
-[SerializeField]
-private string World_Episode2_PierName = "World_Episode2_Pier"; 
- public CameraService.SceneCameraType World_Episode2_PierCameraType;  
 
 [SerializeField]
 private string World_Episode4_DoctorRoomName = "World_Episode4_DoctorRoom"; 
@@ -64,16 +76,48 @@ private string World_GameRootName = "World_GameRoot";
  public CameraService.SceneCameraType World_GameRootCameraType;  
 
 [SerializeField]
+private string World_GoundTestSceneName = "World_GoundTestScene"; 
+ public CameraService.SceneCameraType World_GoundTestSceneCameraType;  
+
+[SerializeField]
+private string World_Kitchen_CorriderName = "World_Kitchen_Corrider"; 
+ public CameraService.SceneCameraType World_Kitchen_CorriderCameraType;  
+
+[SerializeField]
+private string World_Mission_DockByPier_World_Episode2_PierName = "World_Mission_DockByPier_World_Episode2_Pier"; 
+ public CameraService.SceneCameraType World_Mission_DockByPier_World_Episode2_PierCameraType;  
+
+[SerializeField]
+private string World_Mission_DockByPier_World_Episode3_HallName = "World_Mission_DockByPier_World_Episode3_Hall"; 
+ public CameraService.SceneCameraType World_Mission_DockByPier_World_Episode3_HallCameraType;  
+
+[SerializeField]
+private string World_Mission_DockByPier_World_Episode4_DoctorRoomName = "World_Mission_DockByPier_World_Episode4_DoctorRoom"; 
+ public CameraService.SceneCameraType World_Mission_DockByPier_World_Episode4_DoctorRoomCameraType;  
+
+[SerializeField]
 private string World_Mission_EnterIsland_World_Episode2_PierName = "World_Mission_EnterIsland_World_Episode2_Pier"; 
  public CameraService.SceneCameraType World_Mission_EnterIsland_World_Episode2_PierCameraType;  
 
 [SerializeField]
-private string World_UITestSceneName = "World_UITestScene"; 
- public CameraService.SceneCameraType World_UITestSceneCameraType;  
-
-[SerializeField]
 private string World_Mission_EnterIsland_World_Episode3_HallName = "World_Mission_EnterIsland_World_Episode3_Hall"; 
  public CameraService.SceneCameraType World_Mission_EnterIsland_World_Episode3_HallCameraType;  
+
+[SerializeField]
+private string World_Mission_EP02_01_1F_South_Corrider_World_1F_South_CorriderName = "World_Mission_EP02_01_1F_South_Corrider_World_1F_South_Corrider"; 
+ public CameraService.SceneCameraType World_Mission_EP02_01_1F_South_Corrider_World_1F_South_CorriderCameraType;  
+
+[SerializeField]
+private string World_Mission_EP02_09_2F_East_Corrider_World_2F_West_CorriderName = "World_Mission_EP02_09_2F_East_Corrider_World_2F_West_Corrider"; 
+ public CameraService.SceneCameraType World_Mission_EP02_09_2F_East_Corrider_World_2F_West_CorriderCameraType;  
+
+[SerializeField]
+private string World_Mission_EP02_11_1F_South_Corrider_World_1F_South_CorriderName = "World_Mission_EP02_11_1F_South_Corrider_World_1F_South_Corrider"; 
+ public CameraService.SceneCameraType World_Mission_EP02_11_1F_South_Corrider_World_1F_South_CorriderCameraType;  
+
+[SerializeField]
+private string World_UITestSceneName = "World_UITestScene"; 
+ public CameraService.SceneCameraType World_UITestSceneCameraType;  
 
 //[Scene Config Auto Generated Code End]
 
@@ -93,26 +137,35 @@ private string World_Mission_EnterIsland_World_Episode3_HallName = "World_Missio
 			switch (name) {
 			//[Switch Case Auto Generated Code Begin]
 
-case "World_GoundTestScene" :  
-   return World_GoundTestSceneCameraType; 
+case "World_1F_Middle_Corrider" :  
+   return World_1F_Middle_CorriderCameraType; 
 
-case "World_Mission_DockByPier_World_Episode2_Pier" :  
-   return World_Mission_DockByPier_World_Episode2_PierCameraType; 
+case "World_1F_South_Corrider" :  
+   return World_1F_South_CorriderCameraType; 
+
+case "World_1F_West_Corrider" :  
+   return World_1F_West_CorriderCameraType; 
+
+case "World_2F_East_Corrider" :  
+   return World_2F_East_CorriderCameraType; 
+
+case "World_2F_North_Corrider" :  
+   return World_2F_North_CorriderCameraType; 
+
+case "World_2F_South_Corrider" :  
+   return World_2F_South_CorriderCameraType; 
+
+case "World_2F_West_Corrider" :  
+   return World_2F_West_CorriderCameraType; 
 
 case "World_CoreContainer" :  
    return World_CoreContainerCameraType; 
 
-case "World_Mission_DockByPier_World_Episode3_Hall" :  
-   return World_Mission_DockByPier_World_Episode3_HallCameraType; 
-
-case "World_Mission_DockByPier_World_Episode4_DoctorRoom" :  
-   return World_Mission_DockByPier_World_Episode4_DoctorRoomCameraType; 
+case "World_Episode2_Pier" :  
+   return World_Episode2_PierCameraType; 
 
 case "World_Episode3_Hall" :  
    return World_Episode3_HallCameraType; 
-
-case "World_Episode2_Pier" :  
-   return World_Episode2_PierCameraType; 
 
 case "World_Episode4_DoctorRoom" :  
    return World_Episode4_DoctorRoomCameraType; 
@@ -120,14 +173,38 @@ case "World_Episode4_DoctorRoom" :
 case "World_GameRoot" :  
    return World_GameRootCameraType; 
 
+case "World_GoundTestScene" :  
+   return World_GoundTestSceneCameraType; 
+
+case "World_Kitchen_Corrider" :  
+   return World_Kitchen_CorriderCameraType; 
+
+case "World_Mission_DockByPier_World_Episode2_Pier" :  
+   return World_Mission_DockByPier_World_Episode2_PierCameraType; 
+
+case "World_Mission_DockByPier_World_Episode3_Hall" :  
+   return World_Mission_DockByPier_World_Episode3_HallCameraType; 
+
+case "World_Mission_DockByPier_World_Episode4_DoctorRoom" :  
+   return World_Mission_DockByPier_World_Episode4_DoctorRoomCameraType; 
+
 case "World_Mission_EnterIsland_World_Episode2_Pier" :  
    return World_Mission_EnterIsland_World_Episode2_PierCameraType; 
 
-case "World_UITestScene" :  
-   return World_UITestSceneCameraType; 
-
 case "World_Mission_EnterIsland_World_Episode3_Hall" :  
    return World_Mission_EnterIsland_World_Episode3_HallCameraType; 
+
+case "World_Mission_EP02_01_1F_South_Corrider_World_1F_South_Corrider" :  
+   return World_Mission_EP02_01_1F_South_Corrider_World_1F_South_CorriderCameraType; 
+
+case "World_Mission_EP02_09_2F_East_Corrider_World_2F_West_Corrider" :  
+   return World_Mission_EP02_09_2F_East_Corrider_World_2F_West_CorriderCameraType; 
+
+case "World_Mission_EP02_11_1F_South_Corrider_World_1F_South_Corrider" :  
+   return World_Mission_EP02_11_1F_South_Corrider_World_1F_South_CorriderCameraType; 
+
+case "World_UITestScene" :  
+   return World_UITestSceneCameraType; 
 
 //[Switch Case Auto Generated Code End]    
 			default:
