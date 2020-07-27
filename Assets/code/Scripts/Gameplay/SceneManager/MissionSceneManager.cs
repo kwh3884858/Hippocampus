@@ -186,7 +186,7 @@ namespace GamePlay.Stage
                 return false;
             }
         }
-
+#if UNITY_EDITOR
         //For editor mode
         public bool IsFileMissionSceneExistInAssets(string folder, string sceneName)
         {
@@ -208,7 +208,7 @@ namespace GamePlay.Stage
             }
             return true;
         }
-
+#endif
         public string GenerateFullScenePath(string folderName, string sceneName)
         {
             return GenerateFullSceneFolderPath(folderName) + "/" + sceneName + ".unity";

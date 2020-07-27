@@ -164,17 +164,17 @@ namespace StarPlatinum
 
 			//AssetBundleLoad.overrideBaseDownloadingURL += OverrideBaseDownloadingURLWithPlatform;
 
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 			//abm = new AssetBundleManager();
 			//abm.SetPrioritizationStrategy(AssetBundleManager.PrioritizationStrategy.PrioritizeStreamingAssets);
 			//abm.UseSimulatedUri();
-#else
+//#else
 
-            abm = new AssetBundleManager ();
-			abm.SetPrioritizationStrategy (AssetBundleManager.PrioritizationStrategy.PrioritizeStreamingAssets);
-			abm.UseSimulatedUri ();
-			abm.Initialize (OnAssetBundleManagerInitialized);
-#endif
+   //         abm = new AssetBundleManager ();
+			//abm.SetPrioritizationStrategy (AssetBundleManager.PrioritizationStrategy.PrioritizeStreamingAssets);
+			//abm.UseSimulatedUri ();
+			//abm.Initialize (OnAssetBundleManagerInitialized);
+//#endif
 		}
 
 		private void OnAssetBundleManagerInitialized (bool success)
@@ -195,7 +195,7 @@ namespace StarPlatinum
 
 		public void LoadPrefab (string path, Action<AssetBundle> OnAssetBundleDownloaded)
 		{
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 
 			//if (abm != null) {
 			//	abm.GetBundle (path, OnAssetBundleDownloaded);
@@ -212,15 +212,15 @@ namespace StarPlatinum
 			//path = path.ToLower ();
 			//T go = AssetBundleLoad.LoadGameObject (path) as T;
 			//return go;
-#else
+//#else
 
-				//Console.Instance ().Debug (path);
-			if (abm != null) {
-				abm.GetBundle (path, OnAssetBundleDownloaded);
-			} else {
-				Debug.LogError ("Error initializing ABM.");
-			}
-#endif
+//				//Console.Instance ().Debug (path);
+//			if (abm != null) {
+//				abm.GetBundle (path, OnAssetBundleDownloaded);
+//			} else {
+//				Debug.LogError ("Error initializing ABM.");
+//			}
+//#endif
 		}
 
 		public T LoadPrefab<T> (string path) where T : UnityEngine.Object
@@ -237,7 +237,7 @@ namespace StarPlatinum
 			UnityEngine.SceneManagement.LoadSceneMode mode
 			)
 		{
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 			//string levelName = "scenes/scene1.unity3d";
 
 			//if (abm != null) {
@@ -260,20 +260,20 @@ namespace StarPlatinum
 			//StartCoroutine (InitializeLevelAsync (sceneName, mode));
 
 
-#else
-			if (abm != null) {
-				abm.GetBundle (string.Format ("scenes/{0}.unity3d", sceneName), OnSceneAssetBundleDownloaded);
-			} else {
-				Debug.LogError ("Error initializing ABM.");
-			}
-			UnityEngine.SceneManagement.SceneManager.LoadSceneAsync (sceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+//#else
+//			if (abm != null) {
+//				abm.GetBundle (string.Format ("scenes/{0}.unity3d", sceneName), OnSceneAssetBundleDownloaded);
+//			} else {
+//				Debug.LogError ("Error initializing ABM.");
+//			}
+//			UnityEngine.SceneManagement.SceneManager.LoadSceneAsync (sceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive);
 
-			//StartCoroutine (InitializeLevelAsync (sceneName, mode));
-			//Console.Instance ().Debug (path);
-			//path = path.ToLower ();
-			//T go = AssetBundleLoad.LoadGameObject (path) as T;
-            //return go;
-#endif
+//			//StartCoroutine (InitializeLevelAsync (sceneName, mode));
+//			//Console.Instance ().Debug (path);
+//			//path = path.ToLower ();
+//			//T go = AssetBundleLoad.LoadGameObject (path) as T;
+//            //return go;
+//#endif
 		}
 		private void OnSceneAssetBundleDownloaded (AssetBundle bundle)
 		{

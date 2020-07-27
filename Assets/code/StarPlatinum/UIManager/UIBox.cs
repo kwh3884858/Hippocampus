@@ -23,7 +23,7 @@ namespace StarPlatinum
 
 		public void UIClose ()
 		{
-			UIManager.Instance ().CloseBox ();
+			//UIManager.Instance ().CloseBox ();
 		}
 	}
 }
