@@ -4,6 +4,7 @@ using UnityEngine;
 using StarPlatinum.Service;
 using StarPlatinum.Base;
 using System.Collections.Generic;
+using GamePlay.Stage;
 
 namespace Config.GameRoot
 {
@@ -22,6 +23,9 @@ namespace Config.GameRoot
 
 		[Header ("Start Scene")]
 		public SceneLookupEnum StartScene;
+
+		[Header ("Start Mission")]
+		public MissionEnum StartMission;
 
 		[Header ("Scene Config")]
 
@@ -121,16 +125,16 @@ private string World_UITestSceneName = "World_UITestScene";
 
 //[Scene Config Auto Generated Code End]
 
-		[Header ("Chapter Config, Please Modify Them In Code")]
+		//[Header ("Chapter Config, Please Modify Them In Code")]
 
-		public List<string> m_chapterName = new List<string> {
-			"Episode1",
-			"Pier"
-		};
+		//public List<string> m_chapterName = new List<string> {
+		//	"Episode1",
+		//	"Pier"
+		//};
 
-		public string GetChapterName (int index) => m_chapterName [index];
+		//public string GetChapterName (int index) => m_chapterName [index];
 
-		public bool IsExistChapterName (string name) => m_chapterName.Contains (name);
+		//public bool IsExistChapterName (string name) => m_chapterName.Contains (name);
 
 		public CameraService.SceneCameraType GetCameraTypeBySceneName (string name)
 		{

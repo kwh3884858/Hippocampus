@@ -1,4 +1,5 @@
 ﻿using Config.GameRoot;
+using GamePlay.Stage;
 using StarPlatinum.Service;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +12,12 @@ namespace StarPlatinum
 	public class GameRootInspector : Editor
 	{
 		GameRoot m_gameRoot;
+
+		[SerializeField]
 		SceneLookupEnum m_enumStartScene;
+
+		[SerializeField]
+		MissionEnum m_enumStartMission;
 
 		//[Camera Type Variable Auto Generated Code Begin]
 
@@ -90,7 +96,18 @@ CameraService.SceneCameraType m_World_1F_Middle_CorriderCameraType;
 				Debug.Log ($"Set {m_enumStartScene.ToString ()} as Start Scene");
 			}
 
-            GUILayout.Label("Camera Setting", EditorStyles.boldLabel);
+			GUILayout.Label ("Start From This Scene", EditorStyles.boldLabel);
+
+			m_enumStartMission = ConfigRoot.Instance.StartMission;
+			m_enumStartMission = (MissionEnum)EditorGUILayout.EnumPopup ("Start Mission:", m_enumStartMission);
+			if (m_enumStartMission != m_gameRoot.m_startMission) {
+				m_gameRoot.m_startMission = m_enumStartMission;
+				ConfigRoot.Instance.StartMission = m_enumStartMission;
+				Debug.Log ($"Set {m_enumStartMission.ToString ()} as Start Mission");
+			}
+
+
+			GUILayout.Label("Camera Setting", EditorStyles.boldLabel);
 
             //[Inspector Popup Auto Generated Code Begin]
 

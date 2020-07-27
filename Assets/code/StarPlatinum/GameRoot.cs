@@ -14,7 +14,8 @@ namespace StarPlatinum
 	public class GameRoot : MonoSingleton<GameRoot>
 	{
 
-		public SceneLookupEnum m_startScene { get; set; }
+		public  SceneLookupEnum m_startScene { get; set; }
+		public  MissionEnum m_startMission { get; set; }
 #if DevMode
 		public static string m_consolePrefabName = "Debug_Console";
 #endif
