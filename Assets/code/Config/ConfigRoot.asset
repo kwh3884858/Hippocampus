@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d456984042316f49ad3c9ec6bcfa894, type: 3}
   m_Name: ConfigRoot
   m_EditorClassIdentifier: 
-  StartScene: 14
+  StartScene: 30
   StartMission: 3
   World_GoundTestSceneName: World_GoundTestScene
   World_GoundTestSceneCameraType: 2
