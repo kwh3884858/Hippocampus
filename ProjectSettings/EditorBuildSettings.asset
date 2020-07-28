@@ -6,12 +6,36 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
+    path: Assets/data/graphics/World/1F_South_Corrider/World_1F_South_Corrider.unity
+    guid: f79125c6d14d82d48802f42aaaf5b074
+  - enabled: 0
+    path: Assets/data/graphics/World/1F_West_Corrider/World_1F_West_Corrider.unity
+    guid: f14695477dccae34c9e5da240881ab58
+  - enabled: 0
+    path: Assets/data/graphics/World/1F_middle_Corrider/World_1F_Middle_Corrider.unity
+    guid: 0841a4a00d3e5234d9836661a0ffcbb7
+  - enabled: 0
+    path: Assets/data/graphics/World/2F_East_Corrider/World_2F_East_Corrider.unity
+    guid: 239b4ffd2d37f1c4d9766a24281c5120
+  - enabled: 0
+    path: Assets/data/graphics/World/2F_North_Corrider/World_2F_North_Corrider.unity
+    guid: 794fe0dd20d0d9842ae8abbdd7f03b1c
+  - enabled: 0
+    path: Assets/data/graphics/World/2F_South_Corrider/World_2F_South_Corrider.unity
+    guid: 02f6831757af9d240aea412f2322e3ae
+  - enabled: 0
+    path: Assets/data/graphics/World/2F_West_Corrider/World_2F_West_Corrider.unity
+    guid: 9d9863d00aa2c0c40bd29bd8af681352
+  - enabled: 0
     path: Assets/data/graphics/World/CoreContainer/World_CoreContainer.unity
     guid: 056429be9607f47c687afa4aef8818d4
   - enabled: 0
+<<<<<<< HEAD
     path: Assets/data/graphics/World/Poison_Island_Pier/Poison_Island_Pier.unity
     guid: 76f726a6d946e154aa0feafe8f5a72ad
   - enabled: 0
+=======
+>>>>>>> 6b9154b7c23b2434df947ea5526463b0c510a47e
     path: Assets/data/graphics/World/Episode3_Hall/World_Episode3_Hall.unity
     guid: ed9ede3d734f92e42827dd2b875a0b8f
   - enabled: 0
@@ -24,6 +48,9 @@ EditorBuildSettings:
     path: Assets/data/graphics/World/GoundTestScene/World_GoundTestScene.unity
     guid: d64d83efff065fe4485fa4ded364df60
   - enabled: 0
+    path: Assets/data/graphics/World/Kitchen_Corrider/World_Kitchen_Corrider.unity
+    guid: 4da8447f1ecfcbf42ae46926f4171f3d
+  - enabled: 0
     path: Assets/data/graphics/World/Mission_DockByPier_World_Episode2_Pier/World_Mission_DockByPier_World_Episode2_Pier.unity
     guid: 2a805da4f1cf246f7ba701c23a2c1839
   - enabled: 0
@@ -33,11 +60,32 @@ EditorBuildSettings:
     path: Assets/data/graphics/World/Mission_DockByPier_World_Episode4_DoctorRoom/World_Mission_DockByPier_World_Episode4_DoctorRoom.unity
     guid: 71ec58a1ef8a2834aa253a4a720a1e8b
   - enabled: 0
+    path: Assets/data/graphics/World/Mission_EP01_01_Poison_Island_Pier/World_Mission_EP01_01_Poison_Island_Pier.unity
+    guid: 1cf2ccd3a985a4aa4b7fa82e8798fd1a
+  - enabled: 0
+    path: Assets/data/graphics/World/Mission_EP01_02_Poison_Island_Pier/World_Mission_EP01_02_Poison_Island_Pier.unity
+    guid: 5022e0e760c4a4d55b38cc37d72ad1a9
+  - enabled: 0
+    path: Assets/data/graphics/World/Mission_EP01_03_Poison_Island_Pier/World_Mission_EP01_03_Poison_Island_Pier.unity
+    guid: ebe57c901ab994064a6e26e2f3fa25d8
+  - enabled: 0
+    path: Assets/data/graphics/World/Mission_EP02_01_1F_South_Corrider_World_1F_South_Corrider/World_Mission_EP02_01_1F_South_Corrider_World_1F_South_Corrider.unity
+    guid: 63df8179ebd29174fa6ae5d06672a97b
+  - enabled: 0
+    path: Assets/data/graphics/World/Mission_EP02_09_2F_East_Corrider_World_2F_East_Corrider/World_Mission_EP02_09_2F_East_Corrider_World_2F_West_Corrider.unity
+    guid: 766b075c6750a59478b6ddc22eaa61e0
+  - enabled: 0
+    path: Assets/data/graphics/World/Mission_EP02_11_1F_South_Corrider_World_1F_South_Corrider/World_Mission_EP02_11_1F_South_Corrider_World_1F_South_Corrider.unity
+    guid: 7ab9f493c99bb7d4cb283a0e55849701
+  - enabled: 0
     path: Assets/data/graphics/World/Mission_EnterIsland_World_Episode2_Pier/World_Mission_EnterIsland_World_Episode2_Pier.unity
     guid: 4838297a085504d40bbdb8f264ca3ac2
   - enabled: 0
     path: Assets/data/graphics/World/Mission_EnterIsland_World_Episode3_Hall/World_Mission_EnterIsland_World_Episode3_Hall.unity
     guid: 2c5a0362cd4174fdb9dfaf14d6230d0c
+  - enabled: 0
+    path: Assets/data/graphics/World/Poison_Island_Pier/Poison_Island_Pier.unity
+    guid: 76f726a6d946e154aa0feafe8f5a72ad
   - enabled: 0
     path: Assets/data/graphics/World/UITestScene/World_UITestScene.unity
     guid: 67e9f636bf85cec49aa5259fcd3be769

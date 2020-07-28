@@ -61,13 +61,14 @@ namespace StarPlatinum
 
 		public void InstantiateAsync<T> (string key, Action<RequestResult> callBack, Transform parent = null) where T : UnityEngine.Object
 		{
-			Addressables.LoadAsset<T> (key).Completed += operation => {
+			Addressables.LoadAsset<GameObject> (key).Completed += operation => {
 				var result = GetResult (key, operation);
 				if (result.status == RequestStatus.FAIL) {
 					callBack?.Invoke (result);
 					return;
 				}
-				result.result = Object.Instantiate (operation.Result, parent);
+				var obj = Object.Instantiate (operation.Result, parent);
+				result.result = obj.GetComponent<T> ();
 				callBack?.Invoke (result);
 			};
 		}
@@ -112,7 +113,7 @@ namespace StarPlatinum
 			});
 		}
 
-		private void LoadAssetAsync<T> (string key, Action<RequestResult> callBack, Transform parent = null) where T : UnityEngine.Object
+		public void LoadAssetAsync<T> (string key, Action<RequestResult> callBack, Transform parent = null) where T : UnityEngine.Object
 		{
 			if (m_objects.ContainsKey (key)) {
 				var result = new RequestResult (m_objects [key], key, RequestStatus.SUCCESS);
@@ -131,24 +132,51 @@ namespace StarPlatinum
 			m_loadingCallback [key] = callBack;
 		}
 
-		public void LoadAssetsAsync<T> (List<string> keys, Action<RequestResult> callBack, Transform parent = null) where T : UnityEngine.Object
+		public void LoadAssetsAsync<T>(List<string> keys, Action<Dictionary<string, T>> onLoadFinish) where T : UnityEngine.Object
 		{
+			var objs = new Dictionary<string, T>();
+			LoadAssetsAsync<T>(keys, (result) =>
+			{
+				if (result.status == RequestStatus.SUCCESS)
+				{
+					objs.Add(result.key,result.result as T);
+				}
+			}, () => { onLoadFinish?.Invoke(objs); });
+		}
+
+		public void LoadAssetsAsync<T> (List<string> keys, Action<RequestResult> callBack, Action allEndCallback) where T : UnityEngine.Object
+		{
+			int loadNum =0;
 			foreach (var key in keys) {
 				if (m_objects.ContainsKey (key)) {
 					var result = new RequestResult (m_objects [key], key, RequestStatus.SUCCESS);
 					callBack?.Invoke (result);
+					continue;
 				}
 				if (m_loadingCallback.ContainsKey (key)) {
 					m_loadingCallback [key] += callBack;
-					continue;
 				}
+				else
+				{
+					m_loadingCallback[key] = callBack;
+				}
+
+				loadNum++;
 				Addressables.LoadAsset<T> (key).Completed += operation => {
 					var result = GetResult (key, operation);
 					m_loadingCallback [key].Invoke (result);
 					m_loadingCallback.Remove (key);
-					m_objects [key] = result.result;
+					m_objects[key] = result.result;
+					loadNum--;
+					if (loadNum <= 0)
+					{
+						allEndCallback?.Invoke();
+					}
 				};
-				m_loadingCallback [key] = callBack;
+			}
+			if (loadNum <= 0)
+			{
+				allEndCallback?.Invoke();
 			}
 		}
 

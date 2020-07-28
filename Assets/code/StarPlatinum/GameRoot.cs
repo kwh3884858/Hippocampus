@@ -14,7 +14,8 @@ namespace StarPlatinum
 	public class GameRoot : MonoSingleton<GameRoot>
 	{
 
-		public SceneLookupEnum m_startScene { get; set; }
+		public  SceneLookupEnum m_startScene { get; set; }
+		public  MissionEnum m_startMission { get; set; }
 #if DevMode
 		public static string m_consolePrefabName = "Debug_Console";
 #endif
@@ -71,10 +72,12 @@ namespace StarPlatinum
 			//add console
 			GameObject console = GameObject.Find (m_consolePrefabName);
 			if (console == null) {
-				PrefabManager.Instance.InstantiateAsync<GameObject> (m_consolePrefabName, (result) => {
+				PrefabManager.Instance.InstantiateAsync<Transform> (m_consolePrefabName, (result) => {
 					Debug.Log ($"===========aas:{result.key}加载完成.");
-					console = result.result as GameObject;
-					console.name = m_consolePrefabName;
+					Debug.Log ($"===========aas:{result.key}加载完成.");
+
+					Transform tf = result.result as Transform;
+					tf.gameObject.name = m_consolePrefabName;
 				});
 			}
 #endif

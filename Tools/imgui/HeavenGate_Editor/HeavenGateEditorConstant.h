@@ -29,7 +29,7 @@ namespace HeavenGateEditor {
     const int     MAX_ENUM_LENGTH = 16;
 
     //Table
-    const int     MAX_COLUMNS_CONTENT_LENGTH = 16;
+    const int     MAX_COLUMNS_CONTENT_LENGTH = 64;
     const int     FONT_SIZE_MAX_COLUMN = 2;
     const int     COLOR_MAX_COLUMN = 5;
     const int     TIP_MAX_COLUMN = 2;

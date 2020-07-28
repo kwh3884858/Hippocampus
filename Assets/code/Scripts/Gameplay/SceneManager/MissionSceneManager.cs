@@ -15,7 +15,15 @@ namespace GamePlay.Stage
     {
         None,
         DockByPier,
-        EnterIsland
+        EnterIsland,
+        EP01_01,
+        EP01_02,
+        EP01_03,
+        EP01_04,
+        EP02_01_1F_South_Corrider,
+        EP02_09_2F_East_Corrider,
+        EP02_11_1F_South_Corrider,
+
     };
 
     public class MissionSceneManager : Singleton<MissionSceneManager>
@@ -178,7 +186,7 @@ namespace GamePlay.Stage
                 return false;
             }
         }
-
+#if UNITY_EDITOR
         //For editor mode
         public bool IsFileMissionSceneExistInAssets(string folder, string sceneName)
         {
@@ -200,7 +208,7 @@ namespace GamePlay.Stage
             }
             return true;
         }
-
+#endif
         public string GenerateFullScenePath(string folderName, string sceneName)
         {
             return GenerateFullSceneFolderPath(folderName) + "/" + sceneName + ".unity";
@@ -216,7 +224,14 @@ namespace GamePlay.Stage
         private MissionEnum[] ALL_MISSION = {
         MissionEnum.None,
         MissionEnum.DockByPier,
-        MissionEnum.EnterIsland};
+        MissionEnum.EnterIsland,
+        MissionEnum.EP01_01,
+        MissionEnum.EP01_02,
+        MissionEnum.EP01_03,
+        MissionEnum.EP01_04,
+        MissionEnum.EP02_01_1F_South_Corrider,
+        MissionEnum.EP02_09_2F_East_Corrider,
+        MissionEnum.EP02_11_1F_South_Corrider,};
 
     }
 }

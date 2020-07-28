@@ -9,6 +9,7 @@ using StarPlatinum.Manager;
 using GamePlay.Stage;
 using StarPlatinum;
 using StarPlatinum.EventManager;
+using Config.GameRoot;
 
 namespace UI.Panels.GameScene.MainManu
 {
@@ -49,15 +50,16 @@ namespace UI.Panels.GameScene.MainManu
 		public void OnClickStartBtn ()
 		{
 			//未读取存档
-			if (UiDataProvider.ControllerManager.PlayerArchiveController.CurrentSaveIndex == 0)
+			if (UiDataProvider.ControllerManager.PlayerArchiveController.CurrentSaveIndex == -1)
 			{
 				UiDataProvider.ControllerManager.PlayerArchiveController.LoadData(0);
+				return;
 			}
 
 			HidSelef ();
             //Now we don`t load scene in UI button, we use mission to manager state, and input system UI like HUD should display when player is controllable.
-            GameSceneManager.Instance.LoadScene(SceneLookupEnum.World_Episode2_Pier);
-            MissionSceneManager.Instance.LoadMissionScene(MissionEnum.DockByPier);
+            GameSceneManager.Instance.LoadScene(ConfigRoot.Instance.StartScene);
+            MissionSceneManager.Instance.LoadMissionScene(ConfigRoot.Instance.StartMission);
             CallbackTime (1, ShowHud);
 			UIManager.Instance ().ActivatState (GameState.Battle);// 设置当前状态,wywtsest
             UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonGameplayPanel);// 显示助手UI

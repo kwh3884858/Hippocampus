@@ -17,16 +17,56 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: ec2c562d5ef25904a805123d056b4d96
   m_SerializeEntries:
-  - m_GUID: 2b13eddbf4f880f418eb0ce021faebd6
-    m_Address: ArtWordName_Jojo
+  - m_GUID: 0756278bae6aa514cb93404034819b8e
+    m_Address: Characters_CharacterName_Unknown
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: f111fbfba943e1944827e0f78d01a07c
-    m_Address: ArtWordName_Dio
+  - m_GUID: 160a6cc2ef365194aa16fea1980bcbfb
+    m_Address: Characters_CharacterName_Har
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: fca52d9f60551854c9c2e2047917f2b1
-    m_Address: ArtWordName_Joestar
+  - m_GUID: 54b2c7d6176902c4f8f761ee994b90cb
+    m_Address: Characters_CharacterName_PrisonOfficer_With_Ponytail
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 63ae61db0c15345448083ab726855cc6
+    m_Address: Characters_CharacterName_Player
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7f226f54484640849986892bfd951e19
+    m_Address: Characters_CharacterName_Rol_And_Ivy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8bf90b2cf3e678c4ebeeda0027cf9901
+    m_Address: Characters_CharacterName_System
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 943d3b9d1382a804c88be4f05d0812fb
+    m_Address: Characters_CharacterName_PrisonOfficer_Tall
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b72920039d28d6d4b945484f37d91253
+    m_Address: Characters_CharacterName_PrisonOfficer_With_Glasses
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cb09d9ff8bf73d64db055e37c72938f5
+    m_Address: Characters_CharacterName_PrisonOfficer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cc78b8fe04750e34fbacda337663497d
+    m_Address: Characters_CharacterName_Rol
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d23ac82896fcd8c45b7d3ccbf05fc585
+    m_Address: Characters_CharacterName_Virgil
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e9a1302ab3ad8d448afde5de2068e9a5
+    m_Address: Characters_CharacterName_Irene
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f0ae16b4ccf00e447a00f2b5185d130b
+    m_Address: Characters_CharacterName_Ivy
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

@@ -31,6 +31,14 @@
 		"modelPath":"Assets/code/Scripts/UI/Panels/AutoCreate/GameplayPromptWidgetModel.cs",
 		"GUID":"da708069400df4e3ab6f9850ef8088e7"
 	},
+	"36140db7e341ae1489398e42dec1a1d3":{
+		"type":1,
+		"prefabPath":"Assets/data/graphics/UI/Common/Talk/Prefabs/UI_Common_Log_Panel.prefab",
+		"codePath":"Assets/code/Scripts/UI/Panels/AutoCreate/CommonLogPanel.cs",
+		"mediatorPath":"Assets/code/Scripts/UI/Panels/AutoCreate/CommonLogPanel.cs",
+		"modelPath":"Assets/code/Scripts/UI/Panels/AutoCreate/CommonLogModel.cs",
+		"GUID":"36140db7e341ae1489398e42dec1a1d3"
+	},
 	"0aa6d7621b1c5bc4a93b65f33cf0ee0e":{
 		"type":3,
 		"prefabPath":"Assets/data/graphics/UI/Common/GamePlay/Prefabs/UI_Common_GamePlay_Panel.prefab",

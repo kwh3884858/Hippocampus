@@ -13,6 +13,7 @@ using UI.Panels.Providers.DataProviders.GameScene;
 using UI.Panels.Providers.DataProviders.StaticBoard;
 using UnityEngine;
 using UnityEngine.UI;
+using UI.UIComponent;
 
 namespace UI.Panels
 {

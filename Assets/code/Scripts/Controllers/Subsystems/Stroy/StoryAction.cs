@@ -143,6 +143,11 @@ namespace Controllers.Subsystems.Story
             m_actions.Enqueue(new StoryAction(){Type =  StoryActionType.PlayAnimation , Content = animtionID});
         }
 
+        public void ChangeBackground(string backgroundKey)
+        {
+            m_actions.Enqueue(new StoryAction(){Type =  StoryActionType.ChangeBackground , Content = backgroundKey});
+        }
+
         public StoryAction GetNextAction()
         {
             if (m_actions.Count > 0)
