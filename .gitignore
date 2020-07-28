@@ -95,3 +95,5 @@ submodules/
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+Assets/StreamingAssets/Data
+Assets/StreamingAssets/com.unity.addressables
