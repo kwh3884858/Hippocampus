@@ -16,4 +16,5 @@ public enum UIPanelType
     [AssetPath("UI_Common_LoadArchive_Panel")] UICommonLoadarchivePanel = 13,
     [AssetPath("UI_Gameplay_PromptWidget_Panel")] UIGameplayPromptwidgetPanel = 14,
     [AssetPath("UI_Common_GamePlay_Panel")] UICommonGameplayPanel = 15,
+    [AssetPath("UI_Common_Maps_Tips_Evidences_Panel")] UICommonMapsTipsEvidencesPanel = 16,
 }

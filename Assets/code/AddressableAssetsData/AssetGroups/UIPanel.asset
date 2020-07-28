@@ -25,6 +25,10 @@ MonoBehaviour:
     m_Address: World_Episode4_DoctorRoom
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 0aa6d7621b1c5bc4a93b65f33cf0ee0e
+    m_Address: UI_Common_GamePlay_Panel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 1608de85b18654f8db00614c562cd8af
     m_Address: MainCamera
     m_ReadOnly: 0
@@ -43,6 +47,10 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 6874112fcbaa4b149baec58339db8950
     m_Address: UI_Common_CGScene_Panel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 69b7f0e0acee6bd498a5a6ce22c9a054
+    m_Address: UI_Common_Maps_Tips_Evidences_Panel
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 77b02b5e2281c4fbbaea91122005817f

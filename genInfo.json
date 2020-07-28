@@ -38,5 +38,13 @@
 		"mediatorPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonGamePlayPanel.cs",
 		"modelPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonGamePlayModel.cs",
 		"GUID":"0aa6d7621b1c5bc4a93b65f33cf0ee0e"
+	},
+	"69b7f0e0acee6bd498a5a6ce22c9a054":{
+		"type":3,
+		"prefabPath":"Assets/data/graphics/UI/Common/Maps_Tips_Evidences/Prefabs/UI_Common_Maps_Tips_Evidences_Panel.prefab",
+		"codePath":"Assets/code/Scripts/UI/Panels/AutoCreate/CommonMapsTipsEvidencesPanel.cs",
+		"mediatorPath":"Assets/code/Scripts/UI/Panels/Maps_Tips_Evidences/CommonMapsTipsEvidencesPanel.cs",
+		"modelPath":"Assets/code/Scripts/UI/Panels/Maps_Tips_Evidences/CommonMapsTipsEvidencesModel.cs",
+		"GUID":"69b7f0e0acee6bd498a5a6ce22c9a054"
 	}
 }

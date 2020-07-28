@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/data/graphics/World/CoreContainer/World_CoreContainer.unity
     guid: 056429be9607f47c687afa4aef8818d4
   - enabled: 0
-    path: Assets/data/graphics/World/Episode2_Pier/World_Episode2_Pier.unity
+    path: Assets/data/graphics/World/Poison_Island_Pier/Poison_Island_Pier.unity
     guid: 76f726a6d946e154aa0feafe8f5a72ad
   - enabled: 0
     path: Assets/data/graphics/World/Episode3_Hall/World_Episode3_Hall.unity
