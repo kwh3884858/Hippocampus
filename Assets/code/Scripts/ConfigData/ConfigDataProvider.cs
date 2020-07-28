@@ -10,7 +10,7 @@ namespace Config.Data
 {
     public class ConfigDataProvider
     {
-        public string m_dataPath="Assets/data/configData/";
+        public string m_dataPath= Application.streamingAssetsPath+"/Data/";
         public string m_jsonSuffix = ".json";
         public void InitialInfo()
         {

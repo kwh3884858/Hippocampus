@@ -244,6 +244,6 @@ namespace code.Scripts.Editor
         
         private static string m_configPath = 
             System.Environment.CurrentDirectory+"/Config";
-        private static string m_jsonPath = Application.dataPath + "/data/configData/";
+        private static string m_jsonPath = Application.streamingAssetsPath+"/Data/";
     }
 }
