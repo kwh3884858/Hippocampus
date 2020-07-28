@@ -23,11 +23,15 @@ namespace StarPlatinum
 
 CameraService.SceneCameraType m_World_GoundTestSceneCameraType; 
 
+ CameraService.SceneCameraType m_World_Mission_EP02_07_World_2F_West_CorriderCameraType; 
+
  CameraService.SceneCameraType m_World_1F_South_CorriderCameraType; 
 
  CameraService.SceneCameraType m_World_Mission_DockByPier_World_Episode2_PierCameraType; 
 
  CameraService.SceneCameraType m_World_CoreContainerCameraType; 
+
+ CameraService.SceneCameraType m_World_Mission_EP02_04_World_2F_West_CorriderCameraType; 
 
  CameraService.SceneCameraType m_World_Mission_DockByPier_World_Episode3_HallCameraType; 
 
@@ -39,15 +43,23 @@ CameraService.SceneCameraType m_World_GoundTestSceneCameraType;
 
  CameraService.SceneCameraType m_World_1F_West_CorriderCameraType; 
 
+ CameraService.SceneCameraType m_World_Mission_EP02_08_World_2F_West_CorriderCameraType; 
+
  CameraService.SceneCameraType m_World_Episode3_HallCameraType; 
 
+ CameraService.SceneCameraType m_World_Mission_EP02_05_World_2F_West_CorriderCameraType; 
+
  CameraService.SceneCameraType m_World_Mission_EP01_03_Poison_Island_PierCameraType; 
+
+ CameraService.SceneCameraType m_World_Mission_EP02_06_World_2F_West_CorriderCameraType; 
 
  CameraService.SceneCameraType m_World_Kitchen_CorriderCameraType; 
 
  CameraService.SceneCameraType m_World_2F_West_CorriderCameraType; 
 
  CameraService.SceneCameraType m_World_2F_East_CorriderCameraType; 
+
+ CameraService.SceneCameraType m_World_Mission_EP02_01_1F_South_Corrider_World_1F_West_CorriderCameraType; 
 
  CameraService.SceneCameraType m_Poison_Island_PierCameraType; 
 
@@ -58,6 +70,8 @@ CameraService.SceneCameraType m_World_GoundTestSceneCameraType;
  CameraService.SceneCameraType m_World_Mission_EP01_02_Poison_Island_PierCameraType; 
 
  CameraService.SceneCameraType m_World_2F_South_CorriderCameraType; 
+
+ CameraService.SceneCameraType m_World_Mission_EP02_05_World_Mission_EP02_04_World_2F_West_CorriderCameraType; 
 
  CameraService.SceneCameraType m_World_Episode4_DoctorRoomCameraType; 
 
@@ -124,6 +138,13 @@ m_World_GoundTestSceneCameraType = (CameraService.SceneCameraType)EditorGUILayou
 ConfigRoot.Instance.World_GoundTestSceneCameraType = m_World_GoundTestSceneCameraType; 
 } 
 
+m_World_Mission_EP02_07_World_2F_West_CorriderCameraType = ConfigRoot.Instance.World_Mission_EP02_07_World_2F_West_CorriderCameraType;  
+m_World_Mission_EP02_07_World_2F_West_CorriderCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_Mission_EP02_07_World_2F_West_Corrider Camera Type: ", m_World_Mission_EP02_07_World_2F_West_CorriderCameraType); 
+    if (m_World_Mission_EP02_07_World_2F_West_CorriderCameraType != ConfigRoot.Instance.World_Mission_EP02_07_World_2F_West_CorriderCameraType) 
+{ 
+ConfigRoot.Instance.World_Mission_EP02_07_World_2F_West_CorriderCameraType = m_World_Mission_EP02_07_World_2F_West_CorriderCameraType; 
+} 
+
 m_World_1F_South_CorriderCameraType = ConfigRoot.Instance.World_1F_South_CorriderCameraType;  
 m_World_1F_South_CorriderCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_1F_South_Corrider Camera Type: ", m_World_1F_South_CorriderCameraType); 
     if (m_World_1F_South_CorriderCameraType != ConfigRoot.Instance.World_1F_South_CorriderCameraType) 
@@ -143,6 +164,13 @@ m_World_CoreContainerCameraType = (CameraService.SceneCameraType)EditorGUILayout
     if (m_World_CoreContainerCameraType != ConfigRoot.Instance.World_CoreContainerCameraType) 
 { 
 ConfigRoot.Instance.World_CoreContainerCameraType = m_World_CoreContainerCameraType; 
+} 
+
+m_World_Mission_EP02_04_World_2F_West_CorriderCameraType = ConfigRoot.Instance.World_Mission_EP02_04_World_2F_West_CorriderCameraType;  
+m_World_Mission_EP02_04_World_2F_West_CorriderCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_Mission_EP02_04_World_2F_West_Corrider Camera Type: ", m_World_Mission_EP02_04_World_2F_West_CorriderCameraType); 
+    if (m_World_Mission_EP02_04_World_2F_West_CorriderCameraType != ConfigRoot.Instance.World_Mission_EP02_04_World_2F_West_CorriderCameraType) 
+{ 
+ConfigRoot.Instance.World_Mission_EP02_04_World_2F_West_CorriderCameraType = m_World_Mission_EP02_04_World_2F_West_CorriderCameraType; 
 } 
 
 m_World_Mission_DockByPier_World_Episode3_HallCameraType = ConfigRoot.Instance.World_Mission_DockByPier_World_Episode3_HallCameraType;  
@@ -180,6 +208,13 @@ m_World_1F_West_CorriderCameraType = (CameraService.SceneCameraType)EditorGUILay
 ConfigRoot.Instance.World_1F_West_CorriderCameraType = m_World_1F_West_CorriderCameraType; 
 } 
 
+m_World_Mission_EP02_08_World_2F_West_CorriderCameraType = ConfigRoot.Instance.World_Mission_EP02_08_World_2F_West_CorriderCameraType;  
+m_World_Mission_EP02_08_World_2F_West_CorriderCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_Mission_EP02_08_World_2F_West_Corrider Camera Type: ", m_World_Mission_EP02_08_World_2F_West_CorriderCameraType); 
+    if (m_World_Mission_EP02_08_World_2F_West_CorriderCameraType != ConfigRoot.Instance.World_Mission_EP02_08_World_2F_West_CorriderCameraType) 
+{ 
+ConfigRoot.Instance.World_Mission_EP02_08_World_2F_West_CorriderCameraType = m_World_Mission_EP02_08_World_2F_West_CorriderCameraType; 
+} 
+
 m_World_Episode3_HallCameraType = ConfigRoot.Instance.World_Episode3_HallCameraType;  
 m_World_Episode3_HallCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_Episode3_Hall Camera Type: ", m_World_Episode3_HallCameraType); 
     if (m_World_Episode3_HallCameraType != ConfigRoot.Instance.World_Episode3_HallCameraType) 
@@ -187,11 +222,25 @@ m_World_Episode3_HallCameraType = (CameraService.SceneCameraType)EditorGUILayout
 ConfigRoot.Instance.World_Episode3_HallCameraType = m_World_Episode3_HallCameraType; 
 } 
 
+m_World_Mission_EP02_05_World_2F_West_CorriderCameraType = ConfigRoot.Instance.World_Mission_EP02_05_World_2F_West_CorriderCameraType;  
+m_World_Mission_EP02_05_World_2F_West_CorriderCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_Mission_EP02_05_World_2F_West_Corrider Camera Type: ", m_World_Mission_EP02_05_World_2F_West_CorriderCameraType); 
+    if (m_World_Mission_EP02_05_World_2F_West_CorriderCameraType != ConfigRoot.Instance.World_Mission_EP02_05_World_2F_West_CorriderCameraType) 
+{ 
+ConfigRoot.Instance.World_Mission_EP02_05_World_2F_West_CorriderCameraType = m_World_Mission_EP02_05_World_2F_West_CorriderCameraType; 
+} 
+
 m_World_Mission_EP01_03_Poison_Island_PierCameraType = ConfigRoot.Instance.World_Mission_EP01_03_Poison_Island_PierCameraType;  
 m_World_Mission_EP01_03_Poison_Island_PierCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_Mission_EP01_03_Poison_Island_Pier Camera Type: ", m_World_Mission_EP01_03_Poison_Island_PierCameraType); 
     if (m_World_Mission_EP01_03_Poison_Island_PierCameraType != ConfigRoot.Instance.World_Mission_EP01_03_Poison_Island_PierCameraType) 
 { 
 ConfigRoot.Instance.World_Mission_EP01_03_Poison_Island_PierCameraType = m_World_Mission_EP01_03_Poison_Island_PierCameraType; 
+} 
+
+m_World_Mission_EP02_06_World_2F_West_CorriderCameraType = ConfigRoot.Instance.World_Mission_EP02_06_World_2F_West_CorriderCameraType;  
+m_World_Mission_EP02_06_World_2F_West_CorriderCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_Mission_EP02_06_World_2F_West_Corrider Camera Type: ", m_World_Mission_EP02_06_World_2F_West_CorriderCameraType); 
+    if (m_World_Mission_EP02_06_World_2F_West_CorriderCameraType != ConfigRoot.Instance.World_Mission_EP02_06_World_2F_West_CorriderCameraType) 
+{ 
+ConfigRoot.Instance.World_Mission_EP02_06_World_2F_West_CorriderCameraType = m_World_Mission_EP02_06_World_2F_West_CorriderCameraType; 
 } 
 
 m_World_Kitchen_CorriderCameraType = ConfigRoot.Instance.World_Kitchen_CorriderCameraType;  
@@ -213,6 +262,13 @@ m_World_2F_East_CorriderCameraType = (CameraService.SceneCameraType)EditorGUILay
     if (m_World_2F_East_CorriderCameraType != ConfigRoot.Instance.World_2F_East_CorriderCameraType) 
 { 
 ConfigRoot.Instance.World_2F_East_CorriderCameraType = m_World_2F_East_CorriderCameraType; 
+} 
+
+m_World_Mission_EP02_01_1F_South_Corrider_World_1F_West_CorriderCameraType = ConfigRoot.Instance.World_Mission_EP02_01_1F_South_Corrider_World_1F_West_CorriderCameraType;  
+m_World_Mission_EP02_01_1F_South_Corrider_World_1F_West_CorriderCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_Mission_EP02_01_1F_South_Corrider_World_1F_West_Corrider Camera Type: ", m_World_Mission_EP02_01_1F_South_Corrider_World_1F_West_CorriderCameraType); 
+    if (m_World_Mission_EP02_01_1F_South_Corrider_World_1F_West_CorriderCameraType != ConfigRoot.Instance.World_Mission_EP02_01_1F_South_Corrider_World_1F_West_CorriderCameraType) 
+{ 
+ConfigRoot.Instance.World_Mission_EP02_01_1F_South_Corrider_World_1F_West_CorriderCameraType = m_World_Mission_EP02_01_1F_South_Corrider_World_1F_West_CorriderCameraType; 
 } 
 
 m_Poison_Island_PierCameraType = ConfigRoot.Instance.Poison_Island_PierCameraType;  
@@ -248,6 +304,13 @@ m_World_2F_South_CorriderCameraType = (CameraService.SceneCameraType)EditorGUILa
     if (m_World_2F_South_CorriderCameraType != ConfigRoot.Instance.World_2F_South_CorriderCameraType) 
 { 
 ConfigRoot.Instance.World_2F_South_CorriderCameraType = m_World_2F_South_CorriderCameraType; 
+} 
+
+m_World_Mission_EP02_05_World_Mission_EP02_04_World_2F_West_CorriderCameraType = ConfigRoot.Instance.World_Mission_EP02_05_World_Mission_EP02_04_World_2F_West_CorriderCameraType;  
+m_World_Mission_EP02_05_World_Mission_EP02_04_World_2F_West_CorriderCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_Mission_EP02_05_World_Mission_EP02_04_World_2F_West_Corrider Camera Type: ", m_World_Mission_EP02_05_World_Mission_EP02_04_World_2F_West_CorriderCameraType); 
+    if (m_World_Mission_EP02_05_World_Mission_EP02_04_World_2F_West_CorriderCameraType != ConfigRoot.Instance.World_Mission_EP02_05_World_Mission_EP02_04_World_2F_West_CorriderCameraType) 
+{ 
+ConfigRoot.Instance.World_Mission_EP02_05_World_Mission_EP02_04_World_2F_West_CorriderCameraType = m_World_Mission_EP02_05_World_Mission_EP02_04_World_2F_West_CorriderCameraType; 
 } 
 
 m_World_Episode4_DoctorRoomCameraType = ConfigRoot.Instance.World_Episode4_DoctorRoomCameraType;  

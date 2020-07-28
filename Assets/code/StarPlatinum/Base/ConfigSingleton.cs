@@ -33,6 +33,9 @@ namespace StarPlatinum.Base
 
 			if (Application.isPlaying) {
 				PrefabManager.Instance.InstantiateConfigAsync (typeof (T).Name, (result) => {
+					if (result.status == RequestStatus.FAIL) {
+						return;
+					}
 					Debug.Log ($"===========Aas:{result.key}加载完成,");
 					m_instance = result.result as T;
 				});

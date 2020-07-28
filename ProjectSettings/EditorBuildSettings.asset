@@ -66,6 +66,27 @@ EditorBuildSettings:
     path: Assets/data/graphics/World/Mission_EP02_01_1F_South_Corrider_World_1F_South_Corrider/World_Mission_EP02_01_1F_South_Corrider_World_1F_South_Corrider.unity
     guid: 63df8179ebd29174fa6ae5d06672a97b
   - enabled: 0
+    path: Assets/data/graphics/World/Mission_EP02_01_1F_South_Corrider_World_1F_West_Corrider/World_Mission_EP02_01_1F_South_Corrider_World_1F_West_Corrider.unity
+    guid: 682128b1f8dd04b4e880d937d0a0f4e0
+  - enabled: 0
+    path: Assets/data/graphics/World/Mission_EP02_04_World_2F_West_Corrider/World_Mission_EP02_04_World_2F_West_Corrider.unity
+    guid: a2ab392bdf18f9247845df286121e4d8
+  - enabled: 0
+    path: Assets/data/graphics/World/Mission_EP02_05_World_2F_West_Corrider/World_Mission_EP02_05_World_2F_West_Corrider.unity
+    guid: 4aa05137493474e468669043ec234970
+  - enabled: 0
+    path: Assets/data/graphics/World/Mission_EP02_05_World_Mission_EP02_04_World_2F_West_Corrider/World_Mission_EP02_05_World_Mission_EP02_04_World_2F_West_Corrider.unity
+    guid: 3585942e05599924e8ec573d5512d3c3
+  - enabled: 0
+    path: Assets/data/graphics/World/Mission_EP02_06_World_2F_West_Corrider/World_Mission_EP02_06_World_2F_West_Corrider.unity
+    guid: fd61dc014ad672f41bca1e78685ed852
+  - enabled: 0
+    path: Assets/data/graphics/World/Mission_EP02_07_World_2F_West_Corrider/World_Mission_EP02_07_World_2F_West_Corrider.unity
+    guid: adb4268d625503a4bb52842db437320d
+  - enabled: 0
+    path: Assets/data/graphics/World/Mission_EP02_08_World_2F_West_Corrider/World_Mission_EP02_08_World_2F_West_Corrider.unity
+    guid: 020d18c90bf4ddd4fb30ed9488fef771
+  - enabled: 0
     path: Assets/data/graphics/World/Mission_EP02_09_2F_East_Corrider_World_2F_East_Corrider/World_Mission_EP02_09_2F_East_Corrider_World_2F_West_Corrider.unity
     guid: 766b075c6750a59478b6ddc22eaa61e0
   - enabled: 0
