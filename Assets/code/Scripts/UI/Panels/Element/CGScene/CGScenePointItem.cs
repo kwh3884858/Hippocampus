@@ -10,9 +10,15 @@ using UnityEngine.UI;
 
 namespace UI.Panels.Element
 {
+    public enum CGScenePointTouchType
+    {
+        DeathBody=1,
+        Item=2,
+        NPC=3,
+    }
     public class CGScenePointItem: UIElementBase,IPointerEnterHandler,IPointerExitHandler
     {
-        public Action<int> ClickCallback;
+        public Action<int,CGScenePointTouchConfig> ClickCallback;
         private void Start()
         {
             m_button.onClick.AddListener(OnClick);
@@ -39,6 +45,7 @@ namespace UI.Panels.Element
         {
             var pointConfig = CGScenePointConfig.GetConfigByKey(m_pointInfo.ID);
             transform.localPosition = new Vector3(pointConfig.posX,pointConfig.posY,transform.localPosition.z);
+            m_root_RectTransform.sizeDelta = new Vector2(pointConfig.width,pointConfig.height);
             RefreshTouchInfo();
         }
 
@@ -57,18 +64,19 @@ namespace UI.Panels.Element
 
         private void OnClick()
         {
+            SoundService.Instance.PlayEffect("UI_Click0");
             if (m_pointInfo == null)
             {
                 Debug.LogError("未初始化数据");
                 return;
             }
-            ClickCallback?.Invoke(m_pointInfo.ID);
+            ClickCallback?.Invoke(m_pointInfo.ID,m_config);
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
             m_isMouseEnter = true;
-            EventManager.Instance.SendEvent(new ChangeCursorEvent(){cursorKey = m_config.mouseEffectKey});
+            EventManager.Instance.SendEvent(new ChangeCursorEvent(){cursorKey = GetMouseKeyByTouchType(m_config.touchType)});
             m_effectObj.gameObject.SetActive(true);
         }
 
@@ -77,6 +85,21 @@ namespace UI.Panels.Element
             m_isMouseEnter = false;
             EventManager.Instance.SendEvent(new ChangeCursorEvent(){cursorKey = null});
             m_effectObj.gameObject.SetActive(false);
+        }
+
+        private string GetMouseKeyByTouchType(int touchType)
+        {
+            switch ((CGScenePointTouchType)touchType)
+            {
+                case CGScenePointTouchType.DeathBody:
+                    return "UI_Cursor2";
+                case CGScenePointTouchType.Item:
+                    return "UI_Cursor1";
+                case CGScenePointTouchType.NPC:
+                    return "UI_Cursor2";
+                default:
+                    return null;
+            }
         }
         
         [SerializeField] private Transform m_effectObj;

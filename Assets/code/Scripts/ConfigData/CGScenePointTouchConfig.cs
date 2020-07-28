@@ -8,8 +8,8 @@ namespace Config.Data
         public int ID;
         public int touchNum;
         public string storyID;
-        public string mouseEffectKey;
-
+        public string showImgKey;
+        public int touchType;
         public static CGScenePointTouchConfig GetConfigByKey(int key)
         {
             CGScenePointTouchConfig ret;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Config.Data;
 using Controllers.Subsystems;
+using DG.Tweening;
 using StarPlatinum;
 using StarPlatinum.EventManager;
 using UI.Panels.Element;
@@ -86,11 +87,11 @@ namespace UI.Panels
 			var config = m_model.SceneInfo;
 			PrefabManager.Instance.SetImage(m_img_cg_Image,config.CGKey);
 			RefreshPointInfos();
-			m_btn_back_Button.gameObject.SetActive(CgSceneController.CheckCGIsClear(m_model.SceneID));
 		}
 
 		private void RefreshPointInfos()
 		{
+			m_btn_back_Button.gameObject.SetActive(CgSceneController.CheckCGIsClear(m_model.SceneID));
 			ClearPointItem();
 			var pointInfos = m_model.GetPointInfos();
 			for (int i = 0; i < pointInfos.Count; i++)
@@ -130,8 +131,9 @@ namespace UI.Panels
 			}
 		}
 
-		private void OnClickPoint(int pointID)
+		private void OnClickPoint(int pointID,CGScenePointTouchConfig config)
 		{
+			
 			var storyID = CgSceneController.TouchPointAndGetStoryID(pointID);
 			InvokeShowPanel(UIPanelType.TalkPanel,new TalkDataProvider(){ID = storyID});
 		}

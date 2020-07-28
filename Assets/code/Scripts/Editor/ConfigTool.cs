@@ -5,6 +5,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using Config.Data;
 using UnityEditor;
 using UnityEngine;
 
@@ -34,7 +35,7 @@ namespace code.Scripts.Editor
                     //每次读取文件后都要记得关闭文件
                     fs.Close();
                 }
-            }  
+            }
         }
 
         /// <summary>  
@@ -52,6 +53,7 @@ namespace code.Scripts.Editor
             List<Type> types = new List<Type>();
             int i = 0, m = 0;
             reader.Peek();
+            List<int> ignoreCow=new List<int>();
             while (reader.Peek() > 0)
             {
                 ++m;
@@ -59,8 +61,15 @@ namespace code.Scripts.Editor
                 if (m == 1) //如果是字段行，则自动加入字段。  
                 {
                     MatchCollection mcs = Regex.Matches(str, csvSplitBy);
+                    int j = 0;
                     foreach (Match mc in mcs)
                     {
+                        if (mc.Value.Contains("#"))
+                        {
+                            ignoreCow.Add(j);
+                            continue;
+                        }
+                        j++;
                         dt.Columns.Add(mc.Value); //增加列标题  
                     }
                 }
@@ -79,6 +88,11 @@ namespace code.Scripts.Editor
                     System.Data.DataRow dr = dt.NewRow();
                     foreach (Match mc in mcs)
                     {
+                        if (ignoreCow.Contains(i))
+                        {
+                            i++;
+                            continue;
+                        }
                         dr[i] = mc.Value;
                         i++;
                     }

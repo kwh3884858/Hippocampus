@@ -6,9 +6,11 @@ namespace Config.Data
     public class CGScenePointConfig : BaseConfig
     {
         public int ID;
-        public int posX;
-        public int posY;
+        public float posX;
+        public float posY;
         public List<int> touchConfigIDs;
+        public float width;
+        public float height;
 
         public static CGScenePointConfig GetConfigByKey(int key)
         {

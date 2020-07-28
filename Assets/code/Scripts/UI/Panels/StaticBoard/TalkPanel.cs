@@ -180,6 +180,7 @@ namespace UI.Panels.StaticBoard
         {
             if (storyAction == null)
             {
+                EventManager.Instance.SendEvent(new LabelEndEvent(){ LabelID = m_currentID});
                 SetActionState(ActionState.Waiting);
                 SetTalkContentEnd(true);
                 if (m_autoPlay||m_skip)

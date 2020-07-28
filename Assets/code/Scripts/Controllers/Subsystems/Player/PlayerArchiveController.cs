@@ -59,7 +59,7 @@ namespace Controllers.Subsystems.Role
             {
                 m_localCacheManager.Clear();
             }
-            if (ArchivePreviewData.ArchivePreviewData.Count <= selectIndex)
+            if (ArchivePreviewData.ArchivePreviewData.Count < selectIndex)
             {
                 Debug.LogError($"读档错误!!!!未知档:{selectIndex}");
                 return;

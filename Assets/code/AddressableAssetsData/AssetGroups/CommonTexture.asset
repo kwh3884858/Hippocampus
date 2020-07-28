@@ -17,8 +17,12 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 06d0218bd44082a4fb5ecee0869b49d0
   m_SerializeEntries:
-  - m_GUID: 4529f0f864874864185440acb4b15f83
-    m_Address: UI_Coursor1
+  - m_GUID: 5c7c11e7df871c44f97b86fb84a3737c
+    m_Address: UI_Cursor2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c9f4d52855c14c14db2dc29d3e5f73a0
+    m_Address: UI_Cursor1
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
