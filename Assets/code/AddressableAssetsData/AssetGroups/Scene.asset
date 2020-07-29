@@ -37,6 +37,10 @@ MonoBehaviour:
     m_Address: World_2F_East_Corrider
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 4da8447f1ecfcbf42ae46926f4171f3d
+    m_Address: World_Kitchen_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 67e9f636bf85cec49aa5259fcd3be769
     m_Address: World_UITestScene
     m_ReadOnly: 0
