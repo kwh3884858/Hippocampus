@@ -25,6 +25,11 @@ namespace UI.Panels.Element
             m_mousePos = transform.position;
         }
 
+        private void OnDisable()
+        {
+            m_isMouseEnter = false;
+        }
+
         private Vector3 m_mousePos;
         private void Update()
         {
@@ -52,6 +57,10 @@ namespace UI.Panels.Element
         private void RefreshTouchInfo()
         {
             m_config = GlobalManager.GetControllerManager().CGSceneController.GetTouchConfigByPointID(m_pointInfo.ID);
+            if (m_isMouseEnter)
+            {
+                EventManager.Instance.SendEvent(new ChangeCursorEvent(){cursorKey = GetMouseKeyByTouchType(m_config.touchType)});
+            }
 //            PrefabManager.Instance.InstantiateAsync<GameObject>(m_config.mouseEffectKey, (result) =>
 //            {
 //                if (m_mouseEffectObj != null)

@@ -11,7 +11,7 @@ namespace LocalCache
 
     public class CGSceneArchiveData : LocalCacheBase
     {
-        public Dictionary<int,CGScenePointInfo> PointInfos { get; set; }
+        public Dictionary<int,CGScenePointArchiveInfo> PointInfos { get; set; }
     }
 
     public class MissionArchiveData : LocalCacheBase

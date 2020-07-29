@@ -67,6 +67,15 @@ namespace UI.Panels
             SceneInfo = CGSceneConfig.GetConfigByKey(sceneID);
         }
 
+        public void PushSceneID(string sceneID)
+        {
+            if (!string.IsNullOrEmpty(SceneID))
+            {
+                m_sceneStack.Push(SceneID);
+            }
+            SetSceneID(sceneID);
+        }
+
         public List<CGScenePointInfo> GetPointInfos()
         {
             List<CGScenePointInfo> pointInfos = new List<CGScenePointInfo>();
@@ -78,6 +87,16 @@ namespace UI.Panels
             return pointInfos;
         }
 
+        public bool PopScene()
+        {
+            if (m_sceneStack.Count<=0)
+            {
+                return false;
+            }
+            SetSceneID(m_sceneStack.Pop());
+            return true;
+        }
+
         
         #region Member
 
@@ -85,7 +104,8 @@ namespace UI.Panels
 
         public string SceneID;
         public CGSceneConfig SceneInfo;
-        
+
+        private Stack<string> m_sceneStack=new Stack<string>();
         #endregion
     }
 }

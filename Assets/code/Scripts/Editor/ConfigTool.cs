@@ -66,7 +66,7 @@ namespace code.Scripts.Editor
                     {
                         if (mc.Value.Contains("#"))
                         {
-                            ignoreCow.Add(j);
+                            ignoreCow.Add(j++);
                             continue;
                         }
                         j++;
@@ -76,8 +76,13 @@ namespace code.Scripts.Editor
                 else if (m == 3)
                 {
                     MatchCollection mcs = Regex.Matches(str, csvSplitBy);
+                    i = 0;
                     foreach (Match mc in mcs)
                     {
+                        if (ignoreCow.Contains(i++))
+                        {
+                            continue;
+                        }
                         types.Add(Type.GetType(GetType(mc.Value)));
                     }
                 }
@@ -85,16 +90,15 @@ namespace code.Scripts.Editor
                 {
                     MatchCollection mcs = Regex.Matches(str, "(?<=^|,)(\"(?:[^\"]|\"\")*\"|[^,]*)");
                     i = 0;
+                    int j = 0;
                     System.Data.DataRow dr = dt.NewRow();
                     foreach (Match mc in mcs)
                     {
-                        if (ignoreCow.Contains(i))
+                        if (ignoreCow.Contains(i++))
                         {
-                            i++;
                             continue;
                         }
-                        dr[i] = mc.Value;
-                        i++;
+                        dr[j++] = mc.Value;
                     }
 
                     dt.Rows.Add(dr); //DataTable 增加一行       

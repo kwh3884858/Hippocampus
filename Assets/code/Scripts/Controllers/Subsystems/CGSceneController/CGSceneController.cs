@@ -8,19 +8,64 @@ namespace Controllers.Subsystems
 {
     public class CGScenePointInfo
     {
-        public int ID;
-        public int touchNum;
+        public int ID
+        {
+            get { return ArchiveInfo.ID; }
+            set { ArchiveInfo.ID = value; }
+        } 
+        public int touchNum {
+            get { return ArchiveInfo.touchNum; }
+            set { ArchiveInfo.touchNum = value; }
+        }
 
+        public int AttchID { get; private set; }
+        public int MaxTouchNum { get; private set; }
+        
+        public CGScenePointArchiveInfo ArchiveInfo;
+        public CGScenePointInfo(CGScenePointArchiveInfo info)
+        {
+            ArchiveInfo = info;
+            SetInfo();
+        }
+
+        public CGScenePointInfo(int ID, int touchNum)
+        {
+            ArchiveInfo = new CGScenePointArchiveInfo(){ID = ID,touchNum = touchNum};
+            SetInfo();
+        }
+        
         public int GetCurTouchID()
         {
+            if (AttchID != 0)
+            {
+                return AttchID * 100 + touchNum;
+            }
             return ID * 100 + touchNum;
+        }
+
+        public bool IsTouchMax()
+        {
+            return touchNum >= MaxTouchNum;
+        }
+
+        private void SetInfo()
+        {
+            var config = CGScenePointConfig.GetConfigByKey(ID);
+            AttchID = config.AttachID;
+            if (AttchID != 0)
+            {
+                config = CGScenePointConfig.GetConfigByKey(AttchID);
+            }
+            MaxTouchNum = config.touchConfigIDs.Count;
         }
     }
 
-    public class CGScenePointData
+    public class CGScenePointArchiveInfo
     {
-        public int maxTouchInfo;
+        public int ID;
+        public int touchNum;
     }
+    
     
     public class CGSceneController: ControllerBase
     {
@@ -47,12 +92,18 @@ namespace Controllers.Subsystems
 
         public CGScenePointInfo GetScenePointInfo(int pointID)
         {
-            if (!m_data.PointInfos.ContainsKey(pointID))
+            if (!m_pointInfos.ContainsKey(pointID))
             {
+                var attchID = GetAttach(pointID);
+                var touchNum = 0;
+                if (attchID != 0)
+                {
+                    touchNum = GetScenePointInfo(attchID).touchNum;
+                }
+                m_pointInfos[pointID] = new CGScenePointInfo(pointID,touchNum);
                 SetPointMaxTouchNum(pointID);
-                m_data.PointInfos[pointID] = new CGScenePointInfo(){ID = pointID,touchNum = 0};
             }
-            return m_data.PointInfos[pointID];
+            return m_pointInfos[pointID];
         }
 
         public bool CheckCGIsClear(string cgID)
@@ -60,7 +111,7 @@ namespace Controllers.Subsystems
             var cfg = CGSceneConfig.GetConfigByKey(cgID);
             foreach (var pointID in cfg.pointIDs)
             {
-                if (!m_data.PointInfos.ContainsKey(pointID)||m_data.PointInfos[pointID].touchNum < m_pointMaxTouchNums[pointID])
+                if (!m_pointInfos.ContainsKey(pointID)||!m_pointInfos[pointID].IsTouchMax())
                 {
                     return false;
                 }
@@ -68,37 +119,45 @@ namespace Controllers.Subsystems
             return true;
         }
 
-        public string TouchPointAndGetStoryID(int pointID)
+        public void TouchPoint(int pointID)
         {
-            if (m_data.PointInfos.ContainsKey(pointID))
+            var info =GetScenePointInfo(pointID);
+
+            if (!info.IsTouchMax())
             {
-                if (m_data.PointInfos[pointID].touchNum < m_pointMaxTouchNums[pointID])
+                info.touchNum++;
+                if (info.AttchID != 0)
                 {
-                    m_data.PointInfos[pointID].touchNum++;
-                    EventManager.Instance.SendEvent(new CGScenePointInfoChangeEvent());
+                    RefreshAttachTouchNum(pointID,info.touchNum);
                 }
-            }
-            else
-            {
-                m_data.PointInfos[pointID]=new CGScenePointInfo(){ID = pointID,touchNum =1};
-                SetPointMaxTouchNum(pointID);
                 EventManager.Instance.SendEvent(new CGScenePointInfoChangeEvent());
             }
+        }
 
-            var touchCfg = CGScenePointTouchConfig.GetConfigByKey(m_data.PointInfos[pointID].GetCurTouchID());
-            return touchCfg.storyID;
+        private void RefreshAttachTouchNum(int pointID,int touchNum)
+        {
+            var info = GetScenePointInfo(pointID);
+            info.touchNum = touchNum;
+            foreach (var pointInfo in m_pointInfos)
+            {
+                if (pointInfo.Value.AttchID == pointID)
+                {
+                    pointInfo.Value.touchNum = touchNum;
+                }
+            }
         }
 
         public CGScenePointTouchConfig GetTouchConfigByPointID(int pointID)
         {
-            int key = pointID*100+1;
-            if (m_data.PointInfos.ContainsKey(pointID)&&m_pointMaxTouchNums[pointID]>m_data.PointInfos[pointID].touchNum)
+            var info = GetScenePointInfo(pointID);
+            int key = 0;
+            if (!info.IsTouchMax())
             {
-                key = m_data.PointInfos[pointID].GetCurTouchID() + 1;
+                key = info.GetCurTouchID() + 1;
             }
-            else if(m_data.PointInfos.ContainsKey(pointID))
+            else
             {
-                key = m_data.PointInfos[pointID].GetCurTouchID();
+                key = info.GetCurTouchID();
             }
             return CGScenePointTouchConfig.GetConfigByKey(key);
         }
@@ -107,6 +166,10 @@ namespace Controllers.Subsystems
         {
             //处理存储信息
             //将存储信息存入PlayerArchiveController.CurrentArchiveData中
+            foreach (var pointInfo in m_pointInfos)
+            {
+                m_data.PointInfos[pointInfo.Key] = pointInfo.Value.ArchiveInfo;
+            }
             Data.ControllerManager.PlayerArchiveController.CurrentArchiveData.CgSceneArchiveData = m_data;
         }
         
@@ -116,21 +179,34 @@ namespace Controllers.Subsystems
             m_pointMaxTouchNums.Clear();
             if (m_data.PointInfos == null)
             {
-                m_data.PointInfos = new Dictionary<int, CGScenePointInfo>();
+                m_data.PointInfos = new Dictionary<int, CGScenePointArchiveInfo>();
             }
+            m_pointInfos.Clear();
             foreach (var pointInfo in m_data.PointInfos)
             {
+                m_pointInfos.Add(pointInfo.Key,new CGScenePointInfo(pointInfo.Value));
                 SetPointMaxTouchNum(pointInfo.Key);
             }
+        }
+
+        private int GetAttach(int pointID)
+        {
+            var pointCfg = CGScenePointConfig.GetConfigByKey(pointID);
+            return pointCfg.AttachID;
         }
 
         private void SetPointMaxTouchNum(int pointID)
         {
             var pointCfg = CGScenePointConfig.GetConfigByKey(pointID);
+            if (pointCfg.AttachID != 0)
+            {
+                return;
+            }
             m_pointMaxTouchNums[pointID] = pointCfg.touchConfigIDs.Count;
         }
 
         private CGSceneArchiveData m_data;
+        private Dictionary<int,CGScenePointInfo> m_pointInfos = new Dictionary<int,CGScenePointInfo>();
         private Dictionary<int,int> m_pointMaxTouchNums = new Dictionary<int, int>();
     }
 }

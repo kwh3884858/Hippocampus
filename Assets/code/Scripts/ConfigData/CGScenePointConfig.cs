@@ -8,10 +8,10 @@ namespace Config.Data
         public int ID;
         public float posX;
         public float posY;
-        public List<int> touchConfigIDs;
         public float width;
         public float height;
-
+        public List<int> touchConfigIDs;
+        public int AttachID;
         public static CGScenePointConfig GetConfigByKey(int key)
         {
             CGScenePointConfig ret;

@@ -35,7 +35,15 @@ namespace UI.Panels
 				{
 					MissionSceneManager.Instance.LoadMissionScene(MissionSceneManager.Instance.GetMissionEnumBy(config.LoadMissionIDOnEnd,false));
 				}
-				InvokeHidePanel();
+
+				if (m_model.PopScene())
+				{
+					RefreshInfo();
+				}
+				else
+				{
+					InvokeHidePanel();
+				}
 			});
 			EventManager.Instance.AddEventListener<CGScenePointInfoChangeEvent>(OnCGScenePointInfoChange);
 		}
@@ -51,6 +59,7 @@ namespace UI.Panels
 		{
 			m_model.Hide();
 			base.Hide();
+			EventManager.Instance.SendEvent(new ChangeCursorEvent());
 		}
 
 		public override void Deactivate()
@@ -110,6 +119,7 @@ namespace UI.Panels
 
 		private void RefreshPointInfos()
 		{
+			EventManager.Instance.SendEvent(new ChangeCursorEvent());
 			m_btn_back_Button.gameObject.SetActive(CgSceneController.CheckCGIsClear(m_model.SceneID));
 			ClearPointItem();
 			var pointInfos = m_model.GetPointInfos();
@@ -152,8 +162,14 @@ namespace UI.Panels
 
 		private void OnClickPoint(int pointID,CGScenePointTouchConfig config)
 		{
-			var storyID = CgSceneController.TouchPointAndGetStoryID(pointID);
-			InvokeShowPanel(UIPanelType.TalkPanel,new TalkDataProvider(){ID = storyID});
+			if (config.touchType == (int)CGScenePointTouchType.DeathBody)
+			{
+				m_model.PushSceneID(config.Parameter);
+				RefreshInfo();
+				return;
+			}
+			CgSceneController.TouchPoint(pointID);
+			InvokeShowPanel(UIPanelType.TalkPanel,new TalkDataProvider(){ID = config.Parameter});
 		}
 
 		#region Member

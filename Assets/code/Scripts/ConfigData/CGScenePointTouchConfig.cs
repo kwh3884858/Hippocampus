@@ -7,7 +7,7 @@ namespace Config.Data
     {
         public int ID;
         public int touchNum;
-        public string storyID;
+        public string Parameter;
         public string showImgKey;
         public int touchType;
         public static CGScenePointTouchConfig GetConfigByKey(int key)
