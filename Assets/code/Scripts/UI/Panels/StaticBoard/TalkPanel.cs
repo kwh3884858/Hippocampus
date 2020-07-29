@@ -168,10 +168,10 @@ namespace UI.Panels.StaticBoard
                 Debug.LogWarning("当前对话未结束！！！！");
             }
             ClearData();
-            m_isFirstTalk = true;
             m_skip = false;
             m_currentID = talkID;
             m_actionContainer = StoryController.GetStory(m_currentID);
+            m_actionContainer.ProcessActionContainer();
             SetActionState(ActionState.Begin);
         }
 
@@ -182,11 +182,8 @@ namespace UI.Panels.StaticBoard
             {
                 EventManager.Instance.SendEvent(new LabelEndEvent(){ LabelID = m_currentID});
                 SetActionState(ActionState.Waiting);
-                SetTalkContentEnd(true);
-                if (m_autoPlay||m_skip)
-                {
-                    EndCharacterTalk();
-                }
+                InvokeHidePanel();
+                UIPanelDataProvider.OnTalkEnd?.Invoke();
                 return;
             }
             m_actionType = storyAction.Type;
@@ -196,8 +193,11 @@ namespace UI.Panels.StaticBoard
 
             switch (storyAction.Type)
             {
+                case StoryActionType.WaitClick:
+                    WaitClickEnd();
+                    break;
                 case StoryActionType.Name:
-                    AddNewTalker(storyAction.Content);
+                    SetNameContent(storyAction.Content);
                     break;
                 case StoryActionType.Content:
                     if (m_typewriterCoroutine != null)
@@ -262,25 +262,38 @@ namespace UI.Panels.StaticBoard
                 case StoryActionType.ChangeEffectMusic:
                     PlayEffectMusic(storyAction.Content);
                     break;
-                case StoryActionType.ShowEvidence:
-                    WaitClickEnd();
-                    break;
                 case StoryActionType.TypewriterInterval:
                     m_textHelp.TypewriterInterval = float.Parse(storyAction.Content);
                     SetActionState(ActionState.End);
                     break;
+                case StoryActionType.ShowEvidence:
+                    EvidenceDataManager.Instance.SetCorrectEvidenceID(m_curAction.Content);
+                    InvokeShowPanel(UIPanelType.Evidencepanel,new EvidenceDataProvider()
+                    {
+                        OnShowEvidence = OnSelectEvidenceEnd,
+                    });
+                    return;
                 case StoryActionType.LoadGameScene:
-                    WaitClickEnd();
+                    GameSceneManager.Instance.LoadScene(SceneLookup.GetEnum(m_curAction.Content, false));
+                    bool result = MissionSceneManager.Instance.LoadCurrentMissionScene ();
+                    if (result == false) {
+                        Debug.LogError ("Current Game Scene: " + m_curAction.Content + " doesn`t contain Mission Scene " +
+                                        MissionSceneManager.Instance.GetCurrentMission().ToString ());
+                    }
                     break;
                 case StoryActionType.LoadMission:
-                    WaitClickEnd();
-                    break;
-                case StoryActionType.PlayAnimation:
-                    WaitClickEnd();
+                    var action = m_curAction as StoryLoadMissionAction;
+                    MissionSceneManager.Instance.LoadMissionScene(action.Mission);
                     break;
                 case StoryActionType.TriggerEvent:
-                    WaitClickEnd();
-                    break;
+                    var triggerAction = m_curAction as StoryEventAction;
+                    EventManager.Instance.SendEvent(triggerAction.Event);
+                    SetActionState(ActionState.End);
+                    return;
+                case StoryActionType.PlayAnimation:
+                    SetActionState(ActionState.End);
+                    //TODO:播放动画
+                    return;
                 case StoryActionType.ChangeBackground:
                     if (string.IsNullOrEmpty(storyAction.Content))
                     {
@@ -326,22 +339,10 @@ namespace UI.Panels.StaticBoard
             SetInfo(id);
         }
 
-        private void AddNewTalker(string name)
-        {
-            m_currentRoleName = name;
-            WaitClickEnd();
-        }
-
         private void WaitClickEnd()
         {
             if (m_skip)
             {
-                EndCharacterTalk();
-                return;
-            }
-            if (m_isFirstTalk)
-            {
-                m_isFirstTalk = false;
                 EndCharacterTalk();
                 return;
             }
@@ -472,11 +473,6 @@ namespace UI.Panels.StaticBoard
         {
         }
 
-        private void PictureItem(PictureItem item)
-        {
-            
-        }
-
         private void OnSelectEvidenceEnd()
         {
             m_skip = false;
@@ -489,45 +485,7 @@ namespace UI.Panels.StaticBoard
         {
             SetTalkContentEnd(false);
             m_highSpeed = false;
-            switch (m_actionType)
-            {
-                case StoryActionType.Name:
-                    SetNameContent(m_currentRoleName);
-                    return;
-                case StoryActionType.ShowEvidence:
-                    EvidenceDataManager.Instance.SetCorrectEvidenceID(m_curAction.Content);
-                    InvokeShowPanel(UIPanelType.Evidencepanel,new EvidenceDataProvider()
-                    {
-                        OnShowEvidence = OnSelectEvidenceEnd,
-                    });
-                    return;
-                case StoryActionType.LoadGameScene:
-                    GameSceneManager.Instance.LoadScene(SceneLookup.GetEnum(m_curAction.Content, false));
-                    bool result = MissionSceneManager.Instance.LoadCurrentMissionScene ();
-				    if (result == false) {
-                        Debug.LogError ("Current Game Scene: " + m_curAction.Content + " doesn`t contain Mission Scene " +
-                            MissionSceneManager.Instance.GetCurrentMission().ToString ());
-                    }
-                    break;
-                case StoryActionType.LoadMission:
-                    var action = m_curAction as StoryLoadMissionAction;
-                    MissionSceneManager.Instance.LoadMissionScene(action.Mission);
-                    break;
-                case StoryActionType.TriggerEvent:
-                    var triggerAction = m_curAction as StoryEventAction;
-                    EventManager.Instance.SendEvent(triggerAction.Event);
-                    SetActionState(ActionState.End);
-                    return;
-                case StoryActionType.PlayAnimation:
-                    SetActionState(ActionState.End);
-                    //TODO:播放动画
-                    return;
-                default:
-                    break;
-            }
-            InvokeHidePanel();
-            UIPanelDataProvider.OnTalkEnd?.Invoke();
-
+            SetActionState(ActionState.End);
         }
 
         private void ClearData()
@@ -573,17 +531,10 @@ namespace UI.Panels.StaticBoard
             m_skip = true;
         }
 
-        private bool CheckWriting(StoryActionType type)
-        {
-            switch (type)
-            {
-                case StoryActionType.Name:
-                case StoryActionType.ShowEvidence:
-                    return true;
-                default:
-                    return false;
-            }
-        }
+        #region 多选项必选
+        private Stack<StoryJumpAction> m_curJumpActions;
+        
+        #endregion
 
         [SerializeField] private Image m_name;
         [SerializeField] private TMP_Text m_nameTxt;
@@ -599,11 +550,9 @@ namespace UI.Panels.StaticBoard
         private bool m_highSpeed = false;
         private bool m_characterTalkEnd = false;
         private bool m_autoPlay = false;
-        private bool m_isFirstTalk = false;
         private bool m_skip = false;
         private bool m_waitingEnd = false;
         private string m_currentID;
-        private string m_currentRoleName;
         private RoleConfig m_curRoleInfo;
         private StoryActionContainer m_actionContainer;
         private TextHelp m_textHelp;
