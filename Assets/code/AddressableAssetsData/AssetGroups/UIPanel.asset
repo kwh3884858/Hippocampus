@@ -51,6 +51,8 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 69b7f0e0acee6bd498a5a6ce22c9a054
     m_Address: UI_Common_Maps_Tips_Evidences_Panel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 76f726a6d946e154aa0feafe8f5a72ad
     m_Address: Poison_Island_Pier
     m_ReadOnly: 0

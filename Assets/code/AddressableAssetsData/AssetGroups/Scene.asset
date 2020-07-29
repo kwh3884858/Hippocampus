@@ -17,6 +17,10 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 052d0ed1e3839014d90c13b3b0494749
   m_SerializeEntries:
+  - m_GUID: 020d18c90bf4ddd4fb30ed9488fef771
+    m_Address: World_Mission_EP02_08_World_2F_West_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 02f6831757af9d240aea412f2322e3ae
     m_Address: World_2F_South_Corrider
     m_ReadOnly: 0
@@ -37,6 +41,10 @@ MonoBehaviour:
     m_Address: World_2F_East_Corrider
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 4aa05137493474e468669043ec234970
+    m_Address: World_Mission_EP02_05_World_2F_West_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 67e9f636bf85cec49aa5259fcd3be769
     m_Address: World_UITestScene
     m_ReadOnly: 0
@@ -47,6 +55,18 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 973e004b6ca0227488b6da93a9ef02be
     m_Address: World_1F_West_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9d9863d00aa2c0c40bd29bd8af681352
+    m_Address: World_2F_West_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a2ab392bdf18f9247845df286121e4d8
+    m_Address: World_Mission_EP02_04_World_2F_West_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: adb4268d625503a4bb52842db437320d
+    m_Address: World_Mission_EP02_07_World_2F_West_Corrider
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: d64d83efff065fe4485fa4ded364df60
@@ -67,6 +87,10 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: f79125c6d14d82d48802f42aaaf5b074
     m_Address: World_1F_South_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fd61dc014ad672f41bca1e78685ed852
+    m_Address: World_Mission_EP02_06_World_2F_West_Corrider
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
