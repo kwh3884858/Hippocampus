@@ -86,7 +86,11 @@ namespace Controllers.Subsystems.Story
 			}
 
 			//Assets/Resources/STORY_FOLDER + storyFileName
-			m_storys = new StoryReader (STORY_FOLDER + storyFileName);
+			
+				StoryReader storyReader = new StoryReader (STORY_FOLDER + storyFileName);
+			if (storyReader != null) {
+				m_storys = storyReader;
+			}
 			bool result = m_storys.GetLoadResult ();
 			if (result == true) {
 				m_storyFileName = storyFileName;
