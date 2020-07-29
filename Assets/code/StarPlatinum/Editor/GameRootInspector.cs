@@ -136,7 +136,8 @@ CameraService.SceneCameraType m_World_1F_Middle_CorriderCameraType;
 				m_gameRoot.m_startScene = m_enumStartScene;
 				ConfigRoot.Instance.StartScene = m_enumStartScene;
 				Debug.Log ($"Set {m_enumStartScene.ToString ()} as Start Scene");
-			}
+                AssetDatabase.SaveAssets ();
+            }
 
 			GUILayout.Label ("Start From This Scene", EditorStyles.boldLabel);
 
@@ -146,7 +147,8 @@ CameraService.SceneCameraType m_World_1F_Middle_CorriderCameraType;
 				m_gameRoot.m_startMission = m_enumStartMission;
 				ConfigRoot.Instance.StartMission = m_enumStartMission;
 				Debug.Log ($"Set {m_enumStartMission.ToString ()} as Start Mission");
-			}
+                AssetDatabase.SaveAssets ();
+            }
 
 
 			GUILayout.Label("Camera Setting", EditorStyles.boldLabel);

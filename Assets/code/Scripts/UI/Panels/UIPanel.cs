@@ -167,6 +167,11 @@ namespace UI.Panels
             UiDataProvider.SoundService.PlayEffect(SoundNameConst.UIClickName+num);
         }
 
+        public void ShowInMaxLayer()
+        {
+            transform.SetSiblingIndex(transform.parent.childCount-1);
+        }
+
 
         #region IUiPanel interface implementation
         UIDataProvider IUiPanel.UiDataProvider => UiDataProvider;

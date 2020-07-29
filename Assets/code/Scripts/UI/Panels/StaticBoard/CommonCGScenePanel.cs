@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Config.Data;
+using Config.GameRoot;
 using Controllers.Subsystems;
 using DG.Tweening;
+using GamePlay.Stage;
 using StarPlatinum;
 using StarPlatinum.EventManager;
 using UI.Panels.Element;
@@ -21,7 +23,20 @@ namespace UI.Panels
 			base.Initialize (uiDataProvider, settings);
 			m_model.Initialize(this);	
 			
-			m_btn_back_Button.onClick.AddListener(()=>{InvokeHidePanel();});
+			m_btn_back_Button.onClick.AddListener(() =>
+			{
+				var config = m_model.SceneInfo;
+				if (!string.IsNullOrEmpty(config.LoadSceneNameOnEnd))
+				{
+					GameSceneManager.Instance.LoadScene(SceneLookup.GetEnum(config.LoadSceneNameOnEnd,false));
+				}
+
+				if (!string.IsNullOrEmpty(config.LoadMissionIDOnEnd))
+				{
+					MissionSceneManager.Instance.LoadMissionScene(MissionSceneManager.Instance.GetMissionEnumBy(config.LoadMissionIDOnEnd,false));
+				}
+				InvokeHidePanel();
+			});
 			EventManager.Instance.AddEventListener<CGScenePointInfoChangeEvent>(OnCGScenePointInfoChange);
 		}
 
@@ -85,6 +100,10 @@ namespace UI.Panels
 		private void RefreshInfo()
 		{
 			var config = m_model.SceneInfo;
+			if (!string.IsNullOrEmpty(config.StoryFileName))
+			{
+				UiDataProvider.ControllerManager.StoryController.LoadStoryFileByName(config.StoryFileName);
+			}
 			PrefabManager.Instance.SetImage(m_img_cg_Image,config.CGKey);
 			RefreshPointInfos();
 		}
@@ -133,7 +152,6 @@ namespace UI.Panels
 
 		private void OnClickPoint(int pointID,CGScenePointTouchConfig config)
 		{
-			
 			var storyID = CgSceneController.TouchPointAndGetStoryID(pointID);
 			InvokeShowPanel(UIPanelType.TalkPanel,new TalkDataProvider(){ID = storyID});
 		}
