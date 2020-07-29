@@ -53,10 +53,9 @@ public class ToolBoxEditorWindow : EditorWindow
 		GUILayout.Label ("Start From This Scene", EditorStyles.boldLabel);
 
 		m_enumStartSceneInConfig = ConfigRoot.Instance.StartScene;
-		m_enumStartScene = (SceneLookupEnum)EditorGUILayout.EnumPopup ("Start Scene:", ConfigRoot.Instance.StartScene);
+		m_enumStartScene = (SceneLookupEnum)EditorGUILayout.EnumPopup ("Start Scene:", m_enumStartSceneInConfig);
 		if (m_enumStartScene != m_enumStartSceneInConfig) {
 			ConfigRoot.Instance.StartScene =  m_enumStartScene;
-			ConfigRoot.Instance.StartMission  =m_enumStartMission;
 			Debug.Log ($"Set {m_enumStartScene.ToString ()} as Start Scene");
 			Debug.Log ($"Set {m_enumStartMission.ToString ()} as Start Mission");
 			AssetDatabase.SaveAssets ();
@@ -65,22 +64,21 @@ public class ToolBoxEditorWindow : EditorWindow
 		GUILayout.Label ("Start From This Scene", EditorStyles.boldLabel);
 
 		m_enumStartMissionInConfig = ConfigRoot.Instance.StartMission;
-		m_enumStartMission = (MissionEnum)EditorGUILayout.EnumPopup ("Start Mission:", m_enumStartMission);
+		m_enumStartMission = (MissionEnum)EditorGUILayout.EnumPopup ("Start Mission:", m_enumStartMissionInConfig);
 		if (m_enumStartMission != m_enumStartMissionInConfig) {
-			ConfigRoot.Instance.StartScene = m_enumStartScene;
 			ConfigRoot.Instance.StartMission = m_enumStartMission;
 			Debug.Log ($"Set {m_enumStartScene.ToString ()} as Start Scene");
 			Debug.Log ($"Set {m_enumStartMission.ToString ()} as Start Mission");
 			AssetDatabase.SaveAssets ();
 		}
 
-		if (GUILayout.Button ("Save Start Info")) {
-			ConfigRoot.Instance.StartScene = m_enumStartScene;
-			ConfigRoot.Instance.StartMission = m_enumStartMission;
-			Debug.Log ($"Set {m_enumStartScene.ToString ()} as Start Scene");
-			Debug.Log ($"Set {m_enumStartMission.ToString ()} as Start Mission");
-			AssetDatabase.SaveAssets ();
-		}
+		//if (GUILayout.Button ("Save Start Info")) {
+		//	ConfigRoot.Instance.StartScene = m_enumStartScene;
+		//	ConfigRoot.Instance.StartMission = m_enumStartMission;
+		//	Debug.Log ($"Set {m_enumStartScene.ToString ()} as Start Scene");
+		//	Debug.Log ($"Set {m_enumStartMission.ToString ()} as Start Mission");
+		//	AssetDatabase.SaveAssets ();
+		//}
 
 		GUILayout.Label ("Prefab Object Name", EditorStyles.boldLabel);
 		ConfigMission.Instance.Text_Spawn_Point_Name =

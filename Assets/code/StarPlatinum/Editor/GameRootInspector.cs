@@ -15,9 +15,11 @@ namespace StarPlatinum
 
 		[SerializeField]
 		SceneLookupEnum m_enumStartScene;
+		SceneLookupEnum m_enumStartSceneInConfig;
 
 		[SerializeField]
 		MissionEnum m_enumStartMission;
+		MissionEnum m_enumStartMissionInConfig;
 
 		//[Camera Type Variable Auto Generated Code Begin]
 
@@ -130,24 +132,20 @@ CameraService.SceneCameraType m_World_1F_Middle_CorriderCameraType;
 
             GUILayout.Label("Start From This Scene", EditorStyles.boldLabel);
 
-            m_enumStartScene = ConfigRoot.Instance.StartScene;
-			m_enumStartScene = (SceneLookupEnum)EditorGUILayout.EnumPopup ("Start Scene:", m_enumStartScene);
-			if (m_enumStartScene != m_gameRoot.m_startScene) {
-				m_gameRoot.m_startScene = m_enumStartScene;
+            m_enumStartSceneInConfig = ConfigRoot.Instance.StartScene;
+			m_enumStartScene = (SceneLookupEnum)EditorGUILayout.EnumPopup ("Start Scene:", m_enumStartSceneInConfig);
+			if (m_enumStartScene != m_enumStartSceneInConfig) {
 				ConfigRoot.Instance.StartScene = m_enumStartScene;
 				Debug.Log ($"Set {m_enumStartScene.ToString ()} as Start Scene");
-                AssetDatabase.SaveAssets ();
             }
 
 			GUILayout.Label ("Start From This Scene", EditorStyles.boldLabel);
 
-			m_enumStartMission = ConfigRoot.Instance.StartMission;
-			m_enumStartMission = (MissionEnum)EditorGUILayout.EnumPopup ("Start Mission:", m_enumStartMission);
-			if (m_enumStartMission != m_gameRoot.m_startMission) {
-				m_gameRoot.m_startMission = m_enumStartMission;
+			m_enumStartMissionInConfig = ConfigRoot.Instance.StartMission;
+			m_enumStartMission = (MissionEnum)EditorGUILayout.EnumPopup ("Start Mission:", m_enumStartMissionInConfig);
+			if (m_enumStartMission != m_enumStartMissionInConfig) {
 				ConfigRoot.Instance.StartMission = m_enumStartMission;
 				Debug.Log ($"Set {m_enumStartMission.ToString ()} as Start Mission");
-                AssetDatabase.SaveAssets ();
 			}
 
 
