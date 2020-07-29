@@ -27,6 +27,8 @@ namespace Config.Data
                 File.ReadAllText(m_dataPath + typeof(CGScenePointConfig).Name + m_jsonSuffix,Encoding.GetEncoding("GB2312"))));
             CGScenePointTouchConfig.Init(JsonConvert.DeserializeObject<Dictionary<int, CGScenePointTouchConfig>>(
                 File.ReadAllText(m_dataPath + typeof(CGScenePointTouchConfig).Name + m_jsonSuffix,Encoding.GetEncoding("GB2312"))));
+            EvidenceConfig.Init(JsonConvert.DeserializeObject<Dictionary<string, EvidenceConfig>>(
+                File.ReadAllText(m_dataPath + typeof(EvidenceConfig).Name + m_jsonSuffix, Encoding.GetEncoding("GB2312"))));
         }
         
 

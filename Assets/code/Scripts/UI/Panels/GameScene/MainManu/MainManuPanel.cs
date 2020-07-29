@@ -80,8 +80,7 @@ namespace UI.Panels.GameScene.MainManu
 		/// </summary>
 		public void OnClickSettingBtn ()
 		{
-
-		}
+        }
 
 		/// <summary>
 		/// 点击制作人员列表按钮

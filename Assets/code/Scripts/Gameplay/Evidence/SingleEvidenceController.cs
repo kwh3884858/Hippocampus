@@ -19,6 +19,16 @@ namespace Evidence
 
         /// <summary>证据数据</summary>
         private SingleEvidenceData m_data = null;
+        private EvidencesController m_father = null;
+
+        public void Init(EvidencesController father, SingleEvidenceData vData, Action closeEvidenceUI, Action onShowEvidence = null)
+        {
+            SetData(vData);
+            m_father = father;
+            m_closeEvidenceUI = closeEvidenceUI;
+            m_onShowEvidence = onShowEvidence;
+            Show();
+        }
 
         public void Init(SingleEvidenceData vData, Action closeEvidenceUI, Action onShowEvidence = null)
         {
@@ -51,14 +61,19 @@ namespace Evidence
         /// </summary>
         public void OnClick()
         {
-            // TODO：调用证据显示UI
-            UIManager.Instance().ShowStaticPanel(UIPanelType.Singleevidenceselectpanel,
-                new EvidenceDataProvider()
-                {
-                    Data = m_data,
-                    CloseEvidenceUI = m_closeEvidenceUI,
-                    OnShowEvidence = m_onShowEvidence
-                });// 显示UI，wywtsest
+            //// TODO：调用证据显示UI
+            //UIManager.Instance().ShowStaticPanel(UIPanelType.Singleevidenceselectpanel,
+            //    new EvidenceDataProvider()
+            //    {
+            //        Data = m_data,
+            //        CloseEvidenceUI = m_closeEvidenceUI,
+            //        OnShowEvidence = m_onShowEvidence
+            //    });// 显示UI，wywtsest
+            // 显示简述
+            if (m_father != null)
+            {
+                m_father.RefreshIntroView(m_data);
+            }
         }
 
         private Action m_closeEvidenceUI = null;

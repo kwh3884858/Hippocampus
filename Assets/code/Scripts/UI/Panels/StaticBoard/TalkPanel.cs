@@ -268,9 +268,15 @@ namespace UI.Panels.StaticBoard
                     break;
                 case StoryActionType.ShowEvidence:
                     EvidenceDataManager.Instance.SetCorrectEvidenceID(m_curAction.Content);
-                    InvokeShowPanel(UIPanelType.Evidencepanel,new EvidenceDataProvider()
+                    //InvokeShowPanel(UIPanelType.Evidencepanel,new EvidenceDataProvider()
+                    //{
+                    //    OnShowEvidence = OnSelectEvidenceEnd,
+                    //});
+                    InvokeShowPanel(UIPanelType.UICommonMapsTipsEvidencesPanel, new EvidenceDataProvider()
                     {
                         OnShowEvidence = OnSelectEvidenceEnd,
+                        IsOnEvidence = true,
+                        CurState = CommonMapsTipsEvidencesPanel.ShowState.Evidences
                     });
                     return;
                 case StoryActionType.LoadGameScene:
