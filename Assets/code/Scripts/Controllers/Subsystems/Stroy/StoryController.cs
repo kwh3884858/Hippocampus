@@ -17,6 +17,7 @@ namespace Controllers.Subsystems.Story
 {
 	public enum StoryActionType
 	{
+		WaitClick,
 		Name,
 		Content,
 		Color,

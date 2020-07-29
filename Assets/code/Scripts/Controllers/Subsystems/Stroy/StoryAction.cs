@@ -159,6 +159,48 @@ namespace Controllers.Subsystems.Story
             return null;
         }
         
+        public void ProcessActionContainer()
+        {
+            bool isTalk = false;
+            Queue<StoryAction> actions = new Queue<StoryAction>();
+
+            while (m_actions.Count>0)
+            {
+                var storyAction = GetNextAction();
+
+                switch (storyAction.Type)
+                {
+                    case StoryActionType.Jump:
+                    case StoryActionType.LoadGameScene:
+                    case StoryActionType.LoadMission:
+                    case StoryActionType.ShowEvidence:
+                        if (isTalk)
+                        {
+                            actions.Enqueue(new StoryAction() {Type = StoryActionType.WaitClick});
+                        }
+                        actions.Enqueue(storyAction);
+                        isTalk = false;
+                        break;
+                    case StoryActionType.Name:
+                        if (isTalk)
+                        {
+                            actions.Enqueue(new StoryAction() {Type = StoryActionType.WaitClick});
+                        }
+                        actions.Enqueue(storyAction);
+                        isTalk = true;
+                        break;
+                    default:
+                        actions.Enqueue(storyAction);
+                        break;
+                }
+            }
+
+            while (actions.Count>0)
+            {
+                m_actions.Enqueue(actions.Dequeue());
+            }
+        }
+        
         private Queue<StoryAction> m_actions;
         
     }
