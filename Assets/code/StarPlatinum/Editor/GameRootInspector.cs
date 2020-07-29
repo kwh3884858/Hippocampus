@@ -112,7 +112,7 @@ CameraService.SceneCameraType m_World_1F_Middle_CorriderCameraType;
  //[Camera Type Variable Auto Generated Code End]
 		override public void OnInspectorGUI ()
 		{
-			base.OnInspectorGUI ();
+			base.DrawDefaultInspector ();
 
 			EditorGUILayout.BeginVertical ();
 			EditorGUILayout.LabelField ("Scene Editor");
@@ -148,7 +148,7 @@ CameraService.SceneCameraType m_World_1F_Middle_CorriderCameraType;
 				ConfigRoot.Instance.StartMission = m_enumStartMission;
 				Debug.Log ($"Set {m_enumStartMission.ToString ()} as Start Mission");
                 AssetDatabase.SaveAssets ();
-            }
+			}
 
 
 			GUILayout.Label("Camera Setting", EditorStyles.boldLabel);

@@ -16,6 +16,8 @@ namespace StarPlatinum
 
 		public  SceneLookupEnum m_startScene { get; set; }
 		public  MissionEnum m_startMission { get; set; }
+
+		public ConfigRoot m_configRoot;
 #if DevMode
 		public static string m_consolePrefabName = "Debug_Console";
 #endif

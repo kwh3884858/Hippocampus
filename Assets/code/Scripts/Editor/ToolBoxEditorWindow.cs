@@ -22,10 +22,12 @@ public class ToolBoxEditorWindow : EditorWindow
 	bool myBool = true;
 	float myFloat = 1.23f;
 
-SceneLookupEnum m_enumStartScene;
-SceneLookupEnum m_enumStartSceneInConfig;
-MissionEnum	m_enumStartMission;
-MissionEnum m_enumStartMissionInConfig;
+	private Vector2 _scrollPos = Vector2.zero;
+
+	SceneLookupEnum m_enumStartScene;
+	SceneLookupEnum m_enumStartSceneInConfig;
+	MissionEnum m_enumStartMission;
+	MissionEnum m_enumStartMissionInConfig;
 
 	// Add menu named "My Window" to the Window menu
 	[MenuItem ("Window/Tool Box %l")]
@@ -43,14 +45,20 @@ MissionEnum m_enumStartMissionInConfig;
 			return;
 		}
 
-
+		_scrollPos = GUI.BeginScrollView (
+			new Rect (0, 0, position.width, position.height),
+			_scrollPos,
+			new Rect (0, 0, 400, 800)
+		);
 		GUILayout.Label ("Start From This Scene", EditorStyles.boldLabel);
 
 		m_enumStartSceneInConfig = ConfigRoot.Instance.StartScene;
-		m_enumStartScene = (SceneLookupEnum)EditorGUILayout.EnumPopup ("Start Scene:", m_enumStartScene);
+		m_enumStartScene = (SceneLookupEnum)EditorGUILayout.EnumPopup ("Start Scene:", ConfigRoot.Instance.StartScene);
 		if (m_enumStartScene != m_enumStartSceneInConfig) {
-			ConfigRoot.Instance.StartScene = m_enumStartScene;
+			ConfigRoot.Instance.StartScene =  m_enumStartScene;
+			ConfigRoot.Instance.StartMission  =m_enumStartMission;
 			Debug.Log ($"Set {m_enumStartScene.ToString ()} as Start Scene");
+			Debug.Log ($"Set {m_enumStartMission.ToString ()} as Start Mission");
 			AssetDatabase.SaveAssets ();
 		}
 
@@ -59,7 +67,17 @@ MissionEnum m_enumStartMissionInConfig;
 		m_enumStartMissionInConfig = ConfigRoot.Instance.StartMission;
 		m_enumStartMission = (MissionEnum)EditorGUILayout.EnumPopup ("Start Mission:", m_enumStartMission);
 		if (m_enumStartMission != m_enumStartMissionInConfig) {
+			ConfigRoot.Instance.StartScene = m_enumStartScene;
 			ConfigRoot.Instance.StartMission = m_enumStartMission;
+			Debug.Log ($"Set {m_enumStartScene.ToString ()} as Start Scene");
+			Debug.Log ($"Set {m_enumStartMission.ToString ()} as Start Mission");
+			AssetDatabase.SaveAssets ();
+		}
+
+		if (GUILayout.Button ("Save Start Info")) {
+			ConfigRoot.Instance.StartScene = m_enumStartScene;
+			ConfigRoot.Instance.StartMission = m_enumStartMission;
+			Debug.Log ($"Set {m_enumStartScene.ToString ()} as Start Scene");
 			Debug.Log ($"Set {m_enumStartMission.ToString ()} as Start Mission");
 			AssetDatabase.SaveAssets ();
 		}
@@ -183,6 +201,9 @@ MissionEnum m_enumStartMissionInConfig;
 		}
 
 		EditorGUILayout.EndVertical ();
+
+		GUI.EndScrollView ();
+
 	}
 
 	private GameObject CreateEventTrigger (Scene activeScene)
