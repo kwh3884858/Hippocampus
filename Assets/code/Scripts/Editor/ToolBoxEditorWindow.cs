@@ -22,6 +22,11 @@ public class ToolBoxEditorWindow : EditorWindow
 	bool myBool = true;
 	float myFloat = 1.23f;
 
+SceneLookupEnum m_enumStartScene;
+SceneLookupEnum m_enumStartSceneInConfig;
+MissionEnum	m_enumStartMission;
+MissionEnum m_enumStartMissionInConfig;
+
 	// Add menu named "My Window" to the Window menu
 	[MenuItem ("Window/Tool Box %l")]
 	static void Init ()
@@ -37,6 +42,28 @@ public class ToolBoxEditorWindow : EditorWindow
 		if (Application.isPlaying) {
 			return;
 		}
+
+
+		GUILayout.Label ("Start From This Scene", EditorStyles.boldLabel);
+
+		m_enumStartSceneInConfig = ConfigRoot.Instance.StartScene;
+		m_enumStartScene = (SceneLookupEnum)EditorGUILayout.EnumPopup ("Start Scene:", m_enumStartScene);
+		if (m_enumStartScene != m_enumStartSceneInConfig) {
+			ConfigRoot.Instance.StartScene = m_enumStartScene;
+			Debug.Log ($"Set {m_enumStartScene.ToString ()} as Start Scene");
+			AssetDatabase.SaveAssets ();
+		}
+
+		GUILayout.Label ("Start From This Scene", EditorStyles.boldLabel);
+
+		m_enumStartMissionInConfig = ConfigRoot.Instance.StartMission;
+		m_enumStartMission = (MissionEnum)EditorGUILayout.EnumPopup ("Start Mission:", m_enumStartMission);
+		if (m_enumStartMission != m_enumStartMissionInConfig) {
+			ConfigRoot.Instance.StartMission = m_enumStartMission;
+			Debug.Log ($"Set {m_enumStartMission.ToString ()} as Start Mission");
+			AssetDatabase.SaveAssets ();
+		}
+
 		GUILayout.Label ("Prefab Object Name", EditorStyles.boldLabel);
 		ConfigMission.Instance.Text_Spawn_Point_Name =
 			EditorGUILayout.TextField ("Spawn Point Name", ConfigMission.Instance.Text_Spawn_Point_Name);
