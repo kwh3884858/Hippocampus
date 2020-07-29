@@ -109,6 +109,10 @@ MonoBehaviour:
     m_Address: World_Mission_EP02_07_World_2F_West_Corrider
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: b998ff87fee4e472e8c54567b44626f9
+    m_Address: World_Mission_EP03_World_Kitchen_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: cb6d67858ca69e845b128b236c34616d
     m_Address: World_Mission_EP02_02_World_1F_South_Corrider
     m_ReadOnly: 0
