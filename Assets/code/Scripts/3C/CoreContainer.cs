@@ -67,7 +67,7 @@ namespace GamePlay.Stage
 
 				WorldTriggerCallbackTeleportPlayer [] teleports = GameObject.FindObjectsOfType<WorldTriggerCallbackTeleportPlayer> ();
 				foreach (WorldTriggerCallbackTeleportPlayer teleport in teleports) {
-					if (teleport.m_teleportGameScene == lastGameScene) {
+					if (teleport.GetTeleportScene() == lastGameScene) {
 						Vector3 direction = WorldTriggerCallbackTeleportPlayer.DirecitonMapping [teleport.m_spawnDirection];
 						direction *= teleport.m_lengthBetweenTriggerAndSpwanPoint;
 						m_player.transform.position = teleport.transform.position + direction + new Vector3 (0.0f, 0.5f, 0.0f);

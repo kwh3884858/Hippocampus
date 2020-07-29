@@ -13,7 +13,8 @@ namespace GamePlay.EventTrigger
 		public bool m_isCGScene = false;
 
 		[ConditionalField ("m_isCGScene", true)]
-		public SceneLookupEnum m_teleportGameScene;
+		[SerializeField]
+		private string m_teleportGameScene = "";
 
 		[ConditionalField ("m_isCGScene")]
 		public string m_cgSceneName = "";
@@ -39,14 +40,27 @@ namespace GamePlay.EventTrigger
 				UI.UIManager.Instance ().ShowStaticPanel (UIPanelType.UICommonCgscenePanel, new CGSceneDataProvider () { CGSceneID = m_cgSceneName });
 				CoreContainer.Instance.SetPlayerPosition (transform.position + DirecitonMapping [m_spawnDirection] * m_lengthBetweenTriggerAndSpwanPoint + new Vector3 (0.0f, 0.5f, 0.0f));
 			} else {
-				if (MissionSceneManager.Instance.IsGameSceneExistCurrentMission (m_teleportGameScene)) {
-					GameSceneManager.Instance.LoadScene (m_teleportGameScene);
+				if (m_teleportGameScene == "") {
+					Debug.LogError ("Teleport scene is not set. Use [Update Teleported Game Scene] to modify the value");
+				}
+				SceneLookupEnum scene = SceneLookup.GetEnum (m_teleportGameScene);
+				if (MissionSceneManager.Instance.IsGameSceneExistCurrentMission (scene)) {
+					GameSceneManager.Instance.LoadScene (scene);
 					MissionSceneManager.Instance.LoadCurrentMissionScene ();
 				} else {
-					Debug.LogError (m_teleportGameScene.ToString () + " is not exist mission " + MissionSceneManager.Instance.GetCurrentMission ().ToString ());
+					Debug.LogError (m_teleportGameScene + " is not exist mission " + MissionSceneManager.Instance.GetCurrentMission ().ToString ());
 				}
 			}
 		}
 
+		public void SetTeleportedScene(SceneLookupEnum scene)
+		{
+			m_teleportGameScene = scene.ToString ();
+		}
+
+		public SceneLookupEnum GetTeleportScene ()
+		{
+			return SceneLookup.GetEnum (m_teleportGameScene);
+		}
 	}
 }
