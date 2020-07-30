@@ -62,5 +62,10 @@ namespace GamePlay.EventTrigger
 		{
 			return SceneLookup.GetEnum (m_teleportGameScene);
 		}
+
+		public bool IsCGScene ()
+		{
+			return m_isCGScene;
+		}
 	}
 }
