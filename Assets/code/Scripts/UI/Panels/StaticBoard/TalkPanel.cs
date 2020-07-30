@@ -170,6 +170,12 @@ namespace UI.Panels.StaticBoard
             {
                 SetInfo(m_nextIDQueue.Dequeue());
             }
+
+            if (m_isBeginNextAction)
+            {
+                m_isBeginNextAction = false;
+                SetNextAction(m_actionContainer.GetNextAction());
+            }
         }
 
         private void SetInfo(string talkID)
@@ -238,6 +244,7 @@ namespace UI.Panels.StaticBoard
                         SetActionState(ActionState.End);
                         return;
                     }
+                    Debug.Log($"=== options:{jumpAction.Options}");
                     ShowJumpOption(jumpAction.Options);
                     break;
                 case StoryActionType.Picture:
@@ -344,7 +351,7 @@ namespace UI.Panels.StaticBoard
                 }
                 
                 m_actionType = StoryActionType.Waiting;
-                SetNextAction(m_actionContainer.GetNextAction());
+                m_isBeginNextAction = true;
             }
         }
 
@@ -590,6 +597,7 @@ namespace UI.Panels.StaticBoard
         private StoryActionType m_actionType = StoryActionType.Waiting;
         private Coroutine m_typewriterCoroutine = null;
         private StoryAction m_curAction;
+        private bool m_isBeginNextAction = false;
 //        private bool isReset;
     }
 }
