@@ -54,7 +54,7 @@ namespace UI.Panels.StaticBoard
 				//符合条件直接跳转
 				if (m_options[i].Content == "")
 				{
-					Callback(m_options[i].ID);
+					CallbackTime(0.1f, () => { Callback(m_options[i].ID);});
 					break;
 				}
 				m_optionItems[i].gameObject.SetActive(true);
