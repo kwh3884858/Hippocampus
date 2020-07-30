@@ -151,16 +151,6 @@ namespace Evidence
             {
                 MyEvidenceDic = new Dictionary<string, SingleEvidenceData>();
             }
-            //m_isStoryTriggered = GlobalManager.GetControllerManager().PlayerArchiveController.CurrentArchiveData.MissionArchieData.StoryTriggered;
-            //m_objectTriggeredCounter = GlobalManager.GetControllerManager().PlayerArchiveController.CurrentArchiveData.MissionArchieData.ObjectTriggeredCounter;
-            //if (m_isStoryTriggered == null)
-            //{
-            //    m_isStoryTriggered = new List<string>();
-            //}
-            //if (m_objectTriggeredCounter == null)
-            //{
-            //    m_objectTriggeredCounter = new Dictionary<string, int>();
-            //}
         }
 
         /// <summary>保存本地的名称</summary>

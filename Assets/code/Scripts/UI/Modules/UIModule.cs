@@ -417,6 +417,7 @@ namespace UI.Modules
         {
             if (IsQueue)
             {
+                m_operationQueue.Add(new UIPanelOperation(UIPanelOperation.OperationType.UpdatePanel, type, data));
                 return;
             }
 

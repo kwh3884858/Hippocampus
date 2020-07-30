@@ -8,6 +8,7 @@ namespace LocalCache
         public CGSceneArchiveData CgSceneArchiveData { get; set; }
         public MissionArchiveData MissionArchieData { get; set; }
         public EvidenceArchiveData EvidenceArchiveData { get; set; }
+        public TipsArchiveData TipsArchiveData { get; set; }
     }
 
     public class CGSceneArchiveData : LocalCacheBase
@@ -30,6 +31,11 @@ namespace LocalCache
     public class EvidenceArchiveData : LocalCacheBase
     {
         public Dictionary<string, Evidence.SingleEvidenceData> EvidenceList { get; set; }
+    }
+
+    public class TipsArchiveData : LocalCacheBase
+    {
+        public Dictionary<string, Tips.TipData> TipsList { get; set; }
     }
 
 }

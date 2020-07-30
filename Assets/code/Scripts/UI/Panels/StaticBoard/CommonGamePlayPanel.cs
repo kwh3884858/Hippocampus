@@ -74,7 +74,6 @@ namespace UI.Panels
 		#region Member
         public void OnClickMap()
         {
-            Debug.Log("CommonGamePlayPanel show map");
             UIManager.Instance().ShowStaticPanel(UIPanelType.UIMapcanvasPanel);// 显示地图
         }
 

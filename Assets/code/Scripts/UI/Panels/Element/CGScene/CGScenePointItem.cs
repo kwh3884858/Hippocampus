@@ -4,6 +4,7 @@ using Controllers.Subsystems;
 using StarPlatinum;
 using StarPlatinum.EventManager;
 using StarPlatinum.Services.EffectService;
+using UI.UIComponent;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -87,6 +88,7 @@ namespace UI.Panels.Element
             m_isMouseEnter = true;
             EventManager.Instance.SendEvent(new ChangeCursorEvent(){cursorKey = GetMouseKeyByTouchType(m_config.touchType)});
             m_effectObj.gameObject.SetActive(true);
+            m_flashing.enabled = true;
         }
 
         public void OnPointerExit(PointerEventData eventData)
@@ -94,6 +96,7 @@ namespace UI.Panels.Element
             m_isMouseEnter = false;
             EventManager.Instance.SendEvent(new ChangeCursorEvent(){cursorKey = null});
             m_effectObj.gameObject.SetActive(false);
+            m_flashing.enabled = false;
         }
 
         private string GetMouseKeyByTouchType(int touchType)
@@ -113,6 +116,7 @@ namespace UI.Panels.Element
         
         [SerializeField] private Transform m_effectObj;
         [SerializeField] private Button m_button;
+        [SerializeField] private Flashing m_flashing;
 
         private GameObject m_mouseEffectObj;
         private CGScenePointTouchConfig m_config;

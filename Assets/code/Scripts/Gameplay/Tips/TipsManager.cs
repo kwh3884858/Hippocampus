@@ -13,12 +13,28 @@ namespace Tips
 
 		public TipsManager ()
 		{
-			if (tipsData == null) {
-				tipsData = new TipsDataManager ();
-			}
+
 		}
 
-		public void AddTip (string vTip)
+        public void Initialize()
+        {
+            if (tipsData == null)
+            {
+                tipsData = new TipsDataManager();
+            }
+            tipsData.Initialize();
+        }
+
+        public void Shutdown()
+        {
+            if (tipsData == null)
+            {
+                tipsData = new TipsDataManager();
+            }
+            tipsData.Shutdown();
+        }
+
+        public void AddTip (string vTip)
 		{
 			if (tipsData != null) {
 				tipsData.AddTip (vTip);
