@@ -163,6 +163,15 @@ namespace UI.Panels.StaticBoard
             SetInfo(UIPanelDataProvider.ID);
         }
 
+        public override void Tick()
+        {
+            base.Tick();
+            if (string.IsNullOrEmpty(m_currentID)&&m_nextIDQueue.Count>0)
+            {
+                SetInfo(m_nextIDQueue.Dequeue());
+            }
+        }
+
         private void SetInfo(string talkID)
         {
             if (m_state != ActionState.Waiting)
@@ -183,7 +192,12 @@ namespace UI.Panels.StaticBoard
             if (storyAction == null)
             {
                 EventManager.Instance.SendEvent(new LabelEndEvent(){ LabelID = m_currentID});
+                m_currentID = null;
                 SetActionState(ActionState.Waiting);
+                if (m_nextIDQueue.Count>0)
+                {
+                    return;
+                }
                 InvokeHidePanel();
                 UIPanelDataProvider.OnTalkEnd?.Invoke();
                 return;
@@ -343,8 +357,8 @@ namespace UI.Panels.StaticBoard
         {
             m_skip = false;
             LogController.PushLog(m_curAction,id);
+            m_nextIDQueue.Enqueue(id);
             SetActionState(ActionState.End);
-            SetInfo(id);
         }
 
         private void WaitClickEnd()
@@ -371,7 +385,6 @@ namespace UI.Panels.StaticBoard
         }
         private void SetNameContent(string name)
         {
-            m_name.enabled = true;
             m_nameTxt.gameObject.SetActive(false);
             m_curRoleInfo = RoleConfig.GetConfigByKey(name);
             string artNameKey = "";
@@ -379,12 +392,18 @@ namespace UI.Panels.StaticBoard
             {
                 artNameKey = m_curRoleInfo.artNameKey;
             }
-            PrefabManager.Instance.SetImage(m_name,artNameKey, () =>
+
+            if (!string.IsNullOrEmpty(artNameKey))
+            {
+                m_name.enabled = true;
+                PrefabManager.Instance.SetImage(m_name,artNameKey, () =>
                 {
                     m_name.enabled = false;
 //                    m_nameTxt.gameObject.SetActive(true);
 //                    m_nameTxt.text = name;
                 });
+            }
+
             ResetContentText();
             SetActionState(ActionState.End);
         }
@@ -561,6 +580,7 @@ namespace UI.Panels.StaticBoard
         private bool m_skip = false;
         private bool m_waitingEnd = false;
         private string m_currentID;
+        private Queue<string> m_nextIDQueue = new Queue<string>();
         private RoleConfig m_curRoleInfo;
         private StoryActionContainer m_actionContainer;
         private TextHelp m_textHelp;
