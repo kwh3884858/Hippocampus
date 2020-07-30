@@ -103,7 +103,6 @@ namespace StarPlatinum.Service
             Assert.IsTrue(cameras.Length > 0, "Camera length is wrong");
 
 			for (int i = 0; i < cameras.Length; i++) {
-				Debug.Log ("Camera" + i + " name: " + cameras [i].name);
                 if (cameras[i].gameObject != m_mainCamera)
                 {
                     cameras[i].gameObject.SetActive(false);

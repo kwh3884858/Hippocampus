@@ -124,7 +124,7 @@ public class MonoMoveController : MonoBehaviour
         }
         if (GUI.Button(new Rect(0, 250, 200, 50), "ShowCG"))
         {
-            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonCgscenePanel,new CGSceneDataProvider(){CGSceneID = "EP01-04"});// 显示UI
+            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonCgscenePanel,new CGSceneDataProvider(){CGSceneID = "EP04-01"});// 显示UI
         }
     }
     
