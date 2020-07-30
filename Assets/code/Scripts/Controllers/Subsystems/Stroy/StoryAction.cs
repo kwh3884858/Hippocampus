@@ -146,6 +146,7 @@ namespace Controllers.Subsystems.Story
         public void ChangeBackground(string backgroundKey)
         {
             m_actions.Enqueue(new StoryAction(){Type =  StoryActionType.ChangeBackground , Content = backgroundKey});
+            
         }
 
         public StoryAction GetNextAction()
@@ -163,7 +164,7 @@ namespace Controllers.Subsystems.Story
         {
             bool isTalk = false;
             Queue<StoryAction> actions = new Queue<StoryAction>();
-
+            int lastContentIndex=-1;
             while (m_actions.Count>0)
             {
                 var storyAction = GetNextAction();
@@ -189,15 +190,26 @@ namespace Controllers.Subsystems.Story
                         actions.Enqueue(storyAction);
                         isTalk = true;
                         break;
+                    case StoryActionType.Content:
+                        lastContentIndex = actions.Count;
+                        actions.Enqueue(storyAction);
+                        break;
                     default:
                         actions.Enqueue(storyAction);
                         break;
                 }
+
             }
 
+            int i = 0;
             while (actions.Count>0)
             {
                 m_actions.Enqueue(actions.Dequeue());
+                if (lastContentIndex == i)
+                {
+                    m_actions.Enqueue(new StoryAction(){Type = StoryActionType.WaitClick});
+                }
+                i++;
             }
         }
         
