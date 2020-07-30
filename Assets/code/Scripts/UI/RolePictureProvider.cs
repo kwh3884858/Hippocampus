@@ -57,7 +57,7 @@ namespace UI
                 return;
             }
 
-            string roleID = RolePictureNameConst.RoleIDFistName + id;
+            string roleID = id;
 
             item.Initialize(id);
             

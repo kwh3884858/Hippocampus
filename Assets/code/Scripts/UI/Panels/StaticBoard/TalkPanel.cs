@@ -491,6 +491,8 @@ namespace UI.Panels.StaticBoard
             {
                 m_pictureItems.Add(picID,item);
                 item.transform.SetParent(m_pictureRoot);
+                item.transform.localPosition= Vector3.zero;
+                item.transform.localScale = Vector3.one;
                 ShowPicture(picID,m_picPos[picID]);
             }); 
             
