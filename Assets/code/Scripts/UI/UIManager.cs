@@ -131,7 +131,22 @@ namespace UI
         {
             return (m_activeModule != null && m_activeModule.IsPanelShow(type) )||(m_uiModuleStaticBoard!=null && m_uiModuleStaticBoard.IsPanelShow(type));
         }
-        
+        //更新UI数据
+        public void UpdateData(UIPanelType type, DataProvider data)
+        {
+            if (IsPanelShow(type))
+            {
+                if (m_activeModule.IsPanelShow(type))
+                {
+                    m_activeModule.UpdatePanel(type,data);
+                }
+                else
+                {
+                    m_uiModuleStaticBoard.UpdatePanel(type,data);
+                }
+            }
+        }
+
         public void ShowModule(GameState state)
         {
             UIModule uiModule = null;
