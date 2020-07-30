@@ -120,14 +120,14 @@ public class MonoMoveController : MonoBehaviour
         //    UIManager.Instance().ShowStaticPanel(UIPanelType.Tipspanel);// 显示UI
         //}
         
-        if (GUI.Button(new Rect(0, 200, 200, 50), "Save"))
-        {
-            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonLoadarchivePanel,new ArchiveDataProvider(){Type = ArchivePanelType.Save});// 显示UI
-        }
-        if (GUI.Button(new Rect(0, 250, 200, 50), "ShowCG"))
-        {
-            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonCgscenePanel,new CGSceneDataProvider(){CGSceneID = "EP04-01"});// 显示UI
-        }
+        //if (GUI.Button(new Rect(0, 200, 200, 50), "Save"))
+        //{
+        //    UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonLoadarchivePanel,new ArchiveDataProvider(){Type = ArchivePanelType.Save});// 显示UI
+        //}
+        //if (GUI.Button(new Rect(0, 250, 200, 50), "ShowCG"))
+        //{
+        //    UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonCgscenePanel,new CGSceneDataProvider(){CGSceneID = "EP04-01"});// 显示UI
+        //}
     }
     
     void FixedUpdate()

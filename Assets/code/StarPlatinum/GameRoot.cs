@@ -94,10 +94,10 @@ namespace StarPlatinum
 
         public void OnGUI()
         {
-            if (GUI.Button(new Rect(0, 0, 200, 50), "Productivity"))
-            {
-                Productivity();
-            }
+            //if (GUI.Button(new Rect(0, 0, 200, 50), "Productivity"))
+            //{
+            //    Productivity();
+            //}
         }
 
 
