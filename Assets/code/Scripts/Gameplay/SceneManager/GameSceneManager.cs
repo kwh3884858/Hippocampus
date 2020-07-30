@@ -59,7 +59,15 @@ namespace GamePlay.Stage
 			if (sceneEnum == SceneLookupEnum.World_GameRoot) {
                 return;
 			}
-            TipData tipData = new TipData ("进入场景", m_sceneChineseDictionary[sceneEnum]);
+
+            TipData tipData;
+            string sceneName;
+            if (m_sceneChineseDictionary.TryGetValue (sceneEnum, out sceneName)) {
+                tipData = new TipData ("进入场景", sceneName);
+
+            } else {
+                tipData = new TipData ("进入场景", sceneEnum.ToString ());
+            }
             UIManager.Instance ().ShowStaticPanel (UIPanelType.Tipgetpanel, new UI.Panels.Providers.DataProviders.TipDataProvider () {Data = tipData });// 显示UI
         }
         
