@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 //using StarPlatinum;
-using UI;
 using UnityEngine;
 using Newtonsoft.Json;
+using StarPlatinum.EventManager;
+using StarPlatinum;
 
 namespace Tips
 {
@@ -15,7 +16,20 @@ namespace Tips
 
         public TipsDataManager()
         {
+            Initialize();
+        }
+
+        public void Initialize()
+        {
             LoadData();
+            EventManager.Instance.AddEventListener<PlayerPreSaveArchiveEvent>(OnPlayerPreSaveArchive);
+            EventManager.Instance.AddEventListener<PlayerLoadArchiveEvent>(OnPlayerLoadArchive);
+        }
+
+        public void Shutdown()
+        {
+            EventManager.Instance.RemoveEventListener<PlayerPreSaveArchiveEvent>(OnPlayerPreSaveArchive);
+            EventManager.Instance.RemoveEventListener<PlayerLoadArchiveEvent>(OnPlayerLoadArchive);
         }
 
         /// <summary>
@@ -23,33 +37,33 @@ namespace Tips
         /// </summary>
         private void LoadData()
         {
-            MyTipsDic = new Dictionary<string, TipData>();
-            if (LocalData.HasKey(tipsName))
-            {
-                m_data = JsonConvert.DeserializeObject<TipsData>(LocalData.ReadStr(tipsName, ""));
-            }
-            else
-            {
-                m_data = new TipsData();
-            }
+            //MyTipsDic = new Dictionary<string, TipData>();
+            //if (LocalData.HasKey(tipsName))
+            //{
+            //    m_data = JsonConvert.DeserializeObject<TipsData>(LocalData.ReadStr(tipsName, ""));
+            //}
+            //else
+            //{
+            //    m_data = new TipsData();
+            //}
 
             m_tipsConfig = ConfigData.Instance.tipsConfig.GetDicDetails();
-            if (m_tipsConfig != null)
-            {
-                TipData tipData;
-                foreach (var data in m_tipsConfig)
-                {
-                    if (m_data.tipsList.ContainsKey(data.Key))
-                    {
-                        tipData = m_data.tipsList[data.Key];
-                        MyTipsDic.Add(data.Value.tip, new TipData(data.Value.tip, data.Value.description, tipData.isUnlock, tipData.time, tipData.isAlreadyClick));
-                    }
-                    else
-                    {
-                        MyTipsDic.Add(data.Value.tip, new TipData(data.Value.tip, data.Value.description, false));
-                    }
-                }
-            }
+            //if (m_tipsConfig != null)
+            //{
+            //    TipData tipData;
+            //    foreach (var data in m_tipsConfig)
+            //    {
+            //        if (m_data.tipsList.ContainsKey(data.Key))
+            //        {
+            //            tipData = m_data.tipsList[data.Key];
+            //            MyTipsDic.Add(data.Value.tip, new TipData(data.Value.tip, data.Value.description, tipData.isUnlock, tipData.time, tipData.isAlreadyClick));
+            //        }
+            //        else
+            //        {
+            //            MyTipsDic.Add(data.Value.tip, new TipData(data.Value.tip, data.Value.description, false));
+            //        }
+            //    }
+            //}
         }
 
         /// <summary>
@@ -127,7 +141,14 @@ namespace Tips
                     MyTipsDic[vTip].time = vTime;
                     //SaveData();
                     //UIManager.Instance().ShowPanel(UIPanelType.Tipgetpanel, new UI.Panels.Providers.DataProviders.TipDataProvider() { Data = MyTipsDic[vTip] });// 显示UI
-                    UIManager.Instance().ShowStaticPanel(UIPanelType.Tipgetpanel, new UI.Panels.Providers.DataProviders.TipDataProvider() { Data = MyTipsDic[vTip] });// 显示UI
+                    if (UI.UIManager.Instance().IsPanelShow(UIPanelType.Tipgetpanel))
+                    {
+                        UI.UIManager.Instance().UpdateData(UIPanelType.Tipgetpanel, new UI.Panels.Providers.DataProviders.TipDataProvider() { Data = MyTipsDic[vTip] });
+                    }
+                    else
+                    {
+                        UI.UIManager.Instance().ShowStaticPanel(UIPanelType.Tipgetpanel, new UI.Panels.Providers.DataProviders.TipDataProvider() { Data = MyTipsDic[vTip] });// 显示UI
+                    }
                 }
 #if UNITY_EDITOR
                 else
@@ -178,16 +199,38 @@ namespace Tips
         /// </summary>
         public void SaveData()
         {
-            m_data.tipsList = MyTipsDic;
-            LocalData.WriteStr(tipsName, JsonConvert.SerializeObject(m_data));
+            //m_data.tipsList = MyTipsDic;
+            //LocalData.WriteStr(tipsName, JsonConvert.SerializeObject(m_data));
+        }
+
+        private void OnPlayerPreSaveArchive(object sender, PlayerPreSaveArchiveEvent e)
+        {
+            GlobalManager.GetControllerManager().PlayerArchiveController.CurrentArchiveData.TipsArchiveData.TipsList = MyTipsDic;
+        }
+
+        private void OnPlayerLoadArchive(object sender, PlayerLoadArchiveEvent e)
+        {
+            MyTipsDic = GlobalManager.GetControllerManager().PlayerArchiveController.CurrentArchiveData.TipsArchiveData.TipsList;
+            if (MyTipsDic == null)
+            {
+                MyTipsDic = new Dictionary<string, TipData>();
+                if (m_tipsConfig != null)
+                {
+                    TipData tipData;
+                    foreach (var data in m_tipsConfig)
+                    {
+                        MyTipsDic.Add(data.Value.tip, new TipData(data.Value.tip, data.Value.description, false));
+                    }
+                }
+            }
         }
 
         /// <summary>保存本地的名称</summary>
-        private static readonly string tipsName = "Tips";
+        //private static readonly string tipsName = "Tips";
 
         /// <summary>读取的本地配置文件信息</summary>
         private Dictionary<string, TipsConfig.Detail> m_tipsConfig = null;
         /// <summary>本地保存的数据</summary>
-        private TipsData m_data = new TipsData();
+        //private TipsData m_data = new TipsData();
     }
 }

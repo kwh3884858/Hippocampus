@@ -36,6 +36,7 @@ namespace StarPlatinum
 
 			SingletonGlobalDataContainer.Instance.Initialize ();
 			Evidence.EvidenceDataManager.Instance.Initialize ();
+            Tips.TipsManager.Instance.Initialize();
         }
 
         private void LoadCoreContainer()
@@ -113,6 +114,7 @@ namespace StarPlatinum
 		{
 			SingletonGlobalDataContainer.Instance.Shutdown ();
             Evidence.EvidenceDataManager.Instance.Shutdown ();
+            Tips.TipsManager.Instance.Shutdown ();
         }
 
 		private void Productivity ()
