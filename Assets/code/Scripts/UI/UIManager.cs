@@ -129,9 +129,9 @@ namespace UI
 
         public bool IsPanelShow(UIPanelType type)
         {
-            return m_activeModule != null && m_activeModule.IsPanelShow(type);
+            return (m_activeModule != null && m_activeModule.IsPanelShow(type) )||(m_uiModuleStaticBoard!=null && m_uiModuleStaticBoard.IsPanelShow(type));
         }
-
+        
         public void ShowModule(GameState state)
         {
             UIModule uiModule = null;
