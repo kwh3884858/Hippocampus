@@ -83,7 +83,7 @@ public class EvidencesController : MonoBehaviour
         {
             SingleEvidenceController vTmpCtrl = null;
             bool isFirst = true;
-            foreach (var data in m_dataManager.myEvidenceDic)
+            foreach (var data in m_dataManager.MyEvidenceDic)
             {
                 vTmpCtrl = GameObject.Instantiate(m_evidence, m_content);
                 vTmpCtrl.Init(this, data.Value, m_CloseUI, m_onShowEvidence);

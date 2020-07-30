@@ -65,7 +65,7 @@ namespace Evidence
             if (m_evidence != null && m_content != null)
             {
                 SingleEvidenceController vTmpCtrl = null;
-                foreach (var data in m_dataManager.myEvidenceDic)
+                foreach (var data in m_dataManager.MyEvidenceDic)
                 {
                     vTmpCtrl = GameObject.Instantiate(m_evidence, m_content);
                     vTmpCtrl.Init(data.Value, InvokeHidePanel, m_onShowEvidence);

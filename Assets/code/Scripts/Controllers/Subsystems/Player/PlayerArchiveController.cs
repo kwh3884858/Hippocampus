@@ -50,6 +50,7 @@ namespace Controllers.Subsystems.Role
                 CurrentArchiveData = new PlayerArchiveData();
                 CurrentArchiveData.MissionArchieData= new MissionArchiveData();
                 CurrentArchiveData.CgSceneArchiveData = new CGSceneArchiveData();
+                CurrentArchiveData.EvidenceArchiveData = new EvidenceArchiveData();
                 m_playTime = 0;
                 CurrentSaveIndex = 0;
                 m_localCacheManager = null;

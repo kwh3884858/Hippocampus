@@ -35,7 +35,8 @@ namespace StarPlatinum
 			ConfigData data = new ConfigData ();// 测试
 
 			SingletonGlobalDataContainer.Instance.Initialize ();
-		}
+			Evidence.EvidenceDataManager.Instance.Initialize ();
+        }
 
         private void LoadCoreContainer()
         {
@@ -111,7 +112,8 @@ namespace StarPlatinum
 		void OnDestroy ()
 		{
 			SingletonGlobalDataContainer.Instance.Shutdown ();
-		}
+            Evidence.EvidenceDataManager.Instance.Shutdown ();
+        }
 
 		private void Productivity ()
 		{

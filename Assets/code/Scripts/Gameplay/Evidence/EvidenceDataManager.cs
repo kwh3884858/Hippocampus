@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using StarPlatinum;
 using StarPlatinum.Base;
+using StarPlatinum.EventManager;
 using UnityEngine;
 
 namespace Evidence
@@ -11,11 +12,25 @@ namespace Evidence
     {
 
         /// <summary>已经获得的证据</summary>
-        public Dictionary<string, SingleEvidenceData> myEvidenceDic { private set; get; } = null;
+        public Dictionary<string, SingleEvidenceData> MyEvidenceDic { private set; get; }
 
         public EvidenceDataManager()
         {
+            //LoadData();
+
+        }
+
+        public void Initialize()
+        {
             LoadData();
+            EventManager.Instance.AddEventListener<PlayerPreSaveArchiveEvent>(OnPlayerPreSaveArchive);
+            EventManager.Instance.AddEventListener<PlayerLoadArchiveEvent>(OnPlayerLoadArchive);
+        }
+
+        public void Shutdown()
+        {
+            EventManager.Instance.RemoveEventListener<PlayerPreSaveArchiveEvent>(OnPlayerPreSaveArchive);
+            EventManager.Instance.RemoveEventListener<PlayerLoadArchiveEvent>(OnPlayerLoadArchive);
         }
 
         /// <summary>
@@ -23,53 +38,28 @@ namespace Evidence
         /// </summary>
         private void LoadData()
         {
-            myEvidenceDic = new Dictionary<string, SingleEvidenceData>();
-            if (LocalData.HasKey(evidenceName))
-            {
-                //m_data = JsonUtility.FromJson<EvidenceData>(LocalData.ReadStr(evidenceName, ""));
-                m_data = JsonConvert.DeserializeObject<EvidenceData>(LocalData.ReadStr(evidenceName, ""));
-            }
-            else
-            {
-                m_data = new EvidenceData();
-            }
-
-            //if (m_data.evidenceList == null)
+            //MyEvidenceDic = new Dictionary<string, SingleEvidenceData>();
+            //if (LocalData.HasKey(evidenceName))
             //{
-            //    m_data.evidenceList = new List<string>();
+            //    m_data = JsonConvert.DeserializeObject<EvidenceData>(LocalData.ReadStr(evidenceName, ""));
+            //}
+            //else
+            //{
+            //    m_data = new EvidenceData();
             //}
             m_evidenceConfig = ConfigData.Instance.evidenceConfig.GetDicDetails();
             //if (m_evidenceConfig != null)
             //{
-            //    int l = m_data.evidenceList.Count;
-            //    string id;
-            //    EvidenceConfig.Detail data;
-            //    for (int i = 0; i < l; i++)
+            //    SingleEvidenceData evidenceData;
+            //    foreach (var data in m_evidenceConfig)
             //    {
-            //        id = m_data.evidenceList[i];
-            //        if (m_evidenceConfig.ContainsKey(id))
+            //        if (m_data.evidenceList.ContainsKey(data.Key))
             //        {
-            //            data = m_evidenceConfig[id];
-            //            myEvidenceDic.Add(data.exhibit, new SingleEvidenceData(/*data.id, */data.exhibit, data.description));
+            //            evidenceData = m_data.evidenceList[data.Key];
+            //            //MyEvidenceDic.Add(data.Value.exhibit, new SingleEvidenceData(data.Value.exhibit, data.Value.description));
             //        }
             //    }
             //}
-            if (m_evidenceConfig != null)
-            {
-                SingleEvidenceData evidenceData;
-                foreach (var data in m_evidenceConfig)
-                {
-                    if (m_data.evidenceList.ContainsKey(data.Key))
-                    {
-                        evidenceData = m_data.evidenceList[data.Key];
-                        myEvidenceDic.Add(data.Value.exhibit, new SingleEvidenceData(data.Value.exhibit, data.Value.description));
-                    }
-                    //else
-                    //{
-                    //    myEvidenceDic.Add(data.Value.exhibit, new SingleEvidenceData(data.Value.exhibit, data.Value.description));
-                    //}
-                }
-            }
         }
 
         /// <summary>
@@ -78,23 +68,15 @@ namespace Evidence
         /// <param name="vId"></param>
         public void AddEvidence(string vExhibit)
         {
-            //if (m_evidenceConfig.ContainsKey(vExhibit) && myEvidenceDic[vExhibit].isLock)
-            //{
-            //    myEvidenceDic[vExhibit].isLock = false;
-            //    EvidenceConfig.Detail data = m_evidenceConfig[vExhibit];
-            //    m_data.evidenceList.Add(vExhibit, new SingleEvidenceData(data.exhibit, data.description, false));
-            //    SaveData();
-            //}
-            if (myEvidenceDic.ContainsKey(vExhibit))// 已经存在
+            if (MyEvidenceDic.ContainsKey(vExhibit))// 已经存在
             {
                 return;
             }
             if (m_evidenceConfig.ContainsKey(vExhibit))
             {
-                //m_data.evidenceList.Add(vExhibit);
                 EvidenceConfig.Detail data = m_evidenceConfig[vExhibit];
-                m_data.evidenceList.Add(vExhibit, new SingleEvidenceData(/*data.id, */data.exhibit, data.description));
-                myEvidenceDic.Add(vExhibit, new SingleEvidenceData(/*data.id, */data.exhibit, data.description));
+                m_data.evidenceList.Add(vExhibit, new SingleEvidenceData(data.exhibit, data.description));
+                MyEvidenceDic.Add(vExhibit, new SingleEvidenceData(data.exhibit, data.description));
                 //SaveData();
             }
 #if UNITY_EDITOR
@@ -114,7 +96,7 @@ namespace Evidence
             if (m_evidenceConfig.ContainsKey(vExhibit))
             {
                 m_data.evidenceList.Remove(vExhibit);
-                myEvidenceDic.Remove(vExhibit);
+                MyEvidenceDic.Remove(vExhibit);
                 //SaveData();
             }
 #if UNITY_EDITOR
@@ -132,7 +114,7 @@ namespace Evidence
         /// <returns></returns>
         public SingleEvidenceData GetEvidenceDetail(string vExhibit)
         {
-            return myEvidenceDic.ContainsKey(vExhibit) ? myEvidenceDic[vExhibit] : null;
+            return MyEvidenceDic.ContainsKey(vExhibit) ? MyEvidenceDic[vExhibit] : null;
         }
 
         /// <summary>
@@ -140,7 +122,6 @@ namespace Evidence
         /// </summary>
         public void SaveData()
         {
-            //LocalData.WriteStr(evidenceName, JsonUtility.ToJson(m_data));
             LocalData.WriteStr(evidenceName, JsonConvert.SerializeObject(m_data));
         }
 
@@ -156,6 +137,30 @@ namespace Evidence
         public bool IsCorrectEvidence(string evidenceID)
         {
             return m_curCorrectEvidenceID == evidenceID;
+        }
+
+        private void OnPlayerPreSaveArchive(object sender, PlayerPreSaveArchiveEvent e)
+        {
+            GlobalManager.GetControllerManager().PlayerArchiveController.CurrentArchiveData.EvidenceArchiveData.EvidenceList = MyEvidenceDic;
+        }
+
+        private void OnPlayerLoadArchive(object sender, PlayerLoadArchiveEvent e)
+        {
+            MyEvidenceDic = GlobalManager.GetControllerManager().PlayerArchiveController.CurrentArchiveData.EvidenceArchiveData.EvidenceList;
+            if(MyEvidenceDic == null)
+            {
+                MyEvidenceDic = new Dictionary<string, SingleEvidenceData>();
+            }
+            //m_isStoryTriggered = GlobalManager.GetControllerManager().PlayerArchiveController.CurrentArchiveData.MissionArchieData.StoryTriggered;
+            //m_objectTriggeredCounter = GlobalManager.GetControllerManager().PlayerArchiveController.CurrentArchiveData.MissionArchieData.ObjectTriggeredCounter;
+            //if (m_isStoryTriggered == null)
+            //{
+            //    m_isStoryTriggered = new List<string>();
+            //}
+            //if (m_objectTriggeredCounter == null)
+            //{
+            //    m_objectTriggeredCounter = new Dictionary<string, int>();
+            //}
         }
 
         /// <summary>保存本地的名称</summary>
