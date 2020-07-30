@@ -19,8 +19,6 @@ namespace UI.UIComponent
             m_img = GetComponent<Image>();
             m_defaultValue = m_img.color.a;
             m_defaultColor = m_img.color;
-
-            enabled = false;
         }
 
         private void OnEnable()

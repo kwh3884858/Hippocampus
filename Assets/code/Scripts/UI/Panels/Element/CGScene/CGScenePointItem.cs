@@ -24,6 +24,7 @@ namespace UI.Panels.Element
         {
             m_button.onClick.AddListener(OnClick);
             m_mousePos = transform.position;
+            m_flashing.enabled = false;
         }
 
         private void OnDisable()
