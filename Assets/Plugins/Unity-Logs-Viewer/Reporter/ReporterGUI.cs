@@ -13,9 +13,9 @@ public class ReporterGUI : MonoBehaviour
 	{
 		reporter.OnGUIDraw();
 		
-		if (GUI.Button(new Rect(0, 150, 100, 50), "ShowLog"))
-		{
-			reporter.show = !reporter.show; 
-		}
+		//if (GUI.Button(new Rect(0, 150, 100, 50), "ShowLog"))
+		//{
+		//	reporter.show = !reporter.show; 
+		//}
 	}
 }

@@ -101,11 +101,13 @@ namespace UI.Panels
         {
             InvokeHidePanel();// 隐藏界面显示
             // TODO: 保存游戏
+            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonLoadarchivePanel, new ArchiveDataProvider() { Type = ArchivePanelType.Save });// 显示UI
         }
 
         public void OnClickLoad()
         {
             // TODO: 加载游戏
+            //UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonLoadarchivePanel, new ArchiveDataProvider() { Type = ArchivePanelType.Load });// 显示UI
         }
 
         public void OnClickSetting()
