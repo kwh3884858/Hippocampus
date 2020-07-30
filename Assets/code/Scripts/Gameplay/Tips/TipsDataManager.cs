@@ -69,7 +69,7 @@ namespace Tips
             {
                 TipsConfig.Detail data = m_tipsConfig[vTip];
                 MyTipsDic.Add(vTip, new TipData(data.tip, data.description));
-                SaveData();
+                //SaveData();
             }
 #if UNITY_EDITOR
             else
@@ -88,7 +88,7 @@ namespace Tips
             if (m_tipsConfig.ContainsKey(vTip))
             {
                 MyTipsDic.Remove(vTip);
-                SaveData();
+                //SaveData();
             }
 #if UNITY_EDITOR
             else
@@ -125,7 +125,7 @@ namespace Tips
                 {
                     MyTipsDic[vTip].isUnlock = true;
                     MyTipsDic[vTip].time = vTime;
-                    SaveData();
+                    //SaveData();
                     //UIManager.Instance().ShowPanel(UIPanelType.Tipgetpanel, new UI.Panels.Providers.DataProviders.TipDataProvider() { Data = MyTipsDic[vTip] });// 显示UI
                     UIManager.Instance().ShowStaticPanel(UIPanelType.Tipgetpanel, new UI.Panels.Providers.DataProviders.TipDataProvider() { Data = MyTipsDic[vTip] });// 显示UI
                 }
@@ -156,7 +156,7 @@ namespace Tips
                 if (!MyTipsDic[vTip].isAlreadyClick)
                 {
                     MyTipsDic[vTip].isAlreadyClick = true;
-                    SaveData();
+                    //SaveData();
                 }
 #if UNITY_EDITOR
                 else

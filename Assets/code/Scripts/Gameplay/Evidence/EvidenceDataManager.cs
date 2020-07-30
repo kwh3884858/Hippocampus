@@ -95,7 +95,7 @@ namespace Evidence
                 EvidenceConfig.Detail data = m_evidenceConfig[vExhibit];
                 m_data.evidenceList.Add(vExhibit, new SingleEvidenceData(/*data.id, */data.exhibit, data.description));
                 myEvidenceDic.Add(vExhibit, new SingleEvidenceData(/*data.id, */data.exhibit, data.description));
-                SaveData();
+                //SaveData();
             }
 #if UNITY_EDITOR
             else
@@ -115,7 +115,7 @@ namespace Evidence
             {
                 m_data.evidenceList.Remove(vExhibit);
                 myEvidenceDic.Remove(vExhibit);
-                SaveData();
+                //SaveData();
             }
 #if UNITY_EDITOR
             else
