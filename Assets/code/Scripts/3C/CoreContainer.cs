@@ -95,6 +95,11 @@ namespace GamePlay.Stage
 			Debug.LogError ("Can not find spawn point!");
 		}
 
+		public void StopPlayerAnimation ()
+		{
+			m_player.GetComponent<MonoMoveController> ().StopPlayerAnimation ();
+		}
+
 		private bool IsValid ()
 		{
 			return m_isSceneLoaded == true;
