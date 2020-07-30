@@ -91,12 +91,14 @@ public class MonoMoveController : MonoBehaviour
             if(UIManager.Instance ().IsPanelShow (UIPanelType.UIGameplayPromptwidgetPanel) == false) {
                 UIManager.Instance ().ShowPanel (UIPanelType.UIGameplayPromptwidgetPanel, new PromptWidgetDataProvider { m_interactiableObject = interactCollider.gameObject });
             }
-            if (Input.GetKeyDown (KeyCode.Return) || m_isInteractByUI == true) {
-                m_isInteractByUI = false;
-                Debug.Log ("Did Interactive: " + interactCollider.gameObject);
-                interactCollider.GetComponent<InteractiveObject> ().Interact ();
+			if (UIManager.Instance ().IsPanelShow (UIPanelType.TalkPanel) == false) {
+                if (Input.GetKeyDown (KeyCode.Return) || m_isInteractByUI == true) {
+                    m_isInteractByUI = false;
+                    Debug.Log ("Did Interactive: " + interactCollider.gameObject);
+                    interactCollider.GetComponent<InteractiveObject> ().Interact ();
 
-                Debug.DrawRay (interactCollider.transform.position, Vector3.up * 3, Color.yellow);
+                    Debug.DrawRay (interactCollider.transform.position, Vector3.up * 3, Color.yellow);
+                }
             }
         } else {
             m_isInteractByUI = false;
@@ -186,7 +188,6 @@ public class MonoMoveController : MonoBehaviour
             m_spriteRender.flipX = m_isFaceRight;
             m_isOldFaceRight = m_isFaceRight;
         }
-        Debug.Log ("IsFaceLeft: " + m_animator.GetBool ("IsFaceLeft"));
     }
 
     public void SetMoveEnable(bool isEnable)

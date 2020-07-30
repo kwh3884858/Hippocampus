@@ -45,7 +45,6 @@ namespace UI.Panels
 		{
 			m_model.UpdateData(data);
 			base.UpdateData(data);
-			UpdateWidgetPosition ();
 		}
 
 		private void UpdateWidgetPosition ()
@@ -61,6 +60,7 @@ namespace UI.Panels
 		{
 			m_model.Tick();
 			base.Tick();
+			UpdateWidgetPosition ();
 		}
 
 		public override void LateTick()

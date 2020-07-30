@@ -15,6 +15,7 @@ Tools/release
 Assets/data.meta
 Assets/code.meta
 Assets/Resources.meta
+Assets/StreamingAssets/build_info
 
 Assets/AssetStoreTools*
 Assets/Resources/Storys/AutoSave~
