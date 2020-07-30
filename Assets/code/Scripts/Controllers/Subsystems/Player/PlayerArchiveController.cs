@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GamePlay.Stage;
 using LocalCache;
 using StarPlatinum;
 using StarPlatinum.EventManager;
@@ -101,7 +102,7 @@ namespace Controllers.Subsystems.Role
             //TODO:写入存档预览信息
             previewData.SaveTime = DateTime.Now.Ticks;
             previewData.Img = "PreviewImg"+saveIndex.ToString();
-            previewData.EPName = "EPName" + saveIndex.ToString();
+            previewData.EPName = MissionSceneManager.Instance.GetCurrentMission ().ToString ();
             previewData.TotalPlayTime = (int)m_playTime;
             SortArchivePreViewData();
             Data.LocalCacheManager.SetData(ArchivePreviewData);

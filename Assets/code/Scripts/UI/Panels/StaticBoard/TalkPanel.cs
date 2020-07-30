@@ -151,7 +151,8 @@ namespace UI.Panels.StaticBoard
         {
             base.ShowData(data);
             GamePlay.Player.PlayerController.Instance().SetMoveEnable(false);
-            ShowInMaxLayer();
+            CoreContainer.Instance.StopPlayerAnimation ();
+            ShowInMaxLayer ();
         }
 
         public override void UpdateData(DataProvider data)
