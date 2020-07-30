@@ -88,11 +88,9 @@ public class MonoMoveController : MonoBehaviour
         }
 
         if (interactCollider != null) {
-            if(UIManager.Instance ().IsPanelShow (UIPanelType.UIGameplayPromptwidgetPanel) == true) {
-                return;
-			}
-            UIManager.Instance ().ShowPanel (UIPanelType.UIGameplayPromptwidgetPanel, new PromptWidgetDataProvider { m_interactiableObject = interactCollider.gameObject });
-
+            if(UIManager.Instance ().IsPanelShow (UIPanelType.UIGameplayPromptwidgetPanel) == false) {
+                UIManager.Instance ().ShowPanel (UIPanelType.UIGameplayPromptwidgetPanel, new PromptWidgetDataProvider { m_interactiableObject = interactCollider.gameObject });
+            }
             if (Input.GetKeyDown (KeyCode.Return) || m_isInteractByUI == true) {
                 m_isInteractByUI = false;
                 Debug.Log ("Did Interactive: " + interactCollider.gameObject);
