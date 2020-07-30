@@ -193,6 +193,11 @@ public class MonoMoveController : MonoBehaviour
         m_isMove = isEnable;
     }
 
+    public void StopPlayerAnimation ()
+	{
+        m_animator.SetFloat ("Speed", 0.0f);
+    }
+
     [Header ("Public, Physics Property")]
     public float m_moveSpeed = 5f;
     public float m_jumpForce = 60f;
