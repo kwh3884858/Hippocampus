@@ -213,7 +213,6 @@ namespace Controllers.Subsystems.Story
 				case StoryReader.NodeType.word:
 					container.PushName (m_storys.GetName ());
 					StoryVirtualMachine.Instance.Run (m_storys.GetContent ());
-					container.PushWaiting (1f);
 					m_storys.NextStory ();
 					break;
 
