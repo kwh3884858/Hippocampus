@@ -37,6 +37,10 @@ MonoBehaviour:
     m_Address: CG_Scene_GuestRoom_Protagonist
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 61b9362db8def604b8aa3a59e8a9fcb5
+    m_Address: CG_Scene_DoctorRoom_Body
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 83872c41cf96e2f46ae56e1ab1ab73c0
     m_Address: CG_Scene_BoilerRoom
     m_ReadOnly: 0

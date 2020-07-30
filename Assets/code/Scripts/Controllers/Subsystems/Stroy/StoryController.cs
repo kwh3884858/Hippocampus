@@ -243,6 +243,10 @@ namespace Controllers.Subsystems.Story
 
 				case StoryReader.NodeType.raiseEvent:
 					string eventName =m_storys.GetEventName ();
+					if (eventName.Contains("CG_Scene")) {
+						container.ChangeBackground (eventName);
+						break;
+					}
 
 					switch (m_storys.GetEventType ()) {
 					case StoryReader.EventType.loadScene:

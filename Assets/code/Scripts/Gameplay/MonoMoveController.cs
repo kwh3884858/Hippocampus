@@ -65,13 +65,10 @@ public class MonoMoveController : MonoBehaviour
         {
             UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonESCMainMenuPanel);// 显示UI
         }
-    }
 
-    private void OnGUI()
-    {
         int maxColliders = 10;
         Collider [] hitColliders = new Collider [maxColliders];
-        Dictionary<Collider, float> colliders = new Dictionary<Collider, float>();
+        Dictionary<Collider, float> colliders = new Dictionary<Collider, float> ();
 
         Collider interactCollider = null;
         float smallestLength = 10000;
@@ -83,29 +80,33 @@ public class MonoMoveController : MonoBehaviour
                 colliders.Add (hitColliders [i], Vector3.SqrMagnitude (hitColliders [i].transform.position - transform.position));
             }
         }
-		foreach (var pair in colliders) {
-			if (pair.Value < smallestLength) {
+        foreach (var pair in colliders) {
+            if (pair.Value < smallestLength) {
                 smallestLength = pair.Value;
                 interactCollider = pair.Key;
             }
-		}
+        }
 
-		if (interactCollider != null) {
-            UIManager.Instance ().ShowPanel (UIPanelType.UIGameplayPromptwidgetPanel, new PromptWidgetDataProvider { m_interactiableObject = interactCollider.gameObject });
-
-            if (GUI.Button (new Rect (0, 50, 200, 50), "Interact")) {
-
+        if (interactCollider != null) {
+            if(UIManager.Instance ().IsPanelShow (UIPanelType.UIGameplayPromptwidgetPanel) == false) {
+                UIManager.Instance ().ShowPanel (UIPanelType.UIGameplayPromptwidgetPanel, new PromptWidgetDataProvider { m_interactiableObject = interactCollider.gameObject });
+            }
+            if (Input.GetKeyDown (KeyCode.Return) || m_isInteractByUI == true) {
+                m_isInteractByUI = false;
                 Debug.Log ("Did Interactive: " + interactCollider.gameObject);
                 interactCollider.GetComponent<InteractiveObject> ().Interact ();
 
                 Debug.DrawRay (interactCollider.transform.position, Vector3.up * 3, Color.yellow);
-
             }
-
-		} else {
+        } else {
+            m_isInteractByUI = false;
             UIManager.Instance ().HidePanel (UIPanelType.UIGameplayPromptwidgetPanel);
-
         }
+    }
+
+    private void OnGUI()
+    {
+ 
         //if (GUI.Button(new Rect(0, 100, 200, 50), "Evidence"))
         //{
         //    //UIManager.Instance().ShowPanel(UIPanelType.Evidencepanel);// 显示UI
@@ -123,10 +124,10 @@ public class MonoMoveController : MonoBehaviour
         }
         if (GUI.Button(new Rect(0, 250, 200, 50), "ShowCG"))
         {
-            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonCgscenePanel,new CGSceneDataProvider(){CGSceneID = "EP01-04"});// 显示UI
+            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonCgscenePanel,new CGSceneDataProvider(){CGSceneID = "EP04-01"});// 显示UI
         }
     }
-
+    
     void FixedUpdate()
     {
         if (!m_isMove)// 不能进行移动
@@ -198,6 +199,11 @@ public class MonoMoveController : MonoBehaviour
         m_animator.SetFloat ("Speed", 0.0f);
     }
 
+    public void SetInteract ()
+	{
+        m_isInteractByUI = true;
+    }
+
     [Header ("Public, Physics Property")]
     public float m_moveSpeed = 5f;
     public float m_jumpForce = 60f;
@@ -226,6 +232,8 @@ public class MonoMoveController : MonoBehaviour
     private BoxCollider m_boxCollider2D;
 
     private bool m_isMove = false;
+    private bool m_isInteractByUI = false;
+
     private int count = 0;// 测试计数 Delete in future
 
 }
