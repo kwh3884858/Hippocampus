@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
+using UnityEngine.UI;
 
 namespace UI.Panels
 {
-	public partial class CommonGamePlayPanel : UIPanel<UIDataProvider, DataProvider>
+	public partial class MapCanvasPanel : UIPanel<UIDataProvider, DataProvider>
 	{
 		#region UI template method
 		public override void Initialize (UIDataProvider uiDataProvider, UIPanelSettings settings)
@@ -43,15 +44,15 @@ namespace UI.Panels
 		{
 			m_model.UpdateData(data);
 			base.UpdateData(data);
-		}
+        }
 
 		public override void Tick()
 		{
 			m_model.Tick();
 			base.Tick();
-		}
+        }
 
-		public override void LateTick()
+        public override void LateTick()
 		{
 			m_model.LateTick();
 			base.LateTick();
@@ -68,29 +69,48 @@ namespace UI.Panels
 			m_model.SubpanelDataChanged(type, data);
 			base.SubpanelDataChanged(type, data);
 		}
-		#endregion
+        #endregion
 
-		#region Member
-        public void OnClickMap()
+        #region Member
+
+        public Image map2l;
+        public int FloorNum;//地图显示楼层数
+        public GameObject gameMap;//地图总组件
+
+        public void Init()//初始化
         {
-            UIManager.Instance().ShowStaticPanel(UIPanelType.UIMapcanvasPanel);// 显示地图
+            gameMap.SetActive(false);
+            FloorNum = 1;
         }
 
-        public void OnClickAssistantInteraction()
+        public void ChangeMap()
         {
-            // TODO: 助手互动
+            if (FloorNum == 1)
+            {
+                map2l.color = new Color(255, 255, 255, 0);
+            }
+            if (FloorNum == 2)
+            {
+                map2l.color = new Color(255, 255, 255, 255);
+            }
         }
 
-        public void OnClickEvidence()
+        public void OnBtnClose()
         {
-            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonMapsTipsEvidencesPanel);// 显示证物列表
+            InvokeHidePanel();
         }
 
-        public void OnClickTips()
+        public void OnBtnFloor1()
         {
-            UIManager.Instance().ShowStaticPanel(UIPanelType.Tipspanel);// 显示tips列表
+            FloorNum = 1;
+            ChangeMap();
         }
 
-		#endregion
-	}
+        public void OnBtnFloor2()
+        {
+            FloorNum = 2;
+            ChangeMap();
+        }
+        #endregion
+    }
 }

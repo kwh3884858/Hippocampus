@@ -18,4 +18,5 @@ public enum UIPanelType
     [AssetPath("UI_Common_Log_Panel")] UICommonLogPanel = 15,
     [AssetPath("UI_Common_GamePlay_Panel")] UICommonGameplayPanel = 16,
     [AssetPath("UI_Common_Maps_Tips_Evidences_Panel")] UICommonMapsTipsEvidencesPanel = 17,
+    [AssetPath("UI_MapCanvas_Panel")] UIMapcanvasPanel = 18,
 }

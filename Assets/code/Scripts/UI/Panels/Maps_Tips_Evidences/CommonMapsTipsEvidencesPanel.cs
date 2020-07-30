@@ -121,9 +121,13 @@ namespace UI.Panels
                     break;
                 case ShowState.Tips:
                     m_evidencesCtrl.HideSelf();
+                    InvokeHidePanel();
+                    UIManager.Instance().ShowStaticPanel(UIPanelType.Tipspanel);// 显示tips列表
                     break;
                 case ShowState.Maps:
                     m_evidencesCtrl.HideSelf();
+                    InvokeHidePanel();
+                    UIManager.Instance().ShowStaticPanel(UIPanelType.UIMapcanvasPanel);// 显示地图
                     break;
                 default:
                     m_evidencesCtrl.HideSelf();

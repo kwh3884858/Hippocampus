@@ -98,7 +98,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: e554a07971118bc45981c39241c0b822
-    m_Address: UI_MapCanvas
+    m_Address: UI_MapCanvas_Panel
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: e8f271f6d04c4a645b15a3ad8e6f75aa

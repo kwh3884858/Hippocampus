@@ -71,6 +71,7 @@ namespace UI.Panels
             new UIPanelSettings(UIPanelType.TalkPanel,UIPanelUnLoadMode.Disabled),
             new UIPanelSettings(UIPanelType.Tipspanel,UIPanelUnLoadMode.Disabled),
             new UIPanelSettings(UIPanelType.Evidencepanel,UIPanelUnLoadMode.Destroy),
+            new UIPanelSettings(UIPanelType.UIMapcanvasPanel,UIPanelUnLoadMode.Destroy),
             new UIPanelSettings(UIPanelType.UICommonMapsTipsEvidencesPanel,UIPanelUnLoadMode.Destroy),
             new UIPanelSettings(UIPanelType.OptionsPanel,UIPanelUnLoadMode.Disabled),
             new UIPanelSettings(UIPanelType.LoadGamePanel,UIPanelUnLoadMode.Destroy),
