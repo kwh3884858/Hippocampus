@@ -232,7 +232,7 @@ public class MonoMoveController : MonoBehaviour
     [SerializeField]
     private BoxCollider m_boxCollider2D;
 
-    private bool m_isMove = false;
+    private bool m_isMove = true;
     private bool m_isInteractByUI = false;
 
     private int count = 0;// 测试计数 Delete in future

@@ -85,6 +85,10 @@ MonoBehaviour:
     m_Address: World_Mission_EP02_03_World_1F_West_Corrider
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 5922623efb2d046a4ad7ecd3154c6b39
+    m_Address: World_Mission_EP03_02_2F_East_Corrider_World_2F_West_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 63df8179ebd29174fa6ae5d06672a97b
     m_Address: World_Mission_EP02_01_1F_South_Corrider_World_1F_South_Corrider
     m_ReadOnly: 0
@@ -93,12 +97,28 @@ MonoBehaviour:
     m_Address: World_Mission_EP02_01_1F_South_Corrider_World_1F_West_Corrider
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 6a0304d1442c749008ef51dae26a85f8
+    m_Address: World_Mission_EP02_11_1F_South_Corrider_World_Kitchen_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6b4ecc6de08a64c9593c24e579e2641f
+    m_Address: World_Mission_EP03_World_2F_North_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 71ec58a1ef8a2834aa253a4a720a1e8b
     m_Address: World_Mission_DockByPier_World_Episode4_DoctorRoom
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 7ab9f493c99bb7d4cb283a0e55849701
     m_Address: World_Mission_EP02_11_1F_South_Corrider_World_1F_South_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7bd979ab2d0d24f12ac6040347a37c83
+    m_Address: World_Mission_EP03_World_1F_West_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8d6c081a508c64457a4c380abf315756
+    m_Address: World_Mission_EP03_World_2F_East_Corrider
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: a2ab392bdf18f9247845df286121e4d8
@@ -113,6 +133,10 @@ MonoBehaviour:
     m_Address: World_Mission_EP03_World_Kitchen_Corrider
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: c7e6eeda0dc90438cbb8e7f70bd60306
+    m_Address: World_Mission_EP03_02_2F_East_Corrider_World_2F_East_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: cb6d67858ca69e845b128b236c34616d
     m_Address: World_Mission_EP02_02_World_1F_South_Corrider
     m_ReadOnly: 0
@@ -123,6 +147,10 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: ebe57c901ab994064a6e26e2f3fa25d8
     m_Address: World_Mission_EP01_03_Poison_Island_Pier
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fb94fcf925af643beb40fd90e01c2e70
+    m_Address: World_Mission_EP03_02_2F_East_Corrider_World_2F_North_Corrider
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: fd61dc014ad672f41bca1e78685ed852

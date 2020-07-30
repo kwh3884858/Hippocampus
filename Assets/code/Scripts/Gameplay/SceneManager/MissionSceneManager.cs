@@ -32,6 +32,8 @@ namespace GamePlay.Stage
         EP02_10,
         EP02_11_1F_South_Corrider,
         EP03,
+        EP03_02_2F_East_Corrider,
+
     };
 
     public class MissionSceneManager : Singleton<MissionSceneManager>
@@ -249,6 +251,7 @@ namespace GamePlay.Stage
         MissionEnum.EP02_10,
         MissionEnum.EP02_11_1F_South_Corrider,
         MissionEnum.EP03,
+        MissionEnum.EP03_02_2F_East_Corrider,
 
         };
 

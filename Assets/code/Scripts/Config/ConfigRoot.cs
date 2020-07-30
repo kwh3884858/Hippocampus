@@ -48,8 +48,16 @@ private string World_Mission_DockByPier_World_Episode2_PierName = "World_Mission
  public CameraService.SceneCameraType World_Mission_DockByPier_World_Episode2_PierCameraType;  
 
 [SerializeField]
+private string World_Mission_EP03_02_2F_East_Corrider_World_2F_West_CorriderName = "World_Mission_EP03_02_2F_East_Corrider_World_2F_West_Corrider"; 
+ public CameraService.SceneCameraType World_Mission_EP03_02_2F_East_Corrider_World_2F_West_CorriderCameraType;  
+
+[SerializeField]
 private string World_CoreContainerName = "World_CoreContainer"; 
  public CameraService.SceneCameraType World_CoreContainerCameraType;  
+
+[SerializeField]
+private string World_Mission_EP03_02_2F_East_Corrider_World_2F_East_CorriderName = "World_Mission_EP03_02_2F_East_Corrider_World_2F_East_Corrider"; 
+ public CameraService.SceneCameraType World_Mission_EP03_02_2F_East_Corrider_World_2F_East_CorriderCameraType;  
 
 [SerializeField]
 private string World_Mission_EP02_04_World_2F_West_CorriderName = "World_Mission_EP02_04_World_2F_West_Corrider"; 
@@ -76,8 +84,16 @@ private string World_2F_North_CorriderName = "World_2F_North_Corrider";
  public CameraService.SceneCameraType World_2F_North_CorriderCameraType;  
 
 [SerializeField]
+private string World_Mission_EP03_World_2F_East_CorriderName = "World_Mission_EP03_World_2F_East_Corrider"; 
+ public CameraService.SceneCameraType World_Mission_EP03_World_2F_East_CorriderCameraType;  
+
+[SerializeField]
 private string World_Mission_EP02_09_2F_East_Corrider_World_2F_East_CorriderName = "World_Mission_EP02_09_2F_East_Corrider_World_2F_East_Corrider"; 
  public CameraService.SceneCameraType World_Mission_EP02_09_2F_East_Corrider_World_2F_East_CorriderCameraType;  
+
+[SerializeField]
+private string World_Mission_EP02_11_1F_South_Corrider_World_Kitchen_CorriderName = "World_Mission_EP02_11_1F_South_Corrider_World_Kitchen_Corrider"; 
+ public CameraService.SceneCameraType World_Mission_EP02_11_1F_South_Corrider_World_Kitchen_CorriderCameraType;  
 
 [SerializeField]
 private string World_Mission_EP02_09_2F_East_Corrider_World_2F_West_CorriderName = "World_Mission_EP02_09_2F_East_Corrider_World_2F_West_Corrider"; 
@@ -132,6 +148,10 @@ private string World_Mission_EP02_01_1F_South_Corrider_World_1F_West_CorriderNam
  public CameraService.SceneCameraType World_Mission_EP02_01_1F_South_Corrider_World_1F_West_CorriderCameraType;  
 
 [SerializeField]
+private string World_Mission_EP03_World_1F_West_CorriderName = "World_Mission_EP03_World_1F_West_Corrider"; 
+ public CameraService.SceneCameraType World_Mission_EP03_World_1F_West_CorriderCameraType;  
+
+[SerializeField]
 private string Poison_Island_PierName = "Poison_Island_Pier"; 
  public CameraService.SceneCameraType Poison_Island_PierCameraType;  
 
@@ -150,6 +170,10 @@ private string World_Mission_EP02_04_World_2F_North_CorriderName = "World_Missio
 [SerializeField]
 private string World_Mission_EP02_01_1F_South_Corrider_World_1F_South_CorriderName = "World_Mission_EP02_01_1F_South_Corrider_World_1F_South_Corrider"; 
  public CameraService.SceneCameraType World_Mission_EP02_01_1F_South_Corrider_World_1F_South_CorriderCameraType;  
+
+[SerializeField]
+private string World_Mission_EP03_02_2F_East_Corrider_World_2F_North_CorriderName = "World_Mission_EP03_02_2F_East_Corrider_World_2F_North_Corrider"; 
+ public CameraService.SceneCameraType World_Mission_EP03_02_2F_East_Corrider_World_2F_North_CorriderCameraType;  
 
 [SerializeField]
 private string World_Mission_EP01_02_Poison_Island_PierName = "World_Mission_EP01_02_Poison_Island_Pier"; 
@@ -194,6 +218,10 @@ private string World_Mission_EP02_11_1F_South_Corrider_World_2F_North_CorriderNa
 [SerializeField]
 private string World_Mission_EP02_09_2F_East_Corrider_World_2F_South_CorriderName = "World_Mission_EP02_09_2F_East_Corrider_World_2F_South_Corrider"; 
  public CameraService.SceneCameraType World_Mission_EP02_09_2F_East_Corrider_World_2F_South_CorriderCameraType;  
+
+[SerializeField]
+private string World_Mission_EP03_World_2F_North_CorriderName = "World_Mission_EP03_World_2F_North_Corrider"; 
+ public CameraService.SceneCameraType World_Mission_EP03_World_2F_North_CorriderCameraType;  
 
 [SerializeField]
 private string World_Mission_EP02_03_World_1F_South_CorriderName = "World_Mission_EP02_03_World_1F_South_Corrider"; 
@@ -241,8 +269,14 @@ case "World_1F_South_Corrider" :
 case "World_Mission_DockByPier_World_Episode2_Pier" :  
    return World_Mission_DockByPier_World_Episode2_PierCameraType; 
 
+case "World_Mission_EP03_02_2F_East_Corrider_World_2F_West_Corrider" :  
+   return World_Mission_EP03_02_2F_East_Corrider_World_2F_West_CorriderCameraType; 
+
 case "World_CoreContainer" :  
    return World_CoreContainerCameraType; 
+
+case "World_Mission_EP03_02_2F_East_Corrider_World_2F_East_Corrider" :  
+   return World_Mission_EP03_02_2F_East_Corrider_World_2F_East_CorriderCameraType; 
 
 case "World_Mission_EP02_04_World_2F_West_Corrider" :  
    return World_Mission_EP02_04_World_2F_West_CorriderCameraType; 
@@ -262,8 +296,14 @@ case "World_Mission_DockByPier_World_Episode4_DoctorRoom" :
 case "World_2F_North_Corrider" :  
    return World_2F_North_CorriderCameraType; 
 
+case "World_Mission_EP03_World_2F_East_Corrider" :  
+   return World_Mission_EP03_World_2F_East_CorriderCameraType; 
+
 case "World_Mission_EP02_09_2F_East_Corrider_World_2F_East_Corrider" :  
    return World_Mission_EP02_09_2F_East_Corrider_World_2F_East_CorriderCameraType; 
+
+case "World_Mission_EP02_11_1F_South_Corrider_World_Kitchen_Corrider" :  
+   return World_Mission_EP02_11_1F_South_Corrider_World_Kitchen_CorriderCameraType; 
 
 case "World_Mission_EP02_09_2F_East_Corrider_World_2F_West_Corrider" :  
    return World_Mission_EP02_09_2F_East_Corrider_World_2F_West_CorriderCameraType; 
@@ -304,6 +344,9 @@ case "World_2F_East_Corrider" :
 case "World_Mission_EP02_01_1F_South_Corrider_World_1F_West_Corrider" :  
    return World_Mission_EP02_01_1F_South_Corrider_World_1F_West_CorriderCameraType; 
 
+case "World_Mission_EP03_World_1F_West_Corrider" :  
+   return World_Mission_EP03_World_1F_West_CorriderCameraType; 
+
 case "Poison_Island_Pier" :  
    return Poison_Island_PierCameraType; 
 
@@ -318,6 +361,9 @@ case "World_Mission_EP02_04_World_2F_North_Corrider" :
 
 case "World_Mission_EP02_01_1F_South_Corrider_World_1F_South_Corrider" :  
    return World_Mission_EP02_01_1F_South_Corrider_World_1F_South_CorriderCameraType; 
+
+case "World_Mission_EP03_02_2F_East_Corrider_World_2F_North_Corrider" :  
+   return World_Mission_EP03_02_2F_East_Corrider_World_2F_North_CorriderCameraType; 
 
 case "World_Mission_EP01_02_Poison_Island_Pier" :  
    return World_Mission_EP01_02_Poison_Island_PierCameraType; 
@@ -351,6 +397,9 @@ case "World_Mission_EP02_11_1F_South_Corrider_World_2F_North_Corrider" :
 
 case "World_Mission_EP02_09_2F_East_Corrider_World_2F_South_Corrider" :  
    return World_Mission_EP02_09_2F_East_Corrider_World_2F_South_CorriderCameraType; 
+
+case "World_Mission_EP03_World_2F_North_Corrider" :  
+   return World_Mission_EP03_World_2F_North_CorriderCameraType; 
 
 case "World_Mission_EP02_03_World_1F_South_Corrider" :  
    return World_Mission_EP02_03_World_1F_South_CorriderCameraType; 

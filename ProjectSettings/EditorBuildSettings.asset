@@ -37,7 +37,7 @@ EditorBuildSettings:
     guid: 08031112a9b306b49ae7520f78a91d99
   - enabled: 1
     path: Assets/data/graphics/World/GameRoot/World_GameRoot.unity
-    guid: e59ae2862aaea427a8b8b4a0d1462e0e
+    guid: 23d9064013dec344487a8d9922a59e85
   - enabled: 0
     path: Assets/data/graphics/World/GoundTestScene/World_GoundTestScene.unity
     guid: d64d83efff065fe4485fa4ded364df60
@@ -125,6 +125,27 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/data/graphics/World/Mission_EP02_11_1F_South_Corrider_World_2F_North_Corrider/World_Mission_EP02_11_1F_South_Corrider_World_2F_North_Corrider.unity
     guid: cb93d62b42f8bf34081dc826229a4a60
+  - enabled: 0
+    path: Assets/data/graphics/World/Mission_EP02_11_1F_South_Corrider_World_Kitchen_Corrider/World_Mission_EP02_11_1F_South_Corrider_World_Kitchen_Corrider.unity
+    guid: 6a0304d1442c749008ef51dae26a85f8
+  - enabled: 0
+    path: Assets/data/graphics/World/Mission_EP03_02_2F_East_Corrider_World_2F_East_Corrider/World_Mission_EP03_02_2F_East_Corrider_World_2F_East_Corrider.unity
+    guid: c7e6eeda0dc90438cbb8e7f70bd60306
+  - enabled: 0
+    path: Assets/data/graphics/World/Mission_EP03_02_2F_East_Corrider_World_2F_North_Corrider/World_Mission_EP03_02_2F_East_Corrider_World_2F_North_Corrider.unity
+    guid: fb94fcf925af643beb40fd90e01c2e70
+  - enabled: 0
+    path: Assets/data/graphics/World/Mission_EP03_02_2F_East_Corrider_World_2F_West_Corrider/World_Mission_EP03_02_2F_East_Corrider_World_2F_West_Corrider.unity
+    guid: 5922623efb2d046a4ad7ecd3154c6b39
+  - enabled: 0
+    path: Assets/data/graphics/World/Mission_EP03_World_1F_West_Corrider/World_Mission_EP03_World_1F_West_Corrider.unity
+    guid: 7bd979ab2d0d24f12ac6040347a37c83
+  - enabled: 0
+    path: Assets/data/graphics/World/Mission_EP03_World_2F_East_Corrider/World_Mission_EP03_World_2F_East_Corrider.unity
+    guid: 8d6c081a508c64457a4c380abf315756
+  - enabled: 0
+    path: Assets/data/graphics/World/Mission_EP03_World_2F_North_Corrider/World_Mission_EP03_World_2F_North_Corrider.unity
+    guid: 6b4ecc6de08a64c9593c24e579e2641f
   - enabled: 0
     path: Assets/data/graphics/World/Mission_EP03_World_Kitchen_Corrider/World_Mission_EP03_World_Kitchen_Corrider.unity
     guid: b998ff87fee4e472e8c54567b44626f9
