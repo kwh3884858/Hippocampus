@@ -59,11 +59,22 @@ namespace GamePlay.Stage
 			if (sceneEnum == SceneLookupEnum.World_GameRoot) {
                 return;
 			}
-            TipData tipData = new TipData ("进入新场景", sceneEnum.ToString ());
+            TipData tipData = new TipData ("进入场景", m_sceneChineseDictionary[sceneEnum]);
             UIManager.Instance ().ShowStaticPanel (UIPanelType.Tipgetpanel, new UI.Panels.Providers.DataProviders.TipDataProvider () {Data = tipData });// 显示UI
         }
         
         private SceneSlot m_currentSceneSlot;
+        private Dictionary<SceneLookupEnum, string> m_sceneChineseDictionary = new Dictionary<SceneLookupEnum, string> {
+            {  SceneLookupEnum.Poison_Island_Pier, "监狱岛码头" },
+            { SceneLookupEnum.World_1F_Middle_Corrider, "1楼中部走廊"},
+            { SceneLookupEnum.World_1F_South_Corrider, "1楼南部走廊"},
+            { SceneLookupEnum.World_1F_West_Corrider, "1楼西部走廊"},
+            { SceneLookupEnum.World_2F_East_Corrider, "2楼东部走廊"},
+            { SceneLookupEnum.World_2F_North_Corrider, "2楼北部走廊"},
+            { SceneLookupEnum.World_2F_South_Corrider, "2楼南部走廊"},
+            { SceneLookupEnum.World_2F_West_Corrider, "2楼西部走廊"},
+            { SceneLookupEnum.World_Kitchen_Corrider, "1楼餐厅"},
+        };
 		//Dictionary<string, GameObject> m_allScenes = new Dictionary<string, GameObject> ();
 		//private UnityEngine.SceneManagement.Scene mCurrentScene;
 		//AsyncOperation asyncOperation = new AsyncOperation ();
