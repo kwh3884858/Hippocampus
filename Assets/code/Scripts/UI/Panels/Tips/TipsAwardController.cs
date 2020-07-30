@@ -53,8 +53,10 @@ namespace Tips
             m_tipPanel.transform.DOLocalMoveX(460, 1f);
             if (m_data != null)
             {
-                m_name.text = $"Tips:{m_data.tip}";
-                m_description.text = $"Tips:{m_data.description}";
+                //m_name.text = $"Tips:{m_data.tip}";
+                //m_description.text = $"Tips:{m_data.description}";
+                m_name.text = m_data.tip;
+                m_description.text = m_data.description;
             }
             StartCoroutine(Wait(5f, Close));
         }

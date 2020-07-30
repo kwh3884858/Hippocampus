@@ -141,13 +141,16 @@ namespace Tips
                     MyTipsDic[vTip].time = vTime;
                     //SaveData();
                     //UIManager.Instance().ShowPanel(UIPanelType.Tipgetpanel, new UI.Panels.Providers.DataProviders.TipDataProvider() { Data = MyTipsDic[vTip] });// 显示UI
+                    TipData data = MyTipsDic[vTip];
+                    data.tip = "Tips:" + data.tip;
+                    data.description = "Tips:" + data.description;
                     if (UI.UIManager.Instance().IsPanelShow(UIPanelType.Tipgetpanel))
                     {
-                        UI.UIManager.Instance().UpdateData(UIPanelType.Tipgetpanel, new UI.Panels.Providers.DataProviders.TipDataProvider() { Data = MyTipsDic[vTip] });
+                        UI.UIManager.Instance().UpdateData(UIPanelType.Tipgetpanel, new UI.Panels.Providers.DataProviders.TipDataProvider() { Data = data });
                     }
                     else
                     {
-                        UI.UIManager.Instance().ShowStaticPanel(UIPanelType.Tipgetpanel, new UI.Panels.Providers.DataProviders.TipDataProvider() { Data = MyTipsDic[vTip] });// 显示UI
+                        UI.UIManager.Instance().ShowStaticPanel(UIPanelType.Tipgetpanel, new UI.Panels.Providers.DataProviders.TipDataProvider() { Data = data });// 显示UI
                     }
                 }
 #if UNITY_EDITOR
