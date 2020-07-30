@@ -100,6 +100,11 @@ namespace GamePlay.Stage
 			m_player.GetComponent<MonoMoveController> ().StopPlayerAnimation ();
 		}
 
+		public void EnablePlayerInteractability ()
+		{
+			m_player.GetComponent<MonoMoveController> ().SetInteract();
+		}
+
 		private bool IsValid ()
 		{
 			return m_isSceneLoaded == true;

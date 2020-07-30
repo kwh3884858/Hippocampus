@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
+using GamePlay.Stage;
 
 namespace UI.Panels
 {
@@ -90,6 +91,11 @@ namespace UI.Panels
         {
             UIManager.Instance().ShowStaticPanel(UIPanelType.Tipspanel);// 显示tips列表
         }
+
+		public void OnClickInteract ()
+		{
+			CoreContainer.Instance.EnablePlayerInteractability ();
+		}
 
 		#endregion
 	}

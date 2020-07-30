@@ -11,6 +11,8 @@ using StarPlatinum.Service;
 using StarPlatinum.Base;
 using StarPlatinum.Manager;
 using UnityEngine.Assertions;
+using UI;
+using Tips;
 
 //depend on EventManager
 namespace GamePlay.Stage
@@ -36,6 +38,7 @@ namespace GamePlay.Stage
 
             m_currentSceneSlot.AddCallbackAfterLoaded(delegate () {
                 CameraService.Instance.UpdateCurrentCamera();
+                DisplayCurrentSceneNameTip ();
             });
         }
         public bool LoadScene(SceneLookupEnum scene)
@@ -49,6 +52,15 @@ namespace GamePlay.Stage
         public SceneLookupEnum GetLastSceneEnum()
         {
             return m_currentSceneSlot.GetLastSceneEnum();
+        }
+        private void DisplayCurrentSceneNameTip ()
+		{
+            SceneLookupEnum sceneEnum = m_currentSceneSlot.GetCurrentSceneEnum ();
+			if (sceneEnum == SceneLookupEnum.World_GameRoot) {
+                return;
+			}
+            TipData tipData = new TipData ("进入新场景", sceneEnum.ToString ());
+            UIManager.Instance ().ShowStaticPanel (UIPanelType.Tipgetpanel, new UI.Panels.Providers.DataProviders.TipDataProvider () {Data = tipData });// 显示UI
         }
         
         private SceneSlot m_currentSceneSlot;
