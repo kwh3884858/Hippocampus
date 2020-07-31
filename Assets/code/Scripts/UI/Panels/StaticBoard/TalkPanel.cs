@@ -399,7 +399,6 @@ namespace UI.Panels.StaticBoard
             {
                 artNameKey = m_curRoleInfo.artNameKey;
             }
-
             if (!string.IsNullOrEmpty(artNameKey))
             {
                 m_name.enabled = true;
@@ -409,6 +408,10 @@ namespace UI.Panels.StaticBoard
 //                    m_nameTxt.gameObject.SetActive(true);
 //                    m_nameTxt.text = name;
                 });
+            }
+            else
+            {
+                m_name.enabled = false;
             }
 
             ResetContentText();
