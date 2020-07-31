@@ -176,6 +176,7 @@ namespace UI.Panels.StaticBoard
                 m_isBeginNextAction = false;
                 SetNextAction(m_actionContainer.GetNextAction());
             }
+            
         }
 
         private void SetInfo(string talkID)
@@ -469,8 +470,19 @@ namespace UI.Panels.StaticBoard
 
         }
 
+        private void ClearPicture()
+        {
+            foreach (var item in m_pictureItems)
+            {
+                UiDataProvider.RolePictureProvider.ReleasePictureItem(item.Value);
+            }
+            m_pictureItems.Clear();
+            m_picPos.Clear();
+        }
+
         private void ShowPicture(string picID, Vector2 pos)
         {
+            Debug.Log($"========ID:{picID}  Pos:{pos}");
             if (m_pictureItems.ContainsKey(picID))
             {
                 if (pos.x== 0 || pos.y ==0)
@@ -499,6 +511,7 @@ namespace UI.Panels.StaticBoard
 
             UiDataProvider.RolePictureProvider.GetPictureItem(picID, (item) =>
             {
+                Debug.Log("========下面重复");
                 m_pictureItems.Add(picID,item);
                 item.transform.SetParent(m_pictureRoot);
                 item.transform.localPosition= Vector3.zero;
@@ -534,6 +547,7 @@ namespace UI.Panels.StaticBoard
                 StopCoroutine(m_typewriterCoroutine);
             }
             m_textHelp.ClearData();
+            ClearPicture();
         }
 
         public void ClickSkip()

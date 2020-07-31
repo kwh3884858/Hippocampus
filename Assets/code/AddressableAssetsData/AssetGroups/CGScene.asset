@@ -37,12 +37,28 @@ MonoBehaviour:
     m_Address: CG_Scene_GuestRoom_Protagonist
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 5e6ab83cedc2a473982cb5b58690f93e
+    m_Address: CG_Scene_DeadDoctor
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 61b9362db8def604b8aa3a59e8a9fcb5
     m_Address: CG_Scene_DoctorRoom_Body
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 698836e21a026bf47a3180b578591ad2
+    m_Address: CG_Scene_BetweenStairs
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 83872c41cf96e2f46ae56e1ab1ab73c0
     m_Address: CG_Scene_BoilerRoom
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9db59cea071dd73428327b78a4a778ae
+    m_Address: CG_Scene_Nothing
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ac7bf16272009454cb93050935acb210
+    m_Address: CG_Scene_Sea
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: bc098d8aeaa40b34a9e91e272d4f3668
@@ -63,6 +79,10 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: d7e591bcd443c6c4883bc39e84060015
     m_Address: CG_Scene_WardenryRoom
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e8c56086632332747ae0f6664df36f82
+    m_Address: CG_Scene_RecepRoom
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: f248c7a19d7b2204e9b75f630898f938

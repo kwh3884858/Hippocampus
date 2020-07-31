@@ -25,12 +25,24 @@ MonoBehaviour:
     m_Address: Characters_Reporter_Lost
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 039323d980b183247bf231c8f27757f3
+    m_Address: Characters_Vera_Shocked
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 059df6d7302416f4aa309ae7d0dd52c8
     m_Address: Characters_Irene_Smile
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 06f8e71834ed9e6438cbdd38886811de
     m_Address: Role_Heroine
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 08f1a590f63e79e45a67cc12f6411a8d
+    m_Address: Characters_Vera_NormalFace
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0c85c53c3c064cb4f87ac2552fb9bb24
+    m_Address: Characters_Vera_Confusion
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 0e0032f1e9fe1da479407b0ec160b801
@@ -45,6 +57,10 @@ MonoBehaviour:
     m_Address: Characters_Ivy
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 1fdda343415ee894e963945d1539b7ef
+    m_Address: Characters_Irene_Angry
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 2074e15cc9c988c49babafb715a47a57
     m_Address: Characters_Irene_Shocked
     m_ReadOnly: 0
@@ -55,6 +71,10 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 30523d2bd024c414b8c4e65522c491f7
     m_Address: Characters_Reporter_Smile
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3d1d06b34316eb945a356e93cf9985df
+    m_Address: Characters_Vera_Lost
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 40372986459664047a3e55059f372b34
@@ -77,8 +97,16 @@ MonoBehaviour:
     m_Address: Role_JailerMan
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 6a3921a0e3ebb12409bb411ccca1538c
+    m_Address: Characters_Vera_Joking
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 71177a358bed8f34589fa51a55cd29b9
     m_Address: Characters_Wardenry_Lost
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7268b3c682cac1a4586debb346fa0ade
+    m_Address: Characters_Irene_Unconvinced
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 728f48e211eb1eb4daaf7bb6f2f6a9bd
@@ -87,6 +115,10 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 7b54905876207004da414f6564bbb6f3
     m_Address: Role_JailerWoman
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 85283bed37546b54aa54e3c81495c0e8
+    m_Address: Characters_Vera_Laugh
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 88fbb134bf2726a469941fcd2fb6e26d
@@ -101,8 +133,16 @@ MonoBehaviour:
     m_Address: Characters_Ivy_Shocked
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 8fd0ca2983050ff40b62b262728f90f3
+    m_Address: Characters_Vera_Angry
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 902dbefd92715e0489aaf7c9f55d691f
     m_Address: Characters_Ivy_Lost
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 903eab9600e6a68458edacf36c49f3ff
+    m_Address: Characters_Irene_Coquetry
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 92ef7a8f6b671d1448e949ecdb63b05e
@@ -113,12 +153,28 @@ MonoBehaviour:
     m_Address: Characters_Irene_NormalFace
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: ab33a81acc79edc40811e21682e151ab
+    m_Address: Characters_Vera_Smile
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: ae9921e66da0086468d18271859e9566
     m_Address: Characters_Ivy_NormalFace
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: b0f2cef816b95fa418dcc7cdeea1a40a
+    m_Address: Characters_Irene_Sly
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: b45c3eb1c0c6a274f90c7a926dfabcc1
     m_Address: Characters_Irene_Confusion
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bd9a46cc8ef947b4d84772d5ec7bd81a
+    m_Address: Characters_Irene_Happy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bebed0fa75456374189e9b066a4cddb5
+    m_Address: Characters_Irene_Whoaa
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: c068aa84141e46b4983171d5585e9331
@@ -135,6 +191,10 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: cc05004b183c15243a7b42653a783e66
     m_Address: Characters_Irene_Surprised
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cf4a2bba079faec478bab8d0ee75c7d3
+    m_Address: Characters_Vera_Fear
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: f3c5d3643d9dc1c4b900caac43d2c905

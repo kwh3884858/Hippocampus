@@ -244,6 +244,7 @@ namespace Controllers.Subsystems.Story
 					string eventName =m_storys.GetEventName ();
 					if (eventName.Contains("CG_Scene")) {
 						container.ChangeBackground (eventName);
+						m_storys.NextStory ();
 						break;
 					}
 
