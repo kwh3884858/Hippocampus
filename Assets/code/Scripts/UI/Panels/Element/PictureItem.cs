@@ -55,6 +55,7 @@ namespace UI.Panels.Element
         public void Release()
         {
             gameObject.SetActive(false);
+            SpriteCount = 0;
         }
 
         private void ActiveItem(bool status)

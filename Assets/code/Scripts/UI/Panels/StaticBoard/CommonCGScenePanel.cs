@@ -23,6 +23,10 @@ namespace UI.Panels
 			base.Initialize (uiDataProvider, settings);
 			m_model.Initialize(this);	
 			
+			m_btn_exit_Button.onClick.AddListener(() =>
+			{
+				Application.Quit();
+			});
 			m_btn_back_Button.onClick.AddListener(() =>
 			{
 				var config = m_model.SceneInfo;
@@ -149,6 +153,11 @@ namespace UI.Panels
 
 		private void OnCGScenePointInfoChange(object sender, CGScenePointInfoChangeEvent e)
 		{
+			if (CgSceneController.CheckCGIsClear(m_model.SceneID)&&m_model.SceneID == "EP04-01")
+			{
+				m_btn_exit_Button.gameObject.SetActive(true);
+				return;
+			}
 			RefreshPointInfos();
 		}
 
@@ -162,13 +171,13 @@ namespace UI.Panels
 
 		private void OnClickPoint(int pointID,CGScenePointTouchConfig config)
 		{
+			CgSceneController.TouchPoint(pointID);
 			if (config.touchType == (int)CGScenePointTouchType.DeathBody)
 			{
 				m_model.PushSceneID(config.Parameter);
 				RefreshInfo();
 				return;
 			}
-			CgSceneController.TouchPoint(pointID);
 			InvokeShowPanel(UIPanelType.TalkPanel,new TalkDataProvider(){ID = config.Parameter});
 		}
 

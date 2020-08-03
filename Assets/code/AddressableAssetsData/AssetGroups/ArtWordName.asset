@@ -25,6 +25,10 @@ MonoBehaviour:
     m_Address: Characters_CharacterName_Har
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 3536eeea342af3549af4ec82e7f4d4d2
+    m_Address: Characters_CharacterName_Boatman
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 54b2c7d6176902c4f8f761ee994b90cb
     m_Address: Characters_CharacterName_PrisonOfficer_With_Ponytail
     m_ReadOnly: 0
@@ -67,6 +71,10 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: f0ae16b4ccf00e447a00f2b5185d130b
     m_Address: Characters_CharacterName_Ivy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f49c1165b9ad40b4a8edf23b875da425
+    m_Address: Characters_CharacterName_YoungFemalePrison
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
