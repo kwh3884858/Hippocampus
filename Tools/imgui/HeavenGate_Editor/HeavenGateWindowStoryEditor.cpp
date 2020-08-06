@@ -18,6 +18,7 @@
 #include "StoryJsonExhibitNode.h"
 #include "StoryJsonEventNode.h"
 #include "StoryJsonEndNode.h"
+#include "StoryColor.h"
 
 
 #include "StoryTable.h"
@@ -109,61 +110,21 @@ namespace HeavenGateEditor {
             if (m_storyJson == nullptr)  return;
         }
 
+
         ImGui::Text("Heaven Gate. (%s)\nImgui version. (%s)", EDITOR_VERSION, IMGUI_VERSION);
         ImGui::TextColored(ImVec4(1.0f, 0.0f, 1.0f, 1.0f), m_notification);
         ImGui::Spacing();
         if (m_storyJson != nullptr &&
             m_storyJson->IsExistFullPath() == true) {
-            ImGui::Text("Current story path: %s", m_storyJson->GetFullPath());
-
+            char tmpFullPath [MAX_FOLDER_PATH];
+            strcpy(tmpFullPath, m_storyJson->GetFullPath());
+            ImGui::InputText("Current story path: %s",tmpFullPath, MAX_FOLDER_PATH, ImGuiInputTextFlags_ReadOnly);
         }
-
-        //StoryTable<CHAPTER_COLUMN>* const chapterTable = StoryTableManager::Instance().GetChapterTable();
-        //StoryTable<SCENE_COLUMN>* const sceneTable = StoryTableManager::Instance().GetSceneTable();
-        //if (chapterTable == nullptr || sceneTable == nullptr)
-        //{
-        //    return;
-        //}
-
-        //if (ImGui::BeginCombo("Chapter", m_storyJson->GetChapter(), 0)) // The second parameter is the label previewed before opening the combo.
-        //{
-
-        //    for (int i = 0; i < chapterTable->GetSize(); i++)
-        //    {
-        //        bool is_selected = strcmp(m_storyJson->GetChapter(), chapterTable->GetRow(i)->Get(0)) == 0;
-        //        if (ImGui::Selectable(chapterTable->GetRow(i)->Get(0), is_selected))
-        //            m_storyJson->SetChapter(chapterTable->GetRow(i)->Get(0));
-        //        if (is_selected)
-        //            ImGui::SetItemDefaultFocus();   // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
-
-
-        //    }
-
-        //    ImGui::EndCombo();
-        //}
-
-        //if (ImGui::BeginCombo("Scene", m_storyJson->GetScene(), 0)) // The second parameter is the label previewed before opening the combo.
-        //{
-
-        //    for (int i = 0; i < sceneTable->GetSize(); i++)
-        //    {
-        //        bool is_selected = strcmp(m_storyJson->GetScene(), sceneTable->GetRow(i)->Get(0)) == 0;
-        //        if (ImGui::Selectable(sceneTable->GetRow(i)->Get(0), is_selected))
-        //            m_storyJson->SetScene(sceneTable->GetRow(i)->Get(0));
-        //        if (is_selected)
-        //            ImGui::SetItemDefaultFocus();   // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
-
-
-        //    }
-
-        //    ImGui::EndCombo();
-        //}
-
 
         static char* name = nullptr;
         static char* content = nullptr;
         static char* label = nullptr;
-        static char* exhibitName = nullptr;
+        static char* exhibitID = nullptr;
         static char* eventName = nullptr;
         static char* jump = nullptr;
         static char* jumpContent = nullptr;
@@ -188,36 +149,6 @@ namespace HeavenGateEditor {
                 {
                     StoryWord* word = static_cast<StoryWord*>(node);
                     ShowStoryWord(word, i);
-                    //char nameConstant[16] = "Name";
-                    //char contentConstant[16] = "Content";
-                    //strcat(nameConstant, order);
-                    //strcat(contentConstant, order);
-
-                    //StoryWord* word = static_cast<StoryWord*>(node);
-                    //assert(word != nullptr);
-                    //assert(word->m_name != nullptr);
-                    //assert(word->m_content != nullptr);
-                    //name = word->m_name;
-                    //content = word->m_content;
-
-                    //strcpy(thumbnail, order);
-                    //strcat(thumbnail, "_Word_");
-                    //strcat(thumbnail, name);
-                    //strcat(thumbnail, ": ");
-                    //strcat(thumbnail, content);
-
-                    //if (ImGui::TreeNode((void*)(intptr_t)i, thumbnail))
-                    //{
-
-                    //    AddButton(i);
-
-                    //    ImGui::InputTextWithHint(nameConstant, "Enter name here", name, MAX_NAME);
-                    //    ImGui::InputTextWithHint(contentConstant, "Enter Content here", content, MAX_CONTENT, ImGuiInputTextFlags_CallbackAlways, WordContentCallback);
-
-                    //    ImGui::TreePop();
-                    //}
-
-
                     break;
                 }
 
@@ -437,28 +368,44 @@ namespace HeavenGateEditor {
                     char tmpExhibit[32] = "No Exhibit";
                     strcat(exhibitContent, order);
 
-                    exhibitName = exhibit->m_exhibitName;
+                    exhibitID = exhibit->m_exhibitID;
                     strcpy(thumbnail, order);
                     strcat(thumbnail, "_Exhibit: ");
-                    strcat(thumbnail, exhibitName);
+                    strcat(thumbnail, exhibitID);
 
                     if (ImGui::TreeNode((void*)(intptr_t)i, thumbnail))
                     {
+                        ImVec4 color = colorRed;
+
                         AddButton(i);
-                        ImGui::InputTextWithHint(exhibitContent, "Enter Exhibit ID here", exhibitName, MAX_EXHIBIT_NAME);
+                        ImGui::InputTextWithHint(exhibitContent, "Enter Exhibit ID here", exhibitID, MAX_EXHIBIT_NAME);
 
-                        const StoryTable<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>* const exhibitTable = StoryTableManager::Instance().GetExhibitTable();
+                        if (strlen(exhibitID) == 0) {
+                            strcpy(tmpExhibit, "Please Enter Exhibit ID");
+                        }else{
+                            const StoryTable<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>* const exhibitTable = StoryTableManager::Instance().GetExhibitTable();
 
-                        for (int i = 0; i < exhibitTable->GetSize(); i++)
-                        {
-                            const StoryRow<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>* const row = exhibitTable->GetRow(i);
-                            if (strcmp(row->Get(0), exhibitName) == 0)
+                            for (int i = 0; i < exhibitTable->GetSize(); i++)
                             {
-                                strcpy(tmpExhibit, "Exhibit: ");
-                                strcpy(tmpExhibit, row->Get(0));
+                                const StoryRow<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>* const row = exhibitTable->GetRow(i);
+                                if (strcmp(row->Get(0), exhibitID) == 0)
+                                {
+                                    if (strlen(row->Get(3)) == 0) {
+                                        strcpy(tmpExhibit, "Lost Image File");
+                                        break;
+                                    }
+                                    if (strlen(row->Get(2)) == 0) {
+                                        strcpy(tmpExhibit, "Lost Exhibit Content");
+                                        break;
+                                    }
+                                    strcpy(tmpExhibit, "Exhibit: ");
+                                    strcpy(tmpExhibit, row->Get(1));
+                                    color = colorGreen;
+                                }
                             }
                         }
-                        ImGui::TextColored(ImVec4(1.0f, 0.0f, 1.0f, 1.0f), tmpExhibit);
+
+                        ImGui::TextColored(color, tmpExhibit);
                         ImGui::TreePop();
                     }
                 }
@@ -859,11 +806,6 @@ namespace HeavenGateEditor {
 
         bool isExhibit = false;
 
-        //Color
-        ImVec4 colorBlue = ImVec4(0.0f, 0.0f, 1.0f, 1.0f);
-        ImVec4 colorRed = ImVec4(1.0f, 0.0f, 0.0f, 1.0f);
-        ImVec4 colorGreen = ImVec4(0.0f, 1.0f, 0.0f, 1.0f);
-        ImVec4 colorWhite = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
 
         ImGui::Text("Preview:");
 
@@ -898,7 +840,7 @@ namespace HeavenGateEditor {
                             ImGui::TextColored(colorGreen, "[End font size]");
                         }
                         else {
-                            ImGui::TextColored(colorRed, "Can not find font size");
+                            ImGui::TextColored(colorRed, "!!Can not find font size");
                         }
                         ImGui::SameLine(0, 0);
                         break;
@@ -913,7 +855,7 @@ namespace HeavenGateEditor {
                         break;
                     case HeavenGateEditor::TableType::Exhibit:
                         if (isExhibit == true) {
-                            ImGui::TextColored(colorGreen, "[Show Exhibit Here: %s]", tmpExhibit);
+                            ImGui::TextColored(colorGreen, "[Get Exhibit Here: %s]", tmpExhibit);
                             isExhibit = false;
                         }
                         break;
@@ -922,7 +864,7 @@ namespace HeavenGateEditor {
                             ImGui::TextColored(colorGreen, "[End interval time]");
                         }
                         else {
-                            ImGui::TextColored(colorRed, "Can not find interval time");
+                            ImGui::TextColored(colorRed, "!!Can not find interval time");
                         }
                         ImGui::SameLine(0, 0);
                         break;
@@ -932,7 +874,7 @@ namespace HeavenGateEditor {
 
                         }
                         else {
-                            ImGui::TextColored(colorRed, "Can not find bgm");
+                            ImGui::TextColored(colorRed, "!!Can not find bgm");
                         }
 
                         ImGui::SameLine(0, 0);
@@ -943,16 +885,16 @@ namespace HeavenGateEditor {
 
                         }
                         else {
-                            ImGui::TextColored(colorRed, "Can not find effect");
+                            ImGui::TextColored(colorRed, "!!Can not find effect");
                         }
                         ImGui::SameLine(0, 0);
                         break;
                     case TableType::Tachie:
                         if (strlen(tmpTachieCommand[0]) == 0) {
-                            ImGui::TextColored(colorRed, "Tchie is empty");
+                            ImGui::TextColored(colorRed, "!!Tchie is empty");
                         }
                         if (strlen(tmpTachieCommand[1]) == 0) {
-                            ImGui::TextColored(colorRed, "Tchie position is empty");
+                            ImGui::TextColored(colorRed, "!!Tchie position is empty");
                         }
                         ImGui::TextColored(colorGreen, "[Display Tachie: %s] [Tachie Position: %s]", tmpTachieCommand[0], tmpTachieCommand[1]);
                         ImGui::SameLine(0, 0);
@@ -1061,7 +1003,7 @@ namespace HeavenGateEditor {
                         const StoryRow<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>* const row = exhibitTable->GetRow(i);
                         if (strcmp(row->Get(0), (*iter)->m_content) == 0)
                         {
-                            strcpy(tmpExhibit, row->Get(0));
+                            strcpy(tmpExhibit, row->Get(1));
                         }
                     }
                     isExhibit = true;

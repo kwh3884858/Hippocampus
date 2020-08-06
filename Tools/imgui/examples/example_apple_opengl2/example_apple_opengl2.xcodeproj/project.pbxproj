@@ -129,6 +129,7 @@
 		767052DD2423E16000E5C1CD /* HeavenGateWindowTachieTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HeavenGateWindowTachieTable.cpp; sourceTree = "<group>"; };
 		768F72AD24ACEDED00605663 /* HeavenGateWindowTachiePositionTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HeavenGateWindowTachiePositionTable.cpp; sourceTree = "<group>"; };
 		768F72AE24ACEDED00605663 /* HeavenGateWindowTachiePositionTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeavenGateWindowTachiePositionTable.h; sourceTree = "<group>"; };
+		7692448624DC833A0046AE79 /* StoryColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryColor.h; sourceTree = "<group>"; };
 		7696956924274033004FA4E2 /* CircleCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CircleCache.cpp; sourceTree = "<group>"; };
 		7696956A24274033004FA4E2 /* CircleCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleCache.h; sourceTree = "<group>"; };
 		7696956C24276D43004FA4E2 /* StoryJsonWordNode.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = StoryJsonWordNode.cpp; sourceTree = "<group>"; };
@@ -253,6 +254,7 @@
 		760F84FC23686ECD00EFA0D9 /* HeavenGate_Editor */ = {
 			isa = PBXGroup;
 			children = (
+				7692448624DC833A0046AE79 /* StoryColor.h */,
 				76EFF35A23B7D9870031354F /* CharacterUtility.cpp */,
 				76EFF35423B7D9870031354F /* CharacterUtility.h */,
 				7696956924274033004FA4E2 /* CircleCache.cpp */,

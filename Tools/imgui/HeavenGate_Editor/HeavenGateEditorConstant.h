@@ -26,7 +26,7 @@ namespace HeavenGateEditor {
     const int     MAX_EXHIBIT_NAME = 512;
     const int     MAX_EVENT_NAME = 64;
 
-    const int     MAX_ENUM_LENGTH = 16;
+    const int     MAX_ENUM_LENGTH = 32;
 
     //Table
     const int     MAX_COLUMNS_CONTENT_LENGTH = 64;
@@ -38,7 +38,7 @@ namespace HeavenGateEditor {
 //    const int     CHAPTER_COLUMN = 2;
 //    const int     SCENE_COLUMN = 2;
     const int     CHARACTER_COLUMN = 2;
-    const int     EXHIBIT_COLUMN = 2;
+    const int     EXHIBIT_COLUMN = 4;
     const int     EFFECT_MAX_COLUMN = 2;
     const int     BGM_MAX_COLUMN = 2;
     const int     TACHIE_MAX_COLUMN = 2;
