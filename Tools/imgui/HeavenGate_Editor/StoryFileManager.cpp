@@ -302,7 +302,6 @@ namespace HeavenGateEditor {
         struct dirent *ent;
         int fileCount = 0;
 
-
         HeavenGateEditorUtility::GetStoryPath(exePath);
         printf("Current Path:%s", exePath);
 
@@ -358,6 +357,8 @@ namespace HeavenGateEditor {
             }
             closedir(dir);
 
+//            SortFiles(pOutFileList, fileCount);
+
             *maxFileCount = fileCount;
         }
         else {
@@ -366,9 +367,32 @@ namespace HeavenGateEditor {
             printf("Can`t open story folder");
             *maxFileCount = -1;
         }
-
-
     }
+
+void SortFiles(char (*fileList)[MAX_FOLDER_PATH], int fileCount){
+    if (fileCount == 0) {
+        return;
+    }else{
+        int pivot = fileCount / 2;
+        SortFilesInternal(fileList, pivot, 0, fileCount);
+    }
+}
+void SortFilesInternal(char (*fileList)[MAX_FOLDER_PATH], int pivot, int left, int right){
+        if(left == right) return;
+        char internalValue = fileList[pivot][0];
+        int i = left; int j = pivot + 1;
+        char tmp[MAX_FOLDER_PATH];
+        while (i != pivot && j != right) {
+            while(fileList[i++][0] >= internalValue) if(i > pivot) i = pivot;
+            while(fileList[j++][0] < internalValue) if(j > right) j = right;
+            strcpy(tmp, fileList[i]);
+            strcpy(fileList[i], fileList[j]);
+            strcpy(fileList[j], tmp);
+        }
+        SortFilesInternal(fileList, (left + pivot) / 2, left, pivot);
+        SortFilesInternal(fileList, (pivot + right + 1)/2, pivot + 1, right);
+    }
+}
 
     //bool StoryFileManager::GetIsSaveFileExist()
     //{

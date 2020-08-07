@@ -40,8 +40,6 @@ namespace HeavenGateEditor {
         template<int column, int MAX_CONTENT_LENGTH = MAX_COLUMNS_CONTENT_LENGTH>
         bool SaveTableFile(const char* pPath, const StoryTable<column, MAX_CONTENT_LENGTH>* const pTableJson)const;
 
-
-
         void InitFileList(char(*pOutFileList)[MAX_FOLDER_PATH], int* maxFileCount);
 
         //Without file suffix
@@ -51,7 +49,8 @@ namespace HeavenGateEditor {
         void InitAutoSaveFolder() const;
         //bool RenameStoryFileByChapterAndScene(StoryJson* const pStoryJson) const;
         bool RenameStoryFileByTimeAndPutAutoSaveFolder(StoryJson* const pStoryJson)const;
-     
+        void SortFiles(char (*fileList)[MAX_FOLDER_PATH], int fileCount);
+        void SortFilesInternal(char (*fileList)[MAX_FOLDER_PATH], int pivot, int left, int right);
     };
 
 
