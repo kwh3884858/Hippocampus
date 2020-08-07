@@ -156,6 +156,7 @@
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowTachiePositionTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowTachieTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\JsonUtility.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\StoryColor.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonEndNode.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonEventNode.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonExhibitNode.h" />

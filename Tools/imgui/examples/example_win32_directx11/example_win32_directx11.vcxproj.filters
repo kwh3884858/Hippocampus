@@ -78,6 +78,7 @@
     <ClInclude Include="..\..\HeavenGate_Editor\StoryRow.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryTableDefine.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonEventNode.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\StoryColor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\imgui.cpp">
