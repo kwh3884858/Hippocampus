@@ -10,7 +10,7 @@ void GetContentException(char*const des, const json & j, const char* const index
     }
     catch (json::exception& e)
     {
-        printf("message: %s \n exception id: %d \n lack of: %s \n\n", e.what(), e.id, index);
+        printf("\n --!-- Get Content Exception\n message: %s \n exception id: %d \n lack of: %s \n\n", e.what(), e.id, index);
         memset(des, '\0', sizeof(des));
     }
 }
@@ -23,7 +23,7 @@ void GetJsonException(json & des, const json& src, const char* const index)
     }
     catch (json::exception& e)
     {
-        printf("message: %s \n exception id: %d \n lack of: %s \n\n", e.what(), e.id, index);
+        printf("\n --!-- Get Json Exception\n message: %s \n exception id: %d \n lack of: %s \n\n", e.what(), e.id, index);
         des = json();
     }
 }

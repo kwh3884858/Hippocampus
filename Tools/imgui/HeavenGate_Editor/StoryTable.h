@@ -442,8 +442,10 @@ void to_json(json& j, const StoryTable<column, MAX_CONTENT_LENGTH>& p) {
             {
                 tmp = p.GetRow(i);
                 j[tableString[(int)TableLayout::Value]].push_back(json{
-                    {exhibitTableString[(int)ExhibitTableLayout::Exhibit],          tmp->Get(0) },
-                    {exhibitTableString[(int)ExhibitTableLayout::Description],          tmp->Get(1) }
+                    {exhibitTableString[(int)ExhibitTableLayout::ExhibitID],          tmp->Get(0) },
+                    {exhibitTableString[(int)ExhibitTableLayout::Exhibit],          tmp->Get(1) },
+                    {exhibitTableString[(int)ExhibitTableLayout::Description],          tmp->Get(2) },
+                    {exhibitTableString[(int)ExhibitTableLayout::ExhibitImageName],          tmp->Get(3) },
                 });
             }
             break;
@@ -753,7 +755,7 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
     if (strcmp(typeString, exhibitTableString[(int)ExhibitTableLayout::Type]) == 0) {
         p.SetTableType(TableType::Exhibit);
         char header[MAX_COLUMNS_CONTENT_LENGTH];
-        if(!headers.is_null())
+        if(!headers.is_null() && headers.size() == (int)ExhibitTableLayout::Amount)
         {
             for(int i = 0; i < headers.size(); i++){
                 strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
@@ -767,9 +769,13 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
         char content[EXHIBIT_TABLE_MAX_CONTENT];
         for (int i = 0; i < values.size(); i++)
         {
+            GetContentException(content, values[i], exhibitTableString[(int)ExhibitTableLayout::ExhibitID]);
+            p.PushContent(content);
             GetContentException(content, values[i], exhibitTableString[(int)ExhibitTableLayout::Exhibit]);
             p.PushContent(content);
             GetContentException(content, values[i], exhibitTableString[(int)ExhibitTableLayout::Description]);
+            p.PushContent(content);
+            GetContentException(content, values[i], exhibitTableString[(int)ExhibitTableLayout::ExhibitImageName]);
             p.PushContent(content);
         }
         return;

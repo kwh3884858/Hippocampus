@@ -20,7 +20,7 @@ class StoryExhibit: public StoryNode{
 
 
 public:
-    char m_exhibitName[MAX_EXHIBIT_NAME];
+    char m_exhibitID[MAX_EXHIBIT_NAME];
 
     StoryExhibit();
     StoryExhibit(const StoryExhibit& storyExhibit);

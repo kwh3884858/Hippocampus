@@ -1,5 +1,6 @@
 #ifndef StoryLayoutConstant_h
 #define StoryLayoutConstant_h
+
 #include "HeavenGateEditorConstant.h"
 
 namespace HeavenGateEditor
@@ -113,8 +114,10 @@ namespace HeavenGateEditor
     enum class ExhibitTableLayout
     {
         Type = 0,
-        Exhibit = 1,
-        Description = 2,
+        ExhibitID,
+        Exhibit,
+        Description,
+        ExhibitImageName,
 
         Amount
     };
@@ -235,9 +238,10 @@ namespace HeavenGateEditor
 
     const char exhibitTableString[][MAX_ENUM_LENGTH] = {
         "exhibit",
+        "exhibitID",
         "exhibit",
-        "description"
-
+        "description",
+        "exhibitImageName"
     };
 
     const char effectTableString[][MAX_ENUM_LENGTH] = {

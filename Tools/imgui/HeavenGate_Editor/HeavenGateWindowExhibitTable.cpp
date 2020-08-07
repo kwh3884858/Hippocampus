@@ -21,27 +21,10 @@ namespace HeavenGateEditor {
 
     HeavenGateWindowExhibitTable::HeavenGateWindowExhibitTable()
     {
-     
-      
-
-
     }
 
     HeavenGateWindowExhibitTable::~HeavenGateWindowExhibitTable()
     {
-
-        //if (m_fileManager)
-        //{
-        //    delete m_fileManager;
-        //}
-        //m_fileManager = nullptr;
-
-        //if (exhibitTable)
-        //{
-        //    delete exhibitTable;
-        //}
-        //exhibitTable = nullptr;
-
     }
 
     void HeavenGateWindowExhibitTable::Initialize()
@@ -98,18 +81,12 @@ namespace HeavenGateEditor {
         {
             ImGui::Text(exhibitTable->GetName(i));   ImGui::NextColumn();
         }
-
-        //ImGui::Text("ID"); ImGui::NextColumn();
-        //ImGui::Text("Name"); ImGui::NextColumn();
-        //ImGui::Text("Path"); ImGui::NextColumn();
-        //ImGui::Text("Hovered"); ImGui::NextColumn();
         ImGui::Separator();
-        //const char* names[3] = { "One", "Two", "Three" };
-        //const char* paths[3] = { "/path/one", "/path/two", "/path/three" };
+
         static int selected = -1;
 
-
-        char order[8] = "";
+        char order[64] = "";
+        char constant[EXHIBIT_TABLE_MAX_CONTENT];
         for (int i = 0; i < exhibitTable->GetSize(); i++)
         {
             char label[32];
@@ -118,45 +95,16 @@ namespace HeavenGateEditor {
                 selected = i;
 
             sprintf(order, "%d", i);
-            //bool hovered = ImGui::IsItemHovered();
             ImGui::NextColumn();
-            //ImGui::Text(names[i]); ImGui::NextColumn();
-            //ImGui::Text(paths[i]); ImGui::NextColumn();
-            //ImGui::Text("%d", hovered); ImGui::NextColumn();
 
             for (int j = 0; j < EXHIBIT_COLUMN; j++)
             {
-                char * content = exhibitTable->GetContent(i, j);
-
-                char constant[16];
-                switch (j)
-                {
-                    case 0:
-                        strcpy(constant, "exhibit ");
-                        break;
-                    case 1:
-                        strcpy(constant, "description ");
-                        break;
-                        break;
-                default:
-                    break;
-                }
-                //if (j % 2 == 0)
-                //{
-                //    strcpy(constant, "Angle ");
-
-                //}
-                //else
-                //{
-                //    strcpy(constant, "Distance ");
-
-                //}
+                char * const content = exhibitTable->GetContent(i, j);
+                strcpy(constant, exhibitTable->GetName(j));
                 strcat(constant, order);
-
                 ImGui::InputText(constant, content, EXHIBIT_TABLE_MAX_CONTENT - 4);
                 ImGui::NextColumn();
             }
-
         }
 
         ImGui::Columns(1);
@@ -165,7 +113,6 @@ namespace HeavenGateEditor {
 
     void HeavenGateWindowExhibitTable::UpdateMenu()
     {
-        //   ImGui::MenuItem("(dummy menu)", NULL, false, false);
         if (ImGui::MenuItem("New")) {
 
         }
