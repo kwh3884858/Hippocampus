@@ -146,7 +146,11 @@ namespace Controllers.Subsystems.Story
         public void ChangeBackground(string backgroundKey)
         {
             m_actions.Enqueue(new StoryAction(){Type =  StoryActionType.ChangeBackground , Content = backgroundKey});
-            
+        }
+
+        public void PushWrap()
+        {
+            m_actions.Enqueue(new StoryAction(){Type = StoryActionType.Wrap});
         }
 
         public StoryAction GetNextAction()
