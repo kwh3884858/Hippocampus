@@ -31,9 +31,9 @@ namespace HeavenGateEditor {
         //TODO
         //bool CreateStoryFIle();
         bool LoadStoryFile(const char* pPath, StoryJson* pStoryJson);
-        bool SaveStoryFile( StoryJson* const pStoryJson) const;
+        bool SaveStoryFile(StoryJson* const pStoryJson) const;
         bool AutoSaveStoryFile(StoryJson* const pStoryJson)const;
-        bool ExportStoryFile( StoryJson* const pStoryJson) const;
+        bool ExportStoryFile(StoryJson* const pStoryJson) const;
 
         template<int column, int MAX_CONTENT_LENGTH = MAX_COLUMNS_CONTENT_LENGTH>
         bool LoadTableFile(const char* pPath, StoryTable<column, MAX_CONTENT_LENGTH>* const pTableJson)const;
@@ -49,14 +49,31 @@ namespace HeavenGateEditor {
         void InitAutoSaveFolder() const;
         //bool RenameStoryFileByChapterAndScene(StoryJson* const pStoryJson) const;
         bool RenameStoryFileByTimeAndPutAutoSaveFolder(StoryJson* const pStoryJson)const;
-        void SortFiles(char (*fileList)[MAX_FOLDER_PATH], int fileCount);
-        void SortFilesInternal(char (*fileList)[MAX_FOLDER_PATH], int pivot, int left, int right);
+
+        //Algorithms Forth Edition, P461
+        //Most Significant Bit
+        void MSD(char(*pOutFileList)[MAX_FOLDER_PATH], int* fileCount);
+        void InsertSort(char(*pOutFileList)[MAX_FOLDER_PATH], int low, int high, int d);
+        void MSDStringSort(char(*pOutFileList)[MAX_FOLDER_PATH], int low, int high, int d, char * const auxiliaryArray);
+        void Exchange(char(*pOutFileList)[MAX_FOLDER_PATH], int left, int right);
+        int CharAt(char* filename, int d) const;
+
+        void QuickSortFiles(char(*fileList)[MAX_FOLDER_PATH], int fileCount);
+        void QuickSortFilesInternal(char(*fileList)[MAX_FOLDER_PATH], int pivot, int left, int right);
+
+        const int INSERT_SORT_THRESHOLD = 13;
+        const int MAX_CHARACTER = 256;
+        const int CHARACTER_OFFSET = 1;
+        const int TOTAL_LENGTH = MAX_CHARACTER + CHARACTER_OFFSET;
+        const int m_msdCharacterArray[TOTAL_LENGTH];
     };
 
 
     template<int column, int MAX_CONTENT_LENGTH>
-    bool StoryFileManager::LoadTableFile(const char* pPath,
-        StoryTable<column, MAX_CONTENT_LENGTH>*const pTableJson) const
+    bool StoryFileManager::LoadTableFile(
+        const char* pPath,
+        StoryTable<column, MAX_CONTENT_LENGTH>*const pTableJson
+    ) const
     {
         std::ifstream fins;
         char content[MAX_FULL_CONTENT];
@@ -99,16 +116,15 @@ namespace HeavenGateEditor {
     }
 
     template<int column, int MAX_CONTENT_LENGTH>
-    bool StoryFileManager::SaveTableFile(const char* pPath,
-        const StoryTable<column, MAX_CONTENT_LENGTH>* const pTableJson) const
+    bool StoryFileManager::SaveTableFile(
+        const char* pPath,
+        const StoryTable<column, MAX_CONTENT_LENGTH>* const pTableJson
+    ) const
     {
         if (pPath == nullptr || pTableJson == nullptr)
         {
             return false;
         }
-
-        //char filePath[MAX_FOLDER_PATH];
-        //strcpy(filePath, pTableJson->GetFullPath());
 
         if (strlen(pPath) <= 0) {
             return false;

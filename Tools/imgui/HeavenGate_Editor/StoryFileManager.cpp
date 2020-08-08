@@ -357,7 +357,7 @@ namespace HeavenGateEditor {
             }
             closedir(dir);
 
-            //            SortFiles(pOutFileList, fileCount);
+            MSD(pOutFileList, fileCount);
 
             *maxFileCount = fileCount;
         }
@@ -369,16 +369,102 @@ namespace HeavenGateEditor {
         }
     }
 
-    void  StoryFileManager::SortFiles(char(*fileList)[MAX_FOLDER_PATH], int fileCount) {
+    void StoryFileManager::MSD(char(*pOutFileList)[MAX_FOLDER_PATH], int* fileCount)
+    {
+        char ** auxiliaryArray = new char*[fileCount];
+        for (int i = 0; i < fileCount; i++)
+        {
+            auxiliaryArray[i] = new char[MAX_FOLDER_PATH];
+        }
+
+        MSDStringSort(pOutFileList, 0, fileCount - 1, 0, auxiliaryArray);
+
+        for (int i = 0; i < fileCount; i++)
+        {
+            delete[] auxiliaryArray[i];
+        }
+        delete[] auxiliaryArray;
+    }
+
+
+    void StoryFileManager::MSDStringSort(char(*pOutFileList)[MAX_FOLDER_PATH], int low, int high, int d, char * const auxiliaryArray)
+    {
+        if (low + INSERT_SORT_THRESHOLD <= high)
+        {
+            InsertSort(pOutFileList, low, high, d);
+        }
+        else
+        {
+            memset(m_msdCharacterArray, 0, TOTAL_LENGTH * sizeof(int));
+            for (int i = low; i <= high; i++)
+            {
+                m_msdCharacterArray[CharAt(pOutFileList, d) + 1] ++; //-1 ~ 255 => 0 ~ 256, total 257
+            }
+            for (int i = 1; i < TOTAL_LENGTH; i++)
+            {
+                m_msdCharacterArray[i] += m_msdCharacterArray[i - 1];
+            }
+            for (int i = low, i <= high; i++)
+            {
+                int index = m_msdCharacterArray[pOutFileList[i][d]]++;
+                strcpy(auxiliaryArray[index], pOutFileList[i]);
+            }
+            for (int i = low, i <= high; i++)
+            {
+                strcpy(pOutFileList[i], auxiliaryArray[i]);
+            }
+            for (int i = 0; i < MAX_CHARACTER; i++)
+            {
+                MSDStringSort(pOutFileList, m_msdCharacterArray[i], m_msdCharacterArray[i + 1] - 1, d++);
+            }
+        }
+    }
+
+    void StoryFileManager::InsertSort(char(*pOutFileList)[MAX_FOLDER_PATH], int low, int high, int d)
+    {
+        //if (d < strlen(pOutFileList[low]))
+        //{
+        for (int i = low + 1; i <= high; i++)
+        {
+            for (int j = i; j > low && pOutFileList[j][d] < pOutFileList[j - 1][d]; j--)
+            {
+                Exchange(pOutFileList, j, j - 1);
+            }
+        }
+        //}
+    }
+
+    int StoryFileManager::CharAt(char* count filename, int d) const
+    {
+        return d < strlen(filename) ? filename[d] : -1;
+    }
+
+    void StoryFileManager::Exchange(char(*pOutFileList)[MAX_FOLDER_PATH], int left, int right)
+    {
+        char tmp[MAX_FOLDER_PATH];
+        for (int i = 0; i < MAX_FOLDER_PATH; i++)
+        {
+            tmp[i] = pOutFileList[left][i];
+        }
+        for (int i = 0; i < MAX_FOLDER_PATH; i++)
+        {
+            pOutFileList[left][i] = pOutFileList[right][i];
+        }
+        for (int i = 0; i < MAX_FOLDER_PATH; i++)
+        {
+            pOutFileList[right][i] = tmp[i];
+        }
+    }
+    void  StoryFileManager::QuickSortFiles(char(*fileList)[MAX_FOLDER_PATH], int fileCount) {
         if (fileCount == 0) {
             return;
         }
         else {
             int pivot = fileCount / 2;
-            SortFilesInternal(fileList, pivot, 0, fileCount);
+            QuickSortFilesInternal(fileList, pivot, 0, fileCount);
         }
     }
-    void  StoryFileManager::SortFilesInternal(char(*fileList)[MAX_FOLDER_PATH], int pivot, int left, int right) {
+    void  StoryFileManager::QuickSortFilesInternal(char(*fileList)[MAX_FOLDER_PATH], int pivot, int left, int right) {
         if (left == right) return;
         char internalValue = fileList[pivot][0];
         int i = left; int j = pivot + 1;
@@ -390,8 +476,8 @@ namespace HeavenGateEditor {
             strcpy(fileList[i], fileList[j]);
             strcpy(fileList[j], tmp);
         }
-        SortFilesInternal(fileList, (left + pivot) / 2, left, pivot);
-        SortFilesInternal(fileList, (pivot + right + 1) / 2, pivot + 1, right);
+        QuickSortFilesInternal(fileList, (left + pivot) / 2, left, pivot);
+        QuickSortFilesInternal(fileList, (pivot + right + 1) / 2, pivot + 1, right);
     }
 }
 
