@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Mime;
+using System.Text;
 using Config;
 using Config.Data;
 using Const;
@@ -38,6 +39,7 @@ namespace UI.Panels.StaticBoard
             private string m_fontSize;
             private string m_font;
             private bool m_bold;
+            private int m_wrapNum=0;
             private float m_typewriterInterval = StoryConfig.Ins.ChineseContentSpeed;
 
             public float TypewriterInterval
@@ -88,6 +90,11 @@ namespace UI.Panels.StaticBoard
             {
                 m_bold = !m_bold;
             }
+
+            public void PushWrap()
+            {
+                m_wrapNum++;
+            }
             
             public void ClearData()
             {
@@ -99,27 +106,38 @@ namespace UI.Panels.StaticBoard
 
             public string GetContent(string content)
             {
+                StringBuilder builder = new StringBuilder(content);
                 if (m_color != null)
                 {
-                    content = $"<#{m_color}>{content}</color>";
+                    builder.Insert(0, $"<#{m_color}>");
+                    builder.Append("</color>");
                 }
 
                 if (m_font != null)
                 {
-                    content = $"<font=\"{m_font}\">{content}</font>";
+                    builder.Insert(0, $"<font=\"{m_font}\">");
+                    builder.Append("</font>");
                 }
 
                 if (m_fontSize != null)
                 {
-                    content = $"<size={m_fontSize}>{content}</size>";
+                    builder.Insert(0, $"<size={m_fontSize}>");
+                    builder.Append("</size>");
                 }
 
                 if (m_bold)
                 {
-                    content = $"<b>{content}</b>";
+                    builder.Insert(0, $"<b>");
+                    builder.Append("</b>");
                 }
 
-                return content;
+                while (m_wrapNum>0)
+                {
+                    m_wrapNum--;
+                    builder.Append("\n");
+                }
+
+                return builder.ToString();
             }
         }
         
@@ -332,6 +350,10 @@ namespace UI.Panels.StaticBoard
                     }
                     m_backgroundImg.gameObject.SetActive(true);
                     PrefabManager.Instance.SetImage(m_backgroundImg,storyAction.Content);
+                    SetActionState(ActionState.End);
+                    break;
+                case StoryActionType.Wrap:
+                    m_textHelp.PushWrap();
                     SetActionState(ActionState.End);
                     break;
                 default:
