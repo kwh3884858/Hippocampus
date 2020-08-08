@@ -26,7 +26,7 @@ namespace HeavenGateEditor {
     bool StoryFileManager::LoadStoryFile(const char* pPath, StoryJson* pStoryJson)
     {
         std::ifstream fins;
-        
+
         char charBuffer = '\0';
         vector<char> contentBuffer;
 
@@ -41,7 +41,7 @@ namespace HeavenGateEditor {
         {
             return false;
         }
-        
+
         fins.open(pPath);
         if (fins.peek() == EOF) {
 
@@ -56,7 +56,7 @@ namespace HeavenGateEditor {
             while (!fins.eof())
             {
                 //fins >> tcontent[i++];
-                fins >>  charBuffer;
+                fins >> charBuffer;
                 contentBuffer.push_back(charBuffer);
             }
 
@@ -85,13 +85,13 @@ namespace HeavenGateEditor {
         {
             std::cerr << e.what() << std::endl;
         }
-       
 
 
-       /* *pStoryJson = std::move(a);*/
+
+        /* *pStoryJson = std::move(a);*/
         pStoryJson->SetFullPath(pPath);
 
-        
+
         fins.close();
 
         return true;
@@ -137,16 +137,16 @@ namespace HeavenGateEditor {
 
         try {
             outputFileStream << tmpJson << std::endl;
-         }
-         catch (nlohmann::json::type_error& e) {
+        }
+        catch (nlohmann::json::type_error& e) {
 
 #ifndef _WIN32
-             printf("%s: %s (%s:%d)", __FUNCTION__, e.what(), __builtin_FILE(), __builtin_LINE());
+            printf("%s: %s (%s:%d)", __FUNCTION__, e.what(), __builtin_FILE(), __builtin_LINE());
 #else
-             printf("%s: %s", __FUNCTION__, e.what());
+            printf("%s: %s", __FUNCTION__, e.what());
 #endif
-             return false;
-         }
+            return false;
+        }
 
 
         outputFileStream.close();
@@ -194,15 +194,15 @@ namespace HeavenGateEditor {
         {
             try {
                 outputFileStream << tmpJson << std::endl;
-             }
-             catch (nlohmann::json::type_error& e) {
+            }
+            catch (nlohmann::json::type_error& e) {
 #ifndef _WIN32
-                 printf("%s: %s (%s:%d)", __FUNCTION__, e.what(), __builtin_FILE(), __builtin_LINE());
+                printf("%s: %s (%s:%d)", __FUNCTION__, e.what(), __builtin_FILE(), __builtin_LINE());
 #else
-                 printf("%s: %s", __FUNCTION__, e.what());
+                printf("%s: %s", __FUNCTION__, e.what());
 #endif
-                 return false;
-             }
+                return false;
+            }
             isSuccessful = true;
         }
         else
@@ -275,16 +275,16 @@ namespace HeavenGateEditor {
 
         std::ofstream o(filePath);
         try {
-             o << tmpJson << std::endl;
-         }
-         catch (nlohmann::json::type_error& e) {
+            o << tmpJson << std::endl;
+        }
+        catch (nlohmann::json::type_error& e) {
 #ifndef _WIN32
-             printf("%s: %s (%s:%d)", __FUNCTION__, e.what(), __builtin_FILE(), __builtin_LINE());
+            printf("%s: %s (%s:%d)", __FUNCTION__, e.what(), __builtin_FILE(), __builtin_LINE());
 #else
-             printf("%s: %s", __FUNCTION__, e.what());
+            printf("%s: %s", __FUNCTION__, e.what());
 #endif
-             return false;
-         }
+            return false;
+        }
 
         o.close();
 
@@ -343,13 +343,13 @@ namespace HeavenGateEditor {
 
                 //Skip tables
                 if (CharacterUtility::Find(
-                      ent->d_name,
-                      strlen(ent->d_name),
-                      TableSuffix,
-                      strlen(TableSuffix)) != -1)
-                  {
-                      continue;
-                  }
+                    ent->d_name,
+                    strlen(ent->d_name),
+                    TableSuffix,
+                    strlen(TableSuffix)) != -1)
+                {
+                    continue;
+                }
 
                 strcpy(pOutFileList[fileCount], ent->d_name);
                 fileCount++;
@@ -357,7 +357,7 @@ namespace HeavenGateEditor {
             }
             closedir(dir);
 
-//            SortFiles(pOutFileList, fileCount);
+            //            SortFiles(pOutFileList, fileCount);
 
             *maxFileCount = fileCount;
         }
@@ -369,216 +369,217 @@ namespace HeavenGateEditor {
         }
     }
 
-void SortFiles(char (*fileList)[MAX_FOLDER_PATH], int fileCount){
-    if (fileCount == 0) {
-        return;
-    }else{
-        int pivot = fileCount / 2;
-        SortFilesInternal(fileList, pivot, 0, fileCount);
+    void  StoryFileManager::SortFiles(char(*fileList)[MAX_FOLDER_PATH], int fileCount) {
+        if (fileCount == 0) {
+            return;
+        }
+        else {
+            int pivot = fileCount / 2;
+            SortFilesInternal(fileList, pivot, 0, fileCount);
+        }
     }
-}
-void SortFilesInternal(char (*fileList)[MAX_FOLDER_PATH], int pivot, int left, int right){
-        if(left == right) return;
+    void  StoryFileManager::SortFilesInternal(char(*fileList)[MAX_FOLDER_PATH], int pivot, int left, int right) {
+        if (left == right) return;
         char internalValue = fileList[pivot][0];
         int i = left; int j = pivot + 1;
         char tmp[MAX_FOLDER_PATH];
         while (i != pivot && j != right) {
-            while(fileList[i++][0] >= internalValue) if(i > pivot) i = pivot;
-            while(fileList[j++][0] < internalValue) if(j > right) j = right;
+            while (fileList[i++][0] >= internalValue) if (i > pivot) i = pivot;
+            while (fileList[j++][0] < internalValue) if (j > right) j = right;
             strcpy(tmp, fileList[i]);
             strcpy(fileList[i], fileList[j]);
             strcpy(fileList[j], tmp);
         }
         SortFilesInternal(fileList, (left + pivot) / 2, left, pivot);
-        SortFilesInternal(fileList, (pivot + right + 1)/2, pivot + 1, right);
+        SortFilesInternal(fileList, (pivot + right + 1) / 2, pivot + 1, right);
     }
 }
 
-    //bool StoryFileManager::GetIsSaveFileExist()
-    //{
-    //    return m_isSaveFileExist;
-    //}
+//bool StoryFileManager::GetIsSaveFileExist()
+//{
+//    return m_isSaveFileExist;
+//}
 
-    //char * StoryFileManager::GetNewFileName()
-    //{
-    //    return const_cast<char*>(const_cast<const StoryFileManager*>(this)->GetNewFileName());
-    //}
+//char * StoryFileManager::GetNewFileName()
+//{
+//    return const_cast<char*>(const_cast<const StoryFileManager*>(this)->GetNewFileName());
+//}
 
-    //const char * StoryFileManager::GetNewFileName() const
-    //{
-    //    return m_newFileName;
-    //}
+//const char * StoryFileManager::GetNewFileName() const
+//{
+//    return m_newFileName;
+//}
 
-    //char * StoryFileManager::GetNewFilePath()
-    //{
-    //    return const_cast<char *>(const_cast<const StoryFileManager*>(this)->GetNewFilePath());
-    //}
+//char * StoryFileManager::GetNewFilePath()
+//{
+//    return const_cast<char *>(const_cast<const StoryFileManager*>(this)->GetNewFilePath());
+//}
 
-    //const char * StoryFileManager::GetNewFilePath() const
-    //{
-    //    return m_newFilePath;
-    //}
+//const char * StoryFileManager::GetNewFilePath() const
+//{
+//    return m_newFilePath;
+//}
 
-    /*   void StoryFileManager::Initialize()
-     {
-     memset(m_newFilePath, 0, sizeof(m_newFilePath));
-     memset(m_newFileName, 0, sizeof(m_newFileName));
-     }*/
+/*   void StoryFileManager::Initialize()
+ {
+ memset(m_newFilePath, 0, sizeof(m_newFilePath));
+ memset(m_newFileName, 0, sizeof(m_newFileName));
+ }*/
 
-     //bool StoryFileManager::IsNewFilePathExist() const
-     //{
-     //    if (strlen(m_newFilePath) > 0) {
-     //        return true;
-     //    }
-     //    else {
-     //        return false;
-     //    }
-     //}
+ //bool StoryFileManager::IsNewFilePathExist() const
+ //{
+ //    if (strlen(m_newFilePath) > 0) {
+ //        return true;
+ //    }
+ //    else {
+ //        return false;
+ //    }
+ //}
 
-    bool StoryFileManager::FromFileNameToFullPath(char * filePath, const char * fileName) const
-    {
-        int length = static_cast<int>(strlen(fileName));
+bool StoryFileManager::FromFileNameToFullPath(char * filePath, const char * fileName) const
+{
+    int length = static_cast<int>(strlen(fileName));
 
-        if (length <= 0 || length >= MAX_FILE_NAME) {
-            return false;
-        }
+    if (length <= 0 || length >= MAX_FILE_NAME) {
+        return false;
+    }
 
-        memset(filePath, 0, MAX_FOLDER_PATH);
+    memset(filePath, 0, MAX_FOLDER_PATH);
 
-        char storyPath[MAX_FOLDER_PATH];
+    char storyPath[MAX_FOLDER_PATH];
 
-        HeavenGateEditorUtility::GetStoryPath(storyPath);
-        strcat(filePath, storyPath);
+    HeavenGateEditorUtility::GetStoryPath(storyPath);
+    strcat(filePath, storyPath);
 
 #ifdef _WIN32
-        strcat(filePath, "\\");
+    strcat(filePath, "\\");
 #else
-        strcat(filePath, "/");
+    strcat(filePath, "/");
 #endif
-        strcat(filePath, fileName);
+    strcat(filePath, fileName);
 
-        strcat(filePath, ".json");
+    strcat(filePath, ".json");
 
-        return true;
-    }
+    return true;
+}
 
 
 
-    void StoryFileManager::GetFileContent(char* pFullPath, char* pOutContent)
+void StoryFileManager::GetFileContent(char* pFullPath, char* pOutContent)
+{
+
+    /*  assert(MAX_CONTENT == sizeof(pOutContent));*/
+
+    memset(pOutContent, '\0', MAX_FULL_CONTENT);
+
+    std::ifstream fin;
+
+    fin.open(pFullPath);
+
+    // If it could not open the file then exit.
+    if (!fin.fail())
     {
-
-        /*  assert(MAX_CONTENT == sizeof(pOutContent));*/
-
-        memset(pOutContent, '\0', MAX_FULL_CONTENT);
-
-        std::ifstream fin;
-
-        fin.open(pFullPath);
-
-        // If it could not open the file then exit.
-        if (!fin.fail())
+        fin >> std::noskipws;
+        int i = 0;
+        while (!fin.eof() && i < MAX_FULL_CONTENT)
         {
-                        fin >> std::noskipws;
-            int i = 0;
-            while (!fin.eof() && i < MAX_FULL_CONTENT)
-            {
-                if (i >= MAX_FULL_CONTENT) {
-                    std::cerr << "Out of max content limit";
-                }
-                fin >> pOutContent[i++];
+            if (i >= MAX_FULL_CONTENT) {
+                std::cerr << "Out of max content limit";
             }
-
-            fin.close();
+            fin >> pOutContent[i++];
         }
-    }
 
-    void StoryFileManager::InitAutoSaveFolder() const
-    {
-        char exePath[MAX_FOLDER_PATH];
-        HeavenGateEditorUtility::GetStoryAutoSavePath(exePath);
-        printf("Current Auto Path:%s", exePath);
+        fin.close();
+    }
+}
+
+void StoryFileManager::InitAutoSaveFolder() const
+{
+    char exePath[MAX_FOLDER_PATH];
+    HeavenGateEditorUtility::GetStoryAutoSavePath(exePath);
+    printf("Current Auto Path:%s", exePath);
 
 #ifdef _WIN32
-        if (0 != _access(exePath, 0))
-        {
-            // if this folder not exist, create a new one.
-            int result = _mkdir(exePath);
-            assert(result != -1);
-        }
-
-        #else
-        if (0 != access(exePath, 0))
-              {
-                  int result =   mkdir(exePath, 0777);
-                  assert(result != -1);
-              }
-        #endif
-    }
-
-
-    //bool StoryFileManager::RenameStoryFileByChapterAndScene(StoryJson* const pStoryJson) const {
-
-    //    char filePath[MAX_FOLDER_PATH];
-    //    strcpy(filePath, pStoryJson->GetFullPath());
-
-    //    const char* const pChapater = pStoryJson->GetChapter();
-    //    const char* const pScene = pStoryJson->GetScene();
-
-    //    if (pChapater == nullptr || pScene == nullptr) {
-    //        return false;
-    //    }
-
-    //    bool isChapterExist = CharacterUtility::Find(filePath, strlen(filePath), pChapater, strlen(pChapater)) != -1;
-    //    bool isSceneExist = CharacterUtility::Find(filePath, strlen(filePath), pScene, strlen(pScene)) != -1;
-
-    //    if (!isChapterExist || !isSceneExist) {
-    //        //Reform file name, add ID of chapter and scene.
-    //        char newFileName[MAX_FILE_NAME] = { '\0' };
-    //        char oldFileName[MAX_FILE_NAME] = { '\0' };
-
-    //        pStoryJson->GetFileName(oldFileName);
-
-    //        int pos = CharacterUtility::FindLast(oldFileName, strlen(oldFileName), "_", 1);
-
-    //        if (pos != -1) {
-    //            strcpy(oldFileName, oldFileName + pos);
-    //        }
-
-    //        strcpy(newFileName, pChapater);
-    //        strcat(newFileName, "_");
-    //        strcat(newFileName, pScene);
-    //        strcat(newFileName, "_");
-    //        strcat(newFileName, oldFileName);
-
-    //        pStoryJson->SetFileName(newFileName);
-    //    }
-
-    //    return true;
-
-    //}
-
-    bool StoryFileManager::RenameStoryFileByTimeAndPutAutoSaveFolder(StoryJson* const pStoryJson) const
+    if (0 != _access(exePath, 0))
     {
-        char timeName[MAX_FILE_NAME] = { '\0' };
-
-        char newFileName[MAX_FILE_NAME] = { '\0' };
-
-        sprintf(timeName, "%d", StoryTimer<StoryFileManager>::GetTime());
-
-        strcat(newFileName, AUTO_SAVE_FOLDER);
-        strcat(newFileName, DELIMITER);
-        strcat(newFileName, timeName);
-        strcat(newFileName, ".json");
-
-        pStoryJson->SetFileName(newFileName);
-
-        return true;
-
+        // if this folder not exist, create a new one.
+        int result = _mkdir(exePath);
+        assert(result != -1);
     }
 
-    //void StoryFileManager::SetNewFilePath(const char * filePath)
-    //{
-    //    strcpy(m_newFilePath, filePath);
-    //}
+#else
+    if (0 != access(exePath, 0))
+    {
+        int result = mkdir(exePath, 0777);
+        assert(result != -1);
+    }
+#endif
+}
+
+
+//bool StoryFileManager::RenameStoryFileByChapterAndScene(StoryJson* const pStoryJson) const {
+
+//    char filePath[MAX_FOLDER_PATH];
+//    strcpy(filePath, pStoryJson->GetFullPath());
+
+//    const char* const pChapater = pStoryJson->GetChapter();
+//    const char* const pScene = pStoryJson->GetScene();
+
+//    if (pChapater == nullptr || pScene == nullptr) {
+//        return false;
+//    }
+
+//    bool isChapterExist = CharacterUtility::Find(filePath, strlen(filePath), pChapater, strlen(pChapater)) != -1;
+//    bool isSceneExist = CharacterUtility::Find(filePath, strlen(filePath), pScene, strlen(pScene)) != -1;
+
+//    if (!isChapterExist || !isSceneExist) {
+//        //Reform file name, add ID of chapter and scene.
+//        char newFileName[MAX_FILE_NAME] = { '\0' };
+//        char oldFileName[MAX_FILE_NAME] = { '\0' };
+
+//        pStoryJson->GetFileName(oldFileName);
+
+//        int pos = CharacterUtility::FindLast(oldFileName, strlen(oldFileName), "_", 1);
+
+//        if (pos != -1) {
+//            strcpy(oldFileName, oldFileName + pos);
+//        }
+
+//        strcpy(newFileName, pChapater);
+//        strcat(newFileName, "_");
+//        strcat(newFileName, pScene);
+//        strcat(newFileName, "_");
+//        strcat(newFileName, oldFileName);
+
+//        pStoryJson->SetFileName(newFileName);
+//    }
+
+//    return true;
+
+//}
+
+bool StoryFileManager::RenameStoryFileByTimeAndPutAutoSaveFolder(StoryJson* const pStoryJson) const
+{
+    char timeName[MAX_FILE_NAME] = { '\0' };
+
+    char newFileName[MAX_FILE_NAME] = { '\0' };
+
+    sprintf(timeName, "%d", StoryTimer<StoryFileManager>::GetTime());
+
+    strcat(newFileName, AUTO_SAVE_FOLDER);
+    strcat(newFileName, DELIMITER);
+    strcat(newFileName, timeName);
+    strcat(newFileName, ".json");
+
+    pStoryJson->SetFileName(newFileName);
+
+    return true;
+
+}
+
+//void StoryFileManager::SetNewFilePath(const char * filePath)
+//{
+//    strcpy(m_newFilePath, filePath);
+//}
 
 }
