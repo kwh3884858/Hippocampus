@@ -369,9 +369,9 @@ namespace HeavenGateEditor {
         }
     }
 
-    void StoryFileManager::MSD(char(*pOutFileList)[MAX_FOLDER_PATH], int* fileCount)
+    void StoryFileManager::MSD(char(*pOutFileList)[MAX_FOLDER_PATH], int fileCount)
     {
-        char ** auxiliaryArray = new char*[fileCount];
+        char ** const auxiliaryArray = new char*[fileCount];
         for (int i = 0; i < fileCount; i++)
         {
             auxiliaryArray[i] = new char[MAX_FOLDER_PATH];
@@ -387,35 +387,38 @@ namespace HeavenGateEditor {
     }
 
 
-    void StoryFileManager::MSDStringSort(char(*pOutFileList)[MAX_FOLDER_PATH], int low, int high, int d, char * const auxiliaryArray)
+    void StoryFileManager::MSDStringSort(char(*pOutFileList)[MAX_FOLDER_PATH], int low, int high, int d, char ** const auxiliaryArray)
     {
-        if (low + INSERT_SORT_THRESHOLD <= high)
+        if (low + INSERT_SORT_THRESHOLD > high)
         {
             InsertSort(pOutFileList, low, high, d);
         }
         else
         {
+            int m_msdCharacterArray[TOTAL_LENGTH];
             memset(m_msdCharacterArray, 0, TOTAL_LENGTH * sizeof(int));
             for (int i = low; i <= high; i++)
             {
-                m_msdCharacterArray[CharAt(pOutFileList, d) + 1] ++; //-1 ~ 255 => 0 ~ 256, total 257
+                int index = CharAt(pOutFileList[i], d);
+                m_msdCharacterArray[index + 1] ++; //-1 ~ 255 => 0 ~ 256, total 257
             }
             for (int i = 1; i < TOTAL_LENGTH; i++)
             {
                 m_msdCharacterArray[i] += m_msdCharacterArray[i - 1];
             }
-            for (int i = low, i <= high; i++)
+            for (int i = low; i <= high; i++)
             {
-                int index = m_msdCharacterArray[pOutFileList[i][d]]++;
+                char character = pOutFileList[i][d];
+                int index = m_msdCharacterArray[(int)character]++;
                 strcpy(auxiliaryArray[index], pOutFileList[i]);
             }
-            for (int i = low, i <= high; i++)
+            for (int i = low; i <= high; i++)
             {
                 strcpy(pOutFileList[i], auxiliaryArray[i]);
             }
             for (int i = 0; i < MAX_CHARACTER; i++)
             {
-                MSDStringSort(pOutFileList, m_msdCharacterArray[i], m_msdCharacterArray[i + 1] - 1, d++);
+                MSDStringSort(pOutFileList, m_msdCharacterArray[i], m_msdCharacterArray[i + 1] - 1, d + 1, auxiliaryArray);
             }
         }
     }
@@ -434,7 +437,7 @@ namespace HeavenGateEditor {
         //}
     }
 
-    int StoryFileManager::CharAt(char* count filename, int d) const
+    int StoryFileManager::CharAt(char* filename, int d) const
     {
         return d < strlen(filename) ? filename[d] : -1;
     }
@@ -479,7 +482,6 @@ namespace HeavenGateEditor {
         QuickSortFilesInternal(fileList, (left + pivot) / 2, left, pivot);
         QuickSortFilesInternal(fileList, (pivot + right + 1) / 2, pivot + 1, right);
     }
-}
 
 //bool StoryFileManager::GetIsSaveFileExist()
 //{

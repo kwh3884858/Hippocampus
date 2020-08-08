@@ -52,22 +52,30 @@ namespace HeavenGateEditor {
 
         //Algorithms Forth Edition, P461
         //Most Significant Bit
-        void MSD(char(*pOutFileList)[MAX_FOLDER_PATH], int* fileCount);
+        void MSD(char(*pOutFileList)[MAX_FOLDER_PATH], int fileCount);
         void InsertSort(char(*pOutFileList)[MAX_FOLDER_PATH], int low, int high, int d);
-        void MSDStringSort(char(*pOutFileList)[MAX_FOLDER_PATH], int low, int high, int d, char * const auxiliaryArray);
+        void MSDStringSort(char(*pOutFileList)[MAX_FOLDER_PATH], int low, int high, int d, char ** const auxiliaryArray);
         void Exchange(char(*pOutFileList)[MAX_FOLDER_PATH], int left, int right);
         int CharAt(char* filename, int d) const;
 
         void QuickSortFiles(char(*fileList)[MAX_FOLDER_PATH], int fileCount);
         void QuickSortFilesInternal(char(*fileList)[MAX_FOLDER_PATH], int pivot, int left, int right);
 
-        const int INSERT_SORT_THRESHOLD = 13;
-        const int MAX_CHARACTER = 256;
-        const int CHARACTER_OFFSET = 1;
-        const int TOTAL_LENGTH = MAX_CHARACTER + CHARACTER_OFFSET;
-        const int m_msdCharacterArray[TOTAL_LENGTH];
+        const int INSERT_SORT_THRESHOLD = 100;
+        enum{
+            MAX_CHARACTER =256,
+            CHARACTER_OFFSET = 1,
+TOTAL_LENGTH =MAX_CHARACTER +CHARACTER_OFFSET
+        };
+//        static const int MAX_CHARACTER;
+//        static const int CHARACTER_OFFSET;
+//        static const int TOTAL_LENGTH;
+//        int m_msdCharacterArray[TOTAL_LENGTH];
     };
 
+//const int StoryFileManager::MAX_CHARACTER = 256;
+//const int StoryFileManager::CHARACTER_OFFSET = 1;
+//const int StoryFileManager::TOTAL_LENGTH = MAX_CHARACTER + CHARACTER_OFFSET;
 
     template<int column, int MAX_CONTENT_LENGTH>
     bool StoryFileManager::LoadTableFile(
