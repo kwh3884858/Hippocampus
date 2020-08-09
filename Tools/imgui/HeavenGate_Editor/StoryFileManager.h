@@ -62,20 +62,20 @@ namespace HeavenGateEditor {
         void QuickSortFilesInternal(char(*fileList)[MAX_FOLDER_PATH], int pivot, int left, int right);
 
         const int INSERT_SORT_THRESHOLD = 0;
-        enum{
-            MAX_CHARACTER =256,
+        enum {
+            MAX_CHARACTER = 256,
             CHARACTER_OFFSET = 2,
-TOTAL_LENGTH =MAX_CHARACTER +CHARACTER_OFFSET
+            TOTAL_LENGTH = MAX_CHARACTER + CHARACTER_OFFSET
         };
-//        static const int MAX_CHARACTER;
-//        static const int CHARACTER_OFFSET;
-//        static const int TOTAL_LENGTH;
-//        int m_msdCharacterArray[TOTAL_LENGTH];
+        //        static const int MAX_CHARACTER;
+        //        static const int CHARACTER_OFFSET;
+        //        static const int TOTAL_LENGTH;
+        //        int m_msdCharacterArray[TOTAL_LENGTH];
     };
 
-//const int StoryFileManager::MAX_CHARACTER = 256;
-//const int StoryFileManager::CHARACTER_OFFSET = 1;
-//const int StoryFileManager::TOTAL_LENGTH = MAX_CHARACTER + CHARACTER_OFFSET;
+    //const int StoryFileManager::MAX_CHARACTER = 256;
+    //const int StoryFileManager::CHARACTER_OFFSET = 1;
+    //const int StoryFileManager::TOTAL_LENGTH = MAX_CHARACTER + CHARACTER_OFFSET;
 
     template<int column, int MAX_CONTENT_LENGTH>
     bool StoryFileManager::LoadTableFile(
