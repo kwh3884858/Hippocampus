@@ -39,6 +39,7 @@ namespace GamePlay.Stage
             m_currentSceneSlot.AddCallbackAfterLoaded(delegate () {
                 CameraService.Instance.UpdateCurrentCamera();
                 DisplayCurrentSceneNameTip ();
+                CinemachineManager.Instance.SetBoundingVolumeByName(GetCurrentSceneEnum().ToString());// set camera move range
             });
         }
         public bool LoadScene(SceneLookupEnum scene)

@@ -13,23 +13,23 @@ using Config.GameRoot;
 
 namespace UI.Panels.GameScene.MainManu
 {
-	public class MainManuPanel : UIPanel<UIDataProvider, DataProvider>
-	{
-		public override void ShowData(DataProvider data)
-		{
-			base.ShowData(data);
-			EventManager.Instance.AddEventListener<PlayerLoadArchiveEvent>(OnPlayerLoadArchive);
-		}
+    public class MainManuPanel : UIPanel<UIDataProvider, DataProvider>
+    {
+        public override void ShowData(DataProvider data)
+        {
+            base.ShowData(data);
+            EventManager.Instance.AddEventListener<PlayerLoadArchiveEvent>(OnPlayerLoadArchive);
+        }
 
-		public override void Hide()
-		{
-			base.Hide();
-			EventManager.Instance.RemoveEventListener<PlayerLoadArchiveEvent>(OnPlayerLoadArchive);
+        public override void Hide()
+        {
+            base.Hide();
+            EventManager.Instance.RemoveEventListener<PlayerLoadArchiveEvent>(OnPlayerLoadArchive);
 
-		}
+        }
 
-		public void ShowHud ()
-		{
+        public void ShowHud()
+        {
             //			UiDataProvider.StaticBoard.ShowTalk ("9", OnTalkEnd);
             //GamePlay.Player.PlayerController.Instance().SetMoveEnable(true);
 #if UNITY_ANDROID || UNITY_IPHONE
@@ -37,31 +37,31 @@ namespace UI.Panels.GameScene.MainManu
 #endif
         }
 
-        public void HidSelef ()
-		{
-			base.InvokeHidePanel ();
-			// 测试
-			//this.gameObject.SetActive(false);
-		}
+        public void HidSelef()
+        {
+            base.InvokeHidePanel();
+            // 测试
+            //this.gameObject.SetActive(false);
+        }
 
-		/// <summary>
-		/// 点击开始游戏按钮，手动绑定
-		/// </summary>
-		public void OnClickStartBtn ()
-		{
-			//未读取存档
-			if (UiDataProvider.ControllerManager.PlayerArchiveController.CurrentSaveIndex == -1)
-			{
-				UiDataProvider.ControllerManager.PlayerArchiveController.LoadData(0);
-				return;
-			}
+        /// <summary>
+        /// 点击开始游戏按钮，手动绑定
+        /// </summary>
+        public void OnClickStartBtn()
+        {
+            //未读取存档
+            if (UiDataProvider.ControllerManager.PlayerArchiveController.CurrentSaveIndex == -1)
+            {
+                UiDataProvider.ControllerManager.PlayerArchiveController.LoadData(0);
+                return;
+            }
 
-			HidSelef ();
+            HidSelef();
             //Now we don`t load scene in UI button, we use mission to manager state, and input system UI like HUD should display when player is controllable.
             GameSceneManager.Instance.LoadScene(ConfigRoot.Instance.StartScene);
             MissionSceneManager.Instance.LoadMissionScene(ConfigRoot.Instance.StartMission);
-            CallbackTime (1, ShowHud);
-			UIManager.Instance ().ActivatState (GameState.Battle);// 设置当前状态,wywtsest
+            CallbackTime(1, ShowHud);
+            UIManager.Instance().ActivatState(GameState.Battle);// 设置当前状态,wywtsest
             UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonGameplayPanel);// 显示助手UI
             //StarPlatinum.PrefabManager.Instance.LoadScene (SceneLookupEnum.World_Episode2_Pier, UnityEngine.SceneManagement.LoadSceneMode.Additive);
         }
@@ -69,43 +69,43 @@ namespace UI.Panels.GameScene.MainManu
         /// <summary>
         /// 点击载入游戏按钮
         /// </summary>
-        public void OnClickLoadBtn ()
-		{
-//			UIManager.Instance ().ShowPanel (UIPanelType.LoadGamePanel);
-			UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonLoadarchivePanel, new ArchiveDataProvider(){ Type = ArchivePanelType.Load});
-		}
-
-		/// <summary>
-		/// 点击游戏设置按钮
-		/// </summary>
-		public void OnClickSettingBtn ()
-		{
+        public void OnClickLoadBtn()
+        {
+            //			UIManager.Instance ().ShowPanel (UIPanelType.LoadGamePanel);
+            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonLoadarchivePanel, new ArchiveDataProvider() { Type = ArchivePanelType.Load });
         }
 
-		/// <summary>
-		/// 点击制作人员列表按钮
-		/// </summary>
-		public void OnClickProductionStaffBtn ()
-		{
+        /// <summary>
+        /// 点击游戏设置按钮
+        /// </summary>
+        public void OnClickSettingBtn()
+        {
+        }
 
-		}
+        /// <summary>
+        /// 点击制作人员列表按钮
+        /// </summary>
+        public void OnClickProductionStaffBtn()
+        {
 
-		/// <summary>
-		/// 点击退出游戏按钮
-		/// </summary>
-		public void OnClickExitBtn ()
-		{
-			Application.Quit ();// 退出游戏
-		}
+        }
 
-		private void OnTalkEnd ()
-		{
-			GamePlay.Player.PlayerController.Instance ().SetMoveEnable (true);
-		}
+        /// <summary>
+        /// 点击退出游戏按钮
+        /// </summary>
+        public void OnClickExitBtn()
+        {
+            Application.Quit();// 退出游戏
+        }
 
-		private void OnPlayerLoadArchive(object sender, PlayerLoadArchiveEvent e)
-		{
-			OnClickStartBtn();
-		}
-	}
+        private void OnTalkEnd()
+        {
+            GamePlay.Player.PlayerController.Instance().SetMoveEnable(true);
+        }
+
+        private void OnPlayerLoadArchive(object sender, PlayerLoadArchiveEvent e)
+        {
+            OnClickStartBtn();
+        }
+    }
 }
