@@ -375,6 +375,7 @@ namespace HeavenGateEditor {
         for (int i = 0; i < fileCount; i++)
         {
             auxiliaryArray[i] = new char[MAX_FOLDER_PATH];
+            memset(auxiliaryArray[i], '\0', MAX_FOLDER_PATH);
         }
 
         MSDStringSort(pOutFileList, 0, fileCount - 1, 0, auxiliaryArray);
@@ -389,7 +390,7 @@ namespace HeavenGateEditor {
 
     void StoryFileManager::MSDStringSort(char(*pOutFileList)[MAX_FOLDER_PATH], int low, int high, int d, char ** const auxiliaryArray)
     {
-        if (low + INSERT_SORT_THRESHOLD > high)
+        if (low + INSERT_SORT_THRESHOLD >= high)
         {
             InsertSort(pOutFileList, low, high, d);
         }
@@ -400,7 +401,7 @@ namespace HeavenGateEditor {
             for (int i = low; i <= high; i++)
             {
                 int index = CharAt(pOutFileList[i], d);
-                m_msdCharacterArray[index + 1] ++; //-1 ~ 255 => 0 ~ 256, total 257
+                m_msdCharacterArray[index + 2] ++; //-1 ~ 255 => 1 ~ 257, total 258
             }
             for (int i = 1; i < TOTAL_LENGTH; i++)
             {
@@ -408,7 +409,7 @@ namespace HeavenGateEditor {
             }
             for (int i = low; i <= high; i++)
             {
-                char character = pOutFileList[i][d];
+                char character = CharAt(pOutFileList[i], d) + 1; //0 ~ 256, 0 means empty, 1 means 0
                 int index = m_msdCharacterArray[(int)character]++;
                 strcpy(auxiliaryArray[index], pOutFileList[i]);
             }
@@ -418,7 +419,7 @@ namespace HeavenGateEditor {
             }
             for (int i = 0; i < MAX_CHARACTER; i++)
             {
-                MSDStringSort(pOutFileList, m_msdCharacterArray[i], m_msdCharacterArray[i + 1] - 1, d + 1, auxiliaryArray);
+                MSDStringSort(pOutFileList,low + m_msdCharacterArray[i],low + m_msdCharacterArray[i + 1] - 1, d + 1, auxiliaryArray); // position of sub string array should start from the beginning position, low position, of array.
             }
         }
     }

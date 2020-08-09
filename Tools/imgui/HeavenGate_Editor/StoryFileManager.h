@@ -61,10 +61,10 @@ namespace HeavenGateEditor {
         void QuickSortFiles(char(*fileList)[MAX_FOLDER_PATH], int fileCount);
         void QuickSortFilesInternal(char(*fileList)[MAX_FOLDER_PATH], int pivot, int left, int right);
 
-        const int INSERT_SORT_THRESHOLD = 100;
+        const int INSERT_SORT_THRESHOLD = 0;
         enum{
             MAX_CHARACTER =256,
-            CHARACTER_OFFSET = 1,
+            CHARACTER_OFFSET = 2,
 TOTAL_LENGTH =MAX_CHARACTER +CHARACTER_OFFSET
         };
 //        static const int MAX_CHARACTER;
