@@ -139,15 +139,15 @@ int StoryJson::InsertJump(const char* jumpName, const char* jumpContent, int ind
 }
 
 
-int StoryJson::AddExhibit(const char *exhibitName) {
-    StoryExhibit* jump = new StoryExhibit;
-    jump->m_nodeType = NodeType::Exhibit;
-    strcpy(jump->m_exhibitID, exhibitName);
-
-    return  AddNode(jump);
+int StoryJson::AddExhibit(const char *exhibitName, const char* exhibitPrefix) {
+    StoryExhibit* exhibit = new StoryExhibit;
+    exhibit->m_nodeType = NodeType::Exhibit;
+    strcpy(exhibit->m_exhibitID, exhibitName);
+    strcpy(exhibit->m_exhibitPrefix, exhibitPrefix);
+    return  AddNode(exhibit);
 }
 
-int StoryJson::InsertExhibit(const char* exhibitName, int index){
+int StoryJson::InsertExhibit(const char* exhibitName, const char* exhibitPrefix, int index){
     int i = 0;
     for (auto iter = m_nodes.cbegin(); iter != m_nodes.cend(); iter++)
     {
@@ -156,6 +156,7 @@ int StoryJson::InsertExhibit(const char* exhibitName, int index){
             StoryExhibit* exhibit = new StoryExhibit;
             exhibit->m_nodeType = NodeType::Exhibit;
             strcpy(exhibit->m_exhibitID, exhibitName);
+            strcpy(exhibit->m_exhibitPrefix, exhibitPrefix);
             m_nodes.insert(iter, exhibit);
         }
 

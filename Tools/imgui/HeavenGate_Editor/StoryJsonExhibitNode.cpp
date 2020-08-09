@@ -13,12 +13,14 @@ namespace HeavenGateEditor {
 
     enum class ExhibitLayout {
         NodeTypeName = 0,
-        Name
+        Name,
+        ExhibitPrefix
     };
 
     extern char exhibitString[][MAX_ENUM_LENGTH] = {
         "typename",
-        "exhibitName"
+        "exhibitName",
+        "exhibitPrefix"
     };
 
     StoryExhibit::StoryExhibit() {
@@ -30,18 +32,20 @@ namespace HeavenGateEditor {
 
         m_nodeType = NodeType::Exhibit;
         strcpy(m_exhibitID, storyExhibit.m_exhibitID);
+        strcpy(m_exhibitPrefix, storyExhibit.m_exhibitPrefix);
     }
 
     void to_json(json& j, const StoryExhibit& p) {
         j = json{
               {exhibitString[(int)ExhibitLayout::NodeTypeName],  nodeTypeString[(int)p.m_nodeType] },
-              {exhibitString[(int)ExhibitLayout::Name],          p.m_exhibitID}
+              {exhibitString[(int)ExhibitLayout::Name],          p.m_exhibitID},
+              {exhibitString[(int)ExhibitLayout::ExhibitPrefix],          p.m_exhibitPrefix}
         };
     }
     void from_json(const json& j, StoryExhibit& p) {
         p.m_nodeType = NodeType::Exhibit;
         GetContentException(p.m_exhibitID, j, exhibitString[(int)ExhibitLayout::Name]);
-
+        GetContentException(p.m_exhibitPrefix, j, exhibitString[(int)ExhibitLayout::ExhibitPrefix]);
     }
 
 }

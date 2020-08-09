@@ -51,8 +51,8 @@ namespace HeavenGateEditor {
         int AddJump(const char* jumpName, const char* jumpContent);
         int InsertJump(const char* jumpName, const char* jumpContent, int index);
 
-        int AddExhibit(const char* exhibitName);
-        int InsertExhibit(const char* exhibitName, int index);
+        int AddExhibit(const char* exhibitName, const char* exhibitPrefix);
+        int InsertExhibit(const char* exhibitName, const char* exhibitPrefix, int index);
 
         int AddEvent(const char* eventName);
         int InsertEvent(const char* eventName, int index);

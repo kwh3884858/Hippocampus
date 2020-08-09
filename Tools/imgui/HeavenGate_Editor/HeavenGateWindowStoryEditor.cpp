@@ -125,6 +125,7 @@ namespace HeavenGateEditor {
         static char* content = nullptr;
         static char* label = nullptr;
         static char* exhibitID = nullptr;
+        static char* exhibitPrefix = nullptr;
         static char* eventName = nullptr;
         static char* jump = nullptr;
         static char* jumpContent = nullptr;
@@ -365,10 +366,13 @@ namespace HeavenGateEditor {
                     assert(exhibit != nullptr);
 
                     char exhibitContent[16] = "Exhibit";
+                    char exhibitPrefixConstant[16] = "Prefix";
                     char tmpExhibit[32] = "No Exhibit";
                     strcat(exhibitContent, order);
+                    strcat(exhibitPrefixConstant, order);
 
                     exhibitID = exhibit->m_exhibitID;
+                    exhibitPrefix = exhibit->m_exhibitPrefix;
                     strcpy(thumbnail, order);
                     strcat(thumbnail, "_Exhibit: ");
                     strcat(thumbnail, exhibitID);
@@ -379,9 +383,12 @@ namespace HeavenGateEditor {
 
                         AddButton(i);
                         ImGui::InputTextWithHint(exhibitContent, "Enter Exhibit ID here", exhibitID, MAX_EXHIBIT_NAME);
+                        ImGui::InputTextWithHint(exhibitPrefixConstant, "Enter label prefix when select wrong exhibit here", exhibitPrefix, MAX_ID_TITLE);
 
                         if (strlen(exhibitID) == 0) {
                             strcpy(tmpExhibit, "Please Enter Exhibit ID");
+                        }if(strlen(exhibitPrefix) == 0){
+                            strcpy(tmpExhibit, "Please Enter Exhibit Prefix");
                         }else{
                             const StoryTable<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>* const exhibitTable = StoryTableManager::Instance().GetExhibitTable();
 
@@ -469,7 +476,7 @@ namespace HeavenGateEditor {
 
         if (ImGui::Button("Add new exhibit")) {
             if (m_storyJson != nullptr) {
-                m_storyJson->AddExhibit("");
+                m_storyJson->AddExhibit("", "");
                 AddNotification("Add New Exhibit");
             }
         }
@@ -642,7 +649,7 @@ namespace HeavenGateEditor {
             ImGui::SameLine();
             if (ImGui::Button("Insert New Exhibit")) {
                 if (m_storyJson != nullptr) {
-                    m_storyJson->InsertExhibit("", index);
+                    m_storyJson->InsertExhibit("", "", index);
                     AddNotification("Insert New Exhibit");
                 }
             }
