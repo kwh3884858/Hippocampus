@@ -39,7 +39,6 @@ namespace UI.Panels.StaticBoard
             private string m_fontSize;
             private string m_font;
             private bool m_bold;
-            private int m_wrapNum=0;
             private float m_typewriterInterval = StoryConfig.Ins.ChineseContentSpeed;
 
             public float TypewriterInterval
@@ -91,11 +90,6 @@ namespace UI.Panels.StaticBoard
                 m_bold = !m_bold;
             }
 
-            public void PushWrap()
-            {
-                m_wrapNum++;
-            }
-            
             public void ClearData()
             {
                 m_color = null;
@@ -130,12 +124,7 @@ namespace UI.Panels.StaticBoard
                     builder.Insert(0, $"<b>");
                     builder.Append("</b>");
                 }
-
-                while (m_wrapNum>0)
-                {
-                    m_wrapNum--;
-                    builder.Append("\n");
-                }
+                
 
                 return builder.ToString();
             }
@@ -353,7 +342,7 @@ namespace UI.Panels.StaticBoard
                     SetActionState(ActionState.End);
                     break;
                 case StoryActionType.Wrap:
-                    m_textHelp.PushWrap();
+                    m_content.text += '\n';
                     SetActionState(ActionState.End);
                     break;
                 default:
