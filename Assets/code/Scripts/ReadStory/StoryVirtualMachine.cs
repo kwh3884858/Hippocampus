@@ -183,7 +183,11 @@ namespace StarPlatinum.StoryCompile
 					//Start close
 					isReadCloseLabel = true;
 				} else if (token.m_tokeType == StoryCompiler.TokenType.TokenContent) {
-					m_container.PushContent (token.m_content);
+					string[] contents = token.m_content.Split ('\n');
+					foreach (var content in contents) {
+						m_container.PushContent (content);
+						m_container.PushWrap ();
+					}
 				}
 
 			}

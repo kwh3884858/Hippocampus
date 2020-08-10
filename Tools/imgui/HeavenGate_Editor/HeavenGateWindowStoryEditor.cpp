@@ -1139,7 +1139,6 @@ namespace HeavenGateEditor {
         char nameConstant[16] = "Name ";
         char contentConstant[16] = "Content ";
 
-
         sprintf(order, "%d", index);
         strcat(nameConstant, order);
         strcat(contentConstant, order);
@@ -1160,8 +1159,8 @@ namespace HeavenGateEditor {
             AddButton(index);
 
             ImGui::InputTextWithHint(nameConstant, "Enter name here", name, MAX_NAME);
-            ImGui::InputTextWithHint(contentConstant, "Enter Content here", content, MAX_CONTENT, ImGuiInputTextFlags_CallbackAlways, WordContentCallback);
-
+            //ImGui::InputTextWithHint(contentConstant, "Enter Content here", content, MAX_CONTENT, ImGuiInputTextFlags_CallbackAlways, WordContentCallback);
+            ImGui::InputTextMultiline(contentConstant, content, MAX_CONTENT - 4, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 4), ImGuiInputTextFlags_None);
 
             ImGui::TreePop();
         }
