@@ -20,6 +20,10 @@ namespace Controllers.Subsystems
     {
         public void PushLog(StoryAction action,string selectID =null)
         {
+            if (m_logInfos.Count >= MAXLogNum && action.Type!= StoryActionType.Content)
+            {
+                m_logInfos.RemoveAt(0);
+            }
             switch (action.Type)
             {
                 case StoryActionType.Name:
@@ -89,6 +93,7 @@ namespace Controllers.Subsystems
             
         }
 
+        private int MAXLogNum = 300;
         private List<LogInfo> m_logInfos = new List<LogInfo>();
     }
 }

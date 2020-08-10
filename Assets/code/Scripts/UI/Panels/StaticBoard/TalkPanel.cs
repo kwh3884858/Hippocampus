@@ -148,7 +148,6 @@ namespace UI.Panels.StaticBoard
         public override void Hide()
         {
             base.Hide();
-            LogController.LogEnd();
             m_autoPlay = false;
             m_highSpeed = false;
             GamePlay.Player.PlayerController.Instance().SetMoveEnable(true);
