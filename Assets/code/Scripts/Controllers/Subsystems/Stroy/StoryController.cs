@@ -243,11 +243,6 @@ namespace Controllers.Subsystems.Story
 
 				case StoryReader.NodeType.raiseEvent:
 					string eventName =m_storys.GetEventName ();
-					if (eventName.Contains("CG_Scene")) {
-						container.ChangeBackground (eventName);
-						m_storys.NextStory ();
-						break;
-					}
 
 					switch (m_storys.GetEventType ()) {
 					case StoryReader.EventType.loadScene:
@@ -268,6 +263,10 @@ namespace Controllers.Subsystems.Story
 						break;
 					case StoryReader.EventType.playAnimation:
 						container.PlayAnimation (eventName);
+						break;
+
+					case StoryReader.EventType.LoadBackground:
+						container.ChangeBackground (eventName);
 						break;
 
 					default:
