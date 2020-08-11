@@ -71,6 +71,8 @@ CameraService.SceneCameraType m_World_GoundTestSceneCameraType;
 
  CameraService.SceneCameraType m_World_Mission_EP02_06_World_2F_West_CorriderCameraType; 
 
+ CameraService.SceneCameraType m_World_Mission_Programmer_DockByPier_Poison_Island_PierCameraType; 
+
  CameraService.SceneCameraType m_World_Kitchen_CorriderCameraType; 
 
  CameraService.SceneCameraType m_World_Mission_EP02_11_1F_South_Corrider_World_1F_West_CorriderCameraType; 
@@ -335,6 +337,13 @@ m_World_Mission_EP02_06_World_2F_West_CorriderCameraType = (CameraService.SceneC
     if (m_World_Mission_EP02_06_World_2F_West_CorriderCameraType != ConfigRoot.Instance.World_Mission_EP02_06_World_2F_West_CorriderCameraType) 
 { 
 ConfigRoot.Instance.World_Mission_EP02_06_World_2F_West_CorriderCameraType = m_World_Mission_EP02_06_World_2F_West_CorriderCameraType; 
+} 
+
+m_World_Mission_Programmer_DockByPier_Poison_Island_PierCameraType = ConfigRoot.Instance.World_Mission_Programmer_DockByPier_Poison_Island_PierCameraType;  
+m_World_Mission_Programmer_DockByPier_Poison_Island_PierCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_Mission_Programmer_DockByPier_Poison_Island_Pier Camera Type: ", m_World_Mission_Programmer_DockByPier_Poison_Island_PierCameraType); 
+    if (m_World_Mission_Programmer_DockByPier_Poison_Island_PierCameraType != ConfigRoot.Instance.World_Mission_Programmer_DockByPier_Poison_Island_PierCameraType) 
+{ 
+ConfigRoot.Instance.World_Mission_Programmer_DockByPier_Poison_Island_PierCameraType = m_World_Mission_Programmer_DockByPier_Poison_Island_PierCameraType; 
 } 
 
 m_World_Kitchen_CorriderCameraType = ConfigRoot.Instance.World_Kitchen_CorriderCameraType;  

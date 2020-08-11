@@ -14,7 +14,7 @@ namespace GamePlay.Stage
     public enum MissionEnum
     {
         None,
-        DockByPier,
+        Programmer_DockByPier,
         EnterIsland,
         EP01_01,
         EP01_02,
@@ -233,7 +233,7 @@ namespace GamePlay.Stage
         private MissionEnum m_currentMission = MissionEnum.None;
         private MissionEnum[] ALL_MISSION = {
         MissionEnum.None,
-        MissionEnum.DockByPier,
+        MissionEnum.Programmer_DockByPier,
         MissionEnum.EnterIsland,
         MissionEnum.EP01_01,
         MissionEnum.EP01_02,

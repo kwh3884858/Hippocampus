@@ -6,14 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/data/graphics/World/1F_middle_Corrider/World_1F_Middle_Corrider.unity
-    guid: 0841a4a00d3e5234d9836661a0ffcbb7
-  - enabled: 0
     path: Assets/data/graphics/World/1F_South_Corrider/World_1F_South_Corrider.unity
     guid: f79125c6d14d82d48802f42aaaf5b074
   - enabled: 0
     path: Assets/data/graphics/World/1F_West_Corrider/World_1F_West_Corrider.unity
     guid: f14695477dccae34c9e5da240881ab58
+  - enabled: 0
+    path: Assets/data/graphics/World/1F_middle_Corrider/World_1F_Middle_Corrider.unity
+    guid: 0841a4a00d3e5234d9836661a0ffcbb7
   - enabled: 0
     path: Assets/data/graphics/World/2F_East_Corrider/World_2F_East_Corrider.unity
     guid: 239b4ffd2d37f1c4d9766a24281c5120
@@ -53,12 +53,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/data/graphics/World/Mission_DockByPier_World_Episode4_DoctorRoom/World_Mission_DockByPier_World_Episode4_DoctorRoom.unity
     guid: 71ec58a1ef8a2834aa253a4a720a1e8b
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EnterIsland_World_Episode2_Pier/World_Mission_EnterIsland_World_Episode2_Pier.unity
-    guid: 4838297a085504d40bbdb8f264ca3ac2
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EnterIsland_World_Episode3_Hall/World_Mission_EnterIsland_World_Episode3_Hall.unity
-    guid: 2c5a0362cd4174fdb9dfaf14d6230d0c
   - enabled: 0
     path: Assets/data/graphics/World/Mission_EP01_01_Poison_Island_Pier/World_Mission_EP01_01_Poison_Island_Pier.unity
     guid: 1cf2ccd3a985a4aa4b7fa82e8798fd1a
@@ -155,6 +149,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/data/graphics/World/Mission_EP03_World_Kitchen_Corrider/World_Mission_EP03_World_Kitchen_Corrider.unity
     guid: b998ff87fee4e472e8c54567b44626f9
+  - enabled: 0
+    path: Assets/data/graphics/World/Mission_EnterIsland_World_Episode2_Pier/World_Mission_EnterIsland_World_Episode2_Pier.unity
+    guid: 4838297a085504d40bbdb8f264ca3ac2
+  - enabled: 0
+    path: Assets/data/graphics/World/Mission_EnterIsland_World_Episode3_Hall/World_Mission_EnterIsland_World_Episode3_Hall.unity
+    guid: 2c5a0362cd4174fdb9dfaf14d6230d0c
+  - enabled: 0
+    path: Assets/data/graphics/World/Mission_Programmer_DockByPier_Poison_Island_Pier/World_Mission_Programmer_DockByPier_Poison_Island_Pier.unity
+    guid: 4000de300f8ad4934a0e592c707d6db9
   - enabled: 0
     path: Assets/data/graphics/World/Poison_Island_Pier/Poison_Island_Pier.unity
     guid: 76f726a6d946e154aa0feafe8f5a72ad

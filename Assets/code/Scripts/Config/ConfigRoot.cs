@@ -128,6 +128,10 @@ private string World_Mission_EP02_06_World_2F_West_CorriderName = "World_Mission
  public CameraService.SceneCameraType World_Mission_EP02_06_World_2F_West_CorriderCameraType;  
 
 [SerializeField]
+private string World_Mission_Programmer_DockByPier_Poison_Island_PierName = "World_Mission_Programmer_DockByPier_Poison_Island_Pier"; 
+ public CameraService.SceneCameraType World_Mission_Programmer_DockByPier_Poison_Island_PierCameraType;  
+
+[SerializeField]
 private string World_Kitchen_CorriderName = "World_Kitchen_Corrider"; 
  public CameraService.SceneCameraType World_Kitchen_CorriderCameraType;  
 
@@ -328,6 +332,9 @@ case "World_Mission_EP01_03_Poison_Island_Pier" :
 
 case "World_Mission_EP02_06_World_2F_West_Corrider" :  
    return World_Mission_EP02_06_World_2F_West_CorriderCameraType; 
+
+case "World_Mission_Programmer_DockByPier_Poison_Island_Pier" :  
+   return World_Mission_Programmer_DockByPier_Poison_Island_PierCameraType; 
 
 case "World_Kitchen_Corrider" :  
    return World_Kitchen_CorriderCameraType; 
