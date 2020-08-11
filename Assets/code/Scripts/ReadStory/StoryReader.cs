@@ -88,6 +88,14 @@ namespace StarPlatinum.StoryReader
 			return data.exhibitName;
 		}
 
+		public string GetExhibitPrefix ()
+		{
+			Assert.IsTrue (m_story [m_index].typename == NodeType.exhibit.ToString ());
+
+			StoryExhibitData data = m_story [m_index] as StoryExhibitData;
+			return data.exhibitPrefix;
+		}
+
 		public EventType GetEventType ()
 		{
 			Assert.IsTrue (m_story [m_index].typename == NodeType.raiseEvent.ToString ());
@@ -406,6 +414,7 @@ namespace StarPlatinum.StoryReader
 	public class StoryExhibitData : StoryBasicData
 	{
 		public string exhibitName;
+		public string exhibitPrefix;
 	}
 
 	[System.Serializable]

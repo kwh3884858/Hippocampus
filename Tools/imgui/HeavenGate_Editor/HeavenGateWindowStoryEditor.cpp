@@ -1161,7 +1161,7 @@ namespace HeavenGateEditor {
 
             ImGui::InputTextWithHint(nameConstant, "Enter name here", name, MAX_NAME);
             //ImGui::InputTextWithHint(contentConstant, "Enter Content here", content, MAX_CONTENT, ImGuiInputTextFlags_CallbackAlways, WordContentCallback);
-            ImGui::InputTextMultiline(contentConstant, content, MAX_CONTENT - 4, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 4), ImGuiInputTextFlags_None);
+            ImGui::InputTextMultiline(contentConstant, content, MAX_CONTENT - 4, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 4), ImGuiInputTextFlags_CallbackAlways, WordContentCallback);
 
             ImGui::TreePop();
         }
