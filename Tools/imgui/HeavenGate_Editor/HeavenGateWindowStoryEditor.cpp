@@ -1250,7 +1250,7 @@ namespace HeavenGateEditor {
             char labelID[MAX_ID];
             strcpy(labelID, fileName);
             strcat(labelID, "_0");
-            story->AddLabel(fileName);
+            story->AddLabel(labelID);
         }
         else {
             printf("Illegal File Name");
