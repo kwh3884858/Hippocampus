@@ -27,17 +27,20 @@ namespace Evidence
     public class SingleEvidenceData
     {
         //public int id;
+        public string exhibitID;
         public string exhibit;
         public string description;
+        /// <summary>详情图片</summary>
+        public string exhibitImageName;
         /// <summary>是否锁定</summary>
         //public bool isLock;
 
-        public SingleEvidenceData(/*int vId,*/ string vExhibit, string vDescription/*, bool vIsLock = true*/)
+        public SingleEvidenceData(string exhibitID, string vExhibit, string vDescription, string exhibitImageName)
         {
-            //id = vId;
+            this.exhibitID = exhibitID;
             exhibit = vExhibit;
             description = vDescription;
-            //isLock = vIsLock;
+            this.exhibitImageName = exhibitImageName;
         }
     }
 }

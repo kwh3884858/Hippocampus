@@ -28,14 +28,14 @@ namespace Evidence
                     for (i = 0; i < vCount; i += 1)
                     {
                         vSub = details[i];
-                        if (!dic.ContainsKey(vSub.exhibit))
+                        if (!dic.ContainsKey(vSub.exhibitID))
                         {
-                            dic.Add(vSub.exhibit, vSub);
+                            dic.Add(vSub.exhibitID, vSub);
                         }
 #if UNITY_EDITOR
                         else
                         {
-                            Debug.LogWarningFormat("证据表的信息重复：{0}", vSub.exhibit);
+                            Debug.LogWarningFormat("证据表的信息重复：{0}", vSub.exhibitID);
                         }
 #endif
                     }
@@ -75,10 +75,13 @@ namespace Evidence
 
             ///// <summary>证据id</summary>
             //public int id;
+            public string exhibitID;
             /// <summary>证据名称</summary>
             public string exhibit;
             /// <summary>描述</summary>
             public string description;
+            /// <summary>证物的详情图片的路径</summary>
+            public string exhibitImageName;
         }
     }
 }

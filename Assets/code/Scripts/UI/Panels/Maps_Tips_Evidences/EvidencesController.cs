@@ -15,7 +15,7 @@ public class EvidencesController : MonoBehaviour
     private EvidenceDataManager m_dataManager = null;
     private List<SingleEvidenceController> m_evidenceList = new List<SingleEvidenceController>();
 
-    public void Init(System.Action closeUI, System.Action onShowEvidence)
+    public void Init(System.Action closeUI, System.Action<string> onShowEvidence)
     {
         SetData();
         m_CloseUI = closeUI;
@@ -108,6 +108,6 @@ public class EvidencesController : MonoBehaviour
     }
 
 
-    private System.Action m_onShowEvidence = null;
+    private System.Action<string> m_onShowEvidence = null;
     private System.Action m_CloseUI = null;
 }

@@ -16,7 +16,7 @@ public class EvidenceIntroController : MonoBehaviour
     [SerializeField]
     private GameObject m_showBtn = null;
 
-    public void Init(System.Action closeEvidenceUI, System.Action onShowEvidence = null)
+    public void Init(System.Action closeEvidenceUI, System.Action<string> onShowEvidence = null)
     {
         m_closeEvidenceUI = closeEvidenceUI;
         m_onShowEvidence = onShowEvidence;
@@ -45,22 +45,26 @@ public class EvidenceIntroController : MonoBehaviour
 
     public void OnClickSelect()
     {
-        // 目前由证物系统对错误结果进行处理
-        if (Evidence.EvidenceDataManager.Instance.IsCorrectEvidence(m_data.exhibit))
-        {
-            m_closeEvidenceUI?.Invoke();
-            m_closeEvidenceUI = null;
-            m_onShowEvidence?.Invoke();
-            m_onShowEvidence = null;
-        }
-        else
-        {
-            // TODO: 提示选择错误
-            Debug.Log("select error");
-        }
+        //// 目前由证物系统对错误结果进行处理
+        //if (Evidence.EvidenceDataManager.Instance.IsCorrectEvidence(m_data.exhibit))
+        //{
+        //    m_closeEvidenceUI?.Invoke();
+        //    m_closeEvidenceUI = null;
+        //    m_onShowEvidence?.Invoke();
+        //    m_onShowEvidence = null;
+        //}
+        //else
+        //{
+        //    // TODO: 提示选择错误
+        //    Debug.Log("select error");
+        //}
+        m_closeEvidenceUI?.Invoke();
+        m_closeEvidenceUI = null;
+        m_onShowEvidence?.Invoke(m_data.exhibitID);
+        m_onShowEvidence = null;
     }
 
-    private System.Action m_onShowEvidence = null;
+    private System.Action<string> m_onShowEvidence = null;
     private System.Action m_closeEvidenceUI = null;
     /// <summary>证据数据</summary>
     private Evidence.SingleEvidenceData m_data = null;

@@ -84,6 +84,6 @@ namespace Evidence
             m_evidenceList.Clear();
         }
 
-        private System.Action m_onShowEvidence = null;
+        private System.Action<string> m_onShowEvidence = null;
     }
 }

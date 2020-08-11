@@ -65,18 +65,18 @@ namespace Evidence
         /// <summary>
         /// 添加证据
         /// </summary>
-        /// <param name="vId"></param>
-        public void AddEvidence(string vExhibit)
+        /// <param name="exhibitID">证物id</param>
+        public void AddEvidence(string exhibitID)
         {
-            if (MyEvidenceDic.ContainsKey(vExhibit))// 已经存在
+            if (MyEvidenceDic.ContainsKey(exhibitID))// 已经存在
             {
                 return;
             }
-            if (m_evidenceConfig.ContainsKey(vExhibit))
+            if (m_evidenceConfig.ContainsKey(exhibitID))
             {
-                EvidenceConfig.Detail data = m_evidenceConfig[vExhibit];
-                m_data.evidenceList.Add(vExhibit, new SingleEvidenceData(data.exhibit, data.description));
-                MyEvidenceDic.Add(vExhibit, new SingleEvidenceData(data.exhibit, data.description));
+                EvidenceConfig.Detail data = m_evidenceConfig[exhibitID];
+                m_data.evidenceList.Add(exhibitID, new SingleEvidenceData(data.exhibitID,data.exhibit, data.description, data.exhibitImageName));
+                MyEvidenceDic.Add(exhibitID, new SingleEvidenceData(data.exhibitID, data.exhibit, data.description, data.exhibitImageName));
                 //SaveData();
             }
 #if UNITY_EDITOR

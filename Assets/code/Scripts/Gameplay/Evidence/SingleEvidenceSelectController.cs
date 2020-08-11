@@ -26,7 +26,7 @@ namespace Evidence
             Init(UIPanelDataProvider.Data, UIPanelDataProvider.CloseEvidenceUI, UIPanelDataProvider.OnShowEvidence);
         }
 
-        public void Init(SingleEvidenceData vData, System.Action closeEvidenceUI, System.Action onShowEvidence)
+        public void Init(SingleEvidenceData vData, System.Action closeEvidenceUI, System.Action<string> onShowEvidence)
         {
             SetData(vData);
             m_closeEvidenceUI = closeEvidenceUI;
@@ -65,7 +65,7 @@ namespace Evidence
             {
                 m_closeEvidenceUI?.Invoke();
                 m_closeEvidenceUI = null;
-                m_onShowEvidence?.Invoke();
+                m_onShowEvidence?.Invoke(m_data.exhibit);
                 m_onShowEvidence = null;
             }
             else
@@ -85,7 +85,7 @@ namespace Evidence
         }
 
         private System.Action m_closeEvidenceUI = null;
-        private System.Action m_onShowEvidence = null;
+        private System.Action<string> m_onShowEvidence = null;
 
     }
 }

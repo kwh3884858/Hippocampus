@@ -535,7 +535,7 @@ namespace UI.Panels.StaticBoard
         {
         }
 
-        private void OnSelectEvidenceEnd()
+        private void OnSelectEvidenceEnd(string exhibitID)
         {
             m_skip = false;
             SetActionState(ActionState.End);
