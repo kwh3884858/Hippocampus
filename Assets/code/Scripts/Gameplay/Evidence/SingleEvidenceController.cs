@@ -21,7 +21,7 @@ namespace Evidence
         private SingleEvidenceData m_data = null;
         private EvidencesController m_father = null;
 
-        public void Init(EvidencesController father, SingleEvidenceData vData, Action closeEvidenceUI, Action onShowEvidence = null)
+        public void Init(EvidencesController father, SingleEvidenceData vData, Action closeEvidenceUI, Action<string> onShowEvidence = null)
         {
             SetData(vData);
             m_father = father;
@@ -30,7 +30,7 @@ namespace Evidence
             Show();
         }
 
-        public void Init(SingleEvidenceData vData, Action closeEvidenceUI, Action onShowEvidence = null)
+        public void Init(SingleEvidenceData vData, Action closeEvidenceUI, Action<string> onShowEvidence = null)
         {
             SetData(vData);
             m_closeEvidenceUI = closeEvidenceUI;
@@ -77,6 +77,6 @@ namespace Evidence
         }
 
         private Action m_closeEvidenceUI = null;
-        private Action m_onShowEvidence = null;
+        private Action<string> m_onShowEvidence = null;
     }
 }

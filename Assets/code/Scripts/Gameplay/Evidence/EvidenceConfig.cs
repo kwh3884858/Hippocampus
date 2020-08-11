@@ -75,10 +75,13 @@ namespace Evidence
 
             ///// <summary>证据id</summary>
             //public int id;
+            public string exhibitID;
             /// <summary>证据名称</summary>
             public string exhibit;
             /// <summary>描述</summary>
             public string description;
+            /// <summary>证物的详情图片的路径</summary>
+            public string exhibitImageName;
         }
     }
 }
