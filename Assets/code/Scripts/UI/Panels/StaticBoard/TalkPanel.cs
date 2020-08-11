@@ -297,11 +297,6 @@ namespace UI.Panels.StaticBoard
                     SetActionState(ActionState.End);
                     break;
                 case StoryActionType.ShowEvidence:
-                    EvidenceDataManager.Instance.SetCorrectEvidenceID(m_curAction.Content);
-                    //InvokeShowPanel(UIPanelType.Evidencepanel,new EvidenceDataProvider()
-                    //{
-                    //    OnShowEvidence = OnSelectEvidenceEnd,
-                    //});
                     InvokeShowPanel(UIPanelType.UICommonMapsTipsEvidencesPanel, new EvidenceDataProvider()
                     {
                         OnShowEvidence = OnSelectEvidenceEnd,
