@@ -23,6 +23,7 @@ namespace HeavenGateEditor {
         LoadMission,
         LoadScene,
         PlayAnimation,
+        LoadBackground,
         Amount
     };
 
@@ -30,7 +31,8 @@ namespace HeavenGateEditor {
         "invokeEvent",
         "loadMission",
         "loadScene",
-        "playAnimation"
+        "playAnimation",
+        "LoadBackground"
     };
 
     extern int EventTypeAmount = (int)EventType::Amount;
@@ -49,9 +51,9 @@ namespace HeavenGateEditor {
 
     void to_json(json& j, const StoryEvent& p) {
         j = json{
-              {eventString[(int)EventLayout::NodeTypeName],  nodeTypeString[(int)p.m_nodeType] },
-            {eventString[(int)EventLayout::EventType],         eventTypeString[(int)p.m_eventType]},
-              {eventString[(int)EventLayout::EventName],          p.m_eventName}
+              {eventString[(int)EventLayout::NodeTypeName],      nodeTypeString[(int)p.m_nodeType] },
+              {eventString[(int)EventLayout::EventType],         eventTypeString[(int)p.m_eventType]},
+              {eventString[(int)EventLayout::EventName],         p.m_eventName}
         };
     }
     void from_json(const json& j, StoryEvent& p) {
@@ -68,10 +70,15 @@ namespace HeavenGateEditor {
         }
         else if (strcmp(tmpEventType, eventTypeString[(int)EventType::InvokeEvent]) == 0) {
             p.m_eventType = EventType::InvokeEvent;
-        }else if (strcmp(tmpEventType, eventTypeString[(int)EventType::LoadScene]) == 0){
+        }
+        else if (strcmp(tmpEventType, eventTypeString[(int)EventType::LoadScene]) == 0) {
             p.m_eventType = EventType::LoadScene;
-        }else if (strcmp(tmpEventType, eventTypeString[(int)EventType::PlayAnimation]) == 0){
+        }
+        else if (strcmp(tmpEventType, eventTypeString[(int)EventType::PlayAnimation]) == 0) {
             p.m_eventType = EventType::PlayAnimation;
+        }
+        else if (strcmp(tmpEventType, eventTypeString[(int)EventType::LoadBackground]) == 0) {
+            p.m_eventType = EventType::LoadBackground;
         }
     }
 

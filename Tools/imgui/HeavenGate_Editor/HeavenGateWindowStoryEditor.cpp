@@ -427,13 +427,14 @@ namespace HeavenGateEditor {
                     strcat(eventContent, order);
 
                     eventName = event->m_eventName;
+                    EventType eventType = event->m_eventType;
                     strcpy(thumbnail, order);
                     strcat(thumbnail, "_Event: ");
+                    strcat(thumbnail, eventTypeString[(int)eventType]);
+                    strcat(thumbnail, "---");
                     strcat(thumbnail, eventName);
-
                     if (ImGui::TreeNode((void*)(intptr_t)i, thumbnail))
                     {
-                        EventType eventType = event->m_eventType;
                         AddButton(i);
 
                         if (ImGui::BeginCombo("Event Type", eventTypeString[(int)eventType], 0))
@@ -1246,6 +1247,9 @@ namespace HeavenGateEditor {
             }
             story->SetFullPath(folderPath);
             //Default Node
+            char labelID[MAX_ID];
+            strcpy(labelID, fileName);
+            strcat(labelID, "_0")
             story->AddLabel(fileName);
         }
         else {
