@@ -15,17 +15,19 @@ class StoryWord;
 
     public:
 
-        HeavenGateWindowPreview();
+        HeavenGateWindowPreview(){};
         virtual ~HeavenGateWindowPreview() override {}
 
         virtual void Initialize() override;
-        virtual void Shutdown() override { }
+        virtual void Shutdown() override;
         virtual void UpdateMainWindow() override;
         virtual void UpdateMenu() override {}
 
+        void SetPreviewWord(const StoryWord& word);
+
     private:
 
-        StoryWord* compiledWord;
+        StoryWord* m_compiledWord;
     };
 
 }

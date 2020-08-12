@@ -12,19 +12,17 @@
 #include "HeavenGateEditorConstant.h"
 #include "HeavenGateEditorBaseWindow.h"
 
-
 #include "nlohmann/json.hpp"
 #include "imgui.h"
-
-#include <deque>
 
 namespace HeavenGateEditor {
 
     using json = nlohmann::json;
-    using std::deque;
+
     class HeavenGateWindowSelectStory;
     class HeavenGatePopupInputFileName;
     class HeavenGatePopupMessageBox;
+class HeavenGateWindowPreview;
 
     //Story node family
     class StoryJson;
@@ -74,6 +72,7 @@ namespace HeavenGateEditor {
         HeavenGateWindowSelectStory* m_selectStoryWindow;
         HeavenGatePopupInputFileName* m_inputFileNamePopup;
         HeavenGatePopupMessageBox* m_messageBoxPopup;
+        HeavenGateWindowPreview* m_previewWindow;
 
         char m_notification[MAX_CONTENT];
     };
