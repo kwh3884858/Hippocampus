@@ -814,9 +814,8 @@ namespace HeavenGateEditor {
 
         bool isExhibit = false;
 
-
+        ImGui::InputTextMultiline("Preivew", "", 100 - 4, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 1));
         ImGui::Text("Preview:");
-
         for (auto iter = tokens.cbegin(); iter != tokens.end(); iter++)
         {
             if ((*iter)->m_tokeType == StoryJsonContentCompiler::TokenType::TokenContent)
