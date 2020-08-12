@@ -813,8 +813,8 @@ namespace HeavenGateEditor {
         memset(tmpPause, '\0', MAX_COLUMNS_CONTENT_LENGTH);
 
         bool isExhibit = false;
-
-        ImGui::InputTextMultiline("Preivew", "", 100 - 4, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 1));
+        //ImGui::EndChildFrame();
+        //ImGui::InputTextMultiline("Preivew", "", 100 - 4, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 1));
         ImGui::Text("Preview:");
         for (auto iter = tokens.cbegin(); iter != tokens.end(); iter++)
         {
