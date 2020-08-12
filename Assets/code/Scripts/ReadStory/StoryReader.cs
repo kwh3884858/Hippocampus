@@ -56,7 +56,8 @@ namespace StarPlatinum.StoryReader
 			invokeEvent,
 			loadMission,
 			loadScene,
-			playAnimation
+			playAnimation,
+			LoadBackground
 		};
 		//public List<StoryBasicData> GetSotry()
 		//{
