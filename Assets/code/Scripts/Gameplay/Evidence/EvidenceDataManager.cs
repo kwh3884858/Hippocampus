@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Controllers.Subsystems.Story;
 using Newtonsoft.Json;
 using StarPlatinum;
 using StarPlatinum.Base;
 using StarPlatinum.EventManager;
+using UI.Panels.Providers;
 using UnityEngine;
 
 namespace Evidence
@@ -139,6 +141,16 @@ namespace Evidence
             return m_curCorrectEvidenceID == evidenceID;
         }
 
+        public string GetEvidenceWrongID(string evidenceID,string prefix)
+        {
+            var label = prefix + evidenceID + "_0";
+            if (GameRunTimeData.Instance.ControllerManager.StoryController.IsLabelExist(label))
+            {
+                return label;
+            }
+            return null;
+        }
+
         private void OnPlayerPreSaveArchive(object sender, PlayerPreSaveArchiveEvent e)
         {
             GlobalManager.GetControllerManager().PlayerArchiveController.CurrentArchiveData.EvidenceArchiveData.EvidenceList = MyEvidenceDic;
@@ -152,6 +164,7 @@ namespace Evidence
                 MyEvidenceDic = new Dictionary<string, SingleEvidenceData>();
             }
         }
+        
 
         /// <summary>保存本地的名称</summary>
         private static string evidenceName = "Evidences";
