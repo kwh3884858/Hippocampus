@@ -130,6 +130,18 @@ namespace UI.Panels.StaticBoard
             }
         }
         
+        private class TalkRecord
+        {
+            public TextHelp TextHelp;
+            public StoryActionContainer StoryActionContainer;
+            public ActionState ActionState ;
+            public StoryActionType StoryActionType ;
+            public StoryAction StoryAction;
+            public Queue<string> NextIDS;
+            public Dictionary<string, Vector2> PicturePos;
+            public string BackGroundImg;
+        }
+
         private StoryController StoryController => UiDataProvider.ControllerManager.StoryController;
         private LogController LogController => UiDataProvider.ControllerManager.LogController;
         private StoryConfig StoryConfig => UiDataProvider.ConfigProvider.StoryConfig;
@@ -211,6 +223,10 @@ namespace UI.Panels.StaticBoard
                 {
                     return;
                 }
+                if (RecoverRecord())
+                {
+                    return;
+                }
                 InvokeHidePanel();
                 UIPanelDataProvider.OnTalkEnd?.Invoke();
                 return;
@@ -264,6 +280,7 @@ namespace UI.Panels.StaticBoard
                     }
 
                     ShowPicture(pictureAction.Content, pictureAction.Pos);
+                    SetActionState(ActionState.End);
                     break;
                 case StoryActionType.Waiting:
                     SetActionState( ActionState.Actioning);
@@ -326,13 +343,7 @@ namespace UI.Panels.StaticBoard
                     //TODO:播放动画
                     return;
                 case StoryActionType.ChangeBackground:
-                    if (string.IsNullOrEmpty(storyAction.Content))
-                    {
-                        m_backgroundImg.gameObject.SetActive(false);
-                        return;
-                    }
-                    m_backgroundImg.gameObject.SetActive(true);
-                    PrefabManager.Instance.SetImage(m_backgroundImg,storyAction.Content);
+                    ShowBG(storyAction.Content);
                     SetActionState(ActionState.End);
                     break;
                 case StoryActionType.Wrap:
@@ -501,7 +512,6 @@ namespace UI.Panels.StaticBoard
                     m_pictureItems[picID].rectTransform().anchoredPosition = new Vector2(Width/100*(pos.x - 50),Height/100*(pos.y - 50));
                     m_picPos[picID] = pos;
                 }
-                SetActionState(ActionState.End);
                 return;
             }
             if (m_picPos.ContainsKey(picID))
@@ -530,11 +540,32 @@ namespace UI.Panels.StaticBoard
         {
         }
 
+        private void ShowBG(string bgKey)
+        {
+            if (string.IsNullOrEmpty(bgKey))
+            {
+                m_backgroundImg.gameObject.SetActive(false);
+                return;
+            }
+            m_backgroundImg.gameObject.SetActive(true);
+            PrefabManager.Instance.SetImage(m_backgroundImg,bgKey);
+            m_storyBG = bgKey;
+        }
+
         private void OnSelectEvidenceEnd(string exhibitID)
         {
             m_skip = false;
-            SetActionState(ActionState.End);
-            ClickSkip();
+            var action = m_curAction as StoryEvidenceAction;
+            if (exhibitID.Equals(action.evidenceID))
+            {
+                SetActionState(ActionState.End);
+                ClickSkip();
+                return;
+            }
+
+            var labelID = EvidenceDataManager.Instance.GetEvidenceWrongID(exhibitID, action.prefix);
+            SetTalkRecord();
+            SetInfo(labelID);
         }
         
         
@@ -552,7 +583,9 @@ namespace UI.Panels.StaticBoard
                 StopCoroutine(m_typewriterCoroutine);
             }
             m_textHelp.ClearData();
+            m_actionContainer = null;
             ClearPicture();
+            m_storyBG = null;
         }
 
         public void ClickSkip()
@@ -589,9 +622,50 @@ namespace UI.Panels.StaticBoard
             m_skip = true;
         }
 
-        #region 多选项必选
-        private Stack<StoryJumpAction> m_curJumpActions;
-        
+        #region 记录
+        private Queue<TalkRecord> m_talkRecord=new Queue<TalkRecord>();
+
+        private bool RecoverRecord()
+        {
+            if (m_talkRecord.Count <= 0)
+            {
+                return false;
+            }
+            var record = m_talkRecord.Dequeue();
+            m_textHelp = record.TextHelp;
+            m_actionContainer = record.StoryActionContainer;
+            m_state = record.ActionState;
+            m_actionType = record.StoryActionType;
+            m_curAction = record.StoryAction;
+            m_nextIDQueue = record.NextIDS;
+            m_storyBG = record.BackGroundImg;
+            m_picPos = record.PicturePos;
+
+            foreach (var picPos in m_picPos)
+            {
+                ShowPicture(picPos.Key,picPos.Value);
+            }
+            ShowBG(m_storyBG);
+            CallbackTime(0.02f,()=>
+            {
+                SetNextAction(m_curAction);
+            });
+            return true;
+        }
+
+        private void SetTalkRecord()
+        {
+            var record = new TalkRecord();
+            record.ActionState = m_state;
+            record.TextHelp = m_textHelp;
+            record.StoryActionContainer = m_actionContainer;
+            record.StoryAction = m_curAction;
+            record.StoryActionType = m_actionType;
+            record.NextIDS = m_nextIDQueue;
+            record.BackGroundImg = m_storyBG;
+            record.PicturePos = m_picPos;
+            m_talkRecord.Enqueue(record);
+        }
         #endregion
 
         [SerializeField] private Image m_name;
@@ -619,6 +693,7 @@ namespace UI.Panels.StaticBoard
         private StoryActionType m_actionType = StoryActionType.Waiting;
         private Coroutine m_typewriterCoroutine = null;
         private StoryAction m_curAction;
+        private string m_storyBG = null;
         private bool m_isBeginNextAction = false;
 //        private bool isReset;
     }
