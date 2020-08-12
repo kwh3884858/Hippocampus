@@ -17,6 +17,7 @@
 		4080A9B320B034E40036BA46 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4080A9B220B034E40036BA46 /* Cocoa.framework */; };
 		7606188924B38BDD00DABC47 /* JsonUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7606188724B38BDD00DABC47 /* JsonUtility.cpp */; };
 		763386A524C72FB300FCFEDE /* StoryJsonEventNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 763386A324C72FB300FCFEDE /* StoryJsonEventNode.cpp */; };
+		7638FC1824E4320D00110F31 /* HeavenGateWindowPreview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7638FC1624E4320D00110F31 /* HeavenGateWindowPreview.cpp */; };
 		7639418E24B8F4EF001EFA67 /* StoryLayoutConstant.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7639418D24B8F4EF001EFA67 /* StoryLayoutConstant.cpp */; };
 		764C9BD224557C21000FC74E /* ExampleBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 764C9BD024557C21000FC74E /* ExampleBase.cpp */; };
 		764C9BDB24558DB5000FC74E /* Example2SaveLoadEditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 764C9BD424558DB4000FC74E /* Example2SaveLoadEditor.cpp */; };
@@ -100,6 +101,8 @@
 		7606C9E723770FC50071E204 /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = json.hpp; path = ../../nlohmann/json.hpp; sourceTree = "<group>"; };
 		763386A324C72FB300FCFEDE /* StoryJsonEventNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StoryJsonEventNode.cpp; sourceTree = "<group>"; };
 		763386A424C72FB300FCFEDE /* StoryJsonEventNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryJsonEventNode.h; sourceTree = "<group>"; };
+		7638FC1624E4320D00110F31 /* HeavenGateWindowPreview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HeavenGateWindowPreview.cpp; sourceTree = "<group>"; };
+		7638FC1724E4320D00110F31 /* HeavenGateWindowPreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeavenGateWindowPreview.h; sourceTree = "<group>"; };
 		7639418D24B8F4EF001EFA67 /* StoryLayoutConstant.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StoryLayoutConstant.cpp; sourceTree = "<group>"; };
 		764C9BD024557C21000FC74E /* ExampleBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ExampleBase.cpp; path = ../../imnodes/ExampleBase.cpp; sourceTree = "<group>"; };
 		764C9BD124557C21000FC74E /* ExampleBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleBase.h; path = ../../imnodes/ExampleBase.h; sourceTree = "<group>"; };
@@ -254,7 +257,6 @@
 		760F84FC23686ECD00EFA0D9 /* HeavenGate_Editor */ = {
 			isa = PBXGroup;
 			children = (
-				7692448624DC833A0046AE79 /* StoryColor.h */,
 				76EFF35A23B7D9870031354F /* CharacterUtility.cpp */,
 				76EFF35423B7D9870031354F /* CharacterUtility.h */,
 				7696956924274033004FA4E2 /* CircleCache.cpp */,
@@ -292,6 +294,8 @@
 				76EFF35E23B7D9870031354F /* HeavenGateWindowPaintMoveTable.h */,
 				766D006F2402EFFE002AD31F /* HeavenGateWindowPauseTable.cpp */,
 				766D00712402EFFE002AD31F /* HeavenGateWindowPauseTable.h */,
+				7638FC1624E4320D00110F31 /* HeavenGateWindowPreview.cpp */,
+				7638FC1724E4320D00110F31 /* HeavenGateWindowPreview.h */,
 				76EFF37523B7D9880031354F /* HeavenGateWindowSelectStory.cpp */,
 				76EFF37823B7D9880031354F /* HeavenGateWindowSelectStory.h */,
 				76EFF37123B7D9880031354F /* HeavenGateWindowStoryEditor.cpp */,
@@ -304,6 +308,7 @@
 				76EFF35923B7D9870031354F /* HeavenGateWindowTipTable.h */,
 				7606188724B38BDD00DABC47 /* JsonUtility.cpp */,
 				7606188824B38BDD00DABC47 /* JsonUtility.h */,
+				7692448624DC833A0046AE79 /* StoryColor.h */,
 				76EFF36723B7D9870031354F /* StoryFileManager.cpp */,
 				76EFF36223B7D9870031354F /* StoryFileManager.h */,
 				76EFF36E23B7D9880031354F /* StoryJson.cpp */,
@@ -445,6 +450,7 @@
 				76EFF38823B7D9880031354F /* HeavenGateEditorBaseWindow.cpp in Sources */,
 				76B2F3B324AB70750004D783 /* StoryJsonEndNode.cpp in Sources */,
 				76EFF37E23B7D9880031354F /* StoryJsonManager.cpp in Sources */,
+				7638FC1824E4320D00110F31 /* HeavenGateWindowPreview.cpp in Sources */,
 				76EFF38323B7D9880031354F /* HeavenGateWindowColorTable.cpp in Sources */,
 				7696956B24274033004FA4E2 /* CircleCache.cpp in Sources */,
 				764CAC98240BCC58004003B6 /* HeavenGateWindowBgmTable.cpp in Sources */,

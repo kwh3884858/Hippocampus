@@ -26,8 +26,6 @@ namespace HeavenGateEditor {
 
     void HeavenGateWindowSelectStory::Initialize()
     {
-
-        //m_fileManager = new StoryFileManager;
         m_popupResolveConflictFiles = new HeavenGatePopupResolveConflictFiles;
         m_isOpenPopupResolveConflictFiles = m_popupResolveConflictFiles->GetHandle();
 
@@ -43,12 +41,6 @@ namespace HeavenGateEditor {
             delete m_popupResolveConflictFiles;
         }
         m_popupResolveConflictFiles = nullptr;
-
-        //if (m_fileManager)
-        //{
-        //    delete m_fileManager;
-        //}
-        //m_fileManager = nullptr;
 
         Refresh();
     }

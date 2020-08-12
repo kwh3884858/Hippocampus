@@ -7,9 +7,11 @@
 
 namespace HeavenGateEditor {
 
+class StoryWord;
+
     class HeavenGateWindowPreview : public HeavenGateEditorBaseWindow
     {
-        WINDOW_DECLARE("HeavenGateWindowPreview", Window_Type::SubWindow)
+        WINDOW_DECLARE("Heaven Gate Preview", Window_Type::SubWindow)
 
     public:
 
@@ -22,6 +24,8 @@ namespace HeavenGateEditor {
         virtual void UpdateMenu() override {}
 
     private:
+
+        StoryWord* compiledWord;
     };
 
 }

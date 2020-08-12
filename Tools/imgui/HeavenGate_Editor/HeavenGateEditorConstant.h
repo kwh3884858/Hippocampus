@@ -20,7 +20,7 @@ namespace HeavenGateEditor {
     //For story content limit
     const int     MAX_NAME = 64;
     const int     MAX_NAME_LIMIT = MAX_NAME - 4; // For UTF-8, need more space to keep string not overflow
-    const int     MAX_CONTENT = 265;
+    const int     MAX_CONTENT = 512;
     const int     MAX_CONTENT_LIMIT = MAX_CONTENT - 4;
     const int     MAX_ID_PART = 32;
     const int     MAX_EXHIBIT_NAME = 512;
