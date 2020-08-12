@@ -236,7 +236,7 @@ namespace Controllers.Subsystems.Story
 					break;
 
 				case StoryReader.NodeType.exhibit:
-					container.PushShowEvidence (m_storys.GetExhibit (),"prefix");
+					container.PushShowEvidence (m_storys.GetExhibit (),m_storys.GetExhibitPrefix());
 					m_storys.NextStory ();
 					//return container;
 					break;
