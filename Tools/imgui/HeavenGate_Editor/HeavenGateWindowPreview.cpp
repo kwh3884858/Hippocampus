@@ -19,6 +19,9 @@ namespace HeavenGateEditor {
 
 void HeavenGateWindowPreview::Initialize() {
     m_compiledWord = new StoryWord;
+
+    memset(m_compiledWord->m_name, '\0', MAX_NAME);
+    memset(m_compiledWord->m_content, '\0', MAX_CONTENT);
 }
 void HeavenGateWindowPreview::Shutdown() {
     if(m_compiledWord != nullptr){

@@ -64,6 +64,7 @@ class HeavenGateWindowPreview;
         void CallbackRenameFile(const char* fileName);
 
         bool CheckStringLength(const char* string, int stringLengthLimit);
+        void CopyLastLabelInfo(int index);
 
         //Data
         StoryJson* m_storyJson;

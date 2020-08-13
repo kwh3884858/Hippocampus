@@ -79,6 +79,7 @@
     <ClInclude Include="..\..\HeavenGate_Editor\StoryTableDefine.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonEventNode.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryColor.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowPreview.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\imgui.cpp">
@@ -150,6 +151,7 @@
     <ClCompile Include="..\..\HeavenGate_Editor\StoryRow.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryLayoutConstant.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonEventNode.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowPreview.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.txt" />

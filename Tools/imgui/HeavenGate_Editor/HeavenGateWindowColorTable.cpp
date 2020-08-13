@@ -94,51 +94,6 @@ namespace HeavenGateEditor {
         {
             colorTable->RemoveRow();
         }
-        //if (ImGui::Button("Add Color To Cur Row"))
-        //{
-        //    //char buf2[4];
-        //    //sprintf(buf2, "%d", 200);
-        //    //printf("%s", buf2);
-        //    int count = colorTable->GetSize();
-        //    r = colorTable->GetContent(count -1, 1);
-        //    g = colorTable->GetContent(count -1, 2);
-        //    b = colorTable->GetContent(count -1, 3);
-        //    a = colorTable->GetContent(count -1, 4);
-        //    //char * tmp = new char[10];
-        //    //itoa(m_color[0] * 255, tmp, 10);
-        //    //*r = (m_color[0] * 255);
-        //    sprintf(r, "%d", (int)(m_color[0] * 255 + 0.5));
-        //    sprintf(g, "%d", (int)(m_color[1] * 255 + 0.5));
-        //    sprintf(b, "%d", (int)(m_color[2] * 255 + 0.5));
-        //    sprintf(a, "%d", (int)(m_color[3] * 255 + 0.5));
-        //    //printf("%s", r);
-        //    //itoa(m_color[1] * 255, g, 10);
-        //    //itoa(m_color[2] * 255, b, 10);
-        //    //itoa(m_color[3] * 255, a, 10);
-        //    colorTable->RemoveRow();
-        //    StoryRow<5>* row = colorTable->AddRow();
-        //    //row->Push(r);
-        //    row->Set(1, r);
-        //    row->Set(2, g);
-        //    row->Set(3, b);
-        //    row->Set(4, a);
-        //    //colorTable->PushRow()
-        //    //curContent = 
-        //}
-
-        //if (ImGui::Button("Color"))
-        //{
-        //    for (int i = 0; i < COLOR_VALUE_COLUMN; i++)
-        //    {
-        //        printf("%f", m_color[i]);
-        //    }
-        //    ImVec4 tmp = ImVec4(m_color[0], m_color[1], m_color[2], m_color[3]);
-        //    ImU32 rgb = ImGui::ColorConvertFloat4ToU32(tmp);
-        //    printf("%f ", rgb);
-        //    //ImGuiCol ttt = 
-        //    ImVec4 rgba = ImGui::ColorConvertU32ToFloat4(rgb);
-        //    printf("%f ", rgba);
-        //}
 
         ImGui::Columns(COLOR_MAX_COLUMN + 1, "Color"); // 4-ways, with border
         ImGui::Separator();
@@ -148,13 +103,9 @@ namespace HeavenGateEditor {
             ImGui::Text(colorTable->GetName(i));   ImGui::NextColumn();
         }
 
-        //ImGui::Text("ID"); ImGui::NextColumn();
-        //ImGui::Text("Name"); ImGui::NextColumn();
-        //ImGui::Text("Path"); ImGui::NextColumn();
-        //ImGui::Text("Hovered"); ImGui::NextColumn();
+
         ImGui::Separator();
-        //const char* names[3] = { "One", "Two", "Three" };
-        //const char* paths[3] = { "/path/one", "/path/two", "/path/three" };
+  
         static int selected = -1;
 
 

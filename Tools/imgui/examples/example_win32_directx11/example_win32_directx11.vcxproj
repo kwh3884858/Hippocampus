@@ -153,6 +153,7 @@
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateEditorNodeGraphExample.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGatePopupMessageBox.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowNodeGraph.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowPreview.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowTachiePositionTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowTachieTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\JsonUtility.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateEditorNodeGraphExample.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGatePopupMessageBox.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowNodeGraph.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowPreview.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowTachiePositionTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowTachieTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\JsonUtility.cpp" />

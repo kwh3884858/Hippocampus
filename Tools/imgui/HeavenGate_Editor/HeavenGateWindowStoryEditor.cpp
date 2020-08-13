@@ -241,6 +241,14 @@ namespace HeavenGateEditor {
                         AddButton(i);
                         ImGui::Text("Jump Id: %s", label);
 
+                        if (strcmp(label, "_") == 0)
+                        {
+                            if (ImGui::Button("Copy last label"))
+                            {
+                                CopyLastLabelInfo(i);
+                            }
+                        }
+
                         IdOperator::ParseStringId<'_', MAX_ID_PART, NUM_OF_ID_PART>(label, currentId);
                         if (!IsNum(currentId[(int)ID_PART::COUNT])) {
                             strcpy(currentId[(int)ID_PART::COUNT], "0");
@@ -285,6 +293,7 @@ namespace HeavenGateEditor {
                         ImGui::InputText(idCountConstant, currentId[(int)ID_PART::COUNT], MAX_ID_COUNT, ImGuiInputTextFlags_CharsDecimal);
 
                         IdOperator::CombineStringId<'_', MAX_ID_PART, NUM_OF_ID_PART>(pLabel->m_labelId, currentId);
+                        memset(currentId, '\0', NUM_OF_ID_PART*MAX_ID_COUNT);
 
                         //ImGui::InputTextWithHint(LabelConstant, "Enter label ID here", label, MAX_NAME);
                         ImGui::InputTextWithHint(LabelConstant, "Enter label ID here", label, MAX_ID);
@@ -1276,6 +1285,45 @@ namespace HeavenGateEditor {
     bool HeavenGateWindowStoryEditor::CheckStringLength(const char* string, int stringLengthLimit)
     {
         return strlen(string) <= stringLengthLimit;
+    }
+
+    void HeavenGateWindowStoryEditor::CopyLastLabelInfo(int index)
+    {
+        StoryNode* currentNode = m_storyJson->GetNode(index);
+        if (currentNode->m_nodeType != NodeType::Label)
+        {
+            return;
+        }
+        StoryLabel* currentLabel = static_cast<StoryLabel*>(currentNode);
+        for (int i = index - 1; i >= 0; i--)
+        {
+            StoryNode* node = m_storyJson->GetNode(i);
+            if (node->m_nodeType == NodeType::Label)
+            {
+                StoryLabel* label = static_cast<StoryLabel*>(node);
+                if (strlen(label->m_labelId) != 0 && strcmp(label->m_labelId, "_") != 0)
+                {
+                    char currentId[NUM_OF_ID_PART][MAX_ID_COUNT];
+                    IdOperator::ParseStringId<'_', MAX_ID_PART, NUM_OF_ID_PART>(label->m_labelId, currentId);
+                    if (!IsNum(currentId[(int)ID_PART::COUNT]) || strlen(currentId[(int)ID_PART::COUNT]) == 0) {
+                        strcpy(currentId[(int)ID_PART::COUNT], "0");
+                    }
+                    int counter = 0;
+                    counter = atoi(currentId[(int)ID_PART::COUNT]);
+                    counter++;
+                    char countBuffer[MAX_ID_COUNT];
+#ifdef _WIN32
+                    itoa(counter, countBuffer, 10);
+#else
+                    CharacterUtility::itoa(counter, countBuffer, 10);
+#endif
+                    strcpy(currentId[(int)ID_PART::COUNT], countBuffer);
+                    IdOperator::CombineStringId<'_', MAX_ID_PART, NUM_OF_ID_PART>(currentLabel->m_labelId, currentId);
+
+                    return;
+                }
+            }
+        }
     }
 
     //void HeavenGateWindowStoryEditor::ShowEditorWindow(bool* isOpenPoint) {
