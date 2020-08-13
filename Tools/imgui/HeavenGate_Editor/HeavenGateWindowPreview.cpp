@@ -17,85 +17,92 @@
 using std::deque;
 namespace HeavenGateEditor {
 
-void HeavenGateWindowPreview::Initialize() {
-    m_compiledWord = new StoryWord;
+    void HeavenGateWindowPreview::Initialize() {
+        m_compiledWord = new StoryWord;
 
-    memset(m_compiledWord->m_name, '\0', MAX_NAME);
-    memset(m_compiledWord->m_content, '\0', MAX_CONTENT);
-}
-void HeavenGateWindowPreview::Shutdown() {
-    if(m_compiledWord != nullptr){
-        delete m_compiledWord;
+        memset(m_compiledWord->m_name, '\0', MAX_NAME);
+        memset(m_compiledWord->m_content, '\0', MAX_CONTENT);
     }
-    m_compiledWord = nullptr;
-}
-void HeavenGateWindowPreview::UpdateMainWindow() {
-    //    ImGui::Text(m_compiledWord->m_name);
-    //    ImGui::Text(m_compiledWord->m_content);
-
-    vector<StoryJsonContentCompiler::Token*>tokens = StoryJsonContentCompiler::Instance().CompileToTokens(m_compiledWord);
-
-    TableType currentState;
-    deque<TableType> editorState;
-    bool isReadCloseLabel;
-
-    isReadCloseLabel = false;
-    currentState = TableType::None;
-
-    //Tmp value
-    ImVec4 color(1.0f, 1.0f, 1.0f, 1.0f);
-
-    char tmpTip[MAX_COLUMNS_CONTENT_LENGTH];
-    memset(tmpTip, '\0', MAX_COLUMNS_CONTENT_LENGTH);
-
-    char tmpExhibit[EXHIBIT_TABLE_MAX_CONTENT];
-    memset(tmpExhibit, '\0', EXHIBIT_TABLE_MAX_CONTENT);
-
-    char tmpBgm[MAX_COLUMNS_CONTENT_LENGTH];
-    memset(tmpBgm, '\0', MAX_COLUMNS_CONTENT_LENGTH);
-
-    char tmpEffect[MAX_COLUMNS_CONTENT_LENGTH];
-    memset(tmpEffect, '\0', MAX_COLUMNS_CONTENT_LENGTH);
-
-    char tmpTachieCommand[NUM_OF_TACHIE_COMMAND][MAX_COLUMNS_CONTENT_LENGTH];
-    memset(tmpTachieCommand, '\0', NUM_OF_TACHIE_COMMAND * MAX_COLUMNS_CONTENT_LENGTH);
-
-    char tmpFontSize[MAX_COLUMNS_CONTENT_LENGTH];
-    memset(tmpFontSize, '\0', MAX_COLUMNS_CONTENT_LENGTH);
-
-    char tmpPause[MAX_COLUMNS_CONTENT_LENGTH];
-    memset(tmpPause, '\0', MAX_COLUMNS_CONTENT_LENGTH);
-
-    bool isExhibit = false;
-    //ImGui::EndChildFrame();
-    //ImGui::InputTextMultiline("Preivew", "", 100 - 4, ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 1));
-
-    ImGui::Text("Preview:");
-
-    for (auto iter = tokens.cbegin(); iter != tokens.end(); iter++)
-    {
-        if ((*iter)->m_tokeType == StoryJsonContentCompiler::TokenType::TokenContent)
-        {
-            ImGui::TextColored(color, (*iter)->m_content);
-            ImGui::SameLine(0, 0);
+    void HeavenGateWindowPreview::Shutdown() {
+        if (m_compiledWord != nullptr) {
+            delete m_compiledWord;
         }
-        else if ((*iter)->m_tokeType == StoryJsonContentCompiler::TokenType::TokenInstructor)
+        m_compiledWord = nullptr;
+    }
+    void HeavenGateWindowPreview::UpdateMainWindow() {
+        //    ImGui::Text(m_compiledWord->m_name);
+        //    ImGui::Text(m_compiledWord->m_content);
+
+        vector<StoryJsonContentCompiler::Token*>tokens = StoryJsonContentCompiler::Instance().CompileToTokens(m_compiledWord);
+
+        TableType currentState;
+        deque<TableType> editorState;
+        bool isReadCloseLabel;
+
+        isReadCloseLabel = false;
+        currentState = TableType::None;
+
+        //Tmp value
+        ImVec4 color(1.0f, 1.0f, 1.0f, 1.0f);
+
+        char tmpTip[MAX_COLUMNS_CONTENT_LENGTH];
+        memset(tmpTip, '\0', MAX_COLUMNS_CONTENT_LENGTH);
+
+        char tmpExhibit[EXHIBIT_TABLE_MAX_CONTENT];
+        memset(tmpExhibit, '\0', EXHIBIT_TABLE_MAX_CONTENT);
+
+        char tmpBgm[MAX_COLUMNS_CONTENT_LENGTH];
+        memset(tmpBgm, '\0', MAX_COLUMNS_CONTENT_LENGTH);
+
+        char tmpEffect[MAX_COLUMNS_CONTENT_LENGTH];
+        memset(tmpEffect, '\0', MAX_COLUMNS_CONTENT_LENGTH);
+
+        char tmpTachieCommand[NUM_OF_TACHIE_COMMAND][MAX_COLUMNS_CONTENT_LENGTH];
+        memset(tmpTachieCommand, '\0', NUM_OF_TACHIE_COMMAND * MAX_COLUMNS_CONTENT_LENGTH);
+
+        char tmpFontSize[MAX_COLUMNS_CONTENT_LENGTH];
+        memset(tmpFontSize, '\0', MAX_COLUMNS_CONTENT_LENGTH);
+
+        char tmpPause[MAX_COLUMNS_CONTENT_LENGTH];
+        memset(tmpPause, '\0', MAX_COLUMNS_CONTENT_LENGTH);
+
+        bool isExhibit = false;
+
+        //static float wrap_width = 200.0f;
+        //ImGui::SliderFloat("Wrap width", &wrap_width, -20, 600, "%.0f");
+        
+
+
+        ImGui::Text("Preview:");
+        ImGui::Text(m_compiledWord->m_name);
+        ImGui::Separator();
+
+        ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + ImGui::GetItemRectSize().x - 5);
+
+        for (auto iter = tokens.cbegin(); iter != tokens.end(); iter++)
         {
-            if (isReadCloseLabel)
+            if ((*iter)->m_tokeType == StoryJsonContentCompiler::TokenType::TokenContent)
             {
-                // Is closing state
-                if (editorState.empty())
+                ImGui::TextColored(color, (*iter)->m_content);
+                ImGui::SameLine(0, 0);
+            }
+            else if ((*iter)->m_tokeType == StoryJsonContentCompiler::TokenType::TokenInstructor)
+            {
+                if (isReadCloseLabel)
                 {
-                    printf("Close Label is lack\n");
-                    continue;
-                }
+                    // Is closing state
+                    if (editorState.empty())
+                    {
+                        printf("Close Label is lack\n");
+                        continue;
+                    }
 
-                currentState = editorState.back();
-                editorState.pop_back();
-                isReadCloseLabel = false;
+                    currentState = editorState.back();
+                    editorState.pop_back();
+                    isReadCloseLabel = false;
 
-                switch (currentState)
-                {
+                    switch (currentState)
+                    {
                     case HeavenGateEditor::TableType::None:
                         break;
                     case HeavenGateEditor::TableType::Font_Size:
@@ -123,7 +130,8 @@ void HeavenGateWindowPreview::UpdateMainWindow() {
                         if (isExhibit == true) {
                             ImGui::TextColored(colorGreen, "[Get Exhibit Here: %s]", tmpExhibit);
                             isExhibit = false;
-                        }else{
+                        }
+                        else {
                             ImGui::TextColored(colorRed, "!!Can not find exhibit ID", tmpExhibit);
                         }
                         memset(tmpExhibit, '\0', EXHIBIT_TABLE_MAX_CONTENT);
@@ -175,56 +183,56 @@ void HeavenGateWindowPreview::UpdateMainWindow() {
                         break;
                     default:
                         break;
+                    }
+                }
+                else
+                {
+                    // Is start state
+                    if (strcmp((*iter)->m_content, fontSizeTableString[(int)FontSizeTableLayout::Type]) == 0)
+                    {
+                        editorState.push_back(TableType::Font_Size);
+                    }
+                    if (strcmp((*iter)->m_content, colorTableString[(int)FontSizeTableLayout::Type]) == 0)
+                    {
+                        editorState.push_back(TableType::Color);
+                    }
+                    if (strcmp((*iter)->m_content, paintMoveTableString[(int)FontSizeTableLayout::Type]) == 0)
+                    {
+                        editorState.push_back(TableType::Paint_Move);
+                    }
+                    if (strcmp((*iter)->m_content, pauseTableString[(int)FontSizeTableLayout::Type]) == 0)
+                    {
+                        editorState.push_back(TableType::Pause);
+                    }
+                    if (strcmp((*iter)->m_content, tipTableString[(int)TipTableLayout::Type]) == 0)
+                    {
+                        editorState.push_back(TableType::Tips);
+                    }
+                    if (strcmp((*iter)->m_content, bgmTableString[(int)BgmTableLayout::Type]) == 0) {
+                        editorState.push_back(TableType::Bgm);
+                    }
+                    if (strcmp((*iter)->m_content, effectTableString[(int)EffectTableLayout::Type]) == 0) {
+                        editorState.push_back(TableType::Effect);
+                    }
+                    if (strcmp((*iter)->m_content, exhibitTableString[(int)ExhibitTableLayout::Type]) == 0) {
+                        editorState.push_back(TableType::Exhibit);
+                    }
+                    if (strcmp((*iter)->m_content, tachieTableString[(int)TachieTableLayout::Type]) == 0)
+                    {
+                        editorState.push_back(TableType::Tachie);
+                    }
                 }
             }
-            else
+            else if ((*iter)->m_tokeType == StoryJsonContentCompiler::TokenType::TokenIdentity)
             {
-                // Is start state
-                if (strcmp((*iter)->m_content, fontSizeTableString[(int)FontSizeTableLayout::Type]) == 0)
-                {
-                    editorState.push_back(TableType::Font_Size);
-                }
-                if (strcmp((*iter)->m_content, colorTableString[(int)FontSizeTableLayout::Type]) == 0)
-                {
-                    editorState.push_back(TableType::Color);
-                }
-                if (strcmp((*iter)->m_content, paintMoveTableString[(int)FontSizeTableLayout::Type]) == 0)
-                {
-                    editorState.push_back(TableType::Paint_Move);
-                }
-                if (strcmp((*iter)->m_content, pauseTableString[(int)FontSizeTableLayout::Type]) == 0)
-                {
-                    editorState.push_back(TableType::Pause);
-                }
-                if (strcmp((*iter)->m_content, tipTableString[(int)TipTableLayout::Type]) == 0)
-                {
-                    editorState.push_back(TableType::Tips);
-                }
-                if (strcmp((*iter)->m_content, bgmTableString[(int)BgmTableLayout::Type]) == 0) {
-                    editorState.push_back(TableType::Bgm);
-                }
-                if (strcmp((*iter)->m_content, effectTableString[(int)EffectTableLayout::Type]) == 0) {
-                    editorState.push_back(TableType::Effect);
-                }
-                if (strcmp((*iter)->m_content, exhibitTableString[(int)ExhibitTableLayout::Type]) == 0) {
-                    editorState.push_back(TableType::Exhibit);
-                }
-                if (strcmp((*iter)->m_content, tachieTableString[(int)TachieTableLayout::Type]) == 0)
-                {
-                    editorState.push_back(TableType::Tachie);
-                }
-            }
-        }
-        else if ((*iter)->m_tokeType == StoryJsonContentCompiler::TokenType::TokenIdentity)
-        {
 
-            if (editorState.empty())
-            {
-                printf("No Identity Exist. \n");
-                continue;
-            }
-            switch (editorState.back())
-            {
+                if (editorState.empty())
+                {
+                    printf("No Identity Exist. \n");
+                    continue;
+                }
+                switch (editorState.back())
+                {
                 case HeavenGateEditor::TableType::None:
                     break;
                 case HeavenGateEditor::TableType::Font_Size:
@@ -246,7 +254,7 @@ void HeavenGateWindowPreview::UpdateMainWindow() {
                     }
                     ImGui::SameLine(0, 0);
                 }
-                    break;
+                break;
                 case HeavenGateEditor::TableType::Color:
                 {
                     char colorAlias[MAX_COLUMNS_CONTENT_LENGTH];
@@ -257,11 +265,11 @@ void HeavenGateWindowPreview::UpdateMainWindow() {
                         if (strcmp(colorAlias, (*iter)->m_content) == 0)
                         {
                             color = ImVec4(
-                                           atoi(colorTable->GetRow(j)->Get(1)),
-                                           atoi(colorTable->GetRow(j)->Get(2)),
-                                           atoi(colorTable->GetRow(j)->Get(3)),
-                                           atoi(colorTable->GetRow(j)->Get(4))
-                                           );
+                                atoi(colorTable->GetRow(j)->Get(1)),
+                                atoi(colorTable->GetRow(j)->Get(2)),
+                                atoi(colorTable->GetRow(j)->Get(3)),
+                                atoi(colorTable->GetRow(j)->Get(4))
+                            );
                             color = HeavenGateEditorUtility::ConvertRGBAToFloat4(color);
                         }
 
@@ -296,7 +304,7 @@ void HeavenGateWindowPreview::UpdateMainWindow() {
                         }
                     }
                 }
-                    break;
+                break;
                 case HeavenGateEditor::TableType::Paint_Move:
                     break;
                 case TableType::Pause:
@@ -318,7 +326,7 @@ void HeavenGateWindowPreview::UpdateMainWindow() {
                     }
                     ImGui::SameLine(0, 0);
                 }
-                    break;
+                break;
                 case TableType::Bgm:
                 {
                     const StoryTable<BGM_MAX_COLUMN>* const bgmTable = StoryTableManager::Instance().GetBgmTable();
@@ -331,7 +339,7 @@ void HeavenGateWindowPreview::UpdateMainWindow() {
                         }
                     }
                 }
-                    break;
+                break;
 
                 case TableType::Effect:
                 {
@@ -345,7 +353,7 @@ void HeavenGateWindowPreview::UpdateMainWindow() {
                         }
                     }
                 }
-                    break;
+                break;
                 case TableType::Tachie:
                 {
                     IdOperator::ParseStringId<'+', MAX_COLUMNS_CONTENT_LENGTH, NUM_OF_TACHIE_COMMAND>((*iter)->m_content, tmpTachieCommand);
@@ -372,25 +380,28 @@ void HeavenGateWindowPreview::UpdateMainWindow() {
                     }
 
                 }
-                    break;
+                break;
                 default:
                     break;
+                }
             }
-        }
-        else if ((*iter)->m_tokeType == StoryJsonContentCompiler::TokenType::TokenOpSlash)
-        {
-            //Start close
-            isReadCloseLabel = true;
+            else if ((*iter)->m_tokeType == StoryJsonContentCompiler::TokenType::TokenOpSlash)
+            {
+                //Start close
+                isReadCloseLabel = true;
+            }
+
         }
 
+        //ImGui::GetWindowDrawList()->AddRect(ImGui::GetItemRectMin(), ImGui::GetItemRectMax(), IM_COL32(255, 255, 0, 255));
+        ImGui::PopTextWrapPos();
+
+        ImGui::Text("");
+        ImGui::Separator();
     }
 
-    ImGui::Text("");
-    ImGui::Separator();
-}
-
-void HeavenGateWindowPreview::SetPreviewWord(const StoryWord& word){
-    *m_compiledWord = word;
-}
+    void HeavenGateWindowPreview::SetPreviewWord(const StoryWord& word) {
+        *m_compiledWord = word;
+    }
 
 }

@@ -80,6 +80,7 @@
     <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonEventNode.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryColor.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowPreview.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\StoryJsonUniqueId.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\imgui.cpp">
@@ -152,6 +153,7 @@
     <ClCompile Include="..\..\HeavenGate_Editor\StoryLayoutConstant.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonEventNode.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowPreview.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonUniqueId.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.txt" />

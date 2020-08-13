@@ -24,10 +24,6 @@ public:
 
     StoryLabel();
     StoryLabel(const StoryLabel& storyLabel);
-
-
-
-
 };
 
 void to_json(json& j, const StoryLabel& p);

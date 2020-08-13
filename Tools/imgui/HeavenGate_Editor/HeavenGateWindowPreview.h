@@ -28,6 +28,7 @@ class StoryWord;
     private:
 
         StoryWord* m_compiledWord;
+
     };
 
 }
