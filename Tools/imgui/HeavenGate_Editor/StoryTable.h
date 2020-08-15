@@ -533,7 +533,7 @@ template<int column, int MAX_CONTENT_LENGTH>
 void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
 {
     char typeString[MAX_ENUM_LENGTH];
-    GetContentException(typeString, j, tableString[(int)TableLayout::Type]);
+    GetCharPointerException(typeString, j, tableString[(int)TableLayout::Type]);
     json headers ;
     json values;
     GetJsonException(headers, j, tableString[(int)TableLayout::Header]);
@@ -559,9 +559,9 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
         char content[MAX_COLUMNS_CONTENT_LENGTH];
         for (int i = 0; i < values.size(); i++)
         {
-            GetContentException(content, values[i], fontSizeTableString[(int)FontSizeTableLayout::Alias]);
+            GetCharPointerException(content, values[i], fontSizeTableString[(int)FontSizeTableLayout::Alias]);
             p.PushContent(content);
-            GetContentException(content, values[i], fontSizeTableString[(int)FontSizeTableLayout::Size]);
+            GetCharPointerException(content, values[i], fontSizeTableString[(int)FontSizeTableLayout::Size]);
             p.PushContent(content);
         }
         return;
@@ -584,15 +584,15 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
         char content[MAX_COLUMNS_CONTENT_LENGTH];
         for (int i = 0; i < values.size(); i++)
         {
-            GetContentException(content, values[i], colorTableString[(int)ColorTableLayout::Alias]);
+            GetCharPointerException(content, values[i], colorTableString[(int)ColorTableLayout::Alias]);
             p.PushContent(content);
-            GetContentException(content, values[i], colorTableString[(int)ColorTableLayout::R]);
+            GetCharPointerException(content, values[i], colorTableString[(int)ColorTableLayout::R]);
             p.PushContent(content);
-            GetContentException(content, values[i], colorTableString[(int)ColorTableLayout::G]);
+            GetCharPointerException(content, values[i], colorTableString[(int)ColorTableLayout::G]);
             p.PushContent(content);
-            GetContentException(content, values[i], colorTableString[(int)ColorTableLayout::B]);
+            GetCharPointerException(content, values[i], colorTableString[(int)ColorTableLayout::B]);
             p.PushContent(content);
-            GetContentException(content, values[i], colorTableString[(int)ColorTableLayout::A]);
+            GetCharPointerException(content, values[i], colorTableString[(int)ColorTableLayout::A]);
             p.PushContent(content);
         }
         return;
@@ -615,9 +615,9 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
         char content[TIP_TABLE_MAX_CONTENT];
         for (int i = 0; i < values.size(); i++)
         {
-            GetContentException(content, values[i], tipTableString[(int)TipTableLayout::Tip]);
+            GetCharPointerException(content, values[i], tipTableString[(int)TipTableLayout::Tip]);
             p.PushContent(content);
-            GetContentException(content, values[i], tipTableString[(int)TipTableLayout::Description]);
+            GetCharPointerException(content, values[i], tipTableString[(int)TipTableLayout::Description]);
             p.PushContent(content);
         }
         return;
@@ -640,13 +640,13 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
         char content[MAX_COLUMNS_CONTENT_LENGTH];
         for (int i = 0; i < values.size(); i++)
         {
-            GetContentException(content, values[i], paintMoveTableString[(int)PaintMoveTableLayout::MoveAlias]);
+            GetCharPointerException(content, values[i], paintMoveTableString[(int)PaintMoveTableLayout::MoveAlias]);
             p.PushContent(content);
-            GetContentException(content, values[i], paintMoveTableString[(int)PaintMoveTableLayout::StartPoint]);
+            GetCharPointerException(content, values[i], paintMoveTableString[(int)PaintMoveTableLayout::StartPoint]);
             p.PushContent(content);
-            GetContentException(content, values[i], paintMoveTableString[(int)PaintMoveTableLayout::EndPoint]);
+            GetCharPointerException(content, values[i], paintMoveTableString[(int)PaintMoveTableLayout::EndPoint]);
             p.PushContent(content);
-            GetContentException(content, values[i], paintMoveTableString[(int)PaintMoveTableLayout::MoveType]);
+            GetCharPointerException(content, values[i], paintMoveTableString[(int)PaintMoveTableLayout::MoveType]);
             p.PushContent(content);
         }
         return;
@@ -719,9 +719,9 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
         char content[MAX_COLUMNS_CONTENT_LENGTH];
         for (int i = 0; i < values.size(); i++)
         {
-            GetContentException(content, values[i], characterTableString[(int)CharacterTableLayout::Character]);
+            GetCharPointerException(content, values[i], characterTableString[(int)CharacterTableLayout::Character]);
             p.PushContent(content);
-            GetContentException(content, values[i], characterTableString[(int)CharacterTableLayout::Description]);
+            GetCharPointerException(content, values[i], characterTableString[(int)CharacterTableLayout::Description]);
             p.PushContent(content);
         }
         return;
@@ -744,9 +744,9 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
         char content[MAX_COLUMNS_CONTENT_LENGTH];
         for (int i = 0; i < values.size(); i++)
         {
-            GetContentException(content, values[i], pauseTableString[(int)PauseTableLayout::Pause]);
+            GetCharPointerException(content, values[i], pauseTableString[(int)PauseTableLayout::Pause]);
             p.PushContent(content);
-            GetContentException(content, values[i], pauseTableString[(int)PauseTableLayout::Time]);
+            GetCharPointerException(content, values[i], pauseTableString[(int)PauseTableLayout::Time]);
             p.PushContent(content);
         }
         return;
@@ -769,13 +769,13 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
         char content[EXHIBIT_TABLE_MAX_CONTENT];
         for (int i = 0; i < values.size(); i++)
         {
-            GetContentException(content, values[i], exhibitTableString[(int)ExhibitTableLayout::ExhibitID]);
+            GetCharPointerException(content, values[i], exhibitTableString[(int)ExhibitTableLayout::ExhibitID]);
             p.PushContent(content);
-            GetContentException(content, values[i], exhibitTableString[(int)ExhibitTableLayout::Exhibit]);
+            GetCharPointerException(content, values[i], exhibitTableString[(int)ExhibitTableLayout::Exhibit]);
             p.PushContent(content);
-            GetContentException(content, values[i], exhibitTableString[(int)ExhibitTableLayout::Description]);
+            GetCharPointerException(content, values[i], exhibitTableString[(int)ExhibitTableLayout::Description]);
             p.PushContent(content);
-            GetContentException(content, values[i], exhibitTableString[(int)ExhibitTableLayout::ExhibitImageName]);
+            GetCharPointerException(content, values[i], exhibitTableString[(int)ExhibitTableLayout::ExhibitImageName]);
             p.PushContent(content);
         }
         return;
@@ -798,9 +798,9 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
         char content[MAX_COLUMNS_CONTENT_LENGTH];
         for (int i = 0; i < values.size(); i++)
         {
-            GetContentException(content, values[i], effectTableString[(int)EffectTableLayout::Effect]);
+            GetCharPointerException(content, values[i], effectTableString[(int)EffectTableLayout::Effect]);
             p.PushContent(content);
-            GetContentException(content, values[i], effectTableString[(int)EffectTableLayout::Description]);
+            GetCharPointerException(content, values[i], effectTableString[(int)EffectTableLayout::Description]);
             p.PushContent(content);
         }
         return;
@@ -823,9 +823,9 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
         char content[MAX_COLUMNS_CONTENT_LENGTH];
         for (int i = 0; i < values.size(); i++)
         {
-            GetContentException(content, values[i], bgmTableString[(int)BgmTableLayout::Bgm]);
+            GetCharPointerException(content, values[i], bgmTableString[(int)BgmTableLayout::Bgm]);
             p.PushContent(content);
-            GetContentException(content, values[i], bgmTableString[(int)BgmTableLayout::Description]);
+            GetCharPointerException(content, values[i], bgmTableString[(int)BgmTableLayout::Description]);
             p.PushContent(content);
         }
         return;
@@ -848,9 +848,9 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
         char content[MAX_COLUMNS_CONTENT_LENGTH];
         for (int i = 0; i < values.size(); i++)
         {
-            GetContentException(content, values[i], tachieTableString[(int)TachieTableLayout::Alias]);
+            GetCharPointerException(content, values[i], tachieTableString[(int)TachieTableLayout::Alias]);
             p.PushContent(content);
-            GetContentException(content, values[i], tachieTableString[(int)TachieTableLayout::FileName]);
+            GetCharPointerException(content, values[i], tachieTableString[(int)TachieTableLayout::FileName]);
             p.PushContent(content);
         }
         return;
@@ -874,11 +874,11 @@ void from_json(const json& j, StoryTable<column, MAX_CONTENT_LENGTH>& p)
         char content[MAX_COLUMNS_CONTENT_LENGTH];
         for (int i = 0; i < values.size(); i++)
         {
-            GetContentException(content, values[i], tachiePositionTableString[(int)TachiePositionTableLayout::Alias]);
+            GetCharPointerException(content, values[i], tachiePositionTableString[(int)TachiePositionTableLayout::Alias]);
             p.PushContent(content);
-            GetContentException(content, values[i], tachiePositionTableString[(int)TachiePositionTableLayout::PositionX]);
+            GetCharPointerException(content, values[i], tachiePositionTableString[(int)TachiePositionTableLayout::PositionX]);
             p.PushContent(content);
-            GetContentException(content, values[i], tachiePositionTableString[(int)TachiePositionTableLayout::PositionY]);
+            GetCharPointerException(content, values[i], tachiePositionTableString[(int)TachiePositionTableLayout::PositionY]);
             p.PushContent(content);
         }
         return;

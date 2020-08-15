@@ -59,8 +59,8 @@ namespace HeavenGateEditor {
     void from_json(const json& j, StoryEvent& p) {
         p.m_nodeType = NodeType::raiseEvent;
         char tmpEventType[MAX_ENUM_LENGTH];
-        GetContentException(tmpEventType, j, eventString[(int)EventLayout::EventType]);
-        GetContentException(p.m_eventName, j, eventString[(int)EventLayout::EventName]);
+        GetCharPointerException(tmpEventType, j, eventString[(int)EventLayout::EventType]);
+        GetCharPointerException(p.m_eventName, j, eventString[(int)EventLayout::EventName]);
 
         //Default to invoke event
         p.m_eventType = EventType::InvokeEvent;

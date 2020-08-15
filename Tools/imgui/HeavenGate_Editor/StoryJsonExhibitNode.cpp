@@ -44,8 +44,8 @@ namespace HeavenGateEditor {
     }
     void from_json(const json& j, StoryExhibit& p) {
         p.m_nodeType = NodeType::Exhibit;
-        GetContentException(p.m_exhibitID, j, exhibitString[(int)ExhibitLayout::Name]);
-        GetContentException(p.m_exhibitPrefix, j, exhibitString[(int)ExhibitLayout::ExhibitPrefix]);
+        GetCharPointerException(p.m_exhibitID, j, exhibitString[(int)ExhibitLayout::Name]);
+        GetCharPointerException(p.m_exhibitPrefix, j, exhibitString[(int)ExhibitLayout::ExhibitPrefix]);
     }
 
 }

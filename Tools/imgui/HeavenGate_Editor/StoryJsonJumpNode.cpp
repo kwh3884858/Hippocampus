@@ -51,8 +51,8 @@ namespace HeavenGateEditor {
 
     void from_json(const json& j, StoryJump& p) {
         p.m_nodeType = NodeType::Jump;
-        GetContentException(p.m_jumpId, j, jumpNodeString[(int)JumpLayout::Jump]);
-        GetContentException(p.m_jumpContent, j, jumpNodeString[(int)JumpLayout::Content]);
+        GetCharPointerException(p.m_jumpId, j, jumpNodeString[(int)JumpLayout::Jump]);
+        GetCharPointerException(p.m_jumpContent, j, jumpNodeString[(int)JumpLayout::Content]);
         /*      strcpy(p.m_jumpId, j.at(jumpNodeString[(int)JumpLayout::Jump]).get_ptr<const json::string_t *>()->c_str());
               strcpy(p.m_jumpContent, j.at(jumpNodeString[(int)JumpLayout::Content]).get_ptr<const json::string_t *>()->c_str());*/
     }

@@ -2,7 +2,9 @@
 
 namespace HeavenGateEditor {
 
-void GetContentException(char*const des, const json & j, const char* const index)
+
+
+void GetCharPointerException(char*const des, const json & j, const char* const index)
 {
     try
     {
