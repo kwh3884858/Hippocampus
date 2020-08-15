@@ -53,8 +53,8 @@ namespace HeavenGateEditor {
         p.m_nodeType = NodeType::Word;
         //strcpy(p.m_name, j.at(wordNodeString[(int)WordLayout::Name]).get_ptr<const json::string_t *>()->c_str());
         //strcpy(p.m_content, j.at(wordNodeString[(int)WordLayout::Content]).get_ptr<const json::string_t *>()->c_str());
-        GetContentException(p.m_name, j, wordNodeString[(int)WordLayout::Name]);
-        GetContentException(p.m_content, j, wordNodeString[(int)WordLayout::Content]);
+        GetCharPointerException(p.m_name, j, wordNodeString[(int)WordLayout::Name]);
+        GetCharPointerException(p.m_content, j, wordNodeString[(int)WordLayout::Content]);
 
     }
 }

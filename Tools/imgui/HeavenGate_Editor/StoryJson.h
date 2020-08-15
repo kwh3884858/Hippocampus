@@ -15,10 +15,11 @@ namespace HeavenGateEditor {
 
     class StoryNode;
     class StoryWord;
-    class StoryLabel;
-    class StoryJump;
-    class StoryExhibit;
-    class StoryEvent;
+    //class StoryLabel;
+    //class StoryJump;
+    //class StoryExhibit;
+    //class StoryEvent;
+    class StoryJsonUniqueId;
 
     enum class StructLayout :int;
     //enum class InfoLayout :int;
@@ -30,6 +31,8 @@ namespace HeavenGateEditor {
 
 
     class StoryJson {
+        friend void to_json(json& j, const StoryJson& p);
+        friend void from_json(const json& j, StoryJson& p);
 
     public:
         StoryJson();
@@ -91,10 +94,7 @@ namespace HeavenGateEditor {
     private:
         list<StoryNode*> m_nodes;
         char m_fullPath[MAX_FOLDER_PATH];
-
-        //char m_chapter[MAX_FOLDER_PATH];
-        //char m_scene[MAX_FOLDER_PATH];
-
+        StoryJsonUniqueId* m_uniqueId;
     };
 
 

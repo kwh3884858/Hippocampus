@@ -1,5 +1,6 @@
 #include "StoryJsonUniqueId.h"
 #include <sys/time.h>
+#include <sys/utime.h>
 
 namespace HeavenGateEditor {
 
@@ -17,6 +18,11 @@ namespace HeavenGateEditor {
         m_id = INVALID_ID;
     }
 
+    StoryJsonUniqueId::StoryJsonUniqueId(const StoryJsonUniqueId& uniqueId)
+    {
+        m_id = uniqueId.m_id;
+    }
+
     StoryJsonUniqueId::~StoryJsonUniqueId()
     {
     }
@@ -24,6 +30,11 @@ namespace HeavenGateEditor {
     bool StoryJsonUniqueId::IsValid()
     {
         return m_id != INVALID_ID;
+    }
+
+    void StoryJsonUniqueId::GenerateId()
+    {
+        m_id = std::time(nullptr);
     }
 
     void to_json(json& j, const StoryJsonUniqueId& p)
@@ -35,7 +46,7 @@ namespace HeavenGateEditor {
 
     void from_json(const json& j, StoryJsonUniqueId& p)
     {
-
+        GetCharPointerException(p.m_id, j, uniqueIdString[(int)UniqueIdLayout::ID]);
     }
 
 }
