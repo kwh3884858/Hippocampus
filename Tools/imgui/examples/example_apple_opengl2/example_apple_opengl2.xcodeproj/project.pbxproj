@@ -19,6 +19,7 @@
 		763386A524C72FB300FCFEDE /* StoryJsonEventNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 763386A324C72FB300FCFEDE /* StoryJsonEventNode.cpp */; };
 		7638FC1824E4320D00110F31 /* HeavenGateWindowPreview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7638FC1624E4320D00110F31 /* HeavenGateWindowPreview.cpp */; };
 		7639418E24B8F4EF001EFA67 /* StoryLayoutConstant.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7639418D24B8F4EF001EFA67 /* StoryLayoutConstant.cpp */; };
+		7649738F24E57FB60068EF7B /* StoryJsonUniqueId.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7649738D24E57FB60068EF7B /* StoryJsonUniqueId.cpp */; };
 		764C9BD224557C21000FC74E /* ExampleBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 764C9BD024557C21000FC74E /* ExampleBase.cpp */; };
 		764C9BDB24558DB5000FC74E /* Example2SaveLoadEditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 764C9BD424558DB4000FC74E /* Example2SaveLoadEditor.cpp */; };
 		764C9BDC24558DB5000FC74E /* Example1Simple.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 764C9BD524558DB5000FC74E /* Example1Simple.cpp */; };
@@ -104,6 +105,8 @@
 		7638FC1624E4320D00110F31 /* HeavenGateWindowPreview.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HeavenGateWindowPreview.cpp; sourceTree = "<group>"; };
 		7638FC1724E4320D00110F31 /* HeavenGateWindowPreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeavenGateWindowPreview.h; sourceTree = "<group>"; };
 		7639418D24B8F4EF001EFA67 /* StoryLayoutConstant.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StoryLayoutConstant.cpp; sourceTree = "<group>"; };
+		7649738D24E57FB60068EF7B /* StoryJsonUniqueId.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StoryJsonUniqueId.cpp; sourceTree = "<group>"; };
+		7649738E24E57FB60068EF7B /* StoryJsonUniqueId.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryJsonUniqueId.h; sourceTree = "<group>"; };
 		764C9BD024557C21000FC74E /* ExampleBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ExampleBase.cpp; path = ../../imnodes/ExampleBase.cpp; sourceTree = "<group>"; };
 		764C9BD124557C21000FC74E /* ExampleBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleBase.h; path = ../../imnodes/ExampleBase.h; sourceTree = "<group>"; };
 		764C9BD324558DB4000FC74E /* Example2SaveLoadEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Example2SaveLoadEditor.h; path = ../../imnodes/Example2SaveLoadEditor.h; sourceTree = "<group>"; };
@@ -331,6 +334,8 @@
 				76EFF36623B7D9870031354F /* StoryJsonManager.h */,
 				7696956F24276F54004FA4E2 /* StoryJsonStoryNode.cpp */,
 				7696957024276F54004FA4E2 /* StoryJsonStoryNode.h */,
+				7649738D24E57FB60068EF7B /* StoryJsonUniqueId.cpp */,
+				7649738E24E57FB60068EF7B /* StoryJsonUniqueId.h */,
 				7696956C24276D43004FA4E2 /* StoryJsonWordNode.cpp */,
 				7696956D24276D43004FA4E2 /* StoryJsonWordNode.h */,
 				7639418D24B8F4EF001EFA67 /* StoryLayoutConstant.cpp */,
@@ -481,6 +486,7 @@
 				764C9BDD24558DB5000FC74E /* Example3ColorNodeEditor.cpp in Sources */,
 				76A1EAD4242CEDAC00D49F19 /* HeavenGateEditorNodeGraphExample.cpp in Sources */,
 				7696956E24276D43004FA4E2 /* StoryJsonWordNode.cpp in Sources */,
+				7649738F24E57FB60068EF7B /* StoryJsonUniqueId.cpp in Sources */,
 				76EFF37C23B7D9880031354F /* StoryJsonContentCompiler.cpp in Sources */,
 				76EFF38A23B7D9880031354F /* HeavenGateWindowTipTable.cpp in Sources */,
 				07A82EDB213941D00078D120 /* imgui_widgets.cpp in Sources */,
