@@ -53,7 +53,7 @@ namespace HeavenGateEditor {
         StoryJsonChecker::Instance().Initialize();
 
 
-        m_heavenGateEditor = new HeavenGateWindowStoryEditor;
+//        m_heavenGateEditor = new HeavenGateWindowStoryEditor;
         m_fontSizeTable = new HeavenGateEditorFontSizeTable;
         m_colorTable = new HeavenGateWindowColorTable;
         m_tipTable = new HeavenGateWindowTipTable;
@@ -69,7 +69,7 @@ namespace HeavenGateEditor {
         m_nodeGraphExample = new HeavenGateEditorNodeGraphExample;
         m_tachiePositionTable = new HeavenGateWindowTachiePositionTable;
 
-        m_heavenGateEditor->Initialize();
+//        m_heavenGateEditor->Initialize();
         m_fontSizeTable->Initialize();
         m_colorTable->Initialize();
         m_tipTable->Initialize();
@@ -85,7 +85,7 @@ namespace HeavenGateEditor {
         m_nodeGraphExample->Initialize();
         m_tachiePositionTable->Initialize();
 
-        show_editor_window = m_heavenGateEditor->GetHandle();
+//        show_editor_window = m_heavenGateEditor->GetHandle();
         show_font_size_table_window = m_fontSizeTable->GetHandle();
         show_color_table_window = m_colorTable->GetHandle();
         show_tip_table_window = m_tipTable->GetHandle();
@@ -104,7 +104,7 @@ namespace HeavenGateEditor {
 
     void HeavenGateWindowCenter::Shutdown()
     {
-        *show_editor_window = false;
+//        *show_editor_window = false;
         *show_font_size_table_window = false;
         *show_color_table_window = false;
         *show_tip_table_window = false;
@@ -120,7 +120,7 @@ namespace HeavenGateEditor {
         *show_node_graph_example = false;
         *show_tachie_poisition_table = false;
 
-        show_editor_window = nullptr;
+//        show_editor_window = nullptr;
         show_font_size_table_window = nullptr;
         show_color_table_window = nullptr;
         show_tip_table_window = nullptr;
@@ -136,7 +136,12 @@ namespace HeavenGateEditor {
         show_node_graph_example = nullptr;
         show_tachie_poisition_table = nullptr;
 
-        m_heavenGateEditor->Shutdown();
+        for (auto iter = m_heavenGateEditor.begin(); iter != m_heavenGateEditor.end(); iter++) {
+            (*iter)->Shutdown();
+            delete *iter;
+            *iter = nullptr;
+        }
+//        m_heavenGateEditor->Shutdown();
         m_fontSizeTable->Shutdown();
         m_colorTable->Shutdown();
         m_tipTable->Shutdown();
@@ -153,7 +158,7 @@ namespace HeavenGateEditor {
         m_tachiePositionTable->Shutdown();
 
         //Delete Windows
-        delete m_heavenGateEditor;
+        m_heavenGateEditor.clear();
         delete m_fontSizeTable;
         delete m_colorTable;
         delete m_tipTable;
@@ -169,7 +174,7 @@ namespace HeavenGateEditor {
         delete m_nodeGraphExample;
         delete m_tachiePositionTable;
 
-        m_heavenGateEditor = nullptr;
+//        m_heavenGateEditor = nullptr;
         m_fontSizeTable = nullptr;
         m_colorTable = nullptr;
         m_tipTable = nullptr;
@@ -197,7 +202,29 @@ namespace HeavenGateEditor {
     void HeavenGateWindowCenter::UpdateMainWindow()
     {
         ImGui::Text("[Heaven Gate Editor]  --version: %s", EDITOR_VERSION);
-        ImGui::Checkbox("Story Editor", show_editor_window);
+
+        if (ImGui::Button("New Story Editor"))
+        {
+            static int i = 0;
+            HeavenGateWindowStoryEditor* storyEditor = new HeavenGateWindowStoryEditor;
+            storyEditor->Initialize();
+            storyEditor->OpenWindow();
+            storyEditor->SetWindowIndex(i++);
+            m_heavenGateEditor.push_back(storyEditor);
+        }
+
+        for (auto iter = m_heavenGateEditor.begin(); iter != m_heavenGateEditor.end(); iter++) {
+            bool* const isOpen = (*iter)->GetHandle();
+            if (*isOpen == false) {
+                (*iter)->Shutdown();
+                delete *iter;
+                *iter = nullptr;
+                iter = m_heavenGateEditor.erase(iter);
+                continue;
+            }
+            (*iter)->Update();
+        }
+
         ImGui::Checkbox("Font Size Table", show_font_size_table_window);
         ImGui::Checkbox("Color Table", show_color_table_window);
         ImGui::Checkbox("Tip Table", show_tip_table_window);
@@ -213,12 +240,6 @@ namespace HeavenGateEditor {
         ImGui::Checkbox("Tachie Position Table", show_tachie_poisition_table);
         ImGui::Checkbox("Node Graph Example", show_node_graph_example);
 
-
-
-        if (show_editor_window && *show_editor_window)
-        {
-            m_heavenGateEditor->Update();
-        }
 
         if (show_font_size_table_window && *show_font_size_table_window)
         {

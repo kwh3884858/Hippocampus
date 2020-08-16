@@ -19,6 +19,7 @@
 #include "StoryJsonEndNode.h"
 #include "StoryColor.h"
 
+#include "StoryJsonUniqueId.h"
 
 #include "StoryTable.h"
 #include "StoryFileManager.h"
@@ -46,8 +47,9 @@ namespace HeavenGateEditor {
     {
         m_storyJson = nullptr;
         m_selectStoryWindow = nullptr;
-        m_selectStoryWindow = new HeavenGateWindowSelectStory();
+        m_selectStoryWindow = new HeavenGateWindowSelectStory(this);
         m_selectStoryWindow->Initialize();
+        m_selectStoryWindow->SetWindowIndex(m_windowIndex);
 
         m_inputFileNamePopup = nullptr;
         m_inputFileNamePopup = new HeavenGatePopupInputFileName(this);
@@ -58,7 +60,7 @@ namespace HeavenGateEditor {
         m_messageBoxPopup->Initialize();
 
         m_previewWindow = nullptr;
-        m_previewWindow = new HeavenGateWindowPreview();
+        m_previewWindow = new HeavenGateWindowPreview(this);
         m_previewWindow->Initialize();
 
         //Default open select story window
@@ -106,6 +108,34 @@ namespace HeavenGateEditor {
 
         memset(m_notification, '\0', sizeof(m_notification));
     }
+bool HeavenGateWindowStoryEditor::IsValid() const{
+    return m_storyJson != nullptr;
+}
+
+UniqueID HeavenGateWindowStoryEditor::GetStoryID()const{
+    assert(m_storyJson != nullptr);
+    return m_storyJson->GetID();
+}
+
+void HeavenGateWindowStoryEditor::LoadStoryByID(UniqueID id){
+    assert(id != StoryJsonUniqueId::INVALID_ID);
+
+    if (IsValid()) {
+        StoryJsonManager::Instance().DeleteStoryJson(GetStoryID());
+        m_storyJson = nullptr;
+    }
+    assert(m_storyJson == nullptr);
+
+    m_storyJson = StoryJsonManager::Instance().GetStoryJson(id);
+    assert(IsValid() == true);
+}
+
+int HeavenGateWindowStoryEditor::GetWindowIndex()const{
+    return m_windowIndex;
+}
+void HeavenGateWindowStoryEditor::SetWindowIndex(int index){
+    m_windowIndex = index;
+}
 
     void HeavenGateWindowStoryEditor::UpdateMainWindow()
     {
@@ -120,22 +150,23 @@ namespace HeavenGateEditor {
 
         if (m_storyJson == nullptr)
         {
-            m_storyJson = StoryJsonManager::Instance().GetStoryJson();
-            if (m_storyJson == nullptr)  return;
+            ImGui::Text("Please select a edited story file at first");
+            return;
         }
 
         ImGui::Text("Heaven Gate. (%s)\nImgui version. (%s)", EDITOR_VERSION, IMGUI_VERSION);
+        ImGui::Text("Story ID: ///%lu///", m_storyJson->GetID());
         ImGui::TextColored(ImVec4(1.0f, 0.0f, 1.0f, 1.0f), m_notification);
         ImGui::Spacing();
         if (m_storyJson != nullptr &&
             m_storyJson->IsExistFullPath() == true) {
             char tmpFullPath [MAX_FOLDER_PATH];
             strcpy(tmpFullPath, m_storyJson->GetFullPath());
-            ImGui::InputText("Current story path: %s",tmpFullPath, MAX_FOLDER_PATH, ImGuiInputTextFlags_ReadOnly);
+            ImGui::InputText("Current story path",tmpFullPath, MAX_FOLDER_PATH, ImGuiInputTextFlags_ReadOnly);
         }
 
-        static char* name = nullptr;
-        static char* content = nullptr;
+//        static char* name = nullptr;
+//        static char* content = nullptr;
         static char* label = nullptr;
         static char* exhibitID = nullptr;
         static char* exhibitPrefix = nullptr;
@@ -1227,7 +1258,6 @@ namespace HeavenGateEditor {
 
     void HeavenGateWindowStoryEditor::CallbackNewFile(const char* fileName)
     {
-
         char folderPath[MAX_FOLDER_PATH];
 
         //const char* fileName = m_inputFileNamePopup->GetFileName();
@@ -1237,22 +1267,19 @@ namespace HeavenGateEditor {
             return;
         }
         if (StoryFileManager::Instance().FromFileNameToFullPath(folderPath, fileName)) {
-            StoryJson* story = StoryJsonManager::Instance().GetStoryJson();
             //If already have a file
-            if (story->IsExistFullPath() == true) {
-                StoryFileManager::Instance().SaveStoryFile(story);
-                story->Clear();
+            if (IsValid() && m_storyJson->IsExistFullPath() == true) {
+                StoryFileManager::Instance().SaveStoryFile(m_storyJson);
             }
-            else {
-                //If story don`t loaded
-                return;
-            }
-            story->SetFullPath(folderPath);
+            UniqueID newStoryId = StoryJsonManager::Instance().CreateNewStoryJson(fileName);
+            assert(newStoryId != StoryJsonUniqueId::INVALID_ID);
+            LoadStoryByID(newStoryId);
+
             //Default Node
             char labelID[MAX_ID];
             strcpy(labelID, fileName);
             strcat(labelID, "_0");
-            story->AddLabel(labelID);
+            m_storyJson->AddLabel(labelID);
         }
         else {
             printf("Illegal File Name");
@@ -1270,9 +1297,9 @@ namespace HeavenGateEditor {
             return;
         }
         if (StoryFileManager::Instance().FromFileNameToFullPath(folderPath, fileName)) {
-            StoryJson* story = StoryJsonManager::Instance().GetStoryJson();
-
-            story->SetFullPath(folderPath);
+            if (IsValid()) {
+                m_storyJson->SetFullPath(folderPath);
+            }
 
             SaveStoryFile();
         }

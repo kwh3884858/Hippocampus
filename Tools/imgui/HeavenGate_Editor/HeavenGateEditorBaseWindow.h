@@ -15,11 +15,28 @@
 namespace HeavenGateEditor {
 
     //Window Name, String for identify a special windows
-    //Window Type, Window appearance depend on it
+//    //Window Type, Window appearance depend on it
+//
+//#define WINDOW_DECLARE(windowClass, windowType) \
+//    WINDOW_DECLARE_IMPLEMENT(windowClass, windowType, 0)
+
+//#define WINDOW_DECLARE_COMPLEX(windowName, windowType, indexFunction) \
+//    const char*         GetWindiwName() const override \
+//    { \
+//        int index = indexFunction(); \
+//        return COMBINE_STRING(windowName,STR(index)); \
+//    } \
+//    Window_Type         GetWindowType() const override          { return windowType; } \
+
+#define COMBINE(left, right) left##right
+
+#define STR(str) #str
+
 #define WINDOW_DECLARE(windowName, windowType) \
 public: \
     const char*         GetWindiwName() const override          { return windowName; } \
-    Window_Type         GetWindowType() const override          { return windowType; }
+    Window_Type         GetWindowType() const override          { return windowType; } \
+
 
     class HeavenGateEditorBaseWindow
     {
@@ -31,6 +48,7 @@ public: \
             Popup
         };
         HeavenGateEditorBaseWindow();
+        HeavenGateEditorBaseWindow(const HeavenGateEditorBaseWindow&) = delete;
         HeavenGateEditorBaseWindow(HeavenGateEditorBaseWindow* parent);
         virtual ~HeavenGateEditorBaseWindow();
 
@@ -44,6 +62,8 @@ public: \
         virtual void Initialize() = 0;
         virtual void Shutdown() = 0;
 
+        int GetWindowIndex() const { return m_index; }
+
     protected:
         virtual void UpdateMainWindow() = 0;
         virtual void UpdateMenu() = 0;
@@ -52,8 +72,10 @@ public: \
         void SetParentWindow(HeavenGateEditorBaseWindow * parent);
 
     protected:
+        static int indexCount;
         bool m_open;
         HeavenGateEditorBaseWindow *  m_parent;
+        int m_index;
     };
 
 

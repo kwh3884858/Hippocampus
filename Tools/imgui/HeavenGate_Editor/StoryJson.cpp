@@ -296,7 +296,6 @@ StoryJson::StoryJson()
     //memset(m_chapter, '\0', sizeof(m_chapter));
     //memset(m_scene, '\0', sizeof(m_scene));
     m_uniqueId = new StoryJsonUniqueId;
-
 }
 
 StoryJson::StoryJson(const StoryJson& storyJson)
@@ -307,6 +306,8 @@ StoryJson::StoryJson(const StoryJson& storyJson)
     }
     memset(m_fullPath, '\0', sizeof(m_fullPath));
     strcpy(m_fullPath, storyJson.m_fullPath);
+
+    m_uniqueId = new StoryJsonUniqueId;
     *m_uniqueId = *storyJson.m_uniqueId;
 
     //memset(m_chapter, '\0', sizeof(m_chapter));
@@ -364,8 +365,9 @@ StoryJson::StoryJson(StoryJson&& storyJson) noexcept
     strcpy(m_fullPath, storyJson.m_fullPath);
 
     m_uniqueId = storyJson.m_uniqueId;
-    m_nodes = storyJson.m_nodes;
+    storyJson.m_uniqueId = nullptr;
 
+    m_nodes = storyJson.m_nodes;
     for (auto iter = storyJson.m_nodes.begin(); iter != storyJson.m_nodes.end(); iter++) {
         *iter = nullptr;
     }
@@ -388,8 +390,9 @@ StoryJson& StoryJson::operator=(StoryJson&& storyJson) noexcept
     strcpy(m_fullPath, storyJson.m_fullPath);
 
     m_uniqueId = storyJson.m_uniqueId;
-    m_nodes = storyJson.m_nodes;
+    storyJson.m_uniqueId = nullptr;
 
+    m_nodes = storyJson.m_nodes;
     for (auto iter = storyJson.m_nodes.begin(); iter != storyJson.m_nodes.end(); iter++) {
         *iter = nullptr;
     }
@@ -401,7 +404,6 @@ StoryJson& StoryJson::operator=(StoryJson&& storyJson) noexcept
 
 void StoryJson::Clear()
 {
-
     for (auto iter = m_nodes.begin(); iter != m_nodes.end(); iter++)
     {
         if (*iter == nullptr)
@@ -411,8 +413,12 @@ void StoryJson::Clear()
         delete *iter;
         *iter = nullptr;
     }
-
     m_nodes.clear();
+
+    if (m_uniqueId) {
+        delete m_uniqueId;
+    }
+    m_uniqueId = nullptr;
 
     memset(m_fullPath, '\0', sizeof(m_fullPath));
     //memset(m_chapter, '\0', sizeof(m_chapter));
@@ -467,9 +473,13 @@ bool StoryJson::IsExistFullPath()const {
     return true;
 }
 
+    UniqueID StoryJson::GetID(){
+        return m_uniqueId->GetId();
+    }
 
-
-
+    bool StoryJson::IsIdValid() const{
+        return m_uniqueId->IsValid();
+    }
 //=========================DATA STRUCTURE============================
 
 
@@ -514,10 +524,10 @@ void from_json(const json & j, StoryJson & p)
     GetJsonException(tmpJson, j, StructString[(int)StructLayout::Id]);
     if (!tmpJson.empty())
     {
-        GetContentException<StoryJsonUniqueId* const>(p.m_uniqueId, tmpJson, uniqueIdString[(int)StoryJsonUniqueId::ID]);
+        *(p.m_uniqueId) = tmpJson;
     }
-    if (!p.m_uniqueId->IsValid())
-    {
+    //Old file format, lock of id, create a new one
+    if (p.m_uniqueId->IsValid() == false) {
         p.m_uniqueId->GenerateId();
     }
 

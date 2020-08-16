@@ -4,6 +4,7 @@
 #define HeavenGateWindowCenter_h
 
 #include "HeavenGateEditorBaseWindow.h"
+#include <vector>
 
 
 namespace HeavenGateEditor {
@@ -41,7 +42,7 @@ namespace HeavenGateEditor {
 
     private:
 
-        HeavenGateWindowStoryEditor*            m_heavenGateEditor;
+        std::vector<HeavenGateWindowStoryEditor*>            m_heavenGateEditor;
         HeavenGateEditorFontSizeTable*          m_fontSizeTable;
         HeavenGateWindowColorTable*             m_colorTable;
         HeavenGateWindowTipTable*               m_tipTable;
@@ -57,8 +58,7 @@ namespace HeavenGateEditor {
         HeavenGateEditorNodeGraphExample*       m_nodeGraphExample;
         HeavenGateWindowTachiePositionTable*    m_tachiePositionTable;
 
-
-        bool* show_editor_window;
+//        bool* show_editor_window;
         bool* show_font_size_table_window;
         bool* show_color_table_window;
         bool* show_tip_table_window;
@@ -74,7 +74,6 @@ namespace HeavenGateEditor {
         bool* show_node_graph_example;
         bool* show_tachie_poisition_table;
     };
-
 }
 
 

@@ -29,6 +29,8 @@ namespace HeavenGateEditor {
         }
         m_compiledWord = nullptr;
     }
+
+
     void HeavenGateWindowPreview::UpdateMainWindow() {
         //    ImGui::Text(m_compiledWord->m_name);
         //    ImGui::Text(m_compiledWord->m_content);
@@ -77,14 +79,17 @@ namespace HeavenGateEditor {
         ImGui::Text(m_compiledWord->m_name);
         ImGui::Separator();
 
-        ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + ImGui::GetItemRectSize().x - 5);
+//        ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + ImGui::GetItemRectSize().x - 5);
 
         for (auto iter = tokens.cbegin(); iter != tokens.end(); iter++)
         {
             if ((*iter)->m_tokeType == StoryJsonContentCompiler::TokenType::TokenContent)
             {
+                ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + ImGui::GetWindowWidth() - 15);
                 ImGui::TextColored(color, (*iter)->m_content);
-                ImGui::SameLine(0, 0);
+//                ImGui::SameLine(0, 0);
+                ImGui::PopTextWrapPos();
+
             }
             else if ((*iter)->m_tokeType == StoryJsonContentCompiler::TokenType::TokenInstructor)
             {
@@ -114,7 +119,7 @@ namespace HeavenGateEditor {
                             ImGui::TextColored(colorRed, "!!Can not find font size");
                         }
                         memset(tmpFontSize, '\0', MAX_COLUMNS_CONTENT_LENGTH);
-                        ImGui::SameLine(0, 0);
+//                        ImGui::SameLine(0, 0);
                         break;
                     case HeavenGateEditor::TableType::Color:
                         color = colorWhite;
@@ -122,7 +127,7 @@ namespace HeavenGateEditor {
                     case HeavenGateEditor::TableType::Tips:
                         ImGui::TextColored(colorGreen, "[Show Tip Here: %s]", tmpTip);
                         memset(tmpTip, '\0', MAX_COLUMNS_CONTENT_LENGTH);
-                        ImGui::SameLine(0, 0);
+//                        ImGui::SameLine(0, 0);
                         break;
                     case HeavenGateEditor::TableType::Paint_Move:
                         break;
@@ -144,7 +149,7 @@ namespace HeavenGateEditor {
                             ImGui::TextColored(colorRed, "!!Can not find interval time");
                         }
                         memset(tmpPause, '\0', MAX_COLUMNS_CONTENT_LENGTH);
-                        ImGui::SameLine(0, 0);
+//                        ImGui::SameLine(0, 0);
                         break;
                     case TableType::Bgm:
                         if (strlen(tmpBgm) != 0) {
@@ -155,7 +160,7 @@ namespace HeavenGateEditor {
                             ImGui::TextColored(colorRed, "!!Can not find bgm");
                         }
                         memset(tmpBgm, '\0', MAX_COLUMNS_CONTENT_LENGTH);
-                        ImGui::SameLine(0, 0);
+//                        ImGui::SameLine(0, 0);
                         break;
                     case TableType::Effect:
                         if (strlen(tmpEffect) != 0) {
@@ -167,7 +172,7 @@ namespace HeavenGateEditor {
                         }
                         memset(tmpEffect, '\0', MAX_COLUMNS_CONTENT_LENGTH);
 
-                        ImGui::SameLine(0, 0);
+//                        ImGui::SameLine(0, 0);
                         break;
                     case TableType::Tachie:
                         if (strlen(tmpTachieCommand[0]) == 0) {
@@ -179,7 +184,7 @@ namespace HeavenGateEditor {
                         ImGui::TextColored(colorGreen, "[Display Tachie: %s] [Tachie Position: %s]", tmpTachieCommand[0], tmpTachieCommand[1]);
                         memset(tmpTachieCommand, '\0', NUM_OF_TACHIE_COMMAND * MAX_COLUMNS_CONTENT_LENGTH);
 
-                        ImGui::SameLine(0, 0);
+//                        ImGui::SameLine(0, 0);
                         break;
                     default:
                         break;
@@ -393,8 +398,8 @@ namespace HeavenGateEditor {
 
         }
 
-        //ImGui::GetWindowDrawList()->AddRect(ImGui::GetItemRectMin(), ImGui::GetItemRectMax(), IM_COL32(255, 255, 0, 255));
-        ImGui::PopTextWrapPos();
+//        ImGui::GetWindowDrawList()->AddRect(ImGui::GetItemRectMin(), ImGui::GetItemRectMax(), IM_COL32(255, 255, 0, 255));
+//        ImGui::PopTextWrapPos();
 
         ImGui::Text("");
         ImGui::Separator();

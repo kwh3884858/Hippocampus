@@ -15,13 +15,19 @@ class StoryWord;
 
     public:
 
-        HeavenGateWindowPreview(){};
+        HeavenGateWindowPreview() = delete;
+        HeavenGateWindowPreview(HeavenGateEditorBaseWindow* parent):HeavenGateEditorBaseWindow(parent)
+        {}
         virtual ~HeavenGateWindowPreview() override {}
 
         virtual void Initialize() override;
         virtual void Shutdown() override;
         virtual void UpdateMainWindow() override;
         virtual void UpdateMenu() override {}
+
+        //Window Related
+        int GetWindowIndex() const;
+        void SetWindowIndex(int index);
 
         void SetPreviewWord(const StoryWord& word);
 

@@ -11,7 +11,7 @@
 #include "HeavenGatePopupInputFileName.h"
 #include "HeavenGateWindowStoryEditor.h"
 #include "StoryFileManager.h"
-#include "StoryJsonManager.h"
+//#include "StoryJsonManager.h"
 #include "StoryJson.h"
 
 namespace HeavenGateEditor {

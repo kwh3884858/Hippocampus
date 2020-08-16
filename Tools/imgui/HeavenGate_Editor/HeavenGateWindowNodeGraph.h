@@ -11,7 +11,8 @@ namespace HeavenGateEditor {
 
         WINDOW_DECLARE("Heaven Gate Editor", Window_Type::MainWindow)
     public:
-        HeavenGateWindowNodeGraph();
+//        HeavenGateWindowNodeGraph();
+        HeavenGateWindowNodeGraph(HeavenGateEditorBaseWindow* parent);
 
         virtual ~HeavenGateWindowNodeGraph() override;
 

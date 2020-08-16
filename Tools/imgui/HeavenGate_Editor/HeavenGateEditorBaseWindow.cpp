@@ -1,13 +1,19 @@
 #include "HeavenGateEditorBaseWindow.h"
 #include "imgui.h"
 
+#include <stdio.h>
 namespace HeavenGateEditor {
+
+int HeavenGateEditorBaseWindow::indexCount = 0;
+
     HeavenGateEditorBaseWindow::HeavenGateEditorBaseWindow(){
+        m_index = indexCount++;
         m_open = false;
         SetParentWindow(nullptr);
     }
     HeavenGateEditorBaseWindow::HeavenGateEditorBaseWindow(HeavenGateEditorBaseWindow* parent)
     {
+        m_index = indexCount++;
         m_open = false;
         SetParentWindow(parent);
     }
@@ -25,12 +31,17 @@ namespace HeavenGateEditor {
             return;
         }
 
+        char name[32];
+        const char * windowName = GetWindiwName();
+        int index = GetWindowIndex();
+        sprintf(name, "%s_%d", windowName, index);
+
         //Only for popup
         if (GetWindowType() == Window_Type::Popup)
         {
-            ImGui::OpenPopup(GetWindiwName());
+            ImGui::OpenPopup(name);
 
-            if (ImGui::BeginPopupModal(GetWindiwName(), NULL, ImGuiWindowFlags_AlwaysAutoResize))
+            if (ImGui::BeginPopupModal(name, NULL, ImGuiWindowFlags_AlwaysAutoResize))
             {
                 UpdateMainWindow();
 
@@ -67,9 +78,8 @@ namespace HeavenGateEditor {
         }
 
 
-
         // Main body of the Demo window starts here.
-        if (!ImGui::Begin(GetWindiwName(), &m_open, window_flags))
+        if (!ImGui::Begin(name, &m_open, window_flags))
         {
             // Early out if the window is collapsed, as an optimization.
             ImGui::End();

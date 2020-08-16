@@ -32,6 +32,10 @@ namespace HeavenGateEditor {
         virtual void UpdateMainWindow() override;
         virtual void UpdateMenu() override {}
 
+        //Window Related
+        int GetWindowIndex()const;
+        void SetWindowIndex(int index);
+        
         const char* GetFileName() const;
         void SetCallbackAfterClickOk(Callback callback);
         //void SetStoryFileManager(StoryFileManager* pStoryFileManager);

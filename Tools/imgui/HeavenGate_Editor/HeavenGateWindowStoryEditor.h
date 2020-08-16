@@ -43,6 +43,15 @@ class HeavenGateWindowPreview;
         virtual void Initialize() override;
         virtual void Shutdown() override;
 
+        //Id Related
+        bool IsValid() const;
+        UniqueID GetStoryID() const;
+        void LoadStoryByID(UniqueID id);
+
+        //Window Related
+        int GetWindowIndex()const;
+        void SetWindowIndex(int index);
+
     protected:
 
         virtual void UpdateMainWindow() override;
@@ -67,6 +76,7 @@ class HeavenGateWindowPreview;
         void CopyLastLabelInfo(int index);
 
         //Data
+        //Story json, should alreay keep private, no getter and setter
         StoryJson* m_storyJson;
 
         //View
@@ -76,6 +86,9 @@ class HeavenGateWindowPreview;
         HeavenGateWindowPreview* m_previewWindow;
 
         char m_notification[MAX_CONTENT];
+
+        //Window index
+        int m_windowIndex;
     };
 
 

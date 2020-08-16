@@ -249,5 +249,9 @@ const char* const TableSuffix = "Table";
         "Assets/data/graphics/Fonts/Fonts_SourceHanSansCN-Regular.ttf";
 #endif
 
+//Alias
+    using UniqueID = unsigned long int;
+
+
 }
 #endif /* HeavenGateEditorConstant_h */

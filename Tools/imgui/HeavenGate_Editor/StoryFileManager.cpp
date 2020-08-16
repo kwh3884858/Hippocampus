@@ -86,11 +86,8 @@ namespace HeavenGateEditor {
             std::cerr << e.what() << std::endl;
         }
 
-
-
         /* *pStoryJson = std::move(a);*/
         pStoryJson->SetFullPath(pPath);
-
 
         fins.close();
 

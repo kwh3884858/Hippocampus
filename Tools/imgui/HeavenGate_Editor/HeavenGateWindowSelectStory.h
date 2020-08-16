@@ -15,7 +15,8 @@ class HeavenGateWindowSelectStory : public HeavenGateEditorBaseWindow
     WINDOW_DECLARE("HeavenGateWindowSelectStory", Window_Type::SubWindow)
 
 public:
-    HeavenGateWindowSelectStory();
+    HeavenGateWindowSelectStory() = delete;
+    HeavenGateWindowSelectStory(HeavenGateEditorBaseWindow* parent);
     ~HeavenGateWindowSelectStory();
 
     virtual void Initialize() override;
@@ -24,7 +25,10 @@ public:
     virtual void UpdateMainWindow() override;
     virtual void UpdateMenu() override;
    
-
+    //Window Related
+    int GetWindowIndex()const;
+    void SetWindowIndex(int index);
+    
     //void ShowSelectStoryWindow();
     //
     //void SetStoryFileManager(StoryFileManager* pStoryFileManager);
@@ -65,6 +69,8 @@ private:
 
     HeavenGatePopupResolveConflictFiles* m_popupResolveConflictFiles;
     bool* m_isOpenPopupResolveConflictFiles;
+
+    int m_windowIndex;
    
 };
 

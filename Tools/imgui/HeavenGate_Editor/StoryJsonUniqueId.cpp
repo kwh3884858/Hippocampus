@@ -1,10 +1,15 @@
 #include "StoryJsonUniqueId.h"
-#include <sys/time.h>
+#include "JsonUtility.h"
+
+#ifdef _WIN32
 #include <sys/utime.h>
+#else
+#include <sys/time.h>
+#endif
 
 namespace HeavenGateEditor {
 
-    const int StoryJsonUniqueId::INVALID_ID = 0;
+    const UniqueID StoryJsonUniqueId::INVALID_ID = 0;
 
     enum class UniqueIdLayout {
         ID
@@ -13,9 +18,11 @@ namespace HeavenGateEditor {
         "id",
     };
 
+    //We holp every id have a valid default value
     StoryJsonUniqueId::StoryJsonUniqueId()
     {
         m_id = INVALID_ID;
+        GenerateId();
     }
 
     StoryJsonUniqueId::StoryJsonUniqueId(const StoryJsonUniqueId& uniqueId)
@@ -34,7 +41,13 @@ namespace HeavenGateEditor {
 
     void StoryJsonUniqueId::GenerateId()
     {
+        //TODO: Make sure id is valid and no repeat.
         m_id = std::time(nullptr);
+    }
+
+    UniqueID StoryJsonUniqueId::GetId(){
+        assert(IsValid() == true);
+        return m_id;
     }
 
     void to_json(json& j, const StoryJsonUniqueId& p)
@@ -46,7 +59,7 @@ namespace HeavenGateEditor {
 
     void from_json(const json& j, StoryJsonUniqueId& p)
     {
-        GetCharPointerException(p.m_id, j, uniqueIdString[(int)UniqueIdLayout::ID]);
+        GetContentException<UniqueID>(p.m_id, j, uniqueIdString[(int)UniqueIdLayout::ID]);
     }
 
 }

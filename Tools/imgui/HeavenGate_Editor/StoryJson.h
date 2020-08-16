@@ -82,6 +82,9 @@ namespace HeavenGateEditor {
         void SetFullPath(const char* fullPath);
         const char* GetFullPath()const;
         bool IsExistFullPath()const;
+
+        UniqueID GetID();
+        bool IsIdValid() const;
         /*
                 void SetChapter(const char* chapter) { strcpy(m_chapter, chapter); }
                 const char *const GetChapter()const { return m_chapter; }

@@ -2,17 +2,25 @@
 #include "imgui.h"
 #include "HeavenGateWindowSelectStory.h"
 #include "HeavenGatePopupResolveConflictFiles.h"
+#include "HeavenGateWindowStoryEditor.h"
 #include "HeavenGateEditorUtility.h"
+
+#include "StoryJson.h"
+#include "StoryJsonUniqueId.h"
 
 #include "StoryJsonManager.h"
 #include "StoryFileManager.h"
-#include "StoryJson.h"
 
 
 
 
 namespace HeavenGateEditor {
-    HeavenGateWindowSelectStory::HeavenGateWindowSelectStory()
+//    HeavenGateWindowSelectStory::HeavenGateWindowSelectStory()
+//    {
+//
+//    }
+    HeavenGateWindowSelectStory::HeavenGateWindowSelectStory(HeavenGateEditorBaseWindow* parent)
+    :HeavenGateEditorBaseWindow(parent)
     {
 
     }
@@ -77,6 +85,14 @@ namespace HeavenGateEditor {
         ShowMenuBar();
     }
 
+    //Window Related
+    int HeavenGateWindowSelectStory::GetWindowIndex()const{
+        return m_windowIndex ;
+    }
+
+    void HeavenGateWindowSelectStory::SetWindowIndex(int index){
+        m_windowIndex = index;
+    }
     //void HeavenGateWindowSelectStory::ShowSelectStoryWindow() {
 
     //    if (!m_open) {
@@ -257,6 +273,7 @@ namespace HeavenGateEditor {
         }
 
         //Display file list
+
         for (int i = 2; i < m_fileCount; i++)
         {
             if (ImGui::Selectable(m_filesList[i], m_selected == i))
@@ -302,7 +319,10 @@ namespace HeavenGateEditor {
 
         ImGui::BeginChild("item view", ImVec2(0, -ImGui::GetFrameHeightWithSpacing()));
 
-        if (ImGui::BeginTabBar("##Tabs", ImGuiTabBarFlags_None))
+//        char tab [16] = ";
+//        sprintf(tab, "Tab_%d", m_windowIndex);
+
+        if (ImGui::BeginTabBar("##Tab", ImGuiTabBarFlags_None))
         {
             if (ImGui::BeginTabItem("Description"))
             {
@@ -380,10 +400,10 @@ namespace HeavenGateEditor {
         {
         case HeavenGatePopupResolveConflictFiles::ResolveConflictFileSelection::DiscardCurrentFile:
         {
+            HeavenGateWindowStoryEditor* const parentStoryEditor = static_cast<HeavenGateWindowStoryEditor *>(m_parent);
 
-            StoryJson* story = StoryJsonManager::Instance().GetStoryJson();
-            story->Clear();
-            StoryFileManager::Instance().LoadStoryFile(m_fullPath, story);
+            UniqueID storyId = StoryJsonManager::Instance().LoadStoryJson(m_fullPath);
+            parentStoryEditor->LoadStoryByID(storyId);
 
             m_popupResolveConflictFiles->ResetIsDiscardCurrentFile();
             m_popupResolveConflictFiles->CloseWindow();
@@ -394,7 +414,6 @@ namespace HeavenGateEditor {
         }
         case HeavenGatePopupResolveConflictFiles::ResolveConflictFileSelection::Cancel:
         {
-
             m_popupResolveConflictFiles->ResetIsDiscardCurrentFile();
             m_popupResolveConflictFiles->CloseWindow();
 

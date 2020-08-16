@@ -10,11 +10,11 @@ namespace HeavenGateEditor {
     void GetJsonException(json & des, const json& src, const char* const index);
 
     template<typename T>
-    void GetContentException(T des, char json& j, const char * const index);
+    void GetContentException(T des, const json& j, const char * const index);
 
 
     template<typename T>
-    void GetContentException(T des, char json& j, const char * const index)
+    void GetContentException(T des, const json& j, const char * const index)
     {
         try
         {

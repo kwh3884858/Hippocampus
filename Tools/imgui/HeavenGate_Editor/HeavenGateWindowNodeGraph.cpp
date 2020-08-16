@@ -3,7 +3,8 @@
 namespace HeavenGateEditor {
 
 
-    HeavenGateWindowNodeGraph::HeavenGateWindowNodeGraph()
+    HeavenGateWindowNodeGraph::HeavenGateWindowNodeGraph(HeavenGateEditorBaseWindow* parent)
+:HeavenGateEditorBaseWindow(parent)
     {
     }
 
