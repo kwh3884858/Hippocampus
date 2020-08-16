@@ -50,9 +50,9 @@ namespace UI.Panels.Element
 
         private void RefreshPointInfo()
         {
-            var pointConfig = CGScenePointConfig.GetConfigByKey(m_pointInfo.ID);
-            transform.localPosition = new Vector3(pointConfig.posX,pointConfig.posY,transform.localPosition.z);
-            m_root_RectTransform.sizeDelta = new Vector2(pointConfig.width,pointConfig.height);
+//            var pointConfig = CGScenePointConfig.GetConfigByKey(m_pointInfo.ID);
+//            transform.localPosition = new Vector3(pointConfig.posX,pointConfig.posY,transform.localPosition.z);
+//            m_root_RectTransform.sizeDelta = new Vector2(pointConfig.width,pointConfig.height);
             RefreshTouchInfo();
         }
 

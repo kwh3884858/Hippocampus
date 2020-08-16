@@ -117,38 +117,53 @@ namespace UI.Panels
 			{
 				UiDataProvider.ControllerManager.StoryController.LoadStoryFileByName(config.StoryFileName);
 			}
-			PrefabManager.Instance.SetImage(m_img_cg_Image,config.CGKey);
+
+			CloseAllCGItems();
+			if (m_cgItems.ContainsKey(config.CGItemKey))
+			{
+				RefreshCGSceneInfo();
+			}
+			else
+			{
+				PrefabManager.Instance.InstantiateAsync<UI_Common_CGscene_Item_SubView>(config.CGItemKey, (result) =>
+				{
+					if (result.status != RequestStatus.SUCCESS)
+					{
+						return;
+					}
+
+					var item = result.result as UI_Common_CGscene_Item_SubView;
+					m_cgItems.Add(config.CGItemKey, item);
+					item.Init(item.GetComponent<RectTransform>());
+					if (m_model.SceneInfo.CGItemKey != config.CGItemKey)
+					{
+						item.Hide();
+						return;
+					}
+					RefreshCGSceneInfo();
+				},m_go_CGSceneItems);
+				return;
+			}
+		}
+
+		private void CloseAllCGItems()
+		{
+			foreach (var cgItem in m_cgItems)
+			{
+				cgItem.Value.Hide();
+			}
+		}
+
+		private void RefreshCGSceneInfo()
+		{
+			m_cgItems[m_model.SceneInfo.CGItemKey].SetInfo(m_model.SceneInfo);
 			RefreshPointInfos();
 		}
 
 		private void RefreshPointInfos()
 		{
-			EventManager.Instance.SendEvent(new ChangeCursorEvent());
 			m_btn_back_Button.gameObject.SetActive(CgSceneController.CheckCGIsClear(m_model.SceneID));
-			ClearPointItem();
-			var pointInfos = m_model.GetPointInfos();
-			for (int i = 0; i < pointInfos.Count; i++)
-			{
-				var pointInfo = pointInfos[i];
-				if (m_items.Count <= i)
-				{
-					PrefabManager.Instance.InstantiateAsync<CGScenePointItem>("UI_Common_CGScenePoint_IItem", (result) =>
-					{
-						if (result.status != RequestStatus.SUCCESS)
-						{
-							return;
-						}
-
-						var item = result.result as CGScenePointItem;
-						m_items.Add(item);
-						item.ClickCallback += OnClickPoint;
-						item.SetPointInfo(pointInfo);
-					},m_go_interactionPoints);
-					continue;
-				}
-				m_items[i].SetPointInfo(pointInfo);
-				m_items[i].gameObject.SetActive(true);
-			}
+			m_cgItems[m_model.SceneInfo.CGItemKey].RefreshPointInfos(m_model.GetPointInfos(),OnClickPoint);
 		}
 
 		private void OnCGScenePointInfoChange(object sender, CGScenePointInfoChangeEvent e)
@@ -160,14 +175,7 @@ namespace UI.Panels
 			}
 			RefreshPointInfos();
 		}
-
-		private void ClearPointItem()
-		{
-			foreach (var pointItem in m_items)
-			{
-				pointItem.gameObject.SetActive(false);
-			}
-		}
+		
 
 		private void OnClickPoint(int pointID,CGScenePointTouchConfig config)
 		{
@@ -184,7 +192,7 @@ namespace UI.Panels
 		#region Member
 
 		public CGSceneController CgSceneController => UiDataProvider.ControllerManager.CGSceneController;
-		private List<CGScenePointItem> m_items = new List<CGScenePointItem>();
+		private Dictionary<string, UI_Common_CGscene_Item_SubView> m_cgItems = new Dictionary<string, UI_Common_CGscene_Item_SubView>();
 
 		#endregion
 	}

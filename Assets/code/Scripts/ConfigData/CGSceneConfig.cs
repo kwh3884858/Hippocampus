@@ -7,7 +7,7 @@ namespace Config.Data
     {
         public string ID;
         public List<int> pointIDs;
-        public string CGKey;
+        public string CGItemKey;
         public string StoryFileName;
         public string LoadSceneNameOnEnd;
         public string LoadMissionIDOnEnd;
