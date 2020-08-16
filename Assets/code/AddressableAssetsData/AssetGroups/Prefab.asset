@@ -21,6 +21,10 @@ MonoBehaviour:
     m_Address: picture_item
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 44c87736995060943bd06fcff33da03f
+    m_Address: UI_Common_CGscene_Item
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 75ed0163373a1314ab5eb6dc0d7af01b
     m_Address: UI_Common_Log_Item
     m_ReadOnly: 0
