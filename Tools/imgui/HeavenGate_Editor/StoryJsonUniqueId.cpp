@@ -2,7 +2,7 @@
 #include "JsonUtility.h"
 
 #ifdef _WIN32
-#include <sys/utime.h>
+#include <time.h>
 #else
 #include <sys/time.h>
 #endif
@@ -42,7 +42,7 @@ namespace HeavenGateEditor {
     void StoryJsonUniqueId::GenerateId()
     {
         //TODO: Make sure id is valid and no repeat.
-        m_id = std::time(nullptr);
+        m_id = time(nullptr);
     }
 
     UniqueID StoryJsonUniqueId::GetId(){

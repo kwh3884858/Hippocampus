@@ -31,7 +31,7 @@ int HeavenGateEditorBaseWindow::indexCount = 0;
             return;
         }
 
-        char name[32];
+        char name[128];
         const char * windowName = GetWindiwName();
         int index = GetWindowIndex();
         sprintf(name, "%s_%d", windowName, index);
