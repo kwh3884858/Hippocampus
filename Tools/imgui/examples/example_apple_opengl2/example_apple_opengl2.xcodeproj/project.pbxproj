@@ -44,6 +44,18 @@
 		76A1EAD4242CEDAC00D49F19 /* HeavenGateEditorNodeGraphExample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76A1EAD3242CEDAC00D49F19 /* HeavenGateEditorNodeGraphExample.cpp */; };
 		76B2F3B224AB70750004D783 /* HeavenGatePopupMessageBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76B2F3B024AB70750004D783 /* HeavenGatePopupMessageBox.cpp */; };
 		76B2F3B324AB70750004D783 /* StoryJsonEndNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76B2F3B124AB70750004D783 /* StoryJsonEndNode.cpp */; };
+		76C7DA3C24EC4E540027D395 /* StoryTableFontSize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76C7DA2824EC4E530027D395 /* StoryTableFontSize.cpp */; };
+		76C7DA3D24EC4E540027D395 /* StoryTableExhibit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76C7DA2A24EC4E530027D395 /* StoryTableExhibit.cpp */; };
+		76C7DA3E24EC4E540027D395 /* StoryTableEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76C7DA2E24EC4E530027D395 /* StoryTableEffect.cpp */; };
+		76C7DA3F24EC4E540027D395 /* StoryTableTachiePosition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76C7DA2F24EC4E530027D395 /* StoryTableTachiePosition.cpp */; };
+		76C7DA4024EC4E540027D395 /* StoryTableCharacter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76C7DA3124EC4E530027D395 /* StoryTableCharacter.cpp */; };
+		76C7DA4124EC4E540027D395 /* StoryTableTachie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76C7DA3324EC4E530027D395 /* StoryTableTachie.cpp */; };
+		76C7DA4224EC4E540027D395 /* StoryTableTip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76C7DA3424EC4E530027D395 /* StoryTableTip.cpp */; };
+		76C7DA4324EC4E540027D395 /* StoryTablePause.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76C7DA3524EC4E530027D395 /* StoryTablePause.cpp */; };
+		76C7DA4424EC4E540027D395 /* StoryTableTachieMove.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76C7DA3624EC4E530027D395 /* StoryTableTachieMove.cpp */; };
+		76C7DA4524EC4E540027D395 /* StoryTableColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76C7DA3824EC4E530027D395 /* StoryTableColor.cpp */; };
+		76C7DA4624EC4E540027D395 /* StoryTableBgm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76C7DA3A24EC4E530027D395 /* StoryTableBgm.cpp */; };
+		76C7DA4924EC4EB90027D395 /* StoryTableBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76C7DA4824EC4EB90027D395 /* StoryTableBase.cpp */; };
 		76E3E9B6247051330067DEBE /* imnodes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76E3E9B4247051330067DEBE /* imnodes.cpp */; };
 		76E3E9BD247075860067DEBE /* StoryNodeGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76E3E9B7247075850067DEBE /* StoryNodeGraph.cpp */; };
 		76E3E9BE247075860067DEBE /* StoryRow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76E3E9B8247075860067DEBE /* StoryRow.cpp */; };
@@ -154,6 +166,30 @@
 		76B2F3AF24AB70750004D783 /* StoryJsonEndNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryJsonEndNode.h; sourceTree = "<group>"; };
 		76B2F3B024AB70750004D783 /* HeavenGatePopupMessageBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HeavenGatePopupMessageBox.cpp; sourceTree = "<group>"; };
 		76B2F3B124AB70750004D783 /* StoryJsonEndNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StoryJsonEndNode.cpp; sourceTree = "<group>"; };
+		76C7DA2624EC4E530027D395 /* StoryTableFontSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryTableFontSize.h; sourceTree = "<group>"; };
+		76C7DA2724EC4E530027D395 /* StoryTablePause.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryTablePause.h; sourceTree = "<group>"; };
+		76C7DA2824EC4E530027D395 /* StoryTableFontSize.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StoryTableFontSize.cpp; sourceTree = "<group>"; };
+		76C7DA2924EC4E530027D395 /* StoryTableTachieMove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryTableTachieMove.h; sourceTree = "<group>"; };
+		76C7DA2A24EC4E530027D395 /* StoryTableExhibit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StoryTableExhibit.cpp; sourceTree = "<group>"; };
+		76C7DA2B24EC4E530027D395 /* StoryTableColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryTableColor.h; sourceTree = "<group>"; };
+		76C7DA2C24EC4E530027D395 /* StoryTableTachiePosition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryTableTachiePosition.h; sourceTree = "<group>"; };
+		76C7DA2D24EC4E530027D395 /* StoryTableCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryTableCharacter.h; sourceTree = "<group>"; };
+		76C7DA2E24EC4E530027D395 /* StoryTableEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StoryTableEffect.cpp; sourceTree = "<group>"; };
+		76C7DA2F24EC4E530027D395 /* StoryTableTachiePosition.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StoryTableTachiePosition.cpp; sourceTree = "<group>"; };
+		76C7DA3024EC4E530027D395 /* StoryTableBgm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryTableBgm.h; sourceTree = "<group>"; };
+		76C7DA3124EC4E530027D395 /* StoryTableCharacter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StoryTableCharacter.cpp; sourceTree = "<group>"; };
+		76C7DA3224EC4E530027D395 /* StoryTableEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryTableEffect.h; sourceTree = "<group>"; };
+		76C7DA3324EC4E530027D395 /* StoryTableTachie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StoryTableTachie.cpp; sourceTree = "<group>"; };
+		76C7DA3424EC4E530027D395 /* StoryTableTip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StoryTableTip.cpp; sourceTree = "<group>"; };
+		76C7DA3524EC4E530027D395 /* StoryTablePause.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StoryTablePause.cpp; sourceTree = "<group>"; };
+		76C7DA3624EC4E530027D395 /* StoryTableTachieMove.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StoryTableTachieMove.cpp; sourceTree = "<group>"; };
+		76C7DA3724EC4E530027D395 /* StoryTableTachie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryTableTachie.h; sourceTree = "<group>"; };
+		76C7DA3824EC4E530027D395 /* StoryTableColor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StoryTableColor.cpp; sourceTree = "<group>"; };
+		76C7DA3924EC4E530027D395 /* StoryTableExhibit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryTableExhibit.h; sourceTree = "<group>"; };
+		76C7DA3A24EC4E530027D395 /* StoryTableBgm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StoryTableBgm.cpp; sourceTree = "<group>"; };
+		76C7DA3B24EC4E530027D395 /* StoryTableTip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryTableTip.h; sourceTree = "<group>"; };
+		76C7DA4724EC4EB80027D395 /* StoryTableBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryTableBase.h; sourceTree = "<group>"; };
+		76C7DA4824EC4EB90027D395 /* StoryTableBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StoryTableBase.cpp; sourceTree = "<group>"; };
 		76E3E9B4247051330067DEBE /* imnodes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = imnodes.cpp; path = ../../imnodes/imnodes.cpp; sourceTree = "<group>"; };
 		76E3E9B5247051330067DEBE /* imnodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = imnodes.h; path = ../../imnodes/imnodes.h; sourceTree = "<group>"; };
 		76E3E9B7247075850067DEBE /* StoryNodeGraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StoryNodeGraph.cpp; sourceTree = "<group>"; };
@@ -345,6 +381,7 @@
 				76E3E9B8247075860067DEBE /* StoryRow.cpp */,
 				76E3E9BC247075860067DEBE /* StoryRow.h */,
 				76EFF36923B7D9870031354F /* StorySingleton.h */,
+				76C7DA2524EC4E530027D395 /* StoryTable */,
 				76EFF36323B7D9870031354F /* StoryTable.cpp */,
 				76EFF36523B7D9870031354F /* StoryTable.h */,
 				76E3E9C1247085430067DEBE /* StoryTableDefine.h */,
@@ -374,6 +411,37 @@
 				764C9BD124557C21000FC74E /* ExampleBase.h */,
 			);
 			name = imnodes;
+			sourceTree = "<group>";
+		};
+		76C7DA2524EC4E530027D395 /* StoryTable */ = {
+			isa = PBXGroup;
+			children = (
+				76C7DA4824EC4EB90027D395 /* StoryTableBase.cpp */,
+				76C7DA4724EC4EB80027D395 /* StoryTableBase.h */,
+				76C7DA2624EC4E530027D395 /* StoryTableFontSize.h */,
+				76C7DA2724EC4E530027D395 /* StoryTablePause.h */,
+				76C7DA2824EC4E530027D395 /* StoryTableFontSize.cpp */,
+				76C7DA2924EC4E530027D395 /* StoryTableTachieMove.h */,
+				76C7DA2A24EC4E530027D395 /* StoryTableExhibit.cpp */,
+				76C7DA2B24EC4E530027D395 /* StoryTableColor.h */,
+				76C7DA2C24EC4E530027D395 /* StoryTableTachiePosition.h */,
+				76C7DA2D24EC4E530027D395 /* StoryTableCharacter.h */,
+				76C7DA2E24EC4E530027D395 /* StoryTableEffect.cpp */,
+				76C7DA2F24EC4E530027D395 /* StoryTableTachiePosition.cpp */,
+				76C7DA3024EC4E530027D395 /* StoryTableBgm.h */,
+				76C7DA3124EC4E530027D395 /* StoryTableCharacter.cpp */,
+				76C7DA3224EC4E530027D395 /* StoryTableEffect.h */,
+				76C7DA3324EC4E530027D395 /* StoryTableTachie.cpp */,
+				76C7DA3424EC4E530027D395 /* StoryTableTip.cpp */,
+				76C7DA3524EC4E530027D395 /* StoryTablePause.cpp */,
+				76C7DA3624EC4E530027D395 /* StoryTableTachieMove.cpp */,
+				76C7DA3724EC4E530027D395 /* StoryTableTachie.h */,
+				76C7DA3824EC4E530027D395 /* StoryTableColor.cpp */,
+				76C7DA3924EC4E530027D395 /* StoryTableExhibit.h */,
+				76C7DA3A24EC4E530027D395 /* StoryTableBgm.cpp */,
+				76C7DA3B24EC4E530027D395 /* StoryTableTip.h */,
+			);
+			path = StoryTable;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -441,12 +509,17 @@
 				76EFF38423B7D9880031354F /* StoryTableManager.cpp in Sources */,
 				76EFF37F23B7D9880031354F /* HeavenGatePopupInputFileName.cpp in Sources */,
 				766D007E2402EFFF002AD31F /* HeavenGateWindowExhibitTable.cpp in Sources */,
+				76C7DA4024EC4E540027D395 /* StoryTableCharacter.cpp in Sources */,
 				766D00802402EFFF002AD31F /* HeavenGateWindowCharacterTable.cpp in Sources */,
+				76C7DA4324EC4E540027D395 /* StoryTablePause.cpp in Sources */,
 				764C9BDC24558DB5000FC74E /* Example1Simple.cpp in Sources */,
 				76EFF37D23B7D9880031354F /* CharacterUtility.cpp in Sources */,
+				76C7DA4924EC4EB90027D395 /* StoryTableBase.cpp in Sources */,
 				76E3E9B6247051330067DEBE /* imnodes.cpp in Sources */,
 				76E3E9BF247075860067DEBE /* HeavenGateWindowNodeGraph.cpp in Sources */,
 				76EFF38723B7D9880031354F /* HeavenGateWindowStoryEditor.cpp in Sources */,
+				76C7DA3F24EC4E540027D395 /* StoryTableTachiePosition.cpp in Sources */,
+				76C7DA4124EC4E540027D395 /* StoryTableTachie.cpp in Sources */,
 				763386A524C72FB300FCFEDE /* StoryJsonEventNode.cpp in Sources */,
 				7696957124276F54004FA4E2 /* StoryJsonStoryNode.cpp in Sources */,
 				7696957724278F79004FA4E2 /* StoryJsonJumpNode.cpp in Sources */,
@@ -454,6 +527,8 @@
 				768F72AF24ACEDED00605663 /* HeavenGateWindowTachiePositionTable.cpp in Sources */,
 				76EFF38823B7D9880031354F /* HeavenGateEditorBaseWindow.cpp in Sources */,
 				76B2F3B324AB70750004D783 /* StoryJsonEndNode.cpp in Sources */,
+				76C7DA4624EC4E540027D395 /* StoryTableBgm.cpp in Sources */,
+				76C7DA4424EC4E540027D395 /* StoryTableTachieMove.cpp in Sources */,
 				76EFF37E23B7D9880031354F /* StoryJsonManager.cpp in Sources */,
 				7638FC1824E4320D00110F31 /* HeavenGateWindowPreview.cpp in Sources */,
 				76EFF38323B7D9880031354F /* HeavenGateWindowColorTable.cpp in Sources */,
@@ -463,13 +538,16 @@
 				4080A9AD20B0343C0036BA46 /* imgui_demo.cpp in Sources */,
 				76EFF38223B7D9880031354F /* StoryFileManager.cpp in Sources */,
 				4080A9AF20B0343C0036BA46 /* imgui_draw.cpp in Sources */,
+				76C7DA3D24EC4E540027D395 /* StoryTableExhibit.cpp in Sources */,
 				764C9BDE24558DB5000FC74E /* Example4MultiEditor.cpp in Sources */,
 				76B2F3B224AB70750004D783 /* HeavenGatePopupMessageBox.cpp in Sources */,
 				76EFF38123B7D9880031354F /* StoryTable.cpp in Sources */,
 				4080A9A220B034280036BA46 /* imgui_impl_opengl2.cpp in Sources */,
 				76EFF38523B7D9880031354F /* StoryJson.cpp in Sources */,
 				76E3E9BD247075860067DEBE /* StoryNodeGraph.cpp in Sources */,
+				76C7DA3C24EC4E540027D395 /* StoryTableFontSize.cpp in Sources */,
 				767052DE2423E16000E5C1CD /* StoryTimer.cpp in Sources */,
+				76C7DA4524EC4E540027D395 /* StoryTableColor.cpp in Sources */,
 				766D007C2402EFFF002AD31F /* StoryJsonChecker.cpp in Sources */,
 				764CAC97240BCC58004003B6 /* HeavenGateWindowEffectTable.cpp in Sources */,
 				7606188924B38BDD00DABC47 /* JsonUtility.cpp in Sources */,
@@ -478,11 +556,13 @@
 				7639418E24B8F4EF001EFA67 /* StoryLayoutConstant.cpp in Sources */,
 				76E3E9BE247075860067DEBE /* StoryRow.cpp in Sources */,
 				767052DF2423E16000E5C1CD /* HeavenGateWindowTachieTable.cpp in Sources */,
+				76C7DA3E24EC4E540027D395 /* StoryTableEffect.cpp in Sources */,
 				7696957A24279476004FA4E2 /* StoryJsonExhibitNode.cpp in Sources */,
 				4080A9B020B0347A0036BA46 /* imgui_impl_osx.mm in Sources */,
 				76EFF38023B7D9880031354F /* HeavenGateEditorFontSizeTable.cpp in Sources */,
 				766D007B2402EFFF002AD31F /* HeavenGateWindowPauseTable.cpp in Sources */,
 				4080A9AE20B0343C0036BA46 /* imgui.cpp in Sources */,
+				76C7DA4224EC4E540027D395 /* StoryTableTip.cpp in Sources */,
 				764C9BDD24558DB5000FC74E /* Example3ColorNodeEditor.cpp in Sources */,
 				76A1EAD4242CEDAC00D49F19 /* HeavenGateEditorNodeGraphExample.cpp in Sources */,
 				7696956E24276D43004FA4E2 /* StoryJsonWordNode.cpp in Sources */,

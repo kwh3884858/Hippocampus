@@ -5,6 +5,8 @@
 
 namespace HeavenGateEditor
 {
+
+int MappingLayoutToArrayIndex(int layout);
     enum class TableType
     {
         None = 0,

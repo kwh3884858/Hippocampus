@@ -336,15 +336,15 @@ namespace HeavenGateEditor {
                     {
                         editorState.push_back(TableType::Font_Size);
                     }
-                    if (strcmp(token->m_content, colorTableString[(int)FontSizeTableLayout::Type]) == 0)
+                    if (strcmp(token->m_content, colorTableString[(int)ColorTableLayout::Type]) == 0)
                     {
                         editorState.push_back(TableType::Color);
                     }
-                    if (strcmp(token->m_content, paintMoveTableString[(int)FontSizeTableLayout::Type]) == 0)
+                    if (strcmp(token->m_content, paintMoveTableString[(int)PaintMoveTableLayout::Type]) == 0)
                     {
                         editorState.push_back(TableType::Paint_Move);
                     }
-                    if (strcmp(token->m_content, pauseTableString[(int)FontSizeTableLayout::Type]) == 0)
+                    if (strcmp(token->m_content, pauseTableString[(int)PauseTableLayout::Type]) == 0)
                     {
                         editorState.push_back(TableType::Pause);
                     }
@@ -393,15 +393,15 @@ namespace HeavenGateEditor {
                     for (int i = 0; i < colorTable->GetSize(); i++)
                     {
                         const StoryRow<COLOR_MAX_COLUMN>* const row = colorTable->GetRow(i);
-                        strcpy(colorAlias, colorTable->GetRow(i)->Get(0));
+                        strcpy(colorAlias, row->Get(0));
                         if (strcmp(colorAlias, token->m_content) == 0)
                         {
                             ImVec4 color(1.0f, 1.0f, 1.0f, 1.0f);
                             color = ImVec4(
-                                atoi(colorTable->GetRow(i)->Get(1)),
-                                atoi(colorTable->GetRow(i)->Get(2)),
-                                atoi(colorTable->GetRow(i)->Get(3)),
-                                atoi(colorTable->GetRow(i)->Get(4))
+                                atoi(row->Get(1)),
+                                atoi(row->Get(2)),
+                                atoi(row->Get(3)),
+                                atoi(row->Get(4))
                             );
                             unsigned int unsignedColor = HeavenGateEditorUtility::ConvertRGBAToUnsignedInt(color);
 
@@ -442,7 +442,9 @@ namespace HeavenGateEditor {
                             const StoryRow<BGM_MAX_COLUMN>* const row = bgmTable->GetRow(i);
                             if (strcmp(row->Get(0), token->m_content) == 0)
                             {
-                                strcpy(token->m_content, row->Get(1));
+                                strcpy(token->m_content, row->Get(MappingLayoutToArrayIndex((int)BgmTableLayout::Description)));
+                                strcat(token->m_content, "+");
+                                strcat(token->m_content, row->Get(MappingLayoutToArrayIndex((int)BgmTableLayout::Volume)));
                             }
                         }
                     }

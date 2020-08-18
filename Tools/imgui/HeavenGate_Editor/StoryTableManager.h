@@ -35,12 +35,6 @@ namespace HeavenGateEditor {
         const StoryTable<PAINT_MOVE_MAX_COLUMN>* const GetPaintMoveTable() const;
         StoryTable<PAINT_MOVE_MAX_COLUMN>*  GetPaintMoveTable();
 
-        //const StoryTable<CHAPTER_COLUMN>* const GetChapterTable() const;
-        //StoryTable<CHAPTER_COLUMN>*  GetChapterTable();
-
-        //const StoryTable<SCENE_COLUMN>* const GetSceneTable() const;
-        //StoryTable<SCENE_COLUMN>*  GetSceneTable();
-
         const StoryTable<CHARACTER_COLUMN>* const GetCharacterTable() const;
         StoryTable<CHARACTER_COLUMN>*  GetCharacterTable();
 

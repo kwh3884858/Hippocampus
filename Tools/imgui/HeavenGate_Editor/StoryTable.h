@@ -442,10 +442,10 @@ namespace HeavenGateEditor {
             {
                 tmp = p.GetRow(i);
                 j[tableString[(int)TableLayout::Value]].push_back(json{
-                    {exhibitTableString[(int)ExhibitTableLayout::ExhibitID],            tmp->Get((int)ExhibitTableLayout::ExhibitID) },
-                    {exhibitTableString[(int)ExhibitTableLayout::Exhibit],              tmp->Get((int)ExhibitTableLayout::Exhibit) },
-                    {exhibitTableString[(int)ExhibitTableLayout::Description],          tmp->Get((int)ExhibitTableLayout::Description) },
-                    {exhibitTableString[(int)ExhibitTableLayout::ExhibitImageName],     tmp->Get((int)ExhibitTableLayout::ExhibitImageName) },
+                    {exhibitTableString[(int)ExhibitTableLayout::ExhibitID],            tmp->Get(MappingLayoutToArrayIndex((int)ExhibitTableLayout::ExhibitID)) },
+                    {exhibitTableString[(int)ExhibitTableLayout::Exhibit],              tmp->Get(MappingLayoutToArrayIndex((int)ExhibitTableLayout::Exhibit)) },
+                    {exhibitTableString[(int)ExhibitTableLayout::Description],          tmp->Get(MappingLayoutToArrayIndex((int)ExhibitTableLayout::Description)) },
+                    {exhibitTableString[(int)ExhibitTableLayout::ExhibitImageName],     tmp->Get(MappingLayoutToArrayIndex((int)ExhibitTableLayout::ExhibitImageName)) },
                     });
             }
             break;
@@ -472,9 +472,9 @@ namespace HeavenGateEditor {
             {
                 tmp = p.GetRow(i);
                 j[tableString[(int)TableLayout::Value]].push_back(json{
-                    {bgmTableString[(int)BgmTableLayout::Bgm],                  tmp->Get((int)BgmTableLayout::Bgm) },
-                    {bgmTableString[(int)BgmTableLayout::Description],          tmp->Get([(int)BgmTableLayout::Description)},
-                    {bgmTableString[(int)BgmTableLayout::Volume],                tmp->Get((int)BgmTableLayout::Volume)}
+                    {bgmTableString[(int)BgmTableLayout::Bgm],                  tmp->Get(MappingLayoutToArrayIndex((int)BgmTableLayout::Bgm))},
+                    {bgmTableString[(int)BgmTableLayout::Description],          tmp->Get(MappingLayoutToArrayIndex((int)BgmTableLayout::Description))},
+                    {bgmTableString[(int)BgmTableLayout::Volume],                tmp->Get(MappingLayoutToArrayIndex((int)BgmTableLayout::Volume))}
                     });
             }
             break;

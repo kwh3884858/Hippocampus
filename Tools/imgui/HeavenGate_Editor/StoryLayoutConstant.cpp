@@ -3,6 +3,9 @@
 
 namespace HeavenGateEditor {
 
+int MappingLayoutToArrayIndex(int layout){
+    return layout - 1;
+}
     const char * GetLayoutString(TableType type)
     {
         switch (type)

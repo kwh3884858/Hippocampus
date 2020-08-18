@@ -32,8 +32,6 @@ namespace HeavenGateEditor {
 
 
     void HeavenGateWindowPreview::UpdateMainWindow() {
-        //    ImGui::Text(m_compiledWord->m_name);
-        //    ImGui::Text(m_compiledWord->m_content);
 
         vector<StoryJsonContentCompiler::Token*>tokens = StoryJsonContentCompiler::Instance().CompileToTokens(m_compiledWord);
 
@@ -340,7 +338,21 @@ namespace HeavenGateEditor {
                         const StoryRow<BGM_MAX_COLUMN>* const row = bgmTable->GetRow(i);
                         if (strcmp(row->Get(0), (*iter)->m_content) == 0)
                         {
-                            strcpy(tmpBgm, row->Get(1));
+                            const char* description =  row->Get(MappingLayoutToArrayIndex((int)BgmTableLayout::Description));
+                           const char* volume = row->Get(MappingLayoutToArrayIndex((int)BgmTableLayout::Volume));
+                            if (strlen(description) == 0) {
+                                strcpy(tmpBgm, "No file name");
+                            }else{
+                                strcpy(tmpBgm, description);
+                            }
+                            if (strlen(volume) == 0) {
+                                strcpy(tmpBgm, "No Volume");
+                            }else{
+                                strcat(tmpBgm, " | volume: ");
+                                strcat(tmpBgm, volume);
+                            }
+
+
                         }
                     }
                 }
