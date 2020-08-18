@@ -136,6 +136,7 @@ namespace HeavenGateEditor
         Type = 0,
         Bgm = 1,
         Description = 2,
+        Volume,
 
         Amount
     };
@@ -254,7 +255,8 @@ namespace HeavenGateEditor
     const char bgmTableString[][MAX_ENUM_LENGTH] = {
         "bgm",
         "bgm",
-        "description"
+        "description",
+        "volume"
 
     };
 

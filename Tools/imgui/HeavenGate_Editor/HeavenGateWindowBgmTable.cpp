@@ -21,25 +21,13 @@ namespace HeavenGateEditor {
 
     HeavenGateWindowBgmTable::HeavenGateWindowBgmTable()
     {
-     
-   
+
+
 
     }
 
     HeavenGateWindowBgmTable::~HeavenGateWindowBgmTable()
     {
-
-        //if (m_fileManager)
-        //{
-        //    delete m_fileManager;
-        //}
-        //m_fileManager = nullptr;
-
-        //if (bgmTable)
-        //{
-        //    delete bgmTable;
-        //}
-        //bgmTable = nullptr;
 
     }
 
@@ -130,13 +118,16 @@ namespace HeavenGateEditor {
                 char constant[16];
                 switch (j)
                 {
-                    case 0:
-                        strcpy(constant, "bgm ");
-                        break;
-                    case 1:
-                        strcpy(constant, "fileName ");
-                        break;
-                        break;
+                case 0:
+                    strcpy(constant, "bgm ");
+                    break;
+                case 1:
+                    strcpy(constant, "fileName ");
+                    break;
+
+                case 2:
+                    strcpy(constant, "volume");
+                    break;
                 default:
                     break;
                 }

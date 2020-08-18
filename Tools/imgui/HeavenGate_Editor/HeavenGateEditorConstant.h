@@ -40,7 +40,7 @@ namespace HeavenGateEditor {
     const int     CHARACTER_COLUMN = 2;
     const int     EXHIBIT_COLUMN = 4;
     const int     EFFECT_MAX_COLUMN = 2;
-    const int     BGM_MAX_COLUMN = 2;
+    const int     BGM_MAX_COLUMN = 3;
     const int     TACHIE_MAX_COLUMN = 2;
     const int     TACHIE_POSITION_MAX_COLUMN = 3;
 
