@@ -57,6 +57,10 @@ MonoBehaviour:
     m_Address: World_2F_West_Corrider
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: b5900bada0751ef46b00ba47e05c29c3
+    m_Address: World_SceneForPresentation
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: d64d83efff065fe4485fa4ded364df60
     m_Address: World_GoundTestScene
     m_ReadOnly: 0

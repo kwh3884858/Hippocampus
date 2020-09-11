@@ -53,6 +53,10 @@ MonoBehaviour:
     m_Address: World_Mission_EP02_04_World_2F_North_Corrider
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 3bd6e5a0637cf654c94bc4e68cb4ca1d
+    m_Address: World_Mission_Programmer_DockByPier_World_SceneForPresentation
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 4000de300f8ad4934a0e592c707d6db9
     m_Address: World_Mission_Programmer_DockByPier_Poison_Island_Pier
     m_ReadOnly: 0
