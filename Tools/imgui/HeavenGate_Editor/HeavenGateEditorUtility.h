@@ -20,10 +20,11 @@ class HeavenGateEditorUtility{
 public:
     static void GetAssetPath(char* const outAssetPath);
     static void GetStoryPath(char* const outExePath);
-    static void GetStoryAutoSavePath(char* const outAutoSavePath);
     static ImVec4 ConvertRGBAToFloat4(ImVec4 const originalRGBAValue);
     static unsigned int ConvertRGBAToUnsignedInt(ImVec4 const originalRGBAValue);
     //static void GetStoryExportPath(char* const outExportPath);
+    static void GetStoryAutoSavePath(char* const outAutoSavePath);
+
     #ifndef _WIN32
     static bool GetModuleFileNameOSX(char *  pOutCurrentPath);
     #endif

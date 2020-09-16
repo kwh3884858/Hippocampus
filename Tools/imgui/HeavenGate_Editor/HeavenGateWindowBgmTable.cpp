@@ -21,14 +21,10 @@ namespace HeavenGateEditor {
 
     HeavenGateWindowBgmTable::HeavenGateWindowBgmTable()
     {
-
-
-
     }
 
     HeavenGateWindowBgmTable::~HeavenGateWindowBgmTable()
     {
-
     }
 
     void HeavenGateWindowBgmTable::Initialize()
@@ -52,7 +48,6 @@ namespace HeavenGateEditor {
 
     void HeavenGateWindowBgmTable::Shutdown()
     {
-
     }
 
     void HeavenGateWindowBgmTable::UpdateMainWindow()

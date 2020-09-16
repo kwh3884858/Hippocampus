@@ -9,8 +9,9 @@
 
 #include "StoryTimer.h"
 
+//For files list
 #ifdef _WIN32
-#include <direct.h>
+#include <direct.h> 
 #include <io.h>
 #include "dirent.h"
 #else
@@ -133,7 +134,7 @@ namespace HeavenGateEditor {
         std::ofstream outputFileStream(filePath);
 
         try {
-            outputFileStream << tmpJson << std::endl;
+            outputFileStream << tmpJson.dump(4) << std::endl;
         }
         catch (nlohmann::json::type_error& e) {
 

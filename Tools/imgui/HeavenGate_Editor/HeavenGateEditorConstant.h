@@ -249,6 +249,12 @@ const char* const TableSuffix = "Table";
         "Assets/data/graphics/Fonts/Fonts_SourceHanSansCN-Regular.ttf";
 #endif
 
+
+#ifdef _WIN32
+    const char*  const PATH_FORM_PROJECT_ROOT_TO_ = "";
+#endif
+
+
 //Alias
     using UniqueID = unsigned long int;
 

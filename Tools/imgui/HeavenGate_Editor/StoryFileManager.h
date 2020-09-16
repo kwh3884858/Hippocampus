@@ -140,7 +140,7 @@ namespace HeavenGateEditor {
 
         json j_test = *pTableJson;
         std::ofstream o(pPath);
-        o << j_test << std::endl;
+        o << j_test.dump(4) << std::endl;
 
         o.close();
 
