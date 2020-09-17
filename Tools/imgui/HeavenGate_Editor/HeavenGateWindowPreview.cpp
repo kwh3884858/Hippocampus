@@ -63,6 +63,9 @@ namespace HeavenGateEditor {
         char tmpFontSize[MAX_COLUMNS_CONTENT_LENGTH];
         memset(tmpFontSize, '\0', MAX_COLUMNS_CONTENT_LENGTH);
 
+        char tmpTachieMove[MAX_COLUMNS_CONTENT_LENGTH * 2];
+        memset(tmpTachieMove, '\0', MAX_COLUMNS_CONTENT_LENGTH * 2);
+
         char tmpPause[MAX_COLUMNS_CONTENT_LENGTH];
         memset(tmpPause, '\0', MAX_COLUMNS_CONTENT_LENGTH);
 
@@ -127,7 +130,15 @@ namespace HeavenGateEditor {
                         memset(tmpTip, '\0', MAX_COLUMNS_CONTENT_LENGTH);
 //                        ImGui::SameLine(0, 0);
                         break;
-                    case HeavenGateEditor::TableType::Paint_Move:
+                    case HeavenGateEditor::TableType::TachieMove:
+                        if (strlen(tmpTachieMove) != 0) {
+                            ImGui::TextColored(colorGreen, "[End tachie move]");
+                        }
+                        else {
+                            ImGui::TextColored(colorRed, "!!Can not find tachie move");
+                        }
+                        memset(tmpTachieMove, '\0', MAX_COLUMNS_CONTENT_LENGTH * 2);
+                        
                         break;
                     case HeavenGateEditor::TableType::Exhibit:
                         if (isExhibit == true) {
@@ -195,15 +206,15 @@ namespace HeavenGateEditor {
                     {
                         editorState.push_back(TableType::Font_Size);
                     }
-                    if (strcmp((*iter)->m_content, colorTableString[(int)FontSizeTableLayout::Type]) == 0)
+                    if (strcmp((*iter)->m_content, colorTableString[(int)ColorTableLayout::Type]) == 0)
                     {
                         editorState.push_back(TableType::Color);
                     }
-                    if (strcmp((*iter)->m_content, paintMoveTableString[(int)FontSizeTableLayout::Type]) == 0)
+                    if (strcmp((*iter)->m_content, tachieMoveTableString[(int)TachieMoveTableLayout::Type]) == 0)
                     {
-                        editorState.push_back(TableType::Paint_Move);
+                        editorState.push_back(TableType::TachieMove);
                     }
-                    if (strcmp((*iter)->m_content, pauseTableString[(int)FontSizeTableLayout::Type]) == 0)
+                    if (strcmp((*iter)->m_content, pauseTableString[(int)PauseTableLayout::Type]) == 0)
                     {
                         editorState.push_back(TableType::Pause);
                     }
@@ -308,7 +319,32 @@ namespace HeavenGateEditor {
                     }
                 }
                 break;
-                case HeavenGateEditor::TableType::Paint_Move:
+                case HeavenGateEditor::TableType::TachieMove:
+                {
+                    const StoryTable<PAINT_MOVE_MAX_COLUMN>* const paintMoveTable = StoryTableManager::Instance().GetPaintMoveTable();
+                    for (int i = 0; i < paintMoveTable->GetSize(); i++)
+                    {
+                        const StoryRow<PAINT_MOVE_MAX_COLUMN>* const row = paintMoveTable->GetRow(i);
+                        if (strcmp(row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::MoveAlias)), (*iter)->m_content) == 0)
+                        {
+                            strcpy(tmpTachieMove, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::TachieName)));
+                            strcat(tmpTachieMove, "+");
+                            strcpy(tmpTachieMove, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::StartPoint)));
+                            strcat(tmpTachieMove, "+");
+                            strcpy(tmpTachieMove, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::EndPoint)));
+                            strcat(tmpTachieMove, "+");
+                            strcpy(tmpTachieMove, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::MoveCurve)));
+                            strcat(tmpTachieMove, "+");
+                            strcpy(tmpTachieMove, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::Duration)));
+                        }
+                    }
+                    if (strlen(tmpTachieMove) != 0) {
+                        ImGui::TextColored(colorGreen, "[Start Tachie Move: %s]", tmpTachieMove);
+                    }
+                    else {
+                        ImGui::TextColored(colorRed, "Can not find tachie move");
+                    }
+                }
                     break;
                 case TableType::Pause:
                 {
@@ -338,7 +374,7 @@ namespace HeavenGateEditor {
                         const StoryRow<BGM_MAX_COLUMN>* const row = bgmTable->GetRow(i);
                         if (strcmp(row->Get(0), (*iter)->m_content) == 0)
                         {
-                            const char* description =  row->Get(MappingLayoutToArrayIndex((int)BgmTableLayout::Description));
+                            const char* description =  row->Get(MappingLayoutToArrayIndex((int)BgmTableLayout::FileName));
                            const char* volume = row->Get(MappingLayoutToArrayIndex((int)BgmTableLayout::Volume));
                             if (strlen(description) == 0) {
                                 strcpy(tmpBgm, "No file name");

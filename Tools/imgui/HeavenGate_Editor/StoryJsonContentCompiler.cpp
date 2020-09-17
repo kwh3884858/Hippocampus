@@ -315,16 +315,16 @@ namespace HeavenGateEditor {
                         break;
                     case HeavenGateEditor::TableType::Tips:
                         break;
-                    case HeavenGateEditor::TableType::Paint_Move:
+                    case HeavenGateEditor::TableType::TachieMove:
                         break;
                     case TableType::Pause:
                         break;
                     case TableType::Tachie:
                         break;
-                        case TableType::Bgm:
-                            break;
-                        case  TableType::Effect:
-                            break;
+                    case TableType::Bgm:
+                        break;
+                        //case  TableType::Effect:
+                        break;
                     default:
                         break;
                     }
@@ -340,9 +340,9 @@ namespace HeavenGateEditor {
                     {
                         editorState.push_back(TableType::Color);
                     }
-                    if (strcmp(token->m_content, paintMoveTableString[(int)PaintMoveTableLayout::Type]) == 0)
+                    if (strcmp(token->m_content, tachieMoveTableString[(int)TachieMoveTableLayout::Type]) == 0)
                     {
-                        editorState.push_back(TableType::Paint_Move);
+                        editorState.push_back(TableType::TachieMove);
                     }
                     if (strcmp(token->m_content, pauseTableString[(int)PauseTableLayout::Type]) == 0)
                     {
@@ -370,24 +370,24 @@ namespace HeavenGateEditor {
                 }
                 switch (editorState.back())
                 {
-                    case HeavenGateEditor::TableType::None:
-                        break;
-                    case HeavenGateEditor::TableType::Font_Size:
+                case HeavenGateEditor::TableType::None:
+                    break;
+                case HeavenGateEditor::TableType::Font_Size:
+                {
+                    const StoryTable<FONT_SIZE_MAX_COLUMN>* const fontSizeTable = StoryTableManager::Instance().GetFontSizeTable();
+                    for (int i = 0; i < fontSizeTable->GetSize(); i++)
                     {
-                        const StoryTable<FONT_SIZE_MAX_COLUMN>* const fontSizeTable = StoryTableManager::Instance().GetFontSizeTable();
-                        for (int i = 0; i < fontSizeTable->GetSize(); i++)
+                        const StoryRow<FONT_SIZE_MAX_COLUMN>* const row = fontSizeTable->GetRow(i);
+                        if (strcmp(row->Get(0), token->m_content) == 0)
                         {
-                            const StoryRow<FONT_SIZE_MAX_COLUMN>* const row = fontSizeTable->GetRow(i);
-                            if (strcmp(row->Get(0), token->m_content) == 0)
-                            {
-                                strcpy(token->m_content, row->Get(1));
-                            }
+                            strcpy(token->m_content, row->Get(1));
                         }
                     }
-                        break;
-                    case HeavenGateEditor::TableType::Color:
-                    {
-                        char colorAlias[MAX_COLUMNS_CONTENT_LENGTH];
+                }
+                break;
+                case HeavenGateEditor::TableType::Color:
+                {
+                    char colorAlias[MAX_COLUMNS_CONTENT_LENGTH];
 
                     StoryTable<COLOR_MAX_COLUMN>* colorTable = StoryTableManager::Instance().GetColorTable();
                     for (int i = 0; i < colorTable->GetSize(); i++)
@@ -413,12 +413,31 @@ namespace HeavenGateEditor {
                     break;
                 }
                 case HeavenGateEditor::TableType::Tips:
-                        //Do Not Modify
+                    //Do Not Modify
                     break;
-                case HeavenGateEditor::TableType::Paint_Move:
+                case HeavenGateEditor::TableType::TachieMove:
+                {
+                    const StoryTable<PAINT_MOVE_MAX_COLUMN>* const paintMoveTable = StoryTableManager::Instance().GetPaintMoveTable();
+                    for (int i = 0; i < paintMoveTable->GetSize(); i++)
+                    {
+                        const StoryRow<PAINT_MOVE_MAX_COLUMN>* const row = paintMoveTable->GetRow(i);
+                        if (strcmp(row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::MoveAlias)), token->m_content) == 0)
+                        {
+                            strcpy(token->m_content, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::TachieName)));
+                            strcat(token->m_content, "+");
+                            strcpy(token->m_content, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::StartPoint)));
+                            strcat(token->m_content, "+");
+                            strcpy(token->m_content, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::EndPoint)));
+                            strcat(token->m_content, "+");
+                            strcpy(token->m_content, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::MoveCurve)));
+                            strcat(token->m_content, "+");
+                            strcpy(token->m_content, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::Duration)));
+                        }
+                    }
+                }
                     break;
                 case HeavenGateEditor::TableType::Exhibit:
-                        //Do Not Modify
+                    //Do Not Modify
                     break;
                 case HeavenGateEditor::TableType::Pause:
                 {
@@ -432,37 +451,37 @@ namespace HeavenGateEditor {
                         }
                     }
                 }
-                        break;
+                break;
 
-                    case TableType::Bgm:
+                case TableType::Bgm:
+                {
+                    const StoryTable<BGM_MAX_COLUMN>* const bgmTable = StoryTableManager::Instance().GetBgmTable();
+                    for (int i = 0; i < bgmTable->GetSize(); i++)
                     {
-                        const StoryTable<BGM_MAX_COLUMN>* const bgmTable = StoryTableManager::Instance().GetBgmTable();
-                        for (int i = 0; i < bgmTable->GetSize(); i++)
+                        const StoryRow<BGM_MAX_COLUMN>* const row = bgmTable->GetRow(i);
+                        if (strcmp(row->Get(0), token->m_content) == 0)
                         {
-                            const StoryRow<BGM_MAX_COLUMN>* const row = bgmTable->GetRow(i);
-                            if (strcmp(row->Get(0), token->m_content) == 0)
-                            {
-                                strcpy(token->m_content, row->Get(MappingLayoutToArrayIndex((int)BgmTableLayout::Description)));
-                                strcat(token->m_content, "+");
-                                strcat(token->m_content, row->Get(MappingLayoutToArrayIndex((int)BgmTableLayout::Volume)));
-                            }
+                            strcpy(token->m_content, row->Get(MappingLayoutToArrayIndex((int)BgmTableLayout::FileName)));
+                            strcat(token->m_content, "+");
+                            strcat(token->m_content, row->Get(MappingLayoutToArrayIndex((int)BgmTableLayout::Volume)));
                         }
                     }
-                        break;
+                }
+                break;
 
-                    case TableType::Effect:
+                case TableType::Effect:
+                {
+                    const StoryTable<EFFECT_MAX_COLUMN>* const effectTable = StoryTableManager::Instance().GetEffectTable();
+                    for (int i = 0; i < effectTable->GetSize(); i++)
                     {
-                        const StoryTable<EFFECT_MAX_COLUMN>* const effectTable = StoryTableManager::Instance().GetEffectTable();
-                        for (int i = 0; i < effectTable->GetSize(); i++)
+                        const StoryRow<EFFECT_MAX_COLUMN>* const row = effectTable->GetRow(i);
+                        if (strcmp(row->Get(0), token->m_content) == 0)
                         {
-                            const StoryRow<EFFECT_MAX_COLUMN>* const row = effectTable->GetRow(i);
-                            if (strcmp(row->Get(0), token->m_content) == 0)
-                            {
-                                strcpy(token->m_content, row->Get(1));
-                            }
+                            strcpy(token->m_content, row->Get(1));
                         }
                     }
-                        break;
+                }
+                break;
                 case HeavenGateEditor::TableType::Tachie:
                 {
                     char tachieCommand[NUM_OF_TACHIE_COMMAND][MAX_COLUMNS_CONTENT_LENGTH];

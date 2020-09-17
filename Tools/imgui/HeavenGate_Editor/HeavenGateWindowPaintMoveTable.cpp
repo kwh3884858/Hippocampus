@@ -129,33 +129,40 @@ namespace HeavenGateEditor {
                 char * content = paintMoveTable->GetContent(i, j);
 
                 char constant[16];
-                switch (j)
+
+
+                for (int k = 0; k < (int)TachieMoveTableLayout::Amount; k++)
                 {
-                    case 0:
-                        strcpy(constant, "moveAlias ");
+                    if (j == k)
+                    {
+                        strcpy(constant, paintMoveTable->GetHeaderName(k + 1));
                         break;
-                    case 1:
-                        strcpy(constant, "startPoint ");
-                        break;
-                    case 2:
-                        strcpy(constant, "endPoint ");
-                        break;
-                    case 3:
-                        strcpy(constant, "moveType ");
-                        break;
-                default:
-                    break;
+                    }
                 }
-                //if (j % 2 == 0)
+                //switch (j)
                 //{
-                //    strcpy(constant, "Angle ");
-
+                //case (int)PaintMoveTableLayout::MoveAlias:
+                //    strcpy(constant, "moveAlias ");
+                //    break;
+                //case (int)PaintMoveTableLayout::TachieName:
+                //    strcpy(constant, "tachieName");
+                //    break;
+                //case (int)PaintMoveTableLayout::StartPoint:
+                //    strcpy(constant, "startPoint ");
+                //    break;
+                //case (int)PaintMoveTableLayout::EndPoint:
+                //    strcpy(constant, "endPoint ");
+                //    break;
+                //case (int)PaintMoveTableLayout::MoveCurve:
+                //    strcpy(constant, "moveCurve ");
+                //    break;
+                //case (int)PaintMoveTableLayout::Duration:
+                //    strcpy(constant, "duration ");
+                //    break;
+                //default:
+                //    break;
                 //}
-                //else
-                //{
-                //    strcpy(constant, "Distance ");
 
-                //}
                 strcat(constant, order);
 
                 ImGui::InputText(constant, content, MAX_COLUMNS_CONTENT_LENGTH);

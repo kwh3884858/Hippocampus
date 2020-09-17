@@ -18,12 +18,8 @@ int MappingLayoutToArrayIndex(int layout){
             return (const char *)colorTableString;
         case TableType::Tips:
             return (const char *)tipTableString;
-        case TableType::Paint_Move:
-            return (const char *)paintMoveTableString;
-//        case TableType::Chapter:
-//            return (const char *)sceneTableString;
-//        case TableType::Scene:
-//            return (const char *)sceneTableString;
+        case TableType::TachieMove:
+            return (const char *)tachieMoveTableString;
         case TableType::Character:
             return (const char *)characterTableString;
         case TableType::Pause:
@@ -55,8 +51,8 @@ int MappingLayoutToArrayIndex(int layout){
             return (int)ColorTableLayout::Amount;
         case TableType::Tips:
             return (int)TipTableLayout::Amount;
-        case TableType::Paint_Move:
-            return (int)PaintMoveTableLayout::Amount;
+        case TableType::TachieMove:
+            return (int)TachieMoveTableLayout::Amount;
 //        case TableType::Chapter:
 //            return (int)ChapterTableLayout::Amount;
 //        case TableType::Scene:

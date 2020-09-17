@@ -27,7 +27,7 @@ namespace HeavenGateEditor {
 //        m_tipTable->PushName("Description");
 
         m_paintMovetable = new StoryTable<PAINT_MOVE_MAX_COLUMN>;
-        m_paintMovetable->SetTableType(TableType::Paint_Move);
+        m_paintMovetable->SetTableType(TableType::TachieMove);
 
 //        m_paintMovetable->PushName("Angle Value");
 //        m_paintMovetable->PushName("Move Distance");
