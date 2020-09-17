@@ -249,11 +249,31 @@ const char* const TableSuffix = "Table";
         "Assets/data/graphics/Fonts/Fonts_SourceHanSansCN-Regular.ttf";
 #endif
 
-
+    // Artist Tool
+    // Character Tachie
 #ifdef _WIN32
-    const char*  const PATH_FORM_PROJECT_ROOT_TO_ = "";
+    const char*  const PATH_FROM_PROJECT_ROOT_TO_TACHIE = "Assets\\data\\graphics\\UI\\Characters";
 #endif
 
+    // Interactable CG
+#ifdef _WIN32
+    const char*  const PATH_FROM_PROJECT_ROOT_TO_INTERACTABLE_CG = "Assets\\data\\graphics\\UI\\CG\\Scene";
+#endif
+
+    // Talk Panel Background
+#ifdef _WIN32
+    const char*  const PATH_FROM_PROJECT_ROOT_TO_TALK_BACKGROUND = "Assets\\data\\graphics\\UI\\CG\\TalkBackground";
+#endif
+
+    //BGM
+#ifdef _WIN32
+    const char*  const PATH_FROM_PROJECT_ROOT_TO_BGM = "Assets\\Resources\\Sound\\Bgm";
+#endif
+
+    //Effect
+#ifdef _WIN32
+    const char*  const PATH_FROM_PROJECT_ROOT_TO_EFFECT = "Assets\\Resources\\Sound\\Effect";
+#endif
 
 //Alias
     using UniqueID = unsigned long int;

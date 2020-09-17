@@ -10,6 +10,7 @@ namespace  ArtistTool
         ~ArtistToolOpenFolder() {}
 
         static void OpenFolder(const wchar_t* const folderPath);
+        static void OpenFolder(const char* const folderPath);
     protected:
     private:
 

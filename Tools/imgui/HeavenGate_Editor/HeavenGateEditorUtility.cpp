@@ -27,10 +27,16 @@
 using std::string;
 
 namespace HeavenGateEditor {
-    void HeavenGateEditorUtility::GetAssetPath(char * const outAssetPath)
+    void HeavenGateEditorUtility::GetRootPath(char * const outRootPath)
     {
+        string path = GetRootPath();
+        printf("  %s  \n", path.c_str());
+        strcpy(outRootPath, path.c_str());
 
+        return;
     }
+
+
     string HeavenGateEditorUtility::GetRootPath() {
         char cBuffer[MAX_FOLDER_PATH];
 

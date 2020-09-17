@@ -2,6 +2,8 @@
 #include <shellapi.h>
 
 #include "ArtistTool/ArtistToolOpenFolder.h"
+#include "CharacterUtility.h"
+#include "HeavenGateEditorConstant.h"
 
 namespace ArtistTool {
 
@@ -33,6 +35,13 @@ namespace ArtistTool {
         SW_MAX = 10; {同 SW_SHOWNORMAL}
         */
 
+    }
+
+    void ArtistToolOpenFolder::OpenFolder(const char* const folderPath)
+    {
+        wchar_t path[HeavenGateEditor::MAX_FOLDER_PATH];
+        CharacterUtility::convertMbsToWcs(path, folderPath, HeavenGateEditor::MAX_FOLDER_PATH);
+        OpenFolder(path);
     }
 
 }

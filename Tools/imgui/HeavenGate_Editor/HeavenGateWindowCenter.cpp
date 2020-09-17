@@ -27,6 +27,9 @@
 
 #include "imgui.h"
 
+#include "HeavenGateEditorUtility.h"
+#include "ArtistTool/ArtistToolOpenFolder.h"
+
 namespace HeavenGateEditor {
 
 
@@ -311,8 +314,49 @@ namespace HeavenGateEditor {
             m_tachiePositionTable->Update();
         }
 
+#ifdef _WIN32
+
+        if (ImGui::Button("Open Tachie Folder"))
+        {
+            char rootPath[MAX_FOLDER_PATH];
+            HeavenGateEditorUtility::GetRootPath(rootPath);
+            strcat(rootPath, PATH_FROM_PROJECT_ROOT_TO_TACHIE);
+            ArtistTool::ArtistToolOpenFolder::OpenFolder(rootPath);
+        }
+
+        if (ImGui::Button("Open Interactable CG Folder"))
+        {
+            char rootPath[MAX_FOLDER_PATH];
+            HeavenGateEditorUtility::GetRootPath(rootPath);
+            strcat(rootPath, PATH_FROM_PROJECT_ROOT_TO_INTERACTABLE_CG);
+            ArtistTool::ArtistToolOpenFolder::OpenFolder(rootPath);
+        }
+
+        if (ImGui::Button("Open Talk Background"))
+        {
+            char rootPath[MAX_FOLDER_PATH];
+            HeavenGateEditorUtility::GetRootPath(rootPath);
+            strcat(rootPath, PATH_FROM_PROJECT_ROOT_TO_TALK_BACKGROUND);
+            ArtistTool::ArtistToolOpenFolder::OpenFolder(rootPath);
+        }
+
+        if (ImGui::Button("Open BGM"))
+        {
+            char rootPath[MAX_FOLDER_PATH];
+            HeavenGateEditorUtility::GetRootPath(rootPath);
+            strcat(rootPath, PATH_FROM_PROJECT_ROOT_TO_BGM);
+            ArtistTool::ArtistToolOpenFolder::OpenFolder(rootPath);
+        }
+
+        if (ImGui::Button("Open Effect"))
+        {
+            char rootPath[MAX_FOLDER_PATH];
+            HeavenGateEditorUtility::GetRootPath(rootPath);
+            strcat(rootPath, PATH_FROM_PROJECT_ROOT_TO_EFFECT);
+            ArtistTool::ArtistToolOpenFolder::OpenFolder(rootPath);
+        }
     }
 
 
-
+#endif // _WIN32
 }

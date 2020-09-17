@@ -18,7 +18,7 @@ namespace HeavenGateEditor {
 class HeavenGateEditorUtility{
 
 public:
-    static void GetAssetPath(char* const outAssetPath);
+    static void GetRootPath(char* const outRootPath);
     static void GetStoryPath(char* const outExePath);
     static ImVec4 ConvertRGBAToFloat4(ImVec4 const originalRGBAValue);
     static unsigned int ConvertRGBAToUnsignedInt(ImVec4 const originalRGBAValue);
