@@ -13,7 +13,7 @@ namespace HeavenGateEditor {
     class HeavenGateEditorFontSizeTable;
     class HeavenGateWindowColorTable;
     class HeavenGateWindowTipTable;
-    class HeavenGateWindowPaintMoveTable;
+    class HeavenGateWindowTachieMoveTable;
     //class HeavenGateWindowChapterTable;
     //class HeavenGateWindowSceneTable;
     class HeavenGateWindowCharacterTable;
@@ -46,7 +46,7 @@ namespace HeavenGateEditor {
         HeavenGateEditorFontSizeTable*          m_fontSizeTable;
         HeavenGateWindowColorTable*             m_colorTable;
         HeavenGateWindowTipTable*               m_tipTable;
-        HeavenGateWindowPaintMoveTable*         m_heavenGateWindowPaintMoveTable;
+        HeavenGateWindowTachieMoveTable*         m_heavenGateWindowPaintMoveTable;
         //HeavenGateWindowChapterTable*       m_chapterTable;
         //HeavenGateWindowSceneTable*         m_sceneTable;
         HeavenGateWindowCharacterTable*         m_characterTable;

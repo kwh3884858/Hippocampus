@@ -156,9 +156,9 @@ const char* const TableSuffix = "Table";
 
     const char* const PAINT_MOVE_TABLE_NAME =
 #ifdef _WIN32
-        "\\PaintMoveTable.json";
+        "\\TachieMoveTable.json";
 #else
-        "/PaintMoveTable.json";
+        "/TachieMoveTable.json";
 #endif
 
     //Relative path from story folder to chapter table
@@ -278,6 +278,9 @@ const char* const TableSuffix = "Table";
 //Alias
     using UniqueID = unsigned long int;
 
+    //Error Message
+    const char* const Error_Message_Label_Jump_Death_Lock = "Label and jump node will cause endless loop.";
+    const char* const Error_Message_Content_Over_Limit = "Node content is too much to over max line limit.";
 
 }
 #endif /* HeavenGateEditorConstant_h */

@@ -39,7 +39,6 @@
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGatePopupResolveConflictFiles.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowColorTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowTipTable.h" />
-    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowPaintMoveTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowStoryEditor.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowCenter.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StorySingleton.h" />
@@ -94,6 +93,7 @@
     <ClInclude Include="..\..\HeavenGate_Editor\StoryTable\StoryTableTachiePosition.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\StoryTable\StoryTableTip.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\ArtistTool\ArtistToolOpenFolder.h" />
+    <ClInclude Include="..\..\HeavenGate_Editor\HeavenGateWindowTachieMoveTable.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\imgui.cpp">
@@ -129,7 +129,6 @@
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGatePopupResolveConflictFiles.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowColorTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowTipTable.cpp" />
-    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowPaintMoveTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowStoryEditor.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowCenter.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryJsonManager.cpp" />
@@ -180,6 +179,7 @@
     <ClCompile Include="..\..\HeavenGate_Editor\StoryTable\StoryTableTachiePosition.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\StoryTable\StoryTableTip.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\ArtistTool\ArtistToolOpenFolder.cpp" />
+    <ClCompile Include="..\..\HeavenGate_Editor\HeavenGateWindowTachieMoveTable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.txt" />

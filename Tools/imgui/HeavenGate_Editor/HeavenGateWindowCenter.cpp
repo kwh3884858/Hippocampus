@@ -5,7 +5,7 @@
 #include "HeavenGateEditorFontSizeTable.h"
 #include "HeavenGateWindowColorTable.h"
 #include "HeavenGateWindowTipTable.h"
-#include "HeavenGateWindowPaintMoveTable.h"
+#include "HeavenGateWindowTachieMoveTable.h"
 //#include "HeavenGateWindowChapterTable.h"
 //#include "HeavenGateWindowSceneTable.h"
 #include "HeavenGateWindowCharacterTable.h"
@@ -60,7 +60,7 @@ namespace HeavenGateEditor {
         m_fontSizeTable = new HeavenGateEditorFontSizeTable;
         m_colorTable = new HeavenGateWindowColorTable;
         m_tipTable = new HeavenGateWindowTipTable;
-        m_heavenGateWindowPaintMoveTable = new HeavenGateWindowPaintMoveTable;
+        m_heavenGateWindowPaintMoveTable = new HeavenGateWindowTachieMoveTable;
         //m_chapterTable = new HeavenGateWindowChapterTable;
         //m_sceneTable = new HeavenGateWindowSceneTable;
         m_characterTable = new HeavenGateWindowCharacterTable;

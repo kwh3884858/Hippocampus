@@ -9,7 +9,7 @@
 
 #include "imgui.h"
 
-#include "HeavenGateWindowPaintMoveTable.h"
+#include "HeavenGateWindowTachieMoveTable.h"
 #include "HeavenGateEditorUtility.h"
 
 #include "StoryTableManager.h"
@@ -19,7 +19,7 @@ namespace HeavenGateEditor {
 
 
 
-    HeavenGateWindowPaintMoveTable::HeavenGateWindowPaintMoveTable()
+    HeavenGateWindowTachieMoveTable::HeavenGateWindowTachieMoveTable()
     {
      
    
@@ -27,7 +27,7 @@ namespace HeavenGateEditor {
 
     }
 
-    HeavenGateWindowPaintMoveTable::~HeavenGateWindowPaintMoveTable()
+    HeavenGateWindowTachieMoveTable::~HeavenGateWindowTachieMoveTable()
     {
 
         //if (m_fileManager)
@@ -44,7 +44,7 @@ namespace HeavenGateEditor {
 
     }
 
-    void HeavenGateWindowPaintMoveTable::Initialize()
+    void HeavenGateWindowTachieMoveTable::Initialize()
     {
         StoryTable<PAINT_MOVE_MAX_COLUMN>* const paintMoveTable = StoryTableManager::Instance().GetPaintMoveTable();
 
@@ -63,12 +63,12 @@ namespace HeavenGateEditor {
         }
     }
 
-    void HeavenGateWindowPaintMoveTable::Shutdown()
+    void HeavenGateWindowTachieMoveTable::Shutdown()
     {
 
     }
 
-    void HeavenGateWindowPaintMoveTable::UpdateMainWindow()
+    void HeavenGateWindowTachieMoveTable::UpdateMainWindow()
     {
         StoryTable<PAINT_MOVE_MAX_COLUMN>* const paintMoveTable = StoryTableManager::Instance().GetPaintMoveTable();
 
@@ -79,7 +79,7 @@ namespace HeavenGateEditor {
 
         ImGui::Separator();
 
-        ImGui::Text("Paint move Table");
+        ImGui::Text("Tachie move Table");
 
         if (ImGui::Button("Add New Row"))
         {
@@ -175,7 +175,7 @@ namespace HeavenGateEditor {
         ImGui::Separator();
     }
 
-    void HeavenGateWindowPaintMoveTable::UpdateMenu()
+    void HeavenGateWindowTachieMoveTable::UpdateMenu()
     {
         //   ImGui::MenuItem("(dummy menu)", NULL, false, false);
         if (ImGui::MenuItem("New")) {

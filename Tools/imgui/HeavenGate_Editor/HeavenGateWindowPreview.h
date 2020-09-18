@@ -4,7 +4,7 @@
 #define HeavenGateWindowPreview_h
 
 #include "HeavenGateEditorBaseWindow.h"
-
+#include <vector>
 namespace HeavenGateEditor {
 
 class StoryWord;
@@ -14,6 +14,10 @@ class StoryWord;
         WINDOW_DECLARE("Heaven Gate Preview", Window_Type::SubWindow)
 
     public:
+        enum MessageType {
+            Error,
+            Warning
+        };
 
         HeavenGateWindowPreview() = delete;
         HeavenGateWindowPreview(HeavenGateEditorBaseWindow* parent):HeavenGateEditorBaseWindow(parent)
@@ -31,10 +35,14 @@ class StoryWord;
 
         void SetPreviewWord(const StoryWord& word);
 
+        void AddMessage(MessageType messageType, int index, const char* const message);
+        void ClearMessage();
     private:
 
         StoryWord* m_compiledWord;
-
+        std::vector<MessageType> m_cacheMessageType;
+        std::vector<int> m_cacheIndex;
+        std::vector<const char*> m_cacheMessaage;
     };
 
 }

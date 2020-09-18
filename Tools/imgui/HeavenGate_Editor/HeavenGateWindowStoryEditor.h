@@ -52,6 +52,7 @@ class HeavenGateWindowPreview;
         int GetWindowIndex()const;
         void SetWindowIndex(int index);
 
+        void CheckStoryLegality();
     protected:
 
         virtual void UpdateMainWindow() override;
@@ -75,6 +76,10 @@ class HeavenGateWindowPreview;
         bool CheckStringLength(const char* string, int stringLengthLimit);
         void CopyLastLabelInfo(int index);
 
+        void CheckIdentityLegality();
+        void CheckLabelAndJumpLegality();
+        void CheckNodeContentLimitLegality();
+
         //Data
         //Story json, should alreay keep private, no getter and setter
         StoryJson* m_storyJson;
@@ -89,6 +94,7 @@ class HeavenGateWindowPreview;
 
         //Window index
         int m_windowIndex;
+        int m_firstExecute;
     };
 
 

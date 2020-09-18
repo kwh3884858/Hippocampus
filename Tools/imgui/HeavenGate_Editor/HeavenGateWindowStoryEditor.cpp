@@ -2,6 +2,7 @@
 
 #include "HeavenGateWindowStoryEditor.h"
 #include "CharacterUtility.h"
+#include "StoryJsonChecker.h"
 
 #include "HeavenGateWindowSelectStory.h"
 #include "HeavenGatePopupInputFileName.h"
@@ -43,7 +44,7 @@ namespace HeavenGateEditor {
 
     }
 
-    void HeavenGateWindowStoryEditor::Initialize()
+    void HeavenGateWindowStoryEditor::Initialize()     
     {
         m_storyJson = nullptr;
         m_selectStoryWindow = nullptr;
@@ -74,6 +75,9 @@ namespace HeavenGateEditor {
 
         //Auto save callback
         StoryTimer<HeavenGateWindowStoryEditor>::AddCallback(60 * 1, this, &HeavenGateWindowStoryEditor::AutoSaveCallback);
+
+        m_firstExecute = true;
+
 
     }
 
@@ -165,6 +169,13 @@ void HeavenGateWindowStoryEditor::SetWindowIndex(int index){
             ImGui::InputText("Current story path",tmpFullPath, MAX_FOLDER_PATH, ImGuiInputTextFlags_ReadOnly);
         }
 
+        // First execute
+        if (m_firstExecute)
+        {
+            m_firstExecute = !m_firstExecute;
+
+            CheckStoryLegality();
+        }
 //        static char* name = nullptr;
 //        static char* content = nullptr;
         static char* label = nullptr;
@@ -1350,6 +1361,39 @@ void HeavenGateWindowStoryEditor::SetWindowIndex(int index){
                     return;
                 }
             }
+        }
+    }
+
+    void HeavenGateWindowStoryEditor::CheckStoryLegality()
+    {
+        CheckIdentityLegality();
+        CheckLabelAndJumpLegality();
+        CheckNodeContentLimitLegality();
+    }
+
+    void HeavenGateWindowStoryEditor::CheckIdentityLegality()
+    {
+        m_previewWindow->AddMessage(HeavenGateWindowPreview::MessageType::Error, 1, Error_Message_Label_Jump_Death_Lock);
+    }
+
+    void HeavenGateWindowStoryEditor::CheckLabelAndJumpLegality()
+    {
+        int errorIndex = -1;
+        bool result = StoryJsonChecker::Instance().CheckJsonStory(m_storyJson, errorIndex);
+        if (result == false)
+        {
+            m_previewWindow->AddMessage(HeavenGateWindowPreview::MessageType::Error, errorIndex, Error_Message_Label_Jump_Death_Lock);
+        }
+    }
+
+
+    void HeavenGateWindowStoryEditor::CheckNodeContentLimitLegality()
+    {
+        int errorIndex = -1;
+        bool result = StoryJsonChecker::Instance().CheckJsonNameAndContentlengthLimit(m_storyJson, errorIndex);
+        if (result == false)
+        {
+            m_previewWindow->AddMessage(HeavenGateWindowPreview::MessageType::Error, errorIndex, Error_Message_Content_Over_Limit);
         }
     }
 

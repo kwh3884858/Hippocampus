@@ -4,6 +4,7 @@
 #include "StoryJson.h"
 
 #include "StoryJsonContentCompiler.h"
+#include "HeavenGateWindowStoryEditor.h"
 
 #include "HeavenGateEditorUtility.h"
 
@@ -132,7 +133,7 @@ namespace HeavenGateEditor {
                         break;
                     case HeavenGateEditor::TableType::TachieMove:
                         if (strlen(tmpTachieMove) != 0) {
-                            ImGui::TextColored(colorGreen, "[End tachie move]");
+                            ImGui::TextColored(colorGreen, "[Tachie Move: %s]", tmpTachieMove);
                         }
                         else {
                             ImGui::TextColored(colorRed, "!!Can not find tachie move");
@@ -329,20 +330,14 @@ namespace HeavenGateEditor {
                         {
                             strcpy(tmpTachieMove, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::TachieName)));
                             strcat(tmpTachieMove, "+");
-                            strcpy(tmpTachieMove, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::StartPoint)));
+                            strcat(tmpTachieMove, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::StartPoint)));
                             strcat(tmpTachieMove, "+");
-                            strcpy(tmpTachieMove, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::EndPoint)));
+                            strcat(tmpTachieMove, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::EndPoint)));
                             strcat(tmpTachieMove, "+");
-                            strcpy(tmpTachieMove, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::MoveCurve)));
+                            strcat(tmpTachieMove, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::MoveCurve)));
                             strcat(tmpTachieMove, "+");
-                            strcpy(tmpTachieMove, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::Duration)));
+                            strcat(tmpTachieMove, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::Duration)));
                         }
-                    }
-                    if (strlen(tmpTachieMove) != 0) {
-                        ImGui::TextColored(colorGreen, "[Start Tachie Move: %s]", tmpTachieMove);
-                    }
-                    else {
-                        ImGui::TextColored(colorRed, "Can not find tachie move");
                     }
                 }
                     break;
@@ -451,10 +446,49 @@ namespace HeavenGateEditor {
 
         ImGui::Text("");
         ImGui::Separator();
+
+        for (int i = 0; i < m_cacheMessaage.size(); ++i)
+        {
+            switch (m_cacheMessageType[i]) {
+            case MessageType::Error :
+            {
+                ImGui::TextColored(colorRed, "[!!ERROR!!] Index: %d => %s", m_cacheIndex[i], m_cacheMessaage[i]);
+            }
+                break;
+            case MessageType::Warning: {
+                ImGui::TextColored(colorYellow, "[!!ERROR!!] Index: %d => %s", m_cacheIndex[i], m_cacheMessaage[i]);
+            }
+                break;
+
+            default:
+                break;
+            }
+
+
+        }
+
+        if (ImGui::Button("Re-test")) {
+            HeavenGateWindowStoryEditor* const storyEditor = static_cast<HeavenGateWindowStoryEditor*>(m_parent);
+            storyEditor->CheckStoryLegality();
+        }
     }
 
     void HeavenGateWindowPreview::SetPreviewWord(const StoryWord& word) {
         *m_compiledWord = word;
+    }
+
+    void HeavenGateWindowPreview::AddMessage(MessageType messageType, int index, const char* const message)
+    {
+        m_cacheMessageType.push_back(messageType);
+        m_cacheIndex.push_back(index);
+        m_cacheMessaage.push_back(message);
+    }
+
+    void HeavenGateWindowPreview::ClearMessage()
+    {
+        m_cacheMessageType.clear();
+        m_cacheIndex.clear();
+        m_cacheMessaage.clear();
     }
 
 }

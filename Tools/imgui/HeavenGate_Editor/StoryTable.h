@@ -544,22 +544,21 @@ namespace HeavenGateEditor {
 
         /*get_ptr<const json::string_t *>()->c_str();*/
 
-
         if (strcmp(typeString, fontSizeTableString[(int)FontSizeTableLayout::Type]) == 0) {
             p.SetTableType(TableType::Font_Size);
-            char header[MAX_COLUMNS_CONTENT_LENGTH];
-            if (!headers.is_null())
-            {
-                for (int i = 0; i < headers.size(); i++) {
-                    strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
-                    p.PushName(header);
-                }
-            }
-            else {
+            //char header[MAX_COLUMNS_CONTENT_LENGTH];
+            //if (!headers.is_null())
+            //{
+            //    for (int i = 0; i < headers.size(); i++) {
+            //        strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+            //        p.PushName(header);
+            //    }
+            //}
+            //else {
                 for (int i = 1; i < (int)FontSizeTableLayout::Amount; i++) {
                     p.PushName(fontSizeTableString[i]);
                 }
-            }
+            //}
             char content[MAX_COLUMNS_CONTENT_LENGTH];
             for (int i = 0; i < values.size(); i++)
             {
@@ -573,19 +572,19 @@ namespace HeavenGateEditor {
 
         if (strcmp(typeString, colorTableString[(int)ColorTableLayout::Type]) == 0) {
             p.SetTableType(TableType::Color);
-            char header[MAX_COLUMNS_CONTENT_LENGTH];
-            if (!headers.is_null())
-            {
-                for (int i = 0; i < headers.size(); i++) {
-                    strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
-                    p.PushName(header);
-                }
-            }
-            else {
+            //char header[MAX_COLUMNS_CONTENT_LENGTH];
+            //if (!headers.is_null())
+            //{
+            //    for (int i = 0; i < headers.size(); i++) {
+            //        strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+            //        p.PushName(header);
+            //    }
+            //}
+            //else {
                 for (int i = 1; i < (int)ColorTableLayout::Amount; i++) {
                     p.PushName(colorTableString[i]);
                 }
-            }
+            //}
             char content[MAX_COLUMNS_CONTENT_LENGTH];
             for (int i = 0; i < values.size(); i++)
             {
@@ -605,19 +604,19 @@ namespace HeavenGateEditor {
 
         if (strcmp(typeString, tipTableString[(int)TipTableLayout::Type]) == 0) {
             p.SetTableType(TableType::Tips);
-            char header[MAX_COLUMNS_CONTENT_LENGTH];
-            if (!headers.is_null())
-            {
-                for (int i = 0; i < headers.size(); i++) {
-                    strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
-                    p.PushName(header);
-                }
-            }
-            else {
+            //char header[MAX_COLUMNS_CONTENT_LENGTH];
+            //if (!headers.is_null())
+            //{
+            //    for (int i = 0; i < headers.size(); i++) {
+            //        strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+            //        p.PushName(header);
+            //    }
+            //}
+            //else {
                 for (int i = 1; i < (int)TipTableLayout::Amount; i++) {
                     p.PushName(tipTableString[i]);
                 }
-            }
+            //}
             char content[TIP_TABLE_MAX_CONTENT];
             for (int i = 0; i < values.size(); i++)
             {
@@ -631,19 +630,19 @@ namespace HeavenGateEditor {
 
         if (strcmp(typeString, tachieMoveTableString[(int)TachieMoveTableLayout::Type]) == 0) {
             p.SetTableType(TableType::TachieMove);
-            char header[MAX_COLUMNS_CONTENT_LENGTH];
-            if (!headers.is_null())
-            {
-                for (int i = 0; i < headers.size(); i++) {
-                    strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
-                    p.PushName(header);
-                }
-            }
-            else {
+            //char header[MAX_COLUMNS_CONTENT_LENGTH];
+            //if (!headers.is_null())
+            //{
+            //    for (int i = 0; i < headers.size(); i++) {
+            //        strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+            //        p.PushName(header);
+            //    }
+            //}
+            //else {
                 for (int i = 1; i < (int)TachieMoveTableLayout::Amount; i++) {
                     p.PushName(tachieMoveTableString[i]);
                 }
-            }
+            //}
             char content[MAX_COLUMNS_CONTENT_LENGTH];
             for (int i = 0; i < values.size(); i++)
             {
@@ -715,19 +714,19 @@ namespace HeavenGateEditor {
 
         if (strcmp(typeString, characterTableString[(int)CharacterTableLayout::Type]) == 0) {
             p.SetTableType(TableType::Character);
-            char header[MAX_COLUMNS_CONTENT_LENGTH];
-            if (!headers.is_null())
-            {
-                for (int i = 0; i < headers.size(); i++) {
-                    strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
-                    p.PushName(header);
-                }
-            }
-            else {
+            //char header[MAX_COLUMNS_CONTENT_LENGTH];
+            //if (!headers.is_null())
+            //{
+            //    for (int i = 0; i < headers.size(); i++) {
+            //        strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+            //        p.PushName(header);
+            //    }
+            //}
+            //else {
                 for (int i = 1; i < (int)CharacterTableLayout::Amount; i++) {
                     p.PushName(characterTableString[i]);
                 }
-            }
+            //}
             char content[MAX_COLUMNS_CONTENT_LENGTH];
             for (int i = 0; i < values.size(); i++)
             {
@@ -741,19 +740,19 @@ namespace HeavenGateEditor {
 
         if (strcmp(typeString, pauseTableString[(int)PauseTableLayout::Type]) == 0) {
             p.SetTableType(TableType::Pause);
-            char header[MAX_COLUMNS_CONTENT_LENGTH];
-            if (!headers.is_null())
-            {
-                for (int i = 0; i < headers.size(); i++) {
-                    strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
-                    p.PushName(header);
-                }
-            }
-            else {
+            //char header[MAX_COLUMNS_CONTENT_LENGTH];
+            //if (!headers.is_null())
+            //{
+            //    for (int i = 0; i < headers.size(); i++) {
+            //        strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+            //        p.PushName(header);
+            //    }
+            //}
+            //else {
                 for (int i = 1; i < (int)PauseTableLayout::Amount; i++) {
                     p.PushName(pauseTableString[i]);
                 }
-            }
+            //}
             char content[MAX_COLUMNS_CONTENT_LENGTH];
             for (int i = 0; i < values.size(); i++)
             {
@@ -767,19 +766,19 @@ namespace HeavenGateEditor {
 
         if (strcmp(typeString, exhibitTableString[(int)ExhibitTableLayout::Type]) == 0) {
             p.SetTableType(TableType::Exhibit);
-            char header[MAX_COLUMNS_CONTENT_LENGTH];
-            if (!headers.is_null() && headers.size() == (int)ExhibitTableLayout::Amount)
-            {
-                for (int i = 0; i < headers.size(); i++) {
-                    strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
-                    p.PushName(header);
-                }
-            }
-            else {
+            //char header[MAX_COLUMNS_CONTENT_LENGTH];
+            //if (!headers.is_null() && headers.size() == (int)ExhibitTableLayout::Amount)
+            //{
+            //    for (int i = 0; i < headers.size(); i++) {
+            //        strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+            //        p.PushName(header);
+            //    }
+            //}
+            //else {
                 for (int i = 1; i < (int)ExhibitTableLayout::Amount; i++) {
                     p.PushName(exhibitTableString[i]);
                 }
-            }
+            //}
             char content[EXHIBIT_TABLE_MAX_CONTENT];
             for (int i = 0; i < values.size(); i++)
             {
@@ -797,19 +796,19 @@ namespace HeavenGateEditor {
 
         if (strcmp(typeString, effectTableString[(int)EffectTableLayout::Type]) == 0) {
             p.SetTableType(TableType::Effect);
-            char header[MAX_COLUMNS_CONTENT_LENGTH];
-            if (!headers.is_null())
-            {
-                for (int i = 0; i < headers.size(); i++) {
-                    strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
-                    p.PushName(header);
-                }
-            }
-            else {
+            //char header[MAX_COLUMNS_CONTENT_LENGTH];
+            //if (!headers.is_null())
+            //{
+            //    for (int i = 0; i < headers.size(); i++) {
+            //        strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+            //        p.PushName(header);
+            //    }
+            //}
+            //else {
                 for (int i = 1; i < (int)EffectTableLayout::Amount; i++) {
                     p.PushName(effectTableString[i]);
                 }
-            }
+            //}
             char content[MAX_COLUMNS_CONTENT_LENGTH];
             for (int i = 0; i < values.size(); i++)
             {
@@ -823,19 +822,19 @@ namespace HeavenGateEditor {
 
         if (strcmp(typeString, bgmTableString[(int)BgmTableLayout::Type]) == 0) {
             p.SetTableType(TableType::Bgm);
-            char header[MAX_COLUMNS_CONTENT_LENGTH];
-            if (!headers.is_null())
-            {
-                for (int i = 0; i < headers.size(); i++) {
-                    strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
-                    p.PushName(header);
-                }
-            }
-            else {
+            //char header[MAX_COLUMNS_CONTENT_LENGTH];
+            //if (!headers.is_null())
+            //{
+            //    for (int i = 0; i < headers.size(); i++) {
+            //        strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+            //        p.PushName(header);
+            //    }
+            //}
+            //else {
                 for (int i = 1; i < (int)BgmTableLayout::Amount; i++) {
                     p.PushName(bgmTableString[i]);
                 }
-            }
+            //}
             char content[MAX_COLUMNS_CONTENT_LENGTH];
             for (int i = 0; i < values.size(); i++)
             {
@@ -852,19 +851,19 @@ namespace HeavenGateEditor {
 
         if (strcmp(typeString, tachieTableString[(int)TachieTableLayout::Type]) == 0) {
             p.SetTableType(TableType::Tachie);
-            char header[MAX_COLUMNS_CONTENT_LENGTH];
-            if (!headers.is_null())
-            {
-                for (int i = 0; i < headers.size(); i++) {
-                    strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
-                    p.PushName(header);
-                }
-            }
-            else {
+            //char header[MAX_COLUMNS_CONTENT_LENGTH];
+            //if (!headers.is_null())
+            //{
+            //    for (int i = 0; i < headers.size(); i++) {
+            //        strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+            //        p.PushName(header);
+            //    }
+            //}
+            //else {
                 for (int i = 1; i < (int)TachieTableLayout::Amount; i++) {
                     p.PushName(tachieTableString[i]);
                 }
-            }
+            //}
             char content[MAX_COLUMNS_CONTENT_LENGTH];
             for (int i = 0; i < values.size(); i++)
             {
@@ -879,19 +878,19 @@ namespace HeavenGateEditor {
         if (strcmp(typeString, tachiePositionTableString[(int)TachiePositionTableLayout::Type]) == 0)
         {
             p.SetTableType(TableType::Tachie_Position);
-            char header[MAX_COLUMNS_CONTENT_LENGTH];
-            if (!headers.is_null())
-            {
-                for (int i = 0; i < headers.size(); i++) {
-                    strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
-                    p.PushName(header);
-                }
-            }
-            else {
+            //char header[MAX_COLUMNS_CONTENT_LENGTH];
+            //if (!headers.is_null())
+            //{
+            //    for (int i = 0; i < headers.size(); i++) {
+            //        strcpy(header, headers[i].get_ptr<const json::string_t*>()->c_str());
+            //        p.PushName(header);
+            //    }
+            //}
+            //else {
                 for (int i = 1; i < (int)TachiePositionTableLayout::Amount; i++) {
                     p.PushName(tachiePositionTableString[i]);
                 }
-            }
+            //}
             char content[MAX_COLUMNS_CONTENT_LENGTH];
             for (int i = 0; i < values.size(); i++)
             {

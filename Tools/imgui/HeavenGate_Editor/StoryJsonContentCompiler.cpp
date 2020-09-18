@@ -425,13 +425,13 @@ namespace HeavenGateEditor {
                         {
                             strcpy(token->m_content, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::TachieName)));
                             strcat(token->m_content, "+");
-                            strcpy(token->m_content, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::StartPoint)));
+                            strcat(token->m_content, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::StartPoint)));
                             strcat(token->m_content, "+");
-                            strcpy(token->m_content, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::EndPoint)));
+                            strcat(token->m_content, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::EndPoint)));
                             strcat(token->m_content, "+");
-                            strcpy(token->m_content, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::MoveCurve)));
+                            strcat(token->m_content, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::MoveCurve)));
                             strcat(token->m_content, "+");
-                            strcpy(token->m_content, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::Duration)));
+                            strcat(token->m_content, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::Duration)));
                         }
                     }
                 }

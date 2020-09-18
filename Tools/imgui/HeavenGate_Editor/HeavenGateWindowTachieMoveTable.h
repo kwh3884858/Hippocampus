@@ -16,12 +16,12 @@
 namespace HeavenGateEditor {
 
 
-    class HeavenGateWindowPaintMoveTable : public HeavenGateEditorBaseWindow {
+    class HeavenGateWindowTachieMoveTable : public HeavenGateEditorBaseWindow {
         WINDOW_DECLARE("HeavenGateWindowPaintMoveTable", Window_Type::MainWindow)
 
     public:
-        HeavenGateWindowPaintMoveTable();
-        ~HeavenGateWindowPaintMoveTable();
+        HeavenGateWindowTachieMoveTable();
+        ~HeavenGateWindowTachieMoveTable();
         virtual void Initialize() override;
         virtual void Shutdown() override;
     protected:
