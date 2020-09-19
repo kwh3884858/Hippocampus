@@ -37,6 +37,10 @@ CameraService.SceneCameraType m_World_1F_Middle_CorriderCameraType;
 
  CameraService.SceneCameraType m_World_2F_West_CorriderCameraType; 
 
+ CameraService.SceneCameraType m_World_Commandpost_1FCameraType; 
+
+ CameraService.SceneCameraType m_World_Commandpost_2FCameraType; 
+
  CameraService.SceneCameraType m_World_CoreContainerCameraType; 
 
  CameraService.SceneCameraType m_World_Episode3_HallCameraType; 
@@ -125,6 +129,10 @@ CameraService.SceneCameraType m_World_1F_Middle_CorriderCameraType;
 
  CameraService.SceneCameraType m_World_Mission_Programmer_DockByPier_Poison_Island_PierCameraType; 
 
+ CameraService.SceneCameraType m_World_Mission_Programmer_DockByPier_World_Commandpost_1FCameraType; 
+
+ CameraService.SceneCameraType m_World_Mission_Programmer_DockByPier_World_Commandpost_2FCameraType; 
+
  CameraService.SceneCameraType m_World_Mission_Programmer_DockByPier_World_SceneForPresentationCameraType; 
 
  CameraService.SceneCameraType m_Poison_Island_PierCameraType; 
@@ -140,7 +148,7 @@ CameraService.SceneCameraType m_World_1F_Middle_CorriderCameraType;
 
 			EditorGUILayout.BeginVertical ();
 			EditorGUILayout.LabelField ("Scene Editor");
-			EditorGUILayout.LabelField ("编辑游戏中��场景后，确保GameRoot为BuildSetting中序列为0的场景");
+			EditorGUILayout.LabelField ("编辑游戏中��场景后，确保GameRoot为BuildSetting���序列为0的场景");
 			EditorGUILayout.LabelField ("运行根目录下的Tool目录中的SceneGenerator,会自动生成Scene Lookup");
 			EditorGUILayout.LabelField ("以及生成root config和该Inspector中的摄像机选择项");
 			EditorGUILayout.LabelField ("再回到GameRoot中添加所需场景");
@@ -222,6 +230,20 @@ m_World_2F_West_CorriderCameraType = (CameraService.SceneCameraType)EditorGUILay
     if (m_World_2F_West_CorriderCameraType != ConfigRoot.Instance.World_2F_West_CorriderCameraType) 
 { 
 ConfigRoot.Instance.World_2F_West_CorriderCameraType = m_World_2F_West_CorriderCameraType; 
+} 
+
+m_World_Commandpost_1FCameraType = ConfigRoot.Instance.World_Commandpost_1FCameraType;  
+m_World_Commandpost_1FCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_Commandpost_1F Camera Type: ", m_World_Commandpost_1FCameraType); 
+    if (m_World_Commandpost_1FCameraType != ConfigRoot.Instance.World_Commandpost_1FCameraType) 
+{ 
+ConfigRoot.Instance.World_Commandpost_1FCameraType = m_World_Commandpost_1FCameraType; 
+} 
+
+m_World_Commandpost_2FCameraType = ConfigRoot.Instance.World_Commandpost_2FCameraType;  
+m_World_Commandpost_2FCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_Commandpost_2F Camera Type: ", m_World_Commandpost_2FCameraType); 
+    if (m_World_Commandpost_2FCameraType != ConfigRoot.Instance.World_Commandpost_2FCameraType) 
+{ 
+ConfigRoot.Instance.World_Commandpost_2FCameraType = m_World_Commandpost_2FCameraType; 
 } 
 
 m_World_CoreContainerCameraType = ConfigRoot.Instance.World_CoreContainerCameraType;  
@@ -530,6 +552,20 @@ m_World_Mission_Programmer_DockByPier_Poison_Island_PierCameraType = (CameraServ
     if (m_World_Mission_Programmer_DockByPier_Poison_Island_PierCameraType != ConfigRoot.Instance.World_Mission_Programmer_DockByPier_Poison_Island_PierCameraType) 
 { 
 ConfigRoot.Instance.World_Mission_Programmer_DockByPier_Poison_Island_PierCameraType = m_World_Mission_Programmer_DockByPier_Poison_Island_PierCameraType; 
+} 
+
+m_World_Mission_Programmer_DockByPier_World_Commandpost_1FCameraType = ConfigRoot.Instance.World_Mission_Programmer_DockByPier_World_Commandpost_1FCameraType;  
+m_World_Mission_Programmer_DockByPier_World_Commandpost_1FCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_Mission_Programmer_DockByPier_World_Commandpost_1F Camera Type: ", m_World_Mission_Programmer_DockByPier_World_Commandpost_1FCameraType); 
+    if (m_World_Mission_Programmer_DockByPier_World_Commandpost_1FCameraType != ConfigRoot.Instance.World_Mission_Programmer_DockByPier_World_Commandpost_1FCameraType) 
+{ 
+ConfigRoot.Instance.World_Mission_Programmer_DockByPier_World_Commandpost_1FCameraType = m_World_Mission_Programmer_DockByPier_World_Commandpost_1FCameraType; 
+} 
+
+m_World_Mission_Programmer_DockByPier_World_Commandpost_2FCameraType = ConfigRoot.Instance.World_Mission_Programmer_DockByPier_World_Commandpost_2FCameraType;  
+m_World_Mission_Programmer_DockByPier_World_Commandpost_2FCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_Mission_Programmer_DockByPier_World_Commandpost_2F Camera Type: ", m_World_Mission_Programmer_DockByPier_World_Commandpost_2FCameraType); 
+    if (m_World_Mission_Programmer_DockByPier_World_Commandpost_2FCameraType != ConfigRoot.Instance.World_Mission_Programmer_DockByPier_World_Commandpost_2FCameraType) 
+{ 
+ConfigRoot.Instance.World_Mission_Programmer_DockByPier_World_Commandpost_2FCameraType = m_World_Mission_Programmer_DockByPier_World_Commandpost_2FCameraType; 
 } 
 
 m_World_Mission_Programmer_DockByPier_World_SceneForPresentationCameraType = ConfigRoot.Instance.World_Mission_Programmer_DockByPier_World_SceneForPresentationCameraType;  

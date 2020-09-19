@@ -27,6 +27,12 @@ EditorBuildSettings:
     path: Assets/data/graphics/World/2F_West_Corrider/World_2F_West_Corrider.unity
     guid: 9d9863d00aa2c0c40bd29bd8af681352
   - enabled: 0
+    path: Assets/data/graphics/World/Commandpost_1F/World_Commandpost_1F.unity
+    guid: 8a2c51afd5541704096976825ad275fe
+  - enabled: 0
+    path: Assets/data/graphics/World/Commandpost_2F/World_Commandpost_2F.unity
+    guid: 050749fe645687a4f9320e85040fd5bb
+  - enabled: 0
     path: Assets/data/graphics/World/CoreContainer/World_CoreContainer.unity
     guid: 056429be9607f47c687afa4aef8818d4
   - enabled: 0
@@ -158,6 +164,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/data/graphics/World/Mission_Programmer_DockByPier_Poison_Island_Pier/World_Mission_Programmer_DockByPier_Poison_Island_Pier.unity
     guid: 4000de300f8ad4934a0e592c707d6db9
+  - enabled: 0
+    path: Assets/data/graphics/World/Mission_Programmer_DockByPier_World_Commandpost_1F/World_Mission_Programmer_DockByPier_World_Commandpost_1F.unity
+    guid: ef3fb32f9e9e8784681bafa120d8dda1
+  - enabled: 0
+    path: Assets/data/graphics/World/Mission_Programmer_DockByPier_World_Commandpost_2F/World_Mission_Programmer_DockByPier_World_Commandpost_2F.unity
+    guid: b1d169f7bcb81a5468d72a8eade35311
   - enabled: 0
     path: Assets/data/graphics/World/Mission_Programmer_DockByPier_World_SceneForPresentation/World_Mission_Programmer_DockByPier_World_SceneForPresentation.unity
     guid: 3bd6e5a0637cf654c94bc4e68cb4ca1d

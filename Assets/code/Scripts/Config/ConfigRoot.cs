@@ -60,6 +60,14 @@ private string World_2F_West_CorriderName = "World_2F_West_Corrider";
  public CameraService.SceneCameraType World_2F_West_CorriderCameraType;  
 
 [SerializeField]
+private string World_Commandpost_1FName = "World_Commandpost_1F"; 
+ public CameraService.SceneCameraType World_Commandpost_1FCameraType;  
+
+[SerializeField]
+private string World_Commandpost_2FName = "World_Commandpost_2F"; 
+ public CameraService.SceneCameraType World_Commandpost_2FCameraType;  
+
+[SerializeField]
 private string World_CoreContainerName = "World_CoreContainer"; 
  public CameraService.SceneCameraType World_CoreContainerCameraType;  
 
@@ -236,6 +244,14 @@ private string World_Mission_Programmer_DockByPier_Poison_Island_PierName = "Wor
  public CameraService.SceneCameraType World_Mission_Programmer_DockByPier_Poison_Island_PierCameraType;  
 
 [SerializeField]
+private string World_Mission_Programmer_DockByPier_World_Commandpost_1FName = "World_Mission_Programmer_DockByPier_World_Commandpost_1F"; 
+ public CameraService.SceneCameraType World_Mission_Programmer_DockByPier_World_Commandpost_1FCameraType;  
+
+[SerializeField]
+private string World_Mission_Programmer_DockByPier_World_Commandpost_2FName = "World_Mission_Programmer_DockByPier_World_Commandpost_2F"; 
+ public CameraService.SceneCameraType World_Mission_Programmer_DockByPier_World_Commandpost_2FCameraType;  
+
+[SerializeField]
 private string World_Mission_Programmer_DockByPier_World_SceneForPresentationName = "World_Mission_Programmer_DockByPier_World_SceneForPresentation"; 
  public CameraService.SceneCameraType World_Mission_Programmer_DockByPier_World_SceneForPresentationCameraType;  
 
@@ -289,6 +305,12 @@ case "World_2F_South_Corrider" :
 
 case "World_2F_West_Corrider" :  
    return World_2F_West_CorriderCameraType; 
+
+case "World_Commandpost_1F" :  
+   return World_Commandpost_1FCameraType; 
+
+case "World_Commandpost_2F" :  
+   return World_Commandpost_2FCameraType; 
 
 case "World_CoreContainer" :  
    return World_CoreContainerCameraType; 
@@ -421,6 +443,12 @@ case "World_Mission_EP03_World_Kitchen_Corrider" :
 
 case "World_Mission_Programmer_DockByPier_Poison_Island_Pier" :  
    return World_Mission_Programmer_DockByPier_Poison_Island_PierCameraType; 
+
+case "World_Mission_Programmer_DockByPier_World_Commandpost_1F" :  
+   return World_Mission_Programmer_DockByPier_World_Commandpost_1FCameraType; 
+
+case "World_Mission_Programmer_DockByPier_World_Commandpost_2F" :  
+   return World_Mission_Programmer_DockByPier_World_Commandpost_2FCameraType; 
 
 case "World_Mission_Programmer_DockByPier_World_SceneForPresentation" :  
    return World_Mission_Programmer_DockByPier_World_SceneForPresentationCameraType; 

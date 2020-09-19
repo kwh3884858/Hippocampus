@@ -137,6 +137,10 @@ MonoBehaviour:
     m_Address: World_Mission_EP02_07_World_2F_West_Corrider
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: b1d169f7bcb81a5468d72a8eade35311
+    m_Address: World_Mission_Programmer_DockByPier_World_Commandpost_2F
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: b998ff87fee4e472e8c54567b44626f9
     m_Address: World_Mission_EP03_World_Kitchen_Corrider
     m_ReadOnly: 0
@@ -155,6 +159,10 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: ebe57c901ab994064a6e26e2f3fa25d8
     m_Address: World_Mission_EP01_03_Poison_Island_Pier
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ef3fb32f9e9e8784681bafa120d8dda1
+    m_Address: World_Mission_Programmer_DockByPier_World_Commandpost_1F
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: fb94fcf925af643beb40fd90e01c2e70
