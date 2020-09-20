@@ -12,8 +12,10 @@ namespace HeavenGateStoryTable {
     class StoryTableManager
     {
     public:
-        void FromJson();
-        void ToJson();
+        
+
+        virtual void FromJson(json& j, void* storyTable) = 0;
+        virtual void ToJson(json& j, void* storyTable) = 0;
     }
 
 #endif

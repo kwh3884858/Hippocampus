@@ -14,13 +14,13 @@ namespace HeavenGateEditor {
 
 
 
-    bool StoryJsonChecker::CheckJsonStory(const StoryJson* const story) const
+    bool StoryJsonChecker::CheckJsonStory(const StoryJson* const story, int& errorIndex) const
     {
         bool result = true;
-        result = CheckLabelAndJumpPosition(story);
+        result = CheckLabelAndJumpPosition(story, errorIndex);
         if (!result)
         {
-            printf("Label and Jump position is illegal");
+            printf("Label and Jump position is illegal \n");
             return false;
         }
 
@@ -28,7 +28,7 @@ namespace HeavenGateEditor {
 
     }
 
-    bool StoryJsonChecker::CheckLabelAndJumpPosition(const StoryJson* const story) const
+    bool StoryJsonChecker::CheckLabelAndJumpPosition(const StoryJson* const story, int& errorIndex) const
     {
         vector<const StoryLabel* > readedList;
         for (int i = 0; i < story->Size(); i++)
@@ -48,6 +48,7 @@ namespace HeavenGateEditor {
                     {
                         if (strcmp((*iter)->m_labelId, jump->m_jumpId) == 0)
                         {
+                            errorIndex = i;
                             return false;
                         }
                     }
@@ -62,7 +63,7 @@ namespace HeavenGateEditor {
         return true;
     }
 
-    bool StoryJsonChecker::CheckJsonNameAndContentlengthLimit(const StoryJson* const story) const
+    bool StoryJsonChecker::CheckJsonNameAndContentlengthLimit(const StoryJson* const story, int& errorIndex) const
     {
         for (int i = 0; i < story->Size(); i++)
         {
@@ -71,10 +72,12 @@ namespace HeavenGateEditor {
             {
                 const StoryWord*const word = static_cast<const StoryWord*const>(node);
                 if (strlen(word->m_name) >= MAX_NAME_LIMIT) {
+                    errorIndex = i;
                     return false;
                 }
                 if (strlen(word->m_content) >= MAX_CONTENT_LIMIT)
                 {
+                    errorIndex = i;
                     return false;
                 }
             }

@@ -9,7 +9,7 @@
 
 #include "imgui.h"
 
-#include "HeavenGateWindowPaintMoveTable.h"
+#include "HeavenGateWindowTachieMoveTable.h"
 #include "HeavenGateEditorUtility.h"
 
 #include "StoryTableManager.h"
@@ -19,7 +19,7 @@ namespace HeavenGateEditor {
 
 
 
-    HeavenGateWindowPaintMoveTable::HeavenGateWindowPaintMoveTable()
+    HeavenGateWindowTachieMoveTable::HeavenGateWindowTachieMoveTable()
     {
      
    
@@ -27,7 +27,7 @@ namespace HeavenGateEditor {
 
     }
 
-    HeavenGateWindowPaintMoveTable::~HeavenGateWindowPaintMoveTable()
+    HeavenGateWindowTachieMoveTable::~HeavenGateWindowTachieMoveTable()
     {
 
         //if (m_fileManager)
@@ -44,7 +44,7 @@ namespace HeavenGateEditor {
 
     }
 
-    void HeavenGateWindowPaintMoveTable::Initialize()
+    void HeavenGateWindowTachieMoveTable::Initialize()
     {
         StoryTable<PAINT_MOVE_MAX_COLUMN>* const paintMoveTable = StoryTableManager::Instance().GetPaintMoveTable();
 
@@ -63,12 +63,12 @@ namespace HeavenGateEditor {
         }
     }
 
-    void HeavenGateWindowPaintMoveTable::Shutdown()
+    void HeavenGateWindowTachieMoveTable::Shutdown()
     {
 
     }
 
-    void HeavenGateWindowPaintMoveTable::UpdateMainWindow()
+    void HeavenGateWindowTachieMoveTable::UpdateMainWindow()
     {
         StoryTable<PAINT_MOVE_MAX_COLUMN>* const paintMoveTable = StoryTableManager::Instance().GetPaintMoveTable();
 
@@ -79,7 +79,7 @@ namespace HeavenGateEditor {
 
         ImGui::Separator();
 
-        ImGui::Text("Paint move Table");
+        ImGui::Text("Tachie move Table");
 
         if (ImGui::Button("Add New Row"))
         {
@@ -129,33 +129,40 @@ namespace HeavenGateEditor {
                 char * content = paintMoveTable->GetContent(i, j);
 
                 char constant[16];
-                switch (j)
+
+
+                for (int k = 0; k < (int)TachieMoveTableLayout::Amount; k++)
                 {
-                    case 0:
-                        strcpy(constant, "moveAlias ");
+                    if (j == k)
+                    {
+                        strcpy(constant, paintMoveTable->GetHeaderName(k + 1));
                         break;
-                    case 1:
-                        strcpy(constant, "startPoint ");
-                        break;
-                    case 2:
-                        strcpy(constant, "endPoint ");
-                        break;
-                    case 3:
-                        strcpy(constant, "moveType ");
-                        break;
-                default:
-                    break;
+                    }
                 }
-                //if (j % 2 == 0)
+                //switch (j)
                 //{
-                //    strcpy(constant, "Angle ");
-
+                //case (int)PaintMoveTableLayout::MoveAlias:
+                //    strcpy(constant, "moveAlias ");
+                //    break;
+                //case (int)PaintMoveTableLayout::TachieName:
+                //    strcpy(constant, "tachieName");
+                //    break;
+                //case (int)PaintMoveTableLayout::StartPoint:
+                //    strcpy(constant, "startPoint ");
+                //    break;
+                //case (int)PaintMoveTableLayout::EndPoint:
+                //    strcpy(constant, "endPoint ");
+                //    break;
+                //case (int)PaintMoveTableLayout::MoveCurve:
+                //    strcpy(constant, "moveCurve ");
+                //    break;
+                //case (int)PaintMoveTableLayout::Duration:
+                //    strcpy(constant, "duration ");
+                //    break;
+                //default:
+                //    break;
                 //}
-                //else
-                //{
-                //    strcpy(constant, "Distance ");
 
-                //}
                 strcat(constant, order);
 
                 ImGui::InputText(constant, content, MAX_COLUMNS_CONTENT_LENGTH);
@@ -168,7 +175,7 @@ namespace HeavenGateEditor {
         ImGui::Separator();
     }
 
-    void HeavenGateWindowPaintMoveTable::UpdateMenu()
+    void HeavenGateWindowTachieMoveTable::UpdateMenu()
     {
         //   ImGui::MenuItem("(dummy menu)", NULL, false, false);
         if (ImGui::MenuItem("New")) {

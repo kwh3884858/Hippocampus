@@ -19,8 +19,8 @@ namespace HeavenGateEditor {
         //destroy function, take the  place of destructor
         virtual bool Shutdown() override { return true; };
 
-        bool CheckJsonStory(const StoryJson* const story) const;
-        bool CheckJsonNameAndContentlengthLimit(const StoryJson* const story)const;
+        bool CheckJsonStory(const StoryJson* const story, int& errorIndex) const;
+        bool CheckJsonNameAndContentlengthLimit(const StoryJson* const story , int& errorIndex)const;
     private:
         //Checker mainly prevents two behavior:
         //One: A label node`s next node is corresponding jump node,
@@ -30,7 +30,7 @@ namespace HeavenGateEditor {
         //is will case jump loop too.
 
         //The simple way to check these situations is to make sure at lease one non-corresponding-jump next to the label node.
-        bool CheckLabelAndJumpPosition(const StoryJson* const story) const;
+        bool CheckLabelAndJumpPosition(const StoryJson* const story, int& errorIndex) const;
 
     };
 

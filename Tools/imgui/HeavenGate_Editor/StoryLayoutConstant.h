@@ -6,14 +6,13 @@
 namespace HeavenGateEditor
 {
 
-int MappingLayoutToArrayIndex(int layout);
     enum class TableType
     {
         None = 0,
         Font_Size,
         Color,
         Tips,
-        Paint_Move,
+        TachieMove,
 //        Chapter,
 //        Scene,
         Character,
@@ -25,6 +24,7 @@ int MappingLayoutToArrayIndex(int layout);
         Tachie_Position
     };
 
+    int MappingLayoutToArrayIndex(int layout);
     const char * GetLayoutString(TableType type);
     int GetLayoutAmount(TableType type);
 
@@ -66,13 +66,15 @@ int MappingLayoutToArrayIndex(int layout);
         Amount
     };
 
-    enum class PaintMoveTableLayout
+    enum class TachieMoveTableLayout
     {
         Type = 0,
-        MoveAlias = 1,
-        StartPoint = 2,
-        EndPoint = 3,
-        MoveType = 4,
+        MoveAlias,
+        TachieName,
+        StartPoint,
+        EndPoint,
+        MoveCurve,
+        Duration,
 
         Amount
     };
@@ -137,7 +139,7 @@ int MappingLayoutToArrayIndex(int layout);
     {
         Type = 0,
         Bgm = 1,
-        Description = 2,
+        FileName = 2,
         Volume,
 
         Amount
@@ -167,7 +169,7 @@ int MappingLayoutToArrayIndex(int layout);
         "Font_Size",
         "Color",
         "Tips",
-        "Paint_Move",
+        "TachieMove",
         "Chapter",
         "Scene",
         "Character",
@@ -202,28 +204,16 @@ int MappingLayoutToArrayIndex(int layout);
         "tip",
         "description"};
 
-    const char paintMoveTableString[][MAX_ENUM_LENGTH] = {
-        "paintMove",
+    const char tachieMoveTableString[][MAX_ENUM_LENGTH] = {
+        "tachieMove",
         "moveAlias",
+        "tachieName",
         "startPoint",
         "endPoint",
-        "moveType",
+        "moveCurve",
+        "duration"
 
     };
-
-//    const char chapterTableString[][MAX_ENUM_LENGTH] = {
-//        "chapter",
-//        "chapter",
-//        "description"
-//
-//    };
-//
-//    const char sceneTableString[][MAX_ENUM_LENGTH] = {
-//        "scene",
-//        "scene",
-//        "description"
-//
-//    };
 
     const char characterTableString[][MAX_ENUM_LENGTH] = {
         "character",

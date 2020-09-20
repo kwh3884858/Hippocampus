@@ -9,8 +9,9 @@
 
 #include "StoryTimer.h"
 
+//For files list
 #ifdef _WIN32
-#include <direct.h>
+#include <direct.h> 
 #include <io.h>
 #include "dirent.h"
 #else
@@ -107,10 +108,11 @@ namespace HeavenGateEditor {
         //Rename End
 
         //Test content length for avoid the crash of incomplete UTF-8
-        result = StoryJsonChecker::Instance().CheckJsonNameAndContentlengthLimit(pStoryJson);
+        int errorIndex = -1;
+        result = StoryJsonChecker::Instance().CheckJsonNameAndContentlengthLimit(pStoryJson, errorIndex);
         if (!result)
         {
-            printf("Content length over the max limit, please re-check content. \n");
+            printf("[Node Index: %d] Content length over the max limit, please re-check content. \n", &errorIndex);
             return false;
         }
 
@@ -120,10 +122,10 @@ namespace HeavenGateEditor {
             return false;
         }
 
-        result = StoryJsonChecker::Instance().CheckJsonStory(pStoryJson);
+        result = StoryJsonChecker::Instance().CheckJsonStory(pStoryJson, errorIndex);
         if (!result)
         {
-            printf("Json content contain invalid struct, please re-check label and jump sequence. \n");
+            printf("[Node Index: %d]Json content contain invalid struct, please re-check label and jump sequence. \n", &errorIndex);
             return false;
         }
 
@@ -133,7 +135,7 @@ namespace HeavenGateEditor {
         std::ofstream outputFileStream(filePath);
 
         try {
-            outputFileStream << tmpJson << std::endl;
+            outputFileStream << tmpJson.dump(4) << std::endl;
         }
         catch (nlohmann::json::type_error& e) {
 
@@ -164,10 +166,11 @@ namespace HeavenGateEditor {
             return false;
         }
 
-        result = StoryJsonChecker::Instance().CheckJsonNameAndContentlengthLimit(pStoryJson);
+        int errorIndex = -1;
+        result = StoryJsonChecker::Instance().CheckJsonNameAndContentlengthLimit(pStoryJson, errorIndex);
         if (!result)
         {
-            printf("Content length over the max limit, please re-check content. \n");
+            printf("[Node Index: %d] Content length over the max limit, please re-check content. \n", &errorIndex);
             return false;
         }
 
@@ -231,11 +234,11 @@ namespace HeavenGateEditor {
         //Rename Start
         //RenameStoryFileByChapterAndScene(pStoryJson);
         //Rename End
-
-        result = StoryJsonChecker::Instance().CheckJsonNameAndContentlengthLimit(pStoryJson);
+        int errorIndex = -1;
+        result = StoryJsonChecker::Instance().CheckJsonNameAndContentlengthLimit(pStoryJson, errorIndex);
         if (!result)
         {
-            printf("Content length over the max limit, please re-check content. \n");
+            printf("[Node Index: %d] Content length over the max limit, please re-check content. \n", &errorIndex);
             return false;
         }
 
@@ -247,10 +250,11 @@ namespace HeavenGateEditor {
             return false;
         }
 
-        result = StoryJsonChecker::Instance().CheckJsonStory(pStoryJson);
+
+        result = StoryJsonChecker::Instance().CheckJsonStory(pStoryJson, errorIndex);
         if (!result)
         {
-            printf("Json content contain invalid struct, please re-check label and jump sequence. \n");
+            printf("[Node Index: %d]Json content contain invalid struct, please re-check label and jump sequence. \n", &errorIndex);
             return false;
         }
 
@@ -272,7 +276,7 @@ namespace HeavenGateEditor {
 
         std::ofstream o(filePath);
         try {
-            o << tmpJson << std::endl;
+            o << tmpJson.dump(4) << std::endl;
         }
         catch (nlohmann::json::type_error& e) {
 #ifndef _WIN32

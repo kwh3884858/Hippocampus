@@ -10,7 +10,7 @@
 #define HeavenGateEditorConstant_h
 
 namespace HeavenGateEditor {
-    const char* const   EDITOR_VERSION = "0.0.11";
+    const char* const   EDITOR_VERSION = "0.0.12";
     const int     MAX_FOLDER_PATH = 265;
 
     const int     MAX_FILE_NAME = 64;
@@ -33,7 +33,7 @@ namespace HeavenGateEditor {
     const int     FONT_SIZE_MAX_COLUMN = 2;
     const int     COLOR_MAX_COLUMN = 5;
     const int     TIP_MAX_COLUMN = 2;
-    const int     PAINT_MOVE_MAX_COLUMN = 4;
+    const int     PAINT_MOVE_MAX_COLUMN = 6;
     const int     PAUSE_MAX_COLUMN = 2;
 //    const int     CHAPTER_COLUMN = 2;
 //    const int     SCENE_COLUMN = 2;
@@ -156,9 +156,9 @@ const char* const TableSuffix = "Table";
 
     const char* const PAINT_MOVE_TABLE_NAME =
 #ifdef _WIN32
-        "\\PaintMoveTable.json";
+        "\\TachieMoveTable.json";
 #else
-        "/PaintMoveTable.json";
+        "/TachieMoveTable.json";
 #endif
 
     //Relative path from story folder to chapter table
@@ -249,9 +249,38 @@ const char* const TableSuffix = "Table";
         "Assets/data/graphics/Fonts/Fonts_SourceHanSansCN-Regular.ttf";
 #endif
 
+    // Artist Tool
+    // Character Tachie
+#ifdef _WIN32
+    const char*  const PATH_FROM_PROJECT_ROOT_TO_TACHIE = "Assets\\data\\graphics\\UI\\Characters";
+#endif
+
+    // Interactable CG
+#ifdef _WIN32
+    const char*  const PATH_FROM_PROJECT_ROOT_TO_INTERACTABLE_CG = "Assets\\data\\graphics\\UI\\CG\\Scene";
+#endif
+
+    // Talk Panel Background
+#ifdef _WIN32
+    const char*  const PATH_FROM_PROJECT_ROOT_TO_TALK_BACKGROUND = "Assets\\data\\graphics\\UI\\CG\\TalkBackground";
+#endif
+
+    //BGM
+#ifdef _WIN32
+    const char*  const PATH_FROM_PROJECT_ROOT_TO_BGM = "Assets\\Resources\\Sound\\Bgm";
+#endif
+
+    //Effect
+#ifdef _WIN32
+    const char*  const PATH_FROM_PROJECT_ROOT_TO_EFFECT = "Assets\\Resources\\Sound\\Effect";
+#endif
+
 //Alias
     using UniqueID = unsigned long int;
 
+    //Error Message
+    const char* const Error_Message_Label_Jump_Death_Lock = "Label and jump node will cause endless loop.";
+    const char* const Error_Message_Content_Over_Limit = "Node content is too much to over max line limit.";
 
 }
 #endif /* HeavenGateEditorConstant_h */
