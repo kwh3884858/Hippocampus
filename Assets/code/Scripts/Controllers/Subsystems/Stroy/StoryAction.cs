@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using GamePlay.Stage;
 using StarPlatinum.EventManager;
 using UI.Panels.StaticBoard;
@@ -24,7 +25,12 @@ namespace Controllers.Subsystems.Story
 
     public class StoryPictureMoveAction : StoryAction
     {
-        public Vector2 Distance { get; set; }
+        public string PicID { get; set; }
+        public int StartX { get; set; }
+        public int StartY { get; set; }
+        public int EndX { get; set; }
+        public int EndY { get; set; }
+        public Ease Ease { get; set; }
         public float Duration { get; set; }
     }
 
@@ -93,14 +99,19 @@ namespace Controllers.Subsystems.Story
 
         public void PushPicture(string picID,int posX,int posY=150)
         {
-            posX -= 100;
-            posY -= 100;
+            posX = ProcessPicPos(posX);
+            posY = ProcessPicPos(posY);
             m_actions.Enqueue(new StoryShowPictureAction(){Type = StoryActionType.Picture,Content = picID,Pos = new Vector2(posX,posY)});
         }
         
-        public void PushPicMove(string picID,Vector2 distance,float duration)
+        public void PushPicMove(string picID,int startX,int startY,int endX,int endY,Ease ease,float duration)
         {
-            m_actions.Enqueue(new StoryPictureMoveAction(){Type = StoryActionType.PictureMove,Content = picID,Distance = distance,Duration = duration});
+            startX = ProcessPicPos(startX);
+            startY = ProcessPicPos(startY);
+            endX = ProcessPicPos(endX);
+            endY = ProcessPicPos(endY);
+
+            m_actions.Enqueue(new StoryPictureMoveAction(){Type = StoryActionType.PictureMove,PicID = picID,StartX = startX,StartY = startY,EndX = endX,EndY = endY,Ease = ease,Duration = duration});
         }
 
         public void PushBold()
@@ -157,6 +168,11 @@ namespace Controllers.Subsystems.Story
         public void PushWrap()
         {
             m_actions.Enqueue(new StoryAction(){Type = StoryActionType.Wrap});
+        }
+
+        private int ProcessPicPos(int pos)
+        {
+            return pos - 100;
         }
 
         public StoryAction GetNextAction()

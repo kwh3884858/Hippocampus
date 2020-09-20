@@ -8,6 +8,7 @@ using Config.Data;
 using Const;
 using Controllers.Subsystems;
 using Controllers.Subsystems.Story;
+using DG.Tweening;
 using Evidence;
 using GamePlay.Stage;
 using StarPlatinum;
@@ -294,6 +295,8 @@ namespace UI.Panels.StaticBoard
                     }
                     break;
                 case StoryActionType.PictureMove:
+                    var pictureMoveAction = storyAction as StoryPictureMoveAction;
+                    MovePicture(pictureMoveAction.PicID,pictureMoveAction.StartX,pictureMoveAction.StartY,pictureMoveAction.StartX,pictureMoveAction.EndY,pictureMoveAction.Ease,pictureMoveAction.Duration);
                     break;
                 case StoryActionType.FontSize:
                     m_textHelp.PushFontSize(storyAction.Content);
@@ -496,12 +499,12 @@ namespace UI.Panels.StaticBoard
             m_picPos.Clear();
         }
 
-        private void ShowPicture(string picID, Vector2 pos)
+        private void ShowPicture(string picID, Vector2 pos,bool ignoreHidePos= false,Action callbackAfterMove=null)
         {
             Debug.Log($"========ID:{picID}  Pos:{pos}");
             if (m_pictureItems.ContainsKey(picID))
             {
-                if (pos.x== 0 || pos.y ==0)
+                if (!ignoreHidePos&&(pos.x== 0 || pos.y ==0))
                 {
                     UiDataProvider.RolePictureProvider.ReleasePictureItem(m_pictureItems[picID]);
                     m_pictureItems.Remove(picID);
@@ -512,6 +515,7 @@ namespace UI.Panels.StaticBoard
                     m_pictureItems[picID].rectTransform().anchoredPosition = new Vector2(Width/100*(pos.x - 50),Height/100*(pos.y - 50));
                     m_picPos[picID] = pos;
                 }
+                callbackAfterMove?.Invoke();
                 return;
             }
             if (m_picPos.ContainsKey(picID))
@@ -526,18 +530,25 @@ namespace UI.Panels.StaticBoard
 
             UiDataProvider.RolePictureProvider.GetPictureItem(picID, (item) =>
             {
-                Debug.Log("========下面重复");
                 m_pictureItems.Add(picID,item);
                 item.transform.SetParent(m_pictureRoot);
                 item.transform.localPosition= Vector3.zero;
                 item.transform.localScale = Vector3.one;
                 ShowPicture(picID,m_picPos[picID]);
+                callbackAfterMove.Invoke();
             }); 
             
         }
 
-        private void MovePicture(int oldPosID, int targetPosID)
+        private void MovePicture(string picID, int startX,int startY,int endX,int endY,Ease ease,float duration)
         {
+            ShowPicture(picID,new Vector2(startX,startY),true, () =>
+            {
+                DOTween.To(() => { return m_pictureItems[picID].rectTransform().anchoredPosition; },
+                        v => { m_pictureItems[picID].rectTransform().anchoredPosition = v; },
+                        new Vector2(Width / 100 * (endX - 50), Height / 100 * (endY - 50)), duration).SetEase(ease)
+                    .OnComplete(() => { SetActionState(ActionState.End); });
+            });
         }
 
         private void ShowBG(string bgKey)
