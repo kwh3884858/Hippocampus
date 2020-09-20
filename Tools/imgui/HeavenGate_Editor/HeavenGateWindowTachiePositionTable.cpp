@@ -63,6 +63,7 @@ namespace HeavenGateEditor {
         ImGui::Separator();
 
         ImGui::Text("Tachie Position Table");
+        ImGui::Text("Value Range: [0,100], PositionX = 40 means tachie will display at 40% the X coordinate.");
 
         if (ImGui::Button("Add New Row"))
         {

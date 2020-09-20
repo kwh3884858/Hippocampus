@@ -17,7 +17,7 @@ namespace HeavenGateEditor {
 
 
     class HeavenGateWindowTachieMoveTable : public HeavenGateEditorBaseWindow {
-        WINDOW_DECLARE("HeavenGateWindowPaintMoveTable", Window_Type::MainWindow)
+        WINDOW_DECLARE("HeavenGateWindowTachieMoveTable", Window_Type::MainWindow)
 
     public:
         HeavenGateWindowTachieMoveTable();

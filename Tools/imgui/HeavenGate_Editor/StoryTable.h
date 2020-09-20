@@ -372,8 +372,8 @@ namespace HeavenGateEditor {
                 j[tableString[(int)TableLayout::Value]].push_back(json{
                     {tachieMoveTableString[(int)TachieMoveTableLayout::MoveAlias],            tmp->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::MoveAlias)) },
                     {tachieMoveTableString[(int)TachieMoveTableLayout::TachieName],           tmp->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::TachieName)) },
-                    {tachieMoveTableString[(int)TachieMoveTableLayout::StartPoint],           tmp->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::StartPoint)) },
-                    {tachieMoveTableString[(int)TachieMoveTableLayout::EndPoint],             tmp->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::EndPoint)) },
+                    {tachieMoveTableString[(int)TachieMoveTableLayout::StartPointAlias],           tmp->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::StartPointAlias)) },
+                    {tachieMoveTableString[(int)TachieMoveTableLayout::EndPointAlias],             tmp->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::EndPointAlias)) },
                     {tachieMoveTableString[(int)TachieMoveTableLayout::MoveCurve],            tmp->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::MoveCurve)) },
                     {tachieMoveTableString[(int)TachieMoveTableLayout::Duration],             tmp->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::Duration)) }
                     });
@@ -650,9 +650,9 @@ namespace HeavenGateEditor {
                 p.PushContent(content);
                 GetCharPointerException(content, values[i], tachieMoveTableString[(int)TachieMoveTableLayout::TachieName]);
                 p.PushContent(content);
-                GetCharPointerException(content, values[i], tachieMoveTableString[(int)TachieMoveTableLayout::StartPoint]);
+                GetCharPointerException(content, values[i], tachieMoveTableString[(int)TachieMoveTableLayout::StartPointAlias]);
                 p.PushContent(content);
-                GetCharPointerException(content, values[i], tachieMoveTableString[(int)TachieMoveTableLayout::EndPoint]);
+                GetCharPointerException(content, values[i], tachieMoveTableString[(int)TachieMoveTableLayout::EndPointAlias]);
                 p.PushContent(content);
                 GetCharPointerException(content, values[i], tachieMoveTableString[(int)TachieMoveTableLayout::MoveCurve]);
                 p.PushContent(content);

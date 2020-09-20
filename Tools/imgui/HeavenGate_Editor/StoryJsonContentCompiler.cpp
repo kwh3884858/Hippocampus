@@ -418,6 +418,8 @@ namespace HeavenGateEditor {
                 case HeavenGateEditor::TableType::TachieMove:
                 {
                     const StoryTable<PAINT_MOVE_MAX_COLUMN>* const paintMoveTable = StoryTableManager::Instance().GetPaintMoveTable();
+                    const StoryTable<TACHIE_POSITION_MAX_COLUMN>* const tachiePositionTable = StoryTableManager::Instance().GetTachiePositionTable();
+
                     for (int i = 0; i < paintMoveTable->GetSize(); i++)
                     {
                         const StoryRow<PAINT_MOVE_MAX_COLUMN>* const row = paintMoveTable->GetRow(i);
@@ -425,10 +427,32 @@ namespace HeavenGateEditor {
                         {
                             strcpy(token->m_content, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::TachieName)));
                             strcat(token->m_content, "+");
-                            strcat(token->m_content, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::StartPoint)));
+
+                            char startPointAlias[MAX_COLUMNS_CONTENT_LENGTH];
+                            char endPointAlias[MAX_COLUMNS_CONTENT_LENGTH];
+                            strcpy(startPointAlias, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::StartPointAlias)));
+                            strcpy(endPointAlias, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::EndPointAlias)));
+                            for (int i = 0; i < tachiePositionTable->GetSize(); i++)
+                            {
+                                const StoryRow<TACHIE_POSITION_MAX_COLUMN>* const row = tachiePositionTable->GetRow(i);
+                                if (strcmp(row->Get(MappingLayoutToArrayIndex((int)TachiePositionTableLayout::Alias)), startPointAlias) == 0)
+                                {
+                                    strcpy(startPointAlias, row->Get(MappingLayoutToArrayIndex((int)TachiePositionTableLayout::PositionX)));
+                                    strcat(startPointAlias, ",");
+                                    strcat(startPointAlias, row->Get(MappingLayoutToArrayIndex((int)TachiePositionTableLayout::PositionY)));
+                                }
+                                if (strcmp(row->Get(MappingLayoutToArrayIndex((int)TachiePositionTableLayout::Alias)), endPointAlias) == 0)
+                                {
+                                    strcpy(endPointAlias, row->Get(MappingLayoutToArrayIndex((int)TachiePositionTableLayout::PositionX)));
+                                    strcat(endPointAlias, ",");
+                                    strcat(endPointAlias, row->Get(MappingLayoutToArrayIndex((int)TachiePositionTableLayout::PositionY)));
+                                }
+                            }
+                            strcat(token->m_content, startPointAlias);
                             strcat(token->m_content, "+");
-                            strcat(token->m_content, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::EndPoint)));
+                            strcat(token->m_content, endPointAlias);
                             strcat(token->m_content, "+");
+
                             strcat(token->m_content, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::MoveCurve)));
                             strcat(token->m_content, "+");
                             strcat(token->m_content, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::Duration)));
@@ -494,7 +518,7 @@ namespace HeavenGateEditor {
                         const StoryRow<TACHIE_MAX_COLUMN>* const row = tachieTable->GetRow(i);
                         if (strcmp(row->Get(0), tachieCommand[0]) == 0)
                         {
-                            strcpy(tachieCommand[0], row->Get(1));
+                            strcpy(tachieCommand[0], row->Get(MappingLayoutToArrayIndex((int)TachieTableLayout::FileName)));
                         }
                     }
                     for (int i = 0; i < tachiePositionTable->GetSize(); i++)
@@ -502,9 +526,9 @@ namespace HeavenGateEditor {
                         const StoryRow<TACHIE_POSITION_MAX_COLUMN>* const row = tachiePositionTable->GetRow(i);
                         if (strcmp(row->Get(0), tachieCommand[1]) == 0)
                         {
-                            strcpy(tachieCommand[1], row->Get(1));
+                            strcpy(tachieCommand[1], row->Get(MappingLayoutToArrayIndex((int)TachiePositionTableLayout::PositionX)));
                             strcat(tachieCommand[1], ",");
-                            strcat(tachieCommand[1], row->Get(2));
+                            strcat(tachieCommand[1], row->Get(MappingLayoutToArrayIndex((int)TachiePositionTableLayout::PositionY)));
 
                         }
                     }

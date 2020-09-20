@@ -46,6 +46,11 @@ namespace HeavenGateEditor {
         
         };
 
+        enum class ErrorMessage
+        {
+            MissingClosingTag,
+            MissingIndentity,
+        };
 
         struct Token
         {

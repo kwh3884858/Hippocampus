@@ -71,8 +71,8 @@ namespace HeavenGateEditor
         Type = 0,
         MoveAlias,
         TachieName,
-        StartPoint,
-        EndPoint,
+        StartPointAlias,
+        EndPointAlias,
         MoveCurve,
         Duration,
 
@@ -208,8 +208,8 @@ namespace HeavenGateEditor
         "tachieMove",
         "moveAlias",
         "tachieName",
-        "startPoint",
-        "endPoint",
+        "startPointAlias",
+        "endPointAlias",
         "moveCurve",
         "duration"
 

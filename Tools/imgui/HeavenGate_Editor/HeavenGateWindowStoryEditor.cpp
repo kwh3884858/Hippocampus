@@ -1373,7 +1373,7 @@ void HeavenGateWindowStoryEditor::SetWindowIndex(int index){
 
     void HeavenGateWindowStoryEditor::CheckIdentityLegality()
     {
-        m_previewWindow->AddMessage(HeavenGateWindowPreview::MessageType::Error, 1, Error_Message_Label_Jump_Death_Lock);
+        //m_previewWindow->AddMessage(HeavenGateWindowPreview::MessageType::Error, 1, Error_Message_Label_Jump_Death_Lock);
     }
 
     void HeavenGateWindowStoryEditor::CheckLabelAndJumpLegality()

@@ -313,26 +313,51 @@ namespace HeavenGateEditor {
                     for (int i = 0; i < tipTable->GetSize(); i++)
                     {
                         const StoryRow<TIP_MAX_COLUMN, TIP_TABLE_MAX_CONTENT>* const row = tipTable->GetRow(i);
-                        if (strcmp(row->Get(0), (*iter)->m_content) == 0)
+                        if (strcmp(row->Get(MappingLayoutToArrayIndex((int)TipTableLayout::Tip)), (*iter)->m_content) == 0)
                         {
-                            strcpy(tmpTip, row->Get(1));
+                            strcpy(tmpTip, row->Get(MappingLayoutToArrayIndex((int)TipTableLayout::Description)));
                         }
                     }
                 }
                 break;
                 case HeavenGateEditor::TableType::TachieMove:
                 {
-                    const StoryTable<PAINT_MOVE_MAX_COLUMN>* const paintMoveTable = StoryTableManager::Instance().GetPaintMoveTable();
-                    for (int i = 0; i < paintMoveTable->GetSize(); i++)
+                    const StoryTable<PAINT_MOVE_MAX_COLUMN>* const tachieMoveTable = StoryTableManager::Instance().GetPaintMoveTable();
+                    const StoryTable<TACHIE_POSITION_MAX_COLUMN>* const tachiePositionTable = StoryTableManager::Instance().GetTachiePositionTable();
+
+                    for (int i = 0; i < tachieMoveTable->GetSize(); i++)
                     {
-                        const StoryRow<PAINT_MOVE_MAX_COLUMN>* const row = paintMoveTable->GetRow(i);
+                        const StoryRow<PAINT_MOVE_MAX_COLUMN>* const row = tachieMoveTable->GetRow(i);
                         if (strcmp(row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::MoveAlias)), (*iter)->m_content) == 0)
                         {
                             strcpy(tmpTachieMove, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::TachieName)));
                             strcat(tmpTachieMove, "+");
-                            strcat(tmpTachieMove, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::StartPoint)));
+
+                            char startPointAlias[MAX_COLUMNS_CONTENT_LENGTH];
+                            char endPointAlias[MAX_COLUMNS_CONTENT_LENGTH];
+                            strcpy(startPointAlias, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::StartPointAlias)));
+                            strcpy(endPointAlias, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::EndPointAlias)));
+
+                            for (int i = 0; i < tachiePositionTable->GetSize(); i++)
+                            {
+                                const StoryRow<TACHIE_POSITION_MAX_COLUMN>* const row = tachiePositionTable->GetRow(i);
+                                if (strcmp(row->Get(MappingLayoutToArrayIndex((int)TachiePositionTableLayout::Alias)), startPointAlias) == 0)
+                                {
+                                    strcpy(startPointAlias, row->Get(MappingLayoutToArrayIndex((int)TachiePositionTableLayout::PositionX)));
+                                    strcat(startPointAlias, ",");
+                                    strcat(startPointAlias, row->Get(MappingLayoutToArrayIndex((int)TachiePositionTableLayout::PositionY)));
+                                }
+                                if (strcmp(row->Get(MappingLayoutToArrayIndex((int)TachiePositionTableLayout::Alias)), endPointAlias) == 0)
+                                {
+                                    strcpy(endPointAlias, row->Get(MappingLayoutToArrayIndex((int)TachiePositionTableLayout::PositionX)));
+                                    strcat(endPointAlias, ",");
+                                    strcat(endPointAlias, row->Get(MappingLayoutToArrayIndex((int)TachiePositionTableLayout::PositionY)));
+                                }
+                            }
+
+                            strcat(tmpTachieMove, startPointAlias);
                             strcat(tmpTachieMove, "+");
-                            strcat(tmpTachieMove, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::EndPoint)));
+                            strcat(tmpTachieMove, endPointAlias);
                             strcat(tmpTachieMove, "+");
                             strcat(tmpTachieMove, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::MoveCurve)));
                             strcat(tmpTachieMove, "+");
@@ -411,7 +436,7 @@ namespace HeavenGateEditor {
                     for (int i = 0; i < tachieTable->GetSize(); i++)
                     {
                         const StoryRow<TACHIE_MAX_COLUMN>* const row = tachieTable->GetRow(i);
-                        if (strcmp(row->Get(0), tmpTachieCommand[0]) == 0)
+                        if (strcmp(row->Get(MappingLayoutToArrayIndex((int)TachieTableLayout::Alias)), tmpTachieCommand[0]) == 0)
                         {
                             strcpy(tmpTachieCommand[0], row->Get(1));
                         }
@@ -419,11 +444,11 @@ namespace HeavenGateEditor {
                     for (int i = 0; i < tachiePositionTable->GetSize(); i++)
                     {
                         const StoryRow<TACHIE_POSITION_MAX_COLUMN>* const row = tachiePositionTable->GetRow(i);
-                        if (strcmp(row->Get(0), tmpTachieCommand[1]) == 0)
+                        if (strcmp(row->Get(MappingLayoutToArrayIndex((int)TachiePositionTableLayout::Alias)), tmpTachieCommand[1]) == 0)
                         {
-                            strcpy(tmpTachieCommand[1], row->Get(1));
+                            strcpy(tmpTachieCommand[1], row->Get(MappingLayoutToArrayIndex((int)TachiePositionTableLayout::PositionX)));
                             strcat(tmpTachieCommand[1], ",");
-                            strcat(tmpTachieCommand[1], row->Get(2));
+                            strcat(tmpTachieCommand[1], row->Get(MappingLayoutToArrayIndex((int)TachiePositionTableLayout::PositionY)));
                         }
                     }
 
