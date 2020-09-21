@@ -13,7 +13,7 @@ namespace StarPlatinum.StoryCompile
 
 	public class StoryVirtualMachine : Singleton<StoryVirtualMachine>
 	{
-
+		const int POSITION_OFFSET = 100;
 
 		enum TableType
 		{
@@ -180,10 +180,10 @@ namespace StarPlatinum.StoryCompile
 							bool isSuccess = Enum.TryParse<Ease> (parameters [(int)TachieMoveParameter.CurveType], true, out easeType);
 							m_container.PushPicMove (
 								parameters [(int)TachieMoveParameter.tachieName],
-								Int32.Parse (startPos [(int)PositionParameter.x]),
-								Int32.Parse (startPos [(int)PositionParameter.y]),
-								Int32.Parse (endPos [(int)PositionParameter.x]),
-								Int32.Parse (endPos [(int)PositionParameter.y]),
+								Int32.Parse (startPos [(int)PositionParameter.x]) + POSITION_OFFSET,
+								Int32.Parse (startPos [(int)PositionParameter.y]) + POSITION_OFFSET,
+								Int32.Parse (endPos [(int)PositionParameter.x]) + POSITION_OFFSET,
+								Int32.Parse (endPos [(int)PositionParameter.y]) + POSITION_OFFSET,
 								easeType,
 								Int32.Parse (parameters [(int)TachieMoveParameter.Duation])
 								);
@@ -208,7 +208,7 @@ namespace StarPlatinum.StoryCompile
 					case TableType.tachie:
 						string [] words = token.m_content.Split ('+');
 						string [] pos = words [1].Split (',');
-						m_container.PushPicture (words [0], Int32.Parse (pos [(int)PositionParameter.x]) + 100, Int32.Parse (pos [(int)PositionParameter.y]) + 100);
+						m_container.PushPicture (words [0], Int32.Parse (pos [(int)PositionParameter.x]) + POSITION_OFFSET, Int32.Parse (pos [(int)PositionParameter.y]) + POSITION_OFFSET);
 						break;
 					default:
 						break;
