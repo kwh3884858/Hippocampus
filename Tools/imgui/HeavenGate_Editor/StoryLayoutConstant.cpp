@@ -3,9 +3,10 @@
 
 namespace HeavenGateEditor {
 
-int MappingLayoutToArrayIndex(int layout){
-    return layout - 1;
-}
+    //constexpr int MappingLayoutToArrayIndex(int layout) {
+    //    return layout - 1;
+    //}
+
     const char * GetLayoutString(TableType type)
     {
         switch (type)
@@ -53,10 +54,6 @@ int MappingLayoutToArrayIndex(int layout){
             return (int)TipTableLayout::Amount;
         case TableType::TachieMove:
             return (int)TachieMoveTableLayout::Amount;
-//        case TableType::Chapter:
-//            return (int)ChapterTableLayout::Amount;
-//        case TableType::Scene:
-//            return (int)SceneTableLayout::Amount;
         case TableType::Character:
             return (int)CharacterTableLayout::Amount;
         case TableType::Pause:

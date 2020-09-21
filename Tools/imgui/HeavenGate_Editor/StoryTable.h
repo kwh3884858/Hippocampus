@@ -371,7 +371,6 @@ namespace HeavenGateEditor {
                 tmp = p.GetRow(i);
                 j[tableString[(int)TableLayout::Value]].push_back(json{
                     {tachieMoveTableString[(int)TachieMoveTableLayout::MoveAlias],            tmp->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::MoveAlias)) },
-                    {tachieMoveTableString[(int)TachieMoveTableLayout::TachieName],           tmp->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::TachieName)) },
                     {tachieMoveTableString[(int)TachieMoveTableLayout::StartPointAlias],           tmp->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::StartPointAlias)) },
                     {tachieMoveTableString[(int)TachieMoveTableLayout::EndPointAlias],             tmp->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::EndPointAlias)) },
                     {tachieMoveTableString[(int)TachieMoveTableLayout::MoveCurve],            tmp->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::MoveCurve)) },
@@ -647,8 +646,6 @@ namespace HeavenGateEditor {
             for (int i = 0; i < values.size(); i++)
             {
                 GetCharPointerException(content, values[i], tachieMoveTableString[(int)TachieMoveTableLayout::MoveAlias]);
-                p.PushContent(content);
-                GetCharPointerException(content, values[i], tachieMoveTableString[(int)TachieMoveTableLayout::TachieName]);
                 p.PushContent(content);
                 GetCharPointerException(content, values[i], tachieMoveTableString[(int)TachieMoveTableLayout::StartPointAlias]);
                 p.PushContent(content);

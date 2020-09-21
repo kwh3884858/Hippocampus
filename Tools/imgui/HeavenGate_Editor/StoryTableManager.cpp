@@ -26,7 +26,7 @@ namespace HeavenGateEditor {
 //        m_tipTable->PushName("Tip");
 //        m_tipTable->PushName("Description");
 
-        m_paintMovetable = new StoryTable<PAINT_MOVE_MAX_COLUMN>;
+        m_paintMovetable = new StoryTable<TACHIE_MOVE_MAX_COLUMN>;
         m_paintMovetable->SetTableType(TableType::TachieMove);
 
 //        m_paintMovetable->PushName("Angle Value");
@@ -168,14 +168,14 @@ namespace HeavenGateEditor {
         return const_cast<StoryTable<TIP_MAX_COLUMN, TIP_TABLE_MAX_CONTENT>*>(const_cast<const StoryTableManager*>(this)->GetTipTable());
     }
 
-    const StoryTable<PAINT_MOVE_MAX_COLUMN>* const StoryTableManager::GetPaintMoveTable() const
+    const StoryTable<TACHIE_MOVE_MAX_COLUMN>* const StoryTableManager::GetPaintMoveTable() const
     {
         return m_paintMovetable;
     }
 
-    StoryTable<PAINT_MOVE_MAX_COLUMN>* StoryTableManager::GetPaintMoveTable()
+    StoryTable<TACHIE_MOVE_MAX_COLUMN>* StoryTableManager::GetPaintMoveTable()
     {
-        return const_cast<StoryTable<PAINT_MOVE_MAX_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetPaintMoveTable());
+        return const_cast<StoryTable<TACHIE_MOVE_MAX_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetPaintMoveTable());
 
     }
 

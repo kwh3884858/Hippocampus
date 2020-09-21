@@ -1,11 +1,10 @@
 #ifndef StoryLayoutConstant_h
 #define StoryLayoutConstant_h
 
-#include "HeavenGateEditorConstant.h"
-
 namespace HeavenGateEditor
 {
 
+    const int     MAX_ENUM_LENGTH = 32;
     enum class TableType
     {
         None = 0,
@@ -13,8 +12,6 @@ namespace HeavenGateEditor
         Color,
         Tips,
         TachieMove,
-//        Chapter,
-//        Scene,
         Character,
         Pause,
         Exhibit,
@@ -24,7 +21,10 @@ namespace HeavenGateEditor
         Tachie_Position
     };
 
-    int MappingLayoutToArrayIndex(int layout);
+    constexpr int MappingLayoutToArrayIndex(int layout) {
+        return layout - 1;
+    }
+
     const char * GetLayoutString(TableType type);
     int GetLayoutAmount(TableType type);
 
@@ -35,7 +35,7 @@ namespace HeavenGateEditor
         Value = 2
     };
 
-    enum class FontSizeTableLayout
+    enum class FontSizeTableLayout: int
     {
         Type = 0,
         Alias = 1,
@@ -44,11 +44,10 @@ namespace HeavenGateEditor
         Amount
     };
 
-    enum class ColorTableLayout
+    enum class ColorTableLayout: int
     {
         Type = 0,
         Alias = 1,
-        //Size = 2
         R,
         G,
         B,
@@ -57,7 +56,7 @@ namespace HeavenGateEditor
         Amount
     };
 
-    enum class TipTableLayout
+    enum class TipTableLayout: int
     {
         Type = 0,
         Tip = 1,
@@ -66,11 +65,10 @@ namespace HeavenGateEditor
         Amount
     };
 
-    enum class TachieMoveTableLayout
+    enum class TachieMoveTableLayout: int
     {
         Type = 0,
         MoveAlias,
-        TachieName,
         StartPointAlias,
         EndPointAlias,
         MoveCurve,
@@ -97,7 +95,7 @@ namespace HeavenGateEditor
 //        Amount
 //    };
 
-    enum class CharacterTableLayout
+    enum class CharacterTableLayout: int
     {
         Type = 0,
         Character = 1,
@@ -106,7 +104,7 @@ namespace HeavenGateEditor
         Amount
     };
 
-    enum class PauseTableLayout
+    enum class PauseTableLayout: int
     {
         Type = 0,
         Pause = 1,
@@ -115,7 +113,7 @@ namespace HeavenGateEditor
         Amount
     };
 
-    enum class ExhibitTableLayout
+    enum class ExhibitTableLayout: int
     {
         Type = 0,
         ExhibitID,
@@ -126,7 +124,7 @@ namespace HeavenGateEditor
         Amount
     };
 
-    enum class EffectTableLayout
+    enum class EffectTableLayout: int
     {
         Type = 0,
         Effect = 1,
@@ -135,7 +133,7 @@ namespace HeavenGateEditor
         Amount
     };
 
-    enum class BgmTableLayout
+    enum class BgmTableLayout: int
     {
         Type = 0,
         Bgm = 1,
@@ -145,7 +143,7 @@ namespace HeavenGateEditor
         Amount
     };
 
-    enum class TachieTableLayout
+    enum class TachieTableLayout : int
     {
         Type = 0,
         Alias = 1,
@@ -154,7 +152,7 @@ namespace HeavenGateEditor
         Amount
     };
 
-    enum class TachiePositionTableLayout
+    enum class TachiePositionTableLayout : int
     {
         Type = 0,
         Alias = 1,
@@ -207,7 +205,6 @@ namespace HeavenGateEditor
     const char tachieMoveTableString[][MAX_ENUM_LENGTH] = {
         "tachieMove",
         "moveAlias",
-        "tachieName",
         "startPointAlias",
         "endPointAlias",
         "moveCurve",

@@ -9,6 +9,8 @@
 #ifndef HeavenGateEditorConstant_h
 #define HeavenGateEditorConstant_h
 
+#include "StoryLayoutConstant.h"
+
 namespace HeavenGateEditor {
     const char* const   EDITOR_VERSION = "0.0.12";
     const int     MAX_FOLDER_PATH = 265;
@@ -26,23 +28,19 @@ namespace HeavenGateEditor {
     const int     MAX_EXHIBIT_NAME = 512;
     const int     MAX_EVENT_NAME = 64;
 
-    const int     MAX_ENUM_LENGTH = 32;
-
     //Table
     const int     MAX_COLUMNS_CONTENT_LENGTH = 64;
-    const int     FONT_SIZE_MAX_COLUMN = 2;
-    const int     COLOR_MAX_COLUMN = 5;
-    const int     TIP_MAX_COLUMN = 2;
-    const int     PAINT_MOVE_MAX_COLUMN = 6;
-    const int     PAUSE_MAX_COLUMN = 2;
-//    const int     CHAPTER_COLUMN = 2;
-//    const int     SCENE_COLUMN = 2;
-    const int     CHARACTER_COLUMN = 2;
-    const int     EXHIBIT_COLUMN = 4;
-    const int     EFFECT_MAX_COLUMN = 2;
-    const int     BGM_MAX_COLUMN = 3;
-    const int     TACHIE_MAX_COLUMN = 2;
-    const int     TACHIE_POSITION_MAX_COLUMN = 3;
+    const int     FONT_SIZE_MAX_COLUMN = MappingLayoutToArrayIndex((int)FontSizeTableLayout::Amount);
+    const int     COLOR_MAX_COLUMN = MappingLayoutToArrayIndex((int)ColorTableLayout::Amount);
+    const int     TIP_MAX_COLUMN = MappingLayoutToArrayIndex((int)TipTableLayout::Amount);
+    const int     TACHIE_MOVE_MAX_COLUMN = MappingLayoutToArrayIndex((int)TachieMoveTableLayout::Amount);
+    const int     PAUSE_MAX_COLUMN = MappingLayoutToArrayIndex((int)PauseTableLayout::Amount);
+    const int     CHARACTER_COLUMN = MappingLayoutToArrayIndex((int)CharacterTableLayout::Amount);
+    const int     EXHIBIT_COLUMN = MappingLayoutToArrayIndex((int)ExhibitTableLayout::Amount);
+    const int     EFFECT_MAX_COLUMN = MappingLayoutToArrayIndex((int)EffectTableLayout::Amount);
+    const int     BGM_MAX_COLUMN = MappingLayoutToArrayIndex((int)BgmTableLayout::Amount);
+    const int     TACHIE_MAX_COLUMN = MappingLayoutToArrayIndex((int)TachieTableLayout::Amount);
+    const int     TACHIE_POSITION_MAX_COLUMN = MappingLayoutToArrayIndex((int)TachiePositionTableLayout::Amount);
 
     //ID
     //Max ID must be (part + 1) * count, which means the total number of each part then plus the number of parts.
@@ -57,6 +55,7 @@ namespace HeavenGateEditor {
     };
 
     const int NUM_OF_TACHIE_COMMAND = 2;
+    const int NUM_OF_TACHIE_MOVE_COMMAND = 2;
     const int MAX_TACHIE_ALIAS = MAX_COLUMNS_CONTENT_LENGTH;
     const int MAX_TACHIE_POSITION_ALIAS = MAX_COLUMNS_CONTENT_LENGTH;
     const int MAX_TACHIE = MAX_TACHIE_ALIAS + MAX_TACHIE_POSITION_ALIAS + NUM_OF_TACHIE_COMMAND;

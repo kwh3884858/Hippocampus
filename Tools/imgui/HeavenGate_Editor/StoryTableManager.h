@@ -32,8 +32,8 @@ namespace HeavenGateEditor {
         const StoryTable<TIP_MAX_COLUMN, TIP_TABLE_MAX_CONTENT>* const GetTipTable() const;
         StoryTable<TIP_MAX_COLUMN, TIP_TABLE_MAX_CONTENT>*  GetTipTable();
 
-        const StoryTable<PAINT_MOVE_MAX_COLUMN>* const GetPaintMoveTable() const;
-        StoryTable<PAINT_MOVE_MAX_COLUMN>*  GetPaintMoveTable();
+        const StoryTable<TACHIE_MOVE_MAX_COLUMN>* const GetPaintMoveTable() const;
+        StoryTable<TACHIE_MOVE_MAX_COLUMN>*  GetPaintMoveTable();
 
         const StoryTable<CHARACTER_COLUMN>* const GetCharacterTable() const;
         StoryTable<CHARACTER_COLUMN>*  GetCharacterTable();
@@ -63,7 +63,7 @@ namespace HeavenGateEditor {
         StoryTable<COLOR_MAX_COLUMN>*  m_colorTable;
         StoryTable<FONT_SIZE_MAX_COLUMN>* m_fontSizeTable;
         StoryTable<TIP_MAX_COLUMN, TIP_TABLE_MAX_CONTENT>* m_tipTable;
-        StoryTable<PAINT_MOVE_MAX_COLUMN>* m_paintMovetable;
+        StoryTable<TACHIE_MOVE_MAX_COLUMN>* m_paintMovetable;
         //StoryTable<CHAPTER_COLUMN>* m_chapterTable;
         //StoryTable<SCENE_COLUMN>* m_sceneTable;
         StoryTable<CHARACTER_COLUMN>* m_characterTable;
