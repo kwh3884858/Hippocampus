@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using StarPlatinum.Base;
 using System;
+using DG.Tweening;
 
 namespace StarPlatinum.StoryCompile
 {
@@ -20,7 +21,7 @@ namespace StarPlatinum.StoryCompile
 			fontSize,
 			color,
 			tip,
-			paintMove,
+			tachieMove,
 			//chapter,
 			//scene,
 			character,
@@ -29,6 +30,21 @@ namespace StarPlatinum.StoryCompile
 			effect,
 			bgm,
 			tachie
+		};
+
+		enum TachieMoveParameter
+		{
+			tachieName,
+			StartPos,
+			EndPos,
+			CurveType,
+			Duation
+		};
+
+		enum PositionParameter
+		{
+			x,
+			y
 		};
 
 
@@ -85,7 +101,7 @@ namespace StarPlatinum.StoryCompile
 							break;
 						case TableType.tip:
 							break;
-						case TableType.paintMove:
+						case TableType.tachieMove:
 							break;
 						case TableType.pause:
 							m_container.PushTypeWriterInterval (m_currentTypeWriterInterval);
@@ -112,8 +128,8 @@ namespace StarPlatinum.StoryCompile
 						if (token.m_content == TableType.tip.ToString ()) {
 							editorState.Push (TableType.tip);
 						}
-						if (token.m_content == TableType.paintMove.ToString ()) {
-							editorState.Push (TableType.paintMove);
+						if (token.m_content == TableType.tachieMove.ToString ()) {
+							editorState.Push (TableType.tachieMove);
 						}
 						if (token.m_content == TableType.pause.ToString ()) {
 							editorState.Push (TableType.pause);
@@ -155,7 +171,23 @@ namespace StarPlatinum.StoryCompile
 						//m_tipManager.addTip(token.m_content);
 						Tips.TipsManager.Instance.UnlockTip (token.m_content, Tips.TipsManager.ConvertDateTimeToLong (System.DateTime.Now));// 添加tip 数据
 						break;
-					case TableType.paintMove:
+					case TableType.tachieMove:
+						{
+							Ease easeType = Ease.Unset;
+							string [] parameters = token.m_content.Split ('+');
+							string [] startPos = parameters [(int)TachieMoveParameter.StartPos].Split (',');
+							string [] endPos = parameters [(int)TachieMoveParameter.EndPos].Split (',');
+							bool isSuccess = Enum.TryParse<Ease> (parameters [(int)TachieMoveParameter.CurveType], true, out easeType);
+							m_container.PushPicMove (
+								parameters [(int)TachieMoveParameter.tachieName],
+								Int32.Parse (startPos [(int)PositionParameter.x]),
+								Int32.Parse (startPos [(int)PositionParameter.y]),
+								Int32.Parse (endPos [(int)PositionParameter.x]),
+								Int32.Parse (endPos [(int)PositionParameter.y]),
+								easeType,
+								Int32.Parse (parameters [(int)TachieMoveParameter.Duation])
+								);
+						}
 						break;
 					case TableType.pause:
 						m_currentTypeWriterInterval = float.Parse (token.m_content);
@@ -165,7 +197,10 @@ namespace StarPlatinum.StoryCompile
 						EvidenceDataManager.Instance.AddEvidence (token.m_content);
 						break;
 					case TableType.bgm:
-						m_container.PushChangeBGM (token.m_content);
+						{
+							string [] parameters = token.m_content.Split ('+');
+							m_container.PushChangeBGM (token.m_content);
+						}
 						break;
 					case TableType.effect:
 						m_container.PushPlayerEffectMusic (token.m_content);
@@ -173,7 +208,7 @@ namespace StarPlatinum.StoryCompile
 					case TableType.tachie:
 						string [] words = token.m_content.Split ('+');
 						string [] pos = words [1].Split (',');
-						m_container.PushPicture (words [0], Int32.Parse (pos [0]) + 100, Int32.Parse (pos [1]) + 100);
+						m_container.PushPicture (words [0], Int32.Parse (pos [(int)PositionParameter.x]) + 100, Int32.Parse (pos [(int)PositionParameter.y]) + 100);
 						break;
 					default:
 						break;
