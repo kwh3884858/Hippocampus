@@ -1,3 +1,4 @@
+#ifdef _WIN32
 #ifndef ArtistToolOpenFolder_h
 #define ArtistToolOpenFolder_h
 
@@ -19,3 +20,5 @@ namespace  ArtistTool
 }
 
 #endif /* ArtistToolOpenFolder_h */
+
+#endif
