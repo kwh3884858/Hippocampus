@@ -158,6 +158,20 @@ namespace Controllers.Subsystems.Story
 
 			StoryVirtualMachine.Instance.SetStoryActionContainer (container);
 
+//			container.PushPicture("Role_Heroine",150,150);
+//			container.PushWaiting(1);
+//			container.PushPicture("Role_Heroine",180,150);
+//			container.PushWaiting(1);
+//			container.PushPicMove("Role_Heroine",180,150,120,170,Ease.Linear,3);
+//			container.PushWaiting(2);
+//			container.PushPicMove("Role_Heroine",150,170,190,170,Ease.Linear,2);
+//			container.PushWaiting(1);
+//			container.PushPicMove("Characters_Vera_Confusion",190,150,130,150,Ease.Linear,3);
+//			container.PushWaiting(1);
+//			container.PushPicture("Role_Heroine",100,100);
+//			container.PushWaiting(100);
+//
+//			return container;
 			//List<StoryBasicData> datas = m_storys.GetSotry();
 
 			//for(int i = 0; i < datas.Count(); i++)
