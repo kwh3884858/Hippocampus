@@ -216,16 +216,18 @@ namespace HeavenGateEditor {
             m_heavenGateEditor.push_back(storyEditor);
         }
 
-        for (auto iter = m_heavenGateEditor.begin(); iter != m_heavenGateEditor.end(); iter++) {
+        for (auto iter = m_heavenGateEditor.begin(); iter != m_heavenGateEditor.end(); ) {
             bool* const isOpen = (*iter)->GetHandle();
             if (*isOpen == false) {
                 (*iter)->Shutdown();
                 delete *iter;
                 *iter = nullptr;
                 iter = m_heavenGateEditor.erase(iter);
-                continue;
             }
-            (*iter)->Update();
+            if(iter != m_heavenGateEditor.end()){
+                (*iter)->Update();
+                iter++;
+            }
         }
 
         ImGui::Checkbox("Font Size Table", show_font_size_table_window);
@@ -355,8 +357,7 @@ namespace HeavenGateEditor {
             strcat(rootPath, PATH_FROM_PROJECT_ROOT_TO_EFFECT);
             ArtistTool::ArtistToolOpenFolder::OpenFolder(rootPath);
         }
-    }
-
-
 #endif // _WIN32
+    }
 }
+
