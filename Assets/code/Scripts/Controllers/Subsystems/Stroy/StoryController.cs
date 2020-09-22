@@ -37,7 +37,8 @@ namespace Controllers.Subsystems.Story
 		TriggerEvent,
 		PlayAnimation,
 		ChangeBackground,
-		Wrap
+		Wrap,
+		ChangeSoundVolume,
 	}
 
 	public class StoryController : ControllerBase

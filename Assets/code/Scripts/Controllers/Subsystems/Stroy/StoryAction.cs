@@ -170,6 +170,11 @@ namespace Controllers.Subsystems.Story
             m_actions.Enqueue(new StoryAction(){Type = StoryActionType.Wrap});
         }
 
+        public void PushVolume(int volumePercentage)
+        {
+            m_actions.Enqueue(new StoryAction(){Type = StoryActionType.ChangeSoundVolume, Content = volumePercentage.ToString()});
+        }
+
         private int ProcessPicPos(int pos)
         {
             return pos - 100;

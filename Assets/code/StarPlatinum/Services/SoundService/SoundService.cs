@@ -15,6 +15,9 @@ namespace StarPlatinum
 		private bool m_isPlayMusic;
 		private bool m_isPlayEffect;
 
+		private int m_volume;
+		private int m_volumePercentage;
+
 		public AudioSource m_backgoundSound = null;
 		private Dictionary<string, AudioClip> m_bgmCache = new Dictionary<string, AudioClip> ();
 		private Dictionary<string, AudioSource> m_effectCache = new Dictionary<string, AudioSource> ();
@@ -35,16 +38,8 @@ namespace StarPlatinum
 
 			m_isPlayEffect = true;
 			m_isPlayMusic = true;
-		}
-
-
-		public void AdjustMusicVolume (string name, float volume)
-		{
-			if (m_backgoundSound.clip != null && name.IndexOf (this.m_backgoundSound.clip.name) > -1) {
-				return;
-			}
-
-			m_backgoundSound.volume = volume;
+			SetVolume(50);
+			SetVolumePercentage(100);
 		}
 
 		/// <summary>
@@ -52,7 +47,7 @@ namespace StarPlatinum
 		/// </summary>
 		/// <param name="name">music name.</param>
 		/// <param name="isloop">If set to <c>true</c> is loop.</param>
-		public void PlayBgm (string name, bool isloop = true, float volumn = 0.5f)
+		public void PlayBgm (string name, bool isloop = true)
 		{
 			if (this.m_backgoundSound.clip != null && name.IndexOf (this.m_backgoundSound.clip.name) > -1) {
 				return;
@@ -64,7 +59,6 @@ namespace StarPlatinum
 			var clip = LoadAudioClip ("Bgm/" + name);
 			if (clip) {
 				m_backgoundSound.clip = clip;
-				m_backgoundSound.volume = volumn;
 				if (m_backgoundSound.clip != null) {
 					m_backgoundSound.Play ();
 				}
@@ -229,6 +223,23 @@ namespace StarPlatinum
 		public void Play (string name)
 		{
 			AudioSource.PlayClipAtPoint (LoadAudioClip (name), new Vector3 (), 1);
+		}
+
+		public void SetVolumePercentage(int value)
+		{
+			m_volumePercentage = value;
+			SetVolume();
+		}
+
+		public void SetVolume(int value)
+		{
+			m_volume = value;
+			SetVolume();
+		}
+
+		private void SetVolume()
+		{
+			m_backgoundSound.volume = (float)m_volume * m_volumePercentage / 10000;
 		}
 	}
 

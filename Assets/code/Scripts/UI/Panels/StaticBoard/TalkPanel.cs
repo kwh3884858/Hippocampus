@@ -353,6 +353,11 @@ namespace UI.Panels.StaticBoard
                     m_content.text += '\n';
                     SetActionState(ActionState.End);
                     break;
+                case StoryActionType.ChangeSoundVolume:
+                    int volume = int.Parse(m_curAction.Content);
+                    SoundService.Instance.SetVolumePercentage(volume);
+                    SetActionState(ActionState.End);
+                    break;
                 default:
                     Debug.LogError($"未处理对话行为:{storyAction.Type}");
                     break;
