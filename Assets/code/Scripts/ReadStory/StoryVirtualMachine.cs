@@ -41,6 +41,12 @@ namespace StarPlatinum.StoryCompile
 			Duation
 		};
 
+		enum BgmParameter
+		{
+			fileName,
+			Volume
+		};
+
 		enum PositionParameter
 		{
 			x,
@@ -199,7 +205,8 @@ namespace StarPlatinum.StoryCompile
 					case TableType.bgm:
 						{
 							string [] parameters = token.m_content.Split ('+');
-							m_container.PushChangeBGM (token.m_content);
+
+							m_container.PushChangeBGM (parameters[(int)BgmParameter.fileName]);
 						}
 						break;
 					case TableType.effect:
