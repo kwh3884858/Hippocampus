@@ -233,7 +233,6 @@ namespace HeavenGateEditor {
         ImGui::Checkbox("Font Size Table", show_font_size_table_window);
         ImGui::Checkbox("Color Table", show_color_table_window);
         ImGui::Checkbox("Tip Table", show_tip_table_window);
-        ImGui::Checkbox("Paint Move Table", show_heaven_gate_window_paint_move_table);
         //ImGui::Checkbox("Chapter Table", show_chapter_table);
         //ImGui::Checkbox("Scene Table", show_scene_table);
         ImGui::Checkbox("Character Table", show_character_table);
@@ -244,6 +243,7 @@ namespace HeavenGateEditor {
         ImGui::Checkbox("Tachie Table", show_tachie_table);
         ImGui::Checkbox("Tachie Position Table", show_tachie_poisition_table);
         ImGui::Checkbox("Node Graph Example", show_node_graph_example);
+        ImGui::Checkbox("Tachie Move Table", show_heaven_gate_window_paint_move_table);
 
 
         if (show_font_size_table_window && *show_font_size_table_window)
