@@ -185,6 +185,7 @@ public class MonoMoveController : MonoBehaviour
 
         if (m_isFaceRight != m_isOldFaceRight)
         {
+            transform.localScale = new  Vector3(m_isFaceRight?1:-1, transform.localScale.y, transform.localScale.z);
             m_spriteRender.flipX = m_isFaceRight;
             m_isOldFaceRight = m_isFaceRight;
         }
