@@ -64,8 +64,8 @@ namespace HeavenGateEditor {
         char tmpFontSize[MAX_COLUMNS_CONTENT_LENGTH];
         memset(tmpFontSize, '\0', MAX_COLUMNS_CONTENT_LENGTH);
 
-        char tmpTachieMove[MAX_COLUMNS_CONTENT_LENGTH * 2];
-        memset(tmpTachieMove, '\0', MAX_COLUMNS_CONTENT_LENGTH * 2);
+        char tmpTachieMove[NUM_OF_TACHIE_COMMAND][MAX_COLUMNS_CONTENT_LENGTH];
+        memset(tmpTachieMove, '\0', NUM_OF_TACHIE_COMMAND * MAX_COLUMNS_CONTENT_LENGTH);
 
         char tmpPause[MAX_COLUMNS_CONTENT_LENGTH];
         memset(tmpPause, '\0', MAX_COLUMNS_CONTENT_LENGTH);
@@ -132,14 +132,15 @@ namespace HeavenGateEditor {
 //                        ImGui::SameLine(0, 0);
                         break;
                     case HeavenGateEditor::TableType::TachieMove:
-                        if (strlen(tmpTachieMove) != 0) {
-                            ImGui::TextColored(colorGreen, "[Tachie Move: %s]", tmpTachieMove);
+                        if (strlen(tmpTachieMove[0]) == 0) {
+                            ImGui::TextColored(colorRed, "!!Tchie is empty");
                         }
-                        else {
-                            ImGui::TextColored(colorRed, "!!Can not find tachie move");
+                        if (strlen(tmpTachieMove[1]) == 0) {
+                            ImGui::TextColored(colorRed, "!!Tchie move is empty");
                         }
-                        memset(tmpTachieMove, '\0', MAX_COLUMNS_CONTENT_LENGTH * 2);
-                        
+                        ImGui::TextColored(colorGreen, "[Display Tachie: %s] [Tachie Move: %s]", tmpTachieMove[0], tmpTachieMove[1]);
+                        memset(tmpTachieMove, '\0', NUM_OF_TACHIE_MOVE_COMMAND * MAX_COLUMNS_CONTENT_LENGTH);
+
                         break;
                     case HeavenGateEditor::TableType::Exhibit:
                         if (isExhibit == true) {
@@ -322,17 +323,26 @@ namespace HeavenGateEditor {
                 break;
                 case HeavenGateEditor::TableType::TachieMove:
                 {
-                    const StoryTable<PAINT_MOVE_MAX_COLUMN>* const tachieMoveTable = StoryTableManager::Instance().GetPaintMoveTable();
+                    IdOperator::ParseStringId<'+', MAX_COLUMNS_CONTENT_LENGTH, NUM_OF_TACHIE_MOVE_COMMAND>((*iter)->m_content, tmpTachieMove);
+
+                    const StoryTable<TACHIE_MAX_COLUMN>* const tachieTable = StoryTableManager::Instance().GetTachieTable();
+                    const StoryTable<TACHIE_MOVE_MAX_COLUMN>* const tachieMoveTable = StoryTableManager::Instance().GetPaintMoveTable();
                     const StoryTable<TACHIE_POSITION_MAX_COLUMN>* const tachiePositionTable = StoryTableManager::Instance().GetTachiePositionTable();
+
+                    for (int i = 0; i < tachieTable->GetSize(); i++)
+                    {
+                        const StoryRow<TACHIE_MAX_COLUMN>* const row = tachieTable->GetRow(i);
+                        if (strcmp(row->Get(MappingLayoutToArrayIndex((int)TachieTableLayout::Alias)), tmpTachieMove[0]) == 0)
+                        {
+                            strcpy(tmpTachieMove[0], row->Get(1));
+                        }
+                    }
 
                     for (int i = 0; i < tachieMoveTable->GetSize(); i++)
                     {
-                        const StoryRow<PAINT_MOVE_MAX_COLUMN>* const row = tachieMoveTable->GetRow(i);
-                        if (strcmp(row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::MoveAlias)), (*iter)->m_content) == 0)
+                        const StoryRow<TACHIE_MOVE_MAX_COLUMN>* const row = tachieMoveTable->GetRow(i);
+                        if (strcmp(row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::MoveAlias)), tmpTachieMove[1]) == 0)
                         {
-                            strcpy(tmpTachieMove, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::TachieName)));
-                            strcat(tmpTachieMove, "+");
-
                             char startPointAlias[MAX_COLUMNS_CONTENT_LENGTH];
                             char endPointAlias[MAX_COLUMNS_CONTENT_LENGTH];
                             strcpy(startPointAlias, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::StartPointAlias)));
@@ -355,13 +365,13 @@ namespace HeavenGateEditor {
                                 }
                             }
 
-                            strcat(tmpTachieMove, startPointAlias);
-                            strcat(tmpTachieMove, "+");
-                            strcat(tmpTachieMove, endPointAlias);
-                            strcat(tmpTachieMove, "+");
-                            strcat(tmpTachieMove, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::MoveCurve)));
-                            strcat(tmpTachieMove, "+");
-                            strcat(tmpTachieMove, row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::Duration)));
+                            strcpy(tmpTachieMove[1], startPointAlias);
+                            strcat(tmpTachieMove[1], "+");
+                            strcat(tmpTachieMove[1], endPointAlias);
+                            strcat(tmpTachieMove[1], "+");
+                            strcat(tmpTachieMove[1], row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::MoveCurve)));
+                            strcat(tmpTachieMove[1], "+");
+                            strcat(tmpTachieMove[1], row->Get(MappingLayoutToArrayIndex((int)TachieMoveTableLayout::Duration)));
                         }
                     }
                 }

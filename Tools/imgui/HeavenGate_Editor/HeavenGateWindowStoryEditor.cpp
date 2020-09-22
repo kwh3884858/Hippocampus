@@ -169,6 +169,13 @@ void HeavenGateWindowStoryEditor::SetWindowIndex(int index){
             ImGui::InputText("Current story path",tmpFullPath, MAX_FOLDER_PATH, ImGuiInputTextFlags_ReadOnly);
         }
 
+        ImGui::Separator();
+        ImGui::Text("Tachie display grammar:");
+        ImGui::Text("<tachie:tachieName+positionAlias></tachie>");
+        ImGui::Separator();
+        ImGui::Text("Tachie move grammar:");
+        ImGui::Text("<tachie:tachieName+positionAlias></tachie>");
+
         // First execute
         if (m_firstExecute)
         {
