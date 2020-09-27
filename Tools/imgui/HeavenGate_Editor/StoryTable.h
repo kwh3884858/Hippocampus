@@ -415,8 +415,8 @@ namespace HeavenGateEditor {
             {
                 tmp = p.GetRow(i);
                 j[tableString[(int)TableLayout::Value]].push_back(json{
-                    {characterTableString[(int)CharacterTableLayout::Character],          tmp->Get(0) },
-                    {characterTableString[(int)CharacterTableLayout::Description],          tmp->Get(1) }
+                    {characterTableString[(int)CharacterTableLayout::CharacterName],          tmp->Get(0) },
+                    {characterTableString[(int)CharacterTableLayout::TachieId],          tmp->Get(1) }
                     });
             }
             break;
@@ -727,9 +727,9 @@ namespace HeavenGateEditor {
             char content[MAX_COLUMNS_CONTENT_LENGTH];
             for (int i = 0; i < values.size(); i++)
             {
-                GetCharPointerException(content, values[i], characterTableString[(int)CharacterTableLayout::Character]);
+                GetCharPointerException(content, values[i], characterTableString[(int)CharacterTableLayout::CharacterName]);
                 p.PushContent(content);
-                GetCharPointerException(content, values[i], characterTableString[(int)CharacterTableLayout::Description]);
+                GetCharPointerException(content, values[i], characterTableString[(int)CharacterTableLayout::TachieId]);
                 p.PushContent(content);
             }
             return;
