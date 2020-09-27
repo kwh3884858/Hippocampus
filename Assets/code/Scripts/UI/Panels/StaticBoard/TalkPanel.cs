@@ -579,6 +579,11 @@ namespace UI.Panels.StaticBoard
             }
 
             var labelID = EvidenceDataManager.Instance.GetEvidenceWrongID(exhibitID, action.prefix);
+            if (labelID == null)
+            {
+                SetNextAction(action);
+                return;
+            }
             SetTalkRecord();
             SetInfo(labelID);
         }

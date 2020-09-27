@@ -148,6 +148,12 @@ namespace Evidence
             {
                 return label;
             }
+
+            label = "AskPhoto_0";
+            if (GameRunTimeData.Instance.ControllerManager.StoryController.IsLabelExist(label))
+            {
+                return label;
+            }
             return null;
         }
 
