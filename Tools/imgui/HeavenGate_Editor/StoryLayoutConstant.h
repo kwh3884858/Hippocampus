@@ -98,8 +98,8 @@ namespace HeavenGateEditor
     enum class CharacterTableLayout: int
     {
         Type = 0,
-        Character = 1,
-        Description = 2,
+        CharacterName = 1,
+        TachieId = 2,
 
         Amount
     };
@@ -214,8 +214,8 @@ namespace HeavenGateEditor
 
     const char characterTableString[][MAX_ENUM_LENGTH] = {
         "character",
-        "character",
-        "description"
+        "characterName",
+        "tachieId"
 
     };
 
