@@ -66,6 +66,7 @@ namespace Assets.code.StarPlatinum.Services.CameraService
             foreach (var o in recoverColliderObject)
             {
                 lastColliderObject.Remove(o);
+                lastColliderObject.Remove(null);
             }
             recoverColliderObject.Clear();
 
@@ -82,16 +83,21 @@ namespace Assets.code.StarPlatinum.Services.CameraService
 
         private void SetMaterialsColor(GameObject objRenderer, float alpha)
         {
-            Renderer obj_renderer = objRenderer.GetComponent<Renderer>();
-            int materialsNumber = obj_renderer.sharedMaterials.Length;
-
-            for (int i = 0; i < materialsNumber; i++)
+            if (objRenderer!=null)
             {
-                Color obj_color = obj_renderer.materials[i].GetColor("_BaseColor");
-                obj_color.a = alpha;
-                obj_renderer.material.SetColor("_BaseColor", obj_color);
-            }
+                Renderer obj_renderer = objRenderer.GetComponent<Renderer>();
+                if (obj_renderer != null)
+                {
+                    int materialsNumber = obj_renderer.sharedMaterials.Length;
 
+                    for (int i = 0; i < materialsNumber; i++)
+                    {
+                        Color obj_color = obj_renderer.materials[i].GetColor("_BaseColor");
+                        obj_color.a = alpha;
+                        obj_renderer.material.SetColor("_BaseColor", obj_color);
+                    }
+                }
+            }
         }
     }
 }
