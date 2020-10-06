@@ -30,8 +30,14 @@ EditorBuildSettings:
     path: Assets/data/graphics/World/Commandpost_1F/World_Commandpost_1F.unity
     guid: 8a2c51afd5541704096976825ad275fe
   - enabled: 0
+    path: Assets/data/graphics/World/Commandpost_1F/Models/Scene_Greybox_Commandpost_1F/TestSence_Commandpost_1F.unity
+    guid: 4cf1f7e068a9c254dace4f35a0474ddd
+  - enabled: 0
     path: Assets/data/graphics/World/Commandpost_2F/World_Commandpost_2F.unity
     guid: 050749fe645687a4f9320e85040fd5bb
+  - enabled: 0
+    path: Assets/data/graphics/World/Common/Models/Rendering Test/ScenesForSceneArtConcept/World_ScenesForSceneArtConcept.unity
+    guid: 79497425827fa824e9fb355cb733f7f7
   - enabled: 0
     path: Assets/data/graphics/World/CoreContainer/World_CoreContainer.unity
     guid: 056429be9607f47c687afa4aef8818d4
@@ -50,6 +56,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/data/graphics/World/Kitchen_Corrider/World_Kitchen_Corrider.unity
     guid: 4da8447f1ecfcbf42ae46926f4171f3d
+  - enabled: 0
+    path: Assets/data/graphics/World/Mission_Designer_GreyBox_World_Commandpost_2F/World_Mission_Designer_GreyBox_World_Commandpost_2F.unity
+    guid: ce123d987d8782143800a52d1e2e6f6a
   - enabled: 0
     path: Assets/data/graphics/World/Mission_DockByPier_World_Episode2_Pier/World_Mission_DockByPier_World_Episode2_Pier.unity
     guid: 2a805da4f1cf246f7ba701c23a2c1839

@@ -157,6 +157,10 @@ MonoBehaviour:
     m_Address: World_Mission_EP02_11_1F_South_Corrider_World_2F_North_Corrider
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: ce123d987d8782143800a52d1e2e6f6a
+    m_Address: World_Mission_Designer_GreyBox_World_Commandpost_2F
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: ebe57c901ab994064a6e26e2f3fa25d8
     m_Address: World_Mission_EP01_03_Poison_Island_Pier
     m_ReadOnly: 0

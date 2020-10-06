@@ -15,6 +15,7 @@ namespace GamePlay.Stage
     {
         None,
         Programmer_DockByPier,
+        Designer_GreyBox,
         EnterIsland,
         EP01_01,
         EP01_02,
@@ -33,6 +34,7 @@ namespace GamePlay.Stage
         EP02_11_1F_South_Corrider,
         EP03,
         EP03_02_2F_East_Corrider,
+
 
     };
 
@@ -234,6 +236,7 @@ namespace GamePlay.Stage
         private MissionEnum[] ALL_MISSION = {
         MissionEnum.None,
         MissionEnum.Programmer_DockByPier,
+        MissionEnum.Designer_GreyBox,
         MissionEnum.EnterIsland,
         MissionEnum.EP01_01,
         MissionEnum.EP01_02,

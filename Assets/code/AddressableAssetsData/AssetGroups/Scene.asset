@@ -21,6 +21,10 @@ MonoBehaviour:
     m_Address: World_2F_South_Corrider
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 050749fe645687a4f9320e85040fd5bb
+    m_Address: World_Commandpost_2F
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 056429be9607f47c687afa4aef8818d4
     m_Address: World_CoreContainer
     m_ReadOnly: 0
@@ -47,6 +51,10 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 794fe0dd20d0d9842ae8abbdd7f03b1c
     m_Address: World_2F_North_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8a2c51afd5541704096976825ad275fe
+    m_Address: World_Commandpost_1F
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 973e004b6ca0227488b6da93a9ef02be
