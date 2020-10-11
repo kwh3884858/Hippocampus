@@ -39,7 +39,11 @@ CameraService.SceneCameraType m_World_1F_Middle_CorriderCameraType;
 
  CameraService.SceneCameraType m_World_Commandpost_1FCameraType; 
 
+ CameraService.SceneCameraType m_TestSence_Commandpost_1FCameraType; 
+
  CameraService.SceneCameraType m_World_Commandpost_2FCameraType; 
+
+ CameraService.SceneCameraType m_World_ScenesForSceneArtConceptCameraType; 
 
  CameraService.SceneCameraType m_World_CoreContainerCameraType; 
 
@@ -52,6 +56,8 @@ CameraService.SceneCameraType m_World_1F_Middle_CorriderCameraType;
  CameraService.SceneCameraType m_World_GoundTestSceneCameraType; 
 
  CameraService.SceneCameraType m_World_Kitchen_CorriderCameraType; 
+
+ CameraService.SceneCameraType m_World_Mission_Designer_GreyBox_World_Commandpost_2FCameraType; 
 
  CameraService.SceneCameraType m_World_Mission_DockByPier_World_Episode2_PierCameraType; 
 
@@ -239,11 +245,25 @@ m_World_Commandpost_1FCameraType = (CameraService.SceneCameraType)EditorGUILayou
 ConfigRoot.Instance.World_Commandpost_1FCameraType = m_World_Commandpost_1FCameraType; 
 } 
 
+m_TestSence_Commandpost_1FCameraType = ConfigRoot.Instance.TestSence_Commandpost_1FCameraType;  
+m_TestSence_Commandpost_1FCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("TestSence_Commandpost_1F Camera Type: ", m_TestSence_Commandpost_1FCameraType); 
+    if (m_TestSence_Commandpost_1FCameraType != ConfigRoot.Instance.TestSence_Commandpost_1FCameraType) 
+{ 
+ConfigRoot.Instance.TestSence_Commandpost_1FCameraType = m_TestSence_Commandpost_1FCameraType; 
+} 
+
 m_World_Commandpost_2FCameraType = ConfigRoot.Instance.World_Commandpost_2FCameraType;  
 m_World_Commandpost_2FCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_Commandpost_2F Camera Type: ", m_World_Commandpost_2FCameraType); 
     if (m_World_Commandpost_2FCameraType != ConfigRoot.Instance.World_Commandpost_2FCameraType) 
 { 
 ConfigRoot.Instance.World_Commandpost_2FCameraType = m_World_Commandpost_2FCameraType; 
+} 
+
+m_World_ScenesForSceneArtConceptCameraType = ConfigRoot.Instance.World_ScenesForSceneArtConceptCameraType;  
+m_World_ScenesForSceneArtConceptCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_ScenesForSceneArtConcept Camera Type: ", m_World_ScenesForSceneArtConceptCameraType); 
+    if (m_World_ScenesForSceneArtConceptCameraType != ConfigRoot.Instance.World_ScenesForSceneArtConceptCameraType) 
+{ 
+ConfigRoot.Instance.World_ScenesForSceneArtConceptCameraType = m_World_ScenesForSceneArtConceptCameraType; 
 } 
 
 m_World_CoreContainerCameraType = ConfigRoot.Instance.World_CoreContainerCameraType;  
@@ -286,6 +306,13 @@ m_World_Kitchen_CorriderCameraType = (CameraService.SceneCameraType)EditorGUILay
     if (m_World_Kitchen_CorriderCameraType != ConfigRoot.Instance.World_Kitchen_CorriderCameraType) 
 { 
 ConfigRoot.Instance.World_Kitchen_CorriderCameraType = m_World_Kitchen_CorriderCameraType; 
+} 
+
+m_World_Mission_Designer_GreyBox_World_Commandpost_2FCameraType = ConfigRoot.Instance.World_Mission_Designer_GreyBox_World_Commandpost_2FCameraType;  
+m_World_Mission_Designer_GreyBox_World_Commandpost_2FCameraType = (CameraService.SceneCameraType)EditorGUILayout.EnumPopup("World_Mission_Designer_GreyBox_World_Commandpost_2F Camera Type: ", m_World_Mission_Designer_GreyBox_World_Commandpost_2FCameraType); 
+    if (m_World_Mission_Designer_GreyBox_World_Commandpost_2FCameraType != ConfigRoot.Instance.World_Mission_Designer_GreyBox_World_Commandpost_2FCameraType) 
+{ 
+ConfigRoot.Instance.World_Mission_Designer_GreyBox_World_Commandpost_2FCameraType = m_World_Mission_Designer_GreyBox_World_Commandpost_2FCameraType; 
 } 
 
 m_World_Mission_DockByPier_World_Episode2_PierCameraType = ConfigRoot.Instance.World_Mission_DockByPier_World_Episode2_PierCameraType;  

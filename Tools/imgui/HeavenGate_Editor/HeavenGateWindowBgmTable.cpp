@@ -92,6 +92,7 @@ namespace HeavenGateEditor {
 
 
         char order[8] = "";
+        char constant[16] = "";
         for (int i = 0; i < bgmTable->GetSize(); i++)
         {
             char label[32];
@@ -108,38 +109,11 @@ namespace HeavenGateEditor {
 
             for (int j = 0; j < BGM_MAX_COLUMN; j++)
             {
-                char * content = bgmTable->GetContent(i, j);
-
-                char constant[16];
-                switch (j)
-                {
-                case 0:
-                    strcpy(constant, "bgm ");
-                    break;
-                case 1:
-                    strcpy(constant, "fileName ");
-                    break;
-
-                case 2:
-                    strcpy(constant, "volume");
-                    break;
-                default:
-                    break;
-                }
-                //if (j % 2 == 0)
-                //{
-                //    strcpy(constant, "Angle ");
-
-                //}
-                //else
-                //{
-                //    strcpy(constant, "Distance ");
-
-                //}
-                strcat(constant, order);
-
-                ImGui::InputText(constant, content, MAX_COLUMNS_CONTENT_LENGTH);
-                ImGui::NextColumn();
+                 char * const content = bgmTable->GetContent(i, j);
+                 strcpy(constant, bgmTable->GetName(j));
+                 strcat(constant, order);
+                 ImGui::InputText(constant, content, MAX_COLUMNS_CONTENT_LENGTH - 4);
+                 ImGui::NextColumn();
             }
 
         }

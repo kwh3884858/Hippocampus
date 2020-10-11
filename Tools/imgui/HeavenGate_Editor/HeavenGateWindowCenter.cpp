@@ -205,6 +205,7 @@ namespace HeavenGateEditor {
     void HeavenGateWindowCenter::UpdateMainWindow()
     {
         ImGui::Text("[Heaven Gate Editor]  --version: %s", EDITOR_VERSION);
+        ImGui::Text("[Release Note] \n %s", RELEASE_NOTE);
 
         if (ImGui::Button("New Story Editor"))
         {

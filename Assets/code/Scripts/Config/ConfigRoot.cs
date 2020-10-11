@@ -64,8 +64,16 @@ private string World_Commandpost_1FName = "World_Commandpost_1F";
  public CameraService.SceneCameraType World_Commandpost_1FCameraType;  
 
 [SerializeField]
+private string TestSence_Commandpost_1FName = "TestSence_Commandpost_1F"; 
+ public CameraService.SceneCameraType TestSence_Commandpost_1FCameraType;  
+
+[SerializeField]
 private string World_Commandpost_2FName = "World_Commandpost_2F"; 
  public CameraService.SceneCameraType World_Commandpost_2FCameraType;  
+
+[SerializeField]
+private string World_ScenesForSceneArtConceptName = "World_ScenesForSceneArtConcept"; 
+ public CameraService.SceneCameraType World_ScenesForSceneArtConceptCameraType;  
 
 [SerializeField]
 private string World_CoreContainerName = "World_CoreContainer"; 
@@ -90,6 +98,10 @@ private string World_GoundTestSceneName = "World_GoundTestScene";
 [SerializeField]
 private string World_Kitchen_CorriderName = "World_Kitchen_Corrider"; 
  public CameraService.SceneCameraType World_Kitchen_CorriderCameraType;  
+
+[SerializeField]
+private string World_Mission_Designer_GreyBox_World_Commandpost_2FName = "World_Mission_Designer_GreyBox_World_Commandpost_2F"; 
+ public CameraService.SceneCameraType World_Mission_Designer_GreyBox_World_Commandpost_2FCameraType;  
 
 [SerializeField]
 private string World_Mission_DockByPier_World_Episode2_PierName = "World_Mission_DockByPier_World_Episode2_Pier"; 
@@ -309,8 +321,14 @@ case "World_2F_West_Corrider" :
 case "World_Commandpost_1F" :  
    return World_Commandpost_1FCameraType; 
 
+case "TestSence_Commandpost_1F" :  
+   return TestSence_Commandpost_1FCameraType; 
+
 case "World_Commandpost_2F" :  
    return World_Commandpost_2FCameraType; 
+
+case "World_ScenesForSceneArtConcept" :  
+   return World_ScenesForSceneArtConceptCameraType; 
 
 case "World_CoreContainer" :  
    return World_CoreContainerCameraType; 
@@ -329,6 +347,9 @@ case "World_GoundTestScene" :
 
 case "World_Kitchen_Corrider" :  
    return World_Kitchen_CorriderCameraType; 
+
+case "World_Mission_Designer_GreyBox_World_Commandpost_2F" :  
+   return World_Mission_Designer_GreyBox_World_Commandpost_2FCameraType; 
 
 case "World_Mission_DockByPier_World_Episode2_Pier" :  
    return World_Mission_DockByPier_World_Episode2_PierCameraType; 

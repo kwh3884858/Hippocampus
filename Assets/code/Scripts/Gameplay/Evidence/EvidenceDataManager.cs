@@ -84,7 +84,7 @@ namespace Evidence
 #if UNITY_EDITOR
             else
             {
-                Debug.Log("evidence id not contain in exhibitTable!");
+                Debug.LogError("evidence id " + exhibitID + " not contain in exhibitTable!");
             }
 #endif
         }

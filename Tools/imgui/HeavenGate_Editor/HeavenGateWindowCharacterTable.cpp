@@ -110,6 +110,7 @@ namespace HeavenGateEditor {
 
 
         char order[8] = "";
+         char constant[16] = "";
         for (int i = 0; i < characterTable->GetSize(); i++)
         {
             char label[32];
@@ -124,38 +125,14 @@ namespace HeavenGateEditor {
             //ImGui::Text(paths[i]); ImGui::NextColumn();
             //ImGui::Text("%d", hovered); ImGui::NextColumn();
 
-            for (int j = 0; j < CHARACTER_COLUMN; j++)
-            {
-                char * content = characterTable->GetContent(i, j);
-
-                char constant[16];
-                switch (j)
+                for (int j = 0; j < CHARACTER_COLUMN; j++)
                 {
-                    case 0:
-                        strcpy(constant, "character ");
-                        break;
-                    case 1:
-                        strcpy(constant, "description ");
-                        break;
-                        break;
-                default:
-                    break;
+                     char * const content = characterTable->GetContent(i, j);
+                     strcpy(constant, characterTable->GetName(j));
+                     strcat(constant, order);
+                     ImGui::InputText(constant, content, MAX_COLUMNS_CONTENT_LENGTH - 4);
+                     ImGui::NextColumn();
                 }
-                //if (j % 2 == 0)
-                //{
-                //    strcpy(constant, "Angle ");
-
-                //}
-                //else
-                //{
-                //    strcpy(constant, "Distance ");
-
-                //}
-                strcat(constant, order);
-
-                ImGui::InputText(constant, content, MAX_COLUMNS_CONTENT_LENGTH);
-                ImGui::NextColumn();
-            }
 
         }
 

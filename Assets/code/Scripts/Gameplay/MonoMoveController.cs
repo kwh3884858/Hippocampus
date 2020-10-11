@@ -97,7 +97,7 @@ public class MonoMoveController : MonoBehaviour
                     Debug.Log ("Did Interactive: " + interactCollider.gameObject);
                     interactCollider.GetComponent<InteractiveObject> ().Interact ();
 
-                    Debug.DrawRay (interactCollider.transform.position, Vector3.up * 3, Color.yellow);
+                    Debug.DrawRay (interactCollider.transform.position, Vector3.up * 3, Color.yellow, 5.0f);
                 }
             }
         } else {
