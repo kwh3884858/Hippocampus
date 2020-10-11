@@ -13,6 +13,7 @@ public class ConfigData : Singleton<ConfigData>
 	/// <summary>配置表路径</summary>
 	public const string LocalTextFilePath = "Storys/ExhibitTable";
 	public const string LocalTipsFilePath = "Storys/TipsTable";
+    public const string LocalCharacterFilePath = "Storys/CharacterTable";
 	/// <summary>由Json转换后的对象体</summary>
 	GameConfig configPackage = null;
 
@@ -20,6 +21,8 @@ public class ConfigData : Singleton<ConfigData>
 	public EvidenceConfig evidenceConfig { get; private set; }
 	/// <summary>tips表配置数据</summary>
 	public TipsConfig tipsConfig { get; private set; }
+    /// <summary>Character Table</summary>
+    public CharacterTable characterTable { get; private set; }
 	/// <summary>是否就绪</summary>
 	public bool isInitialized { get; private set; }
 
@@ -46,8 +49,12 @@ public class ConfigData : Singleton<ConfigData>
 		vConfigText = vConfigAsset.text;
 		tipsConfig = new TipsConfig (JsonUtility.FromJson<GameTipsConfig> (vConfigText).value);
 
-		// 内存释放
-		if (vConfigAsset != null) {
+        // Read Character Table
+        vConfigAsset = Resources.Load(LocalCharacterFilePath) as TextAsset;
+        characterTable = new CharacterTable(vConfigAsset.text);
+
+        // 内存释放
+        if (vConfigAsset != null) {
 			Resources.UnloadAsset (vConfigAsset);
 		}
 		isInitialized = true;
