@@ -185,6 +185,10 @@ namespace UI.Panels.StaticBoard
         public override void Tick()
         {
             base.Tick();
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                ClickSkip();
+            }
             if (string.IsNullOrEmpty(m_currentID)&&m_nextIDQueue.Count>0)
             {
                 SetInfo(m_nextIDQueue.Dequeue());
