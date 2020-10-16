@@ -200,10 +200,12 @@ Generated scene lookup file will put in this path.
 
             CheckError(error);
 
+/*          Now the game does`t need the scene type.
+            
             error = m_sceneConfigGenerator.Execute();
 
             CheckError(error);
-
+*/
             Console.WriteLine("Generate Lookup Successful!");
         }
 
