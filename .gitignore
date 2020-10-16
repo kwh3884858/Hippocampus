@@ -21,6 +21,9 @@ Assets/AssetStoreTools*
 Assets/Resources/Storys/AutoSave~
 Config/
 
+spine-unity.csproj
+spine-unity-editor.csproj
+
 # Project
 [Hh]ippocampus.sln
 Assembly-CSharp-Editor-firstpass-vs.csproj
