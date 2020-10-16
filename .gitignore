@@ -5,6 +5,7 @@
 [Bb]uilds/
 [Rr]elease/
 [Rr]eleases/
+[Ll]ogs
 .svn/
 Documents/
 
@@ -15,7 +16,9 @@ Tools/release
 Assets/data.meta
 Assets/code.meta
 Assets/Resources.meta
+
 Assets/StreamingAssets/build_info
+Assets/StreamingAssets/build_info.meta
 
 Assets/AssetStoreTools*
 Assets/Resources/Storys/AutoSave~
