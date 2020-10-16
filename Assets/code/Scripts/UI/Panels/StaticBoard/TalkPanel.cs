@@ -442,9 +442,25 @@ namespace UI.Panels.StaticBoard
             {
                 m_name.enabled = false;
             }
-
+            ActiveTalkerTachie(name);
             ResetContentText();
             SetActionState(ActionState.End);
+        }
+
+        private void ActiveTalkerTachie(string talkerName)
+        {
+            foreach (var pictureItem in m_pictureItems)
+            {
+                var name = pictureItem.Value.GetMyCharactorName();
+                if (string.IsNullOrEmpty(name) || name != talkerName)
+                {
+                    pictureItem.Value.SetTachieStatus(EnumTachieStatus.Darken);
+                }
+                else
+                {
+                    pictureItem.Value.SetTachieStatus(EnumTachieStatus.Talk);
+                }
+            }
         }
 
         private void SetBgm(string musicName)

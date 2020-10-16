@@ -3,6 +3,12 @@ using UnityEngine.UI;
 
 namespace UI.Panels.Element
 {
+    public enum EnumTachieStatus
+    {
+        Normal,
+        Talk,
+        Darken,
+    }
     public class PictureItem : UIElementBase
     {
         public string PictureId
@@ -52,6 +58,43 @@ namespace UI.Panels.Element
             SpriteCount++;
         }
 
+        public void SetTachieStatus(EnumTachieStatus status)
+        {
+            if (m_status == status)
+            {
+                return;
+            }
+
+            m_status = status;
+            switch (status)
+            {
+                case EnumTachieStatus.Darken:
+                    m_animator.SetBool("Darken",true);
+//                    m_makeChildrenGray.MakeGray(true);
+                    break;
+                case EnumTachieStatus.Talk:
+                case EnumTachieStatus.Normal:
+                    m_animator.SetBool("Darken",false);
+//                    m_makeChildrenGray.MakeGray(false);
+                    break;
+            }
+        }
+
+        public string GetMyCharactorName()
+        {
+            if (string.IsNullOrEmpty(m_pictureID))
+            {
+                Debug.LogError("立绘ID未初始化！！！！");
+                return null;
+            }
+            if (string.IsNullOrEmpty(m_charatorName))
+            {
+                m_charatorName = ConfigData.Instance.characterTable.GetCharacterName(m_pictureID);
+            }
+
+            return m_charatorName;
+        }
+
         public void Release()
         {
             gameObject.SetActive(false);
@@ -61,15 +104,19 @@ namespace UI.Panels.Element
         private void ActiveItem(bool status)
         {
             gameObject.SetActive(status);
+            SetTachieStatus(EnumTachieStatus.Normal);
         }
 
         private int m_spriteCount = 0;
         private int m_spriteMaxCount = 1;
         private string m_pictureID;
+        private string m_charatorName;
+        private EnumTachieStatus m_status;
 
         [SerializeField] private Image m_body;
         [SerializeField] private Image m_mouse;
         [SerializeField] private Image m_eyes;
         [SerializeField] private Image m_eyebrow;
+        [SerializeField] private Animator m_animator;
     }
 }
