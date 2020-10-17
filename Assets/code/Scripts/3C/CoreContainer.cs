@@ -77,7 +77,6 @@ namespace GamePlay.Stage
 			}
 			if (lastGameScene != SceneLookupEnum.World_GameRoot)
 			{
-
 				WorldTriggerCallbackTeleportPlayer[] teleports = GameObject.FindObjectsOfType<WorldTriggerCallbackTeleportPlayer>();
 				foreach (WorldTriggerCallbackTeleportPlayer teleport in teleports)
 				{
@@ -93,7 +92,6 @@ namespace GamePlay.Stage
 						return;
 					}
 				}
-
 			}
 			Debug.LogError ("Can not find spawn point!");
 		}

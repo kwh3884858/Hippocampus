@@ -22,7 +22,6 @@ public class MonoMoveController : MonoBehaviour
 
     void Start()
     {
-        //m_rigidbody2D = transform.GetComponent<Rigidbody2D> ();
         m_boxCollider2D = transform.GetComponent<BoxCollider>();
 		if (m_boxCollider2D == null) {
             Debug.LogError ("Player Collision Is Lost.");
@@ -31,7 +30,7 @@ public class MonoMoveController : MonoBehaviour
 		if (m_animator == null) {
             Debug.LogError ("Player Animator Is Lost.");
 		} else {
-            m_animator.SetBool ("IsFaceLeft", !m_isFaceRight);
+            //m_animator.SetBool ("IsFaceLeft", !m_isFaceRight);
 		}
         m_spriteRender = transform.GetComponent<SpriteRenderer> ();
 		if (m_spriteRender == null) {
@@ -159,7 +158,7 @@ public class MonoMoveController : MonoBehaviour
             transform.localPosition.y,
             transform.localPosition.z + verticalStepLength * Time.fixedDeltaTime);
         }
-        m_animator.SetFloat ("Speed", horizontalStepLength * horizontalStepLength + verticalStepLength * verticalStepLength);
+        //m_animator.SetFloat ("Speed", horizontalStepLength * horizontalStepLength + verticalStepLength * verticalStepLength);
 
         //No Jump
         //if (verticalAxis > 0.1f) {
