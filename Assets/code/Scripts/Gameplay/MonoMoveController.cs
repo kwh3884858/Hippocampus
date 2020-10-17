@@ -88,11 +88,12 @@ public class MonoMoveController : MonoBehaviour
         }
 
         if (interactCollider != null) {
-            if(UIManager.Instance ().IsPanelShow (UIPanelType.UIGameplayPromptwidgetPanel) == false) {
+            if(!UIManager.Instance ().IsPanelShow (UIPanelType.UIGameplayPromptwidgetPanel)) {
                 UIManager.Instance ().ShowPanel (UIPanelType.UIGameplayPromptwidgetPanel, new PromptWidgetDataProvider { m_interactiableObject = interactCollider.gameObject });
+                UIManager.Instance().UpdateData(UIPanelType.UICommonGameplayPanel, new CommonGamePlayDataProvider { m_interactButtonShouldVisiable = true });
             }
-			if (UIManager.Instance ().IsPanelShow (UIPanelType.TalkPanel) == false) {
-                if (Input.GetKeyDown (KeyCode.Return) || m_isInteractByUI == true) {
+			if (!UIManager.Instance ().IsPanelShow (UIPanelType.TalkPanel)) {
+                if (Input.GetKeyDown (KeyCode.Return) || m_isInteractByUI) {
                     m_isInteractByUI = false;
                     Debug.Log ("Did Interactive: " + interactCollider.gameObject);
                     interactCollider.GetComponent<InteractiveObject> ().Interact ();
@@ -103,6 +104,7 @@ public class MonoMoveController : MonoBehaviour
         } else {
             m_isInteractByUI = false;
             UIManager.Instance ().HidePanel (UIPanelType.UIGameplayPromptwidgetPanel);
+            UIManager.Instance().UpdateData(UIPanelType.UICommonGameplayPanel, new CommonGamePlayDataProvider { m_interactButtonShouldVisiable = false });
         }
     }
 

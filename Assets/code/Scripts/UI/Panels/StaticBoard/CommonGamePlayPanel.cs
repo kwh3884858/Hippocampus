@@ -4,6 +4,7 @@ using UnityEngine;
 using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
 using GamePlay.Stage;
+using UnityEngine.UI;
 
 namespace UI.Panels
 {
@@ -50,12 +51,24 @@ namespace UI.Panels
 		{
 			m_model.Tick();
 			base.Tick();
+
+			UpdateUIInteractButtonVisiable();
 		}
 
-		public override void LateTick()
+        private void UpdateUIInteractButtonVisiable()
+        {
+            if (m_isNowInteractButtonIsVisiableCache != m_model.m_isInteractButtonVisiable)
+            {
+                UpdateButtonVisiable(m_model.m_isInteractButtonVisiable);
+                m_isNowInteractButtonIsVisiableCache = m_model.m_isInteractButtonVisiable;
+            }
+        }
+
+        public override void LateTick()
 		{
 			m_model.LateTick();
 			base.LateTick();
+
 		}
 
 		public override void SubpanelChanged(UIPanelType type, DataProvider data = null)
@@ -97,6 +110,12 @@ namespace UI.Panels
 			CoreContainer.Instance.EnablePlayerInteractability ();
 		}
 
+		public void UpdateButtonVisiable(bool isVisiable)
+        {
+			m_Btn_Interact_Image.gameObject.SetActive(isVisiable);
+        }
+
+		private bool m_isNowInteractButtonIsVisiableCache = false;
 		#endregion
 	}
 }

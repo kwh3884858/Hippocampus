@@ -33,6 +33,15 @@ namespace UI.Panels
         public override void UpdateData(DataProvider data)
         {
             base.UpdateData(data);
+
+            if (data != null)
+            {
+                if (data is CommonGamePlayDataProvider)
+                {
+                    CommonGamePlayDataProvider commonGamePlayDataProvider = data as CommonGamePlayDataProvider;
+                    m_isInteractButtonVisiable = commonGamePlayDataProvider.m_interactButtonShouldVisiable;
+                }
+            }
         }
 
         public override void Tick()
@@ -55,9 +64,9 @@ namespace UI.Panels
             base.SubpanelDataChanged(type,data);
         }
         #endregion
-        
+
         #region Member
-		
+        public bool m_isInteractButtonVisiable = false;
         #endregion
     }
 }
