@@ -49,7 +49,7 @@ public class CharacterTable
                 return m_characterValue[i].characterName;
             }
         }
-        Debug.LogError("Can`t find the tachie ID: " + tachieId);
+        Debug.LogWarning("Can`t find the tachie ID: " + tachieId);
 
         return null;
     }
