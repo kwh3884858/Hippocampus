@@ -58,7 +58,7 @@ public class ToolBoxEditorWindow : EditorWindow
 			ConfigRoot.Instance.StartScene =  m_enumStartScene;
 			Debug.Log ($"Set {m_enumStartScene.ToString ()} as Start Scene");
 			Debug.Log ($"Set {m_enumStartMission.ToString ()} as Start Mission");
-			AssetDatabase.SaveAssets ();
+            AssetDatabase.SaveAssets ();
 		}
 
 		GUILayout.Label ("Start From This Scene", EditorStyles.boldLabel);
@@ -71,6 +71,15 @@ public class ToolBoxEditorWindow : EditorWindow
 			Debug.Log ($"Set {m_enumStartMission.ToString ()} as Start Mission");
 			AssetDatabase.SaveAssets ();
 		}
+		GUILayout.Space(20);
+        if (GUILayout.Button("Save to Config"))
+        {
+			ConfigRoot.Instance.StartScene = m_enumStartScene;
+			ConfigRoot.Instance.StartMission = m_enumStartMission;
+			EditorUtility.SetDirty(ConfigRoot.Instance);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
 
 		//if (GUILayout.Button ("Save Start Info")) {
 		//	ConfigRoot.Instance.StartScene = m_enumStartScene;
