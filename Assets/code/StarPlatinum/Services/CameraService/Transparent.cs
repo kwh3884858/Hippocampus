@@ -43,7 +43,7 @@ namespace Assets.code.StarPlatinum.Services.CameraService
                 {
                     //Debug.Log(t.collider.gameObject.name);
                     colliderObject.Add(t.collider.gameObject);
-                    SetMaterialsColor(t.collider.gameObject, 0.5f);//置当前物体材质透明度
+                    SetMaterialsColor(t.collider.gameObject, 0.4f);//置当前物体材质透明度
                 }
             }
 

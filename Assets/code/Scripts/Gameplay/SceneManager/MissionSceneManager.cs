@@ -36,7 +36,10 @@ namespace GamePlay.Stage
         EP02_11_1F_South_Corrider,
         EP03,
         EP03_02_2F_East_Corrider,
-
+        EP09_03,
+        EP09_05_06_07_08,
+        EP09_09,
+        EP10_01,
 
     };
 
@@ -283,6 +286,10 @@ namespace GamePlay.Stage
         MissionEnum.EP02_11_1F_South_Corrider,
         MissionEnum.EP03,
         MissionEnum.EP03_02_2F_East_Corrider,
+        MissionEnum.EP09_03,
+        MissionEnum.EP09_05_06_07_08,
+        MissionEnum.EP09_09,
+        MissionEnum.EP10_01,
 
         };
 
