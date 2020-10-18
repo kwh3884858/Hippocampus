@@ -60,9 +60,25 @@ namespace GamePlay.Stage
                 });
             }
         }
+        /// <summary>
+        /// If current scene have the mission, the mission scene will be loaded.
+        /// If current scene does`t have the mission, anonymous scene will be loaded.
+        /// </summary>
+        /// <returns>Is current scene have the mission</returns>
         public bool LoadCurrentMissionScene()
         {
-            return LoadMissionScene(m_currentMission);
+            SceneLookupEnum currentScene = GameSceneManager.Instance.GetCurrentSceneEnum();
+            if (IsGameSceneExistCurrentMission(currentScene))
+            {
+                LoadMissionScene(m_currentMission);
+                return true;
+            }
+            else
+            {
+                LoadMissionScene(MissionEnum.None);
+                Debug.LogWarning(currentScene + " is not exist mission " + MissionSceneManager.Instance.GetCurrentMission().ToString());
+                return false;
+            }
         }
         public bool LoadMissionScene(MissionEnum requestMission)
         {

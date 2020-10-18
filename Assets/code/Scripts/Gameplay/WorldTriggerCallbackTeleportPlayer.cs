@@ -45,13 +45,7 @@ namespace GamePlay.EventTrigger
 				}
 				SceneLookupEnum scene = SceneLookup.GetEnum (m_teleportGameScene);
 				GameSceneManager.Instance.LoadScene (scene);
-				
-				if (MissionSceneManager.Instance.IsGameSceneExistCurrentMission (scene)) {
-					MissionSceneManager.Instance.LoadCurrentMissionScene ();
-				} else {
-					MissionSceneManager.Instance.LoadMissionScene(MissionEnum.None);
-					Debug.LogWarning (m_teleportGameScene + " is not exist mission " + MissionSceneManager.Instance.GetCurrentMission ().ToString ());
-				}
+				MissionSceneManager.Instance.LoadCurrentMissionScene();
 			}
 		}
 

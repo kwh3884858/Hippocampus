@@ -25,17 +25,18 @@ namespace GamePlay.EventTrigger
 			WorldTriggerCallbackTeleportPlayer trigger = (WorldTriggerCallbackTeleportPlayer)target;
 
 			base.DrawDefaultInspector ();
-			foldoutType = EditorGUILayout.Foldout(foldoutType, "Auto Input Teleport Scene");
-            if (trigger.GetTeleportScene() == SceneLookupEnum.World_Invalid)
-            {
-				GUI.backgroundColor = Color.red;
-				EditorGUILayout.TextArea("Teleport scene name is illegal");
-				GUI.backgroundColor = Color.white;
-				foldoutType = true;
-			}
 
             if (trigger.m_isCGScene == false) {
-				if (foldoutType)
+                foldoutType = EditorGUILayout.Foldout(foldoutType, "Auto Input Teleport Scene");
+                if (trigger.GetTeleportScene() == SceneLookupEnum.World_Invalid)
+                {
+                    GUI.backgroundColor = Color.red;
+                    EditorGUILayout.TextArea("Teleport scene name is illegal");
+                    GUI.backgroundColor = Color.white;
+                    foldoutType = true;
+                }
+
+                if (foldoutType)
 				{
 					GUI.backgroundColor = Color.green;
 					m_sceneLookupEnum = (SceneLookupEnum)EditorGUILayout.EnumPopup("Needed Mission:", m_sceneLookupEnum);
