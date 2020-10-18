@@ -147,7 +147,7 @@ public class ToolBoxEditorWindow : EditorWindow
 		if (GUILayout.Button ("Remove Mission Scene")) {
 			RemoveCurrentMissionSceneInternal ();
 		}
-		GUILayout.Label ("Add Gameobject", EditorStyles.boldLabel);
+		GUILayout.Label ("Add Gameobject to Game Scene", EditorStyles.boldLabel);
 
 		if (GUILayout.Button ("Create Interactable Object")) {
 			if (IsMissionSceneValid ()) {
@@ -166,7 +166,9 @@ public class ToolBoxEditorWindow : EditorWindow
 			}
 		}
 
-		if (GUILayout.Button ("Create Spawn Point")) {
+        GUILayout.Label("Add Gameobject to Mission", EditorStyles.boldLabel);
+
+        if (GUILayout.Button ("Create Spawn Point")) {
 			if (IsMissionSceneValid ()) {
 				GameObject spawnPoint = GameObject.Find (ConfigMission.Instance.Text_Spawn_Point_Name);
 				if (spawnPoint != null) {
