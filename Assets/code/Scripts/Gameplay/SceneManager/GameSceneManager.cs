@@ -77,15 +77,15 @@ namespace GamePlay.Stage
         private SceneSlot m_currentSceneSlot;
         private string m_specificTeleportName = "";
         private Dictionary<SceneLookupEnum, string> m_sceneChineseDictionary = new Dictionary<SceneLookupEnum, string> {
-            {  SceneLookupEnum.Poison_Island_Pier, "监狱岛码头" },
-            { SceneLookupEnum.World_1F_Middle_Corrider, "1楼中部走廊"},
-            { SceneLookupEnum.World_1F_South_Corrider, "1楼南部走廊"},
-            { SceneLookupEnum.World_1F_West_Corrider, "1楼西部走廊"},
-            { SceneLookupEnum.World_2F_East_Corrider, "2楼东部走廊"},
-            { SceneLookupEnum.World_2F_North_Corrider, "2楼北部走廊"},
-            { SceneLookupEnum.World_2F_South_Corrider, "2楼南部走廊"},
-            { SceneLookupEnum.World_2F_West_Corrider, "2楼西部走廊"},
-            { SceneLookupEnum.World_Kitchen_Corrider, "1楼餐厅"},
+            //{  SceneLookupEnum.Poison_Island_Pier, "监狱岛码头" },
+            //{ SceneLookupEnum.World_1F_Middle_Corrider, "1楼中部走廊"},
+            //{ SceneLookupEnum.World_1F_South_Corrider, "1楼南部走廊"},
+            //{ SceneLookupEnum.World_1F_West_Corrider, "1楼西部走廊"},
+            //{ SceneLookupEnum.World_2F_East_Corrider, "2楼东部走廊"},
+            //{ SceneLookupEnum.World_2F_North_Corrider, "2楼北部走廊"},
+            //{ SceneLookupEnum.World_2F_South_Corrider, "2楼南部走廊"},
+            //{ SceneLookupEnum.World_2F_West_Corrider, "2楼西部走廊"},
+            //{ SceneLookupEnum.World_Kitchen_Corrider, "1楼餐厅"},
         };
 
         //public enum SceneLoadMode

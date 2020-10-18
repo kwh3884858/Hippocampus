@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d456984042316f49ad3c9ec6bcfa894, type: 3}
   m_Name: ConfigRoot
   m_EditorClassIdentifier: 
-  StartScene: 9
-  StartMission: 21
+  StartScene: 2
+  StartMission: 7
   World_1F_Middle_CorriderName: World_1F_Middle_Corrider
   World_1F_Middle_CorriderCameraType: 0
   World_1F_South_CorriderName: World_1F_South_Corrider

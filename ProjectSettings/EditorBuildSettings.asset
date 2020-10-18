@@ -6,27 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/data/graphics/World/1F_middle_Corrider/World_1F_Middle_Corrider.unity
-    guid: 0841a4a00d3e5234d9836661a0ffcbb7
-  - enabled: 0
-    path: Assets/data/graphics/World/1F_South_Corrider/World_1F_South_Corrider.unity
-    guid: f79125c6d14d82d48802f42aaaf5b074
-  - enabled: 0
-    path: Assets/data/graphics/World/1F_West_Corrider/World_1F_West_Corrider.unity
-    guid: f14695477dccae34c9e5da240881ab58
-  - enabled: 0
-    path: Assets/data/graphics/World/2F_East_Corrider/World_2F_East_Corrider.unity
-    guid: 239b4ffd2d37f1c4d9766a24281c5120
-  - enabled: 0
-    path: Assets/data/graphics/World/2F_North_Corrider/World_2F_North_Corrider.unity
-    guid: 794fe0dd20d0d9842ae8abbdd7f03b1c
-  - enabled: 0
-    path: Assets/data/graphics/World/2F_South_Corrider/World_2F_South_Corrider.unity
-    guid: 02f6831757af9d240aea412f2322e3ae
-  - enabled: 0
-    path: Assets/data/graphics/World/2F_West_Corrider/World_2F_West_Corrider.unity
-    guid: 9d9863d00aa2c0c40bd29bd8af681352
-  - enabled: 0
     path: Assets/data/graphics/World/Commandpost_1F/World_Commandpost_1F.unity
     guid: 8a2c51afd5541704096976825ad275fe
   - enabled: 0
@@ -36,47 +15,23 @@ EditorBuildSettings:
     path: Assets/data/graphics/World/Commandpost_2F/World_Commandpost_2F.unity
     guid: 050749fe645687a4f9320e85040fd5bb
   - enabled: 0
+    path: Assets/data/graphics/World/Common/Models/Rendering Test/ScenesForSceneArtConcept/World_ScenesForSceneArtConcept.unity
+    guid: 79497425827fa824e9fb355cb733f7f7
+  - enabled: 0
     path: Assets/data/graphics/World/CoreContainer/World_CoreContainer.unity
     guid: 056429be9607f47c687afa4aef8818d4
-  - enabled: 0
-    path: Assets/data/graphics/World/Episode3_Hall/World_Episode3_Hall.unity
-    guid: ed9ede3d734f92e42827dd2b875a0b8f
-  - enabled: 0
-    path: Assets/data/graphics/World/Episode4_DoctorRoom/World_Episode4_DoctorRoom.unity
-    guid: 08031112a9b306b49ae7520f78a91d99
   - enabled: 1
     path: Assets/data/graphics/World/GameRoot/World_GameRoot.unity
     guid: 23d9064013dec344487a8d9922a59e85
   - enabled: 0
-    path: Assets/data/graphics/World/GoundTestScene/World_GoundTestScene.unity
-    guid: d64d83efff065fe4485fa4ded364df60
-  - enabled: 0
     path: Assets/data/graphics/World/Invalid/World_Invalid.unity
     guid: 0ff23da5faad05c4b8253a1a567c86a4
-  - enabled: 0
-    path: Assets/data/graphics/World/Kitchen_Corrider/World_Kitchen_Corrider.unity
-    guid: 4da8447f1ecfcbf42ae46926f4171f3d
   - enabled: 0
     path: Assets/data/graphics/World/Mission_Anonymous/World_Mission_Anonymous.unity
     guid: e680837875df7114ea2de9df65ac3410
   - enabled: 0
     path: Assets/data/graphics/World/Mission_Designer_GreyBox_World_Commandpost_2F/World_Mission_Designer_GreyBox_World_Commandpost_2F.unity
     guid: ce123d987d8782143800a52d1e2e6f6a
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_DockByPier_World_Episode2_Pier/World_Mission_DockByPier_World_Episode2_Pier.unity
-    guid: 2a805da4f1cf246f7ba701c23a2c1839
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_DockByPier_World_Episode3_Hall/World_Mission_DockByPier_World_Episode3_Hall.unity
-    guid: 4ec780b19349d554e84093af6cb1c7dc
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_DockByPier_World_Episode4_DoctorRoom/World_Mission_DockByPier_World_Episode4_DoctorRoom.unity
-    guid: 71ec58a1ef8a2834aa253a4a720a1e8b
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EnterIsland_World_Episode2_Pier/World_Mission_EnterIsland_World_Episode2_Pier.unity
-    guid: 4838297a085504d40bbdb8f264ca3ac2
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EnterIsland_World_Episode3_Hall/World_Mission_EnterIsland_World_Episode3_Hall.unity
-    guid: 2c5a0362cd4174fdb9dfaf14d6230d0c
   - enabled: 0
     path: Assets/data/graphics/World/Mission_EP01_01_Poison_Island_Pier/World_Mission_EP01_01_Poison_Island_Pier.unity
     guid: 1cf2ccd3a985a4aa4b7fa82e8798fd1a
@@ -86,93 +41,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/data/graphics/World/Mission_EP01_03_Poison_Island_Pier/World_Mission_EP01_03_Poison_Island_Pier.unity
     guid: ebe57c901ab994064a6e26e2f3fa25d8
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP02_01_1F_South_Corrider_World_1F_South_Corrider/World_Mission_EP02_01_1F_South_Corrider_World_1F_South_Corrider.unity
-    guid: 63df8179ebd29174fa6ae5d06672a97b
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP02_01_1F_South_Corrider_World_1F_West_Corrider/World_Mission_EP02_01_1F_South_Corrider_World_1F_West_Corrider.unity
-    guid: 682128b1f8dd04b4e880d937d0a0f4e0
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP02_02_World_1F_South_Corrider/World_Mission_EP02_02_World_1F_South_Corrider.unity
-    guid: cb6d67858ca69e845b128b236c34616d
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP02_03_World_1F_South_Corrider/World_Mission_EP02_03_World_1F_South_Corrider.unity
-    guid: 100e9d2a2855e9844a4caf56a197b767
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP02_03_World_1F_West_Corrider/World_Mission_EP02_03_World_1F_West_Corrider.unity
-    guid: 553c86856e88338479b99858ef5adbc8
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP02_03_World_2F_North_Corrider/World_Mission_EP02_03_World_2F_North_Corrider.unity
-    guid: 49abc23ef0a3b8947b7b29c71396720c
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP02_04_World_2F_North_Corrider/World_Mission_EP02_04_World_2F_North_Corrider.unity
-    guid: 3942bca7764c7444c887db6aab04c72b
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP02_04_World_2F_West_Corrider/World_Mission_EP02_04_World_2F_West_Corrider.unity
-    guid: a2ab392bdf18f9247845df286121e4d8
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP02_05_World_2F_West_Corrider/World_Mission_EP02_05_World_2F_West_Corrider.unity
-    guid: 4aa05137493474e468669043ec234970
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP02_05_World_Mission_EP02_04_World_2F_West_Corrider/World_Mission_EP02_05_World_Mission_EP02_04_World_2F_West_Corrider.unity
-    guid: 3585942e05599924e8ec573d5512d3c3
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP02_06_World_2F_West_Corrider/World_Mission_EP02_06_World_2F_West_Corrider.unity
-    guid: fd61dc014ad672f41bca1e78685ed852
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP02_07_World_2F_West_Corrider/World_Mission_EP02_07_World_2F_West_Corrider.unity
-    guid: adb4268d625503a4bb52842db437320d
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP02_08_World_2F_West_Corrider/World_Mission_EP02_08_World_2F_West_Corrider.unity
-    guid: 020d18c90bf4ddd4fb30ed9488fef771
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP02_09_2F_East_Corrider_World_2F_East_Corrider/World_Mission_EP02_09_2F_East_Corrider_World_2F_East_Corrider.unity
-    guid: 475e47c86febb9642b20a13997f08916
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP02_09_2F_East_Corrider_World_2F_South_Corrider/World_Mission_EP02_09_2F_East_Corrider_World_2F_South_Corrider.unity
-    guid: ff5e7f34e18015a469ccc7d87b7555c0
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP02_09_2F_East_Corrider_World_2F_West_Corrider/World_Mission_EP02_09_2F_East_Corrider_World_2F_West_Corrider.unity
-    guid: 0acf6f872b042354abd012e6547aab7a
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP02_10_World_2F_East_Corrider/World_Mission_EP02_10_World_2F_East_Corrider.unity
-    guid: 4894ba5ec71d5fc42b49d2bf61293e61
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP02_11_1F_South_Corrider_World_1F_South_Corrider/World_Mission_EP02_11_1F_South_Corrider_World_1F_South_Corrider.unity
-    guid: 7ab9f493c99bb7d4cb283a0e55849701
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP02_11_1F_South_Corrider_World_1F_West_Corrider/World_Mission_EP02_11_1F_South_Corrider_World_1F_West_Corrider.unity
-    guid: 1179b5bc344279340800dbfcac2c16e4
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP02_11_1F_South_Corrider_World_2F_East_Corrider/World_Mission_EP02_11_1F_South_Corrider_World_2F_East_Corrider.unity
-    guid: 32908375d0e7e7a4cbaeabb974d90ce8
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP02_11_1F_South_Corrider_World_2F_North_Corrider/World_Mission_EP02_11_1F_South_Corrider_World_2F_North_Corrider.unity
-    guid: cb93d62b42f8bf34081dc826229a4a60
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP02_11_1F_South_Corrider_World_Kitchen_Corrider/World_Mission_EP02_11_1F_South_Corrider_World_Kitchen_Corrider.unity
-    guid: 6a0304d1442c749008ef51dae26a85f8
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP03_02_2F_East_Corrider_World_2F_East_Corrider/World_Mission_EP03_02_2F_East_Corrider_World_2F_East_Corrider.unity
-    guid: c7e6eeda0dc90438cbb8e7f70bd60306
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP03_02_2F_East_Corrider_World_2F_North_Corrider/World_Mission_EP03_02_2F_East_Corrider_World_2F_North_Corrider.unity
-    guid: fb94fcf925af643beb40fd90e01c2e70
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP03_02_2F_East_Corrider_World_2F_West_Corrider/World_Mission_EP03_02_2F_East_Corrider_World_2F_West_Corrider.unity
-    guid: 5922623efb2d046a4ad7ecd3154c6b39
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP03_World_1F_West_Corrider/World_Mission_EP03_World_1F_West_Corrider.unity
-    guid: 7bd979ab2d0d24f12ac6040347a37c83
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP03_World_2F_East_Corrider/World_Mission_EP03_World_2F_East_Corrider.unity
-    guid: 8d6c081a508c64457a4c380abf315756
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP03_World_2F_North_Corrider/World_Mission_EP03_World_2F_North_Corrider.unity
-    guid: 6b4ecc6de08a64c9593c24e579e2641f
-  - enabled: 0
-    path: Assets/data/graphics/World/Mission_EP03_World_Kitchen_Corrider/World_Mission_EP03_World_Kitchen_Corrider.unity
-    guid: b998ff87fee4e472e8c54567b44626f9
   - enabled: 0
     path: Assets/data/graphics/World/Mission_EP09_03_World_Commandpost_2F/World_Mission_EP09_03_World_Commandpost_2F.unity
     guid: 07bd22600db7bf542a8a6072d30be047
