@@ -17,12 +17,6 @@ using Tips;
 //depend on EventManager
 namespace GamePlay.Stage
 {
-	//public enum SceneLoadMode
-	//{
-	//	Single = UnityEngine.SceneManagement.LoadSceneMode.Single,
-	//	Additive = UnityEngine.SceneManagement.LoadSceneMode.Additive
-
-	//}
 	public class GameSceneManager : Singleton<GameSceneManager>
 	{
 
@@ -54,6 +48,8 @@ namespace GamePlay.Stage
         {
             return m_currentSceneSlot.GetLastSceneEnum();
         }
+
+        //Temporary hard code, should be removed in future
         private void DisplayCurrentSceneNameTip ()
 		{
             SceneLookupEnum sceneEnum = m_currentSceneSlot.GetCurrentSceneEnum ();
@@ -84,59 +80,68 @@ namespace GamePlay.Stage
             { SceneLookupEnum.World_2F_West_Corrider, "2楼西部走廊"},
             { SceneLookupEnum.World_Kitchen_Corrider, "1楼餐厅"},
         };
-		//Dictionary<string, GameObject> m_allScenes = new Dictionary<string, GameObject> ();
-		//private UnityEngine.SceneManagement.Scene mCurrentScene;
-		//AsyncOperation asyncOperation = new AsyncOperation ();
 
-		//List<string> m_loadedScene = new List<string> ();
+        //public enum SceneLoadMode
+        //{
+        //	Single = UnityEngine.SceneManagement.LoadSceneMode.Single,
+        //	Additive = UnityEngine.SceneManagement.LoadSceneMode.Additive
 
-		//public delegate void callback (SceneLoadedEvent e);
-		//List<callback> m_loadedSceneEvent = new List<callback> ();
-
-		//private string m_currentSceneName;
-		//public string CurrentSceneName =>  m_currentSceneName;
-
-		//public SceneLookupEnum GetCurrentScene ()
-		//{
-		//	return m_currentScene;
-		//}
-
-		//public SceneLookupEnum SetCurrentScene (SceneLookupEnum currentScene)
-		//{
-		//	m_currentScene = currentScene;
-		//	return m_currentScene;
-		//}
-
-		//public UnityEngine.SceneManagement.Scene m_currentScene
-		//{
-		//    get; set;
-		//}
-
-		//public override void SingletonInit ()
-		//{
-		//	base.SingletonInit ();
-		//	//EventManager.Instance.AddEventListener<SceneLoadedEvent>(SceneLoadedCallBack);
-
-		//	//AddSceneLoadedEvent (DisableAllUICanvas);
-		//	//AddSceneLoadedEvent (LoadSceneScript);
+        //}
 
 
-		//}
+        //Dictionary<string, GameObject> m_allScenes = new Dictionary<string, GameObject> ();
+        //private UnityEngine.SceneManagement.Scene mCurrentScene;
+        //AsyncOperation asyncOperation = new AsyncOperation ();
 
-  //      private void LoadSceneScript (SceneLoadedEvent e)
-		//{
-		//	string path = AssetsManager.APPLICATION_PATH;
-		//	path += "Scripts/Scenes/";
+        //List<string> m_loadedScene = new List<string> ();
 
-		//	if (!Directory.Exists (path)) {
-		//		return;
-		//	}
+        //public delegate void callback (SceneLoadedEvent e);
+        //List<callback> m_loadedSceneEvent = new List<callback> ();
 
-		//	if (!File.Exists (path)) {
-		//		return;
-		//	}
-            
-		//}
+        //private string m_currentSceneName;
+        //public string CurrentSceneName =>  m_currentSceneName;
+
+        //public SceneLookupEnum GetCurrentScene ()
+        //{
+        //	return m_currentScene;
+        //}
+
+        //public SceneLookupEnum SetCurrentScene (SceneLookupEnum currentScene)
+        //{
+        //	m_currentScene = currentScene;
+        //	return m_currentScene;
+        //}
+
+        //public UnityEngine.SceneManagement.Scene m_currentScene
+        //{
+        //    get; set;
+        //}
+
+        //public override void SingletonInit ()
+        //{
+        //	base.SingletonInit ();
+        //	//EventManager.Instance.AddEventListener<SceneLoadedEvent>(SceneLoadedCallBack);
+
+        //	//AddSceneLoadedEvent (DisableAllUICanvas);
+        //	//AddSceneLoadedEvent (LoadSceneScript);
+
+
+        //}
+
+        //      private void LoadSceneScript (SceneLoadedEvent e)
+        //{
+        //	string path = AssetsManager.APPLICATION_PATH;
+        //	path += "Scripts/Scenes/";
+
+        //	if (!Directory.Exists (path)) {
+        //		return;
+        //	}
+
+        //	if (!File.Exists (path)) {
+        //		return;
+        //	}
+
+        //}
 
         //private void DisableAllUICanvas (SceneLoadedEvent e)
         //{

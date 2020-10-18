@@ -161,6 +161,10 @@ MonoBehaviour:
     m_Address: World_Mission_Designer_GreyBox_World_Commandpost_2F
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: e680837875df7114ea2de9df65ac3410
+    m_Address: World_Mission_Anonymous
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: ebe57c901ab994064a6e26e2f3fa25d8
     m_Address: World_Mission_EP01_03_Poison_Island_Pier
     m_ReadOnly: 0

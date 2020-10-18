@@ -57,6 +57,9 @@ EditorBuildSettings:
     path: Assets/data/graphics/World/Kitchen_Corrider/World_Kitchen_Corrider.unity
     guid: 4da8447f1ecfcbf42ae46926f4171f3d
   - enabled: 0
+    path: Assets/data/graphics/World/Mission_Anonymous/World_Mission_Anonymous.unity
+    guid: e680837875df7114ea2de9df65ac3410
+  - enabled: 0
     path: Assets/data/graphics/World/Mission_Designer_GreyBox_World_Commandpost_2F/World_Mission_Designer_GreyBox_World_Commandpost_2F.unity
     guid: ce123d987d8782143800a52d1e2e6f6a
   - enabled: 0

@@ -11,6 +11,8 @@ using UnityEngine.SceneManagement;
 
 namespace GamePlay.Stage
 {
+
+    [System.Serializable]
     public enum MissionEnum
     {
         None,
@@ -64,10 +66,19 @@ namespace GamePlay.Stage
         }
         public bool LoadMissionScene(MissionEnum requestMission)
         {
-            if (IsMissionSceneExist(requestMission))
-            {
+            //if (IsMissionSceneExist(requestMission))
+            //{
                 CoreContainer.Instance.SetPlayerDisable();
-                string sceneName = GenerateSceneName(requestMission);
+                string sceneName;
+                if (requestMission != MissionEnum.None)
+                {
+                    sceneName = GenerateSceneName(requestMission);
+                }
+                else
+                {
+                    sceneName = ANONYMOUS_MISSION;
+                }
+                
                 SceneLookupEnum sceneEnum = SceneLookup.GetEnum(sceneName, false);
                 SetCurrentMission(requestMission);
 
@@ -76,11 +87,11 @@ namespace GamePlay.Stage
                     return false;
                 }
                 return true;
-            }
-            else
-            {
-                return false;
-            }
+            //}
+            //else
+            //{
+            //    return false;
+            //}
         }
 
 
@@ -233,6 +244,7 @@ namespace GamePlay.Stage
 
         private SceneSlot m_currentMissionScene;
         private MissionEnum m_currentMission = MissionEnum.None;
+        private readonly string ANONYMOUS_MISSION = "World_Mission_Anonymous";
         private MissionEnum[] ALL_MISSION = {
         MissionEnum.None,
         MissionEnum.Programmer_DockByPier,

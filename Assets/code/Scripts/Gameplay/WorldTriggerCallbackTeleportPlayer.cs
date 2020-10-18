@@ -44,11 +44,13 @@ namespace GamePlay.EventTrigger
 					Debug.LogError ("Teleport scene is not set. Use [Update Teleported Game Scene] to modify the value");
 				}
 				SceneLookupEnum scene = SceneLookup.GetEnum (m_teleportGameScene);
+				GameSceneManager.Instance.LoadScene (scene);
+				
 				if (MissionSceneManager.Instance.IsGameSceneExistCurrentMission (scene)) {
-					GameSceneManager.Instance.LoadScene (scene);
 					MissionSceneManager.Instance.LoadCurrentMissionScene ();
 				} else {
-					Debug.LogError (m_teleportGameScene + " is not exist mission " + MissionSceneManager.Instance.GetCurrentMission ().ToString ());
+					MissionSceneManager.Instance.LoadMissionScene(MissionEnum.None);
+					Debug.LogWarning (m_teleportGameScene + " is not exist mission " + MissionSceneManager.Instance.GetCurrentMission ().ToString ());
 				}
 			}
 		}
