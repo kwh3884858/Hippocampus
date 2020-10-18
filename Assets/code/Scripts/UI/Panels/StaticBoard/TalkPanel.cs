@@ -335,10 +335,12 @@ namespace UI.Panels.StaticBoard
                         Debug.LogError ("Current Game Scene: " + m_curAction.Content + " doesn`t contain Mission Scene " +
                                         MissionSceneManager.Instance.GetCurrentMission().ToString ());
                     }
+                    SetActionState(ActionState.End);
                     break;
                 case StoryActionType.LoadMission:
                     var action = m_curAction as StoryLoadMissionAction;
                     MissionSceneManager.Instance.LoadMissionScene(action.Mission);
+                    SetActionState(ActionState.End);
                     break;
                 case StoryActionType.TriggerEvent:
                     var triggerAction = m_curAction as StoryEventAction;
