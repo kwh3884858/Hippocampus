@@ -166,6 +166,28 @@ public class ToolBoxEditorWindow : EditorWindow
 			}
 		}
 
+        if (GUILayout.Button("Create Spawn Point"))
+        {
+            if (IsGameSceneValid())
+            {
+                GameObject spawnPoint = GameObject.Find(ConfigMission.Instance.Text_Spawn_Point_Name);
+                if (spawnPoint != null)
+                {
+                    EditorUtility.DisplayDialog("Error", "Already contain a spawn point in scene.", "Ok");
+                }
+                else
+                {
+                    string path = ConfigMission.Instance.Path_To_SpawnPoint;
+                    GameObject go = PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(path), m_currentGameScene) as GameObject;
+                    go.name = ConfigMission.Instance.Text_Spawn_Point_Name;
+                }
+            }
+            else
+            {
+                EditorUtility.DisplayDialog("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
+            }
+        }
+
         GUILayout.Label("Add Gameobject to Mission", EditorStyles.boldLabel);
 
         if (GUILayout.Button ("Create Spawn Point")) {
@@ -174,11 +196,11 @@ public class ToolBoxEditorWindow : EditorWindow
 				if (spawnPoint != null) {
 					EditorUtility.DisplayDialog ("Error", "Already contain a spawn point in scene.", "Ok");
 				} else {
-					string path = ConfigMission.Instance.Path_To_SpawnPoint;
-					GameObject go = PrefabUtility.InstantiatePrefab (AssetDatabase.LoadAssetAtPath<GameObject> (path)) as GameObject;
-					go.name = ConfigMission.Instance.Text_Spawn_Point_Name;
-				}
-			} else {
+                    string path = ConfigMission.Instance.Path_To_SpawnPoint;
+                    GameObject go = PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(path), m_currentMissionScene) as GameObject;
+                    go.name = ConfigMission.Instance.Text_Spawn_Point_Name;
+                }
+            } else {
 				EditorUtility.DisplayDialog ("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
 			}
 		}

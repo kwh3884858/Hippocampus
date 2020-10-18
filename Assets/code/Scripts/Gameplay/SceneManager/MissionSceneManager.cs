@@ -106,11 +106,6 @@ namespace GamePlay.Stage
                 return false;
             }
             return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
         }
 
 

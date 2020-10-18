@@ -56,9 +56,12 @@ namespace GamePlay.Stage
 		public void SpawnPlayer ()
 		{
 			SceneLookupEnum sceneEnum = MissionSceneManager.Instance.GetCurrentMissionScene ();
+			SceneLookupEnum gameSceneEnum = GameSceneManager.Instance.GetCurrentSceneEnum();
 			Scene missionScene = SceneManager.GetSceneByName (sceneEnum.ToString ());
-			string specificTeleportName = GameSceneManager.Instance.GetSpecificTeleportName();
+			Scene gameScene = SceneManager.GetSceneByName(gameSceneEnum.ToString());
 			GameObject [] gameObjects = missionScene.GetRootGameObjects ();
+			GameObject[] gameSceneGameobjects = gameScene.GetRootGameObjects();
+			string specificTeleportName = GameSceneManager.Instance.GetSpecificTeleportName();
 
 			//Teleport from another scene
 			m_player.transform.position = Vector3.zero;
@@ -99,8 +102,22 @@ namespace GamePlay.Stage
 					}
 				}
 			}
+            //Find spawn point in game scene
+            foreach (GameObject go in gameSceneGameobjects)
+            {
+                if (go.name == ConfigMission.Instance.Text_Spawn_Point_Name)
+                {
+                    if (m_player != null)
+                    {
+                        m_player.transform.position =
+                            new Vector3(go.transform.position.x, go.transform.position.y + 0.5f, go.transform.position.z);
+                        m_player.SetActive(true);
+                        return;
+                    }
+                }
+            }
 
-			//No suitable spawn point
+            //No suitable spawn point
             Debug.LogError ("Can not find spawn point!");
 			m_player.transform.position = new Vector3(0, 0.5f, 0);
             m_player.SetActive(true);
