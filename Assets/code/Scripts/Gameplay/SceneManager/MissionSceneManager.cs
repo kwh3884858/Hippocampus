@@ -84,25 +84,25 @@ namespace GamePlay.Stage
         {
             //if (IsMissionSceneExist(requestMission))
             //{
-                CoreContainer.Instance.SetPlayerDisable();
-                string sceneName;
-                if (requestMission != MissionEnum.None)
-                {
-                    sceneName = GenerateSceneName(requestMission);
-                }
-                else
-                {
-                    sceneName = ANONYMOUS_MISSION;
-                }
-                
-                SceneLookupEnum sceneEnum = SceneLookup.GetEnum(sceneName, false);
+            CoreContainer.Instance.SetPlayerDisable();
+            string sceneName;
+            if (requestMission != MissionEnum.None)
+            {
+                sceneName = GenerateSceneName(requestMission);
                 SetCurrentMission(requestMission);
+            }
+            else
+            {
+                sceneName = ANONYMOUS_MISSION;
+            }
 
-                if (!m_currentMissionScene.LoadScene(sceneEnum))
-                {
-                    return false;
-                }
-                return true;
+            SceneLookupEnum sceneEnum = SceneLookup.GetEnum(sceneName, false);
+
+            if (!m_currentMissionScene.LoadScene(sceneEnum))
+            {
+                return false;
+            }
+            return true;
             //}
             //else
             //{

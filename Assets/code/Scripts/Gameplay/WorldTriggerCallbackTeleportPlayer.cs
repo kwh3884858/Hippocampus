@@ -5,6 +5,7 @@ using GamePlay.Stage;
 using StarPlatinum.Utility;
 using StarPlatinum;
 using UI.Panels.Providers.DataProviders;
+using GamePlay.Utility;
 
 namespace GamePlay.EventTrigger
 {
@@ -14,7 +15,8 @@ namespace GamePlay.EventTrigger
 
 		[ConditionalField ("m_isCGScene", true)]
 		[SerializeField]
-		private string m_teleportGameScene = "";
+		private string m_teleportedGameScene = "";
+		public string m_specificTeleportName = "";
 
 		[ConditionalField ("m_isCGScene")]
 		public string m_cgSceneName = "";
@@ -34,31 +36,45 @@ namespace GamePlay.EventTrigger
 			{ WorldTriggerCallbackTeleportPlayer.Direction.Left, Vector3.left },
 			{ WorldTriggerCallbackTeleportPlayer.Direction.Right, Vector3.right }
 		};
+
+		protected override void AfterStart() 
+		{
+#if UNITY_EDITOR
+			//Debug 3D Text
+			if (m_isCGScene)
+            {
+
+            }
+            else {
+				WorldDebug3DTextManager.Instance.AddTextToGameobject(m_teleportedGameScene, gameObject);
+			}
+#endif
+		}
 		protected override void Callback ()
 		{
 			if (m_isCGScene) {
 				UI.UIManager.Instance ().ShowStaticPanel (UIPanelType.UICommonCgscenePanel, new CGSceneDataProvider () { CGSceneID = m_cgSceneName });
 				CoreContainer.Instance.SetPlayerPosition (transform.position + DirecitonMapping [m_spawnDirection] * m_lengthBetweenTriggerAndSpwanPoint + new Vector3 (0.0f, 0.5f, 0.0f));
 			} else {
-				if (m_teleportGameScene == "") {
+				if (m_teleportedGameScene == "") {
 					Debug.LogError ("Teleport scene is not set. Use [Update Teleported Game Scene] to modify the value");
 				}
-				SceneLookupEnum scene = SceneLookup.GetEnum (m_teleportGameScene);
-				GameSceneManager.Instance.LoadScene (scene);
+				SceneLookupEnum scene = SceneLookup.GetEnum (m_teleportedGameScene);
+				GameSceneManager.Instance.LoadScene(scene, m_specificTeleportName);
 				MissionSceneManager.Instance.LoadCurrentMissionScene();
 			}
 		}
 
 		public void SetTeleportedScene(SceneLookupEnum scene)
 		{
-			m_teleportGameScene = scene.ToString ();
+			m_teleportedGameScene = scene.ToString ();
 		}
 
 		public SceneLookupEnum GetTeleportScene ()
 		{
-            if (SceneLookup.IsSceneExist(m_teleportGameScene, false))
+            if (SceneLookup.IsSceneExist(m_teleportedGameScene, false))
             {
-				return SceneLookup.GetEnum (m_teleportGameScene);
+				return SceneLookup.GetEnum (m_teleportedGameScene);
             }
             else
             {

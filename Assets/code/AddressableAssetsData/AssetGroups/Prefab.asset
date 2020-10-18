@@ -29,8 +29,16 @@ MonoBehaviour:
     m_Address: UI_Common_Log_Item
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 77b02b5e2281c4fbbaea91122005817f
+    m_Address: Debug_Console
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 846d0352a5a0dab4cb3b946620c68911
     m_Address: UI_Common_LoadArchive_Item
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 922a3aa7513ca2641addc546cf932409
+    m_Address: graphic_debug_3D_Text
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: d6ce8b79d5d17ba459722069e090acfa

@@ -36,9 +36,6 @@ EditorBuildSettings:
     path: Assets/data/graphics/World/Commandpost_2F/World_Commandpost_2F.unity
     guid: 050749fe645687a4f9320e85040fd5bb
   - enabled: 0
-    path: Assets/data/graphics/World/Common/Models/Rendering Test/ScenesForSceneArtConcept/World_ScenesForSceneArtConcept.unity
-    guid: 79497425827fa824e9fb355cb733f7f7
-  - enabled: 0
     path: Assets/data/graphics/World/CoreContainer/World_CoreContainer.unity
     guid: 056429be9607f47c687afa4aef8818d4
   - enabled: 0
@@ -53,6 +50,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/data/graphics/World/GoundTestScene/World_GoundTestScene.unity
     guid: d64d83efff065fe4485fa4ded364df60
+  - enabled: 0
+    path: Assets/data/graphics/World/Invalid/World_Invalid.unity
+    guid: 0ff23da5faad05c4b8253a1a567c86a4
   - enabled: 0
     path: Assets/data/graphics/World/Kitchen_Corrider/World_Kitchen_Corrider.unity
     guid: 4da8447f1ecfcbf42ae46926f4171f3d

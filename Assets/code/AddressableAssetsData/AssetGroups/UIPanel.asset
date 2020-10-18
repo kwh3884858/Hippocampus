@@ -21,10 +21,6 @@ MonoBehaviour:
     m_Address: Load_Game_Panel
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 050749fe645687a4f9320e85040fd5bb
-    m_Address: World_Commandpost_2F
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 0aa6d7621b1c5bc4a93b65f33cf0ee0e
     m_Address: UI_Common_GamePlay_Panel
     m_ReadOnly: 0
@@ -55,18 +51,6 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 69b7f0e0acee6bd498a5a6ce22c9a054
     m_Address: UI_Common_Maps_Tips_Evidences_Panel
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 76f726a6d946e154aa0feafe8f5a72ad
-    m_Address: Poison_Island_Pier
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 77b02b5e2281c4fbbaea91122005817f
-    m_Address: Debug_Console
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 8a2c51afd5541704096976825ad275fe
-    m_Address: World_Commandpost_1F
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 9c1f5d40f08cf5a4aa0984736f2ebfdd

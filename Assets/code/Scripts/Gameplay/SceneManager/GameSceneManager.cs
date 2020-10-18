@@ -36,8 +36,9 @@ namespace GamePlay.Stage
                 CinemachineManager.Instance.SetBoundingVolumeByName(GetCurrentSceneEnum().ToString());// set camera move range
             });
         }
-        public bool LoadScene(SceneLookupEnum scene)
+        public bool LoadScene(SceneLookupEnum scene, string specificTeleportName = "")
         {
+            m_specificTeleportName = specificTeleportName;
             return m_currentSceneSlot.LoadScene(scene);
         }
         public SceneLookupEnum GetCurrentSceneEnum()
@@ -48,7 +49,12 @@ namespace GamePlay.Stage
         {
             return m_currentSceneSlot.GetLastSceneEnum();
         }
-
+        public string GetSpecificTeleportName()
+        {
+            string name = m_specificTeleportName;
+            m_specificTeleportName = "";
+            return name;
+        }
         //Temporary hard code, should be removed in future
         private void DisplayCurrentSceneNameTip ()
 		{
@@ -69,6 +75,7 @@ namespace GamePlay.Stage
         }
         
         private SceneSlot m_currentSceneSlot;
+        private string m_specificTeleportName = "";
         private Dictionary<SceneLookupEnum, string> m_sceneChineseDictionary = new Dictionary<SceneLookupEnum, string> {
             {  SceneLookupEnum.Poison_Island_Pier, "监狱岛码头" },
             { SceneLookupEnum.World_1F_Middle_Corrider, "1楼中部走廊"},

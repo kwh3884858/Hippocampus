@@ -57,6 +57,7 @@ namespace GamePlay.Stage
 		{
 			SceneLookupEnum sceneEnum = MissionSceneManager.Instance.GetCurrentMissionScene ();
 			Scene missionScene = SceneManager.GetSceneByName (sceneEnum.ToString ());
+			string specificTeleportName = GameSceneManager.Instance.GetSpecificTeleportName();
 			GameObject [] gameObjects = missionScene.GetRootGameObjects ();
 
 			//Teleport from another scene
@@ -83,9 +84,14 @@ namespace GamePlay.Stage
 					if (teleport.IsCGScene() == true) {
 						continue;
 					}
+
 					if (teleport.GetTeleportScene() == lastGameScene)
 					{
-						Vector3 direction = WorldTriggerCallbackTeleportPlayer.DirecitonMapping[teleport.m_spawnDirection];
+                        if (specificTeleportName != "" && specificTeleportName != teleport.gameObject.name)
+                        {
+							continue;
+                        }
+                        Vector3 direction = WorldTriggerCallbackTeleportPlayer.DirecitonMapping[teleport.m_spawnDirection];
 						direction *= teleport.m_lengthBetweenTriggerAndSpwanPoint;
 						m_player.transform.position = teleport.transform.position + direction + new Vector3(0.0f, 0.5f, 0.0f);
 						m_player.SetActive(true);
@@ -93,7 +99,11 @@ namespace GamePlay.Stage
 					}
 				}
 			}
-			Debug.LogError ("Can not find spawn point!");
+
+			//No suitable spawn point
+            Debug.LogError ("Can not find spawn point!");
+			m_player.transform.position = new Vector3(0, 0.5f, 0);
+            m_player.SetActive(true);
 		}
 
 		public void StopPlayerAnimation ()

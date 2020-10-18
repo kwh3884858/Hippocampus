@@ -23,6 +23,7 @@ namespace Config.GameRoot
         public string Path_To_Mission = $"Assets/data/graphics/Interaction/Interaction_Missions.prefab";
 
         public string Prefix_Mission_Folder = "Mission_";
+        public string Prefix_Scene = "World_";
         public string Prefix_Mission_Scene = "World_Mission_";
         public string Path_To_Folder_World = "Assets/data/graphics/World";
 
