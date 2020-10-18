@@ -21,6 +21,10 @@ MonoBehaviour:
     m_Address: World_Mission_EP02_08_World_2F_West_Corrider
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 07bd22600db7bf542a8a6072d30be047
+    m_Address: World_Mission_EP09_03_World_Commandpost_2F
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 0acf6f872b042354abd012e6547aab7a
     m_Address: World_Mission_EP02_09_2F_East_Corrider_World_2F_West_Corrider
     m_ReadOnly: 0
@@ -89,6 +93,10 @@ MonoBehaviour:
     m_Address: World_Mission_EP01_02_Poison_Island_Pier
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 51e0d42294e61634a8191eeb5ff99f46
+    m_Address: World_Mission_EP10_01_World_Commandpost_1F
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 553c86856e88338479b99858ef5adbc8
     m_Address: World_Mission_EP02_03_World_1F_West_Corrider
     m_ReadOnly: 0
@@ -111,6 +119,10 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 6b4ecc6de08a64c9593c24e579e2641f
     m_Address: World_Mission_EP03_World_2F_North_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6b84f46ad4d8f874885ab23176f1fba7
+    m_Address: World_Mission_EP09_09_World_Commandpost_2F
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 71ec58a1ef8a2834aa253a4a720a1e8b
@@ -179,6 +191,10 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: fd61dc014ad672f41bca1e78685ed852
     m_Address: World_Mission_EP02_06_World_2F_West_Corrider
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fd69b806a0c936246a22c64832b32b04
+    m_Address: World_Mission_EP09_05_06_07_08_World_Commandpost_2F
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: ff5e7f34e18015a469ccc7d87b7555c0
