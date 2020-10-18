@@ -150,6 +150,11 @@ namespace Controllers.Subsystems.Story
             m_actions.Enqueue(new StoryLoadMissionAction(){Type =  StoryActionType.LoadMission ,  Mission= mission});
         }
 
+        public void LoadCGScene(string cgSceneName)
+        {
+            m_actions.Enqueue(new StoryAction() { Type = StoryActionType.LoadCgScene, Content = cgSceneName });
+        }
+
         public void TriggerEvent(RaiseEvent raiseEvent)
         {
             m_actions.Enqueue(new StoryEventAction(){Type =  StoryActionType.TriggerEvent , Event = raiseEvent});
@@ -205,6 +210,7 @@ namespace Controllers.Subsystems.Story
                     case StoryActionType.Jump:
                     case StoryActionType.LoadGameScene:
                     case StoryActionType.LoadMission:
+                    case StoryActionType.LoadCgScene:
                     case StoryActionType.ShowEvidence:
                         if (isTalk)
                         {

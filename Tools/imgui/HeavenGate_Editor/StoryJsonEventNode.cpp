@@ -22,6 +22,7 @@ namespace HeavenGateEditor {
         InvokeEvent,
         LoadMission,
         LoadScene,
+        LoadCgScene,
         PlayAnimation,
         LoadBackground,
         Amount
@@ -31,6 +32,7 @@ namespace HeavenGateEditor {
         "invokeEvent",
         "loadMission",
         "loadScene",
+        "LoadCgScene",
         "playAnimation",
         "LoadBackground"
     };
@@ -73,6 +75,9 @@ namespace HeavenGateEditor {
         }
         else if (strcmp(tmpEventType, eventTypeString[(int)EventType::LoadScene]) == 0) {
             p.m_eventType = EventType::LoadScene;
+        }
+        else if(strcmp(tmpEventType, eventTypeString[(int)EventType::LoadCgScene]) == 0){
+            p.m_eventType = EventType::LoadCgScene;
         }
         else if (strcmp(tmpEventType, eventTypeString[(int)EventType::PlayAnimation]) == 0) {
             p.m_eventType = EventType::PlayAnimation;

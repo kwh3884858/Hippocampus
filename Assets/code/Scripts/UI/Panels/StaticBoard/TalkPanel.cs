@@ -20,6 +20,7 @@ using UI.Panels.Providers.DataProviders;
 using UI.Panels.Providers.DataProviders.GameScene;
 using UI.Panels.Providers.DataProviders.StaticBoard;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -340,6 +341,10 @@ namespace UI.Panels.StaticBoard
                 case StoryActionType.LoadMission:
                     var action = m_curAction as StoryLoadMissionAction;
                     MissionSceneManager.Instance.LoadMissionScene(action.Mission);
+                    SetActionState(ActionState.End);
+                    break;
+                case StoryActionType.LoadCgScene:
+                    UI.UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonCgscenePanel, new CGSceneDataProvider() { CGSceneID = m_curAction.Content });
                     SetActionState(ActionState.End);
                     break;
                 case StoryActionType.TriggerEvent:
