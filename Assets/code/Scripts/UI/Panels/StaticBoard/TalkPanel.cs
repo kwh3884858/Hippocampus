@@ -340,7 +340,14 @@ namespace UI.Panels.StaticBoard
                     break;
                 case StoryActionType.LoadMission:
                     var action = m_curAction as StoryLoadMissionAction;
-                    MissionSceneManager.Instance.LoadMissionScene(action.Mission);
+                    if (MissionSceneManager.Instance.IsMissionSceneExist(action.Mission))
+                    {
+                        MissionSceneManager.Instance.LoadMissionScene(action.Mission);
+                    }
+                    else
+                    {
+                        MissionSceneManager.Instance.LoadMissionScene(MissionEnum.None);
+                    }
                     SetActionState(ActionState.End);
                     break;
                 case StoryActionType.LoadCgScene:

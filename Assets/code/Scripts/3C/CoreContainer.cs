@@ -55,72 +55,96 @@ namespace GamePlay.Stage
 
 		public void SpawnPlayer ()
 		{
-			SceneLookupEnum sceneEnum = MissionSceneManager.Instance.GetCurrentMissionScene ();
-			SceneLookupEnum gameSceneEnum = GameSceneManager.Instance.GetCurrentSceneEnum();
-			Scene missionScene = SceneManager.GetSceneByName (sceneEnum.ToString ());
-			Scene gameScene = SceneManager.GetSceneByName(gameSceneEnum.ToString());
-			GameObject [] gameObjects = missionScene.GetRootGameObjects ();
-			GameObject[] gameSceneGameobjects = gameScene.GetRootGameObjects();
+			SceneLookupEnum currentMissionSceneEnum = MissionSceneManager.Instance.GetCurrentMissionScene ();
+			SceneLookupEnum currentGameSceneEnum = GameSceneManager.Instance.GetCurrentSceneEnum();
+			Scene currentMissionScene = SceneManager.GetSceneByName (currentMissionSceneEnum.ToString ());
+			Scene currentGameScene = SceneManager.GetSceneByName(currentGameSceneEnum.ToString());
+			GameObject [] missionSceneGameobjects = currentMissionScene.GetRootGameObjects ();
+			GameObject[] gameSceneGameobjects = currentGameScene.GetRootGameObjects();
 			string specificTeleportName = GameSceneManager.Instance.GetSpecificTeleportName();
 
-			//Teleport from another scene
-			m_player.transform.position = Vector3.zero;
+			SceneLookupEnum lastGameSceneEnum = GameSceneManager.Instance.GetLastSceneEnum ();
+            SceneLookupEnum lastMissionSceneEnum = MissionSceneManager.Instance.GetLastMissionScecneEnum();
 
-			SceneLookupEnum lastGameScene = GameSceneManager.Instance.GetLastSceneEnum ();
-
-			//Direct find spawn point
-			foreach (GameObject go in gameObjects) {
-				if (go.name == ConfigMission.Instance.Text_Spawn_Point_Name) {
-					if (m_player != null) {
-						m_player.transform.position =
-							new Vector3 (go.transform.position.x, go.transform.position.y + 0.5f, go.transform.position.z);
-						m_player.SetActive (true);
-						return;
-					}
-				}
-			}
-			if (lastGameScene != SceneLookupEnum.World_GameRoot)
-			{
-				WorldTriggerCallbackTeleportPlayer[] teleports = GameObject.FindObjectsOfType<WorldTriggerCallbackTeleportPlayer>();
-				foreach (WorldTriggerCallbackTeleportPlayer teleport in teleports)
-				{
-					if (teleport.IsCGScene() == true) {
-						continue;
-					}
-
-					if (teleport.GetTeleportScene() == lastGameScene)
-					{
-                        if (specificTeleportName != "" && specificTeleportName != teleport.gameObject.name)
-                        {
-							continue;
-                        }
-                        Vector3 direction = WorldTriggerCallbackTeleportPlayer.DirecitonMapping[teleport.m_spawnDirection];
-						direction *= teleport.m_lengthBetweenTriggerAndSpwanPoint;
-						m_player.transform.position = teleport.transform.position + direction + new Vector3(0.0f, 0.5f, 0.0f);
-						m_player.SetActive(true);
-						return;
-					}
-				}
-			}
-            //Find spawn point in game scene
-            foreach (GameObject go in gameSceneGameobjects)
+			//Fisrt load game
+            if (lastGameSceneEnum == SceneLookupEnum.World_GameRoot && lastMissionSceneEnum == SceneLookupEnum.World_GameRoot)
             {
-                if (go.name == ConfigMission.Instance.Text_Spawn_Point_Name)
+                //Direct find spawn point
+                foreach (GameObject go in missionSceneGameobjects)
                 {
-                    if (m_player != null)
+                    if (go.name == ConfigMission.Instance.Text_Spawn_Point_Name)
                     {
-                        m_player.transform.position =
-                            new Vector3(go.transform.position.x, go.transform.position.y + 0.5f, go.transform.position.z);
-                        m_player.SetActive(true);
-                        return;
+                        if (m_player != null)
+                        {
+                            m_player.transform.position =
+                                new Vector3(go.transform.position.x, go.transform.position.y + 0.5f, go.transform.position.z);
+                            m_player.SetActive(true);
+                            return;
+                        }
+                    }
+                }
+
+                //Find spawn point in game scene
+                foreach (GameObject go in gameSceneGameobjects)
+                {
+                    if (go.name == ConfigMission.Instance.Text_Spawn_Point_Name)
+                    {
+                        if (m_player != null)
+                        {
+                            m_player.transform.position =
+                                new Vector3(go.transform.position.x, go.transform.position.y + 0.5f, go.transform.position.z);
+                            m_player.SetActive(true);
+                            return;
+                        }
                     }
                 }
             }
+            else
+            {
+                //Not first time
 
-            //No suitable spawn point
-            Debug.LogError ("Can not find spawn point!");
-			m_player.transform.position = new Vector3(0, 0.5f, 0);
-            m_player.SetActive(true);
+                if (lastMissionSceneEnum != currentMissionSceneEnum)
+                {
+                    //Load mission by story
+                    //Do Nothing
+                    m_player.SetActive(true);
+                    return;
+                }
+                else
+                {
+                    //teleport
+                    if (lastGameSceneEnum != currentGameSceneEnum)
+                    {
+                        WorldTriggerCallbackTeleportPlayer[] teleports = GameObject.FindObjectsOfType<WorldTriggerCallbackTeleportPlayer>();
+                        foreach (WorldTriggerCallbackTeleportPlayer teleport in teleports)
+                        {
+                            if (teleport.IsCGScene() == true)
+                            {
+                                continue;
+                            }
+
+                            if (teleport.GetTeleportScene() == lastGameSceneEnum)
+                            {
+                                if (specificTeleportName != "" && specificTeleportName != teleport.gameObject.name)
+                                {
+                                    continue;
+                                }
+                                Vector3 direction = WorldTriggerCallbackTeleportPlayer.DirecitonMapping[teleport.m_spawnDirection];
+                                direction *= teleport.m_lengthBetweenTriggerAndSpwanPoint;
+                                m_player.transform.position = teleport.transform.position + direction + new Vector3(0.0f, 0.5f, 0.0f);
+                                m_player.SetActive(true);
+                                return;
+                            }
+                        }
+                    }
+
+                    //No suitable spawn point
+                    Debug.LogError("Can not find spawn point!");
+                    m_player.transform.position = new Vector3(0, 0.5f, 0);
+                    m_player.SetActive(true);
+                    return;
+                }
+            }
 		}
 
 		public void StopPlayerAnimation ()
