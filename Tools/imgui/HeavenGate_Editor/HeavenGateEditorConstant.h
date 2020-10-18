@@ -12,13 +12,13 @@
 #include "StoryLayoutConstant.h"
 
 namespace HeavenGateEditor {
-    const char* const   EDITOR_VERSION = "0.0.14";
-    const char* const   RELEASE_NOTE = "version 14 将之前没有使用的Character Table列入功能 \n 现在这个表格承当了角色名字和立绘文件的对应关系,用于实现当一个角色说话，对应的立绘就会变暗的功能";
+    const char* const   EDITOR_VERSION = "0.0.15";
+    const char* const   RELEASE_NOTE = "version 15 修复Exhibit Table Bug";
     const int     MAX_FOLDER_PATH = 265;
 
     const int     MAX_FILE_NAME = 64;
     const int     MAX_FOLDER_LIST = 265;
-    const int     MAX_FULL_CONTENT = 6144;
+    const int     MAX_FULL_CONTENT = 12288;
 
     //For story content limit
     const int     MAX_NAME = 64;

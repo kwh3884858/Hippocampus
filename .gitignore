@@ -12,6 +12,7 @@ Documents/
 Assets/data
 Assets/Resources
 Tools/release
+Tools/Heaven Gate/Windows/imgui.ini
 
 Assets/data.meta
 Assets/code.meta
@@ -24,6 +25,7 @@ Assets/AssetStoreTools*
 Assets/Resources/Storys/AutoSave~
 Config/
 
+# Spine
 spine-unity.csproj
 spine-unity-editor.csproj
 
