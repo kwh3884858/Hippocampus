@@ -37,6 +37,10 @@ MonoBehaviour:
     m_Address: World_1F_Middle_Corrider
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 0ff23da5faad05c4b8253a1a567c86a4
+    m_Address: World_Invalid
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 239b4ffd2d37f1c4d9766a24281c5120
     m_Address: World_2F_East_Corrider
     m_ReadOnly: 0

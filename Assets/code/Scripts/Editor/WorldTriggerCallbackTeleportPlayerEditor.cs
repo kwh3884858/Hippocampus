@@ -24,20 +24,37 @@ namespace GamePlay.EventTrigger
 		{
 			WorldTriggerCallbackTeleportPlayer trigger = (WorldTriggerCallbackTeleportPlayer)target;
 
-			if (trigger.m_isCGScene == false) {
-				GUI.backgroundColor = Color.green;
-				m_sceneLookupEnum = (SceneLookupEnum)EditorGUILayout.EnumPopup ("Needed Mission:", m_sceneLookupEnum);
-				if (GUILayout.Button ("Update Teleported Game Scene")) {
-					trigger.SetTeleportedScene (m_sceneLookupEnum);
-				}
-				GUI.backgroundColor = Color.white;
-			}
 			base.DrawDefaultInspector ();
+			foldoutType = EditorGUILayout.Foldout(foldoutType, "Auto Input Teleport Scene");
+            if (trigger.GetTeleportScene() == SceneLookupEnum.World_Invalid)
+            {
+				GUI.backgroundColor = Color.red;
+				EditorGUILayout.TextArea("Teleport scene name is illegal");
+				GUI.backgroundColor = Color.white;
+				foldoutType = true;
+			}
+
+            if (trigger.m_isCGScene == false) {
+				if (foldoutType)
+				{
+					GUI.backgroundColor = Color.green;
+					m_sceneLookupEnum = (SceneLookupEnum)EditorGUILayout.EnumPopup("Needed Mission:", m_sceneLookupEnum);
+					if (GUILayout.Button("Update Teleported Game Scene"))
+					{
+						trigger.SetTeleportedScene(m_sceneLookupEnum);
+						foldoutType = false;
+					}
+					GUI.backgroundColor = Color.white;
+				}
+			}
+
 			if (GUI.changed) {
 				EditorUtility.SetDirty (target);
 			}
 
 		}
 		public SceneLookupEnum m_sceneLookupEnum;
-	}
+        bool foldoutType = false;
+
+    }
 }

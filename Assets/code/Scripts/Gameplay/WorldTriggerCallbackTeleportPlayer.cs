@@ -62,7 +62,14 @@ namespace GamePlay.EventTrigger
 
 		public SceneLookupEnum GetTeleportScene ()
 		{
-			return SceneLookup.GetEnum (m_teleportGameScene);
+            if (SceneLookup.IsSceneExist(m_teleportGameScene, false))
+            {
+				return SceneLookup.GetEnum (m_teleportGameScene);
+            }
+            else
+            {
+				return SceneLookupEnum.World_Invalid;
+            }
 		}
 
 		public bool IsCGScene ()
