@@ -11,62 +11,62 @@ using GamePlay.EventTrigger;
 
 namespace GamePlay.Stage
 {
-	public class CoreContainer : Singleton<CoreContainer>
-	{
-		public CoreContainer ()
-		{
-			m_player = null;
+    public class CoreContainer : Singleton<CoreContainer>
+    {
+        public CoreContainer()
+        {
+            m_player = null;
 
-			Transform root = GameObject.Find ("GameRoot").transform;
-			Assert.IsTrue (root != null, "Game Root must always exist.");
-			if (root == null) return;
-			GameObject manager = new GameObject (typeof (CoreContainer).ToString ());
-			manager.transform.SetParent (root.transform);
-			m_containerScene = manager.AddComponent<SceneSlot> ();
-		}
+            Transform root = GameObject.Find("GameRoot").transform;
+            Assert.IsTrue(root != null, "Game Root must always exist.");
+            if (root == null) return;
+            GameObject manager = new GameObject(typeof(CoreContainer).ToString());
+            manager.transform.SetParent(root.transform);
+            m_containerScene = manager.AddComponent<SceneSlot>();
+        }
 
-		public void Initialize ()
-		{
-			m_containerScene.LoadScene (SceneLookupEnum.World_CoreContainer);
-		}
+        public void Initialize()
+        {
+            m_containerScene.LoadScene(SceneLookupEnum.World_CoreContainer);
+        }
 
-		//After scene loaded, it will call this function
-		public void SetSceneLoaded (
-			GameObject player,
-			GameObject camera,
-			bool loaded)
-		{
-			m_player = player;
-			m_isSceneLoaded = loaded;
+        //After scene loaded, it will call this function
+        public void SetSceneLoaded(
+            GameObject player,
+            GameObject camera,
+            bool loaded)
+        {
+            m_player = player;
+            m_isSceneLoaded = loaded;
 
-			SetPlayerDisable ();
-			CameraService.Instance.SetMainCamera (camera);
-		}
+            SetPlayerDisable();
+            CameraService.Instance.SetMainCamera(camera);
+        }
 
-		public void SetPlayerDisable ()
-		{
-			m_player.SetActive (false);
-		}
+        public void SetPlayerDisable()
+        {
+            m_player.SetActive(false);
+        }
 
-		public void SetPlayerPosition (Vector3 pos)
-		{
-			m_player.transform.position = pos;
-		}
+        public void SetPlayerPosition(Vector3 pos)
+        {
+            m_player.transform.position = pos;
+        }
 
-		public void SpawnPlayer ()
-		{
-			SceneLookupEnum currentMissionSceneEnum = MissionSceneManager.Instance.GetCurrentMissionScene ();
-			SceneLookupEnum currentGameSceneEnum = GameSceneManager.Instance.GetCurrentSceneEnum();
-			Scene currentMissionScene = SceneManager.GetSceneByName (currentMissionSceneEnum.ToString ());
-			Scene currentGameScene = SceneManager.GetSceneByName(currentGameSceneEnum.ToString());
-			GameObject [] missionSceneGameobjects = currentMissionScene.GetRootGameObjects ();
-			GameObject[] gameSceneGameobjects = currentGameScene.GetRootGameObjects();
-			string specificTeleportName = GameSceneManager.Instance.GetSpecificTeleportName();
+        public void SpawnPlayer()
+        {
+            SceneLookupEnum currentMissionSceneEnum = MissionSceneManager.Instance.GetCurrentMissionScene();
+            SceneLookupEnum currentGameSceneEnum = GameSceneManager.Instance.GetCurrentSceneEnum();
+            Scene currentMissionScene = SceneManager.GetSceneByName(currentMissionSceneEnum.ToString());
+            Scene currentGameScene = SceneManager.GetSceneByName(currentGameSceneEnum.ToString());
+            GameObject[] missionSceneGameobjects = currentMissionScene.GetRootGameObjects();
+            GameObject[] gameSceneGameobjects = currentGameScene.GetRootGameObjects();
+            string specificTeleportName = GameSceneManager.Instance.GetSpecificTeleportName();
 
-			SceneLookupEnum lastGameSceneEnum = GameSceneManager.Instance.GetLastSceneEnum ();
+            SceneLookupEnum lastGameSceneEnum = GameSceneManager.Instance.GetLastSceneEnum();
             SceneLookupEnum lastMissionSceneEnum = MissionSceneManager.Instance.GetLastMissionScecneEnum();
 
-			//Fisrt load game
+            //Fisrt load game
             if (lastGameSceneEnum == SceneLookupEnum.World_GameRoot && lastMissionSceneEnum == SceneLookupEnum.World_GameRoot)
             {
                 //Direct find spawn point
@@ -108,65 +108,64 @@ namespace GamePlay.Stage
                     //Load mission by story
                     //Do Nothing
                     m_player.SetActive(true);
-                    return;
+                    //return;
                 }
-                else
+
+                //teleport
+                if (lastGameSceneEnum != currentGameSceneEnum)
                 {
-                    //teleport
-                    if (lastGameSceneEnum != currentGameSceneEnum)
+                    WorldTriggerCallbackTeleportPlayer[] teleports = GameObject.FindObjectsOfType<WorldTriggerCallbackTeleportPlayer>();
+                    foreach (WorldTriggerCallbackTeleportPlayer teleport in teleports)
                     {
-                        WorldTriggerCallbackTeleportPlayer[] teleports = GameObject.FindObjectsOfType<WorldTriggerCallbackTeleportPlayer>();
-                        foreach (WorldTriggerCallbackTeleportPlayer teleport in teleports)
+                        if (teleport.IsCGScene() == true)
                         {
-                            if (teleport.IsCGScene() == true)
+                            continue;
+                        }
+
+                        if (teleport.GetTeleportScene() == lastGameSceneEnum)
+                        {
+                            if (specificTeleportName != "" && specificTeleportName != teleport.gameObject.name)
                             {
                                 continue;
                             }
-
-                            if (teleport.GetTeleportScene() == lastGameSceneEnum)
-                            {
-                                if (specificTeleportName != "" && specificTeleportName != teleport.gameObject.name)
-                                {
-                                    continue;
-                                }
-                                Vector3 direction = WorldTriggerCallbackTeleportPlayer.DirecitonMapping[teleport.m_spawnDirection];
-                                direction *= teleport.m_lengthBetweenTriggerAndSpwanPoint;
-                                m_player.transform.position = teleport.transform.position + direction + new Vector3(0.0f, 0.5f, 0.0f);
-                                m_player.SetActive(true);
-                                return;
-                            }
+                            Vector3 direction = WorldTriggerCallbackTeleportPlayer.DirecitonMapping[teleport.m_spawnDirection];
+                            direction *= teleport.m_lengthBetweenTriggerAndSpwanPoint;
+                            m_player.transform.position = teleport.transform.position + direction + new Vector3(0.0f, 0.5f, 0.0f);
+                            m_player.SetActive(true);
+                            return;
                         }
                     }
-
-                    //No suitable spawn point
-                    Debug.LogError("Can not find spawn point!");
-                    m_player.transform.position = new Vector3(0, 0.5f, 0);
-                    m_player.SetActive(true);
-                    return;
                 }
+
+                //No suitable spawn point
+                Debug.LogError("Can not find spawn point!");
+                //m_player.transform.position = new Vector3(0, 0.5f, 0);
+                m_player.SetActive(true);
+                return;
             }
-		}
 
-		public void StopPlayerAnimation ()
-		{
-			m_player.GetComponent<MonoMoveController> ().StopPlayerAnimation ();
-		}
+        }
 
-		public void EnablePlayerInteractability ()
-		{
-			m_player.GetComponent<MonoMoveController> ().SetInteract();
-		}
+        public void StopPlayerAnimation()
+        {
+            m_player.GetComponent<MonoMoveController>().StopPlayerAnimation();
+        }
 
-		private bool IsValid ()
-		{
-			return m_isSceneLoaded == true;
-		}
+        public void EnablePlayerInteractability()
+        {
+            m_player.GetComponent<MonoMoveController>().SetInteract();
+        }
 
-		private SceneSlot m_containerScene;
+        private bool IsValid()
+        {
+            return m_isSceneLoaded == true;
+        }
 
-		private GameObject m_player;
-		bool m_isSceneLoaded = false;
+        private SceneSlot m_containerScene;
+
+        private GameObject m_player;
+        bool m_isSceneLoaded = false;
 
 
-	}
+    }
 }
