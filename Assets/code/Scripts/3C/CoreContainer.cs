@@ -55,7 +55,7 @@ namespace GamePlay.Stage
 
 		public void SpawnPlayer ()
 		{
-			SceneLookupEnum currentMissionSceneEnum = MissionSceneManager.Instance.GetCurrentMissionScene ();
+			SceneLookupEnum currentMissionSceneEnum = MissionSceneManager.Instance.GetCurrentMissionSceneEnum();
 			SceneLookupEnum currentGameSceneEnum = GameSceneManager.Instance.GetCurrentSceneEnum();
 			Scene currentMissionScene = SceneManager.GetSceneByName (currentMissionSceneEnum.ToString ());
 			Scene currentGameScene = SceneManager.GetSceneByName(currentGameSceneEnum.ToString());
@@ -66,7 +66,9 @@ namespace GamePlay.Stage
 			SceneLookupEnum lastGameSceneEnum = GameSceneManager.Instance.GetLastSceneEnum ();
             SceneLookupEnum lastMissionSceneEnum = MissionSceneManager.Instance.GetLastMissionScecneEnum();
 
-			//Fisrt load game
+            MissionSceneManager.LoadMissionBy loadMissionBy = MissionSceneManager.Instance.GetLoadMissionBy();
+
+            //Fisrt load game
             if (lastGameSceneEnum == SceneLookupEnum.World_GameRoot && lastMissionSceneEnum == SceneLookupEnum.World_GameRoot)
             {
                 //Direct find spawn point
@@ -103,9 +105,11 @@ namespace GamePlay.Stage
             {
                 //Not first time
 
-                if (lastMissionSceneEnum != currentMissionSceneEnum)
+                if (loadMissionBy != MissionSceneManager.LoadMissionBy.Teleport)
                 {
-                    //Load mission by story
+                    //Load mission by story, mission enum will different. But game scene are the same.
+                    //PS: Load anonymous will not change mission enum, but will change mission scene enum
+
                     //Do Nothing
                     m_player.SetActive(true);
                     return;
@@ -113,28 +117,25 @@ namespace GamePlay.Stage
                 else
                 {
                     //teleport
-                    if (lastGameSceneEnum != currentGameSceneEnum)
+                    WorldTriggerCallbackTeleportPlayer[] teleports = GameObject.FindObjectsOfType<WorldTriggerCallbackTeleportPlayer>();
+                    foreach (WorldTriggerCallbackTeleportPlayer teleport in teleports)
                     {
-                        WorldTriggerCallbackTeleportPlayer[] teleports = GameObject.FindObjectsOfType<WorldTriggerCallbackTeleportPlayer>();
-                        foreach (WorldTriggerCallbackTeleportPlayer teleport in teleports)
+                        if (teleport.IsCGScene() == true)
                         {
-                            if (teleport.IsCGScene() == true)
+                            continue;
+                        }
+
+                        if (teleport.GetTeleportScene() == lastGameSceneEnum)
+                        {
+                            if (specificTeleportName != "" && specificTeleportName != teleport.gameObject.name)
                             {
                                 continue;
                             }
-
-                            if (teleport.GetTeleportScene() == lastGameSceneEnum)
-                            {
-                                if (specificTeleportName != "" && specificTeleportName != teleport.gameObject.name)
-                                {
-                                    continue;
-                                }
-                                Vector3 direction = WorldTriggerCallbackTeleportPlayer.DirecitonMapping[teleport.m_spawnDirection];
-                                direction *= teleport.m_lengthBetweenTriggerAndSpwanPoint;
-                                m_player.transform.position = teleport.transform.position + direction + new Vector3(0.0f, 0.5f, 0.0f);
-                                m_player.SetActive(true);
-                                return;
-                            }
+                            Vector3 direction = WorldTriggerCallbackTeleportPlayer.DirecitonMapping[teleport.m_spawnDirection];
+                            direction *= teleport.m_lengthBetweenTriggerAndSpwanPoint;
+                            m_player.transform.position = teleport.transform.position + direction + new Vector3(0.0f, 0.5f, 0.0f);
+                            m_player.SetActive(true);
+                            return;
                         }
                     }
 

@@ -31,6 +31,11 @@ namespace GamePlay.Stage
 
     public class MissionSceneManager : Singleton<MissionSceneManager>
     {
+        public enum LoadMissionBy
+        {
+            None,
+            Teleport,
+        }
         public MissionSceneManager()
         {
             if (Application.isPlaying)
@@ -54,37 +59,41 @@ namespace GamePlay.Stage
         /// If current scene does`t have the mission, anonymous scene will be loaded.
         /// </summary>
         /// <returns>Is current scene have the mission</returns>
-        public bool LoadCurrentMissionScene()
+        public bool LoadCurrentMissionScene(LoadMissionBy loadmissionBy = LoadMissionBy.None)
         {
             SceneLookupEnum currentScene = GameSceneManager.Instance.GetCurrentSceneEnum();
             if (IsGameSceneExistCurrentMission(currentScene))
             {
-                LoadMissionScene(m_currentMission);
+                LoadMissionScene(m_currentMission, loadmissionBy);
                 return true;
             }
             else
             {
-                LoadMissionScene(MissionEnum.None);
-                Debug.LogWarning(currentScene + " is not exist mission " + MissionSceneManager.Instance.GetCurrentMission().ToString());
+                LoadMissionScene(MissionEnum.None, loadmissionBy);
+                Debug.LogWarning(currentScene + " is not exist mission " + MissionSceneManager.Instance.GetCurrentMissionEnum().ToString());
                 return false;
             }
         }
-        public bool LoadMissionScene(MissionEnum requestMission)
+        public bool LoadMissionScene(MissionEnum requestMission, LoadMissionBy loadmissionBy = LoadMissionBy.None)
         {
             //if (IsMissionSceneExist(requestMission))
             //{
             CoreContainer.Instance.SetPlayerDisable();
             string sceneName;
+
             if (requestMission != MissionEnum.None)
             {
                 sceneName = GenerateSceneName(requestMission);
                 SetCurrentMission(requestMission);
+                SetIsAnonymousScene(false);
             }
             else
             {
                 sceneName = ANONYMOUS_MISSION;
+                SetIsAnonymousScene(true);
             }
 
+            m_loadMissionBy = loadmissionBy;
             SceneLookupEnum sceneEnum = SceneLookup.GetEnum(sceneName, false);
 
             if (!m_currentMissionScene.LoadScene(sceneEnum))
@@ -95,28 +104,19 @@ namespace GamePlay.Stage
         }
 
 
-        public MissionEnum[] GetAllMission()
-        {
-            return ALL_MISSION;
-        }
-        public MissionEnum GetCurrentMission()
-        {
-            return m_currentMission;
-        }
-        public SceneLookupEnum GetCurrentMissionScene()
-        {
-            return m_currentMissionScene.GetCurrentSceneEnum();
-        }
-
-        public SceneLookupEnum GetLastMissionScecneEnum()
-        {
-            return m_currentMissionScene.GetLastSceneEnum();
-        }
+        public MissionEnum[] GetAllMission() { return ALL_MISSION; }
+        public MissionEnum GetCurrentMissionEnum() { return m_currentMission; }
+        public LoadMissionBy GetLoadMissionBy() { return m_loadMissionBy; }
+        public bool GetIsAnonymousScene() { return m_isAnonymousScene; }
+        public SceneLookupEnum GetCurrentMissionSceneEnum() { return m_currentMissionScene.GetCurrentSceneEnum(); }
+        public SceneLookupEnum GetLastMissionScecneEnum() { return m_currentMissionScene.GetLastSceneEnum(); }
 
         private void SetCurrentMission(MissionEnum missionEnum)
         {
             m_currentMission = missionEnum;
         }
+
+        private void SetIsAnonymousScene(bool isAnonymousScene) { m_isAnonymousScene = isAnonymousScene; }
 
         public MissionEnum GetMissionEnumBy(string mission, bool isMatchCase = false)
         {
@@ -249,6 +249,9 @@ namespace GamePlay.Stage
 
         private SceneSlot m_currentMissionScene;
         private MissionEnum m_currentMission = MissionEnum.None;
+        private bool m_isAnonymousScene = false;
+        private LoadMissionBy m_loadMissionBy = LoadMissionBy.None;
+
         private readonly string ANONYMOUS_MISSION = "World_Mission_Anonymous";
         private MissionEnum[] ALL_MISSION = {
         MissionEnum.None,

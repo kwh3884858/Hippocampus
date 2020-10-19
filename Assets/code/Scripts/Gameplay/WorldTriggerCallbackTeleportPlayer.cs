@@ -60,8 +60,10 @@ namespace GamePlay.EventTrigger
 					Debug.LogError ("Teleport scene is not set. Use [Update Teleported Game Scene] to modify the value");
 				}
 				SceneLookupEnum scene = SceneLookup.GetEnum (m_teleportedGameScene);
-				GameSceneManager.Instance.LoadScene(scene, m_specificTeleportName);
-				MissionSceneManager.Instance.LoadCurrentMissionScene();
+				GameSceneManager.Instance.LoadScene(scene, m_specificTeleportName, delegate()
+				{
+					MissionSceneManager.Instance.LoadCurrentMissionScene(MissionSceneManager.LoadMissionBy.Teleport);
+				});
 			}
 		}
 

@@ -334,7 +334,7 @@ namespace UI.Panels.StaticBoard
                     bool result = MissionSceneManager.Instance.LoadCurrentMissionScene ();
                     if (result == false) {
                         Debug.LogError ("Current Game Scene: " + m_curAction.Content + " doesn`t contain Mission Scene " +
-                                        MissionSceneManager.Instance.GetCurrentMission().ToString ());
+                                        MissionSceneManager.Instance.GetCurrentMissionEnum().ToString ());
                     }
                     SetActionState(ActionState.End);
                     break;

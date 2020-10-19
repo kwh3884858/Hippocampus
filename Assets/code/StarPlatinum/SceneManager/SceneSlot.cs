@@ -17,6 +17,7 @@ namespace StarPlatinum.Manager
                     PrefabManager.Instance.UnloadScene(m_currentSceneEnum);
                 }
                 SetCurrentSceneEnum(requestSceneEnum);
+                m_isloading = true;
                 PrefabManager.Instance.LoadScene(requestSceneEnum, LoadSceneMode.Additive);
                 StartCoroutine(CheckSceneIsLoaded());
                 return true;
@@ -45,17 +46,26 @@ namespace StarPlatinum.Manager
             m_callback += newCallback;
         }
 
+        public void AddOnlyOnceCallbackAfterLoaded(SceneLoadedCallback newCallback)
+        {
+            m_onlyOnceCallback += newCallback;
+        }
+
         private IEnumerator CheckSceneIsLoaded()
         {
             while (!PrefabManager.Instance.IsSceneLoaded(m_currentSceneEnum))
             {
                 yield return null;
             }
-
+            m_isloading = false;
             m_callback?.Invoke();
+            m_onlyOnceCallback?.Invoke();
+            m_onlyOnceCallback = null;
         }
         private SceneLookupEnum m_currentSceneEnum = SceneLookupEnum.World_GameRoot;
         private SceneLookupEnum m_lastSceneEnum = SceneLookupEnum.World_GameRoot;
         private SceneLoadedCallback m_callback = null;
+        private SceneLoadedCallback m_onlyOnceCallback = null;
+        private bool m_isloading = false;
     }
 }

@@ -36,9 +36,13 @@ namespace GamePlay.Stage
                 CinemachineManager.Instance.SetBoundingVolumeByName(GetCurrentSceneEnum().ToString());// set camera move range
             });
         }
-        public bool LoadScene(SceneLookupEnum scene, string specificTeleportName = "")
+        public bool LoadScene(SceneLookupEnum scene, string specificTeleportName = "", SceneSlot.SceneLoadedCallback onlyOnceCallback = null)
         {
             m_specificTeleportName = specificTeleportName;
+            if (onlyOnceCallback != null)
+            {
+                m_currentSceneSlot.AddOnlyOnceCallbackAfterLoaded(onlyOnceCallback);
+            }
             return m_currentSceneSlot.LoadScene(scene);
         }
         public SceneLookupEnum GetCurrentSceneEnum()
