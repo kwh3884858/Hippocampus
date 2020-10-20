@@ -15,9 +15,6 @@ EditorBuildSettings:
     path: Assets/data/graphics/World/Commandpost_2F/World_Commandpost_2F.unity
     guid: 050749fe645687a4f9320e85040fd5bb
   - enabled: 0
-    path: Assets/data/graphics/World/Common/Models/Rendering Test/ScenesForSceneArtConcept/World_ScenesForSceneArtConcept.unity
-    guid: 79497425827fa824e9fb355cb733f7f7
-  - enabled: 0
     path: Assets/data/graphics/World/CoreContainer/World_CoreContainer.unity
     guid: 056429be9607f47c687afa4aef8818d4
   - enabled: 1
