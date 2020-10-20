@@ -29,6 +29,8 @@ Config/
 spine-unity.csproj
 spine-unity-editor.csproj
 
+Assets/StreamingAssets/aa.meta
+
 # Project
 [Hh]ippocampus.sln
 Assembly-CSharp-Editor-firstpass-vs.csproj
