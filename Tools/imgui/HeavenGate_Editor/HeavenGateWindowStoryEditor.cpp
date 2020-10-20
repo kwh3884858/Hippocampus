@@ -459,8 +459,10 @@ void HeavenGateWindowStoryEditor::SetWindowIndex(int index){
                     assert(event != nullptr);
 
                     char eventContent[16] = "Event";
+                    char typeContent[16] = "Type";
                     char tmpEvent[32] = "No Exhibit";
                     strcat(eventContent, order);
+                    strcat(typeContent, order);
 
                     eventName = event->m_eventName;
                     EventType eventType = event->m_eventType;
@@ -473,7 +475,7 @@ void HeavenGateWindowStoryEditor::SetWindowIndex(int index){
                     {
                         AddButton(i);
 
-                        if (ImGui::BeginCombo("Event Type", eventTypeString[(int)eventType], 0))
+                        if (ImGui::BeginCombo(typeContent, eventTypeString[(int)eventType], 0))
                         {
 
                             for (int i = 0; i < EventTypeAmount; i++)

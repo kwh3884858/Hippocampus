@@ -21,10 +21,6 @@ namespace HeavenGateEditor {
 
     HeavenGateWindowTachieMoveTable::HeavenGateWindowTachieMoveTable()
     {
-     
-   
-
-
     }
 
     HeavenGateWindowTachieMoveTable::~HeavenGateWindowTachieMoveTable()
@@ -116,16 +112,17 @@ namespace HeavenGateEditor {
 
             for (int j = 0; j < TACHIE_MOVE_MAX_COLUMN; j++)
             {
-                char * content = tachieMoveTable->GetContent(i, j);
+                char* content = tachieMoveTable->GetContent(i, j);
 
                 char constant[32];
-
+                char comboContent[16] = "MoveCurve";
+                sprintf(order, "%d", i);
+                strcat(comboContent, order);
 
                 for (int k = 0; k < (int)TachieMoveTableLayout::Amount; k++)
                 {
                     if (j == k)
                     {
-
                         strcpy(constant, tachieMoveTable->GetHeaderName(k + 1));
                         break;
                     }
@@ -133,19 +130,24 @@ namespace HeavenGateEditor {
 
                 strcat(constant, order);
 
-                if (j == MappingLayoutToArrayIndex((int)TachieMoveTableLayout::MoveCurve)) {
-                    if (ImGui::BeginCombo("TachieMoveCurve", content, 0)) {
-                        for (int i = 0; i < (int)Ease::Amount; i++) {
-                            bool isSelected = strcmp(content, EaseString[i]) == 0 ? true: false;
-                            if (ImGui::Selectable(EaseString[i], isSelected)) {
+                if (j == MappingLayoutToArrayIndex((int)TachieMoveTableLayout::MoveCurve))
+                {
+                    if (ImGui::BeginCombo(comboContent, content, 0))
+                    {
+                        for (int i = 0; i < (int)Ease::Amount; i++)
+                        {
+                            bool isSelected = strcmp(content, EaseString[i]) == 0 ? true : false;
+                            if (ImGui::Selectable(EaseString[i], isSelected))
+                            {
                                 strcpy(content, EaseString[i]);
                             }
                             if (isSelected)
                                 ImGui::SetItemDefaultFocus();   // Set the initial focus when opening the combo (scrolling + for keyboard navigation support in the upcoming navigation branch)
                         }
-                         ImGui::EndCombo();
+                        ImGui::EndCombo();
                     }
-                }else{
+                }
+                else {
                     ImGui::InputText(constant, content, MAX_COLUMNS_CONTENT_LENGTH);
                 }
                 ImGui::NextColumn();

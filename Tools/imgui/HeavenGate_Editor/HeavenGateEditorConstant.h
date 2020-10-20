@@ -12,8 +12,8 @@
 #include "StoryLayoutConstant.h"
 
 namespace HeavenGateEditor {
-    const char* const   EDITOR_VERSION = "0.0.16";
-    const char* const   RELEASE_NOTE = "version 16 New Feature: Load CG Scene";
+    const char* const   EDITOR_VERSION = "0.0.17";
+    const char* const   RELEASE_NOTE = "version 17 : Fix combo bug";
     const int     MAX_FOLDER_PATH = 265;
 
     const int     MAX_FILE_NAME = 64;
