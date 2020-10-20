@@ -27,9 +27,6 @@ namespace UI.Panels
         protected UIPanelType CurrentSubPanel { get; private set; }
         protected UIPanelType PrevSubPanel { get; private set; }
 
-        protected IconProvider IconProvider => UiDataProvider.IconProvider;
-
-
         protected virtual void Awake()
         {
             m_animator = GetComponent<Animator>();

@@ -89,9 +89,7 @@ namespace UI.Modules
         
         public event Action<UIPanel> OnPanelShowed = null;
         public event Action<UIPanel> OnPanelHide = null;
-
-        [Conditional("DEBUG_UI_MODULE")]
-        [DebuggerStepThrough]
+        
         private void Log(string msg)
         {
             Debug.Log( $"{GetType()} ({GetHashCode()}). {msg}" + GetAdditionalDebugInfo(), this);
@@ -112,20 +110,13 @@ namespace UI.Modules
             }
         }
 
-        public virtual void Initialize(UIDataProvider uiDataProvider)
+        public virtual void Initialize(UIDataProvider uiDataProvider,Dictionary<UIPanelLayer,Transform> layers)
         {
             Log("Initialize");
             UiDataProvider = uiDataProvider;
             m_content = StarPlatinum.PrefabManager.Instance ;
 
-            GameObject root = new GameObject(GetType().Name);
-            m_container = root.AddComponent<RectTransform>();
-            m_container.SetParent(transform, false);
-            m_container.SetSiblingIndex(0);
-            m_container.anchorMin = Vector2.zero;
-            m_container.anchorMax = Vector2.one;
-            m_container.offsetMin = Vector2.zero;
-            m_container.offsetMax = Vector2.zero;
+            m_layers = layers;
         }
 
         public virtual void DeInitialize()
@@ -165,10 +156,7 @@ namespace UI.Modules
             {
                 IsQueue = false;
             }
-            if (m_container)
-            {
-                Destroy(m_container.gameObject);
-            }
+            
             Log("DeInitialize");
         }
 
@@ -307,13 +295,16 @@ namespace UI.Modules
             Log("LoadPanelAsync " + settings.PanelType);
             m_loadingPanels.Add(settings.PanelType);
             var assetKey = GetPathByAttribute(settings.PanelType);
+            var container = m_layers[settings.Layer];
+            Assert.IsNotNull(container, $"Can't get layer {settings.Layer}");
+
             UIPanel panel = null; 
             m_content.InstantiateComponentAsync<UIPanel>(assetKey, (result) =>
             {
                 Assert.IsTrue(result.status == RequestStatus.SUCCESS,$"panel {GetType()} load failure!!!");
                 panel =result.result as UIPanel ;
                 Assert.IsTrue(panel != null,$"panel {GetType()} load failure!!!");
-            },m_container);
+            },container);
             yield return new WaitUntil(()=>panel != null);
             Assert.IsNotNull(panel, $"LoadPanelAsync failed for {settings.PanelType}: key={assetKey}");
 
@@ -334,7 +325,6 @@ namespace UI.Modules
 
             panel.Initialize(UiDataProvider, settings);
             panel.gameObject.SetActive(false);
-            panel.gameObject.transform.SetSiblingIndex(m_panelsSettings.IndexOf(settings));
         }
 
         protected void UnloadPanel(UIPanelType type)
@@ -895,11 +885,11 @@ namespace UI.Modules
         protected List<UIPanelType> m_deactivatedPanels = new List<UIPanelType>();
 
         protected Dictionary<UIPanelType, UIPanelType> m_subpanels = new Dictionary<UIPanelType, UIPanelType>();
+        private Dictionary<UIPanelLayer, Transform> m_layers = new Dictionary<UIPanelLayer, Transform>();
 
         private List<UIPanelType> m_loadingPanels = new List<UIPanelType>();
         private UIDataProvider m_uiDataProvider = null;
         private StarPlatinum.PrefabManager m_content = null;
-        private RectTransform m_container = null;
 
         private List<UIPanelOperation> m_operationQueue = new List<UIPanelOperation>();
         private UIPanelOperation m_currentOperation;
@@ -915,9 +905,9 @@ namespace UI.Modules
             get; private set;
         }
 
-        public override void Initialize(UIDataProvider uiDataProvider)
+        public override void Initialize(UIDataProvider uiDataProvider,Dictionary<UIPanelLayer,Transform> layers)
         {
-            base.Initialize(uiDataProvider);
+            base.Initialize(uiDataProvider,layers);
             UiDataProvider = base.UiDataProvider as T;
         }
     }

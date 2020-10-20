@@ -35,6 +35,7 @@ namespace UI
 
         private void Awake()
         {
+            InitLayers();
         }
 
         public void Initialize(GameRunTimeData data)
@@ -171,23 +172,24 @@ namespace UI
             T1 dataProvider = new T1
             {
                 Data = Data,
-                IconProvider = LoadIconProvider(),
                 SoundService = StarPlatinum.SoundService.Instance,
                 StaticBoard = m_uiModuleStaticBoard,
                 RolePictureProvider = new RolePictureProvider(),
                 Canvas = Canvas
             };
 
-            uiModule.Initialize(dataProvider);
+            uiModule.Initialize(dataProvider,m_layers);
             return uiModule;
         }
 
-        public IconProvider LoadIconProvider()
+        private void InitLayers()
         {
-            Assert.IsNotNull(m_iconProvider, "IconProvider not found");
-            return m_iconProvider.GetComponent<IconProvider>();
+            m_layers.Clear();
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                m_layers.Add((UIPanelLayer)(i+1),transform.GetChild(i));
+            }
         }
-
         [SerializeField]
         private Canvas m_canvas;
 
@@ -198,8 +200,9 @@ namespace UI
         [SerializeField]
         private UIModuleBattle m_uiModuleBattle;
 
-        [SerializeField]
-        private GameObject m_iconProvider;
+
+
+        private Dictionary<UIPanelLayer, Transform> m_layers = new Dictionary<UIPanelLayer, Transform>();
 
         private Dictionary<GameState,UIModule> m_uiModules = new Dictionary<GameState, UIModule>();
         private UIModule m_activeModule;
