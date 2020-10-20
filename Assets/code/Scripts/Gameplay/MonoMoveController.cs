@@ -202,6 +202,11 @@ public class MonoMoveController : MonoBehaviour
         m_animator.SetFloat ("Speed", 0.0f);
     }
 
+    public void SetCharacterSpeed(float speedArgument) 
+    {
+        m_moveSpeed = speedArgument;
+    }
+
     public void SetInteract ()
 	{
         m_isInteractByUI = true;

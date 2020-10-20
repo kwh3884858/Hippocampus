@@ -125,22 +125,27 @@ namespace StarPlatinum.Development
 		{
 			bool isReadyChangeScene = false;
 			bool isReadyLoadMission = false;
+			bool isReadySpeedArgument = false;
 			text = text.ToLower ();
 			string [] words = text.Split (' ');
 
 			foreach (string word in words) {
+				// Scene
 				if (word.ToLower () == "loadscene") {
 					isReadyChangeScene = true;
-				} else if (isReadyChangeScene) {
+				} 
+				else if (isReadyChangeScene) {
 					isReadyChangeScene = false;
 
 					if (!LoadScene (word)) {
 						PrintLog ("Load Scene Failed");
 					}
-
-				} else if (word.ToLower () == "loadmission") {
+				} 
+				// Mission
+				else if (word.ToLower () == "loadmission") {
 					isReadyLoadMission = true;
-				} else if (isReadyLoadMission) {
+				} 
+				else if (isReadyLoadMission) {
 					isReadyLoadMission = false;
 					MissionEnum requestMission = MissionSceneManager.Instance.GetMissionEnumBy (word, false);
 					if (requestMission != MissionEnum.None) {
@@ -155,8 +160,17 @@ namespace StarPlatinum.Development
 						PrintLog ("[" + word + "] cant find related mission enumeration! Please check mission name again!");
 						PrintAllValidMission ();
 					}
-
 				}
+				//
+				else if (word.ToLower() == "speed")
+                {
+					isReadySpeedArgument = true;
+				}
+                else if (isReadySpeedArgument)
+                {
+					float speedArgument = float.Parse(word);
+					CoreContainer.Instance.SetCharacterSpeed(speedArgument);
+                }
 			}
 			if (isReadyChangeScene) {
 				isReadyChangeScene = false;

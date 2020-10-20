@@ -8,6 +8,7 @@ using Config.GameRoot;
 using StarPlatinum.Service;
 using UnityEngine.Assertions;
 using GamePlay.EventTrigger;
+using UnityEngine.AI;
 
 namespace GamePlay.Stage
 {
@@ -52,6 +53,11 @@ namespace GamePlay.Stage
 		{
 			m_player.transform.position = pos;
 		}
+
+        public void SetCharacterSpeed(float speedArgument)
+        {
+            m_player.GetComponent<MonoMoveController>().SetCharacterSpeed(speedArgument);
+        }
 
 		public void SpawnPlayer ()
 		{
