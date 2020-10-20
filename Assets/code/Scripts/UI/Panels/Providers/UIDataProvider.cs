@@ -25,10 +25,6 @@ namespace UI.Panels.Providers
         }
 
         public GameRunTimeData Data { get; set; }
-        public IconProvider IconProvider
-        {
-            get; set;
-        }
 
         public SoundService SoundService
         {

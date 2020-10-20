@@ -1,9 +1,23 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace UI.Panels
 {
+    public enum UIPanelLayer
+    {
+        Layer1=1,
+        Layer2=2,
+        Layer3=3,
+        Layer4=4,
+        Layer5=5,
+        Layer6=6,
+        Layer7=7,
+        Layer8=8,
+        Layer9=9,
+
+    }
     public enum UIPanelUnLoadMode
     {
         //在场景中隐藏
@@ -39,17 +53,26 @@ namespace UI.Panels
             set { m_showOnStart = value; }
         }
 
-        [SerializeField] private UIPanelType m_panelType = UIPanelType.None;
-        //关闭方式
-        [SerializeField] private UIPanelUnLoadMode m_unLoadMode = UIPanelUnLoadMode.Destroy;
-        //是否在Module加载后立刻显示
-        [SerializeField] private bool m_showOnStart;
+        public UIPanelLayer Layer
+        {
+            get { return m_layer; }
+            set { m_layer = value; }
+        }
 
-        public UIPanelSettings(UIPanelType _panelType, UIPanelUnLoadMode _unLoadMode = UIPanelUnLoadMode.Destroy, bool _showOnStart = false)
+        private UIPanelType m_panelType = UIPanelType.None;
+        //关闭方式
+        private UIPanelUnLoadMode m_unLoadMode = UIPanelUnLoadMode.Destroy;
+        //是否在Module加载后立刻显示
+        private bool m_showOnStart;
+
+        private UIPanelLayer m_layer;
+
+        public UIPanelSettings(UIPanelType _panelType, UIPanelUnLoadMode _unLoadMode = UIPanelUnLoadMode.Destroy, bool _showOnStart = false,UIPanelLayer _layer = UIPanelLayer.Layer5)
         {
             m_panelType = _panelType;
             m_unLoadMode = _unLoadMode;
             m_showOnStart = _showOnStart;
+            m_layer = _layer;
         }
     }
 
@@ -57,7 +80,7 @@ namespace UI.Panels
     {
         public static List<UIPanelSettings> BattleInfo = new List<UIPanelSettings>()
         {
-            new UIPanelSettings(UIPanelType.JoystickPanel,UIPanelUnLoadMode.Destroy),
+            new UIPanelSettings(UIPanelType.JoystickPanel,UIPanelUnLoadMode.Destroy,false,UIPanelLayer.Layer2),
             new UIPanelSettings(UIPanelType.UIGameplayPromptwidgetPanel,UIPanelUnLoadMode.Disabled),
 
         };
@@ -68,7 +91,7 @@ namespace UI.Panels
         public static List<UIPanelSettings> StaticBoardInfo = new List<UIPanelSettings>()
         {
             new UIPanelSettings(UIPanelType.UICommonGameplayPanel,UIPanelUnLoadMode.Disabled),
-            new UIPanelSettings(UIPanelType.TalkPanel,UIPanelUnLoadMode.Disabled),
+            new UIPanelSettings(UIPanelType.TalkPanel,UIPanelUnLoadMode.Disabled,false,UIPanelLayer.Layer4),
             new UIPanelSettings(UIPanelType.Tipspanel,UIPanelUnLoadMode.Disabled),
             new UIPanelSettings(UIPanelType.Evidencepanel,UIPanelUnLoadMode.Destroy),
             new UIPanelSettings(UIPanelType.UIMapcanvasPanel,UIPanelUnLoadMode.Destroy),
@@ -80,7 +103,7 @@ namespace UI.Panels
             new UIPanelSettings(UIPanelType.UICommonESCMainMenuPanel,UIPanelUnLoadMode.Disabled),
             new UIPanelSettings(UIPanelType.UICommonLoadarchivePanel),
             new UIPanelSettings(UIPanelType.UICommonLogPanel,UIPanelUnLoadMode.Disabled),
-            new UIPanelSettings(UIPanelType.UICommonCgscenePanel),
+            new UIPanelSettings(UIPanelType.UICommonCgscenePanel,UIPanelUnLoadMode.Destroy,false,UIPanelLayer.Layer3),
         };
 
     }
