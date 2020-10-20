@@ -102,8 +102,11 @@ public class MonoMoveController : MonoBehaviour
             }
         } else {
             m_isInteractByUI = false;
-            UIManager.Instance ().HidePanel (UIPanelType.UIGameplayPromptwidgetPanel);
-            UIManager.Instance().UpdateData(UIPanelType.UICommonGameplayPanel, new CommonGamePlayDataProvider { m_interactButtonShouldVisiable = false });
+            if (UIManager.Instance().IsPanelShow(UIPanelType.UIGameplayPromptwidgetPanel))
+            { 
+                UIManager.Instance ().HidePanel (UIPanelType.UIGameplayPromptwidgetPanel);
+                UIManager.Instance().UpdateData(UIPanelType.UICommonGameplayPanel, new CommonGamePlayDataProvider { m_interactButtonShouldVisiable = false });
+            }
         }
     }
 
