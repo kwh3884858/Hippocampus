@@ -251,11 +251,11 @@ public class GenMVC : ScriptableObject
         {
             GenInfo info = CreateTemplate(obj,m_s_ViewCodeDir + csName, m_s_tempRoot + "ViewTemplate.txt", members.ToString(), finds.ToString(),bindInfo);
             UIPostProcessor.AddType(info.prefabPath);
-            info.codePath = savepath.Substring(Application.dataPath.Replace("Assets", "").Length);
 
             string mdPath = savepath;
             if (File.Exists(mdPath) == false)
             {
+                info.codePath = savepath.Substring(Application.dataPath.Replace("Assets", "").Length);
                 CreateTemplate(obj,mdPath, m_s_tempRoot + "MediatorTemplate.txt", members.ToString(), finds.ToString(),bindInfo);
                 AssetDatabase.ImportAsset(mdPath);
                 mdPath = savepath.Replace("Panel.cs", "Model.cs");
@@ -282,9 +282,9 @@ public class GenMVC : ScriptableObject
         GameObject prefab = Selection.activeGameObject as GameObject;
         GenInfo info = getPrefabInfo(AssetDatabase.GetAssetPath(prefab));
         string savePath = "";
-        if (!string.IsNullOrEmpty(info.codePath))
+        if (!string.IsNullOrEmpty(info.mediatorPath))
         {
-            savePath = Application.dataPath.Replace("Assets", "") + info.codePath;
+            savePath = Application.dataPath.Replace("Assets", "") + info.mediatorPath;
         }
         CreatePrCSByObj(prefab,savePath);
         AssetDatabase.StopAssetEditing();
