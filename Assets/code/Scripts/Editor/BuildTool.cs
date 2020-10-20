@@ -11,6 +11,18 @@ namespace code.Scripts.Editor
     public class BuildTool
     {
         [MenuItem("Tools/Build/Windows")]
+        public static void BuildWindowsWithBundle()
+        {
+            AddressableAssetSettings.BuildPlayerContent();
+            BuildWindows();
+        }
+        [MenuItem("Tools/Build/Android")]
+        public static void BuildAndroidWithBundle()
+        {
+            AddressableAssetSettings.BuildPlayerContent();
+            BuildAndroid();
+        }
+        [MenuItem("Tools/Build/WindowsNoBundle")]
         public static void BuildWindows()
         {
             BuildPlayerOptions ops = new BuildPlayerOptions
@@ -20,11 +32,10 @@ namespace code.Scripts.Editor
                 target = BuildTarget.StandaloneWindows64,
                 options = BuildOptions.None
             };
-            AddressableAssetSettings.BuildPlayerContent();
             BuildPipeline.BuildPlayer(ops);
         }
         
-        [MenuItem("Tools/Build/Android")]
+        [MenuItem("Tools/Build/AndroidNoBundle")]
         public static void BuildAndroid()
         {
             BuildPlayerOptions ops = new BuildPlayerOptions
@@ -34,7 +45,6 @@ namespace code.Scripts.Editor
                 target = BuildTarget.Android,
                 options = BuildOptions.None
             };
-            AddressableAssetSettings.BuildPlayerContent();
             BuildPipeline.BuildPlayer(ops);
         }
         
