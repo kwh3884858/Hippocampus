@@ -27,29 +27,10 @@ namespace UI.Panels
 			{
 				Application.Quit();
 			});
-			m_btn_back_Button.onClick.AddListener(() =>
-			{
-				var config = m_model.SceneInfo;
-				if (!string.IsNullOrEmpty(config.LoadSceneNameOnEnd))
-				{
-					GameSceneManager.Instance.LoadScene(SceneLookup.GetEnum(config.LoadSceneNameOnEnd,false));
-				}
+			m_btn_back_Button.onClick.AddListener(CloseCGScene);
 
-				if (!string.IsNullOrEmpty(config.LoadMissionIDOnEnd))
-				{
-					MissionSceneManager.Instance.LoadMissionScene(MissionSceneManager.Instance.GetMissionEnumBy(config.LoadMissionIDOnEnd,false));
-				}
-
-				if (m_model.PopScene())
-				{
-					RefreshInfo();
-				}
-				else
-				{
-					InvokeHidePanel();
-				}
-			});
 			EventManager.Instance.AddEventListener<CGScenePointInfoChangeEvent>(OnCGScenePointInfoChange);
+			EventManager.Instance.AddEventListener<CGSceneCloseEvent>(OnCGSceneClose);
 		}
 
 		public override void DeInitialize()
@@ -176,8 +157,47 @@ namespace UI.Panels
 			RefreshPointInfos();
 		}
 		
+		private void OnCGSceneClose(object sender, CGSceneCloseEvent e)
+        {
+			string cgSceneId = e.m_cgSceneId;
+            if (cgSceneId == "")
+            {
+				Debug.LogWarning("Want to closed scene name is empty");
+				CloseCGScene();
+				return;
+            }
+            if (cgSceneId != null && cgSceneId != m_model.SceneID )
+            {
+				Debug.LogError("Current scene is: " + m_model.SceneID + "\n But you ask for " + cgSceneId);
+				return;
+            }
+			CloseCGScene();
+		}
 
-		private void OnClickPoint(int pointID,CGScenePointTouchConfig config)
+        private void CloseCGScene()
+        {
+            var config = m_model.SceneInfo;
+            if (!string.IsNullOrEmpty(config.LoadSceneNameOnEnd))
+            {
+                GameSceneManager.Instance.LoadScene(SceneLookup.GetEnum(config.LoadSceneNameOnEnd, false));
+            }
+
+            if (!string.IsNullOrEmpty(config.LoadMissionIDOnEnd))
+            {
+                MissionSceneManager.Instance.LoadMissionScene(MissionSceneManager.Instance.GetMissionEnumBy(config.LoadMissionIDOnEnd, false));
+            }
+
+            if (m_model.PopScene())
+            {
+                RefreshInfo();
+            }
+            else
+            {
+                InvokeHidePanel();
+            }
+        }
+
+        private void OnClickPoint(int pointID,CGScenePointTouchConfig config)
 		{
 			CgSceneController.TouchPoint(pointID);
 			if (config.touchType == (int)CGScenePointTouchType.DeathBody)

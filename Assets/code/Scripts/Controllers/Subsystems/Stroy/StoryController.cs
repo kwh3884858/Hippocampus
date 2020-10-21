@@ -35,6 +35,7 @@ namespace Controllers.Subsystems.Story
         LoadGameScene,
         LoadMission,
         LoadCgScene,
+        CloseCgScene,
         TriggerEvent,
         PlayAnimation,
         ChangeBackground,
@@ -188,6 +189,9 @@ namespace Controllers.Subsystems.Story
                                 break;
                             case StoryReader.EventType.LoadCgScene:
                                 container.LoadCGScene(eventName);
+                                break;
+                            case StoryReader.EventType.CloseCgScene:
+                                container.CloseCGScene(eventName);
                                 break;
                             case StoryReader.EventType.invokeEvent:
                                 container.TriggerEvent(new StarPlatinum.EventManager.RaiseEvent(

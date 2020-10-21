@@ -155,6 +155,10 @@ namespace Controllers.Subsystems.Story
             m_actions.Enqueue(new StoryAction() { Type = StoryActionType.LoadCgScene, Content = cgSceneName });
         }
 
+        public void CloseCGScene(string cgSceneName)
+        {
+            m_actions.Enqueue(new StoryAction() { Type = StoryActionType.CloseCgScene, Content = cgSceneName });
+        }
         public void TriggerEvent(RaiseEvent raiseEvent)
         {
             m_actions.Enqueue(new StoryEventAction(){Type =  StoryActionType.TriggerEvent , Event = raiseEvent});
@@ -211,6 +215,7 @@ namespace Controllers.Subsystems.Story
                     case StoryActionType.LoadGameScene:
                     case StoryActionType.LoadMission:
                     case StoryActionType.LoadCgScene:
+                    case StoryActionType.CloseCgScene:
                     case StoryActionType.ShowEvidence:
                         if (isTalk)
                         {
