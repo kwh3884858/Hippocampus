@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
+using System;
 
 namespace UI.Panels
 {
@@ -37,9 +38,33 @@ namespace UI.Panels
 		{
 			m_model.ShowData(data);
 			base.ShowData(data);
+            if (m_model.m_animationTranstionType == AnimationType.FadeIn)
+            {
+				AnimationState state = m_img_Mask_Animation[m_fadeInAnimtionName];
+				state.time = 0;
+				UnityEngine.Assertions.Assert.IsTrue(state != null, "State can`t be nullptr");
+				UnityEngine.Assertions.Assert.IsTrue(state.time != state.length, "State is 0 length");
+                if (m_img_Mask_Animation.Play(m_fadeInAnimtionName))
+                {
+					GamePlay.Player.PlayerController.Instance().SetMoveEnable(false);
+					StartCoroutine(ClosePanel(state.length));
+                }
+            }
 		}
 
-		public override void UpdateData(DataProvider data)
+        private IEnumerator ClosePanel(float length)
+        {
+			float timer = 0;
+            while(timer < length)
+            {
+				timer += Time.deltaTime;
+				yield return null;
+            }
+			GamePlay.Player.PlayerController.Instance().SetMoveEnable(true);
+			InvokeHidePanel();
+		}
+
+        public override void UpdateData(DataProvider data)
 		{
 			m_model.UpdateData(data);
 			base.UpdateData(data);
@@ -71,7 +96,11 @@ namespace UI.Panels
 		#endregion
 
 		#region Member
-
+		public enum AnimationType
+        {
+			FadeIn,
+        }
+		private string m_fadeInAnimtionName = "UI_Common_GamePlay_Transition_Panel_FadeIn_Animation";
 
 		#endregion
 	}

@@ -52,7 +52,9 @@ namespace GamePlay.EventTrigger
 		}
 		protected override void Callback ()
 		{
-			if (m_isCGScene) {
+            UI.UIManager.Instance().ShowPanel(UIPanelType.UICommonGameplayTransitionPanel, new CommonGamePlayTransitionDataProvider { m_animationTranstionType = UI.Panels.CommonGamePlayTransitionPanel.AnimationType.FadeIn });
+
+            if (m_isCGScene) {
 				UI.UIManager.Instance ().ShowStaticPanel (UIPanelType.UICommonCgscenePanel, new CGSceneDataProvider () { CGSceneID = m_cgSceneName });
 				CoreContainer.Instance.SetPlayerPosition (transform.position + DirecitonMapping [m_spawnDirection] * m_lengthBetweenTriggerAndSpwanPoint + new Vector3 (0.0f, 0.5f, 0.0f));
 			} else {

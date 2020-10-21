@@ -33,6 +33,15 @@ namespace UI.Panels
         public override void UpdateData(DataProvider data)
         {
             base.UpdateData(data);
+
+            if (data != null)
+            {
+                if (data is CommonGamePlayTransitionDataProvider)
+                {
+                    CommonGamePlayTransitionDataProvider commonGamePlayDataProvider = data as CommonGamePlayTransitionDataProvider;
+                    m_animationTranstionType = commonGamePlayDataProvider.m_animationTranstionType;
+                }
+            }
         }
 
         public override void Tick()
@@ -55,9 +64,9 @@ namespace UI.Panels
             base.SubpanelDataChanged(type,data);
         }
         #endregion
-        
+
         #region Member
-		
+        public CommonGamePlayTransitionPanel.AnimationType m_animationTranstionType;
         #endregion
     }
 }
