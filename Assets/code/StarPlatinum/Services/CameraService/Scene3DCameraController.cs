@@ -104,15 +104,15 @@ namespace Assets.code.StarPlatinum.Services.CameraService
 
         int SideDoorAdjust()
         {
-            Ray leftRay = new Ray(m_target.position, Vector3.left);
-            Ray rightRay = new Ray(m_target.position, Vector3.right);
+            Ray leftRay = new Ray(m_target.position+Vector3.up, Vector3.left);
+            Ray rightRay = new Ray(m_target.position+ Vector3.up, Vector3.right);
             bool bLeftHit = Physics.Raycast(leftRay, out RaycastHit hitInfo1, m_sideAdjustDistance);
             bool bRightHit = Physics.Raycast(rightRay, out RaycastHit hitInfo2, m_sideAdjustDistance);
-            Debug.DrawLine(m_target.position, m_target.position + Vector3.right * m_sideAdjustDistance, Color.red);
-            Debug.DrawLine(m_target.position, m_target.position + Vector3.left * m_sideAdjustDistance, Color.red);
+            Debug.DrawLine(m_target.position + Vector3.up, m_target.position + Vector3.right * m_sideAdjustDistance, Color.red);
+            Debug.DrawLine(m_target.position + Vector3.up, m_target.position + Vector3.left * m_sideAdjustDistance, Color.red);
             if (bLeftHit)
             {
-                //Debug.Log("left  " + hitInfo1.collider.gameObject.name);
+                //Debug.Log("left  " + hitInfo1.collider.name);
                 return hitInfo1.collider.tag == "door" ? -1 : 0;
             }
             if (bRightHit)
@@ -134,7 +134,6 @@ namespace Assets.code.StarPlatinum.Services.CameraService
             var myrot = transform.rotation;
             Quaternion fq = rot * Quaternion.identity;
             transform.rotation = Quaternion.Slerp(myrot, fq, m_rotateSmooth * Time.deltaTime);
-
             return rot_Dir;
         }
 

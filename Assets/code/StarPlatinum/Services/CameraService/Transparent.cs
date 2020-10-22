@@ -85,7 +85,7 @@ namespace Assets.code.StarPlatinum.Services.CameraService
         {
             if (objRenderer!=null)
             {
-                Renderer obj_renderer = objRenderer.GetComponent<Renderer>();
+                Renderer obj_renderer = objRenderer.GetComponentInChildren<Renderer>();
                 if (obj_renderer != null)
                 {
                     int materialsNumber = obj_renderer.sharedMaterials.Length;
@@ -95,6 +95,7 @@ namespace Assets.code.StarPlatinum.Services.CameraService
                         Color obj_color = obj_renderer.materials[i].GetColor("_BaseColor");
                         obj_color.a = alpha;
                         obj_renderer.material.SetColor("_BaseColor", obj_color);
+                        //Debug.LogWarning(obj_renderer + "have " + obj_color);
                     }
                 }
             }
