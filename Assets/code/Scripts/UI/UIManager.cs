@@ -76,6 +76,14 @@ namespace UI
             m_uiModuleStaticBoard.ShowPanel(type,dataProvider);
         }
 
+        public void HideStaticPanel(UIPanelType type)
+        {
+            if (m_uiModuleStaticBoard.IsPanelShow(type))
+            {
+                m_uiModuleStaticBoard.HidePanel(type);
+            }
+        }
+
         public void ShowPanel(UIPanelType type, DataProvider dataProvider = null)
         {
             m_activeModule.ShowPanel(type,dataProvider);
