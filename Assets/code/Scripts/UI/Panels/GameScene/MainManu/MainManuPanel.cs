@@ -65,6 +65,7 @@ namespace UI.Panels.GameScene.MainManu
             CallbackTime(1, ShowHud);
             UIManager.Instance().ActivatState(GameState.Battle);// 设置当前状态,wywtsest
             UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonGameplayPanel);// 显示助手UI
+            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonBookmarkPanel);// 显示书签
             //StarPlatinum.PrefabManager.Instance.LoadScene (SceneLookupEnum.World_Episode2_Pier, UnityEngine.SceneManagement.LoadSceneMode.Additive);
         }
 

@@ -28,6 +28,11 @@ namespace UI.Panels
         public override void ShowData(DataProvider data)
         {
             base.ShowData(data);
+            if(data is AssistantDataProvider)
+            {
+                AssistantDataProvider assistantData = data as AssistantDataProvider;
+                OnClose += assistantData.OnClose;
+            }
         }
 
         public override void UpdateData(DataProvider data)
@@ -55,9 +60,9 @@ namespace UI.Panels
             base.SubpanelDataChanged(type,data);
         }
         #endregion
-        
+
         #region Member
-		
+        public System.Action OnClose = null;
         #endregion
     }
 }
