@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Controllers.Subsystems.Story;
 using GamePlay.Global;
+using GamePlay.Stage;
 using StarPlatinum;
 using StarPlatinum.Utility;
 using UI.Panels.Providers.DataProviders.StaticBoard;
@@ -18,7 +19,13 @@ namespace GamePlay.EventTrigger
 		public string m_jumpToLabel = "";
 		public bool m_onlyTiriggerOnce = true;
 
-		protected override void AfterStart ()
+		[ConditionalField("m_onlyTiriggerOnce", true)]
+        [Header("When the player triggered a reapted story, he should be re-located to a place away from the trigger.")]
+        public WorldTriggerCallbackTeleportPlayer.Direction m_spawnDirection = WorldTriggerCallbackTeleportPlayer.Direction.Right;
+		[ConditionalField("m_onlyTiriggerOnce", true)]
+		public float m_lengthBetweenTriggerAndSpwanPoint = 6.0f;
+
+        protected override void AfterStart ()
 		{
 			if (m_onlyTiriggerOnce) {
 				CheckJumpLabel ();
@@ -47,6 +54,7 @@ namespace GamePlay.EventTrigger
 			if (m_showStoryPanel) {
 				CheckJumpLabel ();
 				if (!m_onlyTiriggerOnce && !m_jumpToLabel.Contains ("_")) {
+					//Need auto generate story
 					string jumpLabel = m_jumpToLabel + "_" + m_triggerCounter;
 					if (storyController.IsLabelExist (jumpLabel)) {
 						UI.UIManager.Instance ().ShowStaticPanel (UIPanelType.TalkPanel, new TalkDataProvider () { ID = jumpLabel });
@@ -64,6 +72,10 @@ namespace GamePlay.EventTrigger
 			if (m_onlyTiriggerOnce) {
 				SingletonGlobalDataContainer.Instance.AddtTriggeredStory (m_jumpToLabel);
 				Destroy (gameObject);
+            }
+            else
+            {
+				CoreContainer.Instance.SetPlayerPosition(transform.position + WorldTriggerCallbackTeleportPlayer.DirecitonMapping[m_spawnDirection] * m_lengthBetweenTriggerAndSpwanPoint + new Vector3(0.0f, 0.5f, 0.0f));
 			}
 		}
 
