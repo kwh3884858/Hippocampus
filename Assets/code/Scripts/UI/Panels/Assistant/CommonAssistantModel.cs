@@ -17,6 +17,8 @@ namespace UI.Panels
 
         public override void Hide()
         {
+            OnClose?.Invoke();
+            OnClose = null;
             base.Hide();
         }
 
