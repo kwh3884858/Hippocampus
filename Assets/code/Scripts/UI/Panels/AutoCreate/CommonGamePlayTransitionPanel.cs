@@ -23,6 +23,8 @@ namespace UI.Panels
 		[HideInInspector] public Image m_img_Mask_Image;
 		[HideInInspector] public Animation m_img_Mask_Animation;
 
+		[HideInInspector] public Text m_text_Intro_Text;
+
 
          private CommonGamePlayTransitionModel m_model;
 
@@ -30,6 +32,8 @@ namespace UI.Panels
          {
 			m_img_Mask_Image = FindUI<Image>(transform ,"img_Mask");
 			m_img_Mask_Animation = FindUI<Animation>(transform ,"img_Mask");
+
+			m_text_Intro_Text = FindUI<Text>(transform ,"img_Mask/text_Intro");
 
 
 m_model = new CommonGamePlayTransitionModel ();

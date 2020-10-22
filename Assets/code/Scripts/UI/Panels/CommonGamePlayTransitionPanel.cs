@@ -4,6 +4,8 @@ using UnityEngine;
 using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
 using System;
+using UnityEngine.SceneManagement;
+using GamePlay.Stage;
 
 namespace UI.Panels
 {
@@ -44,7 +46,10 @@ namespace UI.Panels
 				state.time = 0;
 				UnityEngine.Assertions.Assert.IsTrue(state != null, "State can`t be nullptr");
 				UnityEngine.Assertions.Assert.IsTrue(state.time != state.length, "State is 0 length");
-                if (m_img_Mask_Animation.Play(m_fadeInAnimtionName))
+
+				m_text_Intro_Text.text = "正在进入" + m_model.m_teleportedSceneName;
+
+				if (m_img_Mask_Animation.Play(m_fadeInAnimtionName))
                 {
 					GamePlay.Player.PlayerController.Instance().SetMoveEnable(false);
 					StartCoroutine(ClosePanel(state.length));

@@ -36,8 +36,12 @@ namespace GamePlay.EventTrigger
 			{ WorldTriggerCallbackTeleportPlayer.Direction.Left, Vector3.left },
 			{ WorldTriggerCallbackTeleportPlayer.Direction.Right, Vector3.right }
 		};
+        private Dictionary<SceneLookupEnum, string> m_sceneEnumMap = new Dictionary<SceneLookupEnum, string> {
+            {SceneLookupEnum.World_Commandpost_1F, "指挥所一楼" },
+            {SceneLookupEnum.World_Commandpost_2F,"指挥所二楼" }
+        };
 
-		protected override void AfterStart() 
+        protected override void AfterStart() 
 		{
 #if UNITY_EDITOR
 			//Debug 3D Text
@@ -52,8 +56,6 @@ namespace GamePlay.EventTrigger
 		}
 		protected override void Callback ()
 		{
-            UI.UIManager.Instance().ShowPanel(UIPanelType.UICommonGameplayTransitionPanel, new CommonGamePlayTransitionDataProvider { m_animationTranstionType = UI.Panels.CommonGamePlayTransitionPanel.AnimationType.FadeIn });
-
             if (m_isCGScene) {
 				UI.UIManager.Instance ().ShowStaticPanel (UIPanelType.UICommonCgscenePanel, new CGSceneDataProvider () { CGSceneID = m_cgSceneName });
 				CoreContainer.Instance.SetPlayerPosition (transform.position + DirecitonMapping [m_spawnDirection] * m_lengthBetweenTriggerAndSpwanPoint + new Vector3 (0.0f, 0.5f, 0.0f));
@@ -62,7 +64,14 @@ namespace GamePlay.EventTrigger
 					Debug.LogError ("Teleport scene is not set. Use [Update Teleported Game Scene] to modify the value");
 				}
 				SceneLookupEnum scene = SceneLookup.GetEnum (m_teleportedGameScene);
-				GameSceneManager.Instance.LoadScene(scene, m_specificTeleportName, delegate()
+
+                UI.UIManager.Instance().ShowPanel(UIPanelType.UICommonGameplayTransitionPanel, new CommonGamePlayTransitionDataProvider
+                {
+                    m_animationTranstionType = UI.Panels.CommonGamePlayTransitionPanel.AnimationType.FadeIn,
+                    m_teleportedSceneName = m_sceneEnumMap[scene]
+                });
+
+                GameSceneManager.Instance.LoadScene(scene, m_specificTeleportName, delegate()
 				{
 					MissionSceneManager.Instance.LoadCurrentMissionScene(MissionSceneManager.LoadMissionBy.Teleport);
 				});
