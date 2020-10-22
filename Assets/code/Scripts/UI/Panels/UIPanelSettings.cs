@@ -83,6 +83,7 @@ namespace UI.Panels
             new UIPanelSettings(UIPanelType.JoystickPanel,UIPanelUnLoadMode.Destroy,false,UIPanelLayer.Layer2),
             new UIPanelSettings(UIPanelType.UIGameplayPromptwidgetPanel,UIPanelUnLoadMode.Disabled),
             new UIPanelSettings(UIPanelType.UICommonGameplayTransitionPanel,UIPanelUnLoadMode.Disabled,false,UIPanelLayer.Layer5),
+            new UIPanelSettings(UIPanelType.UICommonAssistantPanel,UIPanelUnLoadMode.Destroy,false,UIPanelLayer.Layer5),
 
         };
         public static List<UIPanelSettings> MenuInfo = new List<UIPanelSettings>()
@@ -105,6 +106,7 @@ namespace UI.Panels
             new UIPanelSettings(UIPanelType.UICommonLoadarchivePanel),
             new UIPanelSettings(UIPanelType.UICommonLogPanel,UIPanelUnLoadMode.Disabled),
             new UIPanelSettings(UIPanelType.UICommonCgscenePanel,UIPanelUnLoadMode.Destroy,false,UIPanelLayer.Layer3),
+            new UIPanelSettings(UIPanelType.UICommonBookmarkPanel,UIPanelUnLoadMode.Destroy,false,UIPanelLayer.Layer8),
         };
 
     }
