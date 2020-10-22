@@ -37,7 +37,6 @@ namespace UI.Panels
         {
             m_model.ShowData(data);
             base.ShowData(data);
-            HidePanelEvent += CommonAssistantPanel_HidePanelEvent;
         }
 
         public override void UpdateData(DataProvider data)
@@ -76,15 +75,6 @@ namespace UI.Panels
         public void OnClickClose()
         {
             Hide();
-        }
-
-        private void CommonAssistantPanel_HidePanelEvent(UIPanelType arg1, bool arg2)
-        {
-            if(arg1 == UIPanelType.UICommonAssistantPanel)
-            {
-                m_model.OnClose?.Invoke();
-                m_model.OnClose = null;
-            }
         }
 
         #endregion
