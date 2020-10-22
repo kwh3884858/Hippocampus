@@ -12,13 +12,13 @@
 #include "StoryLayoutConstant.h"
 
 namespace HeavenGateEditor {
-    const char* const   EDITOR_VERSION = "0.0.18";
-    const char* const   RELEASE_NOTE = "version 18 : Add event CloseCgScene";
+    const char* const   EDITOR_VERSION = "0.0.19";
+    const char* const   RELEASE_NOTE = "version 19 : Fix Exhibit Table Crash";
     const int     MAX_FOLDER_PATH = 265;
 
     const int     MAX_FILE_NAME = 64;
     const int     MAX_FOLDER_LIST = 265;
-    const int     MAX_FULL_CONTENT = 12288;
+    const int     MAX_FULL_CONTENT = 24576;
 
     //For story content limit
     const int     MAX_NAME = 64;
