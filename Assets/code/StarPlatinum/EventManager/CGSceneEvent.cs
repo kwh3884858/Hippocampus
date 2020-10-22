@@ -11,4 +11,9 @@ namespace StarPlatinum
     {
         
     }
+
+    public class CGSceneCloseEvent : EventArgs
+    {
+        public string m_cgSceneId = null;
+    }
 }

@@ -353,6 +353,16 @@ namespace UI.Panels.StaticBoard
                     UI.UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonCgscenePanel, new CGSceneDataProvider() { CGSceneID = m_curAction.Content });
                     SetActionState(ActionState.End);
                     break;
+                case StoryActionType.CloseCgScene:
+                    if (UIManager.Instance().IsPanelShow(UIPanelType.UICommonCgscenePanel))
+                    {
+                        StarPlatinum.TimerService.Instance.AddTimer(0.01f, () =>
+                    {
+                        EventManager.Instance.SendEvent(new CGSceneCloseEvent() { m_cgSceneId = m_curAction.Content });
+                    });
+                    }
+                    SetActionState(ActionState.End);
+                    break;
                 case StoryActionType.TriggerEvent:
                     var triggerAction = m_curAction as StoryEventAction;
                     EventManager.Instance.SendEvent(triggerAction.Event);

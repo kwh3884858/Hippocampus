@@ -22,8 +22,8 @@ public class MonoMoveController : MonoBehaviour
 
     void Start()
     {
-        m_boxCollider2D = transform.GetComponent<BoxCollider>();
-		if (m_boxCollider2D == null) {
+        m_capsuleCollider = transform.GetComponent<CapsuleCollider>();
+		if (m_capsuleCollider == null) {
             Debug.LogError ("Player Collision Is Lost.");
 		}
         m_animator = transform.GetComponent<Animator> ();
@@ -240,7 +240,7 @@ public class MonoMoveController : MonoBehaviour
     private SpriteRenderer m_spriteRender;
     //private Rigidbody2D m_rigidbody2D;
     [SerializeField]
-    private BoxCollider m_boxCollider2D;
+    private CapsuleCollider m_capsuleCollider;
 
     private bool m_isMove = true;
     private bool m_isInteractByUI = false;

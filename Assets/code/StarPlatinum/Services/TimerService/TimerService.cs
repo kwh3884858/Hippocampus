@@ -64,8 +64,6 @@ namespace StarPlatinum
 						} else {
 							Debug.Log ("Timer lose target before execute.");
 						}
-
-
 					}
 				}
 			}
