@@ -28,18 +28,26 @@ namespace UI.Panels
         public override void ShowData(DataProvider data)
         {
             base.ShowData(data);
+
+            UpdateModelData(data);
         }
 
         public override void UpdateData(DataProvider data)
         {
             base.UpdateData(data);
 
+            UpdateModelData(data);
+        }
+
+        public void UpdateModelData(DataProvider data)
+        {
             if (data != null)
             {
                 if (data is CommonGamePlayTransitionDataProvider)
                 {
                     CommonGamePlayTransitionDataProvider commonGamePlayDataProvider = data as CommonGamePlayTransitionDataProvider;
                     m_animationTranstionType = commonGamePlayDataProvider.m_animationTranstionType;
+                    m_teleportedSceneName = commonGamePlayDataProvider.m_teleportedSceneName;
                 }
             }
         }
@@ -67,6 +75,7 @@ namespace UI.Panels
 
         #region Member
         public CommonGamePlayTransitionPanel.AnimationType m_animationTranstionType;
+        public string m_teleportedSceneName;
         #endregion
     }
 }
