@@ -78,14 +78,26 @@ namespace UI.Panels
 
         public void OnClickAssistant()
         {
-            UIManager.Instance().ShowPanel(UIPanelType.UICommonAssistantPanel, new AssistantDataProvider() { OnClose = SetUnSelectState });// 显示助手窗
+            if (showDetectiveNotes)
+            {
+                UIManager.Instance().HideStaticPanel(UIPanelType.UICommonMapsTipsEvidencesPanel);
+                showDetectiveNotes = false;
+            }
+            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonAssistantPanel, new AssistantDataProvider() { OnClose = SetUnSelectState });// 显示助手窗
+            showAssistant = true;
         }
 
         public void OnClickDetectiveNotes()
         {
             // TODO: show detective notes panel
-            //UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonMapsTipsEvidencesPanel);// 显示证物列表
-            UIManager.Instance().HidePanel(UIPanelType.UICommonAssistantPanel);
+            if (showAssistant)
+            {
+                UIManager.Instance().HideStaticPanel(UIPanelType.UICommonAssistantPanel);
+                showAssistant = false;
+            }
+            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonMapsTipsEvidencesPanel, new DetectiveNotesDataProvider() { OnClose = SetUnSelectState });// 显示证物列表
+            showDetectiveNotes = true;
+
         }
 
         public void OnClickSetting()
@@ -103,6 +115,8 @@ namespace UI.Panels
 
         [SerializeField]
         private List<SingleBookMarkController> bookMarkControllers = new List<SingleBookMarkController>();
+        private bool showAssistant = false;
+        private bool showDetectiveNotes = false;
         #endregion
     }
 }

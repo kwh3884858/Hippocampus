@@ -2,10 +2,10 @@
 
 namespace UI.Panels
 {
-    public class CommonMapsTipsEvidencesModel: UIModel
+    public class CommonMapsTipsEvidencesModel : UIModel
     {
         #region template method
-        public override void Initialize(IUiPanel uiPanel )
+        public override void Initialize(IUiPanel uiPanel)
         {
             base.Initialize(uiPanel);
         }
@@ -17,6 +17,8 @@ namespace UI.Panels
 
         public override void Hide()
         {
+            onClose?.Invoke();
+            onClose = null;
             base.Hide();
         }
 
@@ -27,6 +29,11 @@ namespace UI.Panels
 
         public override void ShowData(DataProvider data)
         {
+            if (data is DetectiveNotesDataProvider)
+            {
+                DetectiveNotesDataProvider detectiveNotesData = data as DetectiveNotesDataProvider;
+                onClose += detectiveNotesData.OnClose;
+            }
             base.ShowData(data);
         }
 
@@ -47,17 +54,17 @@ namespace UI.Panels
 
         public override void SubpanelChanged(UIPanelType type, DataProvider data = null)
         {
-            base.SubpanelChanged(type,data);
+            base.SubpanelChanged(type, data);
         }
 
         public override void SubpanelDataChanged(UIPanelType type, DataProvider data)
         {
-            base.SubpanelDataChanged(type,data);
+            base.SubpanelDataChanged(type, data);
         }
         #endregion
-        
+
         #region Member
-		
+        private System.Action onClose = null;
         #endregion
     }
 }

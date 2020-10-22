@@ -74,7 +74,7 @@ namespace UI.Panels
         #region Member
         public void OnClickClose()
         {
-            Hide();
+            InvokeHidePanel();
         }
 
         #endregion
