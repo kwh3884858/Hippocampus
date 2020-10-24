@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ConfigRoot
   m_EditorClassIdentifier: 
   StartScene: 2
-  StartMission: 7
+  StartMission: 11
   World_1F_Middle_CorriderName: World_1F_Middle_Corrider
   World_1F_Middle_CorriderCameraType: 0
   World_1F_South_CorriderName: World_1F_South_Corrider
