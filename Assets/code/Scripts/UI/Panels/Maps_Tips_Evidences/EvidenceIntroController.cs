@@ -30,14 +30,14 @@ public class EvidenceIntroController : MonoBehaviour
     public void RefreshView(Evidence.SingleEvidenceData data)
     {
         m_data = data;
-        ShowIntro(m_data.exhibit, m_data.description);
+        ShowIntro(m_data.exhibitID, m_data.description);
     }
 
     public void ShowIntro(string iconPath, string intro)
     {
         m_intro.text = intro;
-        var cfg = EvidenceConfig.GetConfigByKey(iconPath);
-        PrefabManager.Instance.SetImage(m_icon, cfg.exhibitImageName);
+        var cfg = ConfigData.Instance.evidenceConfig.GetDetail(iconPath);// EvidenceConfig.GetConfigByKey(iconPath);
+        PrefabManager.Instance.SetImage(m_icon, cfg.exhibitID);
     }
 
     public void ShowEvidenceEnable(bool enable)
