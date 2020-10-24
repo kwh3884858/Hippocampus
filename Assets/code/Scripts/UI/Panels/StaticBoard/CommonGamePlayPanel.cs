@@ -97,7 +97,7 @@ namespace UI.Panels
 
         public void OnClickEvidence()
         {
-            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonMapsTipsEvidencesPanel);// 显示证物列表
+            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonDetectiveNotesPanel);// 显示证物列表
         }
 
         public void OnClickTips()

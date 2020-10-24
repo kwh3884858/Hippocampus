@@ -86,5 +86,13 @@
 		"mediatorPath":"Assets/code/Scripts/UI/Panels/BookMark/CommonBookMarkPanel.cs",
 		"modelPath":"Assets/code/Scripts/UI/Panels/BookMark/CommonBookMarkModel.cs",
 		"GUID":"75206ca2523f0a34b8f9ab1bd2a7da38"
+	},
+	"67d767d9beb133d4ba5ef9b0b737527c":{
+		"type":3,
+		"prefabPath":"Assets/data/graphics/UI/Common/DetectiveNotes/Prefabs/UI_Common_Detective_Notes_Panel.prefab",
+		"codePath":"Assets/code/Scripts/UI/Panels/AutoCreate/CommonDetectiveNotesPanel.cs",
+		"mediatorPath":"Assets/code/Scripts/UI/Panels/DetectiveNotes/CommonDetectiveNotesPanel.cs",
+		"modelPath":"Assets/code/Scripts/UI/Panels/DetectiveNotes/CommonDetectiveNotesModel.cs",
+		"GUID":"67d767d9beb133d4ba5ef9b0b737527c"
 	}
 }

@@ -80,7 +80,7 @@ namespace UI.Panels
         {
             if (showDetectiveNotes)
             {
-                UIManager.Instance().HideStaticPanel(UIPanelType.UICommonMapsTipsEvidencesPanel);
+                UIManager.Instance().HideStaticPanel(UIPanelType.UICommonDetectiveNotesPanel);
                 showDetectiveNotes = false;
             }
             UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonAssistantPanel, new AssistantDataProvider() { OnClose = SetUnSelectState });// 显示助手窗
@@ -95,7 +95,7 @@ namespace UI.Panels
                 UIManager.Instance().HideStaticPanel(UIPanelType.UICommonAssistantPanel);
                 showAssistant = false;
             }
-            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonMapsTipsEvidencesPanel, new DetectiveNotesDataProvider() { OnClose = SetUnSelectState });// 显示证物列表
+            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonDetectiveNotesPanel, new DetectiveNotesDataProvider() { OnClose = SetUnSelectState });// 显示证物列表
             showDetectiveNotes = true;
 
         }

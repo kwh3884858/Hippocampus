@@ -16,10 +16,15 @@ public class EvidenceIntroController : MonoBehaviour
     [SerializeField]
     private GameObject m_showBtn = null;
 
-    public void Init(System.Action closeEvidenceUI, System.Action<string> onShowEvidence = null)
+    public void Init(EvidencesController father, System.Action closeEvidenceUI, System.Action<string> onShowEvidence = null, bool isShowSelectBtn = false)
     {
+        m_father = father;
         m_closeEvidenceUI = closeEvidenceUI;
         m_onShowEvidence = onShowEvidence;
+        if(m_showBtn != null)
+        {
+            m_showBtn.SetActive(isShowSelectBtn);
+        }
     }
 
     public void RefreshView(Evidence.SingleEvidenceData data)
@@ -32,7 +37,7 @@ public class EvidenceIntroController : MonoBehaviour
     {
         m_intro.text = intro;
         var cfg = EvidenceConfig.GetConfigByKey(iconPath);
-        PrefabManager.Instance.SetImage(m_icon, cfg.imagePath);
+        PrefabManager.Instance.SetImage(m_icon, cfg.exhibitImageName);
     }
 
     public void ShowEvidenceEnable(bool enable)
@@ -64,8 +69,18 @@ public class EvidenceIntroController : MonoBehaviour
         m_onShowEvidence = null;
     }
 
+    public void OnClickDetail()
+    {
+        // TODO: show detail dialog
+        if (m_father != null)
+        {
+            m_father.OnClickDetail(m_data.exhibitImageName);
+        }
+    }
+
     private System.Action<string> m_onShowEvidence = null;
     private System.Action m_closeEvidenceUI = null;
     /// <summary>证据数据</summary>
     private Evidence.SingleEvidenceData m_data = null;
+    private EvidencesController m_father = null;
 }

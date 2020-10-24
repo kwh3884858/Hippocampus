@@ -7,43 +7,43 @@ using UnityEngine.UI;
 
 namespace UI.Panels
 {
-    public partial class CommonMapsTipsEvidencesPanel : UIPanel<UIDataProvider, DataProvider>
-    {
-        #region UI template method
-        public override void Initialize(UIDataProvider uiDataProvider, UIPanelSettings settings)
-        {
-            base.Initialize(uiDataProvider, settings);
-            m_model.Initialize(this);
-        }
+	public partial class CommonDetectiveNotesPanel : UIPanel<UIDataProvider, DataProvider>
+	{
+		#region UI template method
+		public override void Initialize (UIDataProvider uiDataProvider, UIPanelSettings settings)
+		{
+			base.Initialize (uiDataProvider, settings);
+			m_model.Initialize(this);	
+		}
 
-        public override void DeInitialize()
-        {
-            m_model.Deactivate();
-            base.DeInitialize();
-        }
+		public override void DeInitialize()
+		{
+			m_model.Deactivate();
+			base.DeInitialize();
+		}
 
-        public override void Hide()
-        {
-            m_model.Hide();
-            base.Hide();
-        }
+		public override void Hide()
+		{
+			m_model.Hide();
+			base.Hide();
+		}
 
-        public override void Deactivate()
-        {
-            m_model.Deactivate();
-            base.Deactivate();
-        }
+		public override void Deactivate()
+		{
+			m_model.Deactivate();
+			base.Deactivate();
+		}
 
-        public override void ShowData(DataProvider data)
-        {
-            m_model.ShowData(data);
-            base.ShowData(data);
-        }
+		public override void ShowData(DataProvider data)
+		{
+			m_model.ShowData(data);
+			base.ShowData(data);
+		}
 
-        public override void UpdateData(DataProvider data)
-        {
-            m_model.UpdateData(data);
-            base.UpdateData(data);
+		public override void UpdateData(DataProvider data)
+		{
+			m_model.UpdateData(data);
+			base.UpdateData(data);
             m_data = data as EvidenceDataProvider;
             if (m_data == null)
             {
@@ -52,29 +52,29 @@ namespace UI.Panels
             RefreshPanel();
         }
 
-        public override void Tick()
-        {
-            m_model.Tick();
-            base.Tick();
-        }
+		public override void Tick()
+		{
+			m_model.Tick();
+			base.Tick();
+		}
 
-        public override void LateTick()
-        {
-            m_model.LateTick();
-            base.LateTick();
-        }
+		public override void LateTick()
+		{
+			m_model.LateTick();
+			base.LateTick();
+		}
 
-        public override void SubpanelChanged(UIPanelType type, DataProvider data = null)
-        {
-            m_model.SubpanelChanged(type, data);
-            base.SubpanelChanged(type, data);
-        }
+		public override void SubpanelChanged(UIPanelType type, DataProvider data = null)
+		{
+			m_model.SubpanelChanged(type, data);
+			base.SubpanelChanged(type, data);
+		}
 
-        public override void SubpanelDataChanged(UIPanelType type, DataProvider data)
-        {
-            m_model.SubpanelDataChanged(type, data);
-            base.SubpanelDataChanged(type, data);
-        }
+		public override void SubpanelDataChanged(UIPanelType type, DataProvider data)
+		{
+			m_model.SubpanelDataChanged(type, data);
+			base.SubpanelDataChanged(type, data);
+		}
         #endregion
 
         #region Member
@@ -161,6 +161,7 @@ namespace UI.Panels
             Tips = 2,
             Maps = 3
         }
+
         #endregion
     }
 }

@@ -11,18 +11,21 @@ public class EvidencesController : MonoBehaviour
     private Transform m_content = null;
     [SerializeField]
     private EvidenceIntroController m_introCtrl = null;
+    [SerializeField]
+    private EvidencesDetailController m_detailCtrl = null;
 
     private EvidenceDataManager m_dataManager = null;
     private List<SingleEvidenceController> m_evidenceList = new List<SingleEvidenceController>();
 
-    public void Init(System.Action closeUI, System.Action<string> onShowEvidence)
+    public void Init(System.Action closeUI, System.Action<string> onShowEvidence, bool isShowSelectBtn)
     {
         SetData();
         m_CloseUI = closeUI;
         m_onShowEvidence = onShowEvidence;
-        if(m_introCtrl != null)
+        m_isShowSelectBtn = isShowSelectBtn;
+        if (m_introCtrl != null)
         {
-            m_introCtrl.Init(m_CloseUI, m_onShowEvidence);
+            m_introCtrl.Init(this, m_CloseUI, m_onShowEvidence, m_isShowSelectBtn);
         }
         Show();
     }
@@ -107,7 +110,17 @@ public class EvidencesController : MonoBehaviour
         m_evidenceList.Clear();
     }
 
+    public void OnClickDetail(string detailImagePath)
+    {
+        if (m_detailCtrl != null)
+        {
+            m_detailCtrl.Init(detailImagePath);
+        }
+    }
+
 
     private System.Action<string> m_onShowEvidence = null;
     private System.Action m_CloseUI = null;
+    /// <summary>是否显示举证按钮</summary>
+    private bool m_isShowSelectBtn = false;
 }
