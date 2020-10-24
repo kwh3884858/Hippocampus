@@ -164,14 +164,20 @@ namespace UI.Panels.StaticBoard
             base.Hide();
             m_autoPlay = false;
             m_highSpeed = false;
-            GamePlay.Player.PlayerController.Instance().SetMoveEnable(true);
+            if (!UIManager.Instance().IsPanelShow(UIPanelType.UICommonCgscenePanel))
+            {
+                GamePlay.Player.PlayerController.Instance().SetMoveEnable(true);
+            }
         }
 
         public override void ShowData(DataProvider data)
         {
             base.ShowData(data);
-            GamePlay.Player.PlayerController.Instance().SetMoveEnable(false);
             CoreContainer.Instance.StopPlayerAnimation ();
+            if (!UIManager.Instance().IsPanelShow(UIPanelType.UICommonCgscenePanel))
+            {
+                GamePlay.Player.PlayerController.Instance().SetMoveEnable(false);
+            }
         }
 
         public override void UpdateData(DataProvider data)

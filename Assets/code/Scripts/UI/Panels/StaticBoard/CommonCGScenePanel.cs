@@ -45,9 +45,10 @@ namespace UI.Panels
 			m_model.Hide();
 			base.Hide();
 			EventManager.Instance.SendEvent(new ChangeCursorEvent());
-		}
+            GamePlay.Player.PlayerController.Instance().SetMoveEnable(true);
+        }
 
-		public override void Deactivate()
+        public override void Deactivate()
 		{
 			m_model.Deactivate();
 			base.Deactivate();
@@ -56,7 +57,8 @@ namespace UI.Panels
 		public override void ShowData(DataProvider data)
 		{
 			m_model.ShowData(data);
-			base.ShowData(data);
+            GamePlay.Player.PlayerController.Instance().SetMoveEnable(false);
+            base.ShowData(data);
 		}
 
 		public override void UpdateData(DataProvider data)

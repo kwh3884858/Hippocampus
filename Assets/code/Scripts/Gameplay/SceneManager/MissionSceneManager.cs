@@ -26,6 +26,7 @@ namespace GamePlay.Stage
         EP09_05_06_07_08,
         EP09_09,
         EP10_01,
+        special,
 
     };
 
@@ -265,6 +266,7 @@ namespace GamePlay.Stage
         MissionEnum.EP09_05_06_07_08,
         MissionEnum.EP09_09,
         MissionEnum.EP10_01,
+        MissionEnum.special,
 
         };
 
