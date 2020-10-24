@@ -321,11 +321,12 @@ namespace UI.Panels.StaticBoard
                     SetActionState(ActionState.End);
                     break;
                 case StoryActionType.ShowEvidence:
-                    InvokeShowPanel(UIPanelType.UICommonMapsTipsEvidencesPanel, new EvidenceDataProvider()
+                    InvokeShowPanel(UIPanelType.UICommonDetectiveNotesPanel, new EvidenceDataProvider()
                     {
                         OnShowEvidence = OnSelectEvidenceEnd,
                         IsOnEvidence = true,
-                        CurState = CommonMapsTipsEvidencesPanel.ShowState.Evidences
+                        CurState = CommonMapsTipsEvidencesPanel.ShowState.Evidences,
+                        IsShowSelectBtn = true
                     });
                     return;
                 case StoryActionType.LoadGameScene:
