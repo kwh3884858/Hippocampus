@@ -19,7 +19,7 @@ namespace UI.Panels
 		{
 			base.Initialize (uiDataProvider, settings);
 			m_model.Initialize(this);
-			
+			gameObject.SetActive(false);
 			InitMoveInfo();
 		}
 

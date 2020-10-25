@@ -184,6 +184,11 @@ namespace Controllers.Subsystems.Story
             m_actions.Enqueue(new StoryAction(){Type = StoryActionType.ChangeSoundVolume, Content = volumePercentage.ToString()});
         }
 
+        public void PushEnterControversy(string ID)
+        {
+            m_actions.Enqueue(new StoryAction(){Type = StoryActionType.EnterControversy, Content = ID});
+        }
+
         private int ProcessPicPos(int pos)
         {
             return pos - 100;
