@@ -15,6 +15,8 @@ namespace Config.Data
         public int specialBarrageID;
         public string winStoryID;
         public string breakTheoryImageKey;
+        public string stageOneBgm;
+        public string stageTwoBgm;
 
         public static ControversyConfig GetConfigByKey(string key)
         {

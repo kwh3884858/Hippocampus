@@ -150,7 +150,7 @@ namespace UI.Panels
 					m_model.IsBeginBarrage = true;
 					m_cordonMoveDisdance = m_dictance / 4 / m_model.TotalBarrageAmount;
 					ResetCordon();
-					SoundService.Instance.PlayBgm(UIAudioRes.ControversyBGM,false);
+					SoundService.Instance.PlayBgm(m_model.ControversyConfig.stageOneBgm,false);
 					break;
 				case EnumControversyStage.StageOneLose:
 					m_model.IsBeginBarrage = false;
@@ -164,7 +164,7 @@ namespace UI.Panels
 					m_model.IsBeginBarrage = true;
 					m_cordonMoveDisdance = m_dictance / 4 / m_model.TotalBarrageAmount;
 					ResetCordon();
-					SoundService.Instance.PlayBgm(UIAudioRes.ControversyBGM,false);
+					SoundService.Instance.PlayBgm(m_model.ControversyConfig.stageTwoBgm,false);
 					break;
 				case EnumControversyStage.Wrong:
 					string storyID;
@@ -452,9 +452,12 @@ namespace UI.Panels
 			var info = e.SubView.BarrageInfo;
 			if (!e.SubView.BarrageInfo.IsHighLight && !m_model.IsHeavyAttack)
 			{
+				if (m_hitSound == UIAudioRes.LightAttackEmpty)
+				{
+					m_hitSound = UIAudioRes.LightAttackFail;
+				}
 				return;
 			}
-			Debug.LogError("斩击！！！！");
 			if (!m_barrageSubViews.ContainsKey(info.ID)||m_model.IsSlashed(info.ID))
 			{
 				return;
@@ -472,7 +475,6 @@ namespace UI.Panels
 				}
 			}
 			//TODO:播放斩击动画
-			Debug.LogError("重击！！！！");
 			if (m_model.IsHeavyAttack)
 			{
 				m_hitSound = UIAudioRes.HeavyAttack;
@@ -504,7 +506,7 @@ namespace UI.Panels
 		private float m_cordonMoveDisdance;
 		private int m_curCordonMoveValue;
 
-		private string m_hitSound = UIAudioRes.LightAttackFail;
+		private string m_hitSound = UIAudioRes.LightAttackEmpty;
 		private bool m_isHit;
 
 		#endregion
