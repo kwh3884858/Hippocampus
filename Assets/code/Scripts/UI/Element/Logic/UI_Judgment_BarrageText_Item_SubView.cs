@@ -71,11 +71,11 @@ namespace UI.Panels.Element
         {
             if (m_isSpecial)
             {
-                PrefabManager.Instance.SetImage(m_img_bg_Image, UIRes.m_specialBarrageImg);
+                PrefabManager.Instance.SetImage(m_img_bg_Image, UIRes.SpecialBarrageImg);
             }
             else
             {
-                PrefabManager.Instance.SetImage(m_img_bg_Image, UIRes.m_normalBarrageImg);
+                PrefabManager.Instance.SetImage(m_img_bg_Image, UIRes.NormalBarrageImg);
             }
         }
         

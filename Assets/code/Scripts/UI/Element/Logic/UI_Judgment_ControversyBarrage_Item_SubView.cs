@@ -89,13 +89,13 @@ namespace UI.Panels.Element
         {
             if (m_isSpecial)
             {
-                PrefabManager.Instance.SetImage(m_img_front_Image, UIRes.m_specialBarrageFront);
-                PrefabManager.Instance.SetImage(m_img_behind_Image, UIRes.m_specialBarrageBehind);
+                PrefabManager.Instance.SetImage(m_img_front_Image, UIRes.SpecialBarrageFront);
+                PrefabManager.Instance.SetImage(m_img_behind_Image, UIRes.SpecialBarrageBehind);
             }
             else
             {
-                PrefabManager.Instance.SetImage(m_img_front_Image, UIRes.m_normalBarrageFront);
-                PrefabManager.Instance.SetImage(m_img_behind_Image, UIRes.m_normalBarrageBehind);
+                PrefabManager.Instance.SetImage(m_img_front_Image, UIRes.NormalBarrageFront);
+                PrefabManager.Instance.SetImage(m_img_behind_Image, UIRes.NormalBarrageBehind);
             }
         }
     }

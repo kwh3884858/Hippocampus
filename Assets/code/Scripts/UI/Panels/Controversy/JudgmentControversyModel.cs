@@ -9,6 +9,7 @@ namespace UI.Panels
     public enum EnumControversyStage
     {
         Begin,
+        Entrance,
         StageOne,
         StageOneLose,
         StageOneWin,
@@ -285,7 +286,7 @@ namespace UI.Panels
             var specialBarrageID = ControversyConfig.specialBarrageID;
             SpecialBarrageInfo = GetSpecialBarrageItem(specialBarrageID);
             SpecialBarrageConfig = ControversySpecialBarrageConfig.GetConfigByKey(SpecialBarrageInfo.ID);
-            ChangeStage(EnumControversyStage.Begin);
+            ChangeStage(EnumControversyStage.Entrance);
         }
 
         private void CheckStage()

@@ -122,6 +122,9 @@ namespace UI.Panels
 				case EnumControversyStage.Begin:
 					ShowScreenAnimation();
 					break;
+				case EnumControversyStage.Entrance:
+					ShowScreenAnimation();
+					break;
 				case EnumControversyStage.StageOne:
 					m_model.IsBeginBarrage = true;
 					m_cordonMoveDisdance = m_dictance / 2 / m_model.TotalBarrageAmount;
@@ -250,12 +253,25 @@ namespace UI.Panels
 			switch (m_model.CurStage)
 			{
 				case EnumControversyStage.Begin:
+					gameObject.SetActive(false);
+					//TODO:破论
+					CallbackTime(4, () =>
+					{
+						m_model.ChangeStage(EnumControversyStage.Entrance);
+					});
+					break;
+				case EnumControversyStage.Entrance:
+					gameObject.SetActive(true);
+					PrefabManager.Instance.SetImage(m_img_screenLeft_Image,UIRes.ScreenLeftBegin);
+					PrefabManager.Instance.SetImage(m_img_screenRight_Image,m_model.EnemyConfig.entranceScreenKey);
 					CallbackTime(4, () =>
 					{
 						m_model.ChangeStage(EnumControversyStage.StageOne);
 					});
 					break;
 				case EnumControversyStage.StageOneLose:
+					PrefabManager.Instance.SetImage(m_img_screenLeft_Image,UIRes.ScreenLeftLose);
+					PrefabManager.Instance.SetImage(m_img_screenRight_Image,m_model.EnemyConfig.winScreenKey);
 					CallbackTime(4, () =>
 					{
 						m_model.ChangeStage(EnumControversyStage.StageOne);
@@ -263,12 +279,16 @@ namespace UI.Panels
 					break;
 				case EnumControversyStage.Wrong:
 				case EnumControversyStage.MissSpecial:
+					PrefabManager.Instance.SetImage(m_img_screenLeft_Image,UIRes.ScreenLeftLose);
+					PrefabManager.Instance.SetImage(m_img_screenRight_Image,m_model.EnemyConfig.winScreenKey);
 					CallbackTime(4, () =>
 					{
 						m_model.ChangeStage(EnumControversyStage.StageTwo);
 					});
 					break;
 				case EnumControversyStage.Win:
+					PrefabManager.Instance.SetImage(m_img_screenLeft_Image,UIRes.ScreenLeftWin);
+					PrefabManager.Instance.SetImage(m_img_screenRight_Image,UIRes.ScreenRightWin);
 					CallbackTime(4, () =>
 					{
 						InvokeHidePanel();
