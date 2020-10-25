@@ -73,7 +73,7 @@ namespace UI.Panels
 
 			if (m_model.IsHeavyAttack || m_model.IsNormalAttack)
 			{
-				EventManager.Instance.SendEvent(new ControversyEvent(){Pos = m_go_cordon_Image.transform.position});
+				EventManager.Instance.SendEvent(new ControversyEvent(){Pos = m_go_cordon.position});
 			}
 
 			if (m_model.IsHeavyAttack)
@@ -96,7 +96,7 @@ namespace UI.Panels
 						RecycleBarrageSubview(barrageSubView.Key);
 					});
 				}else if (barrageSubView.Value.MovingTime >= m_totalMoveTime &&
-				          !m_model.IsSlashed(barrageSubView.Key) && barrageSubView.Value.IsPassed(m_go_cordon_Image.transform.position))
+				          !m_model.IsSlashed(barrageSubView.Key) && barrageSubView.Value.IsPassed(m_go_cordon.position))
 				{
 					Debug.LogError($"Miss Barrage {barrageSubView.Value.Info.ID}");
 					if (m_model.BarragePassed(barrageSubView.Value.Info))
@@ -150,6 +150,7 @@ namespace UI.Panels
 					m_model.IsBeginBarrage = true;
 					m_cordonMoveDisdance = m_dictance / 4 / m_model.TotalBarrageAmount;
 					ResetCordon();
+					SoundService.Instance.PlayBgm(UIAudioRes.ControversyBGM,false);
 					break;
 				case EnumControversyStage.StageOneLose:
 					m_model.IsBeginBarrage = false;
@@ -163,6 +164,7 @@ namespace UI.Panels
 					m_model.IsBeginBarrage = true;
 					m_cordonMoveDisdance = m_dictance / 4 / m_model.TotalBarrageAmount;
 					ResetCordon();
+					SoundService.Instance.PlayBgm(UIAudioRes.ControversyBGM,false);
 					break;
 				case EnumControversyStage.Wrong:
 					string storyID;
@@ -355,7 +357,7 @@ namespace UI.Panels
 		private void InitMoveInfo()
 		{
 			m_totalMoveTime = CommonConfig.Data.ControversyBarrageMoveSpeed;
-			m_dictance = Mathf.Abs(m_go_cordon_Image.transform.position.x - m_go_beginLine1.position.x);
+			m_dictance = Mathf.Abs(m_go_cordon.position.x - m_go_beginLine1.position.x);
 		}
 
 		private void RecycleBarrageSubview(int barrageID)

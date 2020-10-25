@@ -36,8 +36,7 @@ namespace UI.Panels
 		[HideInInspector] public RectTransform m_go_beginLine2;
 		[HideInInspector] public RectTransform m_go_beginLine3;
 		[HideInInspector] public RectTransform m_go_beginLine4;
-		[HideInInspector] public Image m_go_cordon_Image;
-
+		[HideInInspector] public RectTransform m_go_cordon;
 		[HideInInspector] public RectTransform m_pl_screen;
 		[HideInInspector] public Image m_img_screenLeft_Image;
 
@@ -67,8 +66,7 @@ namespace UI.Panels
 			m_go_beginLine2 = FindUI<RectTransform>(transform ,"pl_line/go_barrage/go_beginLine2");
 			m_go_beginLine3 = FindUI<RectTransform>(transform ,"pl_line/go_barrage/go_beginLine3");
 			m_go_beginLine4 = FindUI<RectTransform>(transform ,"pl_line/go_barrage/go_beginLine4");
-			m_go_cordon_Image = FindUI<Image>(transform ,"pl_line/go_cordon");
-
+			m_go_cordon = FindUI<RectTransform>(transform ,"pl_line/go_cordon");
 			m_pl_screen = FindUI<RectTransform>(transform ,"pl_screen");
 			m_img_screenLeft_Image = FindUI<Image>(transform ,"pl_screen/img_screenLeft");
 
