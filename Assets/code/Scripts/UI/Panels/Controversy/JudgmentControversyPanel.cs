@@ -62,7 +62,7 @@ namespace UI.Panels
 			if (m_model.IsHeavyAttack || m_model.IsNormalAttack)
 			{
 				SoundService.Instance.PlayEffect(m_hitSound);
-				m_hitSound = UIAudioRes.LightAttackFail;
+				m_hitSound = UIAudioRes.LightAttackEmpty;
 			}
 			m_model.Tick();
 			base.Tick();

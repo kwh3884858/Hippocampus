@@ -269,12 +269,11 @@ namespace UI.Panels
             m_heavyAttackColdTime -= m_heavyAttackRecover;
             m_slashedBarrageAmount++;
             CheckCharge();
+            m_slashedBarrageLst.Add(barrage.ID);
             if (CurStage != EnumControversyStage.StageTwo)
             {
                 CheckStage();
             }
-
-            m_slashedBarrageLst.Add(barrage.ID);
         }
 
         public bool BarragePassed(BarrageItem barrage)

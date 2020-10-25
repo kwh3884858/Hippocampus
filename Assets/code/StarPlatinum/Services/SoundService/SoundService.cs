@@ -88,7 +88,7 @@ namespace StarPlatinum
             {
                 return;
             }
-            if (this.m_backgoundSound.clip != null && name.IndexOf(this.m_backgoundSound.clip.name) > -1)
+            if (this.m_backgoundSound.clip != null && isloop && name.IndexOf(this.m_backgoundSound.clip.name) > -1)
             {
                 return;
             }
