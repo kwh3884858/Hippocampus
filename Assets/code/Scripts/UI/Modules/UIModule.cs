@@ -90,6 +90,8 @@ namespace UI.Modules
         public event Action<UIPanel> OnPanelShowed = null;
         public event Action<UIPanel> OnPanelHide = null;
         
+        [Conditional("DEBUG_UI_MODULE")]
+        [DebuggerStepThrough]
         private void Log(string msg)
         {
             Debug.Log( $"{GetType()} ({GetHashCode()}). {msg}" + GetAdditionalDebugInfo(), this);

@@ -162,8 +162,10 @@ public class GenMVC : ScriptableObject
                     {
                         nameDic.Add(member_name, true);
                         string member = string.Format("\t\t[HideInInspector] public {0}_SubView m_{1};", classType, member_name);
-                        string find = string.Format("\t\t\tm_{0}.Init(FindUI<RectTransform>(transform ,\"{2}\"));", member_name, classType, path);
+                        string find = string.Format("\t\t\tm_{0} = FindUI<{1}_SubView>(transform ,\"{2}\");", member_name, classType, path);
+                        finds.AppendLine(find);
                         members.AppendLine(member);
+                        find = string.Format("\t\t\tm_{0}.Init(FindUI<RectTransform>(transform ,\"{2}\"));", member_name, classType, path);
                         finds.AppendLine(find);
                     }
                     else

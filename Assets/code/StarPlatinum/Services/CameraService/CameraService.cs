@@ -43,7 +43,7 @@ namespace StarPlatinum.Service
             }
             m_mainCamera = mainCamera;
         }
-		public GameObject GetMainCamera ()
+		public GameObject GetMainCamera()
 		{
 			if (m_mainCamera == null || m_mainCamera.activeInHierarchy == false) {
 				Debug.LogError ("Camera is expired");
@@ -55,6 +55,17 @@ namespace StarPlatinum.Service
 			}
 
 			return m_mainCamera;
+		}
+
+		public Camera GetMainCameraComponent()
+		{
+			var mainCamera = GetMainCamera();
+			if (mainCamera == null)
+			{
+				return null;
+			}
+
+			return mainCamera.GetComponent<Camera>();
 		}
 
 		public bool UpdateCurrentCamera ()

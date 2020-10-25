@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using code.StarPlatinum.EventManager;
 using StarPlatinum;
 using StarPlatinum.EventManager;
+using StarPlatinum.Service;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace UI.Panels.Element
 {
@@ -37,7 +39,7 @@ namespace UI.Panels.Element
                 m_isSpecial = isSpecial;
                 SetBG();
             }
-
+            LayoutRebuilder.ForceRebuildLayoutImmediate(m_UI_Judgment_BarrageText_Item_HorizontalLayoutGroup.rectTransform());
             m_width = m_lbl_text_TextMeshProUGUI.GetPreferredValues().x;
         }
 
@@ -81,13 +83,8 @@ namespace UI.Panels.Element
         
         private void OnSlash(object sender, ControversyEvent e)
         {
-            if (!BarrageInfo.IsHighLight)
-            {
-                return;
-            }
-            
-            Vector3 myPos= Camera.main.WorldToScreenPoint(m_root_RectTransform.position);
-            Vector3 otherPos = Camera.main.WorldToScreenPoint(e.Pos);
+            Vector3 myPos= CameraService.Instance.GetMainCameraComponent().WorldToScreenPoint(m_root_RectTransform.position);
+            Vector3 otherPos = CameraService.Instance.GetMainCameraComponent().WorldToScreenPoint(e.Pos);
             if (Mathf.Abs(otherPos.x - myPos.x) <= m_width)
             {
                 EventManager.Instance.SendEvent(new ControversyBarrageSlashEvent(){SubView = this});

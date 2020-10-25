@@ -22,6 +22,8 @@ namespace UI.Panels
          #region gen ui code 
 		[HideInInspector] public Image m_img_bg_Image;
 
+		[HideInInspector] public Image m_img_cordon_Image;
+
 		[HideInInspector] public RectTransform m_go_hero;
 		[HideInInspector] public UI_Judgment_ControversyCharactor_Item_SubView m_UI_Judgment_ControversyCharactor_Item;
 		[HideInInspector] public RectTransform m_go_enemy;
@@ -34,7 +36,8 @@ namespace UI.Panels
 		[HideInInspector] public RectTransform m_go_beginLine2;
 		[HideInInspector] public RectTransform m_go_beginLine3;
 		[HideInInspector] public RectTransform m_go_beginLine4;
-		[HideInInspector] public RectTransform m_go_cordon;
+		[HideInInspector] public Image m_go_cordon_Image;
+
 		[HideInInspector] public RectTransform m_pl_screen;
 		[HideInInspector] public Image m_img_screenLeft_Image;
 
@@ -49,7 +52,10 @@ namespace UI.Panels
          {
 			m_img_bg_Image = FindUI<Image>(transform ,"img_bg");
 
+			m_img_cordon_Image = FindUI<Image>(transform ,"img_cordon");
+
 			m_go_hero = FindUI<RectTransform>(transform ,"go_hero");
+			m_UI_Judgment_ControversyCharactor_Item = FindUI<UI_Judgment_ControversyCharactor_Item_SubView>(transform ,"go_hero/UI_Judgment_ControversyCharactor_Item");
 			m_UI_Judgment_ControversyCharactor_Item.Init(FindUI<RectTransform>(transform ,"go_hero/UI_Judgment_ControversyCharactor_Item"));
 			m_go_enemy = FindUI<RectTransform>(transform ,"go_enemy");
 			m_img_enemy_Image = FindUI<Image>(transform ,"go_enemy/img_enemy");
@@ -61,7 +67,8 @@ namespace UI.Panels
 			m_go_beginLine2 = FindUI<RectTransform>(transform ,"pl_line/go_barrage/go_beginLine2");
 			m_go_beginLine3 = FindUI<RectTransform>(transform ,"pl_line/go_barrage/go_beginLine3");
 			m_go_beginLine4 = FindUI<RectTransform>(transform ,"pl_line/go_barrage/go_beginLine4");
-			m_go_cordon = FindUI<RectTransform>(transform ,"pl_line/go_cordon");
+			m_go_cordon_Image = FindUI<Image>(transform ,"pl_line/go_cordon");
+
 			m_pl_screen = FindUI<RectTransform>(transform ,"pl_screen");
 			m_img_screenLeft_Image = FindUI<Image>(transform ,"pl_screen/img_screenLeft");
 
