@@ -58,10 +58,13 @@ namespace UI.Panels.GameScene.MainManu
 
             HidSelef();
             //Now we don`t load scene in UI button, we use mission to manager state, and input system UI like HUD should display when player is controllable.
-            GameSceneManager.Instance.LoadScene(ConfigRoot.Instance.StartScene, "", delegate()
-            {
-                MissionSceneManager.Instance.LoadMissionScene(ConfigRoot.Instance.StartMission);
-            });
+
+            //Read start scene and mission from archive file
+            //GameSceneManager.Instance.LoadScene(ConfigRoot.Instance.StartScene, "", delegate()
+            //{
+            //    MissionSceneManager.Instance.LoadMissionScene(ConfigRoot.Instance.StartMission);
+            //});
+
             CallbackTime(1, ShowHud);
             UIManager.Instance().ActivatState(GameState.Battle);// 设置当前状态,wywtsest
             UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonGameplayPanel);// 显示助手UI

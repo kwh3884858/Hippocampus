@@ -13,6 +13,8 @@ using StarPlatinum.Manager;
 using UnityEngine.Assertions;
 using UI;
 using Tips;
+using Controllers;
+using LocalCache;
 
 //depend on EventManager
 namespace GamePlay.Stage
@@ -36,6 +38,7 @@ namespace GamePlay.Stage
                 CinemachineManager.Instance.SetBoundingVolumeByName(GetCurrentSceneEnum().ToString());// set camera move range
             });
         }
+
         public bool LoadScene(SceneLookupEnum scene, string specificTeleportName = "", SceneSlot.SceneLoadedCallback onlyOnceCallback = null)
         {
             m_specificTeleportName = specificTeleportName;

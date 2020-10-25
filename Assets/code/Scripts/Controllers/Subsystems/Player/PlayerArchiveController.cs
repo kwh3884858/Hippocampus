@@ -52,6 +52,7 @@ namespace Controllers.Subsystems.Role
                 CurrentArchiveData.CgSceneArchiveData = new CGSceneArchiveData();
                 CurrentArchiveData.EvidenceArchiveData = new EvidenceArchiveData();
                 CurrentArchiveData.TipsArchiveData = new TipsArchiveData();
+                CurrentArchiveData.SoundServiceArchiveData = new SoundServiceArchiveData();
                 m_playTime = 0;
                 CurrentSaveIndex = 0;
                 m_localCacheManager = null;
@@ -103,7 +104,7 @@ namespace Controllers.Subsystems.Role
             }
             //TODO:写入存档预览信息
             previewData.SaveTime = DateTime.Now.Ticks;
-            previewData.Img = "PreviewImg"+saveIndex.ToString();
+            previewData.Img = "Image_Default"; /* TODO: "PreviewImg"+saveIndex.ToString(); */
             previewData.EPName = MissionSceneManager.Instance.GetCurrentMissionEnum ().ToString ();
             previewData.TotalPlayTime = (int)m_playTime;
             SortArchivePreViewData();

@@ -9,6 +9,8 @@ using StarPlatinum.EventManager;
 using System;
 using Controllers.Subsystems;
 using Controllers.Subsystems.Role;
+using LocalCache;
+using GamePlay.Stage;
 
 namespace GamePlay.Global
 {
@@ -69,15 +71,51 @@ namespace GamePlay.Global
 		//-----------------------------------------------
 		private void OnPlayerPreSaveArchive (object sender, PlayerPreSaveArchiveEvent e)
 		{
-			GlobalManager.GetControllerManager().PlayerArchiveController.CurrentArchiveData.MissionArchieData.StoryTriggered = m_isStoryTriggered;
-			GlobalManager.GetControllerManager().PlayerArchiveController.CurrentArchiveData.MissionArchieData.ObjectTriggeredCounter = m_objectTriggeredCounter;
+            MissionArchiveData data = new MissionArchiveData();
+
+			Vector3 pos = CoreContainer.Instance.GetPlayerPosition();
+			data.PlayerPositionX = pos.x;
+			data.PlayerPositionY = pos.y;
+			data.PlayerPositionZ = pos.y;
+
+            data.CurrentGameScene = GamePlay.Stage.GameSceneManager.Instance.GetCurrentSceneEnum();
+            data.CurrentMission = GamePlay.Stage.MissionSceneManager.Instance.GetCurrentMissionEnum();
+			data.StoryTriggered = m_isStoryTriggered;
+			data.ObjectTriggeredCounter = m_objectTriggeredCounter;
+
+			GlobalManager.GetControllerManager().PlayerArchiveController.CurrentArchiveData.MissionArchieData = data;
 
 		}
 
 		private void OnPlayerLoadArchive (object sender, PlayerLoadArchiveEvent e)
-		{
-			m_isStoryTriggered = GlobalManager.GetControllerManager ().PlayerArchiveController.CurrentArchiveData.MissionArchieData.StoryTriggered;
-			m_objectTriggeredCounter = GlobalManager.GetControllerManager ().PlayerArchiveController.CurrentArchiveData.MissionArchieData.ObjectTriggeredCounter;
+        {
+			MissionArchiveData data = GlobalManager.GetControllerManager().PlayerArchiveController.CurrentArchiveData.MissionArchieData;
+
+			SceneLookupEnum gameSceneEnum = data.CurrentGameScene;
+            MissionEnum missionEnum = data.CurrentMission;
+            if (gameSceneEnum != SceneLookupEnum.World_Invalid && gameSceneEnum != SceneLookupEnum.World_GameRoot && missionEnum != MissionEnum.None)
+            {
+				Vector3 PlayerPos = new Vector3(data.PlayerPositionX, data.PlayerPositionY, data.PlayerPositionZ);
+				CoreContainer.Instance.SetPlayerPosition(PlayerPos);
+				GameSceneManager.Instance.LoadScene(gameSceneEnum, "", () =>
+				{
+                    if (MissionSceneManager.Instance.IsMissionSceneExist(missionEnum))
+                    {
+                        MissionSceneManager.Instance.LoadMissionScene(missionEnum);
+                    }
+                    else
+                    {
+                        MissionSceneManager.Instance.LoadMissionScene(MissionEnum.None);
+                    }
+                });
+            }
+            else
+            {
+				Debug.LogError("Game Scene Enum: " + missionEnum + "nMission Scene Enum:" + gameSceneEnum + "\nIs not exist.");
+			}
+
+			m_isStoryTriggered = data.StoryTriggered;
+			m_objectTriggeredCounter = data.ObjectTriggeredCounter;
 			if (m_isStoryTriggered == null) {
 				m_isStoryTriggered = new List<string> ();
 			}

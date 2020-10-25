@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Config.GameRoot;
 using StarPlatinum;
 using StarPlatinum.Base;
+using StarPlatinum.EventManager;
 using StarPlatinum.Manager;
 using UnityEditor;
 using UnityEngine;
@@ -55,6 +56,7 @@ namespace GamePlay.Stage
                 });
             }
         }
+
         /// <summary>
         /// If current scene have the mission, the mission scene will be loaded.
         /// If current scene does`t have the mission, anonymous scene will be loaded.

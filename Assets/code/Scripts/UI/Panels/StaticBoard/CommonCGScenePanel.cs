@@ -12,6 +12,7 @@ using UnityEngine;
 using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
 using UI.Panels.Providers.DataProviders.StaticBoard;
+using System;
 
 namespace UI.Panels
 {
@@ -31,16 +32,25 @@ namespace UI.Panels
 
 			EventManager.Instance.AddEventListener<CGScenePointInfoChangeEvent>(OnCGScenePointInfoChange);
 			EventManager.Instance.AddEventListener<CGSceneCloseEvent>(OnCGSceneClose);
+            EventManager.Instance.AddEventListener<PlayerPreSaveArchiveEvent>(OnPlayerPreSaveArchive);
+
+        }
+
+        private void OnPlayerPreSaveArchive(object sender, PlayerPreSaveArchiveEvent e)
+        {
+			GlobalManager.GetControllerManager().PlayerArchiveController.CurrentArchiveData.CgSceneArchiveData.CgSceneId = m_model.SceneID;
 		}
 
-		public override void DeInitialize()
+        public override void DeInitialize()
 		{
 			m_model.Deactivate();
 			base.DeInitialize();
 			EventManager.Instance.RemoveEventListener<CGScenePointInfoChangeEvent>(OnCGScenePointInfoChange);
-		}
+            EventManager.Instance.RemoveEventListener<PlayerPreSaveArchiveEvent>(OnPlayerPreSaveArchive);
 
-		public override void Hide()
+        }
+
+        public override void Hide()
 		{
 			m_model.Hide();
 			base.Hide();

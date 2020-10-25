@@ -29,19 +29,15 @@ namespace StarPlatinum
 		void Start ()
 		{
 			PreloadData ();
-            LoadCoreContainer();
-
-			Productivity ();
+			//No More Productivity! 555 >_<
+			//Productivity ();
 			ConfigData data = new ConfigData ();// 测试
 
+			CoreContainer.Instance.Initialize();
 			SingletonGlobalDataContainer.Instance.Initialize ();
 			Evidence.EvidenceDataManager.Instance.Initialize ();
             Tips.TipsManager.Instance.Initialize();
-        }
-
-        private void LoadCoreContainer()
-        {
-            CoreContainer.Instance.Initialize();
+			SoundService.Instance.Initialize();
         }
 
         void PreloadData ()
@@ -112,9 +108,10 @@ namespace StarPlatinum
 
 		void OnDestroy ()
 		{
-			SingletonGlobalDataContainer.Instance.Shutdown ();
+            SingletonGlobalDataContainer.Instance.Shutdown ();
             Evidence.EvidenceDataManager.Instance.Shutdown ();
             Tips.TipsManager.Instance.Shutdown ();
+			SoundService.Instance.Shutdown();
         }
 
 		private void Productivity ()

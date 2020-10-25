@@ -3,6 +3,7 @@ using Config.Data;
 using LocalCache;
 using StarPlatinum;
 using StarPlatinum.EventManager;
+using UI.Panels.Providers.DataProviders;
 
 namespace Controllers.Subsystems
 {
@@ -166,6 +167,11 @@ namespace Controllers.Subsystems
         {
             //处理存储信息
             //将存储信息存入PlayerArchiveController.CurrentArchiveData中
+            if (m_data == null)
+            {
+                m_data = new CGSceneArchiveData();
+            }
+            m_data.IsInCgScene = UI.UIManager.Instance().IsPanelShow(UIPanelType.UICommonCgscenePanel);
             foreach (var pointInfo in m_pointInfos)
             {
                 m_data.PointInfos[pointInfo.Key] = pointInfo.Value.ArchiveInfo;
@@ -176,6 +182,10 @@ namespace Controllers.Subsystems
         private void OnPlayerLoadArchive(object sender, PlayerLoadArchiveEvent e)
         {
             m_data = Data.ControllerManager.PlayerArchiveController.CurrentArchiveData.CgSceneArchiveData;
+            if (m_data.IsInCgScene)
+            {
+                UI.UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonCgscenePanel, new CGSceneDataProvider() { CGSceneID = m_data.CgSceneId });
+            }
             m_pointMaxTouchNums.Clear();
             if (m_data.PointInfos == null)
             {

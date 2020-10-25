@@ -30,16 +30,6 @@ namespace GamePlay.Stage
 		public void Initialize ()
 		{
             //TODO
-
-            //m_containerScene.AddOnlyOnceCallbackAfterLoaded(() =>
-            //{
-            //    Camera worldCamera = CameraService.Instance.GetMainCamera().GetComponent<Camera>();
-            //    if (UI.UIManager.Instance().Canvas != null)
-            //    {
-            //        UI.UIManager.Instance().Canvas.renderMode = RenderMode.ScreenSpaceCamera;
-            //        UI.UIManager.Instance().Canvas.worldCamera = worldCamera;
-            //    }
-            //});
             m_containerScene.LoadScene (SceneLookupEnum.World_CoreContainer);
         }
 
@@ -73,6 +63,14 @@ namespace GamePlay.Stage
 
 		public void SpawnPlayer ()
 		{
+            if (m_needToSpawnOnLastPositionFromArchive)
+            {
+                m_needToSpawnOnLastPositionFromArchive = false;
+                m_player.transform.position = m_playerPosition;
+                m_player.SetActive(true);
+                return;
+            }
+
 			SceneLookupEnum currentMissionSceneEnum = MissionSceneManager.Instance.GetCurrentMissionSceneEnum();
 			SceneLookupEnum currentGameSceneEnum = GameSceneManager.Instance.GetCurrentSceneEnum();
 			Scene currentMissionScene = SceneManager.GetSceneByName (currentMissionSceneEnum.ToString ());
@@ -181,11 +179,24 @@ namespace GamePlay.Stage
 			return m_isSceneLoaded == true;
 		}
 
+        public void SetSpawnPositionFromArchive(Vector3 playerPos)
+        {
+            m_needToSpawnOnLastPositionFromArchive = true;
+            m_playerPosition = playerPos;
+        }
+
+        public Vector3 GetPlayerPosition()
+        {
+            return m_player.transform.position;
+        }
+
 		private SceneSlot m_containerScene;
 
 		private GameObject m_player;
 		bool m_isSceneLoaded = false;
 
+        bool m_needToSpawnOnLastPositionFromArchive = false;
+        Vector3 m_playerPosition = Vector3.zero;
 
 	}
 }
