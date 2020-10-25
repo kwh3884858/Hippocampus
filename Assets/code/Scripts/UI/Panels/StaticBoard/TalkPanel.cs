@@ -346,14 +346,16 @@ namespace UI.Panels.StaticBoard
                     break;
                 case StoryActionType.LoadMission:
                     var action = m_curAction as StoryLoadMissionAction;
-                    if (MissionSceneManager.Instance.IsMissionSceneExist(action.Mission))
-                    {
-                        MissionSceneManager.Instance.LoadMissionScene(action.Mission);
-                    }
-                    else
-                    {
-                        MissionSceneManager.Instance.LoadMissionScene(MissionEnum.None);
-                    }
+                    MissionSceneManager.Instance.SetCurrentMission(action.Mission);
+                    MissionSceneManager.Instance.LoadCurrentMissionScene();
+                    //if (MissionSceneManager.Instance.IsMissionSceneExist(action.Mission))
+                    //{
+                    //    MissionSceneManager.Instance.LoadMissionScene(action.Mission);
+                    //}
+                    //else
+                    //{
+                    //    MissionSceneManager.Instance.LoadMissionScene(MissionEnum.None);
+                    //}
                     SetActionState(ActionState.End);
                     break;
                 case StoryActionType.LoadCgScene:

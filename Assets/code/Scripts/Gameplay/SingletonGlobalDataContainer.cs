@@ -99,14 +99,16 @@ namespace GamePlay.Global
 				CoreContainer.Instance.SetPlayerPosition(PlayerPos);
 				GameSceneManager.Instance.LoadScene(gameSceneEnum, "", () =>
 				{
-                    if (MissionSceneManager.Instance.IsMissionSceneExist(missionEnum))
-                    {
-                        MissionSceneManager.Instance.LoadMissionScene(missionEnum);
-                    }
-                    else
-                    {
-                        MissionSceneManager.Instance.LoadMissionScene(MissionEnum.None);
-                    }
+                    MissionSceneManager.Instance.SetCurrentMission(missionEnum);
+                    MissionSceneManager.Instance.LoadCurrentMissionScene();
+                    //if (MissionSceneManager.Instance.IsMissionSceneExist(missionEnum))
+                    //{
+                    //    MissionSceneManager.Instance.LoadMissionScene(missionEnum);
+                    //}
+                    //else
+                    //{
+                    //    MissionSceneManager.Instance.LoadMissionScene(MissionEnum.None);
+                    //}
                 });
             }
             else

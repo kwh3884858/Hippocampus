@@ -114,7 +114,8 @@ namespace GamePlay.Stage
         public SceneLookupEnum GetCurrentMissionSceneEnum() { return m_currentMissionScene.GetCurrentSceneEnum(); }
         public SceneLookupEnum GetLastMissionScecneEnum() { return m_currentMissionScene.GetLastSceneEnum(); }
 
-        private void SetCurrentMission(MissionEnum missionEnum)
+        //For load anonymous scene at the same time load a mission.
+        public void SetCurrentMission(MissionEnum missionEnum)
         {
             m_currentMission = missionEnum;
         }
