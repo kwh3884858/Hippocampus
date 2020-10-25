@@ -81,7 +81,7 @@ namespace UI.Panels
         public static List<UIPanelSettings> BattleInfo = new List<UIPanelSettings>()
         {
             new UIPanelSettings(UIPanelType.JoystickPanel,UIPanelUnLoadMode.Destroy,false,UIPanelLayer.Layer2),
-            new UIPanelSettings(UIPanelType.UIGameplayPromptwidgetPanel,UIPanelUnLoadMode.Disabled),
+            new UIPanelSettings(UIPanelType.UIGameplayPromptwidgetPanel,UIPanelUnLoadMode.Disabled, false, UIPanelLayer.Layer3),
             new UIPanelSettings(UIPanelType.UICommonGameplayTransitionPanel,UIPanelUnLoadMode.Disabled,false,UIPanelLayer.Layer5),
             new UIPanelSettings(UIPanelType.UIJudgmentControversyPanel,UIPanelUnLoadMode.Destroy),
         };
@@ -91,7 +91,7 @@ namespace UI.Panels
                   };
         public static List<UIPanelSettings> StaticBoardInfo = new List<UIPanelSettings>()
         {
-            new UIPanelSettings(UIPanelType.UICommonGameplayPanel,UIPanelUnLoadMode.Disabled),
+            new UIPanelSettings(UIPanelType.UICommonGameplayPanel,UIPanelUnLoadMode.Disabled, false, UIPanelLayer.Layer3),
             new UIPanelSettings(UIPanelType.TalkPanel,UIPanelUnLoadMode.Disabled,false,UIPanelLayer.Layer4),
             new UIPanelSettings(UIPanelType.Tipspanel,UIPanelUnLoadMode.Disabled),
             new UIPanelSettings(UIPanelType.Evidencepanel,UIPanelUnLoadMode.Destroy),
