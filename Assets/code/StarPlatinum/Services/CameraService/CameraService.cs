@@ -63,11 +63,11 @@ namespace StarPlatinum.Service
 
             CloseAllCamera();
 
-			SceneLookupEnum sceneEnum = GameSceneManager.Instance.GetCurrentSceneEnum ();
-			SceneCameraType cameraType = ConfigRoot.Instance.GetCameraTypeBySceneName (sceneEnum.ToString ());
+			//SceneLookupEnum sceneEnum = GameSceneManager.Instance.GetCurrentSceneEnum ();
+			//SceneCameraType cameraType = ConfigRoot.Instance.GetCameraTypeBySceneName (sceneEnum.ToString ());
+			
 			//The camera type is now only movable
-
-			cameraType = SceneCameraType.Moveable;
+			SceneCameraType cameraType = SceneCameraType.Moveable;
 
 			if (cameraType == SceneCameraType.Moveable) {
 				m_cameraController = m_mainCamera.GetComponent<CameraController> ();

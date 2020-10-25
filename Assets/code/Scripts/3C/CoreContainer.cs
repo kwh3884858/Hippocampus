@@ -9,6 +9,7 @@ using StarPlatinum.Service;
 using UnityEngine.Assertions;
 using GamePlay.EventTrigger;
 using UnityEngine.AI;
+using StarPlatinum;
 
 namespace GamePlay.Stage
 {
@@ -28,8 +29,19 @@ namespace GamePlay.Stage
 
 		public void Initialize ()
 		{
-			m_containerScene.LoadScene (SceneLookupEnum.World_CoreContainer);
-		}
+            //TODO
+
+            //m_containerScene.AddOnlyOnceCallbackAfterLoaded(() =>
+            //{
+            //    Camera worldCamera = CameraService.Instance.GetMainCamera().GetComponent<Camera>();
+            //    if (UI.UIManager.Instance().Canvas != null)
+            //    {
+            //        UI.UIManager.Instance().Canvas.renderMode = RenderMode.ScreenSpaceCamera;
+            //        UI.UIManager.Instance().Canvas.worldCamera = worldCamera;
+            //    }
+            //});
+            m_containerScene.LoadScene (SceneLookupEnum.World_CoreContainer);
+        }
 
 		//After scene loaded, it will call this function
 		public void SetSceneLoaded (
