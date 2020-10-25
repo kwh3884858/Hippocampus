@@ -189,6 +189,9 @@ namespace UI.Panels
 				case EnumControversyStage.MissSpecial:
 					ShowTalkPanel(m_model.SpecialBarrageConfig.missStoryID);
 					break;
+				case EnumControversyStage.StageTwoLose:
+					ShowTalkPanel(m_model.ControversyConfig.stageTwoFailBackStoryID);
+					break;
 				case EnumControversyStage.Win:
 					ShowTalkPanel(m_model.ControversyConfig.winStoryID);
 					break;
@@ -215,6 +218,7 @@ namespace UI.Panels
 				case EnumControversyStage.MissSpecial:
 				case EnumControversyStage.StageOneLose:
 				case EnumControversyStage.StageOneWin:
+				case EnumControversyStage.StageTwoLose:
 					ShowScreenAnimation();
 					break;
 				case EnumControversyStage.Win:
@@ -280,6 +284,7 @@ namespace UI.Panels
 			m_pl_line.anchoredPosition = Vector2.zero;
 			m_img_cordon_Image.transform.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 			m_go_enemy.localScale =Vector3.one;
+			m_go_hero.localScale = Vector3.one;
 		}
 		
 		//显示屏风特效
@@ -320,6 +325,15 @@ namespace UI.Panels
 					CallbackTime(2, () =>
 					{
 						m_model.ChangeStage(EnumControversyStage.StageTwo);
+					});
+					break;
+				case EnumControversyStage.StageTwoLose:
+					PrefabManager.Instance.SetImage(m_img_screenLeft_Image,UIRes.ScreenLeftLose);
+					PrefabManager.Instance.SetImage(m_img_screenRight_Image,m_model.EnemyConfig.winScreenKey);
+					//TODO:播放屏风动画
+					CallbackTime(2, () =>
+					{
+						m_model.ChangeStage(EnumControversyStage.StageOne);
 					});
 					break;
 				case EnumControversyStage.Win:

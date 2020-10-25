@@ -46,7 +46,7 @@ namespace UI.UIComponent
                 return;
             }
 
-            if (m_isInited)
+            if (!m_isInited)
             {
                 return;
             }

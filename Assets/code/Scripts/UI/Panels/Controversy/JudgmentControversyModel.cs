@@ -20,6 +20,7 @@ namespace UI.Panels
         StageOneLose,
         StageOneWin,
         StageTwo,
+        StageTwoLose,
         Win,
         MissSpecial,
         Wrong,
@@ -126,7 +127,6 @@ namespace UI.Panels
                 m_heavyAttackColdTime -= Time.deltaTime;
                 if (m_heavyAttackColdTime <= 0)
                 {
-                    Debug.LogError("========Enter Heavy");
                     CheckCharge();
                 }
             }
@@ -142,7 +142,6 @@ namespace UI.Panels
                 {
                     if (NormalBarrageInfos[i].BornTime <= m_time && NormalBarrageInfos[i].IsMoving==false)
                     {
-                        Debug.LogError($"SendBarrage {NormalBarrageInfos[i].ID}");
                         m_panel.SendBarrage(NormalBarrageInfos[i]);
                         NormalBarrageInfos[i].IsMoving = true;
                     }
@@ -201,18 +200,20 @@ namespace UI.Panels
         
         public bool IsStageClear()
         {
-            var point = m_slashedBarrageAmount * 100 / TotalBarrageAmount;
+            int point ;
             switch (CurStage)
             {
                 case EnumControversyStage.StageOne:
+                    point = m_slashedBarrageAmount * 100 / TotalBarrageAmount;
                     return point >= m_stageOneClearPoint;
                 case EnumControversyStage.StageTwo:
+                    point = 100 - m_missBarrageCount * 100 / TotalBarrageAmount;
                     return point >= m_stageTwoClearPoint;
                 default:
                     return true;
             }
         }
-        
+
         public bool SlashBarrage(BarrageTextItem barrage)
         {
             if (barrage.BarrageInfo == SpecialBarrageInfo)
@@ -264,7 +265,6 @@ namespace UI.Panels
 
         private void SlashBarrage(BarrageItem barrage)
         {
-            Debug.LogError($"!!!!!!Slash :{barrage.ID}");
             NormalBarrageInfos.Remove(barrage);
             m_heavyAttackColdTime -= m_heavyAttackRecover;
             m_slashedBarrageAmount++;
@@ -290,11 +290,23 @@ namespace UI.Panels
             }
             else
             {
+                m_missBarrageCount++;
                 NormalBarrageInfos.Remove(barrage);
                 if (NormalBarrageInfos.Count == 0)
                 {
                     CheckStage();
                 }
+                else
+                {
+                    if (CurStage == EnumControversyStage.StageTwo)
+                    {
+                        if (IsStageClear() == false)
+                        {
+                            ChangeStage(EnumControversyStage.StageTwoLose);
+                        }
+                    }
+                }
+                
             }
 
             return true;
@@ -403,7 +415,9 @@ namespace UI.Panels
             IsHeavyAttack = false;
             IsNormalAttack = false;
             IsCharging = false;
+            SlashedSpecialIndex = 0;
             SpecialBarrageInfo.IsMoving = false;
+            m_missBarrageCount = 0;
         }
 
         private BarrageItem GetSpecialBarrageItem(int specialBarrageID)
@@ -475,6 +489,7 @@ namespace UI.Panels
         private int m_slashedBarrageAmount;
         private int m_stageOneClearPoint;
         private int m_stageTwoClearPoint;
+        private int m_missBarrageCount;
         private List<int> m_slashedBarrageLst = new List<int>();
         private List<BarrageItem> SentBarrageInfos = new List<BarrageItem>();
         private float m_time=0;
