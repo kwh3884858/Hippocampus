@@ -24,6 +24,7 @@ namespace HeavenGateEditor {
         LoadScene,
         LoadCgScene,
         CloseCgScene,
+        LoadControversy,
         PlayAnimation,
         LoadBackground,
         Amount
@@ -35,6 +36,7 @@ namespace HeavenGateEditor {
         "loadScene",
         "LoadCgScene",
         "CloseCgScene",
+        "LoadControversy",
         "playAnimation",
         "LoadBackground"
     };
@@ -83,6 +85,9 @@ namespace HeavenGateEditor {
         }
         else if (strcmp(tmpEventType, eventTypeString[(int)EventType::CloseCgScene]) == 0) {
             p.m_eventType = EventType::CloseCgScene;
+        }
+        else if (strcmp(tmpEventType, eventTypeString[(int)EventType::LoadControversy]) == 0){
+            p.m_eventType = EventType::LoadControversy;
         }
         else if (strcmp(tmpEventType, eventTypeString[(int)EventType::PlayAnimation]) == 0) {
             p.m_eventType = EventType::PlayAnimation;

@@ -194,6 +194,9 @@ namespace Controllers.Subsystems.Story
                             case StoryReader.EventType.CloseCgScene:
                                 container.CloseCGScene(eventName);
                                 break;
+                            case StoryReader.EventType.LoadControversy:
+                                container.PushEnterControversy(eventName);
+                                break;
                             case StoryReader.EventType.invokeEvent:
                                 container.TriggerEvent(new StarPlatinum.EventManager.RaiseEvent(
                                     StoryReader.EventType.invokeEvent,
