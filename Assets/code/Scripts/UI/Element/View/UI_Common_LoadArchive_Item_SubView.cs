@@ -41,6 +41,8 @@ namespace UI.Panels.Element
 		[HideInInspector] public Image m_btn_addNewArchive_Image;
 		[HideInInspector] public Button m_btn_addNewArchive_Button;
 
+		[HideInInspector] public Button m_btn_deleteArchive_Button;
+
 
 
         private void UIFinder()
@@ -70,6 +72,7 @@ namespace UI.Panels.Element
 			m_btn_addNewArchive_Image = FindUI<Image>(gameObject.transform ,"bg/go_addNewArchive/btn_addNewArchive");
 			m_btn_addNewArchive_Button = FindUI<Button>(gameObject.transform ,"bg/go_addNewArchive/btn_addNewArchive");
 
+			m_btn_deleteArchive_Button = FindUI<Button>(gameObject.transform, "bg/go_archiveInfo/btn_delete");
 
 			BindEvent();
         }

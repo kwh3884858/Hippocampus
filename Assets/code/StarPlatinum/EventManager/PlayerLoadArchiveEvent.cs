@@ -18,4 +18,7 @@ namespace StarPlatinum
         
     }
 
+    public class PlayerDeleteArchiveEvent: EventArgs
+    { }
+
 }

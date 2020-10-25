@@ -8,6 +8,7 @@ using UI.Panels.Element;
 using UnityEngine;
 using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
+using System;
 
 namespace UI.Panels
 {
@@ -40,10 +41,12 @@ namespace UI.Panels
 			base.Hide();
 			EventManager.Instance.RemoveEventListener<PlayerLoadArchiveEvent>(OnPlayerLoadArchive);
 			EventManager.Instance.RemoveEventListener<PlayerSaveArchiveEvent>(OnPlayerSaveArchive);
+			EventManager.Instance.RemoveEventListener<PlayerDeleteArchiveEvent>(OnPlayerDeleteArchive);
 
 		}
 
-		public override void Deactivate()
+
+        public override void Deactivate()
 		{
 			m_model.Deactivate();
 			base.Deactivate();
@@ -55,7 +58,21 @@ namespace UI.Panels
 			base.ShowData(data);
 			EventManager.Instance.AddEventListener<PlayerLoadArchiveEvent>(OnPlayerLoadArchive);
 			EventManager.Instance.AddEventListener<PlayerSaveArchiveEvent>(OnPlayerSaveArchive);
+			EventManager.Instance.AddEventListener<PlayerDeleteArchiveEvent>(OnPlayerDeleteArchive);
 
+   //         Only show back button when it is save archive.
+   //         m_data = data as ArchiveDataProvider;
+			//if (m_data != null) {
+   //             if (m_data.Type == ArchivePanelType.Load)
+   //             {
+   //                 m_btn_back_Button.gameObject.SetActive(false);
+   //             }
+   //             else
+   //             {
+   //                 m_btn_back_Button.gameObject.SetActive(true);
+   //             }
+   //         }
+               
 		}
 
 		public override void UpdateData(DataProvider data)
@@ -161,8 +178,12 @@ namespace UI.Panels
 		{
 			RefreshPanel();
 		}
+        private void OnPlayerDeleteArchive(object sender, PlayerDeleteArchiveEvent e)
+        {
+            RefreshPanel();
+        }
 
-		private void OnClickCreateNewArchive()
+        private void OnClickCreateNewArchive()
 		{
 			PlayerArchiveController.SaveData(PlayerArchiveController.ArchivePreviewData.ArchivePreviewData.Count);
 		}

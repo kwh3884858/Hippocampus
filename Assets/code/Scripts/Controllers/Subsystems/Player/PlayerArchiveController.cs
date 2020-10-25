@@ -116,6 +116,16 @@ namespace Controllers.Subsystems.Role
 
         }
 
+
+        public void DeleteArchiveData(int index)
+        {
+            ArchivePreviewData previewData = ArchivePreviewData.ArchivePreviewData[index];
+            PersistentStorage.Delete(GetArchiveName(previewData));
+            ArchivePreviewData.ArchivePreviewData.Remove(previewData);
+            Data.LocalCacheManager.SetData(ArchivePreviewData);
+            SortArchivePreViewData();
+        }
+
         private void SortArchivePreViewData()
         {
             ArchivePreviewData.ArchivePreviewData.Sort((d1, d2) => { return d2.SaveTime.CompareTo(d1.SaveTime);});
