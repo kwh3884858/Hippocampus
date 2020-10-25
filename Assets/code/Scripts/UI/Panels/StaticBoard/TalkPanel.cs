@@ -392,6 +392,10 @@ namespace UI.Panels.StaticBoard
                     SoundService.Instance.SetVolumePercentage(volume);
                     SetActionState(ActionState.End);
                     break;
+                case StoryActionType.EnterControversy:
+                    UIManager.Instance().ShowPanel(UIPanelType.UIJudgmentControversyPanel,new ControversyDataProvider(){ID = m_curAction.Content});
+                    SetActionState(ActionState.End);
+                    break;
                 default:
                     Debug.LogError($"未处理对话行为:{storyAction.Type}");
                     break;

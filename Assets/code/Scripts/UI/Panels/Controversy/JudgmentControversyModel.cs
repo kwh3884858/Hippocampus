@@ -1,7 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Timers;
+using code.StarPlatinum.EventManager;
 using Config.Data;
+using StarPlatinum;
+using StarPlatinum.EventManager;
 using UI.Panels.Providers.DataProviders;
+using UI.Panels.Providers.DataProviders.GameScene;
+using UI.Panels.Providers.DataProviders.StaticBoard;
 using UnityEngine;
 
 namespace UI.Panels
@@ -14,6 +20,7 @@ namespace UI.Panels
         StageOneLose,
         StageOneWin,
         StageTwo,
+        StageTwoLose,
         Win,
         MissSpecial,
         Wrong,
@@ -25,6 +32,7 @@ namespace UI.Panels
         public bool IsSpecial;
         public float BornTime;
         public int CorrectIndex;
+        public bool IsMoving;
     }
 
     public class BarrageTextItem
@@ -45,6 +53,9 @@ namespace UI.Panels
             m_panel = (JudgmentControversyPanel) uiPanel;
             m_stageOneClearPoint = config.ControversyStageOnePoint;
             m_stageTwoClearPoint = config.ControversyStageTwoPoint1;
+            m_heavyAttackInterval = config.ControversyHeavyAttackInterval;
+            m_heavyAttackRecover = config.ControversyHeavyAttackRecover;
+            m_normalAttackInterval = config.ControversyNormalAttackInterval;
         }
 
         public override void DeInitialize()
@@ -65,6 +76,13 @@ namespace UI.Panels
         public override void ShowData(DataProvider data)
         {
             base.ShowData(data);
+            var uiData = data as ControversyDataProvider;
+            if (uiData == null)
+            {
+                Debug.LogError("争锋相对传入数据错误！！！！");
+                return;
+            }
+            SetInfo(uiData.ID);
         }
 
         public override void UpdateData(DataProvider data)
@@ -75,7 +93,7 @@ namespace UI.Panels
         public override void Tick()
         {
             base.Tick();
-            if (IsBeginBarrage)
+            if (!IsBeginBarrage)
             {
                 return;
             }
@@ -84,6 +102,7 @@ namespace UI.Panels
             {
                 IsHeavyAttack = false;
                 m_heavyAttackColdTime = m_heavyAttackInterval;
+                Debug.LogError("========Quick Heavy");
                 CheckCharge();
             }
 
@@ -121,11 +140,19 @@ namespace UI.Panels
             {
                 for (int i = 0; i < NormalBarrageInfos.Count; i++)
                 {
-                    if (NormalBarrageInfos[i].BornTime <= m_time)
+                    if (NormalBarrageInfos[i].BornTime <= m_time && NormalBarrageInfos[i].IsMoving==false)
                     {
                         m_panel.SendBarrage(NormalBarrageInfos[i]);
-                        NormalBarrageInfos.RemoveAt(i);
-                        i--;
+                        NormalBarrageInfos[i].IsMoving = true;
+                    }
+                }
+
+                if (CurStage == EnumControversyStage.StageTwo)
+                {
+                    if (SpecialBarrageInfo.BornTime <= m_time && SpecialBarrageInfo.IsMoving==false)
+                    {
+                        m_panel.SendBarrage(SpecialBarrageInfo);
+                        SpecialBarrageInfo.IsMoving = true;
                     }
                 }
             }
@@ -151,7 +178,9 @@ namespace UI.Panels
         
         public void ChangeStage(EnumControversyStage stage)
         {
+            Debug.LogError($"ChangeStage {stage}");
             CurStage = stage;
+            ResetData();
             switch (CurStage)
             {
                 case EnumControversyStage.StageOne:
@@ -160,26 +189,31 @@ namespace UI.Panels
                 case EnumControversyStage.StageTwo:
                     InitStageTwoData();
                     break;
+                default:
+                    break;
             }
-            
-            m_panel.ChangeStage();
+            TimerService.Instance.AddTimer(0.01f, () =>
+            {
+                m_panel.ChangeStage();
+            });
         }
         
         public bool IsStageClear()
         {
-            var point = m_slashedBarrageAmount * 100 / TotalBarrageAmount;
-
+            int point ;
             switch (CurStage)
             {
                 case EnumControversyStage.StageOne:
+                    point = m_slashedBarrageAmount * 100 / TotalBarrageAmount;
                     return point >= m_stageOneClearPoint;
                 case EnumControversyStage.StageTwo:
+                    point = 100 - m_missBarrageCount * 100 / TotalBarrageAmount;
                     return point >= m_stageTwoClearPoint;
                 default:
                     return true;
             }
         }
-        
+
         public bool SlashBarrage(BarrageTextItem barrage)
         {
             if (barrage.BarrageInfo == SpecialBarrageInfo)
@@ -213,7 +247,7 @@ namespace UI.Panels
             }
             if ( barrage.Index == barrage.BarrageInfo.CorrectIndex)
             {
-                SlashBarrage(barrage.ID);
+                SlashBarrage(barrage.BarrageInfo);
                 return true;
             }
             return false;
@@ -226,15 +260,21 @@ namespace UI.Panels
                 return;
             }
 
-            SlashBarrage(barrage.ID);
+            SlashBarrage(barrage.BarrageInfo);
         }
 
-        private void SlashBarrage(int id)
+        private void SlashBarrage(BarrageItem barrage)
         {
+            NormalBarrageInfos.Remove(barrage);
             m_heavyAttackColdTime -= m_heavyAttackRecover;
             m_slashedBarrageAmount++;
             CheckCharge();
-            m_slashedBarrageLst.Add(id);
+            if (CurStage != EnumControversyStage.StageTwo)
+            {
+                CheckStage();
+            }
+
+            m_slashedBarrageLst.Add(barrage.ID);
         }
 
         public bool BarragePassed(BarrageItem barrage)
@@ -250,11 +290,23 @@ namespace UI.Panels
             }
             else
             {
+                m_missBarrageCount++;
                 NormalBarrageInfos.Remove(barrage);
                 if (NormalBarrageInfos.Count == 0)
                 {
                     CheckStage();
                 }
+                else
+                {
+                    if (CurStage == EnumControversyStage.StageTwo)
+                    {
+                        if (IsStageClear() == false)
+                        {
+                            ChangeStage(EnumControversyStage.StageTwoLose);
+                        }
+                    }
+                }
+                
             }
 
             return true;
@@ -271,12 +323,6 @@ namespace UI.Panels
             m_panel.CheckCharge();
         }
 
-        public void Clear()
-        {
-            TotalBarrageAmount = 0;
-            m_time = 0;
-        }
-
         private void SetInfo(string controversyID)
         {
             m_controversyID = controversyID;
@@ -286,7 +332,6 @@ namespace UI.Panels
             var specialBarrageID = ControversyConfig.specialBarrageID;
             SpecialBarrageInfo = GetSpecialBarrageItem(specialBarrageID);
             SpecialBarrageConfig = ControversySpecialBarrageConfig.GetConfigByKey(SpecialBarrageInfo.ID);
-            ChangeStage(EnumControversyStage.Entrance);
         }
 
         private void CheckStage()
@@ -297,6 +342,10 @@ namespace UI.Panels
                     ChangeStage(EnumControversyStage.StageOne);
                     break;
                 case EnumControversyStage.StageOne:
+                    if (NormalBarrageInfos.Count > 0)
+                    {
+                        return;
+                    }
                     if (IsStageClear())
                     {
                         ChangeStage(EnumControversyStage.StageOneWin);
@@ -331,8 +380,7 @@ namespace UI.Panels
 
         private void InitStageOneData()
         {
-            NormalBarrageInfos.Clear();
-
+            ResetData();
             var barrageInfos = GameRunTimeData.Instance.ControllerManager.ControversyController.GetBarrageInfoByGroup(ControversyConfig
                 .stageOneBarrageGroupID);
             foreach (var barrageInfo in barrageInfos)
@@ -341,13 +389,11 @@ namespace UI.Panels
             }
 
             TotalBarrageAmount = NormalBarrageInfos.Count;
-            m_slashedBarrageAmount = 0;
-            m_time = 0;
         }
 
         private void InitStageTwoData()
         {
-            NormalBarrageInfos.Clear();
+            ResetData();
 
             var barrageInfos = GameRunTimeData.Instance.ControllerManager.ControversyController.GetBarrageInfoByGroup(ControversyConfig
                 .stageTwoBarrageGroupID);
@@ -356,15 +402,29 @@ namespace UI.Panels
                 NormalBarrageInfos.Add(GetNormalBarrageItem(barrageInfo));
             }
             TotalBarrageAmount = NormalBarrageInfos.Count;
+        }
+
+        private void ResetData()
+        {            
+            m_slashedBarrageLst.Clear();
+            NormalBarrageInfos.Clear();
             m_slashedBarrageAmount = 0;
             m_time = 0;
+            m_heavyAttackColdTime = m_heavyAttackInterval;
+            m_normalAttackColdTime = m_normalAttackInterval;
+            IsHeavyAttack = false;
+            IsNormalAttack = false;
+            IsCharging = false;
+            SlashedSpecialIndex = 0;
+            SpecialBarrageInfo.IsMoving = false;
+            m_missBarrageCount = 0;
         }
 
         private BarrageItem GetSpecialBarrageItem(int specialBarrageID)
         {
             BarrageItem item = new BarrageItem(){ID = specialBarrageID,IsSpecial = true};
             var specialBarrageConfig = ControversySpecialBarrageConfig.GetConfigByKey(specialBarrageID);
-            item.Items = ProcessBarrageText(specialBarrageID, specialBarrageConfig.text);
+            item.Items = ProcessBarrageText(item, specialBarrageConfig.text);
             item.CorrectIndex = specialBarrageConfig.correctIndex;
             item.BornTime = specialBarrageConfig.bornTime;
             return item;
@@ -374,34 +434,34 @@ namespace UI.Panels
         {
             BarrageItem item = new BarrageItem(){ID = barrageConfig.ID,IsSpecial = false};
 
-            item.Items = ProcessBarrageText(barrageConfig.ID, barrageConfig.text);
+            item.Items = ProcessBarrageText(item, barrageConfig.text);
             item.CorrectIndex = barrageConfig.correctIndex;
             item.BornTime = barrageConfig.bornTime;
             return item;
         }
         
-        private List<BarrageTextItem> ProcessBarrageText(int barrageID, string text)
+        private List<BarrageTextItem> ProcessBarrageText(BarrageItem barrageItem, string text)
         {
             List<BarrageTextItem> items = new List<BarrageTextItem>();
-            bool isBeginWithHighlight = text.StartsWith("HighLight_{");
-            string[] strs = text.Split(new string[] {"HighLight_{"},StringSplitOptions.RemoveEmptyEntries);
+            bool isBeginWithHighlight = text.StartsWith("HightLight_{");
+            string[] strs = text.Split(new string[] {"HightLight_{"},StringSplitOptions.RemoveEmptyEntries);
             int index = 1;
             for (int i = 0; i < strs.Length; i++)
             {
                 if (i == 0 && !isBeginWithHighlight)
                 {
-                    items.Add(new BarrageTextItem(){ID = barrageID,Index = 0,IsHighLight = false, Text = strs[i]});
+                    items.Add(new BarrageTextItem(){ID = barrageItem.ID,Index = 0,IsHighLight = false, Text = strs[i],BarrageInfo = barrageItem});
                     continue;
                 }
-
-                var normalStr = strs[i].Substring(strs[i].IndexOf('}')+1);
-                if (normalStr.Length >= 0)
-                {
-                    items.Add(new BarrageTextItem() {ID = barrageID, Index = 0, IsHighLight = false, Text = normalStr});
-                }
-
                 var specialStr = strs[i].Substring(0,strs[i].IndexOf('}'));
-                items.Add(new BarrageTextItem(){ID = barrageID,Index = index++,IsHighLight = true, Text = specialStr});
+                items.Add(new BarrageTextItem(){ID = barrageItem.ID,Index = index++,IsHighLight = true, Text = specialStr,BarrageInfo = barrageItem});
+                
+                var normalStr = strs[i].Substring(strs[i].IndexOf('}')+1);
+                if (normalStr.Length > 0)
+                {
+                    items.Add(new BarrageTextItem() {ID = barrageItem.ID, Index = 0, IsHighLight = false, Text = normalStr,BarrageInfo = barrageItem});
+                }
+                
             }
 
             return items;
@@ -429,6 +489,7 @@ namespace UI.Panels
         private int m_slashedBarrageAmount;
         private int m_stageOneClearPoint;
         private int m_stageTwoClearPoint;
+        private int m_missBarrageCount;
         private List<int> m_slashedBarrageLst = new List<int>();
         private List<BarrageItem> SentBarrageInfos = new List<BarrageItem>();
         private float m_time=0;
@@ -436,8 +497,8 @@ namespace UI.Panels
         private float m_heavyAttackInterval;
         private float m_heavyAttackRecover;
 
-        private float m_normalAttackColdTime;
-        private float m_heavyAttackColdTime;
+        public float m_normalAttackColdTime;
+        public float m_heavyAttackColdTime;
 
         #endregion
     }

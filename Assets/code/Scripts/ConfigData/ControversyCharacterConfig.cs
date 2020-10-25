@@ -10,6 +10,7 @@ namespace Config.Data
         public string winScreenKey;
         public string loseScreenKey;
         public string IdleTachieKey;
+        public string breakTheoryImgKey;
 
         public static ControversyCharacterConfig GetConfigByKey(string key)
         {

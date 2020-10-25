@@ -7,43 +7,43 @@ using UnityEngine.UI;
 
 namespace UI.Panels
 {
-	public partial class CommonDetectiveNotesPanel : UIPanel<UIDataProvider, DataProvider>
-	{
-		#region UI template method
-		public override void Initialize (UIDataProvider uiDataProvider, UIPanelSettings settings)
-		{
-			base.Initialize (uiDataProvider, settings);
-			m_model.Initialize(this);	
-		}
+    public partial class CommonDetectiveNotesPanel : UIPanel<UIDataProvider, DataProvider>
+    {
+        #region UI template method
+        public override void Initialize(UIDataProvider uiDataProvider, UIPanelSettings settings)
+        {
+            base.Initialize(uiDataProvider, settings);
+            m_model.Initialize(this);
+        }
 
-		public override void DeInitialize()
-		{
-			m_model.Deactivate();
-			base.DeInitialize();
-		}
+        public override void DeInitialize()
+        {
+            m_model.Deactivate();
+            base.DeInitialize();
+        }
 
-		public override void Hide()
-		{
-			m_model.Hide();
-			base.Hide();
-		}
+        public override void Hide()
+        {
+            m_model.Hide();
+            base.Hide();
+        }
 
-		public override void Deactivate()
-		{
-			m_model.Deactivate();
-			base.Deactivate();
-		}
+        public override void Deactivate()
+        {
+            m_model.Deactivate();
+            base.Deactivate();
+        }
 
-		public override void ShowData(DataProvider data)
-		{
-			m_model.ShowData(data);
-			base.ShowData(data);
-		}
+        public override void ShowData(DataProvider data)
+        {
+            m_model.ShowData(data);
+            base.ShowData(data);
+        }
 
-		public override void UpdateData(DataProvider data)
-		{
-			m_model.UpdateData(data);
-			base.UpdateData(data);
+        public override void UpdateData(DataProvider data)
+        {
+            m_model.UpdateData(data);
+            base.UpdateData(data);
             m_data = data as EvidenceDataProvider;
             if (m_data == null)
             {
@@ -52,29 +52,29 @@ namespace UI.Panels
             RefreshPanel();
         }
 
-		public override void Tick()
-		{
-			m_model.Tick();
-			base.Tick();
-		}
+        public override void Tick()
+        {
+            m_model.Tick();
+            base.Tick();
+        }
 
-		public override void LateTick()
-		{
-			m_model.LateTick();
-			base.LateTick();
-		}
+        public override void LateTick()
+        {
+            m_model.LateTick();
+            base.LateTick();
+        }
 
-		public override void SubpanelChanged(UIPanelType type, DataProvider data = null)
-		{
-			m_model.SubpanelChanged(type, data);
-			base.SubpanelChanged(type, data);
-		}
+        public override void SubpanelChanged(UIPanelType type, DataProvider data = null)
+        {
+            m_model.SubpanelChanged(type, data);
+            base.SubpanelChanged(type, data);
+        }
 
-		public override void SubpanelDataChanged(UIPanelType type, DataProvider data)
-		{
-			m_model.SubpanelDataChanged(type, data);
-			base.SubpanelDataChanged(type, data);
-		}
+        public override void SubpanelDataChanged(UIPanelType type, DataProvider data)
+        {
+            m_model.SubpanelDataChanged(type, data);
+            base.SubpanelDataChanged(type, data);
+        }
         #endregion
 
         #region Member
@@ -117,17 +117,38 @@ namespace UI.Panels
             switch (curState)
             {
                 case ShowState.Evidences:
+                    if (m_mapsCtrl != null)
+                    {
+                        m_mapsCtrl.Close();
+                    }
+                    FindUI<Button>(transform, "Btn_Maps").interactable = true;
+                    FindUI<Button>(transform, "Btn_Tips").interactable = true;
+                    FindUI<Button>(transform, "Btn_Evidences").interactable = false;
                     m_evidencesCtrl.Init(InvokeHidePanel, m_data.OnShowEvidence, m_data.IsShowSelectBtn);
                     break;
                 case ShowState.Tips:
                     m_evidencesCtrl.HideSelf();
+                    if (m_mapsCtrl != null)
+                    {
+                        m_mapsCtrl.Close();
+                    }
+                    FindUI<Button>(transform, "Btn_Maps").interactable = true;
+                    FindUI<Button>(transform, "Btn_Tips").interactable = false;
+                    FindUI<Button>(transform, "Btn_Evidences").interactable = true;
                     InvokeHidePanel();
                     UIManager.Instance().ShowStaticPanel(UIPanelType.Tipspanel);// 显示tips列表
                     break;
                 case ShowState.Maps:
                     m_evidencesCtrl.HideSelf();
-                    InvokeHidePanel();
-                    UIManager.Instance().ShowStaticPanel(UIPanelType.UIMapcanvasPanel);// 显示地图
+                    FindUI<Button>(transform, "Btn_Maps").interactable = false;
+                    FindUI<Button>(transform, "Btn_Tips").interactable = true;
+                    FindUI<Button>(transform, "Btn_Evidences").interactable = true;
+                    //InvokeHidePanel();
+                    if (m_mapsCtrl != null)
+                    {
+                        m_mapsCtrl.Show();
+                    }
+                    //UIManager.Instance().ShowStaticPanel(UIPanelType.UIMapcanvasPanel);// 显示地图
                     break;
                 default:
                     m_evidencesCtrl.HideSelf();
@@ -149,7 +170,9 @@ namespace UI.Panels
         }
 
         [SerializeField]
-        private EvidencesController m_evidencesCtrl;
+        private EvidencesController m_evidencesCtrl = null;
+        [SerializeField]
+        private MapsController m_mapsCtrl = null;
 
         private EvidenceDataProvider m_data;
         private ShowState m_curState = ShowState.None;

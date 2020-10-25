@@ -14,7 +14,7 @@ namespace Config.Data
         public string wrongStoryID2;
         public string wrongStoryID3;
         public string wrongStoryID4;
-        public int bornTime;
+        public float bornTime;
 
         public static ControversySpecialBarrageConfig GetConfigByKey(int key)
         {

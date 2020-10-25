@@ -19,9 +19,8 @@ namespace UI.Panels
 		{
 			base.Initialize (uiDataProvider, settings);
 			m_model.Initialize(this);
-			
+			gameObject.SetActive(false);
 			InitMoveInfo();
-			m_UI_Judgment_ControversyCharactor_Item.Init(m_UI_Judgment_ControversyCharactor_Item.GetComponent<RectTransform>());
 		}
 
 		public override void DeInitialize()
@@ -60,6 +59,11 @@ namespace UI.Panels
 
 		public override void Tick()
 		{
+			if (m_model.IsHeavyAttack || m_model.IsNormalAttack)
+			{
+				SoundService.Instance.PlayEffect(m_hitSound);
+				m_hitSound = UIAudioRes.LightAttackFail;
+			}
 			m_model.Tick();
 			base.Tick();
 			if (!m_model.IsBeginBarrage)
@@ -67,10 +71,25 @@ namespace UI.Panels
 				return;
 			}
 
+			if (m_model.IsHeavyAttack || m_model.IsNormalAttack)
+			{
+				EventManager.Instance.SendEvent(new ControversyEvent(){Pos = m_go_cordon.position});
+			}
+
+			if (m_model.IsHeavyAttack)
+			{
+				m_UI_Judgment_ControversyCharactor_Item.SetStatus(EnumCharacterStatus.HeavyAttack);
+			}
+
+			if (m_model.IsNormalAttack)
+			{
+				m_UI_Judgment_ControversyCharactor_Item.SetStatus(EnumCharacterStatus.LightAttack);
+			}
+
 			foreach (var barrageSubView in m_barrageSubViews)
 			{
-				barrageSubView.Value.transform.Translate(m_speed * Time.deltaTime*Vector3.left);
-				if (barrageSubView.Value.MovingTime >= m_totalMoveTime * 4)
+				barrageSubView.Value.Move();
+				if (barrageSubView.Value.MovingTime >= m_totalMoveTime * 2)
 				{
 					CallbackTime(0.01f, () =>
 					{
@@ -79,6 +98,7 @@ namespace UI.Panels
 				}else if (barrageSubView.Value.MovingTime >= m_totalMoveTime &&
 				          !m_model.IsSlashed(barrageSubView.Key) && barrageSubView.Value.IsPassed(m_go_cordon.position))
 				{
+					Debug.LogError($"Miss Barrage {barrageSubView.Value.Info.ID}");
 					if (m_model.BarragePassed(barrageSubView.Value.Info))
 					{
 						MoveCordon(false);
@@ -117,6 +137,7 @@ namespace UI.Panels
 		
 		public void ChangeStage()
 		{
+			ClearStage();
 			switch (m_model.CurStage)
 			{
 				case EnumControversyStage.Begin:
@@ -127,25 +148,25 @@ namespace UI.Panels
 					break;
 				case EnumControversyStage.StageOne:
 					m_model.IsBeginBarrage = true;
-					m_cordonMoveDisdance = m_dictance / 2 / m_model.TotalBarrageAmount;
+					m_cordonMoveDisdance = m_dictance / 4 / m_model.TotalBarrageAmount;
 					ResetCordon();
+					SoundService.Instance.PlayBgm(m_model.ControversyConfig.stageOneBgm,false);
 					break;
 				case EnumControversyStage.StageOneLose:
-					ClearStage();
 					m_model.IsBeginBarrage = false;
 					ShowTalkPanel(m_model.ControversyConfig.stageOneFailStoryID);
 					break;
 				case EnumControversyStage.StageOneWin:
-					ClearStage();
 					m_model.IsBeginBarrage = false;
+					m_model.ChangeStage(EnumControversyStage.StageTwo);
 					break;
 				case EnumControversyStage.StageTwo:
 					m_model.IsBeginBarrage = true;
-					m_cordonMoveDisdance = m_dictance / 2 / m_model.TotalBarrageAmount;
+					m_cordonMoveDisdance = m_dictance / 4 / m_model.TotalBarrageAmount;
 					ResetCordon();
+					SoundService.Instance.PlayBgm(m_model.ControversyConfig.stageTwoBgm,false);
 					break;
 				case EnumControversyStage.Wrong:
-					ClearStage();
 					string storyID;
 					switch (m_model.SlashedSpecialIndex)
 					{
@@ -168,11 +189,12 @@ namespace UI.Panels
 					ShowTalkPanel(storyID);
 					break;
 				case EnumControversyStage.MissSpecial:
-					ClearStage();
 					ShowTalkPanel(m_model.SpecialBarrageConfig.missStoryID);
 					break;
+				case EnumControversyStage.StageTwoLose:
+					ShowTalkPanel(m_model.ControversyConfig.stageTwoFailBackStoryID);
+					break;
 				case EnumControversyStage.Win:
-					ClearStage();
 					ShowTalkPanel(m_model.ControversyConfig.winStoryID);
 					break;
 			}
@@ -180,7 +202,14 @@ namespace UI.Panels
 
 		private void ShowTalkPanel(string id)
 		{
-			UIManager.Instance().ShowStaticPanel(UIPanelType.TalkPanel,new TalkDataProvider(){ID = id, OnTalkEnd = TalkCallback});
+			if (GameRunTimeData.Instance.ControllerManager.StoryController.IsLabelExist(id))
+			{
+				UIManager.Instance().ShowStaticPanel(UIPanelType.TalkPanel,new TalkDataProvider(){ID = id, OnTalkEnd = TalkCallback});
+			}
+			else
+			{
+				TalkCallback();
+			}
 		}
 
 		private void TalkCallback()
@@ -191,16 +220,20 @@ namespace UI.Panels
 				case EnumControversyStage.MissSpecial:
 				case EnumControversyStage.StageOneLose:
 				case EnumControversyStage.StageOneWin:
+				case EnumControversyStage.StageTwoLose:
 					ShowScreenAnimation();
 					break;
 				case EnumControversyStage.Win:
 					//TODO:破论 回调ShowScreenAnimation
+					ShowScreenAnimation();
 					break;
 			}
 		}
 		
 		public void CheckCharge()
 		{
+			Debug.LogError($"Change Charge {m_model.IsCharging}");
+
 			if (m_model.IsCharging)
 			{
 				m_UI_Judgment_ControversyCharactor_Item.SetStatus(EnumCharacterStatus.Charge);
@@ -223,20 +256,27 @@ namespace UI.Panels
 			{
 				direction = Vector3.left;
 				m_curCordonMoveValue--;
+				m_UI_Judgment_ControversyCharactor_Item.SetStatus(EnumCharacterStatus.Hit);
 			}
-			var scale = (m_model.TotalBarrageAmount - m_curCordonMoveValue) / (float) m_model.TotalBarrageAmount;
-			if (scale < 0.5f)
-			{
-				return;
-			}else if (scale > 1.5f)
+			if (m_model.TotalBarrageAmount == Mathf.Abs(m_curCordonMoveValue))
 			{
 				return;
 			}
+			
 			var distance = direction * m_cordonMoveDisdance;
-			m_pl_line.transform.Translate(distance);
+			m_pl_line.transform.Translate(distance,Space.World);
+			m_img_cordon_Image.transform.Translate(distance,Space.World);
 			if (m_curCordonMoveValue > 0)
 			{
+				var scale = 1 - m_curCordonMoveValue / (float) m_model.TotalBarrageAmount / 2;
+
 				m_go_enemy.localScale =Vector3.one*scale;
+			}
+			else
+			{
+				var scale = 1 - (-m_curCordonMoveValue) / (float) m_model.TotalBarrageAmount / 2;
+
+				m_go_hero.localScale = Vector3.one * scale;
 			}
 		}
 
@@ -244,7 +284,9 @@ namespace UI.Panels
 		{
 			m_curCordonMoveValue = 0;
 			m_pl_line.anchoredPosition = Vector2.zero;
+			m_img_cordon_Image.transform.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 			m_go_enemy.localScale =Vector3.one;
+			m_go_hero.localScale = Vector3.one;
 		}
 		
 		//显示屏风特效
@@ -254,17 +296,16 @@ namespace UI.Panels
 			{
 				case EnumControversyStage.Begin:
 					gameObject.SetActive(false);
-					//TODO:破论
-					CallbackTime(4, () =>
+					InvokeShowStaticPanel(UIPanelType.UICommonBreaktheoryPanel,new BreakTheoryDataProvider(){ImgKey = m_model.EnemyConfig.breakTheoryImgKey , CloseCallback =()=>
 					{
 						m_model.ChangeStage(EnumControversyStage.Entrance);
-					});
+					}});
 					break;
 				case EnumControversyStage.Entrance:
 					gameObject.SetActive(true);
 					PrefabManager.Instance.SetImage(m_img_screenLeft_Image,UIRes.ScreenLeftBegin);
 					PrefabManager.Instance.SetImage(m_img_screenRight_Image,m_model.EnemyConfig.entranceScreenKey);
-					CallbackTime(4, () =>
+					CallbackTime(2, () =>
 					{
 						m_model.ChangeStage(EnumControversyStage.StageOne);
 					});
@@ -272,7 +313,8 @@ namespace UI.Panels
 				case EnumControversyStage.StageOneLose:
 					PrefabManager.Instance.SetImage(m_img_screenLeft_Image,UIRes.ScreenLeftLose);
 					PrefabManager.Instance.SetImage(m_img_screenRight_Image,m_model.EnemyConfig.winScreenKey);
-					CallbackTime(4, () =>
+					//TODO:播放屏风动画
+					CallbackTime(2, () =>
 					{
 						m_model.ChangeStage(EnumControversyStage.StageOne);
 					});
@@ -281,18 +323,33 @@ namespace UI.Panels
 				case EnumControversyStage.MissSpecial:
 					PrefabManager.Instance.SetImage(m_img_screenLeft_Image,UIRes.ScreenLeftLose);
 					PrefabManager.Instance.SetImage(m_img_screenRight_Image,m_model.EnemyConfig.winScreenKey);
-					CallbackTime(4, () =>
+					//TODO:播放屏风动画
+					CallbackTime(2, () =>
 					{
 						m_model.ChangeStage(EnumControversyStage.StageTwo);
+					});
+					break;
+				case EnumControversyStage.StageTwoLose:
+					PrefabManager.Instance.SetImage(m_img_screenLeft_Image,UIRes.ScreenLeftLose);
+					PrefabManager.Instance.SetImage(m_img_screenRight_Image,m_model.EnemyConfig.winScreenKey);
+					//TODO:播放屏风动画
+					CallbackTime(2, () =>
+					{
+						m_model.ChangeStage(EnumControversyStage.StageOne);
 					});
 					break;
 				case EnumControversyStage.Win:
 					PrefabManager.Instance.SetImage(m_img_screenLeft_Image,UIRes.ScreenLeftWin);
 					PrefabManager.Instance.SetImage(m_img_screenRight_Image,UIRes.ScreenRightWin);
-					CallbackTime(4, () =>
+					InvokeShowStaticPanel(UIPanelType.UICommonBreaktheoryPanel,new BreakTheoryDataProvider(){ImgKey = m_model.ControversyConfig.breakTheoryImageKey , CloseCallback =()=>
 					{
-						InvokeHidePanel();
-					});
+						//TODO:播放屏风动画
+						CallbackTime(2, () =>
+						{
+							InvokeHidePanel();
+						});
+					}});
+					
 					break;
 			}
 		}
@@ -300,10 +357,7 @@ namespace UI.Panels
 		private void InitMoveInfo()
 		{
 			m_totalMoveTime = CommonConfig.Data.ControversyBarrageMoveSpeed;
-			m_dictance = m_go_cordon.transform.position.x - m_go_beginLine1.position.x;
-			m_speed = m_dictance / m_totalMoveTime;
-
-			m_cordonMoveDisdance = m_dictance / 2;
+			m_dictance = Mathf.Abs(m_go_cordon.position.x - m_go_beginLine1.position.x);
 		}
 
 		private void RecycleBarrageSubview(int barrageID)
@@ -376,7 +430,7 @@ namespace UI.Panels
 			subView.transform.SetParent(parent);
 			subView.transform.localScale = Vector3.one;
 			subView.transform.localPosition = Vector3.zero;
-			subView.SetInfo(itemInfo);
+			subView.SetInfo(itemInfo,m_dictance);
 			if (!m_barrageSubViews.ContainsKey(itemInfo.ID))
 			{
 				m_barrageSubViews.Add(itemInfo.ID,subView);
@@ -391,32 +445,56 @@ namespace UI.Panels
 				m_freeSubViews.Enqueue(barrageSubView.Value);
 			}
 			m_barrageSubViews.Clear();
-			m_model.Clear();
 		}
 
 		private void OnSlashed(object sender, ControversyBarrageSlashEvent e)
 		{
 			var info = e.SubView.BarrageInfo;
-
-			if (m_model.IsSlashed(info.ID))
+			if (!e.SubView.BarrageInfo.IsHighLight && !m_model.IsHeavyAttack)
+			{
+				if (m_hitSound == UIAudioRes.LightAttackEmpty)
+				{
+					m_hitSound = UIAudioRes.LightAttackFail;
+				}
+				return;
+			}
+			if (!m_barrageSubViews.ContainsKey(info.ID)||m_model.IsSlashed(info.ID))
 			{
 				return;
 			}
+			
 			var isSuccess = m_model.SlashBarrage(info);
 			m_barrageSubViews[info.ID].Slash();
 
 			if (isSuccess)
 			{
 				MoveCordon(true);
+				if (m_hitSound != UIAudioRes.HeavyAttack)
+				{
+					m_hitSound = UIAudioRes.LightAttack;
+				}
 			}
 			//TODO:播放斩击动画
-			
 			if (m_model.IsHeavyAttack)
 			{
-				m_model.IsHeavyAttack = false;
+				m_hitSound = UIAudioRes.HeavyAttack;
 			}
 		}
 
+		void OnGUI()
+		{
+		
+			//if (GUI.Button(new Rect(0, 150, 100, 50), "ShowLog"))
+			//{
+			//	reporter.show = !reporter.show; 
+			//}
+			if (GUI.Button(new Rect(0, 200, 100, 50), $"重攻击:{m_model.m_heavyAttackColdTime}"))
+			{
+			}
+			if (GUI.Button(new Rect(0, 250, 100, 50), $"轻攻击:{m_model.m_normalAttackColdTime}"))
+			{
+			}
+		}
 		
 		#region Member
 		
@@ -425,9 +503,11 @@ namespace UI.Panels
 		private Queue<UI_Judgment_ControversyBarrage_Item_SubView> m_freeSubViews = new Queue<UI_Judgment_ControversyBarrage_Item_SubView>();
 		private float m_totalMoveTime;
 		private float m_dictance;
-		private float m_speed;
 		private float m_cordonMoveDisdance;
 		private int m_curCordonMoveValue;
+
+		private string m_hitSound = UIAudioRes.LightAttackEmpty;
+		private bool m_isHit;
 
 		#endregion
 	}

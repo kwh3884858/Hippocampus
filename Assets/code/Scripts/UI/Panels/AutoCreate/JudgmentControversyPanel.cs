@@ -22,6 +22,8 @@ namespace UI.Panels
          #region gen ui code 
 		[HideInInspector] public Image m_img_bg_Image;
 
+		[HideInInspector] public Image m_img_cordon_Image;
+
 		[HideInInspector] public RectTransform m_go_hero;
 		[HideInInspector] public UI_Judgment_ControversyCharactor_Item_SubView m_UI_Judgment_ControversyCharactor_Item;
 		[HideInInspector] public RectTransform m_go_enemy;
@@ -49,7 +51,10 @@ namespace UI.Panels
          {
 			m_img_bg_Image = FindUI<Image>(transform ,"img_bg");
 
+			m_img_cordon_Image = FindUI<Image>(transform ,"img_cordon");
+
 			m_go_hero = FindUI<RectTransform>(transform ,"go_hero");
+			m_UI_Judgment_ControversyCharactor_Item = FindUI<UI_Judgment_ControversyCharactor_Item_SubView>(transform ,"go_hero/UI_Judgment_ControversyCharactor_Item");
 			m_UI_Judgment_ControversyCharactor_Item.Init(FindUI<RectTransform>(transform ,"go_hero/UI_Judgment_ControversyCharactor_Item"));
 			m_go_enemy = FindUI<RectTransform>(transform ,"go_enemy");
 			m_img_enemy_Image = FindUI<Image>(transform ,"go_enemy/img_enemy");

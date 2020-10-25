@@ -10,10 +10,9 @@ namespace UI.UIComponent
     public class MakeChildTransparent: MonoBehaviour
     {
         [SerializeField]
-        private int m_alpha = 0;
+        private float m_alpha = 0;
         private bool m_isInited = false;
         private bool m_isTransparent = false;
-        private float m_defualtAlpha;
         private List<Image> m_imgs =new List<Image>();
         private List<float> m_defualtImgColor = new List<float>();
         private List<TextMeshProUGUI> m_txts = new List<TextMeshProUGUI>();
@@ -32,7 +31,6 @@ namespace UI.UIComponent
                 m_defualtTxtColor.Add(txt.color.a);
             }
             m_isInited = true;
-            m_defualtAlpha = (float)m_alpha / 255;
             if (m_isTransparent == true)
             {
                 Transparent(m_isTransparent,true);
@@ -46,7 +44,7 @@ namespace UI.UIComponent
                 return;
             }
 
-            if (m_isInited)
+            if (!m_isInited)
             {
                 return;
             }
@@ -57,7 +55,7 @@ namespace UI.UIComponent
                 color = m_imgs[i].color;
                 if (isTransparent)
                 {
-                    color.a = m_defualtAlpha;
+                    color.a *= m_alpha;
                 }
                 else
                 {
@@ -71,7 +69,7 @@ namespace UI.UIComponent
                 color = m_txts[i].color;
                 if (isTransparent)
                 {
-                    color.a = m_defualtAlpha;
+                    color.a *= m_alpha;
                 }
                 else
                 {

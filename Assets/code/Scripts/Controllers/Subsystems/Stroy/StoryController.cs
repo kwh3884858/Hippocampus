@@ -41,6 +41,7 @@ namespace Controllers.Subsystems.Story
         ChangeBackground,
         Wrap,
         ChangeSoundVolume,
+        EnterControversy,
     }
 
     public class StoryController : ControllerBase

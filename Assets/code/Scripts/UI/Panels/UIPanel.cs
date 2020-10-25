@@ -169,6 +169,17 @@ namespace UI.Panels
             transform.SetSiblingIndex(transform.parent.childCount-1);
         }
 
+        public void InvokeShowStaticPanel(UIPanelType type, DataProvider provider)
+        {
+            UIManager.Instance().ShowStaticPanel(type,provider);
+        }
+
+        public void InvokeHideStaticPanel(UIPanelType type)
+        {
+            UIManager.Instance().HideStaticPanel(type);
+
+        }
+
 
         #region IUiPanel interface implementation
         UIDataProvider IUiPanel.UiDataProvider => UiDataProvider;
