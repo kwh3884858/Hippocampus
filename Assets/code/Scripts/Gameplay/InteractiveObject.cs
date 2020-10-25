@@ -12,6 +12,7 @@ namespace GamePlay
 	{
 		public static readonly string INTERACTABLE_TAG = "Interactive";
 
+		public string m_newStoryFileName = "";
 		public string m_objectName = "";
 
 		public void Start ()
@@ -45,8 +46,18 @@ namespace GamePlay
 			if (m_objectName == null || m_objectName == "") {
 				return;
 			}
-			//bool result = storyController.LoadStoryByItem (m_objectName);
-			if (!m_objectName.Contains ("_")) {
+
+            if (m_newStoryFileName == null || m_newStoryFileName == "")
+            {
+                Debug.LogWarning("New Story File Name is empty");
+            }
+            else
+            {
+                storyController.LoadStoryFileByName(m_newStoryFileName);
+            }
+
+            //bool result = storyController.LoadStoryByItem (m_objectName);
+            if (!m_objectName.Contains ("_")) {
 				int outCounterValue = -1;
 				bool result = SingletonGlobalDataContainer.Instance.GetObjectCounter (m_objectName, out outCounterValue);
 				if (result == false) {
