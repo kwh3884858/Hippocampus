@@ -9,7 +9,7 @@ namespace Config.Data
         public int groupID;
         public string text;
         public int correctIndex;
-        public int bornTime;
+        public float bornTime;
         public int track;
 
         public static ControversyBarrageConfig GetConfigByKey(int key)
