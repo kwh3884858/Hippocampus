@@ -1,3 +1,4 @@
+using code.Scripts.Provider;
 using Config;
 using Config.Data;
 using Controllers;
@@ -16,6 +17,8 @@ public class GameRunTimeData
     public ConfigDataProvider ConfigDataProvider => m_data.ConfigDataProvider;
 
     public LocalCacheManager LocalCacheManager => m_data.LocalCacheManager;
+
+    public ColorProvider ColorProvider => m_data.ColorProvider;
     
     private IGameRuntimeData m_data;
     public GameRunTimeData(IGameRuntimeData data)

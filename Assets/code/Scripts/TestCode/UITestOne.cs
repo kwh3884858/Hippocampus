@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using code.Scripts.Provider;
 using Config;
 using Config.Data;
 using Controllers;
@@ -17,6 +18,7 @@ public class UITestOne : MonoBehaviour,IGameRuntimeData
 	public SoundService SoundService => SoundService.Instance;
 	public ConfigDataProvider ConfigDataProvider => m_configDataProvider;
 	public LocalCacheManager LocalCacheManager { get; private set; }
+	public ColorProvider ColorProvider { get; private set; }
 
 	public GameState State { get; private set; }
 
@@ -27,6 +29,7 @@ public class UITestOne : MonoBehaviour,IGameRuntimeData
 		LoadConfig();
 		LocalCacheManager = new LocalCacheManager("0");
 		m_gameRunTimeData = new GameRunTimeData(this);
+		ColorProvider = GetComponent<ColorProvider>();
 		GameRunTimeData.Instance = m_gameRunTimeData;
 		m_gameRunTimeData.State = State;
 		m_uiManager.Initialize(m_gameRunTimeData);

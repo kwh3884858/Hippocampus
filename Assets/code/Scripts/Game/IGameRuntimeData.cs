@@ -1,3 +1,4 @@
+using code.Scripts.Provider;
 using Config;
 using Config.Data;
 using Controllers;
@@ -13,5 +14,6 @@ namespace Game
         SoundService SoundService { get; }
         ConfigDataProvider ConfigDataProvider { get; }
         LocalCacheManager LocalCacheManager { get; }
+        ColorProvider ColorProvider { get; }
     }
 }

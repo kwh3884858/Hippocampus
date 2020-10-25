@@ -29,6 +29,16 @@ namespace Config.Data
                 File.ReadAllText(m_dataPath + typeof(CGScenePointTouchConfig).Name + m_jsonSuffix, Encoding.GetEncoding("GB2312"))));
             EvidenceConfig.Init(JsonConvert.DeserializeObject<NormalHGData>(
                 File.ReadAllText(m_dataPath + typeof(EvidenceConfig).Name + m_jsonSuffix, Encoding.UTF8)));
+            CommonConfig.Init(JsonConvert.DeserializeObject<Dictionary<int, CommonConfig>>(
+                File.ReadAllText(m_dataPath + typeof(CommonConfig).Name + m_jsonSuffix, Encoding.GetEncoding("GB2312"))));
+            ControversyConfig.Init(JsonConvert.DeserializeObject<Dictionary<string, ControversyConfig>>(
+                File.ReadAllText(m_dataPath + typeof(ControversyConfig).Name + m_jsonSuffix, Encoding.GetEncoding("GB2312"))));
+            ControversyBarrageConfig.Init(JsonConvert.DeserializeObject<Dictionary<int, ControversyBarrageConfig>>(
+                File.ReadAllText(m_dataPath + typeof(ControversyBarrageConfig).Name + m_jsonSuffix, Encoding.GetEncoding("GB2312"))));
+            ControversySpecialBarrageConfig.Init(JsonConvert.DeserializeObject<Dictionary<int, ControversySpecialBarrageConfig>>(
+                File.ReadAllText(m_dataPath + typeof(ControversySpecialBarrageConfig).Name + m_jsonSuffix, Encoding.GetEncoding("GB2312"))));
+            ControversyCharacterConfig.Init(JsonConvert.DeserializeObject<Dictionary<string, ControversyCharacterConfig>>(
+                File.ReadAllText(m_dataPath + typeof(ControversyCharacterConfig).Name + m_jsonSuffix, Encoding.GetEncoding("GB2312"))));
         }
 
 

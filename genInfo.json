@@ -87,6 +87,14 @@
 		"modelPath":"Assets/code/Scripts/UI/Panels/BookMark/CommonBookMarkModel.cs",
 		"GUID":"75206ca2523f0a34b8f9ab1bd2a7da38"
 	},
+	"af565b09cdc14854187a750c24792a9d":{
+		"type":1,
+		"prefabPath":"Assets/data/graphics/UI/Judgment/Controversy/UI_Judgment_Controversy_Panel.prefab",
+		"codePath":"Assets/code/Scripts/UI/Panels/AutoCreate/JudgmentControversyPanel.cs",
+		"mediatorPath":"Assets/code/Scripts/UI/Panels/Controversy/JudgmentControversyPanel.cs",
+		"modelPath":"Assets/code/Scripts/UI/Panels/Controversy/JudgmentControversyModel.cs",
+		"GUID":"af565b09cdc14854187a750c24792a9d"
+	},
 	"67d767d9beb133d4ba5ef9b0b737527c":{
 		"type":3,
 		"prefabPath":"Assets/data/graphics/UI/Common/DetectiveNotes/Prefabs/UI_Common_Detective_Notes_Panel.prefab",

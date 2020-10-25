@@ -1,0 +1,64 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using Config;
+using Const;
+using Controllers.Subsystems.Story;
+using StarPlatinum;
+using TMPro;
+using UI.Panels.Element;
+using UI.Panels.Providers;
+using UI.Panels.Providers.DataProviders;
+using UI.Panels.Providers.DataProviders.GameScene;
+using UI.Panels.Providers.DataProviders.StaticBoard;
+using UnityEngine;
+using UnityEngine.UI;
+using UI.UIComponent;
+
+namespace UI.Panels
+{
+    public partial class JudgmentControversyPanel : UIPanel<UIDataProvider, DataProvider>
+    {
+         #region gen ui code 
+		[HideInInspector] public RectTransform m_go_hero;
+		[HideInInspector] public UI_Judgment_ControversyCharactor_Item_SubView m_UI_Judgment_ControversyCharactor_Item;
+		[HideInInspector] public RectTransform m_go_enemy;
+		[HideInInspector] public Image m_img_enemy_Image;
+
+		[HideInInspector] public RectTransform m_pl_line;
+		[HideInInspector] public VerticalLayoutGroup m_go_barrage_VerticalLayoutGroup;
+
+		[HideInInspector] public RectTransform m_go_beginLine1;
+		[HideInInspector] public RectTransform m_go_beginLine2;
+		[HideInInspector] public RectTransform m_go_beginLine3;
+		[HideInInspector] public RectTransform m_go_beginLine4;
+		[HideInInspector] public RectTransform m_go_cordon;
+
+         private JudgmentControversyModel m_model;
+
+         private void UIFinder()
+         {
+			m_go_hero = FindUI<RectTransform>(transform ,"go_hero");
+			m_UI_Judgment_ControversyCharactor_Item.Init(FindUI<RectTransform>(transform ,"go_hero/UI_Judgment_ControversyCharactor_Item"));
+			m_go_enemy = FindUI<RectTransform>(transform ,"go_enemy");
+			m_img_enemy_Image = FindUI<Image>(transform ,"go_enemy/img_enemy");
+
+			m_pl_line = FindUI<RectTransform>(transform ,"pl_line");
+			m_go_barrage_VerticalLayoutGroup = FindUI<VerticalLayoutGroup>(transform ,"pl_line/go_barrage");
+
+			m_go_beginLine1 = FindUI<RectTransform>(transform ,"pl_line/go_barrage/go_beginLine1");
+			m_go_beginLine2 = FindUI<RectTransform>(transform ,"pl_line/go_barrage/go_beginLine2");
+			m_go_beginLine3 = FindUI<RectTransform>(transform ,"pl_line/go_barrage/go_beginLine3");
+			m_go_beginLine4 = FindUI<RectTransform>(transform ,"pl_line/go_barrage/go_beginLine4");
+			m_go_cordon = FindUI<RectTransform>(transform ,"pl_line/go_cordon");
+
+m_model = new JudgmentControversyModel ();
+
+         }
+         #endregion
+   	
+         public void Start () {
+               UIFinder();
+         }
+    }
+}

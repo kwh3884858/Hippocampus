@@ -23,4 +23,5 @@ public enum UIPanelType
     [AssetPath("UI_Common_Assistant_Panel")] UICommonAssistantPanel = 20,
     [AssetPath("UI_Common_BookMark_Panel")] UICommonBookmarkPanel = 21,
     [AssetPath("UI_Common_Detective_Notes_Panel")] UICommonDetectiveNotesPanel = 22,
+    [AssetPath("UI_Judgment_Controversy_Panel")] UIJudgmentControversyPanel = 23,
 }
