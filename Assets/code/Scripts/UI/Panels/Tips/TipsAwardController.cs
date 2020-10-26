@@ -41,7 +41,8 @@ namespace Tips
             base.UpdateData(data);
             m_showDataList.Add((data as TipDataProvider).Data);
             m_data = (data as TipDataProvider).Data;
-            CreateTip();
+            Invoke("CreateTip", 0.5f * (m_showDataList.Count - 1 - createIndex));
+            //CreateTip();
         }
 
         public void Init(TipData data)
@@ -64,17 +65,20 @@ namespace Tips
                 SingleTipGetCtrl tipGetCtrl = tip.GetComponent<SingleTipGetCtrl>();
                 if (tipGetCtrl != null)
                 {
-                    tipGetCtrl.Init(this, m_singleTipGetCtrls.Count, m_showDataList[m_showDataList.Count - 1]);
+                    tipGetCtrl.Init(this, createIndex, m_showDataList[createIndex]);
                     m_singleTipGetCtrls.Add(tipGetCtrl);
+                    createIndex++;
+                    leftShowCnt++;
                 }
-                int l = m_singleTipGetCtrls.Count;
-                if (l > 3)
+                //int l = m_singleTipGetCtrls.Count;
+                int l = leftShowCnt;
+                if (leftShowCnt > 3)
                 {
-                    m_singleTipGetCtrls[0].EndShow();
+                    m_singleTipGetCtrls[createIndex - leftShowCnt].EndShow();
                 }
                 if (l > 1)
                 {
-                    for (int i = 0; i < l - 1; i++)
+                    for (int i = createIndex - leftShowCnt; i < createIndex - 1; i++)
                     {
                         m_singleTipGetCtrls[i].MoveDown(m_moveDistanceY, 1f);
                     }
@@ -130,8 +134,9 @@ namespace Tips
         /// <param name="closeIndex">tip get index</param>
         public void OnTipGetClose(TipData tipData, SingleTipGetCtrl singleTipGetCtrl)
         {
-            m_showDataList.Remove(tipData);
-            m_singleTipGetCtrls.Remove(singleTipGetCtrl);
+            leftShowCnt--;
+            //m_showDataList.Remove(tipData);
+            //m_singleTipGetCtrls.Remove(singleTipGetCtrl);
         }
 
         /// <summary>数据</summary>
@@ -139,5 +144,7 @@ namespace Tips
         private List<TipData> m_showDataList = new List<TipData>();
         /// <summary>单条提示的控制显示</summary>
         private List<SingleTipGetCtrl> m_singleTipGetCtrls = new List<SingleTipGetCtrl>();
+        private int leftShowCnt = 0;
+        private int createIndex = 0;
     }
 }
