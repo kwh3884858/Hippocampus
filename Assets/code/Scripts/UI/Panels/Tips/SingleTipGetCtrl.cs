@@ -13,17 +13,18 @@ public class SingleTipGetCtrl : MonoBehaviour
     [SerializeField]
     private Text m_description = null;
 
-    public void Init(TipsAwardController father, int index, string name, string description)
+    public void Init(TipsAwardController father, int index, TipData tipData)
     {
         m_father = father;
         m_index = index;
+        this.tipData = tipData;
         if (m_name != null)
         {
-            m_name.text = name;
+            m_name.text = tipData.tip;
         }
         if (m_description != null)
         {
-            m_description.text = description;
+            m_description.text = tipData.description;
         }
         m_moveTween = transform.DOLocalMoveX(460, 1f);
         StartCoroutine(Wait(5f, Close));
@@ -57,7 +58,7 @@ public class SingleTipGetCtrl : MonoBehaviour
     {
         if (m_father != null)
         {
-            m_father.OnTipGetClose(m_index);
+            m_father.OnTipGetClose(tipData, this);
         }
         m_moveTween = transform.DOLocalMoveX(1460, 1f).OnComplete(OnTweeningComplete);
     }
@@ -100,4 +101,5 @@ public class SingleTipGetCtrl : MonoBehaviour
     private TipsAwardController m_father = null;
     private int m_index = 0;
     private float m_targetY = 0f;
+    private TipData tipData = null;
 }
