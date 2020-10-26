@@ -265,7 +265,7 @@ namespace UI.Panels
 			
 			var distance = direction * m_cordonMoveDisdance;
 			m_pl_line.transform.Translate(distance,Space.World);
-			m_img_cordon_Image.transform.Translate(distance,Space.World);
+			m_go_bg.transform.Translate(distance,Space.World);
 			if (m_curCordonMoveValue > 0)
 			{
 				var scale = 1 - m_curCordonMoveValue / (float) m_model.TotalBarrageAmount / 2;
@@ -284,7 +284,7 @@ namespace UI.Panels
 		{
 			m_curCordonMoveValue = 0;
 			m_pl_line.anchoredPosition = Vector2.zero;
-			m_img_cordon_Image.transform.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+			m_go_bg.transform.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 			m_go_enemy.localScale =Vector3.one;
 			m_go_hero.localScale = Vector3.one;
 		}

@@ -84,10 +84,7 @@ namespace UI.Panels.Element
         
         private void OnSlash(object sender, ControversyEvent e)
         {
-            Vector3 myPos= CameraService.Instance.GetMainCameraComponent().WorldToScreenPoint(m_root_RectTransform.position);
-            Vector3 otherPos = CameraService.Instance.GetMainCameraComponent().WorldToScreenPoint(e.Pos);
-            Debug.LogError($"Distance: {otherPos.x - myPos.x}  width:{m_width}");
-            if (otherPos.x - myPos.x <= m_width)
+            if (e.Pos.x>=m_root_RectTransform.position.x && e.Pos.x - m_root_RectTransform.position.x <= m_width)
             {
                 Debug.LogError($"Slashed");
                 EventManager.Instance.SendEvent(new ControversyBarrageSlashEvent(){SubView = this});

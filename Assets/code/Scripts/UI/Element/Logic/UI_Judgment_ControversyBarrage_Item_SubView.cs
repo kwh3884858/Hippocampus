@@ -94,10 +94,8 @@ namespace UI.Panels.Element
         
         public bool IsPassed(Vector3 pos)
         {
-            Vector3 myPos= CameraService.Instance.GetMainCameraComponent().WorldToScreenPoint(m_img_behind_Image.transform.position);
-            Vector3 otherPos = CameraService.Instance.GetMainCameraComponent().WorldToScreenPoint(pos);
 
-            return myPos.x < otherPos.x;
+            return pos.x > m_img_behind_Image.transform.position.x;
         }
 
         private void HideSubView()

@@ -189,6 +189,12 @@ namespace Controllers.Subsystems.Story
             m_actions.Enqueue(new StoryAction(){Type = StoryActionType.EnterControversy, Content = ID});
         }
 
+        public void PushCutIn(string ImgKey)
+        {
+            m_actions.Enqueue(new StoryAction(){Type = StoryActionType.CutIn, Content = ImgKey});
+
+        }
+
         private int ProcessPicPos(int pos)
         {
             return pos - 100;

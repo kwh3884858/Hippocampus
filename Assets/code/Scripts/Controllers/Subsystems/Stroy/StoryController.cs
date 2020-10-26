@@ -42,6 +42,8 @@ namespace Controllers.Subsystems.Story
         Wrap,
         ChangeSoundVolume,
         EnterControversy,
+        CutIn,
+        BreakTheory,
     }
 
     public class StoryController : ControllerBase

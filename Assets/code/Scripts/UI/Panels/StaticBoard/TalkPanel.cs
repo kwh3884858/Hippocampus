@@ -398,6 +398,13 @@ namespace UI.Panels.StaticBoard
                     UIManager.Instance().ShowPanel(UIPanelType.UIJudgmentControversyPanel,new ControversyDataProvider(){ID = m_curAction.Content});
                     SetActionState(ActionState.End);
                     break;
+                case StoryActionType.CutIn:
+                    UIManager.Instance().ShowPanel(UIPanelType.UICommonBreaktheoryPanel,new BreakTheoryDataProvider(){Type = EnumBreakTheoryType.CutIn ,ImgKey = m_curAction.Content,CloseCallback=
+                        () =>
+                        {
+                            SetActionState(ActionState.End);
+                        }});
+                    break;
                 default:
                     Debug.LogError($"未处理对话行为:{storyAction.Type}");
                     break;
