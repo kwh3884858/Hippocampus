@@ -89,7 +89,7 @@ namespace UI.Panels.Element
         
         public bool IsPassed(Vector3 pos)
         {
-            return pos.x > m_img_behind_Image.transform.position.x;
+            return pos.x > m_go_behind.transform.position.x;
         }
 
         private void HideSubView()
@@ -105,12 +105,12 @@ namespace UI.Panels.Element
             if (m_isSpecial)
             {
                 PrefabManager.Instance.SetImage(m_img_front_Image, UIRes.SpecialBarrageFront);
-                PrefabManager.Instance.SetImage(m_img_behind_Image, UIRes.SpecialBarrageBehind);
+                PrefabManager.Instance.SetImage(m_go_container_Image, UIRes.SpecialBarrageImg);
             }
             else
             {
                 PrefabManager.Instance.SetImage(m_img_front_Image, UIRes.NormalBarrageFront);
-                PrefabManager.Instance.SetImage(m_img_behind_Image, UIRes.NormalBarrageBehind);
+                PrefabManager.Instance.SetImage(m_go_container_Image, UIRes.NormalBarrageImg);
             }
         }
     }

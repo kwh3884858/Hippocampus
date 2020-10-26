@@ -25,9 +25,9 @@ namespace UI.Panels.Element
 
 		[HideInInspector] public HorizontalLayoutGroup m_go_container_HorizontalLayoutGroup;
 		[HideInInspector] public ContentSizeFitter m_go_container_ContentSizeFitter;
+		[HideInInspector] public Image m_go_container_Image;
 
-		[HideInInspector] public Image m_img_behind_Image;
-
+		[HideInInspector] public RectTransform m_go_behind;
 
 
         private void UIFinder()
@@ -41,9 +41,9 @@ namespace UI.Panels.Element
 
 			m_go_container_HorizontalLayoutGroup = FindUI<HorizontalLayoutGroup>(gameObject.transform ,"pl_barrage/go_container");
 			m_go_container_ContentSizeFitter = FindUI<ContentSizeFitter>(gameObject.transform ,"pl_barrage/go_container");
+			m_go_container_Image = FindUI<Image>(gameObject.transform ,"pl_barrage/go_container");
 
-			m_img_behind_Image = FindUI<Image>(gameObject.transform ,"pl_barrage/img_behind");
-
+			m_go_behind = FindUI<RectTransform>(gameObject.transform ,"pl_barrage/go_behind");
 
 			BindEvent();
         }

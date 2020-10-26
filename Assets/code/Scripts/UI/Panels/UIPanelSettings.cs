@@ -83,7 +83,7 @@ namespace UI.Panels
             new UIPanelSettings(UIPanelType.JoystickPanel,UIPanelUnLoadMode.Destroy,false,UIPanelLayer.Layer2),
             new UIPanelSettings(UIPanelType.UIGameplayPromptwidgetPanel,UIPanelUnLoadMode.Disabled, false, UIPanelLayer.Layer3),
             new UIPanelSettings(UIPanelType.UICommonGameplayTransitionPanel,UIPanelUnLoadMode.Disabled,false,UIPanelLayer.Layer5),
-            new UIPanelSettings(UIPanelType.UIJudgmentControversyPanel,UIPanelUnLoadMode.Destroy),
+            new UIPanelSettings(UIPanelType.UIJudgmentControversyPanel,UIPanelUnLoadMode.Destroy,false, UIPanelLayer.Layer4),
         };
         public static List<UIPanelSettings> MenuInfo = new List<UIPanelSettings>()
         {

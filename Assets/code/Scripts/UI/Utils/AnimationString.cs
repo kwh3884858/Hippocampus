@@ -7,5 +7,7 @@
         public static string CharacterLightAttack = "LightAttack";
         public static string CharacterHeavyAttack = "HeavyAttack";
 
+
+        public static string ControversyScreenOpen = "ControversyScreenOpen";
     }
 }

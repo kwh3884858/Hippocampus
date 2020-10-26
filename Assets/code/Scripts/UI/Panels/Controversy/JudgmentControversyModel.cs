@@ -281,11 +281,17 @@ namespace UI.Panels
         {
             if (IsSlashed(barrage.ID))
             {
-                Debug.LogError($"BarragePassed IsSlashed {barrage.ID}");
-
-                return false;
+                if (!NormalBarrageInfos.Contains(barrage))
+                {
+                    return false;
+                }
+                Debug.LogError($"BarragePassed IsSlashed but in normalBarrage {barrage.ID}");
             }
-            m_slashedBarrageLst.Add(barrage.ID);
+            else
+            {
+                m_slashedBarrageLst.Add(barrage.ID);
+            }
+
             if (barrage.IsSpecial)
             {
                 Debug.LogError("BarragePassed IsSpecial");
@@ -334,6 +340,10 @@ namespace UI.Panels
         {
             m_controversyID = controversyID;
             ControversyConfig = ControversyConfig.GetConfigByKey(controversyID);
+            if (!string.IsNullOrEmpty(ControversyConfig.storyFileName))
+            {
+                UiDataProvider.ControllerManager.StoryController.LoadStoryFileByName(ControversyConfig.storyFileName);
+            }
             EnemyConfig = ControversyCharacterConfig.GetConfigByKey(ControversyConfig.leftCharacterID);
 
             var specialBarrageID = ControversyConfig.specialBarrageID;
@@ -345,9 +355,6 @@ namespace UI.Panels
         {
             switch (CurStage)
             {
-                case EnumControversyStage.Begin:
-                    ChangeStage(EnumControversyStage.StageOne);
-                    break;
                 case EnumControversyStage.StageOne:
                     if (NormalBarrageInfos.Count > 0)
                     {
@@ -362,12 +369,6 @@ namespace UI.Panels
                         ChangeStage(EnumControversyStage.StageOneLose);
                     }
                     break;
-                case EnumControversyStage.StageOneLose:
-                    ChangeStage(EnumControversyStage.StageOne);
-                    break;
-                case EnumControversyStage.StageOneWin:
-                    ChangeStage(EnumControversyStage.StageTwo);
-                    break;
                 case EnumControversyStage.StageTwo:
                     if (SlashedSpecialIndex != 0)
                     {
@@ -377,10 +378,6 @@ namespace UI.Panels
                     {
                         ChangeStage(EnumControversyStage.MissSpecial);
                     }
-                    break;
-                case EnumControversyStage.MissSpecial:
-                case EnumControversyStage.Wrong:
-                    ChangeStage(EnumControversyStage.StageTwo);
                     break;
             }
         }
@@ -425,6 +422,7 @@ namespace UI.Panels
             SlashedSpecialIndex = 0;
             SpecialBarrageInfo.IsMoving = false;
             m_missBarrageCount = 0;
+            IsBeginBarrage = false;
             Debug.LogError("Clear Data");
         }
 

@@ -764,6 +764,7 @@ namespace UI.Modules
                 panel.ShowData(data);
                 panel.UpdateData(data);
             }
+            panel.ShowInMaxLayer();
             //UiDataProvider.SoundService.PlayBgm("ShowPanel");
         }
 
