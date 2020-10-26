@@ -15,6 +15,8 @@ public class EvidenceIntroController : MonoBehaviour
     private Text m_intro = null;
     [SerializeField]
     private GameObject m_showBtn = null;
+    [SerializeField]
+    private Text m_title = null;
 
     public void Init(EvidencesController father, System.Action closeEvidenceUI, System.Action<string> onShowEvidence = null, bool isShowSelectBtn = false)
     {
@@ -30,6 +32,10 @@ public class EvidenceIntroController : MonoBehaviour
     public void RefreshView(Evidence.SingleEvidenceData data)
     {
         m_data = data;
+        if(m_title != null)
+        {
+            m_title.text = m_data.exhibit;
+        }
         ShowIntro(m_data.exhibitID, m_data.description);
     }
 

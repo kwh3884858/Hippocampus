@@ -39,6 +39,10 @@ namespace UI.Panels
 		{
 			m_model.Hide();
 			base.Hide();
+            if(m_data != null)
+            {
+                m_data.OnClose?.Invoke();
+            }
 			EventManager.Instance.RemoveEventListener<PlayerLoadArchiveEvent>(OnPlayerLoadArchive);
 			EventManager.Instance.RemoveEventListener<PlayerSaveArchiveEvent>(OnPlayerSaveArchive);
 			EventManager.Instance.RemoveEventListener<PlayerDeleteArchiveEvent>(OnPlayerDeleteArchive);
