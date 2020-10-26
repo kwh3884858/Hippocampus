@@ -358,6 +358,9 @@ namespace HeavenGateEditor {
                     if (strcmp(token->m_content, effectTableString[(int)EffectTableLayout::Type]) == 0) {
                         editorState.push_back(TableType::Effect);
                     }
+                    if (strcmp(token->m_content, tipTableString[(int)TipTableLayout::Type]) == 0){
+                        editorState.push_back(TableType::Tips);
+                    }
                 }
             }
             else if (token->m_tokeType == TokenType::TokenIdentity)
