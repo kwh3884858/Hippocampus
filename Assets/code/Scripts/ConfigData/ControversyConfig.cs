@@ -19,6 +19,7 @@ namespace Config.Data
         public string stageOneBgm;
         public string stageTwoBgm;
         public string storyFileName;
+        public string entranceStoryID;
 
         public static ControversyConfig GetConfigByKey(string key)
         {

@@ -61,12 +61,22 @@ namespace StarPlatinum
 
 		public void InstantiateAsync<T> (string key, Action<RequestResult> callBack, Transform parent = null) where T : UnityEngine.Object
 		{
+			if (m_allPrefab.ContainsKey(key))
+			{
+				var obj = Object.Instantiate (m_allPrefab[key], parent);
+				var result = GetResult(key, obj);
+				callBack?.Invoke(result);
+			}
 			Addressables.LoadAsset<GameObject> (key).Completed += operation => {
 				var result = GetResult (key, operation);
 				if (result.status == RequestStatus.FAIL) {
 					callBack?.Invoke (result);
 					return;
 				}
+				if (!m_allPrefab.ContainsKey(key))
+				{
+					m_allPrefab.Add(key,operation.Result);
+				}				
 				var obj = Object.Instantiate (operation.Result, parent);
 				result.result = obj.GetComponent<T> ();
 				callBack?.Invoke (result);
@@ -75,11 +85,21 @@ namespace StarPlatinum
 
 		public void InstantiateComponentAsync<T> (string key, Action<RequestResult> callBack, Transform parent = null) where T : UnityEngine.Object
 		{
+			if (m_allPrefab.ContainsKey(key))
+			{
+				var obj = Object.Instantiate (m_allPrefab[key], parent);
+				var result = GetResult(key, obj);
+				callBack?.Invoke(result);
+			}
 			Addressables.LoadAsset<GameObject> (key).Completed += operation => {
 				var result = GetResult (key, operation);
 				if (result.status == RequestStatus.FAIL) {
 					callBack?.Invoke (result);
 					return;
+				}
+				if (!m_allPrefab.ContainsKey(key))
+				{
+					m_allPrefab.Add(key,operation.Result);
 				}
 				var obj = Object.Instantiate (operation.Result, parent);
 				result.result = obj.GetComponent<T> ();
@@ -218,6 +238,15 @@ namespace StarPlatinum
         public bool IsSceneLoaded(SceneLookupEnum requestScene)
         {
            return m_scene.ContainsKey(requestScene);
+        }
+        
+        private RequestResult GetResult (string key,Object obj)
+        {
+	        RequestResult result = new RequestResult ();
+	        result.key = key;
+	        result.result = obj;
+	        result.status = RequestStatus.SUCCESS;
+	        return result;
         }
 
 		private RequestResult GetResult<T> (string key, AsyncOperationHandle<T> operation) where T : UnityEngine.Object

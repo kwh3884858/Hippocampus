@@ -15,6 +15,7 @@ namespace UI.Panels
     public enum EnumControversyStage
     {
         Begin,
+        BeforeEntrance,
         Entrance,
         StageOne,
         StageOneLose,

@@ -67,6 +67,7 @@ namespace UI.Panels.Element
         {
             if (e.Pos.x>=m_root_RectTransform.position.x && e.Pos.x - m_root_RectTransform.position.x <= m_width)
             {
+                //TODO:斩击动画
                 EventManager.Instance.SendEvent(new ControversyBarrageSlashEvent(){SubView = this});
             }
         }

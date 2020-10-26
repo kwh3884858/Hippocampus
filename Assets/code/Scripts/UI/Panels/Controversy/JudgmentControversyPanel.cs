@@ -9,6 +9,7 @@ using UnityEngine;
 using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
 using UI.Panels.Providers.DataProviders.StaticBoard;
+using UI.Utils;
 
 namespace UI.Panels
 {
@@ -144,6 +145,9 @@ namespace UI.Panels
 				case EnumControversyStage.Begin:
 					ShowScreenAnimation();
 					break;
+				case EnumControversyStage.BeforeEntrance:
+					ShowTalkPanel(m_model.ControversyConfig.entranceStoryID);
+					break;
 				case EnumControversyStage.Entrance:
 					ShowScreenAnimation();
 					break;
@@ -223,11 +227,11 @@ namespace UI.Panels
 				case EnumControversyStage.StageOneLose:
 				case EnumControversyStage.StageOneWin:
 				case EnumControversyStage.StageTwoLose:
+				case EnumControversyStage.Win:
 					ShowScreenAnimation();
 					break;
-				case EnumControversyStage.Win:
-					//TODO:破论 回调ShowScreenAnimation
-					ShowScreenAnimation();
+				case EnumControversyStage.BeforeEntrance:
+					m_model.ChangeStage(EnumControversyStage.Entrance);
 					break;
 			}
 		}
@@ -300,14 +304,14 @@ namespace UI.Panels
 					gameObject.SetActive(false);
 					InvokeShowStaticPanel(UIPanelType.UICommonBreaktheoryPanel,new BreakTheoryDataProvider(){Type = EnumBreakTheoryType.Theory, ImgKey = m_model.EnemyConfig.breakTheoryImgKey , CloseCallback =()=>
 					{
-						m_model.ChangeStage(EnumControversyStage.Entrance);
+						m_model.ChangeStage(EnumControversyStage.BeforeEntrance);
 					}});
 					break;
 				case EnumControversyStage.Entrance:
 					gameObject.SetActive(true);
 					PrefabManager.Instance.SetImage(m_img_screenLeft_Image,UIRes.ScreenLeftBegin);
 					PrefabManager.Instance.SetImage(m_img_screenRight_Image,m_model.EnemyConfig.entranceScreenKey);
-					m_animator.Play("ControversyScreenOpen");
+					m_animator.Play(AnimatorString.ControversyScreenOpen);
 					CallbackTime(2, () =>
 					{
 						m_model.ChangeStage(EnumControversyStage.StageOne);
@@ -316,7 +320,7 @@ namespace UI.Panels
 				case EnumControversyStage.StageOneLose:
 					PrefabManager.Instance.SetImage(m_img_screenLeft_Image,UIRes.ScreenLeftLose);
 					PrefabManager.Instance.SetImage(m_img_screenRight_Image,m_model.EnemyConfig.winScreenKey);
-					m_animator.Play("ControversyScreenOpen");
+					m_animator.Play(AnimatorString.ControversyScreenOpen);
 					//TODO:播放屏风动画
 					CallbackTime(2, () =>
 					{
@@ -328,7 +332,7 @@ namespace UI.Panels
 					PrefabManager.Instance.SetImage(m_img_screenLeft_Image,UIRes.ScreenLeftLose);
 					PrefabManager.Instance.SetImage(m_img_screenRight_Image,m_model.EnemyConfig.winScreenKey);
 					//TODO:播放屏风动画
-					m_animator.Play("ControversyScreenOpen");
+					m_animator.Play(AnimatorString.ControversyScreenOpen);
 					CallbackTime(2, () =>
 					{
 						m_model.ChangeStage(EnumControversyStage.StageTwo);
@@ -338,7 +342,7 @@ namespace UI.Panels
 					PrefabManager.Instance.SetImage(m_img_screenLeft_Image,UIRes.ScreenLeftLose);
 					PrefabManager.Instance.SetImage(m_img_screenRight_Image,m_model.EnemyConfig.winScreenKey);
 					//TODO:播放屏风动画
-					m_animator.Play("ControversyScreenOpen");
+					m_animator.Play(AnimatorString.ControversyScreenOpen);
 					CallbackTime(2, () =>
 					{
 						m_model.ChangeStage(EnumControversyStage.StageOne);
@@ -352,7 +356,7 @@ namespace UI.Panels
 					PrefabManager.Instance.SetImage(m_img_screenRight_Image,UIRes.ScreenRightWin);
 					InvokeShowStaticPanel(UIPanelType.UICommonBreaktheoryPanel,new BreakTheoryDataProvider(){Type = EnumBreakTheoryType.BreakTheory, ImgKey = m_model.ControversyConfig.breakTheoryImageKey , CloseCallback =()=>
 					{
-						m_animator.Play("ControversyScreenOpen");
+						m_animator.Play(AnimatorString.ControversyScreenOpen);
 						//TODO:播放屏风动画
 						CallbackTime(2, () =>
 						{
