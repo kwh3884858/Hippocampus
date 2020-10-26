@@ -550,10 +550,10 @@ namespace UI.Panels.StaticBoard
         {
             if (m_curRoleInfo == null||string.IsNullOrEmpty(m_curRoleInfo.typewriterSoundKey))
             {
-                SoundService.Instance.PlayEffect(UiDataProvider.ConfigProvider.StoryConfig.TypewriterDefaultSound,false,0.5f,true);
+                SoundService.Instance.PlayEffect(UiDataProvider.ConfigProvider.StoryConfig.TypewriterDefaultSound,false,0.1f,true);
                 return;
             }
-            SoundService.Instance.PlayEffect(m_curRoleInfo.typewriterSoundKey,false,0.5f,true);
+            SoundService.Instance.PlayEffect(m_curRoleInfo.typewriterSoundKey,false,0.1f,true);
 
         }
 
@@ -569,7 +569,6 @@ namespace UI.Panels.StaticBoard
 
         private void ShowPicture(string picID, Vector2 pos,bool ignoreHidePos= false,Action callbackAfterShow=null)
         {
-            Debug.Log($"========ID:{picID}  Pos:{pos}");
             if (m_pictureItems.ContainsKey(picID))
             {
                 if (!ignoreHidePos&&(pos.x== 0 || pos.y ==0))

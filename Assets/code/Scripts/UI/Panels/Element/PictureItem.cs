@@ -58,9 +58,9 @@ namespace UI.Panels.Element
             SpriteCount++;
         }
 
-        public void SetTachieStatus(EnumTachieStatus status)
+        public void SetTachieStatus(EnumTachieStatus status,bool force = false)
         {
-            if (m_status == status)
+            if (m_status == status && force)
             {
                 return;
             }
@@ -99,12 +99,13 @@ namespace UI.Panels.Element
         {
             gameObject.SetActive(false);
             SpriteCount = 0;
+            m_charatorName = "";
         }
 
         private void ActiveItem(bool status)
         {
             gameObject.SetActive(status);
-            SetTachieStatus(EnumTachieStatus.Normal);
+            SetTachieStatus(EnumTachieStatus.Normal,true);
         }
 
         private int m_spriteCount = 0;
