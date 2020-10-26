@@ -11,11 +11,18 @@ public class SingleBookMarkController : MonoBehaviour, IPointerEnterHandler, IPo
     /// <summary>书签</summary>
     [SerializeField]
     private Image bookMark = null;
+    /// <summary>选中的显示对象</summary>
+    [SerializeField]
+    private GameObject selectObj = null;
     void Start()
     {
         if (bookMark != null)
         {
             bookMark.alphaHitTestMinimumThreshold = 0.1f;
+        }
+        if (selectObj != null)
+        {
+            selectObj.SetActive(false);
         }
         startMoveY = transform.localPosition.y;
     }
@@ -79,6 +86,10 @@ public class SingleBookMarkController : MonoBehaviour, IPointerEnterHandler, IPo
         Vector3 localPos = transform.localPosition;
         transform.localPosition = new Vector3(localPos.x, startMoveY - moveDistanceY, localPos.z);
         isSelect = true;
+        if(selectObj != null)
+        {
+            selectObj.SetActive(true);
+        }
     }
 
     public void SetUnSelectState()
@@ -97,6 +108,10 @@ public class SingleBookMarkController : MonoBehaviour, IPointerEnterHandler, IPo
         }
         moveUpTween = transform.DOLocalMoveY(startMoveY, 0.5f);
         isSelect = false;
+        if (selectObj != null)
+        {
+            selectObj.SetActive(false);
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
