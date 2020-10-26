@@ -64,7 +64,7 @@ namespace Tips
                 SingleTipGetCtrl tipGetCtrl = tip.GetComponent<SingleTipGetCtrl>();
                 if (tipGetCtrl != null)
                 {
-                    tipGetCtrl.Init(this, m_singleTipGetCtrls.Count, m_data.tip, m_data.description);
+                    tipGetCtrl.Init(this, m_singleTipGetCtrls.Count, m_showDataList[m_showDataList.Count - 1]);
                     m_singleTipGetCtrls.Add(tipGetCtrl);
                 }
                 int l = m_singleTipGetCtrls.Count;
@@ -128,10 +128,10 @@ namespace Tips
         /// 
         /// </summary>
         /// <param name="closeIndex">tip get index</param>
-        public void OnTipGetClose(int closeIndex)
+        public void OnTipGetClose(TipData tipData, SingleTipGetCtrl singleTipGetCtrl)
         {
-            m_showDataList.RemoveAt(closeIndex);
-            m_singleTipGetCtrls.RemoveAt(closeIndex);
+            m_showDataList.Remove(tipData);
+            m_singleTipGetCtrls.Remove(singleTipGetCtrl);
         }
 
         /// <summary>数据</summary>
