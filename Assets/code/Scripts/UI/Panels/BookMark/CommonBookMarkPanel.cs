@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
+using StarPlatinum.EventManager;
+using StarPlatinum;
 
 namespace UI.Panels
 {
@@ -13,6 +15,7 @@ namespace UI.Panels
         {
             base.Initialize(uiDataProvider, settings);
             m_model.Initialize(this);
+            EventManager.Instance.AddEventListener<SettingStateEvent>(OnSettingStateChange);
         }
 
         public override void DeInitialize()
@@ -25,6 +28,7 @@ namespace UI.Panels
         {
             m_model.Hide();
             base.Hide();
+            EventManager.Instance.RemoveEventListener<SettingStateEvent>(OnSettingStateChange);
         }
 
         public override void Deactivate()
@@ -96,6 +100,10 @@ namespace UI.Panels
         public void OnClickSetting()
         {
             // TODO: show setting panel
+            RefreshView();
+            bookMarkControllers[0].SetSelectState();
+            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonSettingPanel);// 显示设置界面
+            showDetectiveNotes = true;
         }
 
         private void SetUnSelectState()
@@ -123,6 +131,23 @@ namespace UI.Panels
                 UIManager.Instance().HideStaticPanel(UIPanelType.UICommonLoadarchivePanel);
                 showSaveFile = false;
             }
+            if (showSetting)
+            {
+                UIManager.Instance().HideStaticPanel(UIPanelType.UICommonSettingPanel);
+                showSetting = false;
+            }
+        }
+
+        private void OnSettingStateChange(object sender, SettingStateEvent e)
+        {
+            if (e.IsShow)
+            {
+                OnClickSetting();
+            }
+            else
+            {
+                SetUnSelectState();
+            }
         }
 
         [SerializeField]
@@ -130,6 +155,7 @@ namespace UI.Panels
         private bool showAssistant = false;
         private bool showDetectiveNotes = false;
         private bool showSaveFile = false;
+        private bool showSetting = false;
         #endregion
     }
 }

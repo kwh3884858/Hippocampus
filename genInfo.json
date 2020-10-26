@@ -110,5 +110,13 @@
 		"mediatorPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonBreakTheoryPanel.cs",
 		"modelPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonBreakTheoryModel.cs",
 		"GUID":"71ee13503e94e2a4abbb9670e542b3f5"
+	},
+	"53946e33cde9a0e46bef19cde6f58b04":{
+		"type":3,
+		"prefabPath":"Assets/data/graphics/UI/Common/Setting/Prefabs/UI_Common_Setting_Panel.prefab",
+		"codePath":"Assets/code/Scripts/UI/Panels/AutoCreate/CommonSettingPanel.cs",
+		"mediatorPath":"Assets/code/Scripts/UI/Panels/Setting/CommonSettingPanel.cs",
+		"modelPath":"Assets/code/Scripts/UI/Panels/Setting/CommonSettingModel.cs",
+		"GUID":"53946e33cde9a0e46bef19cde6f58b04"
 	}
 }

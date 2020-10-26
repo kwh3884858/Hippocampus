@@ -68,6 +68,10 @@ public class SingleBookMarkController : MonoBehaviour, IPointerEnterHandler, IPo
 
     public void SetSelectState()
     {
+        if (moveUpTween != null)
+        {
+            moveUpTween.Kill();
+        }
         if (moveDownTween != null)
         {
             moveDownTween.Kill();

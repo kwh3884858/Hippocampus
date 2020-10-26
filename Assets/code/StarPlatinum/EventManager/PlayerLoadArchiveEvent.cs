@@ -20,5 +20,9 @@ namespace StarPlatinum
 
     public class PlayerDeleteArchiveEvent: EventArgs
     { }
+    public class SettingStateEvent : EventArgs
+    {
+        public bool IsShow;
+    }
 
 }

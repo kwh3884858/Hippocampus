@@ -62,7 +62,9 @@ public class MonoMoveController : MonoBehaviour
         //}
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonESCMainMenuPanel);// 显示UI
+            //UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonESCMainMenuPanel);// 显示UI
+            StarPlatinum.EventManager.EventManager.Instance.SendEvent(new StarPlatinum.SettingStateEvent() { IsShow = true });
+            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonSettingPanel);// 显示UI
         }
 
         int maxColliders = 10;

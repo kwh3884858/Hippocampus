@@ -33,6 +33,7 @@ public class EvidenceIntroController : MonoBehaviour
 
     public void RefreshView(Evidence.SingleEvidenceData data)
     {
+        gameObject.SetActive(true);
         m_data = data;
         if (m_title != null)
         {
