@@ -13,7 +13,6 @@ namespace UI.Panels.Element
 {
     public partial class UI_Judgment_BarrageText_Item_SubView : UIElementBase
     {
-        private bool m_isSpecial;
         public BarrageTextItem BarrageInfo { get; private set; }
         private float m_width;
         public override void BindEvent()
@@ -34,14 +33,8 @@ namespace UI.Panels.Element
             
             m_lbl_text_TextMeshProUGUI.text = item.Text;
             m_lbl_text_TextMeshProUGUI.color = GetColor(isSpecial, item.IsHighLight);
-            if (isSpecial!=m_isSpecial)
-            {
-                m_isSpecial = isSpecial;
-                SetBG();
-            }
             LayoutRebuilder.ForceRebuildLayoutImmediate(m_UI_Judgment_BarrageText_Item_HorizontalLayoutGroup.rectTransform());
             m_width = m_lbl_text_TextMeshProUGUI.GetPreferredValues().x;
-            Debug.LogError($"width: {m_width}");
         }
 
         private Color GetColor(bool isSpecial, bool isHighlight)
@@ -70,23 +63,10 @@ namespace UI.Panels.Element
             }
         }
 
-        private void SetBG()
-        {
-            if (m_isSpecial)
-            {
-                PrefabManager.Instance.SetImage(m_UI_Judgment_BarrageText_Item_Image, UIRes.SpecialBarrageImg);
-            }
-            else
-            {
-                PrefabManager.Instance.SetImage(m_UI_Judgment_BarrageText_Item_Image, UIRes.NormalBarrageImg);
-            }
-        }
-        
         private void OnSlash(object sender, ControversyEvent e)
         {
             if (e.Pos.x>=m_root_RectTransform.position.x && e.Pos.x - m_root_RectTransform.position.x <= m_width)
             {
-                Debug.LogError($"Slashed");
                 EventManager.Instance.SendEvent(new ControversyBarrageSlashEvent(){SubView = this});
             }
         }

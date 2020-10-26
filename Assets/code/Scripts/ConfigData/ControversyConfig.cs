@@ -18,6 +18,7 @@ namespace Config.Data
         public string breakTheoryImageKey;
         public string stageOneBgm;
         public string stageTwoBgm;
+        public string storyFileName;
 
         public static ControversyConfig GetConfigByKey(string key)
         {
