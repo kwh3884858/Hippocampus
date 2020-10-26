@@ -23,8 +23,6 @@ namespace UI.Panels.Element
 
 		[HideInInspector] public Image m_img_front_Image;
 
-		[HideInInspector] public TextMeshProUGUI m_lbl_test_TextMeshProUGUI;
-
 		[HideInInspector] public HorizontalLayoutGroup m_go_container_HorizontalLayoutGroup;
 		[HideInInspector] public ContentSizeFitter m_go_container_ContentSizeFitter;
 
@@ -40,8 +38,6 @@ namespace UI.Panels.Element
 			m_pl_barrage_MakeChildTransparent = FindUI<MakeChildTransparent>(gameObject.transform ,"pl_barrage");
 
 			m_img_front_Image = FindUI<Image>(gameObject.transform ,"pl_barrage/img_front");
-
-			m_lbl_test_TextMeshProUGUI = FindUI<TextMeshProUGUI>(gameObject.transform ,"pl_barrage/img_front/lbl_test");
 
 			m_go_container_HorizontalLayoutGroup = FindUI<HorizontalLayoutGroup>(gameObject.transform ,"pl_barrage/go_container");
 			m_go_container_ContentSizeFitter = FindUI<ContentSizeFitter>(gameObject.transform ,"pl_barrage/go_container");

@@ -112,12 +112,12 @@ namespace UI.Panels
                 m_normalAttackColdTime = m_normalAttackInterval;
             }
             
-            if (Input.GetKeyDown(KeyCode.A) && IsCharging)
+            if ((Input.GetKeyDown(KeyCode.A)|| Input.GetMouseButtonDown(0)) && IsCharging)
             {
                 IsHeavyAttack = true;
             }
 
-            if (Input.GetKeyDown(KeyCode.S) && m_normalAttackColdTime <= 0)
+            if ((Input.GetKeyDown(KeyCode.D)|| Input.GetMouseButtonDown(2))  && m_normalAttackColdTime <= 0)
             {
                 IsNormalAttack = true;
             }

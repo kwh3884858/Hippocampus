@@ -481,20 +481,15 @@ namespace UI.Panels
 			}
 		}
 
-		void OnGUI()
-		{
-		
-			//if (GUI.Button(new Rect(0, 150, 100, 50), "ShowLog"))
-			//{
-			//	reporter.show = !reporter.show; 
-			//}
-			if (GUI.Button(new Rect(0, 200, 100, 50), $"重攻击:{m_model.m_heavyAttackColdTime}"))
-			{
-			}
-			if (GUI.Button(new Rect(0, 250, 100, 50), $"轻攻击:{m_model.m_normalAttackColdTime}"))
-			{
-			}
-		}
+//		void OnGUI()
+//		{
+//			if (GUI.Button(new Rect(0, 200, 100, 50), $"重攻击:{m_model.m_heavyAttackColdTime}"))
+//			{
+//			}
+//			if (GUI.Button(new Rect(0, 250, 100, 50), $"轻攻击:{m_model.m_normalAttackColdTime}"))
+//			{
+//			}
+//		}
 		
 		#region Member
 		
