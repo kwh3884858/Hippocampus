@@ -199,6 +199,9 @@ namespace Controllers.Subsystems.Story
                             case StoryReader.EventType.LoadControversy:
                                 container.PushEnterControversy(eventName);
                                 break;
+                            case StoryReader.EventType.PlayCutIn:
+                                container.PushCutIn(eventName);
+                                break;
                             case StoryReader.EventType.invokeEvent:
                                 container.TriggerEvent(new StarPlatinum.EventManager.RaiseEvent(
                                     StoryReader.EventType.invokeEvent,

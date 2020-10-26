@@ -59,6 +59,7 @@ namespace StarPlatinum.StoryReader
 			LoadCgScene,
 			CloseCgScene,
 			LoadControversy,
+			PlayCutIn,
 			playAnimation,
 			LoadBackground
 		};
