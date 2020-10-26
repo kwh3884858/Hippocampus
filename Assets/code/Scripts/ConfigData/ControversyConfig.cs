@@ -8,6 +8,7 @@ namespace Config.Data
         public string ID;
         public string leftCharacterID;
         public int stageOneBarrageGroupID;
+        public string stageOneWinStoryID;
         public string stageOneFailStoryID;
         public int stageTwoBarrageGroupID;
         public string stageTwoFailBackStoryID;

@@ -296,7 +296,7 @@ namespace UI.Panels
 			{
 				case EnumControversyStage.Begin:
 					gameObject.SetActive(false);
-					InvokeShowStaticPanel(UIPanelType.UICommonBreaktheoryPanel,new BreakTheoryDataProvider(){ImgKey = m_model.EnemyConfig.breakTheoryImgKey , CloseCallback =()=>
+					InvokeShowStaticPanel(UIPanelType.UICommonBreaktheoryPanel,new BreakTheoryDataProvider(){Type = EnumBreakTheoryType.Theory, ImgKey = m_model.EnemyConfig.breakTheoryImgKey , CloseCallback =()=>
 					{
 						m_model.ChangeStage(EnumControversyStage.Entrance);
 					}});
@@ -341,7 +341,7 @@ namespace UI.Panels
 				case EnumControversyStage.Win:
 					PrefabManager.Instance.SetImage(m_img_screenLeft_Image,UIRes.ScreenLeftWin);
 					PrefabManager.Instance.SetImage(m_img_screenRight_Image,UIRes.ScreenRightWin);
-					InvokeShowStaticPanel(UIPanelType.UICommonBreaktheoryPanel,new BreakTheoryDataProvider(){ImgKey = m_model.ControversyConfig.breakTheoryImageKey , CloseCallback =()=>
+					InvokeShowStaticPanel(UIPanelType.UICommonBreaktheoryPanel,new BreakTheoryDataProvider(){Type = EnumBreakTheoryType.BreakTheory, ImgKey = m_model.ControversyConfig.breakTheoryImageKey , CloseCallback =()=>
 					{
 						//TODO:播放屏风动画
 						CallbackTime(2, () =>

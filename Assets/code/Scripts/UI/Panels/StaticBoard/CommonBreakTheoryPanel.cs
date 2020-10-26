@@ -9,6 +9,12 @@ using UI.Panels.Providers.DataProviders.StaticBoard;
 
 namespace UI.Panels
 {
+	public enum EnumBreakTheoryType
+	{
+		CutIn,
+		BreakTheory,
+		Theory,
+	}
 	public partial class CommonBreakTheoryPanel : UIPanel<UIDataProvider, DataProvider>
 	{
 		#region UI template method
@@ -16,6 +22,7 @@ namespace UI.Panels
 		{
 			base.Initialize (uiDataProvider, settings);
 			m_model.Initialize(this);	
+			gameObject.SetActive(false);
 		}
 
 		public override void DeInitialize()
@@ -41,6 +48,7 @@ namespace UI.Panels
 			m_model.ShowData(data);
 			base.ShowData(data);
 			var uiData = data as BreakTheoryDataProvider;
+			gameObject.SetActive(true);
 			SetInfo(uiData);
 		}
 
@@ -77,7 +85,28 @@ namespace UI.Panels
 
 		private void SetInfo(BreakTheoryDataProvider dataProvider)
 		{
-			PrefabManager.Instance.SetImage(m_img_bg_Image,dataProvider.ImgKey);
+			switch (dataProvider.Type)
+			{
+				case EnumBreakTheoryType.Theory:
+					m_pl_breakTheory.gameObject.SetActive(true);
+					m_go_theory_Animation.gameObject.SetActive(true);
+					m_go_breakTheory_Animation.gameObject.SetActive(false);
+					m_go_bg_Image.gameObject.SetActive(false);
+					PrefabManager.Instance.SetImage(m_img_theory_Image,dataProvider.ImgKey);
+					break;
+				case EnumBreakTheoryType.BreakTheory:
+					m_pl_breakTheory.gameObject.SetActive(true);
+					m_go_theory_Animation.gameObject.SetActive(false);
+					m_go_breakTheory_Animation.gameObject.SetActive(true);
+					PrefabManager.Instance.SetImage(m_img_theoryBreak_Image,dataProvider.ImgKey);
+					m_go_bg_Image.gameObject.SetActive(false);
+					break;
+				case EnumBreakTheoryType.CutIn:
+					m_pl_breakTheory.gameObject.SetActive(false);
+					m_go_bg_Image.gameObject.SetActive(true);
+					PrefabManager.Instance.SetImage(m_img_bg_Image,dataProvider.ImgKey);
+					break;
+			}
 			m_closeCallback = dataProvider.CloseCallback;
 			
 			CallbackTime(m_animationTime, () =>

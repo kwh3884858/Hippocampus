@@ -41,6 +41,7 @@ namespace UI.Panels.Element
             }
             LayoutRebuilder.ForceRebuildLayoutImmediate(m_UI_Judgment_BarrageText_Item_HorizontalLayoutGroup.rectTransform());
             m_width = m_lbl_text_TextMeshProUGUI.GetPreferredValues().x;
+            Debug.LogError($"width: {m_width}");
         }
 
         private Color GetColor(bool isSpecial, bool isHighlight)
@@ -73,11 +74,11 @@ namespace UI.Panels.Element
         {
             if (m_isSpecial)
             {
-                PrefabManager.Instance.SetImage(m_img_bg_Image, UIRes.SpecialBarrageImg);
+                PrefabManager.Instance.SetImage(m_UI_Judgment_BarrageText_Item_Image, UIRes.SpecialBarrageImg);
             }
             else
             {
-                PrefabManager.Instance.SetImage(m_img_bg_Image, UIRes.NormalBarrageImg);
+                PrefabManager.Instance.SetImage(m_UI_Judgment_BarrageText_Item_Image, UIRes.NormalBarrageImg);
             }
         }
         
@@ -85,8 +86,10 @@ namespace UI.Panels.Element
         {
             Vector3 myPos= CameraService.Instance.GetMainCameraComponent().WorldToScreenPoint(m_root_RectTransform.position);
             Vector3 otherPos = CameraService.Instance.GetMainCameraComponent().WorldToScreenPoint(e.Pos);
-            if (Mathf.Abs(otherPos.x - myPos.x) <= m_width)
+            Debug.LogError($"Distance: {otherPos.x - myPos.x}  width:{m_width}");
+            if (otherPos.x - myPos.x <= m_width)
             {
+                Debug.LogError($"Slashed");
                 EventManager.Instance.SendEvent(new ControversyBarrageSlashEvent(){SubView = this});
             }
         }

@@ -266,6 +266,7 @@ namespace UI.Panels
         private void SlashBarrage(BarrageItem barrage)
         {
             NormalBarrageInfos.Remove(barrage);
+            Debug.LogError("SlashBarrage ");
             m_heavyAttackColdTime -= m_heavyAttackRecover;
             m_slashedBarrageAmount++;
             CheckCharge();
@@ -280,11 +281,15 @@ namespace UI.Panels
         {
             if (IsSlashed(barrage.ID))
             {
+                Debug.LogError($"BarragePassed IsSlashed {barrage.ID}");
+
                 return false;
             }
             m_slashedBarrageLst.Add(barrage.ID);
             if (barrage.IsSpecial)
             {
+                Debug.LogError("BarragePassed IsSpecial");
+
                 ChangeStage(EnumControversyStage.MissSpecial);
             }
             else
@@ -293,10 +298,13 @@ namespace UI.Panels
                 NormalBarrageInfos.Remove(barrage);
                 if (NormalBarrageInfos.Count == 0)
                 {
+                    Debug.LogError("NormalBarrageInfos == 0 CheckStage");
                     CheckStage();
                 }
                 else
                 {
+                    Debug.LogError("NormalBarrageInfos != 0 CheckStage");
+
                     if (CurStage == EnumControversyStage.StageTwo)
                     {
                         if (IsStageClear() == false)
@@ -417,6 +425,7 @@ namespace UI.Panels
             SlashedSpecialIndex = 0;
             SpecialBarrageInfo.IsMoving = false;
             m_missBarrageCount = 0;
+            Debug.LogError("Clear Data");
         }
 
         private BarrageItem GetSpecialBarrageItem(int specialBarrageID)
