@@ -178,6 +178,11 @@ namespace UI.Panels.StaticBoard
             {
                 GamePlay.Player.PlayerController.Instance().SetMoveEnable(false);
             }
+#if UNITY_EDITOR
+            m_skipButton.gameObject.SetActive(true);
+#else
+            m_skipButton.gameObject.SetActive(false);
+#endif
         }
 
         public override void UpdateData(DataProvider data)
@@ -705,7 +710,7 @@ namespace UI.Panels.StaticBoard
             m_skip = true;
         }
 
-        #region 记录
+#region 记录
         private Queue<TalkRecord> m_talkRecord=new Queue<TalkRecord>();
 
         private bool RecoverRecord()
@@ -749,7 +754,7 @@ namespace UI.Panels.StaticBoard
             record.PicturePos = m_picPos;
             m_talkRecord.Enqueue(record);
         }
-        #endregion
+#endregion
 
         [SerializeField] private Image m_name;
         [SerializeField] private TMP_Text m_nameTxt;
@@ -758,6 +763,7 @@ namespace UI.Panels.StaticBoard
         [SerializeField] private Transform m_pictureRoot;
         [SerializeField] private Image m_backgroundImg;
         [SerializeField] private GameObject m_contentEnd;
+        [SerializeField] private Button m_skipButton;
 
         private Dictionary<string, PictureItem> m_pictureItems = new Dictionary<string, PictureItem>();
         private Dictionary<string,Vector2> m_picPos = new Dictionary<string, Vector2>();
