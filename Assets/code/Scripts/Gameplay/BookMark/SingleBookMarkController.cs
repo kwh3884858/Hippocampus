@@ -103,6 +103,6 @@ public class SingleBookMarkController : MonoBehaviour, IPointerEnterHandler, IPo
     private Tween moveDownTween = null;
     private Tween moveUpTween = null;
     private float startMoveY = 0f;
-    private float moveDistanceY = 96f;
+    private float moveDistanceY = 82f;
     private bool isSelect = false;
 }

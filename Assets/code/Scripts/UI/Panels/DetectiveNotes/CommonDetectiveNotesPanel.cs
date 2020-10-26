@@ -121,6 +121,10 @@ namespace UI.Panels
                     {
                         m_mapsCtrl.Close();
                     }
+                    if (m_tipsCtrl != null)
+                    {
+                        m_tipsCtrl.Close();
+                    }
                     FindUI<Button>(transform, "Btn_Maps").interactable = true;
                     FindUI<Button>(transform, "Btn_Tips").interactable = true;
                     FindUI<Button>(transform, "Btn_Evidences").interactable = false;
@@ -135,8 +139,12 @@ namespace UI.Panels
                     FindUI<Button>(transform, "Btn_Maps").interactable = true;
                     FindUI<Button>(transform, "Btn_Tips").interactable = false;
                     FindUI<Button>(transform, "Btn_Evidences").interactable = true;
-                    InvokeHidePanel();
-                    UIManager.Instance().ShowStaticPanel(UIPanelType.Tipspanel);// 显示tips列表
+                    //InvokeHidePanel();
+                    if (m_tipsCtrl != null)
+                    {
+                        m_tipsCtrl.Init();
+                    }
+                    //UIManager.Instance().ShowStaticPanel(UIPanelType.Tipspanel);// 显示tips列表
                     break;
                 case ShowState.Maps:
                     m_evidencesCtrl.HideSelf();
@@ -147,6 +155,10 @@ namespace UI.Panels
                     if (m_mapsCtrl != null)
                     {
                         m_mapsCtrl.Show();
+                    }
+                    if (m_tipsCtrl != null)
+                    {
+                        m_tipsCtrl.Close();
                     }
                     //UIManager.Instance().ShowStaticPanel(UIPanelType.UIMapcanvasPanel);// 显示地图
                     break;
@@ -173,6 +185,8 @@ namespace UI.Panels
         private EvidencesController m_evidencesCtrl = null;
         [SerializeField]
         private MapsController m_mapsCtrl = null;
+        [SerializeField]
+        private DetectiveNotes.TipsController m_tipsCtrl = null;
 
         private EvidenceDataProvider m_data;
         private ShowState m_curState = ShowState.None;

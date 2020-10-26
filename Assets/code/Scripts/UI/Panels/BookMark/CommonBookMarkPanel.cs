@@ -73,28 +73,21 @@ namespace UI.Panels
         #region Member
         public void OnClickSave()
         {
-            // TODO:show save panel
+            RefreshView();
+            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonLoadarchivePanel, new ArchiveDataProvider() { Type = ArchivePanelType.Save, OnClose = SetUnSelectState });
+            showSaveFile = true;
         }
 
         public void OnClickAssistant()
         {
-            if (showDetectiveNotes)
-            {
-                UIManager.Instance().HideStaticPanel(UIPanelType.UICommonDetectiveNotesPanel);
-                showDetectiveNotes = false;
-            }
+            RefreshView();
             UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonAssistantPanel, new AssistantDataProvider() { OnClose = SetUnSelectState });// 显示助手窗
             showAssistant = true;
         }
 
         public void OnClickDetectiveNotes()
         {
-            // TODO: show detective notes panel
-            if (showAssistant)
-            {
-                UIManager.Instance().HideStaticPanel(UIPanelType.UICommonAssistantPanel);
-                showAssistant = false;
-            }
+            RefreshView();
             UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonDetectiveNotesPanel, new DetectiveNotesDataProvider() { OnClose = SetUnSelectState });// 显示证物列表
             showDetectiveNotes = true;
 
@@ -113,10 +106,30 @@ namespace UI.Panels
             }
         }
 
+        private void RefreshView()
+        {
+            if (showAssistant)
+            {
+                UIManager.Instance().HideStaticPanel(UIPanelType.UICommonAssistantPanel);
+                showAssistant = false;
+            }
+            if (showDetectiveNotes)
+            {
+                UIManager.Instance().HideStaticPanel(UIPanelType.UICommonDetectiveNotesPanel);
+                showDetectiveNotes = false;
+            }
+            if (showSaveFile)
+            {
+                UIManager.Instance().HideStaticPanel(UIPanelType.UICommonLoadarchivePanel);
+                showSaveFile = false;
+            }
+        }
+
         [SerializeField]
         private List<SingleBookMarkController> bookMarkControllers = new List<SingleBookMarkController>();
         private bool showAssistant = false;
         private bool showDetectiveNotes = false;
+        private bool showSaveFile = false;
         #endregion
     }
 }

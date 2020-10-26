@@ -63,6 +63,9 @@ EditorBuildSettings:
     path: Assets/data/graphics/World/Mission_Programmer_DockByPier_World_SceneForPresentation/World_Mission_Programmer_DockByPier_World_SceneForPresentation.unity
     guid: 3bd6e5a0637cf654c94bc4e68cb4ca1d
   - enabled: 0
+    path: Assets/data/graphics/World/Mission_special_World_Commandpost_2F/World_Mission_special_World_Commandpost_2F.unity
+    guid: 7f90ebe29c6f19943b1eaba55660f488
+  - enabled: 0
     path: Assets/data/graphics/World/Poison_Island_Pier/Poison_Island_Pier.unity
     guid: 76f726a6d946e154aa0feafe8f5a72ad
   - enabled: 0

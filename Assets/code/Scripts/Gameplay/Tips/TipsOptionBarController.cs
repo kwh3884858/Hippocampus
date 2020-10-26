@@ -20,6 +20,11 @@ namespace Tips
             m_father = vFather;
         }
 
+        public void SetFather(DetectiveNotes.TipsController tipsController)
+        {
+            m_mother = tipsController;
+        }
+
         public void Init(TipData vData)
         {
             SetData(vData);
@@ -54,12 +59,20 @@ namespace Tips
                 {
                     m_father.ShowTipDetail(m_data);
                 }
+                if(m_mother != null)
+                {
+                    m_mother.ShowTipDetail(m_data);
+                }
             }
             else
             {
                 if (m_father != null)
                 {
                     m_father.ShowTipDetail(null);
+                }
+                if (m_mother != null)
+                {
+                    m_mother.ShowTipDetail(null);
                 }
             }
 
@@ -122,6 +135,7 @@ namespace Tips
         private TipData m_data = null;
         /// <summary>tips 管理器</summary>
         private TipsController m_father = null;
+        private DetectiveNotes.TipsController m_mother = null;
     }
 }
 

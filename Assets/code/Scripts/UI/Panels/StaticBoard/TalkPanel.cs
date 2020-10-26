@@ -550,10 +550,10 @@ namespace UI.Panels.StaticBoard
         {
             if (m_curRoleInfo == null||string.IsNullOrEmpty(m_curRoleInfo.typewriterSoundKey))
             {
-                SoundService.Instance.PlayEffect(UiDataProvider.ConfigProvider.StoryConfig.TypewriterDefaultSound);
+                SoundService.Instance.PlayEffect(UiDataProvider.ConfigProvider.StoryConfig.TypewriterDefaultSound,false,0.5f,true);
                 return;
             }
-            SoundService.Instance.PlayEffect(m_curRoleInfo.typewriterSoundKey);
+            SoundService.Instance.PlayEffect(m_curRoleInfo.typewriterSoundKey,false,0.5f,true);
 
         }
 

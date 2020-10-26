@@ -16,7 +16,6 @@ namespace UI.Panels.Element
         private bool m_isSpecial = false;
         private bool m_isSlashed = false;
         private float m_speed = 0;
-        private float m_moveTime = 0;
         public float MovingTime = 0;
         public BarrageItem Info;
         public override void BindEvent()
@@ -28,7 +27,6 @@ namespace UI.Panels.Element
         {
             m_isSlashed = false;
             MovingTime = 0;
-            m_moveTime = 0;
             gameObject.SetActive(true);
             Info = info;
             m_pl_barrage_MakeChildTransparent.Transparent(false);
@@ -56,7 +54,6 @@ namespace UI.Panels.Element
                             {
                                 var speed = CommonConfig.Data.ControversyBarrageMoveSpeed;
                                 m_speed = (distance + subView.transform.position.x - transform.position.x)/speed;
-                                m_moveTime = speed;
                             }
                         }),m_go_container_ContentSizeFitter.transform);
                     continue;
@@ -76,8 +73,6 @@ namespace UI.Panels.Element
         public void Move()
         {
             transform.Translate(m_speed * Time.deltaTime*Vector3.left,Space.World);
-            m_lbl_test_TextMeshProUGUI.text = m_moveTime.ToString();
-            m_moveTime -= Time.deltaTime;
         }
         
         public void Slash()
@@ -94,7 +89,6 @@ namespace UI.Panels.Element
         
         public bool IsPassed(Vector3 pos)
         {
-
             return pos.x > m_img_behind_Image.transform.position.x;
         }
 

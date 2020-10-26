@@ -14,12 +14,17 @@ namespace Tips
     public class TipsAwardController : UIPanel<UIDataProviderTip, TipDataProvider>
     {
 
+        //[SerializeField]
+        //private Text m_name = null;
+        //[SerializeField]
+        //private Text m_description = null;
+        //[SerializeField]
+        //private Image m_tipPanel = null;
         [SerializeField]
-        private Text m_name = null;
+        private GameObject m_tipPrefab = null;
         [SerializeField]
-        private Text m_description = null;
-        [SerializeField]
-        private Image m_tipPanel = null;
+        private float m_moveDistanceY = 100f;
+
         public override void Initialize(UIDataProvider uiDataProvider, UIPanelSettings settings)
         {
             base.Initialize(uiDataProvider, settings);
@@ -28,19 +33,22 @@ namespace Tips
         public override void ShowData(DataProvider data)
         {
             base.ShowData(data);
-            Init(UIPanelDataProvider.Data);
+            //Init(UIPanelDataProvider.Data);
         }
 
         public override void UpdateData(DataProvider data)
         {
             base.UpdateData(data);
             m_showDataList.Add((data as TipDataProvider).Data);
+            m_data = (data as TipDataProvider).Data;
+            CreateTip();
         }
 
         public void Init(TipData data)
         {
             SetData(data);
-            Show();
+            //Show();
+            CreateTip();
         }
 
         private void SetData(TipData data)
@@ -48,50 +56,88 @@ namespace Tips
             m_data = data;
         }
 
-        public void Show()
+        private void CreateTip()
         {
-            m_tipPanel.transform.DOLocalMoveX(460, 1f);
-            if (m_data != null)
+            if (m_tipPrefab != null)
             {
-                //m_name.text = $"Tips:{m_data.tip}";
-                //m_description.text = $"Tips:{m_data.description}";
-                m_name.text = m_data.tip;
-                m_description.text = m_data.description;
-            }
-            StartCoroutine(Wait(5f, Close));
-        }
-
-        private void Close()
-        {
-            m_tipPanel.transform.DOLocalMoveX(1460, 1f).OnComplete(OnTweeningComplete);
-        }
-
-        private void OnTweeningComplete()
-        {
-            m_showDataList.Remove(m_data);
-            if (m_showDataList.Count == 0)
-            {
-                base.InvokeHidePanel();
-            }
-            else
-            {
-                Init(m_showDataList[0]);
+                GameObject tip = Instantiate(m_tipPrefab, transform);
+                SingleTipGetCtrl tipGetCtrl = tip.GetComponent<SingleTipGetCtrl>();
+                if (tipGetCtrl != null)
+                {
+                    tipGetCtrl.Init(this, m_singleTipGetCtrls.Count, m_data.tip, m_data.description);
+                    m_singleTipGetCtrls.Add(tipGetCtrl);
+                }
+                int l = m_singleTipGetCtrls.Count;
+                if (l > 3)
+                {
+                    m_singleTipGetCtrls[0].EndShow();
+                }
+                if (l > 1)
+                {
+                    for (int i = 0; i < l - 1; i++)
+                    {
+                        m_singleTipGetCtrls[i].MoveDown(m_moveDistanceY, 1f);
+                    }
+                }
             }
         }
 
-        private IEnumerator Wait(float _t, System.Action action)
+        //public void Show()
+        //{
+        //    m_tipPanel.transform.DOLocalMoveX(460, 1f);
+        //    if (m_data != null)
+        //    {
+        //        //m_name.text = $"Tips:{m_data.tip}";
+        //        //m_description.text = $"Tips:{m_data.description}";
+        //        m_name.text = m_data.tip;
+        //        m_description.text = m_data.description;
+        //    }
+        //    StartCoroutine(Wait(5f, Close));
+        //}
+
+        //private void Close()
+        //{
+        //    m_tipPanel.transform.DOLocalMoveX(1460, 1f).OnComplete(OnTweeningComplete);
+        //}
+
+        //private void OnTweeningComplete()
+        //{
+        //    m_showDataList.Remove(m_data);
+        //    if (m_showDataList.Count == 0)
+        //    {
+        //        base.InvokeHidePanel();
+        //    }
+        //    else
+        //    {
+        //        Init(m_showDataList[0]);
+        //    }
+        //}
+
+        //private IEnumerator Wait(float _t, System.Action action)
+        //{
+        //    float vStart = Time.time;
+        //    while (Time.time - vStart < _t)
+        //    {
+        //        yield return null;
+        //    }
+        //    action?.Invoke();
+        //    yield return null;
+        //}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="closeIndex">tip get index</param>
+        public void OnTipGetClose(int closeIndex)
         {
-            float vStart = Time.time;
-            while (Time.time - vStart < _t)
-            {
-                yield return null;
-            }
-            action?.Invoke();
-            yield return null;
+            m_showDataList.RemoveAt(closeIndex);
+            m_singleTipGetCtrls.RemoveAt(closeIndex);
         }
 
         /// <summary>数据</summary>
         private TipData m_data = null;
         private List<TipData> m_showDataList = new List<TipData>();
+        /// <summary>单条提示的控制显示</summary>
+        private List<SingleTipGetCtrl> m_singleTipGetCtrls = new List<SingleTipGetCtrl>();
     }
 }
