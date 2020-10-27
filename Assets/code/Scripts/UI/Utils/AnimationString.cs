@@ -8,6 +8,6 @@
         public static string CharacterHeavyAttack = "HeavyAttack";
 
 
-        public static string ControversyScreenOpen = "ControversyScreenOpen";
+        public static string ControversyScreenOpen = "ControversyCloseAndOpen";
     }
 }

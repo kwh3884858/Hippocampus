@@ -313,7 +313,7 @@ namespace UI.Panels
 					gameObject.SetActive(true);
 					PrefabManager.Instance.SetImage(m_img_screenLeft_Image,UIRes.ScreenLeftBegin);
 					PrefabManager.Instance.SetImage(m_img_screenRight_Image,m_model.EnemyConfig.entranceScreenKey);
-					m_animator.Play(AnimatorString.ControversyScreenOpen);
+					m_animator.Play(AnimatorString.ControversyScreenOpen.GetHashCode(),-1,0);
 					CallbackTime(2, () =>
 					{
 						m_model.ChangeStage(EnumControversyStage.StageOne);
@@ -322,7 +322,7 @@ namespace UI.Panels
 				case EnumControversyStage.StageOneLose:
 					PrefabManager.Instance.SetImage(m_img_screenLeft_Image,UIRes.ScreenLeftLose);
 					PrefabManager.Instance.SetImage(m_img_screenRight_Image,m_model.EnemyConfig.winScreenKey);
-					m_animator.Play(AnimatorString.ControversyScreenOpen);
+					m_animator.Play(AnimatorString.ControversyScreenOpen.GetHashCode(),-1,0);
 					//TODO:播放屏风动画
 					CallbackTime(2, () =>
 					{
@@ -334,7 +334,7 @@ namespace UI.Panels
 					PrefabManager.Instance.SetImage(m_img_screenLeft_Image,UIRes.ScreenLeftLose);
 					PrefabManager.Instance.SetImage(m_img_screenRight_Image,m_model.EnemyConfig.winScreenKey);
 					//TODO:播放屏风动画
-					m_animator.Play(AnimatorString.ControversyScreenOpen);
+					m_animator.Play(AnimatorString.ControversyScreenOpen.GetHashCode(),-1,0);
 					CallbackTime(2, () =>
 					{
 						m_model.ChangeStage(EnumControversyStage.StageTwo);
@@ -344,7 +344,7 @@ namespace UI.Panels
 					PrefabManager.Instance.SetImage(m_img_screenLeft_Image,UIRes.ScreenLeftLose);
 					PrefabManager.Instance.SetImage(m_img_screenRight_Image,m_model.EnemyConfig.winScreenKey);
 					//TODO:播放屏风动画
-					m_animator.Play(AnimatorString.ControversyScreenOpen);
+					m_animator.Play(AnimatorString.ControversyScreenOpen.GetHashCode(),-1,0);
 					CallbackTime(2, () =>
 					{
 						m_model.ChangeStage(EnumControversyStage.StageOne);
@@ -358,7 +358,7 @@ namespace UI.Panels
 					PrefabManager.Instance.SetImage(m_img_screenRight_Image,UIRes.ScreenRightWin);
 					InvokeShowStaticPanel(UIPanelType.UICommonBreaktheoryPanel,new BreakTheoryDataProvider(){Type = EnumBreakTheoryType.BreakTheory, ImgKey = m_model.ControversyConfig.breakTheoryImageKey , CloseCallback =()=>
 					{
-						m_animator.Play(AnimatorString.ControversyScreenOpen);
+						m_animator.Play(AnimatorString.ControversyScreenOpen.GetHashCode(),-1,0);
 						//TODO:播放屏风动画
 						CallbackTime(2, () =>
 						{
@@ -509,7 +509,7 @@ namespace UI.Panels
 		
 		#region Member
 		
-		private Dictionary<int,UI_Judgment_ControversyBarrage_Item_SubView> m_barrageSubViews = new Dictionary<int,UI_Judgment_ControversyBarrage_Item_SubView>();
+		public Dictionary<int,UI_Judgment_ControversyBarrage_Item_SubView> m_barrageSubViews = new Dictionary<int,UI_Judgment_ControversyBarrage_Item_SubView>();
 
 		private Queue<UI_Judgment_ControversyBarrage_Item_SubView> m_freeSubViews = new Queue<UI_Judgment_ControversyBarrage_Item_SubView>();
 		private float m_totalMoveTime;

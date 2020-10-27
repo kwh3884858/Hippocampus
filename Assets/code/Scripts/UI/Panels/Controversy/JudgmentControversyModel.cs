@@ -148,6 +148,11 @@ namespace UI.Panels
                         m_panel.SendBarrage(NormalBarrageInfos[i]);
                         NormalBarrageInfos[i].IsMoving = true;
                     }
+                    else if(NormalBarrageInfos[i].IsMoving && !m_panel.m_barrageSubViews.ContainsKey(NormalBarrageInfos[i].ID))
+                    {
+                        NormalBarrageInfos.RemoveAt(i);
+                        i--;
+                    }
                 }
 
                 if (CurStage == EnumControversyStage.StageTwo)
