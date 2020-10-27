@@ -727,11 +727,14 @@ namespace UI.Panels.StaticBoard
             m_nextIDQueue = record.NextIDS;
             m_storyBG = record.BackGroundImg;
             m_picPos = record.PicturePos;
-
-            foreach (var picPos in m_picPos)
+            if (m_picPos != null)
             {
-                ShowPicture(picPos.Key,picPos.Value);
+                foreach (var picPos in m_picPos)
+                {
+                    ShowPicture(picPos.Key, picPos.Value);
+                }
             }
+
             ShowBG(m_storyBG);
             CallbackTime(0.02f,()=>
             {
