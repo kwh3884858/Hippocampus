@@ -9,7 +9,7 @@
 
 
         public static string ControversyScreenCloseAndOpen = "ControversyCloseAndOpen";
-        public static string ControversyScreenOpen = "ControversyScreenOpen";
+        public static string ControversyScreenOpen = "ControversyOpen";
 
         public static string TachieDarken = "Darken";
         public static string TachieNormal = "DarkenToNormal";
