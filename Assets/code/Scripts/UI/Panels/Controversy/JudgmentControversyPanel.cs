@@ -36,7 +36,10 @@ namespace UI.Panels
 			m_model.Hide();
 			base.Hide();
 			EventManager.Instance.AddEventListener<ControversyBarrageSlashEvent>(OnSlashed);
-
+			if (!UIManager.Instance().IsPanelShow(UIPanelType.UICommonCgscenePanel)&&!UIManager.Instance().IsPanelShow(UIPanelType.TalkPanel))
+			{
+				GamePlay.Player.PlayerController.Instance().SetMoveEnable(true);
+			}
 		}
 
 		public override void Deactivate()
@@ -51,6 +54,10 @@ namespace UI.Panels
 			base.ShowData(data);
 			EventManager.Instance.AddEventListener<ControversyBarrageSlashEvent>(OnSlashed);
 			SetInfo();
+			if (!UIManager.Instance().IsPanelShow(UIPanelType.UICommonCgscenePanel)&&!UIManager.Instance().IsPanelShow(UIPanelType.TalkPanel))
+			{
+				GamePlay.Player.PlayerController.Instance().SetMoveEnable(false);
+			}
 		}
 
 		public override void UpdateData(DataProvider data)
