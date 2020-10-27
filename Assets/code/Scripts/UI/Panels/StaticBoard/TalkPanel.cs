@@ -726,13 +726,11 @@ namespace UI.Panels.StaticBoard
             m_curAction = record.StoryAction;
             m_nextIDQueue = record.NextIDS;
             m_storyBG = record.BackGroundImg;
-            m_picPos = record.PicturePos;
-            if (m_picPos != null)
+            
+            m_picPos.Clear();
+            foreach (var picPos in record.PicturePos)
             {
-                foreach (var picPos in m_picPos)
-                {
-                    ShowPicture(picPos.Key, picPos.Value);
-                }
+                ShowPicture(picPos.Key, picPos.Value);
             }
 
             ShowBG(m_storyBG);
