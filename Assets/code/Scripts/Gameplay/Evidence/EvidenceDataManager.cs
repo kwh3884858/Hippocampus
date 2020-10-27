@@ -89,6 +89,7 @@ namespace Evidence
                 return false;
             }
 #endif
+            return false;
         }
 
         /// <summary>
