@@ -63,8 +63,8 @@ namespace StarPlatinum
 		{
 			if (m_allPrefab.ContainsKey(key))
 			{
-				var obj = Object.Instantiate (m_allPrefab[key], parent);
-				var result = GetResult(key, obj);
+				var obj = GameObject.Instantiate (m_allPrefab[key], parent);
+				var result = GetResult(key, obj.GetComponent<T> ());
 				callBack?.Invoke(result);
 			}
 			Addressables.LoadAsset<GameObject> (key).Completed += operation => {
@@ -87,8 +87,8 @@ namespace StarPlatinum
 		{
 			if (m_allPrefab.ContainsKey(key))
 			{
-				var obj = Object.Instantiate (m_allPrefab[key], parent);
-				var result = GetResult(key, obj);
+				var obj = GameObject.Instantiate (m_allPrefab[key], parent);
+				var result = GetResult(key, obj.GetComponent<T> ());
 				callBack?.Invoke(result);
 			}
 			Addressables.LoadAsset<GameObject> (key).Completed += operation => {

@@ -92,12 +92,20 @@ namespace UI
                         m_pictureItems.Enqueue(result.result as PictureItem);
                         GetNewItem();
                     });
+                if (m_pictureItems.Count > 0)
+                {
+                    return m_pictureItems.Dequeue();
+                }
                 return null;
             }
         }
 
         private void GetNewItem()
         {
+            if (m_request.Count <= 0)
+            {
+                return;
+            }
             var request = m_request.Dequeue();
             if (request != null)
             {
