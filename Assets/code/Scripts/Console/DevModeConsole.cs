@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using GamePlay.Player;
 using GamePlay.Stage;
 using StarPlatinum.Manager;
 using UnityEngine;
@@ -69,7 +70,9 @@ namespace StarPlatinum.Development
 		{
 			if (Input.GetKeyDown (KeyCode.BackQuote)) {
 				bool isActive = m_parentPanel.activeSelf;
-				m_parentPanel.SetActive (!isActive);
+				isActive = !isActive;
+				m_parentPanel.SetActive (isActive);
+				PlayerController.Instance().SetMoveEnable(!isActive);
 			}
 
 			if (m_inputFiled.text != "" &&
@@ -126,7 +129,8 @@ namespace StarPlatinum.Development
 			bool isReadyChangeScene = false;
 			bool isReadyLoadMission = false;
 			bool isReadySpeedArgument = false;
-			text = text.ToLower ();
+			bool isReadyAddExhibit = false;
+			//text = text.ToLower ();
 			string [] words = text.Split (' ');
 
 			foreach (string word in words) {
@@ -161,17 +165,38 @@ namespace StarPlatinum.Development
 						PrintAllValidMission ();
 					}
 				}
-				//
+				// Character Speed
 				else if (word.ToLower() == "speed")
                 {
 					isReadySpeedArgument = true;
 				}
                 else if (isReadySpeedArgument)
                 {
+					isReadySpeedArgument = false;
 					float speedArgument = float.Parse(word);
 					CoreContainer.Instance.SetCharacterSpeed(speedArgument);
                 }
-			}
+
+                // Exhibit Table
+                else if (word.ToLower() == "exhibit")
+                {
+					isReadyAddExhibit = true;
+
+                }
+                else if (isReadyAddExhibit)
+                {
+					isReadyAddExhibit = false;
+                    bool result =  Evidence.EvidenceDataManager.Instance.AddEvidence(word);
+                    if (result)
+                    {
+						PrintLog($"[ {word} ] is added.");
+                    }
+                    else
+                    {
+                        PrintLog($"[ {word} ] does`t exist.");
+                    }
+                }
+            }
 			if (isReadyChangeScene) {
 				isReadyChangeScene = false;
 				PrintAllValidSceneName ();

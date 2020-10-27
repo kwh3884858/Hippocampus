@@ -68,23 +68,25 @@ namespace Evidence
         /// 添加证据
         /// </summary>
         /// <param name="exhibitID">证物id</param>
-        public void AddEvidence(string exhibitID)
+        public bool AddEvidence(string exhibitID)
         {
             if (MyEvidenceDic.ContainsKey(exhibitID))// 已经存在
             {
-                return;
+                return false;
             }
             if (m_evidenceConfig.ContainsKey(exhibitID))
             {
                 EvidenceConfig.Detail data = m_evidenceConfig[exhibitID];
                 m_data.evidenceList.Add(exhibitID, new SingleEvidenceData(data.exhibitID,data.exhibit, data.description, data.exhibitImageName));
                 MyEvidenceDic.Add(exhibitID, new SingleEvidenceData(data.exhibitID, data.exhibit, data.description, data.exhibitImageName));
+                return true;
                 //SaveData();
             }
 #if UNITY_EDITOR
             else
             {
                 Debug.LogError("evidence id " + exhibitID + " not contain in exhibitTable!");
+                return false;
             }
 #endif
         }
