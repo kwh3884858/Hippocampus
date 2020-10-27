@@ -151,7 +151,7 @@ namespace Evidence
                 return label;
             }
 
-            label = "AskPhoto_0";
+            label = prefix + "_0";// "AskPhoto_0";
             if (GameRunTimeData.Instance.ControllerManager.StoryController.IsLabelExist(label))
             {
                 return label;
