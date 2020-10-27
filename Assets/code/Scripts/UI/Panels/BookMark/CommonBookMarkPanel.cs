@@ -120,9 +120,10 @@ namespace UI.Panels
             }
             // TODO: show setting panel
             RefreshView();
-            bookMarkControllers[0].SetSelectState();
+            //bookMarkControllers[0].SetSelectState();
+            //EventManager.Instance.SendEvent(new SettingStateEvent() { IsShow = true });
             UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonSettingPanel);// 显示设置界面
-            showDetectiveNotes = true;
+            showSetting = true;
         }
 
         private void SetUnSelectState()
