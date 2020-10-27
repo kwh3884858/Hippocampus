@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UI.Utils;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI.Panels.Element
@@ -60,7 +61,7 @@ namespace UI.Panels.Element
 
         public void SetTachieStatus(EnumTachieStatus status,bool force = false)
         {
-            if (m_status == status && force)
+            if (m_status == status && !force)
             {
                 return;
             }
@@ -69,12 +70,12 @@ namespace UI.Panels.Element
             switch (status)
             {
                 case EnumTachieStatus.Darken:
-                    m_animator.SetBool("Darken",true);
+                    m_animator.Play(AnimatorString.TachieDarken);
 //                    m_makeChildrenGray.MakeGray(true);
                     break;
                 case EnumTachieStatus.Talk:
                 case EnumTachieStatus.Normal:
-                    m_animator.SetBool("Darken",false);
+                    m_animator.Play(AnimatorString.TachieNormal);
 //                    m_makeChildrenGray.MakeGray(false);
                     break;
             }

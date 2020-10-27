@@ -11,5 +11,8 @@
         public static string ControversyScreenCloseAndOpen = "ControversyCloseAndOpen";
         public static string ControversyScreenOpen = "ControversyScreenOpen";
 
+        public static string TachieDarken = "Darken";
+        public static string TachieNormal = "DarkenToNormal";
+
     }
 }
