@@ -91,7 +91,7 @@ namespace UI.Panels
 					m_pl_breakTheory.gameObject.SetActive(true);
 					m_go_theory_Animation.gameObject.SetActive(true);
 					m_go_breakTheory_Animation.gameObject.SetActive(false);
-					m_go_bg_Image.gameObject.SetActive(false);
+					m_img_bg_Image.gameObject.SetActive(false);
 					PrefabManager.Instance.SetImage(m_img_theory_Image,dataProvider.ImgKey);
 					break;
 				case EnumBreakTheoryType.BreakTheory:
@@ -99,11 +99,11 @@ namespace UI.Panels
 					m_go_theory_Animation.gameObject.SetActive(false);
 					m_go_breakTheory_Animation.gameObject.SetActive(true);
 					PrefabManager.Instance.SetImage(m_img_theoryBreak_Image,dataProvider.ImgKey);
-					m_go_bg_Image.gameObject.SetActive(false);
+					m_img_bg_Image.gameObject.SetActive(false);
 					break;
 				case EnumBreakTheoryType.CutIn:
 					m_pl_breakTheory.gameObject.SetActive(false);
-					m_go_bg_Image.gameObject.SetActive(true);
+					m_img_bg_Image.gameObject.SetActive(true);
 					PrefabManager.Instance.SetImage(m_img_bg_Image,dataProvider.ImgKey);
 					break;
 			}

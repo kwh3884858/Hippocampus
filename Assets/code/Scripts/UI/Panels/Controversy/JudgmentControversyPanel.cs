@@ -101,7 +101,7 @@ namespace UI.Panels
 				          !m_model.IsSlashed(barrageSubView.Key) && barrageSubView.Value.IsPassed(m_go_cordon.position))
 				{
 					Debug.LogError($"Miss Barrage {barrageSubView.Value.Info.ID}");
-					if (m_model.BarragePassed(barrageSubView.Value.Info))
+					if (m_model.BarragePassed(barrageSubView.Value.Info)&& !barrageSubView.Value.Info.IsSpecial)
 					{
 						MoveCordon(false);
 					}
@@ -155,7 +155,6 @@ namespace UI.Panels
 					m_model.IsBeginBarrage = true;
 					m_img_heavyAttackCounter_Image.gameObject.SetActive(true);
 					m_cordonMoveDisdance = m_dictance / 4 / m_model.TotalBarrageAmount;
-					ResetCordon();
 					SoundService.Instance.PlayBgm(m_model.ControversyConfig.stageOneBgm,false);
 					break;
 				case EnumControversyStage.StageOneLose:
@@ -170,7 +169,6 @@ namespace UI.Panels
 					m_model.IsBeginBarrage = true;
 					m_img_heavyAttackCounter_Image.gameObject.SetActive(true);
 					m_cordonMoveDisdance = m_dictance / 4 / m_model.TotalBarrageAmount;
-					ResetCordon();
 					SoundService.Instance.PlayBgm(m_model.ControversyConfig.stageTwoBgm,false);
 					break;
 				case EnumControversyStage.Wrong:
@@ -319,8 +317,8 @@ namespace UI.Panels
 					gameObject.SetActive(true);
 					PrefabManager.Instance.SetImage(m_img_screenLeft_Image,UIRes.ScreenLeftBegin);
 					PrefabManager.Instance.SetImage(m_img_screenRight_Image,m_model.EnemyConfig.entranceScreenKey);
-					m_animator.Play(AnimatorString.ControversyScreenOpen,-1,0);
-					CallbackTime(2, () =>
+					m_animator.Play(AnimatorString.ControversyScreenCloseAndOpen,-1,0);
+					CallbackTime(m_animationTime, () =>
 					{
 						m_model.ChangeStage(EnumControversyStage.StageOne);
 					});
@@ -330,7 +328,7 @@ namespace UI.Panels
 					PrefabManager.Instance.SetImage(m_img_screenRight_Image,m_model.EnemyConfig.winScreenKey);
 					m_animator.Play(AnimatorString.ControversyScreenOpen,-1,0);
 					//TODO:播放屏风动画
-					CallbackTime(2, () =>
+					CallbackTime(m_openAnimationTime, () =>
 					{
 						m_model.ChangeStage(EnumControversyStage.StageOne);
 					});
@@ -341,7 +339,7 @@ namespace UI.Panels
 					PrefabManager.Instance.SetImage(m_img_screenRight_Image,m_model.EnemyConfig.winScreenKey);
 					//TODO:播放屏风动画
 					m_animator.Play(AnimatorString.ControversyScreenOpen,-1,0);
-					CallbackTime(2, () =>
+					CallbackTime(m_openAnimationTime, () =>
 					{
 						m_model.ChangeStage(EnumControversyStage.StageTwo);
 					});
@@ -351,7 +349,7 @@ namespace UI.Panels
 					PrefabManager.Instance.SetImage(m_img_screenRight_Image,m_model.EnemyConfig.winScreenKey);
 					//TODO:播放屏风动画
 					m_animator.Play(AnimatorString.ControversyScreenOpen,-1,0);
-					CallbackTime(2, () =>
+					CallbackTime(m_openAnimationTime, () =>
 					{
 						m_model.ChangeStage(EnumControversyStage.StageOne);
 					});
@@ -366,7 +364,7 @@ namespace UI.Panels
 					{
 						m_animator.Play(AnimatorString.ControversyScreenOpen,-1,0);
 						//TODO:播放屏风动画
-						CallbackTime(2, () =>
+						CallbackTime(m_openAnimationTime, () =>
 						{
 							m_model.ChangeStage(EnumControversyStage.AfterWin);
 						});
@@ -467,6 +465,8 @@ namespace UI.Panels
 				m_freeSubViews.Enqueue(barrageSubView.Value);
 			}
 			m_barrageSubViews.Clear();
+			CheckCharge();
+			ResetCordon();
 		}
 
 		private void OnSlashed(object sender, ControversyBarrageSlashEvent e)
@@ -523,7 +523,8 @@ namespace UI.Panels
 		private float m_cordonMoveDisdance;
 		private int m_curCordonMoveValue;
 		private Animator m_animator;
-
+		private float m_animationTime = 6;
+		private float m_openAnimationTime = 4;
 		private string m_hitSound = UIAudioRes.LightAttackEmpty;
 		private bool m_isHit;
 
