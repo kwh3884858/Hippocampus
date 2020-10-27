@@ -197,6 +197,8 @@ namespace UI.Panels
             if (!string.IsNullOrEmpty(config.LoadMissionIDOnEnd))
             {
                 MissionSceneManager.Instance.LoadMissionScene(MissionSceneManager.Instance.GetMissionEnumBy(config.LoadMissionIDOnEnd, false));
+                InvokeHidePanel();
+                return;
             }
 
             if (m_model.PopScene())
