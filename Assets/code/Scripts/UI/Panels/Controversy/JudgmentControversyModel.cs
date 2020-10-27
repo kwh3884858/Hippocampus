@@ -23,6 +23,7 @@ namespace UI.Panels
         StageTwo,
         StageTwoLose,
         Win,
+        AfterWin,
         MissSpecial,
         Wrong,
     }
