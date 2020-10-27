@@ -98,7 +98,7 @@ namespace UI
 
         private void GetNewItem()
         {
-            var request = m_request.Dequeue();
+            var request = m_request.Count > 0?m_request?.Dequeue():null;
             if (request != null)
             {
                 var item = m_pictureItems.Dequeue();
