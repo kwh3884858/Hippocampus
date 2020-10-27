@@ -118,7 +118,7 @@ namespace UI.Panels
                 IsHeavyAttack = true;
             }
 
-            if ((Input.GetKeyDown(KeyCode.D)|| Input.GetMouseButtonDown(2))  && m_normalAttackColdTime <= 0)
+            if ((Input.GetKeyDown(KeyCode.D)|| Input.GetMouseButtonDown(1))  && m_normalAttackColdTime <= 0)
             {
                 IsNormalAttack = true;
             }
@@ -128,8 +128,10 @@ namespace UI.Panels
                 m_heavyAttackColdTime -= Time.deltaTime;
                 if (m_heavyAttackColdTime <= 0)
                 {
+                    m_heavyAttackColdTime = 0;
                     CheckCharge();
                 }
+                m_panel.m_lbl_heavyAttackCounter_TextMeshProUGUI.text = $"重击冷却:{m_heavyAttackColdTime:F1}秒";
             }
 
             if (m_normalAttackColdTime > 0)
@@ -424,6 +426,8 @@ namespace UI.Panels
             SpecialBarrageInfo.IsMoving = false;
             m_missBarrageCount = 0;
             IsBeginBarrage = false;
+            m_panel.m_img_heavyAttackCounter_Image.gameObject.SetActive(false);
+
             Debug.LogError("Clear Data");
         }
 

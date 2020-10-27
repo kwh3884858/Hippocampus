@@ -66,6 +66,7 @@ namespace StarPlatinum
 				var obj = GameObject.Instantiate (m_allPrefab[key], parent);
 				var result = GetResult(key, obj.GetComponent<T> ());
 				callBack?.Invoke(result);
+				return;
 			}
 			Addressables.LoadAsset<GameObject> (key).Completed += operation => {
 				var result = GetResult (key, operation);
@@ -90,6 +91,7 @@ namespace StarPlatinum
 				var obj = GameObject.Instantiate (m_allPrefab[key], parent);
 				var result = GetResult(key, obj.GetComponent<T> ());
 				callBack?.Invoke(result);
+				return;
 			}
 			Addressables.LoadAsset<GameObject> (key).Completed += operation => {
 				var result = GetResult (key, operation);

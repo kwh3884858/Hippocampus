@@ -153,6 +153,7 @@ namespace UI.Panels
 					break;
 				case EnumControversyStage.StageOne:
 					m_model.IsBeginBarrage = true;
+					m_img_heavyAttackCounter_Image.gameObject.SetActive(true);
 					m_cordonMoveDisdance = m_dictance / 4 / m_model.TotalBarrageAmount;
 					ResetCordon();
 					SoundService.Instance.PlayBgm(m_model.ControversyConfig.stageOneBgm,false);
@@ -167,6 +168,7 @@ namespace UI.Panels
 					break;
 				case EnumControversyStage.StageTwo:
 					m_model.IsBeginBarrage = true;
+					m_img_heavyAttackCounter_Image.gameObject.SetActive(true);
 					m_cordonMoveDisdance = m_dictance / 4 / m_model.TotalBarrageAmount;
 					ResetCordon();
 					SoundService.Instance.PlayBgm(m_model.ControversyConfig.stageTwoBgm,false);

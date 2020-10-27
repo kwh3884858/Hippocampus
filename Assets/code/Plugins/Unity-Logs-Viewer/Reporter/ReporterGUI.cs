@@ -19,9 +19,11 @@ public class ReporterGUI : MonoBehaviour
 		//{
 		//	reporter.show = !reporter.show; 
 		//}
+		#if UNITY_EDITOR
 		if (GUI.Button(new Rect(0, 150, 100, 50), "争锋相对"))
 		{
 			UIManager.Instance().ShowPanel(UIPanelType.UIJudgmentControversyPanel,new ControversyDataProvider(){ID = "101"});
 		}
+		#endif
 	}
 }
