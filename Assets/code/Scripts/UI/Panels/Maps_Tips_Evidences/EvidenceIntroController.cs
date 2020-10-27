@@ -46,6 +46,13 @@ public class EvidenceIntroController : MonoBehaviour
                 m_detailBtn.SetActive(false);
             }
         }
+        else
+        {
+            if (m_detailBtn != null)
+            {
+                m_detailBtn.SetActive(true);
+            }
+        }
         ShowIntro(m_data.exhibitID, m_data.description);
     }
 
