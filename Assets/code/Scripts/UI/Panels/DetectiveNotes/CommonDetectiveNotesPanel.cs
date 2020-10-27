@@ -4,6 +4,8 @@ using UnityEngine;
 using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
 using UnityEngine.UI;
+using StarPlatinum.EventManager;
+using StarPlatinum;
 
 namespace UI.Panels
 {
@@ -26,6 +28,7 @@ namespace UI.Panels
         {
             m_model.Hide();
             base.Hide();
+            EventManager.Instance.SendEvent(new BookMarkEvent() { IsStop = false });
         }
 
         public override void Deactivate()
@@ -170,6 +173,7 @@ namespace UI.Panels
 
         private void RefreshPanel()
         {
+            EventManager.Instance.SendEvent(new BookMarkEvent() { IsStop = m_data.IsOnEvidence });
             if (m_data.IsOnEvidence)
             {
                 FindUI<Button>(transform, "Btn_Maps").interactable = false;

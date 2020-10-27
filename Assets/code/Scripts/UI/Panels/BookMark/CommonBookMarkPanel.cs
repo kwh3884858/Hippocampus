@@ -5,6 +5,7 @@ using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
 using StarPlatinum.EventManager;
 using StarPlatinum;
+using System;
 
 namespace UI.Panels
 {
@@ -16,6 +17,7 @@ namespace UI.Panels
             base.Initialize(uiDataProvider, settings);
             m_model.Initialize(this);
             EventManager.Instance.AddEventListener<SettingStateEvent>(OnSettingStateChange);
+            EventManager.Instance.AddEventListener<BookMarkEvent>(OnBookMarkChange);
         }
 
         public override void DeInitialize()
@@ -29,6 +31,7 @@ namespace UI.Panels
             m_model.Hide();
             base.Hide();
             EventManager.Instance.RemoveEventListener<SettingStateEvent>(OnSettingStateChange);
+            EventManager.Instance.RemoveEventListener<BookMarkEvent>(OnBookMarkChange);
         }
 
         public override void Deactivate()
@@ -77,6 +80,10 @@ namespace UI.Panels
         #region Member
         public void OnClickSave()
         {
+            if (isStop)
+            {
+                return;
+            }
             RefreshView();
             UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonLoadarchivePanel, new ArchiveDataProvider() { Type = ArchivePanelType.Save, OnClose = SetUnSelectState });
             showSaveFile = true;
@@ -84,6 +91,10 @@ namespace UI.Panels
 
         public void OnClickAssistant()
         {
+            if (isStop)
+            {
+                return;
+            }
             RefreshView();
             UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonAssistantPanel, new AssistantDataProvider() { OnClose = SetUnSelectState });// 显示助手窗
             showAssistant = true;
@@ -91,6 +102,10 @@ namespace UI.Panels
 
         public void OnClickDetectiveNotes()
         {
+            if (isStop)
+            {
+                return;
+            }
             RefreshView();
             UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonDetectiveNotesPanel, new DetectiveNotesDataProvider() { OnClose = SetUnSelectState });// 显示证物列表
             showDetectiveNotes = true;
@@ -99,6 +114,10 @@ namespace UI.Panels
 
         public void OnClickSetting()
         {
+            if (isStop)
+            {
+                return;
+            }
             // TODO: show setting panel
             RefreshView();
             bookMarkControllers[0].SetSelectState();
@@ -150,12 +169,39 @@ namespace UI.Panels
             }
         }
 
+        private void OnBookMarkChange(object sender, BookMarkEvent e)
+        {
+            if (e != null)
+            {
+                ChangeBookMarkState(e.IsStop);
+            }
+        }
+
+        private void ChangeBookMarkState(bool isStop)
+        {
+            this.isStop = isStop;
+            if (this.isStop)
+            {
+                SetUnSelectState();
+                SetStopState();
+            }
+        }
+
+        private void SetStopState()
+        {
+            for (int i = 0; i < bookMarkControllers.Count; i++)
+            {
+                bookMarkControllers[i].SetStopState(isStop);
+            }
+        }
+
         [SerializeField]
         private List<SingleBookMarkController> bookMarkControllers = new List<SingleBookMarkController>();
         private bool showAssistant = false;
         private bool showDetectiveNotes = false;
         private bool showSaveFile = false;
         private bool showSetting = false;
+        private bool isStop = false;
         #endregion
     }
 }

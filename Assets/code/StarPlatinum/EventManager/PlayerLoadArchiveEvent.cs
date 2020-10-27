@@ -25,4 +25,10 @@ namespace StarPlatinum
         public bool IsShow;
     }
 
+    public class BookMarkEvent : EventArgs
+    {
+        /// <summary>是否停止书签功能</summary>
+        public bool IsStop;
+    }
+
 }
