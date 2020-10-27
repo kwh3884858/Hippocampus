@@ -24,6 +24,10 @@ public class SingleBookMarkController : MonoBehaviour, IPointerEnterHandler, IPo
         {
             selectObj.SetActive(false);
         }
+        if(selfBtn == null)
+        {
+            selfBtn = transform.GetComponent<Button>();
+        }
         startMoveY = transform.localPosition.y;
     }
 
@@ -138,6 +142,10 @@ public class SingleBookMarkController : MonoBehaviour, IPointerEnterHandler, IPo
     public void SetStopState(bool isStop)
     {
         this.isStop = isStop;
+        if (selfBtn != null)
+        {
+            selfBtn.interactable = !this.isStop;
+        }
     }
 
     private Tween moveDownTween = null;
@@ -146,4 +154,5 @@ public class SingleBookMarkController : MonoBehaviour, IPointerEnterHandler, IPo
     private float moveDistanceY = 82f;
     private bool isSelect = false;
     private bool isStop = false;
+    private Button selfBtn = null;
 }

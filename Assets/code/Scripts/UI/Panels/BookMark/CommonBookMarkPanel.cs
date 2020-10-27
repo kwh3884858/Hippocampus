@@ -183,8 +183,8 @@ namespace UI.Panels
             if (this.isStop)
             {
                 SetUnSelectState();
-                SetStopState();
             }
+            SetStopState();
         }
 
         private void SetStopState()
