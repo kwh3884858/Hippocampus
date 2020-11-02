@@ -28,6 +28,7 @@ namespace GamePlay.Stage
         EP09_09,
         EP10_01,
         special,
+        TachieTest,
 
     };
 
@@ -270,6 +271,7 @@ namespace GamePlay.Stage
         MissionEnum.EP09_09,
         MissionEnum.EP10_01,
         MissionEnum.special,
+        MissionEnum.TachieTest,
 
         };
 

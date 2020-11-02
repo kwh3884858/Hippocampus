@@ -8,9 +8,9 @@ namespace Assets.code.StarPlatinum.Services.CameraService
         public float m_xMargin = 1f;
         public float m_yMargin = 1f;
         public float m_zMargin = 1f;
-        public float m_xSmooth = 3f;
-        public float m_ySmooth = 3f;
-        public float m_zSmooth = 3f;
+        //public float m_xSmooth = 3f;
+        //public float m_ySmooth = 3f;
+        //public float m_zSmooth = 3f;
         public Vector2 m_maxXAndY = new Vector2(1000, 1000);
         public Vector2 m_minXAndY = new Vector2(-1000, -1000);
         public float m_yOffset = 0;
@@ -165,16 +165,19 @@ namespace Assets.code.StarPlatinum.Services.CameraService
 
             if (CheckXMargin())
             {
-                pos_targetX = Mathf.Lerp(transform.position.x, pos_target.x, Time.deltaTime * m_xSmooth);
+                //pos_targetX = Mathf.Lerp(transform.position.x, pos_target.x, Time.deltaTime * m_xSmooth);
+                pos_targetX = pos_target.x;
             }
 
             if (CheckYMargin())
             {
-                pos_targetY = Mathf.Lerp(transform.position.y, pos_target.y, Time.deltaTime * m_ySmooth);
+                //pos_targetY = Mathf.Lerp(transform.position.y, pos_target.y, Time.deltaTime * m_ySmooth);
+                pos_targetY = pos_target.y;
             }
             if (CheckZMargin())
             {
-                pos_targetZ = Mathf.Lerp(transform.position.z, pos_target.z, Time.deltaTime * m_zSmooth);
+                //pos_targetZ = Mathf.Lerp(transform.position.z, pos_target.z, Time.deltaTime * m_zSmooth);
+                pos_targetZ = pos_target.z;
             }
 
             pos_targetX = Mathf.Clamp(pos_targetX, m_minXAndY.x, m_maxXAndY.x);
