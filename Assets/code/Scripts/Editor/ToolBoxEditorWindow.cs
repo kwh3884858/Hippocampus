@@ -221,7 +221,20 @@ public class ToolBoxEditorWindow : EditorWindow
 				EditorUtility.DisplayDialog ("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
 			}
 		}
-		if (GUILayout.Button ("Create Event Trigger With [Prefab: Create New Teleport Point]")) {
+        if (GUILayout.Button("Create Audio Trigger With [Prefab: AudioTrigger]"))
+        {
+            if (IsMissionSceneValid())
+            {
+                GameObject audioTrigger = CreateEventTrigger(m_currentMissionScene);
+                audioTrigger.name = "AudioTrigger";
+                audioTrigger.AddComponent<WorldTriggerCallbackAudioTrigger>();
+            }
+            else
+            {
+                EditorUtility.DisplayDialog("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
+            }
+        }
+        if (GUILayout.Button ("Create Event Trigger With [Prefab: Create New Teleport Point]")) {
 			if (IsGameSceneValid ()) {
 				GameObject loadNewStory = CreateEventTrigger (m_currentGameScene);
 				loadNewStory.name = "Teleport_Point";

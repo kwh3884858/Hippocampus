@@ -20,6 +20,7 @@ namespace Config.GameRoot
         public string Path_To_WorldTrigger = $"Assets/data/graphics/Interaction/Interaction_World_Trigger.prefab";
         public string Path_To_SpawnPoint = $"Assets/data/graphics/Interaction/Interaction_Spawn_Point.prefab";
         public string Path_To_Teleport = $"Assets/data/graphics/Interaction/Teleport_Point.prefab";
+        public string Path_To_AudioTrigger = $"Assets/data/graphics/Interaction/AudioTrigger.prefab";
         public string Path_To_Mission = $"Assets/data/graphics/Interaction/Interaction_Missions.prefab";
 
         public string Prefix_Mission_Folder = "Mission_";
