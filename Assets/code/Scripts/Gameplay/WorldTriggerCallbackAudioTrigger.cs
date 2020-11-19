@@ -21,6 +21,11 @@ public class WorldTriggerCallbackAudioTrigger : WorldTriggerCallbackBase
     public bool m_isLoop = false;
     public bool m_onlyTiriggerOnce;
 
+    public void Awake()
+    {
+        m_audioSource = this.gameObject.AddComponent<AudioSource>();
+        m_audioSource.playOnAwake = false;
+    }
     protected override void AfterStart()
     {
 #if UNITY_EDITOR
@@ -29,9 +34,6 @@ public class WorldTriggerCallbackAudioTrigger : WorldTriggerCallbackBase
         {
             WorldDebug3DTextManager.Instance.AddTextToGameobject("AudioTrigger", gameObject);
         }
-
-        m_audioSource = this.gameObject.AddComponent<AudioSource>();
-        m_audioSource.playOnAwake = false;
 #endif
     }
     protected override void Callback()

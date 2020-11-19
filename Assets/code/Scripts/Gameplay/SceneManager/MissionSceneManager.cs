@@ -29,6 +29,8 @@ namespace GamePlay.Stage
         EP10_01,
         special,
         TachieTest,
+        MG_Level_01,
+        MG_Level_02
 
     };
 
@@ -272,7 +274,8 @@ namespace GamePlay.Stage
         MissionEnum.EP10_01,
         MissionEnum.special,
         MissionEnum.TachieTest,
-
+        MissionEnum.MG_Level_01,
+        MissionEnum.MG_Level_02
         };
 
     }
