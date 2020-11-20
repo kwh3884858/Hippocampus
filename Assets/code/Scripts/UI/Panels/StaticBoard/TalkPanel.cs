@@ -178,11 +178,15 @@ namespace UI.Panels.StaticBoard
             {
                 GamePlay.Player.PlayerController.Instance().SetMoveEnable(false);
             }
-#if UNITY_EDITOR
-            m_skipButton.gameObject.SetActive(true);
-#else
-            m_skipButton.gameObject.SetActive(false);
-#endif
+
+            if (Application.isEditor || GamePlay.Global.SingletonGlobalDataContainer.Instance.SHOW_SKIP)
+            {
+                m_skipButton.gameObject.SetActive(true);
+            }
+            else
+            {
+                m_skipButton.gameObject.SetActive(false);
+            }
         }
 
         public override void UpdateData(DataProvider data)

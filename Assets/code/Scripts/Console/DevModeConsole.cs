@@ -17,6 +17,7 @@ namespace StarPlatinum.Development
 
 		public Text m_log;
 
+
 		class QueueArray<T>
 		{
 			T [] m_content;
@@ -195,6 +196,13 @@ namespace StarPlatinum.Development
                     {
                         PrintLog($"[ {word} ] does`t exist.");
                     }
+                }
+
+                // Show skip button
+                else if (word.ToLower() == "skip")
+                {
+                    GamePlay.Global.SingletonGlobalDataContainer.Instance.SHOW_SKIP = !GamePlay.Global.SingletonGlobalDataContainer.Instance.SHOW_SKIP;
+                    PrintLog($"Now skip button display mode is {GamePlay.Global.SingletonGlobalDataContainer.Instance.SHOW_SKIP}");
                 }
             }
 			if (isReadyChangeScene) {
