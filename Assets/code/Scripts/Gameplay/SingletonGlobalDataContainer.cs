@@ -132,5 +132,6 @@ namespace GamePlay.Global
 		//Interactable objects trigger counter to calculate the num of be triggered for showing the correct story.
 		public Dictionary<string, int> m_objectTriggeredCounter = new Dictionary<string, int> ();
 
-	}
+        public bool SHOW_SKIP = false;
+    }
 }
