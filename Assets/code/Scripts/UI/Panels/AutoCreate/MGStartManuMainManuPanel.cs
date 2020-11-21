@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.code.Scripts.Gameplay;
 using Config;
 using Const;
 using Controllers.Subsystems.Story;
+using GamePlay.Player;
+using GamePlay.Stage;
+using Spine;
 using StarPlatinum;
 using StarPlatinum.EventManager;
 using TMPro;
@@ -72,8 +76,10 @@ namespace UI.Panels
 
             CallbackTime(1, ShowHud);
             UIManager.Instance().ActivatState(GameState.Battle);// 设置当前状态,wywtsest
-            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonGameplayPanel);// 显示助手UI
-            UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonBookmarkPanel);// 显示书签
+            //UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonGameplayPanel);// 显示助手UI
+            //UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonBookmarkPanel);// 显示书签
+            TimelineManager.Instance().PlayTimeline(TimelineEnum.StartScene);
+            PlayerController.Instance().SetMoveEnable(false);
             //StarPlatinum.PrefabManager.Instance.LoadScene (SceneLookupEnum.World_Episode2_Pier, UnityEngine.SceneManagement.LoadSceneMode.Additive);
         }
 
