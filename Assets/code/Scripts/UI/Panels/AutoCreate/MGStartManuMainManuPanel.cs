@@ -78,8 +78,10 @@ namespace UI.Panels
             UIManager.Instance().ActivatState(GameState.Battle);// 设置当前状态,wywtsest
             //UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonGameplayPanel);// 显示助手UI
             //UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonBookmarkPanel);// 显示书签
-            TimelineManager.Instance().PlayTimeline(TimelineEnum.StartScene);
-            PlayerController.Instance().SetMoveEnable(false);
+            //#region Timeline Enable
+            //TimelineManager.Instance().PlayTimeline(TimelineEnum.StartScene);
+            //PlayerController.Instance().SetMoveEnable(false);
+            //#endregion
             //StarPlatinum.PrefabManager.Instance.LoadScene (SceneLookupEnum.World_Episode2_Pier, UnityEngine.SceneManagement.LoadSceneMode.Additive);
         }
 
