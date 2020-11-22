@@ -557,6 +557,10 @@ namespace UI.Panels.StaticBoard
 
         private void PlayerTypewriterSound()
         {
+            if (m_highSpeed||m_skip)
+            {
+                return;
+            }
             if (m_curRoleInfo == null||string.IsNullOrEmpty(m_curRoleInfo.typewriterSoundKey))
             {
                 SoundService.Instance.PlayEffect(UiDataProvider.ConfigProvider.StoryConfig.TypewriterDefaultSound,false,0.1f,true);
@@ -772,10 +776,10 @@ namespace UI.Panels.StaticBoard
         private Dictionary<string, PictureItem> m_pictureItems = new Dictionary<string, PictureItem>();
         private Dictionary<string,Vector2> m_picPos = new Dictionary<string, Vector2>();
         
-        private bool m_highSpeed = false;
+        private bool m_highSpeed = false;//当前文本快进
         private bool m_characterTalkEnd = false;
         private bool m_autoPlay = false;
-        private bool m_skip = false;
+        private bool m_skip = false;//剧情快进
         private bool m_waitingEnd = false;
         private string m_currentID;
         private Queue<string> m_nextIDQueue = new Queue<string>();
