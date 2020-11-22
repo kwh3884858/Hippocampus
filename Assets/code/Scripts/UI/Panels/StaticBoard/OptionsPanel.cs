@@ -87,6 +87,11 @@ namespace UI.Panels.StaticBoard
 			}
 		}
 
+		public void ShowLog()
+		{
+			InvokeShowAsSubpanel(PanelType,UIPanelType.UICommonLogPanel);
+		}
+
 		[SerializeField] private OptionItem m_optionItem;
 		[SerializeField] private Transform m_content;
 		[SerializeField] private Image m_bg;
