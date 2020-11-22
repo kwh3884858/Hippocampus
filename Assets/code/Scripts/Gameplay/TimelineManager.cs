@@ -27,8 +27,8 @@ namespace Assets.code.Scripts.Gameplay
         public override void SingletonInit()
         {
             TimelinePlayer = Object.FindObjectOfType<PlayableDirector>();
-            m_timelineAssetDic.Add(TimelineEnum.Default, assets[0]);
-            m_timelineAssetDic.Add(TimelineEnum.StartScene, assets[1]);
+            m_timelineAssetDic.Add(TimelineEnum.Default, assets[0]!=null? assets[0]:null);
+            m_timelineAssetDic.Add(TimelineEnum.StartScene, assets[1] != null ? assets[1] : null);
         }
 
 
