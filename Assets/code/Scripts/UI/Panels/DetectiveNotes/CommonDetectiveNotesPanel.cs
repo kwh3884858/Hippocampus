@@ -109,6 +109,11 @@ namespace UI.Panels
             }
             SwitchType(ShowState.Tips);
         }
+        
+        public void ShowLog()
+        {
+            InvokeShowAsSubpanel(PanelType,UIPanelType.UICommonLogPanel);
+        }
 
         private void SwitchType(ShowState curState)
         {

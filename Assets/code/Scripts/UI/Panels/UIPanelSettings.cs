@@ -105,7 +105,7 @@ namespace UI.Panels
             new UIPanelSettings(UIPanelType.Tipgetpanel,UIPanelUnLoadMode.Destroy),
             new UIPanelSettings(UIPanelType.UICommonESCMainMenuPanel,UIPanelUnLoadMode.Disabled),
             new UIPanelSettings(UIPanelType.UICommonLoadarchivePanel),
-            new UIPanelSettings(UIPanelType.UICommonLogPanel,UIPanelUnLoadMode.Disabled),
+            new UIPanelSettings(UIPanelType.UICommonLogPanel,UIPanelUnLoadMode.Destroy),
             new UIPanelSettings(UIPanelType.UICommonCgscenePanel,UIPanelUnLoadMode.Destroy,false,UIPanelLayer.Layer3),
             new UIPanelSettings(UIPanelType.UICommonAssistantPanel,UIPanelUnLoadMode.Destroy,false,UIPanelLayer.Layer5),
             new UIPanelSettings(UIPanelType.UICommonDetectiveNotesPanel,UIPanelUnLoadMode.Destroy,false,UIPanelLayer.Layer5),
