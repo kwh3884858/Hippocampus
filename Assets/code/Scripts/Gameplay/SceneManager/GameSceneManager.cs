@@ -36,6 +36,14 @@ namespace GamePlay.Stage
                 CameraService.Instance.UpdateCurrentCamera();
                 //DisplayCurrentSceneNameTip ();
                 CinemachineManager.Instance.SetBoundingVolumeByName(GetCurrentSceneEnum().ToString());// set camera move range
+
+
+                UnityEngine.SceneManagement.Scene loadedScene = new UnityEngine.SceneManagement.Scene();
+                bool result = StarPlatinum.PrefabManager.Instance.GetLoadedScene(m_currentSceneSlot.GetCurrentSceneEnum(), ref loadedScene);
+                if (result)
+                {
+                    UnityEngine.SceneManagement.SceneManager.SetActiveScene(loadedScene);
+                }
             });
         }
 

@@ -239,7 +239,18 @@ namespace StarPlatinum
 
         public bool IsSceneLoaded(SceneLookupEnum requestScene)
         {
-           return m_scene.ContainsKey(requestScene);
+            return m_scene.ContainsKey(requestScene);
+        }
+
+        public bool GetLoadedScene(SceneLookupEnum requestScene, ref Scene scene)
+        {
+            if (!IsSceneLoaded(requestScene))
+            {
+                return false;
+            }
+            SceneInstance sceneInstance = m_scene[requestScene];
+            scene = sceneInstance.Scene;
+            return true;
         }
         
         private RequestResult GetResult (string key,Object obj)
