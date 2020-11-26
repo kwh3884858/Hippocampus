@@ -6,6 +6,7 @@ using StarPlatinum.Base;
 using StarPlatinum.Manager;
 using GamePlay.Stage;
 using UnityEngine.Assertions;
+using UnityEngine.Rendering.Universal;
 
 namespace StarPlatinum.Service
 {
@@ -27,6 +28,8 @@ namespace StarPlatinum.Service
 		[SerializeField]
 		private GameObject m_mainCamera;
 
+		private Camera m_uiCamera;
+
 		[SerializeField]
 		private CameraController m_cameraController;
 
@@ -42,6 +45,7 @@ namespace StarPlatinum.Service
                 GameObject.Destroy(m_mainCamera);
             }
             m_mainCamera = mainCamera;
+            SetUICamera();
         }
 		public GameObject GetMainCamera()
 		{
@@ -74,6 +78,7 @@ namespace StarPlatinum.Service
 
             CloseAllCamera();
 
+            
 			//SceneLookupEnum sceneEnum = GameSceneManager.Instance.GetCurrentSceneEnum ();
 			//SceneCameraType cameraType = ConfigRoot.Instance.GetCameraTypeBySceneName (sceneEnum.ToString ());
 			
@@ -114,7 +119,7 @@ namespace StarPlatinum.Service
             Assert.IsTrue(cameras.Length > 0, "Camera length is wrong");
 
 			for (int i = 0; i < cameras.Length; i++) {
-                if (cameras[i].gameObject != m_mainCamera)
+                if (cameras[i].gameObject != m_mainCamera&& cameras[i]!=m_uiCamera)
                 {
                     cameras[i].gameObject.SetActive(false);
                 }
@@ -163,6 +168,23 @@ namespace StarPlatinum.Service
 				}
 			});
 			return camera;
+		}
+
+		private void SetUICamera()
+		{
+			GameObject uiCamera = GameObject.Find ("UICamera");
+
+			if (uiCamera == null)
+			{
+				return;
+			}
+
+			var camera = uiCamera.GetComponent<Camera>();
+			var mainCamera = m_mainCamera.GetComponent<Camera>();
+			var cameraData = mainCamera.GetUniversalAdditionalCameraData();
+			cameraData.cameraStack.Add(camera);
+			m_uiCamera = camera;
+
 		}
 
 		private GameObject camera;
