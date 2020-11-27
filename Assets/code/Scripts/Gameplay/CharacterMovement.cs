@@ -9,6 +9,7 @@ public class CharacterMovement : MonoBehaviour
     public bool useCharacterForward = false;
     public bool lockToCameraForward = false;
     public float turnSpeed = 10f;
+    public float MoveSpeed =1;
     public KeyCode sprintJoystick = KeyCode.JoystickButton2;
     public KeyCode sprintKeyboard = KeyCode.Space;
 
@@ -70,8 +71,12 @@ public class CharacterMovement : MonoBehaviour
             var euler = new Vector3(0, eulerY, 0);
 
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(euler), turnSpeed * turnSpeedMultiplier * Time.deltaTime);
+            //transform move
+            transform.position = transform.position+new Vector3(lookDirection.x,0,lookDirection.z) * Time.fixedDeltaTime*MoveSpeed;
         }
 	}
+
+
 
     public virtual void UpdateTargetDirection()
     {
