@@ -23,19 +23,25 @@ public class MonoMoveController : MonoBehaviour
     void Start()
     {
         m_capsuleCollider = transform.GetComponent<CapsuleCollider>();
-		if (m_capsuleCollider == null) {
-            Debug.LogError ("Player Collision Is Lost.");
-		}
-        m_animator = transform.GetComponent<Animator> ();
-		if (m_animator == null) {
-            Debug.LogError ("Player Animator Is Lost.");
-		} else {
+        if (m_capsuleCollider == null)
+        {
+            Debug.LogError("Player Collision Is Lost.");
+        }
+        m_animator = transform.GetComponent<Animator>();
+        if (m_animator == null)
+        {
+            Debug.LogError("Player Animator Is Lost.");
+        }
+        else
+        {
             //m_animator.SetBool ("IsFaceLeft", !m_isFaceRight);
-		}
-        m_spriteRender = transform.GetComponent<SpriteRenderer> ();
-		if (m_spriteRender == null) {
-            Debug.LogError ("Player Sprite Render Is Lost");
-		}
+        }
+        m_spriteRender = transform.GetComponent<SpriteRenderer>();
+        if (m_spriteRender == null)
+        {
+            Debug.LogWarning("Player Sprite Render Is Lost");
+        }
+
         PlayerController.Instance().SetMonoMoveController(this);
         CameraService.Instance.SetTarget(gameObject);
         count = 0;
@@ -68,45 +74,55 @@ public class MonoMoveController : MonoBehaviour
         }
 
         int maxColliders = 10;
-        Collider [] hitColliders = new Collider [maxColliders];
-        Dictionary<Collider, float> colliders = new Dictionary<Collider, float> ();
+        Collider[] hitColliders = new Collider[maxColliders];
+        Dictionary<Collider, float> colliders = new Dictionary<Collider, float>();
 
         Collider interactCollider = null;
         float smallestLength = 10000;
 
-        int numColliders = Physics.OverlapSphereNonAlloc (transform.position, m_interactableRadius, hitColliders, m_interactableLayer.value);
+        int numColliders = Physics.OverlapSphereNonAlloc(transform.position, m_interactableRadius, hitColliders, m_interactableLayer.value);
         //Debug.Log ("Num of Collisions: " + numColliders);
-        for (int i = 0; i < numColliders; i++) {
-            if (hitColliders [i].CompareTag (InteractiveObject.INTERACTABLE_TAG)) {
-                colliders.Add (hitColliders [i], Vector3.SqrMagnitude (hitColliders [i].transform.position - transform.position));
+        for (int i = 0; i < numColliders; i++)
+        {
+            if (hitColliders[i].CompareTag(InteractiveObject.INTERACTABLE_TAG))
+            {
+                colliders.Add(hitColliders[i], Vector3.SqrMagnitude(hitColliders[i].transform.position - transform.position));
             }
         }
-        foreach (var pair in colliders) {
-            if (pair.Value < smallestLength) {
+        foreach (var pair in colliders)
+        {
+            if (pair.Value < smallestLength)
+            {
                 smallestLength = pair.Value;
                 interactCollider = pair.Key;
             }
         }
 
-        if (interactCollider != null) {
-            if(!UIManager.Instance ().IsPanelShow (UIPanelType.UIGameplayPromptwidgetPanel)) {
-                UIManager.Instance ().ShowPanel (UIPanelType.UIGameplayPromptwidgetPanel, new PromptWidgetDataProvider { m_interactiableObject = interactCollider.gameObject });
+        if (interactCollider != null)
+        {
+            if (!UIManager.Instance().IsPanelShow(UIPanelType.UIGameplayPromptwidgetPanel))
+            {
+                UIManager.Instance().ShowPanel(UIPanelType.UIGameplayPromptwidgetPanel, new PromptWidgetDataProvider { m_interactiableObject = interactCollider.gameObject });
                 UIManager.Instance().UpdateData(UIPanelType.UICommonGameplayPanel, new CommonGamePlayDataProvider { m_interactButtonShouldVisiable = true });
             }
-			if (!UIManager.Instance ().IsPanelShow (UIPanelType.TalkPanel)) {
-                if (Input.GetKeyDown (KeyCode.Return) || m_isInteractByUI) {
+            if (!UIManager.Instance().IsPanelShow(UIPanelType.TalkPanel))
+            {
+                if (Input.GetKeyDown(KeyCode.Return) || m_isInteractByUI)
+                {
                     m_isInteractByUI = false;
-                    Debug.Log ("Did Interactive: " + interactCollider.gameObject);
-                    interactCollider.GetComponent<InteractiveObject> ().Interact ();
+                    Debug.Log("Did Interactive: " + interactCollider.gameObject);
+                    interactCollider.GetComponent<InteractiveObject>().Interact();
 
-                    Debug.DrawRay (interactCollider.transform.position, Vector3.up * 3, Color.yellow, 5.0f);
+                    Debug.DrawRay(interactCollider.transform.position, Vector3.up * 3, Color.yellow, 5.0f);
                 }
             }
-        } else {
+        }
+        else
+        {
             m_isInteractByUI = false;
             if (UIManager.Instance().IsPanelShow(UIPanelType.UIGameplayPromptwidgetPanel))
-            { 
-                UIManager.Instance ().HidePanel (UIPanelType.UIGameplayPromptwidgetPanel);
+            {
+                UIManager.Instance().HidePanel(UIPanelType.UIGameplayPromptwidgetPanel);
                 UIManager.Instance().UpdateData(UIPanelType.UICommonGameplayPanel, new CommonGamePlayDataProvider { m_interactButtonShouldVisiable = false });
             }
         }
@@ -114,7 +130,7 @@ public class MonoMoveController : MonoBehaviour
 
     private void OnGUI()
     {
- 
+
         //if (GUI.Button(new Rect(0, 100, 200, 50), "Evidence"))
         //{
         //    //UIManager.Instance().ShowPanel(UIPanelType.Evidencepanel);// 显示UI
@@ -125,7 +141,7 @@ public class MonoMoveController : MonoBehaviour
         //{
         //    UIManager.Instance().ShowStaticPanel(UIPanelType.Tipspanel);// 显示UI
         //}
-        
+
         //if (GUI.Button(new Rect(0, 200, 200, 50), "Save"))
         //{
         //    UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonLoadarchivePanel,new ArchiveDataProvider(){Type = ArchivePanelType.Save});// 显示UI
@@ -135,13 +151,14 @@ public class MonoMoveController : MonoBehaviour
         //    UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonCgscenePanel,new CGSceneDataProvider(){CGSceneID = "EP04-01"});// 显示UI
         //}
     }
-    
+
     void FixedUpdate()
     {
         if (!m_isMove)// 不能进行移动
         {
             return;
         }
+
         float horizontalAxis = StarPlatinum.InputService.Instance.GetAxis(StarPlatinum.KeyMap.Horizontal);
         float verticalAxis = StarPlatinum.InputService.Instance.GetAxis(StarPlatinum.KeyMap.Vertical);
         float horizontalStepLength = 0;
@@ -149,7 +166,7 @@ public class MonoMoveController : MonoBehaviour
 
         if (horizontalAxis > 0.1f || horizontalAxis < -0.1f)
         {
-            horizontalStepLength = horizontalAxis * m_moveSpeed ;
+            horizontalStepLength = horizontalAxis * m_moveSpeed;
             transform.localPosition = new Vector3(
             transform.localPosition.x + horizontalStepLength * Time.fixedDeltaTime,
             transform.localPosition.y,
@@ -191,8 +208,8 @@ public class MonoMoveController : MonoBehaviour
 
         if (m_isFaceRight != m_isOldFaceRight)
         {
-            transform.localScale = new  Vector3(m_isFaceRight?1:-1, transform.localScale.y, transform.localScale.z);
-            m_spriteRender.flipX = m_isFaceRight;
+            transform.localScale = new Vector3(m_isFaceRight ? 1 : -1, transform.localScale.y, transform.localScale.z);
+            //m_spriteRender.flipX = m_isFaceRight;
             m_isOldFaceRight = m_isFaceRight;
         }
     }
@@ -202,36 +219,36 @@ public class MonoMoveController : MonoBehaviour
         m_isMove = isEnable;
     }
 
-    public void StopPlayerAnimation ()
-	{
-        m_animator.SetFloat ("Speed", 0.0f);
+    public void StopPlayerAnimation()
+    {
+        m_animator.SetFloat("Speed", 0.0f);
     }
 
-    public void SetCharacterSpeed(float speedArgument) 
+    public void SetCharacterSpeed(float speedArgument)
     {
         m_moveSpeed = speedArgument;
     }
 
-    public void SetInteract ()
-	{
+    public void SetInteract()
+    {
         m_isInteractByUI = true;
     }
 
-    [Header ("Public, Physics Property")]
+    [Header("Public, Physics Property")]
     public float m_moveSpeed = 5f;
     public float m_jumpForce = 60f;
     public float m_rayDistance = 2f;
 
 
-    [Header ("Public, Interactive Property")]
+    [Header("Public, Interactive Property")]
     public float m_showInteractiveUIRadius = 1.0f;
     public float m_interactableRadius = 0.5f;
     public float m_interactableRaycastAngle = 90;
     public float m_interactableRaycastAngleInterval = 10;
-    public LayerMask m_interactableLayer ;
+    public LayerMask m_interactableLayer;
 
 
-    [Header ("Private, Physics Data")]
+    [Header("Private, Physics Data")]
     [SerializeField]
     private bool m_isOldFaceRight = false;
     [SerializeField]
@@ -244,7 +261,8 @@ public class MonoMoveController : MonoBehaviour
     [SerializeField]
     private CapsuleCollider m_capsuleCollider;
 
-    private bool m_isMove = true;
+
+    public bool m_isMove = true;
     private bool m_isInteractByUI = false;
 
     private int count = 0;// 测试计数 Delete in future

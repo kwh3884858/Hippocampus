@@ -26,7 +26,8 @@ namespace GamePlay.Player
 		public void SetMoveEnable (bool isMove)
 		{
 			if (m_moveCtrl != null) {
-				m_moveCtrl.SetMoveEnable (isMove);
+                //MG Version disable move
+				//m_moveCtrl.SetMoveEnable (isMove);
 			}
 		}
 
