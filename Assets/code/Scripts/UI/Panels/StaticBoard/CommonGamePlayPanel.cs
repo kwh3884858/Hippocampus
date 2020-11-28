@@ -61,7 +61,7 @@ namespace UI.Panels
             {
                 UpdateButtonVisiable(m_model.m_isInteractButtonVisiable);
                 m_isNowInteractButtonIsVisiableCache = m_model.m_isInteractButtonVisiable;
-				m_itemName = m_model.m_itemName;
+				m_Text_ItemName_Text.text = m_model.m_itemName;
 
 			}
         }
@@ -119,7 +119,6 @@ namespace UI.Panels
         }
 
 		private bool m_isNowInteractButtonIsVisiableCache = false;
-		private string m_itemName;
 		#endregion
 	}
 }

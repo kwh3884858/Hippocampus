@@ -144,7 +144,18 @@ public class MonoMoveController : MonoBehaviour
             if (!UIManager.Instance().IsPanelShow(UIPanelType.UIGameplayPromptwidgetPanel))
             {
                 UIManager.Instance().ShowPanel(UIPanelType.UIGameplayPromptwidgetPanel, new PromptWidgetDataProvider { m_interactiableObject = collider.gameObject });
-                UIManager.Instance().UpdateData(UIPanelType.UICommonGameplayPanel, new CommonGamePlayDataProvider { m_interactButtonShouldVisiable = true, m_itemName = collider.gameObject.name });
+
+                InteractiveObject interativeObject = collider.GetComponent<InteractiveObject>();
+                string itemName = Error_Interactive_Object_Name;
+                if (interativeObject)
+                {
+                    itemName = interativeObject.GetUIDisplayName();
+                    if (itemName == "")
+                    {
+                        itemName = Error_Interactive_Object_Name;
+                    }
+                }
+                UIManager.Instance().UpdateData(UIPanelType.UICommonGameplayPanel, new CommonGamePlayDataProvider { m_interactButtonShouldVisiable = true, m_itemName = itemName });
             }
             if (!UIManager.Instance().IsPanelShow(UIPanelType.TalkPanel))
             {
@@ -261,6 +272,7 @@ public class MonoMoveController : MonoBehaviour
     }
 
     const float Default_Max_Distance = 10000;
+    const string Error_Interactive_Object_Name = "!!!No Item Name!!!";
 
     [Header("Third Person Controller")]
     public bool m_isEnable = true;
