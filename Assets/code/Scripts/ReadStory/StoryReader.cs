@@ -63,7 +63,8 @@ namespace StarPlatinum.StoryReader
 			PlayInteractionAnimation,
 			playAnimation,
 			LoadBackground,
-			LoadSkybox
+			LoadSkybox,
+			LoadFrontground
 		};
 		//public List<StoryBasicData> GetSotry()
 		//{

@@ -228,7 +228,7 @@ namespace Controllers.Subsystems.Story
                                 break;
 
                             case StoryReader.EventType.LoadFrontground:
-                                //TODO: load front ground
+                                container.PushFrontImg(eventName);
                                 break;
 
                             case StoryReader.EventType.LoadBackground:
