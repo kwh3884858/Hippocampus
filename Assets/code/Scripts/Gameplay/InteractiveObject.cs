@@ -37,7 +37,17 @@ namespace GamePlay
 			} else {
 				Debug.LogError ("Interactive object Doesn`t have name");
 			}
-		}
+
+            if (m_onlyTriggerOnce)
+            {
+                if (SingletonGlobalDataContainer.Instance.IsStoryTriggered(m_objectName))
+                {
+                    Destroy(gameObject);
+                }
+            }
+        }
+
+		public string GetUIDisplayName() => m_UIDisplayName;
 
 		public void Interact ()
 		{
@@ -88,6 +98,12 @@ namespace GamePlay
 			} else {
 				UI.UIManager.Instance ().ShowStaticPanel (UIPanelType.TalkPanel, new TalkDataProvider () { ID = m_objectName });
 			}
-		}
+
+			if (m_onlyTriggerOnce)
+            {
+                SingletonGlobalDataContainer.Instance.AddtTriggeredStory(m_objectName);
+                Destroy(gameObject);
+            }
+        }
 	}
 }
