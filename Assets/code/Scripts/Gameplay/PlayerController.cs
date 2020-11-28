@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Cinemachine.Examples;
 using UnityEngine;
 using StarPlatinum;
 using StarPlatinum.Base;
@@ -30,8 +31,13 @@ namespace GamePlay.Player
 		{
 			if (m_moveCtrl != null) {
                 //MG Version disable move
-				//m_moveCtrl.SetMoveEnable (isMove);
-			}
+                CharacterMovement m_move = m_moveCtrl.gameObject.GetComponent<CharacterMovement>();
+                if (m_move)
+                {
+                    m_move.SetCharacterMoveable(isMove);
+                }
+                //m_moveCtrl.SetMoveEnable (isMove);
+            }
 		}
 
 		public void JoystickMoveEvent (Vector2 vec)

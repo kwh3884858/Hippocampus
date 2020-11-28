@@ -10,6 +10,7 @@ using UI.Panels.StaticBoard;
 using System;
 using UnityEngine.Assertions;
 using Newtonsoft.Json.Converters;
+using UI.Panels;
 
 namespace StarPlatinum.StoryReader
 {
