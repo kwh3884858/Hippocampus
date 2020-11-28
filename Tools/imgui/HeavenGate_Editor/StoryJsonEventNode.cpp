@@ -26,8 +26,10 @@ namespace HeavenGateEditor {
         CloseCgScene,
         LoadControversy,
         PlayCutIn,
+        PlayInteractionAnimation,
         PlayAnimation,
         LoadBackground,
+        LoadSkybox,
         Amount
     };
 
@@ -39,8 +41,10 @@ namespace HeavenGateEditor {
         "CloseCgScene",
         "LoadControversy",
         "PlayCutIn",
+        "PlayInteractionAnimation",
         "playAnimation",
-        "LoadBackground"
+        "LoadBackground",
+        "LoadSkybox"
     };
 
     extern int EventTypeAmount = (int)EventType::Amount;
@@ -94,11 +98,17 @@ namespace HeavenGateEditor {
         else if (strcmp(tmpEventType, eventTypeString[(int)EventType::PlayCutIn]) == 0) {
             p.m_eventType = EventType::PlayCutIn;
         }
+        else if (strcmp(tmpEventType, eventTypeString[(int)EventType::PlayInteractionAnimation]) == 0){
+            p.m_eventType = EventType::PlayInteractionAnimation;
+        }
         else if (strcmp(tmpEventType, eventTypeString[(int)EventType::PlayAnimation]) == 0) {
             p.m_eventType = EventType::PlayAnimation;
         }
         else if (strcmp(tmpEventType, eventTypeString[(int)EventType::LoadBackground]) == 0) {
             p.m_eventType = EventType::LoadBackground;
+        }
+        else if (strcmp(tmpEventType, eventTypeString[(int)EventType::LoadSkybox]) == 0){
+            p.m_eventType = EventType::LoadSkybox;
         }
     }
 
