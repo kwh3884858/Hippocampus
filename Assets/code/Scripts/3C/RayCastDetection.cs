@@ -37,8 +37,8 @@ public class RayCastDetection : MonoBehaviour
             }
 
             // 如果射线与平面碰撞，打印碰撞物体信息  
-            Debug.Log("碰撞对象: " + hit.transform.parent.name);
-            Debug.Log("碰撞距离：" + hit.distance);
+            //Debug.Log("碰撞对象: " + hit.transform.parent.name);
+            //Debug.Log("碰撞距离：" + hit.distance);
             // 在场景视图中绘制射线  
             Debug.DrawLine (ray.origin, hit.point, Color.red);
 		} else {
