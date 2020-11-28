@@ -222,6 +222,10 @@ namespace Controllers.Subsystems.Story
                                 container.PlayAnimation(eventName);
                                 break;
 
+                            case StoryReader.EventType.LoadFrontground:
+                                //TODO: load front ground
+                                break;
+
                             case StoryReader.EventType.LoadBackground:
                                 container.ChangeBackground(eventName);
                                 break;

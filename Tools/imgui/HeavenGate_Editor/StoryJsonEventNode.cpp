@@ -28,6 +28,7 @@ namespace HeavenGateEditor {
         PlayCutIn,
         PlayInteractionAnimation,
         PlayAnimation,
+        LoadFrontground,
         LoadBackground,
         LoadSkybox,
         Amount
@@ -43,6 +44,7 @@ namespace HeavenGateEditor {
         "PlayCutIn",
         "PlayInteractionAnimation",
         "playAnimation",
+        "LoadFrontground",
         "LoadBackground",
         "LoadSkybox"
     };
@@ -103,6 +105,9 @@ namespace HeavenGateEditor {
         }
         else if (strcmp(tmpEventType, eventTypeString[(int)EventType::PlayAnimation]) == 0) {
             p.m_eventType = EventType::PlayAnimation;
+        }
+        else if (strcmp(tmpEventType, eventTypeString[(int)EventType::LoadFrontground]) == 0){
+            p.m_eventType = EventType::LoadFrontground;
         }
         else if (strcmp(tmpEventType, eventTypeString[(int)EventType::LoadBackground]) == 0) {
             p.m_eventType = EventType::LoadBackground;
