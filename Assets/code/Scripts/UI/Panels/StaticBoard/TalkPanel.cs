@@ -385,11 +385,15 @@ namespace UI.Panels.StaticBoard
                     var triggerAction = m_curAction as StoryEventAction;
                     EventManager.Instance.SendEvent(triggerAction.Event);
                     SetActionState(ActionState.End);
-                    return;
+                    break;
                 case StoryActionType.PlayAnimation:
                     SetActionState(ActionState.End);
                     //TODO:播放动画
-                    return;
+                    break;
+                case StoryActionType.PlayInteractionAnimation:
+                    EventManager.Instance.SendEvent(new PlayInteractionAnimationEvent() { m_itemName = m_curAction.Content });
+                    SetActionState(ActionState.End);
+                    break;
                 case StoryActionType.ChangeBackground:
                     ShowBG(storyAction.Content);
                     SetActionState(ActionState.End);
@@ -413,6 +417,13 @@ namespace UI.Panels.StaticBoard
                         {
                             SetActionState(ActionState.End);
                         }});
+                    break;
+                case StoryActionType.LoadSkybox:
+                    {
+                        StoryLoadSkyboxAction skyboxAction = m_curAction as StoryLoadSkyboxAction;
+                        SkyboxManager.Instance().UpdateSkybox(skyboxAction.m_skyEnum);
+                        SetActionState(ActionState.End);
+                    }
                     break;
                 default:
                     Debug.LogError($"未处理对话行为:{storyAction.Type}");

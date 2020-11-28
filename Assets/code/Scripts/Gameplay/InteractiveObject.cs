@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UI.Panels.Providers.DataProviders.StaticBoard;
 using UnityEngine;
+using StarPlatinum.EventManager;
+using System;
 
 namespace GamePlay
 {
@@ -42,9 +44,29 @@ namespace GamePlay
                     Destroy(gameObject);
                 }
             }
+
+			EventManager.Instance.AddEventListener<PlayInteractionAnimationEvent>(EventHandle);
         }
 
-		public string GetUIDisplayName() => m_UIDisplayName;
+        private void EventHandle(object sender, PlayInteractionAnimationEvent e)
+        {
+			string cleanItemName = m_objectName;
+            if (cleanItemName.Contains("_"))
+            {
+                cleanItemName = cleanItemName.Substring(0, cleanItemName.IndexOf('_'));
+            }
+
+            if (e.m_itemName == cleanItemName)
+            {
+				Animation animation = GetComponent<Animation>();
+                if (animation != null)
+                {
+                    animation.Play();
+                }
+            }
+        }
+
+        public string GetUIDisplayName() => m_UIDisplayName;
 
 		public void Interact ()
 		{

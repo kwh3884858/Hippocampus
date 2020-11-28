@@ -55,6 +55,11 @@ namespace Controllers.Subsystems.Story
         public string prefix;
     }
 
+    public class StoryLoadSkyboxAction : StoryAction
+    {
+        public SkyboxEnum m_skyEnum;
+    }
+
     public class StoryActionContainer
     {
         public StoryActionContainer()
@@ -174,6 +179,11 @@ namespace Controllers.Subsystems.Story
             m_actions.Enqueue(new StoryAction(){Type =  StoryActionType.ChangeBackground , Content = backgroundKey});
         }
 
+        public void LoadSkybox(SkyboxEnum skyboxEnum)
+        {
+            m_actions.Enqueue(new StoryLoadSkyboxAction() { Type = StoryActionType.LoadSkybox, m_skyEnum = skyboxEnum });
+        }
+
         public void PushWrap()
         {
             m_actions.Enqueue(new StoryAction(){Type = StoryActionType.Wrap});
@@ -192,7 +202,11 @@ namespace Controllers.Subsystems.Story
         public void PushCutIn(string ImgKey)
         {
             m_actions.Enqueue(new StoryAction(){Type = StoryActionType.CutIn, Content = ImgKey});
+        }
 
+        public void PlayInteractionAnimation(string itemName)
+        {
+            m_actions.Enqueue(new StoryAction() { Type = StoryActionType.PlayInteractionAnimation, Content = itemName });
         }
 
         private int ProcessPicPos(int pos)

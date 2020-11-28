@@ -16,4 +16,9 @@ namespace StarPlatinum
     {
         public string m_cgSceneId = null;
     }
+
+    public class PlayInteractionAnimationEvent : EventArgs
+    {
+        public string m_itemName = null;
+    }
 }

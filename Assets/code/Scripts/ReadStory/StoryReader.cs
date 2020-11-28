@@ -60,8 +60,10 @@ namespace StarPlatinum.StoryReader
 			CloseCgScene,
 			LoadControversy,
 			PlayCutIn,
+			PlayInteractionAnimation,
 			playAnimation,
-			LoadBackground
+			LoadBackground,
+			LoadSkybox
 		};
 		//public List<StoryBasicData> GetSotry()
 		//{

@@ -37,8 +37,10 @@ namespace Controllers.Subsystems.Story
         LoadCgScene,
         CloseCgScene,
         TriggerEvent,
+        PlayInteractionAnimation,
         PlayAnimation,
         ChangeBackground,
+        LoadSkybox,
         Wrap,
         ChangeSoundVolume,
         EnterControversy,
@@ -202,6 +204,14 @@ namespace Controllers.Subsystems.Story
                             case StoryReader.EventType.PlayCutIn:
                                 container.PushCutIn(eventName);
                                 break;
+                            case StoryReader.EventType.PlayInteractionAnimation:
+                                string cleanItemName = eventName;
+                                if (cleanItemName.Contains("_"))
+                                {
+                                    cleanItemName = eventName.Substring(0, eventName.IndexOf('_'));
+                                }
+                                container.PlayInteractionAnimation(cleanItemName);
+                                break;
                             case StoryReader.EventType.invokeEvent:
                                 container.TriggerEvent(new StarPlatinum.EventManager.RaiseEvent(
                                     StoryReader.EventType.invokeEvent,
@@ -214,6 +224,10 @@ namespace Controllers.Subsystems.Story
 
                             case StoryReader.EventType.LoadBackground:
                                 container.ChangeBackground(eventName);
+                                break;
+                            case StoryReader.EventType.LoadSkybox:
+                                SkyboxEnum skyboxEnum =(SkyboxEnum)Enum.Parse(typeof(SkyboxEnum), eventName);
+                                container.LoadSkybox(skyboxEnum);
                                 break;
 
                             default:
