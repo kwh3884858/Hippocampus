@@ -11,21 +11,34 @@ public class EventRegister : MonoBehaviour
 	{
         None,
         DisableGameobject,
-        EnableGameobject
+        EnableGameobject,
+        PlayAnimation
 	}
     // Start is called before the first frame update
     void Start()
     {
-		if (m_isInitialied == false) {
-            m_boxCollider = GetComponent<BoxCollider> ();
-            if (m_boxCollider != null) {
-                EventManager.Instance.AddEventListener<RaiseEvent> (EventHandle);
+        if (m_isInitialied == false) {
+            m_boxCollider = GetComponent<BoxCollider>();
+            m_animation = GetComponent<Animation>();
+
+            if (m_boxCollider != null ) {
                 if (m_operationAfterReceiveEvent == OperationAfterReceiveEvent.EnableGameobject) {
                     m_boxCollider.enabled = false;
                 }
-            } else {
-                Debug.LogError (gameObject.name + " + " + m_eventName + " is null");
             }
+
+            if (m_animation != null && OperationAfterReceiveEvent.PlayAnimation == m_operationAfterReceiveEvent)
+            {
+                Debug.LogError("Event Register type setting is illegal, animation cannot play correctly");
+            }
+
+            if (m_animation == null && m_boxCollider == null)
+            {
+                Debug.LogError("Event Register is illegal");
+            }
+
+            EventManager.Instance.AddEventListener<RaiseEvent>(EventHandle);
+
             m_isInitialied = true;
         }
 
@@ -57,7 +70,16 @@ public class EventRegister : MonoBehaviour
             m_boxCollider.enabled = false;
             break;
 
-        default:
+            case OperationAfterReceiveEvent.PlayAnimation:
+                if (m_animation == null)
+                {
+                    Debug.LogError(m_eventName + " is triggered, but animation is null.");
+                    break;
+                }
+                m_animation.Play();
+                break;
+
+            default:
 			break;
 		}
 	}
@@ -65,5 +87,6 @@ public class EventRegister : MonoBehaviour
     public OperationAfterReceiveEvent m_operationAfterReceiveEvent = OperationAfterReceiveEvent.None;
     public string m_eventName = "";
     private BoxCollider m_boxCollider = null;
+    private Animation m_animation = null;
     private bool m_isInitialied = false;
 }

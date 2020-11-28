@@ -19,9 +19,6 @@ namespace GamePlay
 
 		[Header("UI")]
 		public string m_UIDisplayName = "";
-		
-		[Header("Animation")]
-		public GameObject m_needPlayAnimationObject = null;
 
 		public void Start ()
 		{
