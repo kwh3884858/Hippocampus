@@ -29,8 +29,17 @@ namespace GamePlay.Stage
         EP10_01,
         special,
         TachieTest,
+        MG_Prologue,
         MG_Level_01,
-        MG_Level_02
+        MG_Level_01_Routine_01,
+        MG_Level_01_Routine_02,
+        MG_Level_02,
+        MG_Level_02_Routine_Sun,
+        MG_Level_02_Routine_Family,
+        MG_Level_02_Routine_Stranger,
+        MG_Level_03,
+
+
 
     };
 
@@ -274,8 +283,15 @@ namespace GamePlay.Stage
         MissionEnum.EP10_01,
         MissionEnum.special,
         MissionEnum.TachieTest,
+        MissionEnum.MG_Prologue,
         MissionEnum.MG_Level_01,
-        MissionEnum.MG_Level_02
+        MissionEnum.MG_Level_01_Routine_01,
+        MissionEnum.MG_Level_01_Routine_02,
+        MissionEnum.MG_Level_02,
+        MissionEnum.MG_Level_02_Routine_Sun,
+        MissionEnum.MG_Level_02_Routine_Family,
+        MissionEnum.MG_Level_02_Routine_Stranger,
+        MissionEnum.MG_Level_03,
         };
 
     }

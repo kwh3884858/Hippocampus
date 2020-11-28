@@ -22,8 +22,11 @@ namespace GamePlay.Player
 			m_moveCtrl = moveController;
 		}
 
-
-		public void SetMoveEnable (bool isMove)
+        public void SetPlayerPosition(Transform playerPos)
+        {
+            m_moveCtrl.transform.position = playerPos.position;
+        }
+        public void SetMoveEnable (bool isMove)
 		{
 			if (m_moveCtrl != null) {
                 //MG Version disable move
