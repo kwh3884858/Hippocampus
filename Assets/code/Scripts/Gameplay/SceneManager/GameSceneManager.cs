@@ -37,12 +37,14 @@ namespace GamePlay.Stage
                 //DisplayCurrentSceneNameTip ();
                 CinemachineManager.Instance.SetBoundingVolumeByName(GetCurrentSceneEnum().ToString());// set camera move range
 
-
+                //Active scene and skybox setting
                 UnityEngine.SceneManagement.Scene loadedScene = new UnityEngine.SceneManagement.Scene();
                 bool result = StarPlatinum.PrefabManager.Instance.GetLoadedScene(m_currentSceneSlot.GetCurrentSceneEnum(), ref loadedScene);
                 if (result)
                 {
-                    //UnityEngine.SceneManagement.SceneManager.SetActiveScene(loadedScene);
+                    UnityEngine.SceneManagement.SceneManager.SetActiveScene(loadedScene);
+                    SkyboxManager.Instance().RefreshSkyboxSettingAfterNewGameSceneIsLoaded(RenderSettings.skybox);
+
                 }
             });
         }

@@ -82,7 +82,7 @@ namespace UI.Panels
             #region Timeline Enable
             //TimelineManager.Instance().PlayTimeline(TimelineEnum.StartScene);
             //PlayerController.Instance().SetMoveEnable(false);
-            SkyboxManager.Instance().UpdateSkybox(SkyboxEnum.Sunday);
+            //SkyboxManager.Instance().UpdateSkybox(SkyboxEnum.Sunday);
             #endregion
 
             //StarPlatinum.PrefabManager.Instance.LoadScene (SceneLookupEnum.World_Episode2_Pier, UnityEngine.SceneManagement.LoadSceneMode.Additive);
