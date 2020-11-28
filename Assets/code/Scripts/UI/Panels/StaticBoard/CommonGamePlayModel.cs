@@ -40,6 +40,7 @@ namespace UI.Panels
                 {
                     CommonGamePlayDataProvider commonGamePlayDataProvider = data as CommonGamePlayDataProvider;
                     m_isInteractButtonVisiable = commonGamePlayDataProvider.m_interactButtonShouldVisiable;
+                    m_itemName = commonGamePlayDataProvider.m_itemName;
                 }
             }
         }
@@ -67,6 +68,7 @@ namespace UI.Panels
 
         #region Member
         public bool m_isInteractButtonVisiable = false;
+        public string m_itemName;
         #endregion
     }
 }

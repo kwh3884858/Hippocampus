@@ -35,6 +35,10 @@ namespace UI.Panels
 		[HideInInspector] public Image m_Btn_Interact_Image;
 		[HideInInspector] public Button m_Btn_Interact_Button;
 
+		[HideInInspector] public Image m_Img_ItemName_Image;
+
+		[HideInInspector] public Text m_Text_ItemName_Text;
+
 
          private CommonGamePlayModel m_model;
 
@@ -54,6 +58,10 @@ namespace UI.Panels
 
 			m_Btn_Interact_Image = FindUI<Image>(transform ,"Btn_Interact");
 			m_Btn_Interact_Button = FindUI<Button>(transform ,"Btn_Interact");
+
+			m_Img_ItemName_Image = FindUI<Image>(transform ,"Img_ItemName");
+
+			m_Text_ItemName_Text = FindUI<Text>(transform ,"Img_ItemName/Text_ItemName");
 
 
 m_model = new CommonGamePlayModel ();

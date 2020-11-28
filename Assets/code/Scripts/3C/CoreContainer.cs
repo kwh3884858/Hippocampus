@@ -25,9 +25,9 @@ namespace GamePlay.Stage
 			GameObject manager = new GameObject (typeof (CoreContainer).ToString ());
 			manager.transform.SetParent (root.transform);
 			m_containerScene = manager.AddComponent<SceneSlot> ();
-		}
+        }
 
-		public void Initialize ()
+        public void Initialize ()
 		{
             //TODO
             m_containerScene.LoadScene (SceneLookupEnum.World_CoreContainer);
@@ -41,8 +41,9 @@ namespace GamePlay.Stage
 		{
 			m_player = player;
 			m_isSceneLoaded = loaded;
+            m_monoMoveController = m_player.GetComponent<MonoMoveController>();
 
-			SetPlayerDisable ();
+            SetPlayerDisable();
 			CameraService.Instance.SetMainCamera (camera);
 		}
 
@@ -58,10 +59,15 @@ namespace GamePlay.Stage
 
         public void SetCharacterSpeed(float speedArgument)
         {
-            m_player.GetComponent<MonoMoveController>().SetCharacterSpeed(speedArgument);
+            m_monoMoveController.SetCharacterSpeed(speedArgument);
         }
 
-		public void SpawnPlayer ()
+        public void InteractWith(Collider collider)
+        {
+            m_monoMoveController.InteractWith(collider);
+        }
+
+        public void SpawnPlayer ()
 		{
             if (m_needToSpawnOnLastPositionFromArchive)
             {
@@ -166,12 +172,12 @@ namespace GamePlay.Stage
 
 		public void StopPlayerAnimation ()
 		{
-			m_player.GetComponent<MonoMoveController> ().StopPlayerAnimation ();
+            m_monoMoveController.StopPlayerAnimation ();
 		}
 
 		public void EnablePlayerInteractability ()
 		{
-			m_player.GetComponent<MonoMoveController> ().SetInteract();
+            m_monoMoveController.SetInteract();
 		}
 
 		private bool IsValid ()
@@ -193,6 +199,7 @@ namespace GamePlay.Stage
 		private SceneSlot m_containerScene;
 
 		private GameObject m_player;
+        private MonoMoveController m_monoMoveController;
 		bool m_isSceneLoaded = false;
 
         bool m_needToSpawnOnLastPositionFromArchive = false;

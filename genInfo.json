@@ -40,7 +40,7 @@
 		"GUID":"36140db7e341ae1489398e42dec1a1d3"
 	},
 	"0aa6d7621b1c5bc4a93b65f33cf0ee0e":{
-		"type":3,
+		"type":1,
 		"prefabPath":"Assets/data/graphics/UI/Common/GamePlay/Prefabs/UI_Common_GamePlay_Panel.prefab",
 		"codePath":"Assets/code/Scripts/UI/Panels/AutoCreate/CommonGamePlayPanel.cs",
 		"mediatorPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonGamePlayPanel.cs",

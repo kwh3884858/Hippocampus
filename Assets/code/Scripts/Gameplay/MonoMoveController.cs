@@ -20,6 +20,30 @@ public class MonoMoveController : MonoBehaviour
     //   public LayerMask m_enemyLayerMask;
 
 
+    public void SetMoveEnable(bool isEnable)
+    {
+        m_isMove = isEnable;
+    }
+
+    public void StopPlayerAnimation()
+    {
+        m_animator.SetFloat("Speed", 0.0f);
+    }
+
+    public void SetCharacterSpeed(float speedArgument)
+    {
+        m_moveSpeed = speedArgument;
+    }
+
+    public void SetInteract()
+    {
+        m_isInteractByUI = true;
+    }
+    public void InteractWith(Collider collider)
+    {
+        InteractWithCollider(collider);
+    }
+
     void Start()
     {
         m_capsuleCollider = transform.GetComponent<CapsuleCollider>();
@@ -62,10 +86,15 @@ public class MonoMoveController : MonoBehaviour
         //    Tips.TipsManager.Instance.UnlockTip("Assassin's Creed ", Tips.TipsManager.ConvertDateTimeToLong(System.DateTime.Now));// 添加tip 数据
         //}
         //if(Input.GetKeyDown(KeyCode.W))
-        //{
+        //{ 
         //    var data = new Tips.TipData("测试", "www");
         //    UIManager.Instance().ShowPanel(UIPanelType.Tipgetpanel, new UI.Panels.Providers.DataProviders.TipDataProvider() { Data = data });// 显示UI
         //}
+
+        if (!m_isEnable)
+        {
+            return;
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             //UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonESCMainMenuPanel);// 显示UI
@@ -73,12 +102,19 @@ public class MonoMoveController : MonoBehaviour
             UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonSettingPanel);// 显示UI
         }
 
-        int maxColliders = 10;
+        Collider interactCollider = PhysicsDetectionAndFindBestCollider();
+        InteractWithCollider(interactCollider);
+    }
+
+    private Collider PhysicsDetectionAndFindBestCollider()
+    {
+        Collider interactCollider = null;
+
+        const int maxColliders = 10;
         Collider[] hitColliders = new Collider[maxColliders];
         Dictionary<Collider, float> colliders = new Dictionary<Collider, float>();
 
-        Collider interactCollider = null;
-        float smallestLength = 10000;
+        float smallestLength = Default_Max_Distance;
 
         int numColliders = Physics.OverlapSphereNonAlloc(transform.position, m_interactableRadius, hitColliders, m_interactableLayer.value);
         //Debug.Log ("Num of Collisions: " + numColliders);
@@ -98,22 +134,27 @@ public class MonoMoveController : MonoBehaviour
             }
         }
 
-        if (interactCollider != null)
+        return interactCollider;
+    }
+
+    private void InteractWithCollider(Collider collider)
+    {
+        if (collider != null)
         {
             if (!UIManager.Instance().IsPanelShow(UIPanelType.UIGameplayPromptwidgetPanel))
             {
-                UIManager.Instance().ShowPanel(UIPanelType.UIGameplayPromptwidgetPanel, new PromptWidgetDataProvider { m_interactiableObject = interactCollider.gameObject });
-                UIManager.Instance().UpdateData(UIPanelType.UICommonGameplayPanel, new CommonGamePlayDataProvider { m_interactButtonShouldVisiable = true });
+                UIManager.Instance().ShowPanel(UIPanelType.UIGameplayPromptwidgetPanel, new PromptWidgetDataProvider { m_interactiableObject = collider.gameObject });
+                UIManager.Instance().UpdateData(UIPanelType.UICommonGameplayPanel, new CommonGamePlayDataProvider { m_interactButtonShouldVisiable = true, m_itemName = collider.gameObject.name });
             }
             if (!UIManager.Instance().IsPanelShow(UIPanelType.TalkPanel))
             {
-                if (Input.GetKeyDown(KeyCode.Return) || m_isInteractByUI)
+                if (Input.GetKeyDown(KeyCode.Return) || m_isInteractByUI || Input.GetMouseButtonDown(0))
                 {
                     m_isInteractByUI = false;
-                    Debug.Log("Did Interactive: " + interactCollider.gameObject);
-                    interactCollider.GetComponent<InteractiveObject>().Interact();
+                    Debug.Log("Did Interactive: " + collider.gameObject);
+                    collider.GetComponent<InteractiveObject>().Interact();
 
-                    Debug.DrawRay(interactCollider.transform.position, Vector3.up * 3, Color.yellow, 5.0f);
+                    Debug.DrawRay(collider.transform.position, Vector3.up * 3, Color.yellow, 5.0f);
                 }
             }
         }
@@ -154,6 +195,11 @@ public class MonoMoveController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!m_isEnable)
+        {
+            return;
+        }
+
         if (!m_isMove)// 不能进行移动
         {
             return;
@@ -214,41 +260,24 @@ public class MonoMoveController : MonoBehaviour
         }
     }
 
-    public void SetMoveEnable(bool isEnable)
-    {
-        m_isMove = isEnable;
-    }
+    const float Default_Max_Distance = 10000;
 
-    public void StopPlayerAnimation()
-    {
-        m_animator.SetFloat("Speed", 0.0f);
-    }
+    [Header("Third Person Controller")]
+    public bool m_isEnable = true;
 
-    public void SetCharacterSpeed(float speedArgument)
-    {
-        m_moveSpeed = speedArgument;
-    }
-
-    public void SetInteract()
-    {
-        m_isInteractByUI = true;
-    }
-
-    [Header("Public, Physics Property")]
+    [Header("Public, Third Person Physics Property")]
     public float m_moveSpeed = 5f;
     public float m_jumpForce = 60f;
     public float m_rayDistance = 2f;
 
-
-    [Header("Public, Interactive Property")]
+    [Header("Public, Third Person Interactive Property")]
     public float m_showInteractiveUIRadius = 1.0f;
     public float m_interactableRadius = 0.5f;
     public float m_interactableRaycastAngle = 90;
     public float m_interactableRaycastAngleInterval = 10;
     public LayerMask m_interactableLayer;
 
-
-    [Header("Private, Physics Data")]
+    [Header("Private, Third Person Physics Data")]
     [SerializeField]
     private bool m_isOldFaceRight = false;
     [SerializeField]
@@ -260,7 +289,6 @@ public class MonoMoveController : MonoBehaviour
     //private Rigidbody2D m_rigidbody2D;
     [SerializeField]
     private CapsuleCollider m_capsuleCollider;
-
 
     public bool m_isMove = true;
     private bool m_isInteractByUI = false;

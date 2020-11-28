@@ -61,7 +61,9 @@ namespace UI.Panels
             {
                 UpdateButtonVisiable(m_model.m_isInteractButtonVisiable);
                 m_isNowInteractButtonIsVisiableCache = m_model.m_isInteractButtonVisiable;
-            }
+				m_itemName = m_model.m_itemName;
+
+			}
         }
 
         public override void LateTick()
@@ -113,9 +115,11 @@ namespace UI.Panels
 		public void UpdateButtonVisiable(bool isVisiable)
         {
 			m_Btn_Interact_Image.gameObject.SetActive(isVisiable);
+			m_Img_ItemName_Image.gameObject.SetActive(isVisiable);
         }
 
 		private bool m_isNowInteractButtonIsVisiableCache = false;
+		private string m_itemName;
 		#endregion
 	}
 }
