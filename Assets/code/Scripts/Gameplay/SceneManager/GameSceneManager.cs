@@ -42,7 +42,7 @@ namespace GamePlay.Stage
                 bool result = StarPlatinum.PrefabManager.Instance.GetLoadedScene(m_currentSceneSlot.GetCurrentSceneEnum(), ref loadedScene);
                 if (result)
                 {
-                    UnityEngine.SceneManagement.SceneManager.SetActiveScene(loadedScene);
+                    //UnityEngine.SceneManagement.SceneManager.SetActiveScene(loadedScene);
                 }
             });
         }
