@@ -15,6 +15,14 @@ namespace GamePlay
 		public string m_newStoryFileName = "";
 		public string m_objectName = "";
 
+		public bool m_onlyTriggerOnce = false;
+
+		[Header("UI")]
+		public string m_UIDisplayName = "";
+		
+		[Header("Animation")]
+		public GameObject m_needPlayAnimationObject = null;
+
 		public void Start ()
 		{
 			if (tag != INTERACTABLE_TAG) {
