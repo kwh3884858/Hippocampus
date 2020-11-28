@@ -19,14 +19,15 @@ using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
 using UI.Panels.Providers.DataProviders.GameScene;
 using UI.Panels.Providers.DataProviders.StaticBoard;
+using UI.Panels.StaticBoard;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace UI.Panels.StaticBoard
+namespace UI.Panels
 {
-    public class TalkPanel : UIPanel<UIDataProviderGameScene,TalkDataProvider>
+    public partial class CommonTalkPanel : UIPanel<UIDataProvider,DataProvider>
     {
         private enum ActionState
         {
@@ -181,20 +182,27 @@ namespace UI.Panels.StaticBoard
 
             if (Application.isEditor || GamePlay.Global.SingletonGlobalDataContainer.Instance.SHOW_SKIP)
             {
-                m_skipButton.gameObject.SetActive(true);
+                m_skip_button_Button.gameObject.SetActive(true);
             }
             else
             {
-                m_skipButton.gameObject.SetActive(false);
+                m_skip_button_Button.gameObject.SetActive(false);
             }
         }
 
         public override void UpdateData(DataProvider data)
         {
             base.UpdateData(data);
-            Debug.Log($"开始对话 ID:{UIPanelDataProvider.ID}");
-            m_backgroundImg.gameObject.SetActive(false);
-            SetInfo(UIPanelDataProvider.ID);
+            UIPanelDataProvider = data as TalkDataProvider;
+            m_img_bg_Image.gameObject.SetActive(false);
+            if (UIPanelDataProvider != null)
+            {
+                SetInfo(UIPanelDataProvider.ID);
+            }
+            else
+            {
+                Debug.LogError("传入对话数据为空!!!!");
+            }
         }
 
         public override void Tick()
@@ -399,7 +407,7 @@ namespace UI.Panels.StaticBoard
                     SetActionState(ActionState.End);
                     break;
                 case StoryActionType.Wrap:
-                    m_content.text += '\n';
+                    m_txtPro_content_TextMeshProUGUI.text += '\n';
                     SetActionState(ActionState.End);
                     break;
                 case StoryActionType.ChangeSoundVolume:
@@ -425,10 +433,62 @@ namespace UI.Panels.StaticBoard
                         SetActionState(ActionState.End);
                     }
                     break;
+                case StoryActionType.ChangeTalkPanelType:
+                    SetTalkPanelType(m_curAction.Content);
+                    break;
+                case StoryActionType.ChangeFrontImg:
+                    SetFrontImg(m_curAction.Content);
+                    break;
                 default:
                     Debug.LogError($"未处理对话行为:{storyAction.Type}");
                     break;
             }
+        }
+
+        private void SetFrontImg(string imgKey)
+        {
+            if (string.IsNullOrEmpty(imgKey))
+            {
+                m_img_forntBG_Image.gameObject.SetActive(false);
+            }
+            else
+            {
+                m_img_forntBG_Image.gameObject.SetActive(true);
+                PrefabManager.Instance.SetImage(m_img_forntBG_Image,imgKey, () =>
+                {
+                    m_img_forntBG_Image.gameObject.SetActive(false);
+                });
+            }
+            SetActionState(ActionState.End);
+        }
+
+        private void SetTalkPanelType(string type)
+        {
+            int typeID = Int32.Parse(type);
+
+            var config = TalkPanelConfig.GetConfigByKey(typeID);
+            if (config == null)
+            {
+                SetActionState(ActionState.End);
+                return;
+            }
+            StoryController.SetTalkPanelType(typeID);
+            
+            PrefabManager.Instance.SetImage(m_img_content_Image,config.contentBG);
+            PrefabManager.Instance.SetImage(m_img_contentEnd_Image,config.contentEndImg);
+            PrefabManager.Instance.SetImage(m_img_nameBG_Image,config.nameBG);
+            PrefabManager.Instance.SetImage(m_btn_auto_Image,config.autoBtnBG);
+            PrefabManager.Instance.SetImage(m_btn_history_Image,config.historyBtnBG);
+            if (!string.IsNullOrEmpty(config.talkBG))
+            {
+                m_img_talkBG_Image.gameObject.SetActive(true);
+                PrefabManager.Instance.SetImage(m_img_talkBG_Image, config.talkBG);
+            }
+            else
+            {
+                m_img_talkBG_Image.gameObject.SetActive(false);
+            }
+            SetActionState(ActionState.End);
         }
 
         private void SetActionState(ActionState state)
@@ -480,30 +540,32 @@ namespace UI.Panels.StaticBoard
         private void SetTalkContentEnd(bool isEnd)
         {
             m_characterTalkEnd = isEnd;
-            m_contentEnd.SetActive(isEnd);
+            m_img_contentEnd_Image.gameObject.SetActive(isEnd);
         }
         private void SetNameContent(string name)
         {
-            m_nameTxt.gameObject.SetActive(false);
+            m_lbl_name_TextMeshProUGUI.gameObject.SetActive(false);
             m_curRoleInfo = RoleConfig.GetConfigByKey(name);
-            string artNameKey = "";
+            string artNameKey = null;
             if (m_curRoleInfo != null)
             {
                 artNameKey = m_curRoleInfo.artNameKey;
             }
             if (!string.IsNullOrEmpty(artNameKey))
             {
-                m_name.enabled = true;
-                PrefabManager.Instance.SetImage(m_name,artNameKey, () =>
+                m_img_artName_Image.enabled = true;
+                PrefabManager.Instance.SetImage(m_img_artName_Image,artNameKey, () =>
                 {
-                    m_name.enabled = false;
-//                    m_nameTxt.gameObject.SetActive(true);
-//                    m_nameTxt.text = name;
+                    m_img_artName_Image.enabled = false;
+                    m_lbl_name_TextMeshProUGUI.gameObject.SetActive(true);
+                    m_lbl_name_TextMeshProUGUI.text = name;
                 });
             }
             else
             {
-                m_name.enabled = false;
+                m_img_artName_Image.enabled = false;
+                m_lbl_name_TextMeshProUGUI.gameObject.SetActive(true);
+                m_lbl_name_TextMeshProUGUI.text = name;
             }
             ActiveTalkerTachie(name);
             ResetContentText();
@@ -540,18 +602,18 @@ namespace UI.Panels.StaticBoard
 
         private void ResetContentText()
         {
-            m_content.text = "";
-            m_content.pageToDisplay = 1;
+            m_txtPro_content_TextMeshProUGUI.text = "";
+            m_txtPro_content_TextMeshProUGUI.pageToDisplay = 1;
         }
 
         IEnumerator Typewriter(string content)
         {
             for (int i = 0; i < content.Length; i++)
             {
-                m_content.text += m_textHelp.GetContent(content[i].ToString());
-                if (m_content.textInfo.pageCount > m_content.pageToDisplay)
+                m_txtPro_content_TextMeshProUGUI.text += m_textHelp.GetContent(content[i].ToString());
+                if (m_txtPro_content_TextMeshProUGUI.textInfo.pageCount > m_txtPro_content_TextMeshProUGUI.pageToDisplay)
                 {
-                    m_content.pageToDisplay++;
+                    m_txtPro_content_TextMeshProUGUI.pageToDisplay++;
                 }
                 
                 if (m_skip == false)
@@ -622,7 +684,7 @@ namespace UI.Panels.StaticBoard
             UiDataProvider.RolePictureProvider.GetPictureItem(picID, (item) =>
             {
                 m_pictureItems.Add(picID,item);
-                item.transform.SetParent(m_pictureRoot);
+                item.transform.SetParent(m_pl_charactor);
                 item.transform.localPosition= Vector3.zero;
                 item.transform.localScale = Vector3.one;
                 ShowPicture(picID,m_picPos[picID],ignoreHidePos,callbackAfterShow);
@@ -645,11 +707,11 @@ namespace UI.Panels.StaticBoard
         {
             if (string.IsNullOrEmpty(bgKey))
             {
-                m_backgroundImg.gameObject.SetActive(false);
+                m_img_bg_Image.gameObject.SetActive(false);
                 return;
             }
-            m_backgroundImg.gameObject.SetActive(true);
-            PrefabManager.Instance.SetImage(m_backgroundImg,bgKey);
+            m_img_bg_Image.gameObject.SetActive(true);
+            PrefabManager.Instance.SetImage(m_img_bg_Image,bgKey);
             m_storyBG = bgKey;
         }
 
@@ -707,7 +769,7 @@ namespace UI.Panels.StaticBoard
         public void AutoPlay()
         {
             m_autoPlay = !m_autoPlay;
-            m_autoPlayImg.color = m_autoPlay? StoryConfig.AutoPlayButtonActiveColor: StoryConfig.AutoPlayButtonNormalColor;
+            m_btn_auto_Image.color = m_autoPlay? StoryConfig.AutoPlayButtonActiveColor: StoryConfig.AutoPlayButtonNormalColor;
             if (m_characterTalkEnd)
             {
                 EndCharacterTalk();
@@ -775,17 +837,9 @@ namespace UI.Panels.StaticBoard
         }
 #endregion
 
-        [SerializeField] private Image m_name;
-        [SerializeField] private TMP_Text m_nameTxt;
-        [SerializeField] private TMP_Text m_content;
-        [SerializeField] private Image m_autoPlayImg;
-        [SerializeField] private Transform m_pictureRoot;
-        [SerializeField] private Image m_backgroundImg;
-        [SerializeField] private GameObject m_contentEnd;
-        [SerializeField] private Button m_skipButton;
-
         private Dictionary<string, PictureItem> m_pictureItems = new Dictionary<string, PictureItem>();
         private Dictionary<string,Vector2> m_picPos = new Dictionary<string, Vector2>();
+        private TalkDataProvider UIPanelDataProvider;
         
         private bool m_highSpeed = false;//当前文本快进
         private bool m_characterTalkEnd = false;

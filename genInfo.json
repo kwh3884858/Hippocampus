@@ -104,7 +104,7 @@
 		"GUID":"67d767d9beb133d4ba5ef9b0b737527c"
 	},
 	"71ee13503e94e2a4abbb9670e542b3f5":{
-		"type":3,
+		"type":1,
 		"prefabPath":"Assets/data/graphics/UI/Common/BreakTheory/Prefabs/UI_Common_BreakTheory_Panel.prefab",
 		"codePath":"Assets/code/Scripts/UI/Panels/AutoCreate/CommonBreakTheoryPanel.cs",
 		"mediatorPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonBreakTheoryPanel.cs",
@@ -118,5 +118,21 @@
 		"mediatorPath":"Assets/code/Scripts/UI/Panels/Setting/CommonSettingPanel.cs",
 		"modelPath":"Assets/code/Scripts/UI/Panels/Setting/CommonSettingModel.cs",
 		"GUID":"53946e33cde9a0e46bef19cde6f58b04"
+	},
+	"9c1f5d40f08cf5a4aa0984736f2ebfdd":{
+		"type":1,
+		"prefabPath":"Assets/data/graphics/UI/Common/Talk/Prefabs/UI_Common_Talk_Panel.prefab",
+		"codePath":"Assets/code/Scripts/UI/Panels/AutoCreate/CommonTalkPanel.cs",
+		"mediatorPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonTalkPanel.cs",
+		"modelPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonTalkModel.cs",
+		"GUID":"9c1f5d40f08cf5a4aa0984736f2ebfdd"
+	},
+	"40631b7b6a2577b4ca50ed31d68bed97":{
+		"type":1,
+		"prefabPath":"Assets/data/graphics/UI/Common/Talk/Prefabs/UI_Common_Options_Panel.prefab",
+		"codePath":"Assets/code/Scripts/UI/Panels/AutoCreate/CommonOptionsPanel.cs",
+		"mediatorPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonOptionsPanel.cs",
+		"modelPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonOptionsModel.cs",
+		"GUID":"40631b7b6a2577b4ca50ed31d68bed97"
 	}
 }

@@ -39,6 +39,8 @@ namespace Config.Data
                 File.ReadAllText(m_dataPath + typeof(ControversySpecialBarrageConfig).Name + m_jsonSuffix, Encoding.GetEncoding("GB2312"))));
             ControversyCharacterConfig.Init(JsonConvert.DeserializeObject<Dictionary<string, ControversyCharacterConfig>>(
                 File.ReadAllText(m_dataPath + typeof(ControversyCharacterConfig).Name + m_jsonSuffix, Encoding.GetEncoding("GB2312"))));
+            TalkPanelConfig.Init(JsonConvert.DeserializeObject<Dictionary<int, TalkPanelConfig>>(
+                File.ReadAllText(m_dataPath + typeof(TalkPanelConfig).Name + m_jsonSuffix, Encoding.GetEncoding("GB2312"))));
         }
 
 

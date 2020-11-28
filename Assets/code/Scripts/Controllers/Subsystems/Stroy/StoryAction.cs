@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using GamePlay.Stage;
 using StarPlatinum.EventManager;
+using UI.Panels;
 using UI.Panels.StaticBoard;
 using UnityEngine;
 
@@ -209,6 +210,16 @@ namespace Controllers.Subsystems.Story
             m_actions.Enqueue(new StoryAction() { Type = StoryActionType.PlayInteractionAnimation, Content = itemName });
         }
 
+        public void PushChangePanelType(int panelType)
+        {
+            m_actions.Enqueue(new StoryAction(){Type = StoryActionType.ChangeTalkPanelType, Content = panelType.ToString()});
+        }
+
+        public void PushFrontImg(string imgKey)
+        {
+            m_actions.Enqueue(new StoryAction(){Type = StoryActionType.ChangeFrontImg, Content = imgKey});
+        }
+
         private int ProcessPicPos(int pos)
         {
             return pos - 100;
@@ -247,6 +258,16 @@ namespace Controllers.Subsystems.Story
                             actions.Enqueue(new StoryAction() {Type = StoryActionType.WaitClick});
                         }
                         actions.Enqueue(storyAction);
+                        isTalk = false;
+                        break;
+                    case StoryActionType.ChangeFrontImg:
+                        if (isTalk)
+                        {
+                            actions.Enqueue(new StoryAction() {Type = StoryActionType.WaitClick});
+                        }
+                        actions.Enqueue(storyAction);
+                        actions.Enqueue(new StoryAction() {Type = StoryActionType.WaitClick});
+                        actions.Enqueue(new StoryAction(){Type = StoryActionType.ChangeFrontImg});
                         isTalk = false;
                         break;
                     case StoryActionType.Name:

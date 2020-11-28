@@ -103,6 +103,8 @@ namespace UI.Panels
 				itemView = item.data as UI_Common_Log_Item_SubView;
 			}
 			itemView.SetInfo(m_model.GetLogByIndex(item.index));
+			
+			m_sv_list_ListView.UpdateItemSize(item.index,itemView.GetItemSize());
 		}
 		
 		private void RefreshInfo()

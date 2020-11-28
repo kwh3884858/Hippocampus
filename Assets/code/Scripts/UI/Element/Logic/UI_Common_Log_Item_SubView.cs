@@ -52,22 +52,27 @@ namespace UI.Panels.Element
             m_img_name_Image.enabled = true;
             m_lbl_name_TextMeshProUGUI.gameObject.SetActive(false);
             string artNameKey = RoleConfig.GetConfigByKey(logInfo.Name)?.artNameKey;
-            if (artNameKey == null)
+            if (!string.IsNullOrEmpty(artNameKey))
             {
-                artNameKey = logInfo.Name;
+                PrefabManager.Instance.SetImage(m_img_name_Image,artNameKey, () =>
+                {
+                    m_img_name_Image.enabled = false;
+                    m_lbl_name_TextMeshProUGUI.gameObject.SetActive(true);
+                    m_lbl_name_TextMeshProUGUI.text = logInfo.Name;
+                });
             }
-            PrefabManager.Instance.SetImage(m_img_name_Image,artNameKey, () =>
+            else
             {
                 m_img_name_Image.enabled = false;
-//                m_lbl_name_TextMeshProUGUI.gameObject.SetActive(true);
-//                m_lbl_name_TextMeshProUGUI.text = artNameKey;
-            });
+                m_lbl_name_TextMeshProUGUI.gameObject.SetActive(true);
+                m_lbl_name_TextMeshProUGUI.text = logInfo.Name;
+            }
 
             m_lbl_name_TextMeshProUGUI.text = logInfo.Name;
             m_lbl_content_TextMeshProUGUI.text = logInfo.Content;
-            
             LayoutRebuilder.ForceRebuildLayoutImmediate(m_pl_talk);
-            m_itemSize = m_pl_talk.rect.height;
+
+            m_itemSize = m_lbl_content_TextMeshProUGUI.preferredHeight+m_img_name_Image.rectTransform.rect.height;
         }
 
         private void SetJumpInfo(LogInfo logInfo)
@@ -77,7 +82,7 @@ namespace UI.Panels.Element
             m_lbl_oneLine_TextMeshProUGUI.text = logInfo.Content;
             
             LayoutRebuilder.ForceRebuildLayoutImmediate(m_pl_oneLine);
-            m_itemSize = m_pl_oneLine.rect.height;
+            m_itemSize = m_lbl_oneLine_TextMeshProUGUI.preferredHeight;
         }
         
         private void SetShowEvidenceInfo(LogInfo logInfo)
@@ -87,7 +92,7 @@ namespace UI.Panels.Element
             m_lbl_oneLine_TextMeshProUGUI.text = logInfo.Content;
             
             LayoutRebuilder.ForceRebuildLayoutImmediate(m_pl_oneLine);
-            m_itemSize = m_pl_oneLine.rect.height;
+            m_itemSize = m_lbl_oneLine_TextMeshProUGUI.preferredHeight;
         }
     }
 }

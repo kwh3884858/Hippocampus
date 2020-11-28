@@ -10,6 +10,7 @@ using StarPlatinum;
 using StarPlatinum.Manager;
 using StarPlatinum.StoryCompile;
 using StarPlatinum.StoryReader;
+using UI.Panels;
 using UI.Panels.StaticBoard;
 using UnityEngine;
 
@@ -46,6 +47,8 @@ namespace Controllers.Subsystems.Story
         EnterControversy,
         CutIn,
         BreakTheory,
+        ChangeTalkPanelType,
+        ChangeFrontImg,
     }
 
     public class StoryController : ControllerBase
@@ -121,7 +124,6 @@ namespace Controllers.Subsystems.Story
             StoryActionContainer container = new StoryActionContainer();
 
             StoryVirtualMachine.Instance.SetStoryActionContainer(container);
-
             if (m_storys == null)
             {
                 Debug.LogError("Story doesn`t exist.");
@@ -135,7 +137,10 @@ namespace Controllers.Subsystems.Story
             {
                 m_storys.JumpToWordAfterLabel(labelId);
             }
-
+            
+//            container.PushChangePanelType(1);
+//            container.PushJump(new List<Option>(){new Option("1","这是一个不知道什么内容的选项"),new Option("2","这是一个不知道什么内容的选项")});
+//            container.PushFrontImg("MG_TalkType1_TalkBGVignetee");
             while (!m_storys.IsDone())
             {
                 switch (m_storys.GetNodeType())
@@ -250,9 +255,22 @@ namespace Controllers.Subsystems.Story
             return container;
         }
 
+        public void SetTalkPanelType(int type)
+        {
+            m_talkPanelType = type;
+        }
+
+        public int GetTalkPanelType()
+        {
+            return m_talkPanelType;
+        }
+        
+        
+
         private StoryReader m_storys;
         private StoryConfig m_config;
         private string m_storyFileName;
+        private int m_talkPanelType = 0;
 
     }
 }

@@ -124,6 +124,14 @@ namespace StarPlatinum
 
 		public void SetImage (Image image, string key, Action failCallBack = null)
 		{
+			if (m_objects.ContainsKey (key)) {
+				image.sprite = m_objects [key] as Sprite;
+				return;
+			}
+			if (m_loadingCallback.ContainsKey (key))
+			{
+				return;
+			}
 			LoadAssetAsync<Sprite> (key, (result) => {
 				if (result.status == RequestStatus.FAIL) {
 					SetImage (image, "Image_Default");
@@ -131,8 +139,12 @@ namespace StarPlatinum
 					Debug.LogWarning ($"图片加载错误 Key:{result.key}");
 					return;
 				}
+
+				m_loadingCallback.Remove(key);
+				m_objects [key] = result.result;
 				image.sprite = result.result as Sprite;
 			});
+			m_loadingCallback [key] = null;
 		}
 
 		public void LoadAssetAsync<T> (string key, Action<RequestResult> callBack, Transform parent = null) where T : UnityEngine.Object
@@ -147,7 +159,7 @@ namespace StarPlatinum
 			}
 			Addressables.LoadAsset<T> (key).Completed += operation => {
 				var result = GetResult (key, operation);
-				m_loadingCallback [key].Invoke (result);
+				m_loadingCallback [key]?.Invoke (result);
 				m_loadingCallback.Remove (key);
 				m_objects [key] = result.result;
 			};
@@ -186,7 +198,7 @@ namespace StarPlatinum
 				loadNum++;
 				Addressables.LoadAsset<T> (key).Completed += operation => {
 					var result = GetResult (key, operation);
-					m_loadingCallback [key].Invoke (result);
+					m_loadingCallback [key]?.Invoke (result);
 					m_loadingCallback.Remove (key);
 					m_objects[key] = result.result;
 					loadNum--;
