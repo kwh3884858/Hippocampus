@@ -7,6 +7,10 @@ using UI.Panels.Providers.DataProviders.StaticBoard;
 using UnityEngine;
 using StarPlatinum.EventManager;
 using System;
+using StarPlatinum.Utility;
+using GamePlay.EventTrigger;
+using GamePlay.Stage;
+using Evidence;
 
 namespace GamePlay
 {
@@ -22,7 +26,18 @@ namespace GamePlay
 		[Header("UI")]
 		public string m_UIDisplayName = "";
 
-		public void Start ()
+
+		[ConditionalField("m_onlyTriggerOnce", true)]
+        [Header("Only For OnlyTriggerOnce")]
+        public List<string> m_mustHaveExhibit = new List<string>();
+
+		[ConditionalField("m_onlyTriggerOnce", true)]
+		public string m_testFailureStoryFile = "";
+
+		[ConditionalField("m_onlyTriggerOnce", true)]
+		public string m_testFailureStoryLabel = "";
+
+        public void Start ()
 		{
 			if (tag != INTERACTABLE_TAG) {
 				tag = INTERACTABLE_TAG;
@@ -81,8 +96,27 @@ namespace GamePlay
 			}
 
 			if (m_objectName == null || m_objectName == "") {
-				return;
+                Debug.LogWarning("Object Name is empty");
+                return;
 			}
+
+            if (!m_onlyTriggerOnce && m_testFailureStoryLabel == "")
+            {
+                Debug.LogWarning("Failure Story Label is empty");
+                return;
+            }
+
+            if (!m_onlyTriggerOnce)
+            {
+                if (m_testFailureStoryFile == null || m_testFailureStoryFile == "")
+                {
+                    Debug.LogWarning("Failure Story File Name is empty");
+                }
+                else
+                {
+                    storyController.LoadStoryFileByName(m_testFailureStoryFile);
+                }
+            }
 
             if (m_newStoryFileName == null || m_newStoryFileName == "")
             {
@@ -93,36 +127,69 @@ namespace GamePlay
                 storyController.LoadStoryFileByName(m_newStoryFileName);
             }
 
-            //bool result = storyController.LoadStoryByItem (m_objectName);
-            if (!m_objectName.Contains ("_")) {
-				int outCounterValue = -1;
-				bool result = SingletonGlobalDataContainer.Instance.GetObjectCounter (m_objectName, out outCounterValue);
-				if (result == false) {
-					return;
-				}
-				if (outCounterValue == -1) {
-					return;
-				}
-				string jumpLabel = m_objectName + "_" + outCounterValue;
-				if (storyController.IsLabelExist (jumpLabel)) {
-					UI.UIManager.Instance ().ShowStaticPanel (UIPanelType.TalkPanel, new TalkDataProvider () { ID = jumpLabel });
-					SingletonGlobalDataContainer.Instance.ModifyCounterValue (m_objectName, 1);
-				} else {
-					SingletonGlobalDataContainer.Instance.ModifyCounterValue (m_objectName, -1);
-					SingletonGlobalDataContainer.Instance.GetObjectCounter (m_objectName, out outCounterValue);
+            bool isPassExhibitTest = true;
+            if (!m_onlyTriggerOnce)
+            {
+                foreach (string item in m_mustHaveExhibit)
+                {
+                    if (!EvidenceDataManager.Instance.IsEvidenceExist(item))
+                    {
+                        isPassExhibitTest = false;
+                    }
+                }
 
-					jumpLabel = m_objectName + "_" + outCounterValue;
-					UI.UIManager.Instance ().ShowStaticPanel (UIPanelType.TalkPanel, new TalkDataProvider () { ID = jumpLabel });
-				}
-			} else {
-				UI.UIManager.Instance ().ShowStaticPanel (UIPanelType.TalkPanel, new TalkDataProvider () { ID = m_objectName });
-			}
+                if (!isPassExhibitTest)
+                {
+                    if (storyController.IsLabelExist(m_testFailureStoryLabel))
+                    {
+                        UI.UIManager.Instance().ShowStaticPanel(UIPanelType.TalkPanel, new TalkDataProvider() { ID = m_testFailureStoryLabel });
+                    }
+                }
+            }
 
-			if (m_onlyTriggerOnce)
+            if (isPassExhibitTest)
+            {
+                //bool result = storyController.LoadStoryByItem (m_objectName);
+                if (!m_objectName.Contains("_"))
+                {
+                    int outCounterValue = -1;
+                    bool result = SingletonGlobalDataContainer.Instance.GetObjectCounter(m_objectName, out outCounterValue);
+                    if (result == false)
+                    {
+                        return;
+                    }
+                    if (outCounterValue == -1)
+                    {
+                        return;
+                    }
+                    string jumpLabel = m_objectName + "_" + outCounterValue;
+                    if (storyController.IsLabelExist(jumpLabel))
+                    {
+                        UI.UIManager.Instance().ShowStaticPanel(UIPanelType.TalkPanel, new TalkDataProvider() { ID = jumpLabel });
+                        SingletonGlobalDataContainer.Instance.ModifyCounterValue(m_objectName, 1);
+                    }
+                    else
+                    {
+                        SingletonGlobalDataContainer.Instance.ModifyCounterValue(m_objectName, -1);
+                        SingletonGlobalDataContainer.Instance.GetObjectCounter(m_objectName, out outCounterValue);
+
+                        jumpLabel = m_objectName + "_" + outCounterValue;
+                        UI.UIManager.Instance().ShowStaticPanel(UIPanelType.TalkPanel, new TalkDataProvider() { ID = jumpLabel });
+                    }
+                }
+                else
+                {
+                    UI.UIManager.Instance().ShowStaticPanel(UIPanelType.TalkPanel, new TalkDataProvider() { ID = m_objectName });
+                }
+            }
+
+
+			if (m_onlyTriggerOnce || isPassExhibitTest)
             {
                 SingletonGlobalDataContainer.Instance.AddtTriggeredStory(m_objectName);
                 Destroy(gameObject);
             }
+
         }
 	}
 }

@@ -122,6 +122,11 @@ namespace Evidence
             return MyEvidenceDic.ContainsKey(vExhibit) ? MyEvidenceDic[vExhibit] : null;
         }
 
+        public bool IsEvidenceExist(string evidenceName)
+        {
+            return MyEvidenceDic.ContainsKey(evidenceName);
+        }
+
         /// <summary>
         /// 保存信息到本地
         /// </summary>
