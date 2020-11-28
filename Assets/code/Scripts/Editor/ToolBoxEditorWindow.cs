@@ -151,16 +151,7 @@ public class ToolBoxEditorWindow : EditorWindow
 
 		if (GUILayout.Button ("Create Interactable Object")) {
 			if (IsMissionSceneValid ()) {
-				GameObject interactiablesGroup = GameObject.Find (ConfigMission.Instance.Text_Interactable_Object_Group);
-				if (interactiablesGroup == null) {
-					interactiablesGroup = new GameObject (ConfigMission.Instance.Text_Interactable_Object_Group);
-				}
-
-				string path = ConfigMission.Instance.Path_To_InteractableObject;
-				GameObject go = PrefabUtility.InstantiatePrefab (AssetDatabase.LoadAssetAtPath<GameObject> (path)) as GameObject;
-
-				go.transform.SetParent (interactiablesGroup.transform);
-				go.AddComponent<InteractiveObject> ();
+				CreatInteractableObject(m_currentGameScene);
 			} else {
 				EditorUtility.DisplayDialog ("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
 			}
@@ -250,7 +241,28 @@ public class ToolBoxEditorWindow : EditorWindow
 
 	}
 
-	private GameObject CreateEventTrigger (Scene activeScene)
+	private GameObject CreatInteractableObject(Scene activeScene)
+	{
+        Scene currentActiveScene = SceneManager.GetActiveScene();
+        SceneManager.SetActiveScene(activeScene);
+
+        GameObject interactiablesGroup = GameObject.Find(ConfigMission.Instance.Text_Interactable_Object_Group);
+        if (interactiablesGroup == null)
+        {
+            interactiablesGroup = new GameObject(ConfigMission.Instance.Text_Interactable_Object_Group);
+        }
+
+        string path = ConfigMission.Instance.Path_To_InteractableObject;
+        GameObject go = PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(path)) as GameObject;
+
+        go.transform.SetParent(interactiablesGroup.transform);
+        go.AddComponent<InteractiveObject>();
+
+        SceneManager.SetActiveScene(currentActiveScene);
+        return go;
+    }
+
+    private GameObject CreateEventTrigger (Scene activeScene)
 	{
 		Scene currentActiveScene = SceneManager.GetActiveScene ();
 		SceneManager.SetActiveScene (activeScene);
