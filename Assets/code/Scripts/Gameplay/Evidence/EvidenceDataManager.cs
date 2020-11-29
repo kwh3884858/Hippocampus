@@ -112,6 +112,12 @@ namespace Evidence
 #endif
         }
 
+        public void RemoveAllEvidence()
+        {
+            m_data.evidenceList.Clear();
+            MyEvidenceDic.Clear();
+        }
+
         /// <summary>
         /// 获取指定id的证据的信息
         /// </summary>

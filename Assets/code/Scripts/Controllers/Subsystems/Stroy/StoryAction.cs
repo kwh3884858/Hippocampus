@@ -185,6 +185,11 @@ namespace Controllers.Subsystems.Story
             m_actions.Enqueue(new StoryLoadSkyboxAction() { Type = StoryActionType.LoadSkybox, m_skyEnum = skyboxEnum });
         }
 
+        public void RemoveAllExhibit()
+        {
+            m_actions.Enqueue(new StoryAction() { Type = StoryActionType.RemoveAllExhibit });
+        }
+
         public void PushWrap()
         {
             m_actions.Enqueue(new StoryAction(){Type = StoryActionType.Wrap});

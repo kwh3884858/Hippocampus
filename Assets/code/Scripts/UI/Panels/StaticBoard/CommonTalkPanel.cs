@@ -439,6 +439,10 @@ namespace UI.Panels
                 case StoryActionType.ChangeFrontImg:
                     SetFrontImg(m_curAction.Content);
                     break;
+                case StoryActionType.RemoveAllExhibit:
+                    EvidenceDataManager.Instance.RemoveAllEvidence();
+                    SetActionState(ActionState.End);
+                    break;
                 default:
                     Debug.LogError($"未处理对话行为:{storyAction.Type}");
                     break;

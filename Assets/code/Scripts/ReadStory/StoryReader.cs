@@ -66,7 +66,8 @@ namespace StarPlatinum.StoryReader
             LoadFrontground,
             LoadBackground,
 			LoadSkybox,
-			SwitchTalkUIType
+			SwitchTalkUIType,
+			RemoveAllExhibit
 		};
 		//public List<StoryBasicData> GetSotry()
 		//{

@@ -49,6 +49,7 @@ namespace Controllers.Subsystems.Story
         BreakTheory,
         ChangeTalkPanelType,
         ChangeFrontImg,
+        RemoveAllExhibit,
     }
 
     public class StoryController : ControllerBase
@@ -241,6 +242,9 @@ namespace Controllers.Subsystems.Story
                             case StoryReader.EventType.SwitchTalkUIType:
                                 int UIPanelType = int.Parse(eventName);
                                 container.PushChangePanelType(UIPanelType);
+                                break;
+                            case StoryReader.EventType.RemoveAllExhibit:
+                                container.RemoveAllExhibit();
                                 break;
 
                             default:
