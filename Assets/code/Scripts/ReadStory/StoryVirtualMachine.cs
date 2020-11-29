@@ -226,13 +226,14 @@ namespace StarPlatinum.StoryCompile
 					isReadCloseLabel = true;
 				} else if (token.m_tokeType == StoryCompiler.TokenType.TokenContent) {
 					string[] contents = token.m_content.Split ('\n');
-					foreach (var content in contents) {
-						m_container.PushContent (content);
-						m_container.PushWrap ();
-					}
-				}
-
-			}
+                    for (int j = 0; j < contents.Length - 1; j++)
+                    {
+                        m_container.PushContent(contents[j]);
+                        m_container.PushWrap();
+                    }
+                    m_container.PushContent(contents[contents.Length - 1]);
+                }
+            }
 		}
 
 		string m_currentColor;
