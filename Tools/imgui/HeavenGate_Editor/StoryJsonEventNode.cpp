@@ -32,6 +32,7 @@ namespace HeavenGateEditor {
         LoadBackground,
         LoadSkybox,
         SwitchTalkUIType,
+        RemoveAllExhibit,
         Amount
     };
 
@@ -48,7 +49,8 @@ namespace HeavenGateEditor {
         "LoadFrontground",
         "LoadBackground",
         "LoadSkybox",
-        "SwitchTalkUIType"
+        "SwitchTalkUIType",
+        "RemoveAllExhibit"
     };
 
     extern int EventTypeAmount = (int)EventType::Amount;
@@ -119,6 +121,9 @@ namespace HeavenGateEditor {
         }
         else if (strcmp(tmpEventType, eventTypeString[(int)EventType::SwitchTalkUIType]) == 0){
             p.m_eventType = EventType::SwitchTalkUIType;
+        }
+        else if (strcmp(tmpEventType, eventTypeString[(int)EventType::RemoveAllExhibit]) == 0){
+            p.m_eventType = EventType::RemoveAllExhibit;
         }
     }
 

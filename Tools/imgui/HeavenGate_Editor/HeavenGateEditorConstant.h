@@ -12,8 +12,8 @@
 #include "StoryLayoutConstant.h"
 
 namespace HeavenGateEditor {
-    const char* const   EDITOR_VERSION = "0.0.25";
-    const char* const   RELEASE_NOTE = "version 25 : Add new event type: load talk UI type";
+    const char* const   EDITOR_VERSION = "0.0.26";
+    const char* const   RELEASE_NOTE = "version 26 : Add new event Remove All Exhibit";
     const int     MAX_FOLDER_PATH = 265;
 
     const int     MAX_FILE_NAME = 64;
