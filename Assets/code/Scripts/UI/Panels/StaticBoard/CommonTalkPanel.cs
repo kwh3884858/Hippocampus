@@ -636,10 +636,10 @@ namespace UI.Panels
             }
             if (m_curRoleInfo == null||string.IsNullOrEmpty(m_curRoleInfo.typewriterSoundKey))
             {
-                SoundService.Instance.PlayEffect(UiDataProvider.ConfigProvider.StoryConfig.TypewriterDefaultSound,false,0.1f,true);
+                SoundService.Instance.PlayEffect(UiDataProvider.ConfigProvider.StoryConfig.TypewriterDefaultSound,false,0.01f,true);
                 return;
             }
-            SoundService.Instance.PlayEffect(m_curRoleInfo.typewriterSoundKey,false,0.1f,true);
+            SoundService.Instance.PlayEffect(m_curRoleInfo.typewriterSoundKey,false,0.01f,true);
 
         }
 
