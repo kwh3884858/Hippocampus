@@ -114,7 +114,7 @@ namespace UI.Panels
 
 		public void UpdateButtonVisiable(bool isVisiable)
         {
-			m_Btn_Interact_Image.gameObject.SetActive(isVisiable);
+			//m_Btn_Interact_Image.gameObject.SetActive(isVisiable);
 			m_Img_ItemName_Image.gameObject.SetActive(isVisiable);
         }
 
