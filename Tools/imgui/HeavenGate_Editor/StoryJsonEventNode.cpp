@@ -31,6 +31,7 @@ namespace HeavenGateEditor {
         LoadFrontground,
         LoadBackground,
         LoadSkybox,
+        SwitchTalkUIType,
         Amount
     };
 
@@ -46,7 +47,8 @@ namespace HeavenGateEditor {
         "playAnimation",
         "LoadFrontground",
         "LoadBackground",
-        "LoadSkybox"
+        "LoadSkybox",
+        "SwitchTalkUIType"
     };
 
     extern int EventTypeAmount = (int)EventType::Amount;
@@ -114,6 +116,9 @@ namespace HeavenGateEditor {
         }
         else if (strcmp(tmpEventType, eventTypeString[(int)EventType::LoadSkybox]) == 0){
             p.m_eventType = EventType::LoadSkybox;
+        }
+        else if (strcmp(tmpEventType, eventTypeString[(int)EventType::SwitchTalkUIType]) == 0){
+            p.m_eventType = EventType::SwitchTalkUIType;
         }
     }
 

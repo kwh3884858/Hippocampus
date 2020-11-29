@@ -63,9 +63,10 @@ namespace StarPlatinum.StoryReader
 			PlayCutIn,
 			PlayInteractionAnimation,
 			playAnimation,
-			LoadBackground,
+            LoadFrontground,
+            LoadBackground,
 			LoadSkybox,
-			LoadFrontground
+			SwitchTalkUIType
 		};
 		//public List<StoryBasicData> GetSotry()
 		//{

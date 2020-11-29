@@ -238,6 +238,10 @@ namespace Controllers.Subsystems.Story
                                 SkyboxEnum skyboxEnum =(SkyboxEnum)Enum.Parse(typeof(SkyboxEnum), eventName);
                                 container.LoadSkybox(skyboxEnum);
                                 break;
+                            case StoryReader.EventType.SwitchTalkUIType:
+                                int UIPanelType = int.Parse(eventName);
+                                container.PushChangePanelType(UIPanelType);
+                                break;
 
                             default:
                                 break;
