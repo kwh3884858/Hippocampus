@@ -36,6 +36,7 @@ public class SkyboxManager : MonoSingleton<SkyboxManager>
         {
             m_currentSkybox = skyEnum;
             RenderSettings.skybox = skyboxMaterial;
+            DynamicGI.UpdateEnvironment();
         }
         else
         {
@@ -65,6 +66,7 @@ public class SkyboxManager : MonoSingleton<SkyboxManager>
     private void RevertSkybox()
     {
         RenderSettings.skybox = m_originalSkybox;
+        DynamicGI.UpdateEnvironment();
     }
 
     private Dictionary<SkyboxEnum, Material> m_skyboxAssetDic = new Dictionary<SkyboxEnum, Material>();
