@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UI.Panels.Providers.DataProviders;
 using System;
+using TMPro;
+using UnityEngine.Serialization;
 
 namespace Evidence
 {
@@ -15,8 +17,13 @@ namespace Evidence
     {
 
         [SerializeField]
-        private Text m_name = null;
+        private Text m_unSelectedName = null;
 
+        [SerializeField] private Text m_selectedName = null;
+        [SerializeField] private GameObject m_selectedObj;
+        [SerializeField] private GameObject m_unSelectedObj;
+
+        private bool m_isSelecet = false;
         /// <summary>证据数据</summary>
         private SingleEvidenceData m_data = null;
         private EvidencesController m_father = null;
@@ -50,10 +57,26 @@ namespace Evidence
             {
                 this.gameObject.SetActive(true);
             }
-            if (m_name != null)
+            if (m_unSelectedName != null)
             {
-                m_name.text = m_data.exhibit;
+                m_unSelectedName.text = m_data.exhibit;
             }
+            if (m_selectedName != null)
+            {
+                m_selectedName.text = m_data.exhibit;
+            }
+        }
+
+        public void SetSelectedStatus(bool isSelect)
+        {
+            if (isSelect == m_isSelecet)
+            {
+                return;
+            }
+
+            m_isSelecet = isSelect;
+            m_selectedObj.SetActive(m_isSelecet);
+            m_unSelectedObj.SetActive(!m_isSelecet);
         }
 
         /// <summary>
@@ -70,9 +93,10 @@ namespace Evidence
             //        OnShowEvidence = m_onShowEvidence
             //    });// 显示UI，wywtsest
             // 显示简述
-            if (m_father != null)
+            if (m_father != null && !m_isSelecet)
             {
-                m_father.RefreshIntroView(m_data);
+                SetSelectedStatus(true);
+                m_father.RefreshIntroView(m_data,this);
             }
         }
 

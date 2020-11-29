@@ -2,6 +2,7 @@
 using StarPlatinum;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
@@ -12,11 +13,11 @@ public class EvidenceIntroController : MonoBehaviour
     [SerializeField]
     private Image m_icon = null;
     [SerializeField]
-    private Text m_intro = null;
+    private TextMeshProUGUI m_intro = null;
     [SerializeField]
     private GameObject m_showBtn = null;
     [SerializeField]
-    private Text m_title = null;
+    private TextMeshProUGUI m_title = null;
     [SerializeField]
     private GameObject m_detailBtn = null;
 

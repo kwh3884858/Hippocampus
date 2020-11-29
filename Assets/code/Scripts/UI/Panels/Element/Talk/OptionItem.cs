@@ -11,6 +11,7 @@ namespace UI.Panels.StaticBoard.Element
 
 		public void Init(string id,string content)
 		{
+			content =  content.Replace("…", "...");
 			m_content.text = content;
 			m_id = id;
 		}

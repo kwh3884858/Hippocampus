@@ -60,12 +60,20 @@ public class EvidencesController : MonoBehaviour
     //    }
     //}
 
-    public void RefreshIntroView(SingleEvidenceData data)
+    public void RefreshIntroView(SingleEvidenceData data,SingleEvidenceController view)
     {
         if (m_introCtrl != null)
         {
+            m_introCtrl.gameObject.SetActive(true);
             m_introCtrl.RefreshView(data);
         }
+
+        if (m_curSelectItem != null)
+        {
+            m_curSelectItem.SetSelectedStatus(false);
+        }
+
+        m_curSelectItem = view;
     }
 
     public void ShowEvidenceEnable(bool enable)
@@ -97,6 +105,11 @@ public class EvidencesController : MonoBehaviour
                 }
                 m_evidenceList.Add(vTmpCtrl);
             }
+
+            if (isFirst)
+            {
+                m_introCtrl.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -123,4 +136,6 @@ public class EvidencesController : MonoBehaviour
     private System.Action m_CloseUI = null;
     /// <summary>是否显示举证按钮</summary>
     private bool m_isShowSelectBtn = false;
+
+    private SingleEvidenceController m_curSelectItem;
 }
