@@ -80,8 +80,8 @@ namespace UI.Panels
             UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonBookmarkPanel);// 显示书签
 
             #region Timeline Enable
-            //TimelineManager.Instance().PlayTimeline(TimelineEnum.StartScene);
-            //PlayerController.Instance().SetMoveEnable(false);
+            TimelineManager.Instance().PlayTimeline(TimelineEnum.StartScene);
+            PlayerController.Instance().SetMoveEnable(false);
             //SkyboxManager.Instance().UpdateSkybox(SkyboxEnum.Sunday);
             #endregion
 
