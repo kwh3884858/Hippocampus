@@ -124,14 +124,6 @@ namespace StarPlatinum
 
 		public void SetImage (Image image, string key, Action failCallBack = null)
 		{
-			if (m_objects.ContainsKey (key)) {
-				image.sprite = m_objects [key] as Sprite;
-				return;
-			}
-			if (m_loadingCallback.ContainsKey (key))
-			{
-				return;
-			}
 			LoadAssetAsync<Sprite> (key, (result) => {
 				if (result.status == RequestStatus.FAIL) {
 					SetImage (image, "Image_Default");
@@ -144,7 +136,6 @@ namespace StarPlatinum
 				m_objects [key] = result.result;
 				image.sprite = result.result as Sprite;
 			});
-			m_loadingCallback [key] = null;
 		}
 
 		public void LoadAssetAsync<T> (string key, Action<RequestResult> callBack, Transform parent = null) where T : UnityEngine.Object
