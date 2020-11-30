@@ -17,6 +17,19 @@ namespace UI.Utils
             
             return hour.ToString("00")+":"+min.ToString("00");
         }
-        
+
+        public static void LockCursor(bool locked)
+        {
+            if (locked)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+        }
     }
 }
