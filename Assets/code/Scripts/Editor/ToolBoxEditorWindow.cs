@@ -147,36 +147,38 @@ public class ToolBoxEditorWindow : EditorWindow
 		if (GUILayout.Button ("Remove Mission Scene")) {
 			RemoveCurrentMissionSceneInternal ();
 		}
+
+		////////////////////////////////////////////////////
 		GUILayout.Label ("Add Gameobject to Game Scene", EditorStyles.boldLabel);
 
 		if (GUILayout.Button ("Create Interactable Object")) {
-			if (IsMissionSceneValid ()) {
+			//if (IsMissionSceneValid ()) {
 				CreatInteractableObject(m_currentGameScene);
-			} else {
-				EditorUtility.DisplayDialog ("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
-			}
+			//} else {
+			//	EditorUtility.DisplayDialog ("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
+			//}
 		}
 
         if (GUILayout.Button("Create Spawn Point"))
         {
-            if (IsGameSceneValid())
-            {
+            //if (IsGameSceneValid())
+            //{
                 GameObject spawnPoint = GameObject.Find(ConfigMission.Instance.Text_Spawn_Point_Name);
                 if (spawnPoint != null)
                 {
                     EditorUtility.DisplayDialog("Error", "Already contain a spawn point in scene.", "Ok");
                 }
-                else
+                else  
                 {
                     string path = ConfigMission.Instance.Path_To_SpawnPoint;
                     GameObject go = PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(path), m_currentGameScene) as GameObject;
                     go.name = ConfigMission.Instance.Text_Spawn_Point_Name;
                 }
-            }
-            else
-            {
-                EditorUtility.DisplayDialog("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
-            }
+            //}
+            //else
+            //{
+            //    EditorUtility.DisplayDialog("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
+            //}
         }
 
         GUILayout.Label("Add Gameobject to Mission", EditorStyles.boldLabel);
@@ -196,6 +198,7 @@ public class ToolBoxEditorWindow : EditorWindow
 			}
 		}
 
+		////////////////////////////////////////////////////
 		if (GUILayout.Button ("Create Event Trigger")) {
 			if (IsMissionSceneValid ()) {
 				CreateEventTrigger (m_currentMissionScene);
@@ -232,6 +235,19 @@ public class ToolBoxEditorWindow : EditorWindow
 				loadNewStory.AddComponent<WorldTriggerCallbackTeleportPlayer> ();
 			} else {
 				EditorUtility.DisplayDialog ("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
+			}
+		}
+        if (GUILayout.Button("Create Event Trigger With [Prefab: Play Timeline]"))
+        {
+			if (IsMissionSceneValid())
+			{
+				GameObject TimelinePlayer = CreateEventTrigger(m_currentMissionScene);
+				TimelinePlayer.name = "Play_Timeline";
+				TimelinePlayer.AddComponent<WorldTriggerCallbackTimelinePlayer>();
+			}
+			else
+			{
+				EditorUtility.DisplayDialog("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
 			}
 		}
 
