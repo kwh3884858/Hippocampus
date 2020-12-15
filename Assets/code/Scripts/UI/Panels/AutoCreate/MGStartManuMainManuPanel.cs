@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Assets.code.Scripts.Gameplay;
 using Config;
 using Const;
 using Controllers.Subsystems.Story;
@@ -58,14 +57,7 @@ namespace UI.Panels
         /// </summary>
         public void OnClickStartBtn()
         {
-            //未读取存档
-            if (UiDataProvider.ControllerManager.PlayerArchiveController.CurrentSaveIndex == -1)
-            {
-                UiDataProvider.ControllerManager.PlayerArchiveController.LoadData(0);
-                return;
-            }
 
-            HidSelef();
             //Now we don`t load scene in UI button, we use mission to manager state, and input system UI like HUD should display when player is controllable.
 
             //Read start scene and mission from archive file
@@ -80,12 +72,20 @@ namespace UI.Panels
             UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonBookmarkPanel);// 显示书签
 
             #region Timeline Enable
-            TimelineManager.Instance().PlayTimeline(TimelineEnum.StartScene);
-            PlayerController.Instance().SetMoveEnable(false);
+            //TimelineManager.Instance().PlayTimeline(TimelineEnum.StartScene);
             //SkyboxManager.Instance().UpdateSkybox(SkyboxEnum.Sunday);
             #endregion
 
             //StarPlatinum.PrefabManager.Instance.LoadScene (SceneLookupEnum.World_Episode2_Pier, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+            
+            //未读取存档
+            if (UiDataProvider.ControllerManager.PlayerArchiveController.CurrentSaveIndex == -1)
+            {
+                UiDataProvider.ControllerManager.PlayerArchiveController.LoadData(0);
+                return;
+            }
+
+            HidSelef();
         }
 
         /// <summary>
