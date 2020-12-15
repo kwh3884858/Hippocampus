@@ -15,6 +15,8 @@ public class JoystickController : UIPanel<UIDataProviderGameScene, TalkDataProvi
     }
     /// <summary>控制虚拟摇杆的位置</summary>
     public ETCJoystick joystick;
+    /// <summary>自身位置</summary>
+    private RectTransform myPostionRectTrans = null;
 
     private void Start()
     {
@@ -24,7 +26,10 @@ public class JoystickController : UIPanel<UIDataProviderGameScene, TalkDataProvi
         //    joystick.axisX.directTransform = player.transform;
         //    joystick.axisY.directTransform = player.transform;
         //}
-
+        if(joystick != null)
+        {
+            myPostionRectTrans = joystick.transform as RectTransform;
+        }
 
         joystick.onMove.AddListener(PlayerController.Instance().JoystickMoveEvent);
         joystick.onMoveEnd.AddListener(PlayerController.Instance().JoystickMoveEndEvent);
@@ -44,7 +49,8 @@ public class JoystickController : UIPanel<UIDataProviderGameScene, TalkDataProvi
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        joystick.transform.position = eventData.position;
+        myPostionRectTrans.anchoredPosition = eventData.position;
+        //joystick.transform.position = eventData.position;
         joystick.OnPointerDown(eventData);
     }
 
