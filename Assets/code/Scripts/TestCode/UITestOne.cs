@@ -54,7 +54,7 @@ public class UITestOne : MonoBehaviour,IGameRuntimeData
 
 		if (res.Result == ControllerinitializedStep.Success)
 		{
-			Debug.Log("Controllers initialized!!!!!");
+			Debug.Log("Game Controllers Manager initialized!!!!!");
 		}
 		else
 		{
