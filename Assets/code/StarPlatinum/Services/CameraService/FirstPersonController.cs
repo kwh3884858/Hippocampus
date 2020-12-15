@@ -21,10 +21,20 @@ namespace Assets.code.StarPlatinum.Services.CameraService
         public float minimumY = -60F;
         public float maximumY = 60F;
 
+        public bool bDisableRotation = false;
         float rotationY = 0F;
+
+        public void SetCameraRotation(bool brotate)
+        {
+            bDisableRotation = !brotate;
+        }
 
         void Update()
         {
+            if (bDisableRotation)
+            {
+                return;
+            }
             if (axes == RotationAxes.MouseXAndY)
             {
                 float rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * sensitivityX;
