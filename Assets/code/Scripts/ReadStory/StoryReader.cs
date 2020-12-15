@@ -316,9 +316,9 @@ namespace StarPlatinum.StoryReader
 		private void ReadWord (string json)
 		{
 			StoryWordData data = JsonConvert.DeserializeObject<StoryWordData> (json);
-			Debug.Log (data.content);
-			Debug.Log (data.name);
-			Debug.Log (data.typename);
+			//Debug.Log (data.content);
+			//Debug.Log (data.name);
+			//Debug.Log (data.typename);
 			m_story.Add (data);
 		}
 
@@ -329,7 +329,7 @@ namespace StarPlatinum.StoryReader
 		private void ReadLabel (string json)
 		{
 			StoryLabelData data = JsonConvert.DeserializeObject<StoryLabelData> (json);
-			Debug.Log (data.label);
+			//Debug.Log (data.label);
 			m_story.Add (data);
 
 		}
@@ -341,7 +341,7 @@ namespace StarPlatinum.StoryReader
 		private void ReadJump (string json)
 		{
 			StoryJumpData data = JsonConvert.DeserializeObject<StoryJumpData> (json);
-			Debug.Log (data.jump);
+			//Debug.Log (data.jump);
 			m_story.Add (data);
 
 		}
