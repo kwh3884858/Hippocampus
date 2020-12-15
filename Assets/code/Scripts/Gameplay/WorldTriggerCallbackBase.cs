@@ -23,10 +23,19 @@ namespace GamePlay.EventTrigger
             }
         }
 
-        private WorldTrigger m_worldTrigger;
-        private bool m_isInitialized = false;
-        
+        // Assistance Functions
+        protected void AddSceneDebugTextForGameobject(string debugText)
+        {
+#if UNITY_EDITOR
+            //Debug 3D Text
+            Utility.WorldDebug3DTextManager.Instance.AddTextToGameobject(debugText, gameObject);
+#endif
+        }
+
         protected abstract void Callback();
         protected virtual void AfterStart() { }
+
+        private WorldTrigger m_worldTrigger;
+        private bool m_isInitialized = false;
     }
 }
