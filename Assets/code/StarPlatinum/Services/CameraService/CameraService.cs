@@ -7,6 +7,7 @@ using StarPlatinum.Manager;
 using GamePlay.Stage;
 using UnityEngine.Assertions;
 using UnityEngine.Rendering.Universal;
+using System;
 
 namespace StarPlatinum.Service
 {
@@ -33,10 +34,6 @@ namespace StarPlatinum.Service
 		[SerializeField]
 		private CameraController m_cameraController;
 
-		public CameraService ()
-		{
-
-		}
 
         public void SetMainCamera(GameObject mainCamera)
         {
@@ -72,7 +69,24 @@ namespace StarPlatinum.Service
 			return mainCamera.GetComponent<Camera>();
 		}
 
-		public bool UpdateCurrentCamera ()
+        public void InitializeRaycast()
+        {
+            if (m_mainCamera)
+            {
+				m_rayCastDetection = m_mainCamera.GetComponent<RayCastDetection>();
+            }
+            else
+            {
+				Debug.LogError("Raycast detection is not initialized");
+            }
+        }
+
+		public void SwitchRaycastState(bool state)
+        {
+			m_rayCastDetection.SwitchDetection(state);	
+        }
+
+        public bool UpdateCurrentCamera ()
 		{
 			m_cameraController = null;
 
@@ -188,5 +202,6 @@ namespace StarPlatinum.Service
 		}
 
 		private GameObject camera;
+		private RayCastDetection m_rayCastDetection;
 	}
 }

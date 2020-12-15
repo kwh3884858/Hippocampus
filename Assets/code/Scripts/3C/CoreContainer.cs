@@ -45,6 +45,7 @@ namespace GamePlay.Stage
 
             SetPlayerDisable();
 			CameraService.Instance.SetMainCamera (camera);
+            CameraService.Instance.InitializeRaycast();
 		}
 
 		public void SetPlayerDisable ()
