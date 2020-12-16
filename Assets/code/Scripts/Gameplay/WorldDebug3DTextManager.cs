@@ -19,6 +19,7 @@ namespace GamePlay.Utility
 
             GameObject manager = new GameObject(typeof(WorldDebug3DTextManager).ToString());
             manager.transform.SetParent(root.transform);
+            m_runtime3DTextManagerTransform = manager.transform;
 
             m_needText = new List<GameObject>();
         }
@@ -27,17 +28,24 @@ namespace GamePlay.Utility
         {
             PrefabManager.Instance.InstantiateAsync<WorldDebug3DText>(prefabName, (result) =>
             {
+                if (go == null)
+                {
+                    return;
+                }
                 WorldDebug3DText worldDebug = result.result as WorldDebug3DText;
                 worldDebug.gameObject.name = go.name + " : 3D Text";
                 //Move up
                 worldDebug.transform.position += new Vector3(0,5,0); 
                 worldDebug.SetText(text);
                 m_needText.Add(worldDebug.gameObject);
-            }, go.transform);
+
+            }, m_runtime3DTextManagerTransform);
         }
 
         private string prefabName = "graphic_debug_3D_Text";
         public bool DISPALY_TEXT = true;
         private List<GameObject> m_needText;
+
+        private Transform m_runtime3DTextManagerTransform;
     }
 }
