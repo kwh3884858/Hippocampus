@@ -64,8 +64,12 @@ namespace Gameplay.Manager
             StartCoroutine(PlayedCallBack(m_TimelinePlayer.duration - m_TimelinePlayer.time, PlayerPosition));
         }
 
-        IEnumerator PlayedCallBack(double time, Transform PlayerPosition)
+        IEnumerator PlayedCallBack(double time, Transform playerPosition)
         {
+            if (playerPosition != null)
+            {
+                PlayerController.Instance().SetPlayerPosition(playerPosition);
+            }
             yield return new WaitForSeconds((float)time);
 
             if (m_shouldAbortCurrentTimeline)
@@ -75,10 +79,7 @@ namespace Gameplay.Manager
             }
 
             ExitCinemaState();
-            if (PlayerPosition!=null)
-            {
-                PlayerController.Instance().SetPlayerPosition(PlayerPosition);
-            }
+
             yield break;
         }
 
@@ -122,6 +123,6 @@ namespace Gameplay.Manager
         }
 
         private PlayableDirector m_TimelinePlayer;
-        private bool m_shouldAbortCurrentTimeline = false; 
+        private bool m_shouldAbortCurrentTimeline = false;
     }
 }
