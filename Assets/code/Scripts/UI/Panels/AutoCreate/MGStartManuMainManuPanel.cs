@@ -71,13 +71,13 @@ namespace UI.Panels
             UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonGameplayPanel);// 显示助手UI
             UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonBookmarkPanel);// 显示书签
 
-            #region Timeline Enable
+            #region Timeline Enable(Obsolete)
             //TimelineManager.Instance().PlayTimeline(TimelineEnum.StartScene);
             //SkyboxManager.Instance().UpdateSkybox(SkyboxEnum.Sunday);
             #endregion
 
             //StarPlatinum.PrefabManager.Instance.LoadScene (SceneLookupEnum.World_Episode2_Pier, UnityEngine.SceneManagement.LoadSceneMode.Additive);
-            
+
             //未读取存档
             if (UiDataProvider.ControllerManager.PlayerArchiveController.CurrentSaveIndex == -1)
             {

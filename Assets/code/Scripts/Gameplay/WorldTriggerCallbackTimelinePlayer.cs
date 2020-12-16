@@ -27,13 +27,6 @@ namespace GamePlay.EventTrigger
             Destroy(gameObject);
         }
 
-        void OnGui()
-        {
-            if (GUI.Button(new Rect(0,0,500,500), "Skip Timeline"))
-            {
-                Gameplay.Manager.TimelineManager.Instance().AbortTimeline();
-            }
-        }
 
         public TimelineAsset m_timeline;
     }

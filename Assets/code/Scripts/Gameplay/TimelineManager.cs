@@ -87,7 +87,19 @@ namespace Gameplay.Manager
             if (m_TimelinePlayer.state == PlayState.Playing)
             {
                 m_TimelinePlayer.Stop();
+                m_TimelinePlayer.initialTime = m_TimelinePlayer.duration;
+                m_TimelinePlayer.Play();
+                ExitCinemaState();
                 m_shouldAbortCurrentTimeline = true;
+            }
+        }
+
+        void OnGUI()
+        {
+            if (GUI.Button(new Rect(0, 0, 200, 50), "Skip Timeline"))
+            {
+                Debug.Log("skip timeline");
+                Gameplay.Manager.TimelineManager.Instance().AbortTimeline();
             }
         }
 
