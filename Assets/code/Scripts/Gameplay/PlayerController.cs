@@ -26,6 +26,7 @@ namespace GamePlay.Player
         public void SetPlayerPosition(Transform playerPos)
         {
             m_moveCtrl.transform.position = playerPos.position;
+            m_moveCtrl.transform.rotation = playerPos.rotation;
         }
         public void SetMoveEnable (bool isMove)
 		{

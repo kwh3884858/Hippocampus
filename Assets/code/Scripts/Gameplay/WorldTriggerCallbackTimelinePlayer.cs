@@ -23,11 +23,12 @@ namespace GamePlay.EventTrigger
         {
             SingletonGlobalDataContainer.Instance.AddtTriggeredStory(m_timeline.name);
 
-            Gameplay.Manager.TimelineManager.Instance().PlayTimeline(m_timeline);
+            Gameplay.Manager.TimelineManager.Instance().PlayTimeline(m_timeline,m_PlayerPosition);
             Destroy(gameObject);
         }
 
 
         public TimelineAsset m_timeline;
+        public Transform m_PlayerPosition;
     }
 }
