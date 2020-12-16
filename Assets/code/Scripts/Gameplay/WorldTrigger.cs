@@ -28,7 +28,7 @@ namespace GamePlay
 
 		private void OnTriggerEnter (Collider collision)
 		{
-			Debug.Log ("Trigger");
+			Debug.Log ($"World Trigger: [{gameObject.name}]");
 
 			Debug.DrawLine (transform.position, Vector3.up, Color.red, 10.0f);
 			//Debug.DrawLine (collision.point, collision.normal, Color.white);
