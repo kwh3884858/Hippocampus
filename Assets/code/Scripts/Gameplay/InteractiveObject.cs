@@ -31,7 +31,6 @@ namespace GamePlay
         [Header("Exhibit Test")]
         public bool m_addtionalExhibitTest = false;
 
-        [ConditionalField("m_addtionalExhibitTest", false)]
         [Header("Only For OnlyTriggerOnce")]
         public List<string> m_mustHaveExhibit = new List<string>();
 
