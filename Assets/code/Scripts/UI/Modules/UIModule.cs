@@ -17,6 +17,7 @@ using Debug = UnityEngine.Debug;
 using UIPanel = UI.Panels.UIPanel;
 using Random  = System.Random;
 using StarPlatinum;
+using UI.Utils;
 
 namespace UI.Modules
 {
@@ -764,6 +765,12 @@ namespace UI.Modules
                 panel.ShowData(data);
                 panel.UpdateData(data);
             }
+
+            if (!panel.PanelSettings.IsLockCursor)
+            {
+                UIHelper.AddUnlockPanel(type);
+            }
+
             panel.ShowInMaxLayer();
             //UiDataProvider.SoundService.PlayBgm("ShowPanel");
         }
@@ -815,6 +822,7 @@ namespace UI.Modules
                     HidePanelData(subpanel);
                 }
             }
+            UIHelper.RemoveUnlockPanel(type);
 
             if (panel.PanelSettings.MUnLoadMode == UIPanelUnLoadMode.Destroy)
             {
@@ -881,6 +889,7 @@ namespace UI.Modules
 
             return type.ToString() + ": no subpanels";
         }
+        
 
         protected List<UIPanelSettings> m_panelsSettings ;
 

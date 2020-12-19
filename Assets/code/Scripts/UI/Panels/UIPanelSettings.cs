@@ -59,6 +59,12 @@ namespace UI.Panels
             set { m_layer = value; }
         }
 
+        public bool IsLockCursor
+        {
+            get => m_isLockCursor;
+            set => m_isLockCursor = value;
+        }
+
         private UIPanelType m_panelType = UIPanelType.None;
         //关闭方式
         private UIPanelUnLoadMode m_unLoadMode = UIPanelUnLoadMode.Destroy;
@@ -67,12 +73,15 @@ namespace UI.Panels
 
         private UIPanelLayer m_layer;
 
-        public UIPanelSettings(UIPanelType _panelType, UIPanelUnLoadMode _unLoadMode = UIPanelUnLoadMode.Destroy, bool _showOnStart = false,UIPanelLayer _layer = UIPanelLayer.Layer5)
+        private bool m_isLockCursor;
+
+        public UIPanelSettings(UIPanelType _panelType, UIPanelUnLoadMode _unLoadMode = UIPanelUnLoadMode.Destroy, bool _showOnStart = false,UIPanelLayer _layer = UIPanelLayer.Layer5,bool isLockCursor= false)
         {
             m_panelType = _panelType;
             m_unLoadMode = _unLoadMode;
             m_showOnStart = _showOnStart;
             m_layer = _layer;
+            m_isLockCursor = isLockCursor;
         }
     }
 
@@ -93,23 +102,23 @@ namespace UI.Panels
                   };
         public static List<UIPanelSettings> StaticBoardInfo = new List<UIPanelSettings>()
         {
-            new UIPanelSettings(UIPanelType.UICommonGameplayPanel,UIPanelUnLoadMode.Disabled, false, UIPanelLayer.Layer3),
+            new UIPanelSettings(UIPanelType.UICommonGameplayPanel,UIPanelUnLoadMode.Disabled, false, UIPanelLayer.Layer3,true),
             new UIPanelSettings(UIPanelType.TalkPanel,UIPanelUnLoadMode.Disabled,false,UIPanelLayer.Layer4),
-            new UIPanelSettings(UIPanelType.Tipspanel,UIPanelUnLoadMode.Disabled),
+            new UIPanelSettings(UIPanelType.Tipspanel,UIPanelUnLoadMode.Disabled){IsLockCursor = true},
             new UIPanelSettings(UIPanelType.Evidencepanel,UIPanelUnLoadMode.Destroy),
             new UIPanelSettings(UIPanelType.UIMapcanvasPanel,UIPanelUnLoadMode.Destroy),
             new UIPanelSettings(UIPanelType.UICommonMapsTipsEvidencesPanel,UIPanelUnLoadMode.Destroy),
             new UIPanelSettings(UIPanelType.OptionsPanel,UIPanelUnLoadMode.Disabled),
             new UIPanelSettings(UIPanelType.LoadGamePanel,UIPanelUnLoadMode.Destroy),
             new UIPanelSettings(UIPanelType.Singleevidenceselectpanel,UIPanelUnLoadMode.Disabled),
-            new UIPanelSettings(UIPanelType.Tipgetpanel,UIPanelUnLoadMode.Destroy),
+            new UIPanelSettings(UIPanelType.Tipgetpanel,UIPanelUnLoadMode.Destroy){IsLockCursor = true},
             new UIPanelSettings(UIPanelType.UICommonESCMainMenuPanel,UIPanelUnLoadMode.Disabled),
             new UIPanelSettings(UIPanelType.UICommonLoadarchivePanel),
             new UIPanelSettings(UIPanelType.UICommonLogPanel,UIPanelUnLoadMode.Destroy),
             new UIPanelSettings(UIPanelType.UICommonCgscenePanel,UIPanelUnLoadMode.Destroy,false,UIPanelLayer.Layer3),
             new UIPanelSettings(UIPanelType.UICommonAssistantPanel,UIPanelUnLoadMode.Destroy,false,UIPanelLayer.Layer5),
             new UIPanelSettings(UIPanelType.UICommonDetectiveNotesPanel,UIPanelUnLoadMode.Destroy,false,UIPanelLayer.Layer8),
-            new UIPanelSettings(UIPanelType.UICommonBookmarkPanel,UIPanelUnLoadMode.Destroy,false,UIPanelLayer.Layer8),
+            new UIPanelSettings(UIPanelType.UICommonBookmarkPanel,UIPanelUnLoadMode.Destroy,false,UIPanelLayer.Layer8,true),
             new UIPanelSettings(UIPanelType.UICommonBreaktheoryPanel,UIPanelUnLoadMode.Destroy,false,UIPanelLayer.Layer8),
             new UIPanelSettings(UIPanelType.UICommonSettingPanel,UIPanelUnLoadMode.Disabled,false,UIPanelLayer.Layer5),
 
