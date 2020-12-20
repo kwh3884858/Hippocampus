@@ -1,49 +1,85 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using LocalCache;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Config.Data
 {
-    public class ConfigDataProvider
+    public class ConfigDataProvider : MonoBehaviour
     {
         public string m_dataPath = Application.streamingAssetsPath + "/Data/";
         public string m_jsonSuffix = ".json";
-        public void InitialInfo()
+
+        public IEnumerator LoadAllConfig()
         {
-            LoadAllConfig();
+            yield return StartCoroutine(LoadConfig<RoleConfig>((file) =>
+                {
+                    RoleConfig.Init(JsonConvert.DeserializeObject<Dictionary<string, RoleConfig>>(file));
+                }));
+            yield return StartCoroutine(LoadConfig<CGSceneConfig>((file) =>
+            {
+                CGSceneConfig.Init(JsonConvert.DeserializeObject<Dictionary<string, CGSceneConfig>>(file));
+            }));
+            yield return StartCoroutine(LoadConfig<CGScenePointConfig>((file) =>
+            {
+                CGScenePointConfig.Init(JsonConvert.DeserializeObject<Dictionary<int, CGScenePointConfig>>(file));
+            }));
+            yield return StartCoroutine(LoadConfig<CGScenePointTouchConfig>((file) =>
+            {
+                CGScenePointTouchConfig.Init(JsonConvert.DeserializeObject<Dictionary<int, CGScenePointTouchConfig>>(file));
+            }));
+            yield return StartCoroutine(LoadConfig<EvidenceConfig>((file) =>
+            {
+                EvidenceConfig.Init(JsonConvert.DeserializeObject<Dictionary<string, EvidenceConfig>>(file));
+            }));
+            yield return StartCoroutine(LoadConfig<CommonConfig>((file) =>
+            {
+                CommonConfig.Init(JsonConvert.DeserializeObject<Dictionary<int, CommonConfig>>(file));
+            }));
+            yield return StartCoroutine(LoadConfig<ControversyConfig>((file) =>
+            {
+                ControversyConfig.Init(JsonConvert.DeserializeObject<Dictionary<string, ControversyConfig>>(file));
+            }));
+            yield return StartCoroutine(LoadConfig<ControversyBarrageConfig>((file) =>
+            {
+                ControversyBarrageConfig.Init(JsonConvert.DeserializeObject<Dictionary<int, ControversyBarrageConfig>>(file));
+            }));
+            yield return StartCoroutine(LoadConfig<ControversySpecialBarrageConfig>((file) =>
+            {
+                ControversySpecialBarrageConfig.Init(JsonConvert.DeserializeObject<Dictionary<int, ControversySpecialBarrageConfig>>(file));
+            }));
+            yield return StartCoroutine(LoadConfig<ControversyCharacterConfig>((file) =>
+            {
+                ControversyCharacterConfig.Init(JsonConvert.DeserializeObject<Dictionary<string, ControversyCharacterConfig>>(file));
+            }));
+            yield return StartCoroutine(LoadConfig<TalkPanelConfig>((file) =>
+            {
+                TalkPanelConfig.Init(JsonConvert.DeserializeObject<Dictionary<int, TalkPanelConfig>>(file));
+            }));
         }
 
-        private void LoadAllConfig()
+        private IEnumerator LoadConfig<T>(Action<string> callback) where T : BaseConfig
         {
-            RoleConfig.Init(JsonConvert.DeserializeObject<Dictionary<string, RoleConfig>>(
-                File.ReadAllText(m_dataPath + typeof(RoleConfig).Name + m_jsonSuffix, Encoding.GetEncoding("GB2312"))));
-            CGSceneConfig.Init(JsonConvert.DeserializeObject<Dictionary<string, CGSceneConfig>>(
-                File.ReadAllText(m_dataPath + typeof(CGSceneConfig).Name + m_jsonSuffix, Encoding.GetEncoding("GB2312"))));
-            CGScenePointConfig.Init(JsonConvert.DeserializeObject<Dictionary<int, CGScenePointConfig>>(
-                File.ReadAllText(m_dataPath + typeof(CGScenePointConfig).Name + m_jsonSuffix, Encoding.GetEncoding("GB2312"))));
-            CGScenePointTouchConfig.Init(JsonConvert.DeserializeObject<Dictionary<int, CGScenePointTouchConfig>>(
-                File.ReadAllText(m_dataPath + typeof(CGScenePointTouchConfig).Name + m_jsonSuffix, Encoding.GetEncoding("GB2312"))));
-            EvidenceConfig.Init(JsonConvert.DeserializeObject<NormalHGData>(
-                File.ReadAllText(m_dataPath + typeof(EvidenceConfig).Name + m_jsonSuffix, Encoding.UTF8)));
-            CommonConfig.Init(JsonConvert.DeserializeObject<Dictionary<int, CommonConfig>>(
-                File.ReadAllText(m_dataPath + typeof(CommonConfig).Name + m_jsonSuffix, Encoding.GetEncoding("GB2312"))));
-            ControversyConfig.Init(JsonConvert.DeserializeObject<Dictionary<string, ControversyConfig>>(
-                File.ReadAllText(m_dataPath + typeof(ControversyConfig).Name + m_jsonSuffix, Encoding.GetEncoding("GB2312"))));
-            ControversyBarrageConfig.Init(JsonConvert.DeserializeObject<Dictionary<int, ControversyBarrageConfig>>(
-                File.ReadAllText(m_dataPath + typeof(ControversyBarrageConfig).Name + m_jsonSuffix, Encoding.GetEncoding("GB2312"))));
-            ControversySpecialBarrageConfig.Init(JsonConvert.DeserializeObject<Dictionary<int, ControversySpecialBarrageConfig>>(
-                File.ReadAllText(m_dataPath + typeof(ControversySpecialBarrageConfig).Name + m_jsonSuffix, Encoding.GetEncoding("GB2312"))));
-            ControversyCharacterConfig.Init(JsonConvert.DeserializeObject<Dictionary<string, ControversyCharacterConfig>>(
-                File.ReadAllText(m_dataPath + typeof(ControversyCharacterConfig).Name + m_jsonSuffix, Encoding.GetEncoding("GB2312"))));
-            TalkPanelConfig.Init(JsonConvert.DeserializeObject<Dictionary<int, TalkPanelConfig>>(
-                File.ReadAllText(m_dataPath + typeof(TalkPanelConfig).Name + m_jsonSuffix, Encoding.GetEncoding("GB2312"))));
+            string fileStr = "";
+            string filePath = m_dataPath + typeof(T).Name + m_jsonSuffix;
+            UnityWebRequest req = UnityWebRequest.Get(filePath);
+
+            yield return req.SendWebRequest();
+
+            if (req.isHttpError||req.isNetworkError)
+                Debug.Log($"获取配置资源错误! {filePath}");
+            else
+            {
+                fileStr =Encoding.GetEncoding("GB2312").GetString(req.downloadHandler.data);
+            }
+            callback?.Invoke(fileStr);
+            yield break;
         }
-
-
         public void Dispose()
         {
             RoleConfig.Dispose();

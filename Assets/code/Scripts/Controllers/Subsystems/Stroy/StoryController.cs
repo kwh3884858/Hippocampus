@@ -50,6 +50,7 @@ namespace Controllers.Subsystems.Story
         ChangeTalkPanelType,
         ChangeFrontImg,
         RemoveAllExhibit,
+        TimeLine,
     }
 
     public class StoryController : ControllerBase

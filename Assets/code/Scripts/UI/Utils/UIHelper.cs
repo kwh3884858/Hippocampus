@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace UI.Utils
 {
@@ -18,17 +19,51 @@ namespace UI.Utils
             return hour.ToString("00")+":"+min.ToString("00");
         }
 
+        public static bool IsCursorLocked()
+        {
+            return Cursor.lockState == CursorLockMode.Locked;
+        }
+        
         public static void LockCursor(bool locked)
         {
             if (locked)
             {
+                VMCameraManager.Instance().SetCameraRotate(true);
+
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
             else
             {
+                VMCameraManager.Instance().SetCameraRotate(false);
+
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+            }
+        }
+        private static List<UIPanelType> m_unlockCursorPanelList= new List<UIPanelType>();
+        public static void AddUnlockPanel(UIPanelType panelType)
+        {
+            if (!m_unlockCursorPanelList.Contains(panelType))
+            {
+                m_unlockCursorPanelList.Add(panelType);
+                if (m_unlockCursorPanelList.Count > 0 && IsCursorLocked())
+                {
+                    LockCursor(false);
+                    return;
+                }
+            }
+        }
+
+        public static void RemoveUnlockPanel(UIPanelType panelType)
+        {
+            if (m_unlockCursorPanelList.Contains(panelType))
+            {
+                m_unlockCursorPanelList.Remove(panelType);
+                if (m_unlockCursorPanelList.Count == 0 && !IsCursorLocked())
+                {
+                    LockCursor(true);
+                }
             }
         }
     }

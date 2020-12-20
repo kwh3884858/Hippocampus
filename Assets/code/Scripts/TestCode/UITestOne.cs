@@ -25,8 +25,13 @@ public class UITestOne : MonoBehaviour,IGameRuntimeData
 	// Use this for initialization
 	void Start ()
 	{
+		StartCoroutine(Initialze());
+	}
+
+	private IEnumerator Initialze()
+	{
 		State = GameState.Invalid;
-		LoadConfig();
+		yield return StartCoroutine(LoadConfig());
 		LocalCacheManager = new LocalCacheManager("0");
 		m_gameRunTimeData = new GameRunTimeData(this);
 		ColorProvider = GetComponent<ColorProvider>();
@@ -34,7 +39,7 @@ public class UITestOne : MonoBehaviour,IGameRuntimeData
 		m_gameRunTimeData.State = State;
 		m_uiManager.Initialize(m_gameRunTimeData);
 		StartCoroutine(InitializeControllerByArgs());
-	 	StartCoroutine(LoadGameStateAsync(m_startState));
+		StartCoroutine(LoadGameStateAsync(m_startState));
 	}
 
 	private IEnumerator LoadGameStateAsync(GameState state)
@@ -63,13 +68,13 @@ public class UITestOne : MonoBehaviour,IGameRuntimeData
 		}
 	}
 	
-	private void LoadConfig()
+	private IEnumerator LoadConfig()
 	{
 		m_configProvider = new ConfigProvider();
-		m_configDataProvider = new ConfigDataProvider();
+		m_configDataProvider = gameObject.AddComponent<ConfigDataProvider>();
 		
 		StoryConfig.PreloadInGameConfig();
-		m_configDataProvider.InitialInfo();
+		yield return StartCoroutine(m_configDataProvider.LoadAllConfig());
 	}
 	// Update is called once per frame
 	void Update () {

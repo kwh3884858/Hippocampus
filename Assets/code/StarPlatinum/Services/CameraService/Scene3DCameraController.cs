@@ -2,7 +2,7 @@
 
 namespace Assets.code.StarPlatinum.Services.CameraService
 {
-    public class Scene3DCameraController : MonoBehaviour
+    public class Scene3DCameraController : BaseCamera
     {
         [Header("basic setting")]
         public float m_xMargin = 1f;
