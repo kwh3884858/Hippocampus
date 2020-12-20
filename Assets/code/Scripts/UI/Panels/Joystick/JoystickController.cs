@@ -31,8 +31,9 @@ public class JoystickController : UIPanel<UIDataProviderGameScene, TalkDataProvi
             myPostionRectTrans = joystick.transform as RectTransform;
         }
 
-        joystick.onMove.AddListener(PlayerController.Instance().JoystickMoveEvent);
-        joystick.onMoveEnd.AddListener(PlayerController.Instance().JoystickMoveEndEvent);
+        //Now use the new input system, all value should enter unity input system.
+        //joystick.onMove.AddListener(PlayerController.Instance().JoystickMoveEvent);
+        //joystick.onMoveEnd.AddListener(PlayerController.Instance().JoystickMoveEndEvent);
 
     }
 

@@ -41,19 +41,21 @@ namespace GamePlay.Player
             }
 		}
 
-		public void JoystickMoveEvent (Vector2 vec)
-		{
-			//Debug.Log(vec);
-			InputService.Instance.SetAxis (KeyMap.Horizontal, vec.x);
-			InputService.Instance.SetAxis (KeyMap.Vertical, vec.y);
-		}
+		//Now use the new input system, all value should enter unity input system.
 
-		public void JoystickMoveEndEvent ()
-		{
-			InputService.Instance.SetAxis (KeyMap.Horizontal, 0f);
-			InputService.Instance.SetAxis (KeyMap.Vertical, 0f);
+		//public void JoystickMoveEvent (Vector2 vec)
+		//{
+		//	//Debug.Log(vec);
+		//	InputService.Instance.SetAxis (KeyMap.Horizontal, vec.x);
+		//	InputService.Instance.SetAxis (KeyMap.Vertical, vec.y);
+		//}
 
-		}
+		//public void JoystickMoveEndEvent ()
+		//{
+		//	InputService.Instance.SetAxis (KeyMap.Horizontal, 0f);
+		//	InputService.Instance.SetAxis (KeyMap.Vertical, 0f);
+
+		//}
 
 		private void OnDestroy ()
 		{
