@@ -2,7 +2,7 @@
 using GamePlay.Global;
 using GamePlay.Stage;
 using StarPlatinum.Base;
-using StarPlatinum.Service;
+using StarPlatinum.Services;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,6 +33,7 @@ namespace StarPlatinum
 			//Productivity ();
 			ConfigData data = new ConfigData ();// 测试
 
+			InputService.Instance.Initialize();
 			CoreContainer.Instance.Initialize();
 			SingletonGlobalDataContainer.Instance.Initialize ();
 			Evidence.EvidenceDataManager.Instance.Initialize ();
@@ -100,10 +101,10 @@ namespace StarPlatinum
 		// Update is called once per frame
 		void Update ()
 		{
-			input = InputService.Instance.GetAxis (KeyMap.Horizontal);
-			if (input != lastInput) {
-				lastInput = input;
-			}
+			//input = InputService.Instance.GetAxis (KeyMap.Horizontal);
+			//if (input != lastInput) {
+			//	lastInput = input;
+			//}
 		}
 
 		void OnDestroy ()
@@ -123,8 +124,8 @@ namespace StarPlatinum
 			else if (ran < 6) SoundService.Instance.PlayBgm ("Ka", false);
 			else if (ran < 11) SoundService.Instance.PlayBgm ("He", false);
 		}
-		float input = 0;
-		float lastInput = 0;
+		//float input = 0;
+		//float lastInput = 0;
 		private List<System.Object> allData = new List<System.Object> ();
 	}
 }
