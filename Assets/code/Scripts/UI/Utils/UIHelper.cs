@@ -28,11 +28,15 @@ namespace UI.Utils
         {
             if (locked)
             {
+                VMCameraManager.Instance().SetCameraRotate(true);
+
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
             else
             {
+                VMCameraManager.Instance().SetCameraRotate(false);
+
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
             }
