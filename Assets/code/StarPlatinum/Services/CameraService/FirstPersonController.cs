@@ -2,7 +2,7 @@
 
 namespace Assets.code.StarPlatinum.Services.CameraService
 {
-    public class FirstPersonController : MonoBehaviour
+    public class FirstPersonController : BaseCamera
     {
         public enum RotationAxes
         {
@@ -21,12 +21,11 @@ namespace Assets.code.StarPlatinum.Services.CameraService
         public float minimumY = -60F;
         public float maximumY = 60F;
 
-        public bool bDisableRotation = false;
         float rotationY = 0F;
 
-        public void SetCameraRotation(bool brotate)
+        public override void SetCameraRotation(bool brotate)
         {
-            bDisableRotation = !brotate;
+            base.SetCameraRotation(brotate);
         }
 
         void Update()
