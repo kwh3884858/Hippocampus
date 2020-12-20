@@ -10,6 +10,7 @@ using Controllers.Subsystems;
 using Controllers.Subsystems.Story;
 using DG.Tweening;
 using Evidence;
+using Gameplay.Manager;
 using GamePlay.Stage;
 using StarPlatinum;
 using StarPlatinum.EventManager;
@@ -23,6 +24,7 @@ using UI.Panels.StaticBoard;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.Serialization;
+using UnityEngine.Timeline;
 using UnityEngine.UI;
 
 namespace UI.Panels
@@ -442,6 +444,16 @@ namespace UI.Panels
                 case StoryActionType.RemoveAllExhibit:
                     EvidenceDataManager.Instance.RemoveAllEvidence();
                     SetActionState(ActionState.End);
+                    break;
+                case StoryActionType.TimeLine:
+                    PrefabManager.Instance.LoadAssetAsync<TimelineAsset>(m_curAction.Content, (res) =>
+                    {
+                        if (res.status != RequestStatus.FAIL)
+                        {
+                            TimelineManager.Instance().PlayTimeline(res.result as TimelineAsset);
+                        }
+                        SetActionState(ActionState.End);
+                    });
                     break;
                 default:
                     Debug.LogError($"未处理对话行为:{storyAction.Type}");

@@ -225,6 +225,11 @@ namespace Controllers.Subsystems.Story
             m_actions.Enqueue(new StoryAction(){Type = StoryActionType.ChangeFrontImg, Content = imgKey});
         }
 
+        public void PushTimeLine(string key)
+        {
+            m_actions.Enqueue(new StoryAction(){Type = StoryActionType.TimeLine,Content = key});
+        }
+
         private int ProcessPicPos(int pos)
         {
             return pos - 100;
@@ -258,6 +263,7 @@ namespace Controllers.Subsystems.Story
                     case StoryActionType.LoadCgScene:
                     case StoryActionType.CloseCgScene:
                     case StoryActionType.ShowEvidence:
+                    case StoryActionType.TimeLine:
                         if (isTalk)
                         {
                             actions.Enqueue(new StoryAction() {Type = StoryActionType.WaitClick});
