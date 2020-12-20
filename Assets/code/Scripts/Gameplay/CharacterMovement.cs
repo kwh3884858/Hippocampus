@@ -38,7 +38,6 @@ namespace Cinemachine.Examples
         {
             input = InputService.Instance.Input.PlayerControls.Move.ReadValue<Vector2>();
 
-            Debug.Log(input);
             // set speed to both vertical and horizontal inputs
             if (useCharacterForward)
                 speed = Mathf.Abs(input.x) + input.y;
