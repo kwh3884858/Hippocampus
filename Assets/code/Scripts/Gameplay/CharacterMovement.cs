@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using StarPlatinum.Services;
+using UnityEngine;
 
 namespace Cinemachine.Examples
 {
@@ -10,8 +11,8 @@ namespace Cinemachine.Examples
         public bool lockToCameraForward = false;
         public float turnSpeed = 10f;
         public float MoveSpeed = 1;
-        public KeyCode sprintJoystick = KeyCode.JoystickButton2;
-        public KeyCode sprintKeyboard = KeyCode.Space;
+        public KeyCode sprintJoystick = KeyCode.JoystickButton2; //No more use
+        public KeyCode sprintKeyboard = KeyCode.Space;          // No more use
 
         private float turnSpeedMultiplier;
         private float speed = 0f;
@@ -35,9 +36,9 @@ namespace Cinemachine.Examples
         // Update is called once per frame
         void FixedUpdate()
         {
-            input.x = Input.GetAxis("Horizontal");
-            input.y = Input.GetAxis("Vertical");
+            input = InputService.Instance.Input.PlayerControls.Move.ReadValue<Vector2>();
 
+            Debug.Log(input);
             // set speed to both vertical and horizontal inputs
             if (useCharacterForward)
                 speed = Mathf.Abs(input.x) + input.y;
@@ -56,7 +57,7 @@ namespace Cinemachine.Examples
             anim.SetFloat("Direction", direction);
 
             // set sprinting
-            isSprinting = ((Input.GetKey(sprintJoystick) || Input.GetKey(sprintKeyboard)) && input != Vector2.zero && direction >= 0f);
+            isSprinting = (InputService.Instance.Input.PlayerControls.Sprint.triggered && input != Vector2.zero && direction >= 0f);
             anim.SetBool("isSprinting", isSprinting);
 
             // Update target direction relative to the camera view (or not if the Keep Direction option is checked)

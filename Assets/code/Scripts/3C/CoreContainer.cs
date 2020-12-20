@@ -5,7 +5,7 @@ using StarPlatinum.Base;
 using StarPlatinum.Manager;
 using UnityEngine.SceneManagement;
 using Config.GameRoot;
-using StarPlatinum.Service;
+using StarPlatinum.Services;
 using UnityEngine.Assertions;
 using GamePlay.EventTrigger;
 using UnityEngine.AI;

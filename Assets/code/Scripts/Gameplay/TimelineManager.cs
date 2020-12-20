@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using GamePlay.Player;
 using StarPlatinum.Base;
-using StarPlatinum.Service;
+using StarPlatinum.Services;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;

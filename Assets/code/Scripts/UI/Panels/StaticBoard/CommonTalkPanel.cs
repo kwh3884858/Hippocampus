@@ -208,7 +208,7 @@ namespace UI.Panels
         public override void Tick()
         {
             base.Tick();
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (StarPlatinum.Services.InputService.Instance.Input.StoryPlayer.Next.triggered)
             {
                 ClickSkip();
             }

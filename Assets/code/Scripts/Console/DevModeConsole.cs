@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using GamePlay.Player;
 using GamePlay.Stage;
 using StarPlatinum.Manager;
+using StarPlatinum.Services;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 
@@ -69,19 +71,14 @@ namespace StarPlatinum.Development
 
 		void Update ()
 		{
-			if (Input.GetKeyDown (KeyCode.BackQuote)) {
+			if (InputService.Instance.Input.PlayerControls.ToggleConsole.triggered) {
 				bool isActive = m_parentPanel.activeSelf;
 				isActive = !isActive;
 				m_parentPanel.SetActive (isActive);
 				PlayerController.Instance().SetMoveEnable(!isActive);
 			}
 
-			if (m_inputFiled.text != "" &&
-					(
-					Input.GetKeyDown (KeyCode.Return) ||
-					Input.GetKeyDown (KeyCode.KeypadEnter)
-					)
-				) {
+			if (m_inputFiled.text != "" && InputService.Instance.Input.Console.Enter.triggered) {
 				string command = m_inputFiled.text;
 				PrintLog (command);
 				m_commandHistory.Push (command);
@@ -93,12 +90,12 @@ namespace StarPlatinum.Development
 			}
 
 			if (m_commandHistoryCache != null &&
-				Input.GetKeyDown (KeyCode.UpArrow)) {
+				InputService.Instance.Input.Console.PageUp.triggered) {
 				m_inputFiled.text = GetCommandHistroy (true);
 			}
 
 			if (m_commandHistoryCache != null &&
-				Input.GetKeyDown (KeyCode.DownArrow)) {
+				InputService.Instance.Input.Console.PageDown.ReadValue<bool>()) {
 				m_inputFiled.text = GetCommandHistroy (false);
 			}
 

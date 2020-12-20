@@ -6,7 +6,7 @@ using UnityEngine;
 using UI.Panels.Providers.DataProviders.StaticBoard;
 
 using GamePlay.Player;
-using StarPlatinum.Service;
+using StarPlatinum.Services;
 using GamePlay;
 using UI.Panels.GameScene.MainManu;
 using UI;
@@ -95,7 +95,8 @@ public class MonoMoveController : MonoBehaviour
         {
             return;
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (InputService.Instance.Input.PlayerControls.TogglePause.triggered)
+        //if (Input.GetKeyDown(KeyCode.Escape))
         {
             //UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonESCMainMenuPanel);// 显示UI
             StarPlatinum.EventManager.EventManager.Instance.SendEvent(new StarPlatinum.SettingStateEvent() { IsShow = true });
@@ -159,7 +160,7 @@ public class MonoMoveController : MonoBehaviour
             }
             if (!UIManager.Instance().IsPanelShow(UIPanelType.TalkPanel))
             {
-                if (Input.GetKeyDown(KeyCode.Return) || m_isInteractByUI || Input.GetMouseButtonDown(0))
+                if (InputService.Instance.Input.PlayerControls.Interact.triggered || m_isInteractByUI )
                 {
                     m_isInteractByUI = false;
                     Debug.Log("Did Interactive: " + collider.gameObject);
@@ -216,22 +217,22 @@ public class MonoMoveController : MonoBehaviour
             return;
         }
 
-        float horizontalAxis = StarPlatinum.InputService.Instance.GetAxis(StarPlatinum.KeyMap.Horizontal);
-        float verticalAxis = StarPlatinum.InputService.Instance.GetAxis(StarPlatinum.KeyMap.Vertical);
+        Vector2 moveAxis = StarPlatinum.Services.InputService.Instance.Input.PlayerControls.Move.ReadValue<Vector2>();
+        //float verticalAxis = StarPlatinum.Services.InputService.Instance().GetAxis(StarPlatinum.KeyMap.Vertical);
         float horizontalStepLength = 0;
         float verticalStepLength = 0;
 
-        if (horizontalAxis > 0.1f || horizontalAxis < -0.1f)
+        if (moveAxis.x > 0.1f || moveAxis.x < -0.1f)
         {
-            horizontalStepLength = horizontalAxis * m_moveSpeed;
+            horizontalStepLength = moveAxis.x * m_moveSpeed;
             transform.localPosition = new Vector3(
             transform.localPosition.x + horizontalStepLength * Time.fixedDeltaTime,
             transform.localPosition.y,
             transform.localPosition.z);
         }
-        if (verticalAxis > 0.1f || verticalAxis < -0.1f)
+        if (moveAxis.y > 0.1f || moveAxis.y < -0.1f)
         {
-            verticalStepLength = verticalAxis * m_moveSpeed;
+            verticalStepLength = moveAxis.y * m_moveSpeed;
             transform.localPosition = new Vector3(
             transform.localPosition.x,
             transform.localPosition.y,
@@ -254,11 +255,11 @@ public class MonoMoveController : MonoBehaviour
         //}
 
 
-        if (horizontalAxis < -0.1f)
+        if (moveAxis.x < -0.1f)
         {
             m_isFaceRight = false;
         }
-        if (horizontalAxis > 0.1f)
+        if (moveAxis.y > 0.1f)
         {
             m_isFaceRight = true;
         }

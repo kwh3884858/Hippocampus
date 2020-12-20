@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using SQLite4Unity3d;
 using StarPlatinum.Base;
 using StarPlatinum.Manager;
-using StarPlatinum.Service;
+using StarPlatinum.Services;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;

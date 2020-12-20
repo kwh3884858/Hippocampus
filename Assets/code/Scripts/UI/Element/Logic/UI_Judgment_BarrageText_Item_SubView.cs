@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using code.StarPlatinum.EventManager;
 using StarPlatinum;
 using StarPlatinum.EventManager;
-using StarPlatinum.Service;
+using StarPlatinum.Services;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;

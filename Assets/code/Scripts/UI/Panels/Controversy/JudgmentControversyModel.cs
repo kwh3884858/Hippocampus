@@ -114,12 +114,12 @@ namespace UI.Panels
                 m_normalAttackColdTime = m_normalAttackInterval;
             }
             
-            if ((Input.GetKeyDown(KeyCode.A)|| Input.GetMouseButtonDown(0)) && IsCharging)
+            if (StarPlatinum.Services.InputService.Instance.Input.Controversy.LightAttack.triggered && IsCharging)
             {
                 IsHeavyAttack = true;
             }
 
-            if ((Input.GetKeyDown(KeyCode.D)|| Input.GetMouseButtonDown(1))  && m_normalAttackColdTime <= 0)
+            if (StarPlatinum.Services.InputService.Instance.Input.Controversy.HeavyAttack.triggered && m_normalAttackColdTime <= 0)
             {
                 IsNormalAttack = true;
             }

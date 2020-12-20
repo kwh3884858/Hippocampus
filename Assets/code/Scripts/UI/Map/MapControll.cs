@@ -145,7 +145,7 @@ public class MapControll : MonoBehaviour//获得地图后将MapCanUse设置为tu
     public void UseMap()//按M键使用地图
     {
         if (MapCanUse == true) {
-        if (Input.GetKeyDown(KeyCode.M))
+        if (StarPlatinum.Services.InputService.Instance.Input.PlayerControls.Map.triggered)
         {
                 MapActive = !MapActive;
                 //arrowbox.transform.localPosition = startPoint;

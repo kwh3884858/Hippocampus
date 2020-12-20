@@ -7,7 +7,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using StarPlatinum.Service;
+using StarPlatinum.Services;
 using StarPlatinum.Base;
 using StarPlatinum.Manager;
 using UnityEngine.Assertions;

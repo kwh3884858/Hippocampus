@@ -4,7 +4,7 @@ using UnityEngine;
 using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
 using System;
-using StarPlatinum.Service;
+using StarPlatinum.Services;
 
 namespace UI.Panels
 {

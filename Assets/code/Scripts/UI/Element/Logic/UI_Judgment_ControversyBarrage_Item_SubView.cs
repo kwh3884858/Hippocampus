@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Config.Data;
 using StarPlatinum;
 using StarPlatinum.EventManager;
-using StarPlatinum.Service;
+using StarPlatinum.Services;
 using UnityEngine;
 using UnityEngine.UI;
 
