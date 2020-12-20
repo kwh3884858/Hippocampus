@@ -150,13 +150,13 @@ namespace StarPlatinum
 
 		public void Update ()
 		{
-			if (scriptVirtualMachine == null) return;
-			if (InputService.Instance.GetAxis (KeyMap.Horizontal) >= 0.9f) {
-				scriptVirtualMachine.XS_ShutDown ();
-				scriptVirtualMachine = null;
-			} else {
-				scriptVirtualMachine.XS_RunScripts (50);
-			}
+			//if (scriptVirtualMachine == null) return;
+			//if (InputService.Instance.GetAxis (KeyMap.Horizontal) >= 0.9f) {
+			//	scriptVirtualMachine.XS_ShutDown ();
+			//	scriptVirtualMachine = null;
+			//} else {
+			//	scriptVirtualMachine.XS_RunScripts (50);
+			//}
 		}
 
 	}
