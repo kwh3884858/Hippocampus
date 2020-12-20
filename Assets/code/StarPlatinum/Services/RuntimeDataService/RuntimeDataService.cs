@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using StarPlatinum.Base;
 using UnityEngine;
 
-namespace StarPlatinum.Service
+namespace StarPlatinum.Services
 {
 	public class RuntimeDataService : Singleton<RuntimeDataService>
 	{

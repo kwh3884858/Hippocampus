@@ -9,7 +9,7 @@ using UnityEngine.Assertions;
 using UnityEngine.Rendering.Universal;
 using System;
 
-namespace StarPlatinum.Service
+namespace StarPlatinum.Services
 {
 	/// <summary>
 	/// 如果没有摄像机，那么实例化一个摄像机并把固定脚本挂上去
