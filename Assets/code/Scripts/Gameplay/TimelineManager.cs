@@ -97,7 +97,7 @@ namespace Gameplay.Manager
 
         void OnGUI()
         {
-            if (GUI.Button(new Rect(0, 0, 200, 50), "Skip Timeline(F4)")||Input.GetKeyDown(KeyCode.F4))
+            if (GUI.Button(new Rect(0, 0, 200, 50), "Skip Timeline(F4)")||InputService.Instance.Input.Console.SkipTimeline.triggered)
             {
                 Debug.Log("skip timeline");
                 Gameplay.Manager.TimelineManager.Instance().AbortTimeline();

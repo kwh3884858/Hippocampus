@@ -870,6 +870,14 @@ public class @InputActions_Player : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""SkipTimeline"",
+                    ""type"": ""Button"",
+                    ""id"": ""ea91e80b-3b95-4534-bc30-ddb73dad1af8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -914,6 +922,17 @@ public class @InputActions_Player : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Enter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4b9420ad-5bbf-474c-9475-6d2ea7d04c6e"",
+                    ""path"": ""<Keyboard>/f4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SkipTimeline"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1124,6 +1143,7 @@ public class @InputActions_Player : IInputActionCollection, IDisposable
         m_Console_PageUp = m_Console.FindAction("PageUp", throwIfNotFound: true);
         m_Console_PageDown = m_Console.FindAction("PageDown", throwIfNotFound: true);
         m_Console_Enter = m_Console.FindAction("Enter", throwIfNotFound: true);
+        m_Console_SkipTimeline = m_Console.FindAction("SkipTimeline", throwIfNotFound: true);
         // Controversy
         m_Controversy = asset.FindActionMap("Controversy", throwIfNotFound: true);
         m_Controversy_LightAttack = m_Controversy.FindAction("LightAttack", throwIfNotFound: true);
@@ -1353,6 +1373,7 @@ public class @InputActions_Player : IInputActionCollection, IDisposable
     private readonly InputAction m_Console_PageUp;
     private readonly InputAction m_Console_PageDown;
     private readonly InputAction m_Console_Enter;
+    private readonly InputAction m_Console_SkipTimeline;
     public struct ConsoleActions
     {
         private @InputActions_Player m_Wrapper;
@@ -1360,6 +1381,7 @@ public class @InputActions_Player : IInputActionCollection, IDisposable
         public InputAction @PageUp => m_Wrapper.m_Console_PageUp;
         public InputAction @PageDown => m_Wrapper.m_Console_PageDown;
         public InputAction @Enter => m_Wrapper.m_Console_Enter;
+        public InputAction @SkipTimeline => m_Wrapper.m_Console_SkipTimeline;
         public InputActionMap Get() { return m_Wrapper.m_Console; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1378,6 +1400,9 @@ public class @InputActions_Player : IInputActionCollection, IDisposable
                 @Enter.started -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnEnter;
                 @Enter.performed -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnEnter;
                 @Enter.canceled -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnEnter;
+                @SkipTimeline.started -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnSkipTimeline;
+                @SkipTimeline.performed -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnSkipTimeline;
+                @SkipTimeline.canceled -= m_Wrapper.m_ConsoleActionsCallbackInterface.OnSkipTimeline;
             }
             m_Wrapper.m_ConsoleActionsCallbackInterface = instance;
             if (instance != null)
@@ -1391,6 +1416,9 @@ public class @InputActions_Player : IInputActionCollection, IDisposable
                 @Enter.started += instance.OnEnter;
                 @Enter.performed += instance.OnEnter;
                 @Enter.canceled += instance.OnEnter;
+                @SkipTimeline.started += instance.OnSkipTimeline;
+                @SkipTimeline.performed += instance.OnSkipTimeline;
+                @SkipTimeline.canceled += instance.OnSkipTimeline;
             }
         }
     }
@@ -1522,6 +1550,7 @@ public class @InputActions_Player : IInputActionCollection, IDisposable
         void OnPageUp(InputAction.CallbackContext context);
         void OnPageDown(InputAction.CallbackContext context);
         void OnEnter(InputAction.CallbackContext context);
+        void OnSkipTimeline(InputAction.CallbackContext context);
     }
     public interface IControversyActions
     {

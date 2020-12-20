@@ -857,6 +857,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "SkipTimeline",
+                    "type": "Button",
+                    "id": "ea91e80b-3b95-4534-bc30-ddb73dad1af8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -901,6 +909,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Enter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4b9420ad-5bbf-474c-9475-6d2ea7d04c6e",
+                    "path": "<Keyboard>/f4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SkipTimeline",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
