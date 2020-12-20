@@ -1666,17 +1666,18 @@ public class Reporter : MonoBehaviour
 			}
 		}
 		else {
-			if (Input.GetMouseButtonUp(0)) {
-				gestureDetector.Clear();
-				gestureCount = 0;
-			}
-			else {
-				if (Input.GetMouseButton(0)) {
-					Vector2 p = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-					if (gestureDetector.Count == 0 || (p - gestureDetector[gestureDetector.Count - 1]).magnitude > 10)
-						gestureDetector.Add(p);
-				}
-			}
+			//TODO
+			//if (Input.GetMouseButtonUp(0)) {
+			//	gestureDetector.Clear();
+			//	gestureCount = 0;
+			//}
+			//else {
+			//	if (Input.GetMouseButton(0)) {
+			//		Vector2 p = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+			//		if (gestureDetector.Count == 0 || (p - gestureDetector[gestureDetector.Count - 1]).magnitude > 10)
+			//			gestureDetector.Add(p);
+			//	}
+			//}
 		}
 
 		if (gestureDetector.Count < 10)
