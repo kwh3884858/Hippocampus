@@ -201,7 +201,15 @@ namespace StarPlatinum.Development
                     GamePlay.Global.SingletonGlobalDataContainer.Instance.SHOW_SKIP = !GamePlay.Global.SingletonGlobalDataContainer.Instance.SHOW_SKIP;
                     PrintLog($"Now skip button display mode is {GamePlay.Global.SingletonGlobalDataContainer.Instance.SHOW_SKIP}");
                 }
-            }
+
+                else if (word.ToLower() == "mobilemode")
+                {
+					GamePlay.Global.SingletonGlobalDataContainer.Instance.MOBILE_MODE = !GamePlay.Global.SingletonGlobalDataContainer.Instance.MOBILE_MODE;
+					string strMobileMode = GamePlay.Global.SingletonGlobalDataContainer.Instance.MOBILE_MODE == true ? "Mobile Mode" : "Not Mobile Mode";
+					PrintLog($"Now dev simulation is {strMobileMode}");
+
+				}
+			}
 			if (isReadyChangeScene) {
 				isReadyChangeScene = false;
 				PrintAllValidSceneName ();

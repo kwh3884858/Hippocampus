@@ -133,5 +133,6 @@ namespace GamePlay.Global
 		public Dictionary<string, int> m_objectTriggeredCounter = new Dictionary<string, int> ();
 
         public bool SHOW_SKIP = false;
+		public bool MOBILE_MODE = false;
     }
 }
