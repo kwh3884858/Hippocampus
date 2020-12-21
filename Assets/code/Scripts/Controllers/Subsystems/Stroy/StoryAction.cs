@@ -230,6 +230,21 @@ namespace Controllers.Subsystems.Story
             m_actions.Enqueue(new StoryAction(){Type = StoryActionType.TimeLine,Content = key});
         }
 
+        public void PushAddEvidence(string key)
+        {
+            m_actions.Enqueue(new StoryAction(){Type = StoryActionType.AddEvidence,Content = key});
+        }
+
+        public void PushAddTip(string key)
+        {
+            m_actions.Enqueue(new StoryAction(){Type = StoryActionType.AddTip,Content = key});
+        }
+
+        public void PushRemoveEvidence(string key)
+        {
+            m_actions.Enqueue(new StoryAction(){Type = StoryActionType.RemoveEvidence,Content = key});
+        }
+
         private int ProcessPicPos(int pos)
         {
             return pos - 100;

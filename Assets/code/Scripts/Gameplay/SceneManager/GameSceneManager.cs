@@ -56,6 +56,8 @@ namespace GamePlay.Stage
             {
                 m_currentSceneSlot.AddOnlyOnceCallbackAfterLoaded(onlyOnceCallback);
             }
+            // active player movement
+            GamePlay.Player.PlayerController.Instance().SetMoveEnable(true);
             return m_currentSceneSlot.LoadScene(scene);
         }
         public SceneLookupEnum GetCurrentSceneEnum()
