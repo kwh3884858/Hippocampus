@@ -1042,6 +1042,30 @@ public class @InputActions_Player : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Auto"",
+                    ""type"": ""Button"",
+                    ""id"": ""7c61bf54-c12a-4fb5-8cdb-e5072bba3f0e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Skip"",
+                    ""type"": ""Button"",
+                    ""id"": ""d365de5c-d7d0-4288-93b0-88f486acaeb1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""History"",
+                    ""type"": ""Button"",
+                    ""id"": ""8daff6f0-c64c-443f-864d-b17fa0fdbfc6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -1051,8 +1075,184 @@ public class @InputActions_Player : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard And Mouse"",
                     ""action"": ""Next"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e9588eaf-b6d4-4442-b336-515607ad30d2"",
+                    ""path"": ""<DualShockGamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Next"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""50d69108-8d60-4ca7-8d09-0889b22e0d71"",
+                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Next"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""43ff9aff-1639-46ce-ab17-67728b765f97"",
+                    ""path"": ""<SwitchProControllerHID>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Next"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eeb37217-b41c-4c81-a2ce-6cb0e586707a"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Next"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0de3cc95-1ba7-4452-a2f9-e130369d671c"",
+                    ""path"": ""<DualShockGamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Auto"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1007c968-32ad-4ae3-b83a-f1b1f542fd10"",
+                    ""path"": ""<XInputController>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Auto"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e7831206-672f-4dd4-8997-953b72a00225"",
+                    ""path"": ""<SwitchProControllerHID>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Auto"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ba5b5111-96dc-496d-a1b9-f93a64820833"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Auto"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b3ac1672-0ba9-4d94-bdba-4fa60ab79fbc"",
+                    ""path"": ""<DualShockGamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Skip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e7b5b5d7-9696-4821-ad7b-7552c3c89f80"",
+                    ""path"": ""<XInputController>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Skip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""95001219-2b31-4e58-98c1-209840729cb1"",
+                    ""path"": ""<SwitchProControllerHID>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Skip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ad4bfb25-901d-495a-a609-3a5a65eb713d"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Skip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""561bf07d-42d4-42bb-9ebb-c2eb2abcfd3a"",
+                    ""path"": ""<DualShockGamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""History"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e924c34b-7c38-4b64-9fc3-bfe5ab4f5135"",
+                    ""path"": ""<XInputController>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""History"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4fa5d0c0-a711-4e9c-9371-98c38264ef73"",
+                    ""path"": ""<SwitchProControllerHID>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""History"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a98204c5-4e43-4100-9aca-7b34f350ee4c"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""History"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1131,6 +1331,9 @@ public class @InputActions_Player : IInputActionCollection, IDisposable
         // StoryPlayer
         m_StoryPlayer = asset.FindActionMap("StoryPlayer", throwIfNotFound: true);
         m_StoryPlayer_Next = m_StoryPlayer.FindAction("Next", throwIfNotFound: true);
+        m_StoryPlayer_Auto = m_StoryPlayer.FindAction("Auto", throwIfNotFound: true);
+        m_StoryPlayer_Skip = m_StoryPlayer.FindAction("Skip", throwIfNotFound: true);
+        m_StoryPlayer_History = m_StoryPlayer.FindAction("History", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1441,11 +1644,17 @@ public class @InputActions_Player : IInputActionCollection, IDisposable
     private readonly InputActionMap m_StoryPlayer;
     private IStoryPlayerActions m_StoryPlayerActionsCallbackInterface;
     private readonly InputAction m_StoryPlayer_Next;
+    private readonly InputAction m_StoryPlayer_Auto;
+    private readonly InputAction m_StoryPlayer_Skip;
+    private readonly InputAction m_StoryPlayer_History;
     public struct StoryPlayerActions
     {
         private @InputActions_Player m_Wrapper;
         public StoryPlayerActions(@InputActions_Player wrapper) { m_Wrapper = wrapper; }
         public InputAction @Next => m_Wrapper.m_StoryPlayer_Next;
+        public InputAction @Auto => m_Wrapper.m_StoryPlayer_Auto;
+        public InputAction @Skip => m_Wrapper.m_StoryPlayer_Skip;
+        public InputAction @History => m_Wrapper.m_StoryPlayer_History;
         public InputActionMap Get() { return m_Wrapper.m_StoryPlayer; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1458,6 +1667,15 @@ public class @InputActions_Player : IInputActionCollection, IDisposable
                 @Next.started -= m_Wrapper.m_StoryPlayerActionsCallbackInterface.OnNext;
                 @Next.performed -= m_Wrapper.m_StoryPlayerActionsCallbackInterface.OnNext;
                 @Next.canceled -= m_Wrapper.m_StoryPlayerActionsCallbackInterface.OnNext;
+                @Auto.started -= m_Wrapper.m_StoryPlayerActionsCallbackInterface.OnAuto;
+                @Auto.performed -= m_Wrapper.m_StoryPlayerActionsCallbackInterface.OnAuto;
+                @Auto.canceled -= m_Wrapper.m_StoryPlayerActionsCallbackInterface.OnAuto;
+                @Skip.started -= m_Wrapper.m_StoryPlayerActionsCallbackInterface.OnSkip;
+                @Skip.performed -= m_Wrapper.m_StoryPlayerActionsCallbackInterface.OnSkip;
+                @Skip.canceled -= m_Wrapper.m_StoryPlayerActionsCallbackInterface.OnSkip;
+                @History.started -= m_Wrapper.m_StoryPlayerActionsCallbackInterface.OnHistory;
+                @History.performed -= m_Wrapper.m_StoryPlayerActionsCallbackInterface.OnHistory;
+                @History.canceled -= m_Wrapper.m_StoryPlayerActionsCallbackInterface.OnHistory;
             }
             m_Wrapper.m_StoryPlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1465,6 +1683,15 @@ public class @InputActions_Player : IInputActionCollection, IDisposable
                 @Next.started += instance.OnNext;
                 @Next.performed += instance.OnNext;
                 @Next.canceled += instance.OnNext;
+                @Auto.started += instance.OnAuto;
+                @Auto.performed += instance.OnAuto;
+                @Auto.canceled += instance.OnAuto;
+                @Skip.started += instance.OnSkip;
+                @Skip.performed += instance.OnSkip;
+                @Skip.canceled += instance.OnSkip;
+                @History.started += instance.OnHistory;
+                @History.performed += instance.OnHistory;
+                @History.canceled += instance.OnHistory;
             }
         }
     }
@@ -1531,5 +1758,8 @@ public class @InputActions_Player : IInputActionCollection, IDisposable
     public interface IStoryPlayerActions
     {
         void OnNext(InputAction.CallbackContext context);
+        void OnAuto(InputAction.CallbackContext context);
+        void OnSkip(InputAction.CallbackContext context);
+        void OnHistory(InputAction.CallbackContext context);
     }
 }
