@@ -455,6 +455,18 @@ namespace UI.Panels
                         SetActionState(ActionState.End);
                     });
                     break;
+                case StoryActionType.AddEvidence:
+                    EvidenceDataManager.Instance.AddEvidence (m_curAction.Content);
+                    SetActionState(ActionState.End);
+                    break;
+                case StoryActionType.RemoveEvidence:
+                    EvidenceDataManager.Instance.RemoveEvidence(m_curAction.Content);
+                    SetActionState(ActionState.End);
+                    break;
+                case StoryActionType.AddTip:
+                    Tips.TipsManager.Instance.UnlockTip (m_curAction.Content, Tips.TipsManager.ConvertDateTimeToLong (System.DateTime.Now));// 添加tip 数据
+                    SetActionState(ActionState.End);
+                    break;
                 default:
                     Debug.LogError($"未处理对话行为:{storyAction.Type}");
                     break;

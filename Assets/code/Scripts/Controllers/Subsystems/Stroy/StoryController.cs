@@ -51,6 +51,9 @@ namespace Controllers.Subsystems.Story
         ChangeFrontImg,
         RemoveAllExhibit,
         TimeLine,
+        AddEvidence,
+        AddTip,
+        RemoveEvidence,
     }
 
     public class StoryController : ControllerBase
