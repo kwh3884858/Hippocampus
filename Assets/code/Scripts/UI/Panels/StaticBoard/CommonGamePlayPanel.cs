@@ -109,12 +109,18 @@ namespace UI.Panels
 
 		public void OnClickInteract ()
 		{
-			CoreContainer.Instance.EnablePlayerInteractability ();
+			//Use new input system
+			//CoreContainer.Instance.EnablePlayerInteractability ();
 		}
 
 		public void UpdateButtonVisiable(bool isVisiable)
         {
-			//m_Btn_Interact_Image.gameObject.SetActive(isVisiable);
+            if (Application.platform == RuntimePlatform.Android ||
+				Application.platform == RuntimePlatform.IPhonePlayer ||
+				GamePlay.Global.SingletonGlobalDataContainer.Instance.MOBILE_MODE)
+            {
+				m_Btn_Interact_Image.gameObject.SetActive(isVisiable);
+			}
 			m_Img_ItemName_Image.gameObject.SetActive(isVisiable);
         }
 
