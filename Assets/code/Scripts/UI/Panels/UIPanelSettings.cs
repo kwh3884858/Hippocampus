@@ -90,7 +90,7 @@ namespace UI.Panels
         public static List<UIPanelSettings> BattleInfo = new List<UIPanelSettings>()
         {
             new UIPanelSettings(UIPanelType.JoystickPanel,UIPanelUnLoadMode.Destroy,false,UIPanelLayer.Layer2,true),
-            new UIPanelSettings(UIPanelType.UIGameplayPromptwidgetPanel,UIPanelUnLoadMode.Disabled, false, UIPanelLayer.Layer3),
+            new UIPanelSettings(UIPanelType.UIGameplayPromptwidgetPanel,UIPanelUnLoadMode.Disabled, false, UIPanelLayer.Layer3, true),
             new UIPanelSettings(UIPanelType.UICommonGameplayTransitionPanel,UIPanelUnLoadMode.Disabled,false,UIPanelLayer.Layer5),
             new UIPanelSettings(UIPanelType.UIJudgmentControversyPanel,UIPanelUnLoadMode.Destroy,false, UIPanelLayer.Layer4),
         };
