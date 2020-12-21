@@ -28,10 +28,12 @@ namespace HeavenGateEditor {
         PlayCutIn,
         PlayInteractionAnimation,
         PlayAnimation,
+        PlayTimeline,
         LoadFrontground,
         LoadBackground,
         LoadSkybox,
         SwitchTalkUIType,
+        RemoveSpecificExhibit,
         RemoveAllExhibit,
         Amount
     };
@@ -46,10 +48,12 @@ namespace HeavenGateEditor {
         "PlayCutIn",
         "PlayInteractionAnimation",
         "playAnimation",
+        "PlayTimeline",
         "LoadFrontground",
         "LoadBackground",
         "LoadSkybox",
         "SwitchTalkUIType",
+        "RemoveSpecificExhibit",
         "RemoveAllExhibit"
     };
 
@@ -110,6 +114,9 @@ namespace HeavenGateEditor {
         else if (strcmp(tmpEventType, eventTypeString[(int)EventType::PlayAnimation]) == 0) {
             p.m_eventType = EventType::PlayAnimation;
         }
+        else if (strcmp(tmpEventType, eventTypeString[(int)EventType::PlayTimeline]) == 0) {
+            p.m_eventType = EventType::PlayTimeline;
+        }
         else if (strcmp(tmpEventType, eventTypeString[(int)EventType::LoadFrontground]) == 0){
             p.m_eventType = EventType::LoadFrontground;
         }
@@ -121,6 +128,9 @@ namespace HeavenGateEditor {
         }
         else if (strcmp(tmpEventType, eventTypeString[(int)EventType::SwitchTalkUIType]) == 0){
             p.m_eventType = EventType::SwitchTalkUIType;
+        }
+        else if (strcmp(tmpEventType, eventTypeString[(int)EventType::RemoveSpecificExhibit]) == 0){
+            p.m_eventType = EventType::RemoveSpecificExhibit;
         }
         else if (strcmp(tmpEventType, eventTypeString[(int)EventType::RemoveAllExhibit]) == 0){
             p.m_eventType = EventType::RemoveAllExhibit;
