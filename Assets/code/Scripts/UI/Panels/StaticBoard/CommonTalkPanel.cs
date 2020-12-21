@@ -159,7 +159,32 @@ namespace UI.Panels
         {
             base.Initialize(uiDataProvider, settings);
             m_textHelp = new TextHelp();
-            
+
+            StarPlatinum.Services.InputService.Instance.Input.StoryPlayer.Next.started += OnNext;
+            StarPlatinum.Services.InputService.Instance.Input.StoryPlayer.Auto.started += OnAuto;
+            StarPlatinum.Services.InputService.Instance.Input.StoryPlayer.Skip.started += OnSkip;
+            StarPlatinum.Services.InputService.Instance.Input.StoryPlayer.History.started += OnHistory; 
+
+        }
+
+        private void OnHistory(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+        {
+            ClickShowLog();
+        }
+
+        private void OnSkip(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+        {
+            ClickSkip();
+        }
+
+        private void OnAuto(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+        {
+            AutoPlay();
+        }
+
+        private void OnNext(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+        {
+            ClickSkip();
         }
 
         public override void Hide()
