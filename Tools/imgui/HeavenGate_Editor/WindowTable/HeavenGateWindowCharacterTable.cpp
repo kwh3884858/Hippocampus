@@ -21,25 +21,11 @@ namespace HeavenGateEditor {
 
     HeavenGateWindowCharacterTable::HeavenGateWindowCharacterTable()
     {
-    
-
 
     }
 
     HeavenGateWindowCharacterTable::~HeavenGateWindowCharacterTable()
     {
-
-        //if (m_fileManager)
-        //{
-        //    delete m_fileManager;
-        //}
-        //m_fileManager = nullptr;
-
-        //if (characterTable)
-        //{
-        //    delete characterTable;
-        //}
-        //characterTable = nullptr;
 
     }
 
@@ -48,9 +34,7 @@ namespace HeavenGateEditor {
 
         StoryTable<CHARACTER_COLUMN>* const characterTable = StoryTableManager::Instance().GetCharacterTable();
 
-
         memset(m_fullPath, 0, sizeof(m_fullPath));
-
         HeavenGateEditorUtility::GetStoryPath(m_fullPath);
         strcat(m_fullPath, CHARACTER_TABLE_NAME);
 
@@ -71,16 +55,13 @@ namespace HeavenGateEditor {
     void HeavenGateWindowCharacterTable::UpdateMainWindow()
     {
         StoryTable<CHARACTER_COLUMN>* const characterTable = StoryTableManager::Instance().GetCharacterTable();
-
         if (characterTable == nullptr)
         {
             return;
         }
-
         ImGui::Separator();
 
         ImGui::Text("Chapter Table");
-
         if (ImGui::Button("Add New Row"))
         {
             characterTable->AddRow();
@@ -98,19 +79,11 @@ namespace HeavenGateEditor {
         {
             ImGui::Text(characterTable->GetName(i));   ImGui::NextColumn();
         }
-
-        //ImGui::Text("ID"); ImGui::NextColumn();
-        //ImGui::Text("Name"); ImGui::NextColumn();
-        //ImGui::Text("Path"); ImGui::NextColumn();
-        //ImGui::Text("Hovered"); ImGui::NextColumn();
         ImGui::Separator();
-        //const char* names[3] = { "One", "Two", "Three" };
-        //const char* paths[3] = { "/path/one", "/path/two", "/path/three" };
+
         static int selected = -1;
-
-
         char order[8] = "";
-         char constant[16] = "";
+        char constant[16] = "";
         for (int i = 0; i < characterTable->GetSize(); i++)
         {
             char label[32];
@@ -119,21 +92,16 @@ namespace HeavenGateEditor {
                 selected = i;
 
             sprintf(order, "%d", i);
-            //bool hovered = ImGui::IsItemHovered();
             ImGui::NextColumn();
-            //ImGui::Text(names[i]); ImGui::NextColumn();
-            //ImGui::Text(paths[i]); ImGui::NextColumn();
-            //ImGui::Text("%d", hovered); ImGui::NextColumn();
 
-                for (int j = 0; j < CHARACTER_COLUMN; j++)
-                {
-                     char * const content = characterTable->GetContent(i, j);
-                     strcpy(constant, characterTable->GetName(j));
-                     strcat(constant, order);
-                     ImGui::InputText(constant, content, MAX_COLUMNS_CONTENT_LENGTH - 4);
-                     ImGui::NextColumn();
-                }
-
+            for (int j = 0; j < CHARACTER_COLUMN; j++)
+            {
+                    char * const content = characterTable->GetContent(i, j);
+                    strcpy(constant, characterTable->GetName(j));
+                    strcat(constant, order);
+                    ImGui::InputText(constant, content, MAX_COLUMNS_CONTENT_LENGTH - 4);
+                    ImGui::NextColumn();
+            }
         }
 
         ImGui::Columns(1);

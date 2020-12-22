@@ -323,7 +323,11 @@ namespace HeavenGateEditor {
                         break;
                     case TableType::Bgm:
                         break;
-                        //case  TableType::Effect:
+                    case  TableType::Effect:
+                        break;
+                    case  TableType::Position:
+                        break;
+                    case  TableType::Rotation:
                         break;
                     default:
                         break;
@@ -360,6 +364,12 @@ namespace HeavenGateEditor {
                     }
                     if (strcmp(token->m_content, tipTableString[(int)TipTableLayout::Type]) == 0){
                         editorState.push_back(TableType::Tips);
+                    }
+                    if (strcmp(token->m_content, positionTableString[(int)PositionTableLayout::Type]) == 0) {
+                        editorState.push_back(TableType::Position);
+                    }
+                    if (strcmp(token->m_content, rotationTableString[(int)RotationTableLayout::Type]) == 0) {
+                        editorState.push_back(TableType::Rotation);
                     }
                 }
             }
@@ -550,7 +560,38 @@ namespace HeavenGateEditor {
 
                 }
                 break;
-
+                case TableType::Position:
+                {
+                    const StoryTable<POSITION_MAX_COLUMN>* const positionTable = StoryTableManager::Instance().GetPositionTable();
+                    for (int i = 0; i < positionTable->GetSize(); i++)
+                    {
+                        const StoryRow<POSITION_MAX_COLUMN>* const row = positionTable->GetRow(i);
+                        if (strcmp(row->Get(0), token->m_content) == 0)
+                        {
+                            strcpy(token->m_content, row->Get(MappingLayoutToArrayIndex((int)PositionTableLayout::X)));
+                            strcat(token->m_content, ",");
+                            strcat(token->m_content, row->Get(MappingLayoutToArrayIndex((int)PositionTableLayout::Y)));
+                            strcat(token->m_content, ",");
+                            strcat(token->m_content, row->Get(MappingLayoutToArrayIndex((int)PositionTableLayout::Z)));
+                        }
+                    }
+                }
+                case TableType::Rotation:
+                {
+                    const StoryTable<ROTATION_MAX_COLUMN>* const rotationTable = StoryTableManager::Instance().GetRotationTable();
+                    for (int i = 0; i < rotationTable->GetSize(); i++)
+                    {
+                        const StoryRow<ROTATION_MAX_COLUMN>* const row = rotationTable->GetRow(i);
+                        if (strcmp(row->Get(0), token->m_content) == 0)
+                        {
+                            strcpy(token->m_content, row->Get(MappingLayoutToArrayIndex((int)RotationTableLayout::X)));
+                            strcat(token->m_content, ",");
+                            strcat(token->m_content, row->Get(MappingLayoutToArrayIndex((int)RotationTableLayout::Y)));
+                            strcat(token->m_content, ",");
+                            strcat(token->m_content, row->Get(MappingLayoutToArrayIndex((int)RotationTableLayout::Z)));
+                        }
+                    }
+                }
 
                 default:
                     break;

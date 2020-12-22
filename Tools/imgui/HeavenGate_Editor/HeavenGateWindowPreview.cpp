@@ -70,6 +70,12 @@ namespace HeavenGateEditor {
         char tmpPause[MAX_COLUMNS_CONTENT_LENGTH];
         memset(tmpPause, '\0', MAX_COLUMNS_CONTENT_LENGTH);
 
+        char tmpPoisiton[MAX_COLUMNS_CONTENT_LENGTH];
+        memset(tmpPoisiton, '\0', MAX_COLUMNS_CONTENT_LENGTH);
+
+        char tmpRotation[MAX_COLUMNS_CONTENT_LENGTH];
+        memset(tmpRotation, '\0', MAX_COLUMNS_CONTENT_LENGTH);
+
         bool isExhibit = false;
 
         //static float wrap_width = 200.0f;
@@ -82,15 +88,15 @@ namespace HeavenGateEditor {
         ImGui::Separator();
 
 //        ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + ImGui::GetItemRectSize().x - 5);
-
+        ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + ImGui::GetWindowWidth() - 15);
         for (auto iter = tokens.cbegin(); iter != tokens.end(); iter++)
         {
             if ((*iter)->m_tokeType == StoryJsonContentCompiler::TokenType::TokenContent)
             {
-                ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + ImGui::GetWindowWidth() - 15);
+                //ImGui::PushTextWrapPos(ImGui::GetCursorPos().x + ImGui::GetWindowWidth() - 15);
                 ImGui::TextColored(color, (*iter)->m_content);
 //                ImGui::SameLine(0, 0);
-                ImGui::PopTextWrapPos();
+                //ImGui::PopTextWrapPos();
 
             }
             else if ((*iter)->m_tokeType == StoryJsonContentCompiler::TokenType::TokenInstructor)
@@ -115,7 +121,6 @@ namespace HeavenGateEditor {
                     case HeavenGateEditor::TableType::Font_Size:
                         if (strlen(tmpFontSize) != 0) {
                             ImGui::TextColored(colorGreen, "[End font size]");
-
                         }
                         else {
                             ImGui::TextColored(colorRed, "!!Can not find font size");
@@ -125,6 +130,7 @@ namespace HeavenGateEditor {
                         break;
                     case HeavenGateEditor::TableType::Color:
                         color = colorWhite;
+                        ImGui::SameLine(0, 0);
                         break;
                     case HeavenGateEditor::TableType::Tips:
                         ImGui::TextColored(colorGreen, "[Show Tip Here: %s]", tmpTip);
@@ -197,6 +203,24 @@ namespace HeavenGateEditor {
 
 //                        ImGui::SameLine(0, 0);
                         break;
+                    case TableType::Position:
+                        if (strlen(tmpPoisiton) != 0) {
+                            ImGui::TextColored(colorGreen, "[Player Position Set to: %s]", tmpPoisiton);
+                        }
+                        else {
+                            ImGui::TextColored(colorRed, "!!Can not find position alias");
+                        }
+                        memset(tmpPoisiton, '\0', MAX_COLUMNS_CONTENT_LENGTH);
+                        break;
+                    case TableType::Rotation:
+                        if (strlen(tmpRotation) != 0) {
+                            ImGui::TextColored(colorGreen, "[Player Rotation Set to: %s]", tmpRotation);
+                        }
+                        else {
+                            ImGui::TextColored(colorRed, "!!Can not find rotation alias");
+                        }
+                        memset(tmpRotation, '\0', MAX_COLUMNS_CONTENT_LENGTH);
+                        break;
                     default:
                         break;
                     }
@@ -233,9 +257,14 @@ namespace HeavenGateEditor {
                     if (strcmp((*iter)->m_content, exhibitTableString[(int)ExhibitTableLayout::Type]) == 0) {
                         editorState.push_back(TableType::Exhibit);
                     }
-                    if (strcmp((*iter)->m_content, tachieTableString[(int)TachieTableLayout::Type]) == 0)
-                    {
+                    if (strcmp((*iter)->m_content, tachieTableString[(int)TachieTableLayout::Type]) == 0){
                         editorState.push_back(TableType::Tachie);
+                    }
+                    if (strcmp((*iter)->m_content, positionTableString[(int)PositionTableLayout::Type]) == 0) {
+                        editorState.push_back(TableType::Position);
+                    }
+                    if (strcmp((*iter)->m_content, rotationTableString[(int)RotationTableLayout::Type]) == 0) {
+                        editorState.push_back(TableType::Rotation);
                     }
                 }
             }
@@ -290,7 +319,7 @@ namespace HeavenGateEditor {
                         }
 
                     }
-
+                    ImGui::SameLine(0, 0);
                     break;
                 }
                 case HeavenGateEditor::TableType::Exhibit: {
@@ -464,6 +493,42 @@ namespace HeavenGateEditor {
 
                 }
                 break;
+                case TableType::Position:
+                {
+                    const StoryTable<POSITION_MAX_COLUMN>* const positionTable = StoryTableManager::Instance().GetPositionTable();
+                    for (int i = 0; i < positionTable->GetSize(); i++)
+                    {
+                        const StoryRow<POSITION_MAX_COLUMN>* const row = positionTable->GetRow(i);
+                        if (strcmp(row->Get(0), (*iter)->m_content) == 0)
+                        {
+                            strcpy(tmpPoisiton, row->Get(MappingLayoutToArrayIndex((int)PositionTableLayout::X)));
+                            strcat(tmpPoisiton, ",");
+                            strcat(tmpPoisiton, row->Get(MappingLayoutToArrayIndex((int)PositionTableLayout::Y)));
+                            strcat(tmpPoisiton, ",");
+                            strcat(tmpPoisiton, row->Get(MappingLayoutToArrayIndex((int)PositionTableLayout::Z)));
+                        }
+                    }
+                }
+                break;
+
+                case TableType::Rotation:
+                {
+                    const StoryTable<ROTATION_MAX_COLUMN>* const rotationTable = StoryTableManager::Instance().GetRotationTable();
+                    for (int i = 0; i < rotationTable->GetSize(); i++)
+                    {
+                        const StoryRow<ROTATION_MAX_COLUMN>* const row = rotationTable->GetRow(i);
+                        if (strcmp(row->Get(0), (*iter)->m_content) == 0)
+                        {
+                            strcpy(tmpRotation, row->Get(MappingLayoutToArrayIndex((int)RotationTableLayout::X)));
+                            strcat(tmpRotation, ",");
+                            strcat(tmpRotation, row->Get(MappingLayoutToArrayIndex((int)RotationTableLayout::Y)));
+                            strcat(tmpRotation, ",");
+                            strcat(tmpRotation, row->Get(MappingLayoutToArrayIndex((int)RotationTableLayout::Z)));
+                        }
+                    }
+                }
+                break;
+
                 default:
                     break;
                 }
@@ -475,7 +540,7 @@ namespace HeavenGateEditor {
             }
 
         }
-
+        ImGui::PopTextWrapPos();
 //        ImGui::GetWindowDrawList()->AddRect(ImGui::GetItemRectMin(), ImGui::GetItemRectMax(), IM_COL32(255, 255, 0, 255));
 //        ImGui::PopTextWrapPos();
 

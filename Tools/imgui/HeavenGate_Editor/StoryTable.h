@@ -508,6 +508,34 @@ namespace HeavenGateEditor {
             }
             break;
         }
+        case TableType::Position:
+        {
+            j[tableString[(int)TableLayout::Type]] = positionTableString[(int)PositionTableLayout::Type];
+            for (int i = 0; i < p.GetSize(); i++) {
+                tmp = p.GetRow(i);
+                j[tableString[(int)TableLayout::Value]].push_back(json{
+                    {positionTableString[(int)PositionTableLayout::PositionAlias],          tmp->Get(0) },
+                    {positionTableString[(int)PositionTableLayout::X],                      tmp->Get(1) },
+                    {positionTableString[(int)PositionTableLayout::Y],                      tmp->Get(2) },
+                    {positionTableString[(int)PositionTableLayout::Z],                      tmp->Get(3) }
+                    });
+            }
+            break;
+        }
+        case TableType::Rotation:
+        {
+            j[tableString[(int)TableLayout::Type]] = rotationTableString[(int)RotationTableLayout::Type];
+            for (int i = 0; i < p.GetSize(); i++) {
+                tmp = p.GetRow(i);
+                j[tableString[(int)TableLayout::Value]].push_back(json{
+                    {rotationTableString[(int)RotationTableLayout::RotationAlias],          tmp->Get(0) },
+                    {rotationTableString[(int)RotationTableLayout::X],                      tmp->Get(1) },
+                    {rotationTableString[(int)RotationTableLayout::Y],                      tmp->Get(2) },
+                    {rotationTableString[(int)RotationTableLayout::Z],                      tmp->Get(3) }
+                    });
+            }
+            break;
+        }
 
         default:
         {
@@ -900,7 +928,46 @@ namespace HeavenGateEditor {
             }
             return;
         }
-
+        if (strcmp(typeString, positionTableString[(int)PositionTableLayout::Type]) == 0)
+        {
+            p.SetTableType(TableType::Position);
+            for (int i = 1; i < (int)PositionTableLayout::Amount; i++) {
+                p.PushName(positionTableString[i]);
+            }
+            char content[MAX_COLUMNS_CONTENT_LENGTH];
+            for (int i = 0; i < values.size(); i++)
+            {
+                GetCharPointerException(content, values[i], positionTableString[(int)PositionTableLayout::PositionAlias]);
+                p.PushContent(content);
+                GetCharPointerException(content, values[i], positionTableString[(int)PositionTableLayout::X]);
+                p.PushContent(content);
+                GetCharPointerException(content, values[i], positionTableString[(int)PositionTableLayout::Y]);
+                p.PushContent(content);
+                GetCharPointerException(content, values[i], positionTableString[(int)PositionTableLayout::Z]);
+                p.PushContent(content);
+            }
+            return;
+        }
+        if (strcmp(typeString, rotationTableString[(int)RotationTableLayout::Type]) == 0)
+        {
+            p.SetTableType(TableType::Position);
+            for (int i = 1; i < (int)RotationTableLayout::Amount; i++) {
+                p.PushName(rotationTableString[i]);
+            }
+            char content[MAX_COLUMNS_CONTENT_LENGTH];
+            for (int i = 0; i < values.size(); i++)
+            {
+                GetCharPointerException(content, values[i], rotationTableString[(int)RotationTableLayout::RotationAlias]);
+                p.PushContent(content);
+                GetCharPointerException(content, values[i], rotationTableString[(int)RotationTableLayout::X]);
+                p.PushContent(content);
+                GetCharPointerException(content, values[i], rotationTableString[(int)RotationTableLayout::Y]);
+                p.PushContent(content);
+                GetCharPointerException(content, values[i], rotationTableString[(int)RotationTableLayout::Z]);
+                p.PushContent(content);
+            }
+            return;
+        }
     }
 
 }

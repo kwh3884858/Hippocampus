@@ -56,6 +56,12 @@ namespace HeavenGateEditor {
         const StoryTable<TACHIE_POSITION_MAX_COLUMN>* const GetTachiePositionTable() const;
         StoryTable<TACHIE_POSITION_MAX_COLUMN>*  GetTachiePositionTable();
 
+        const StoryTable<POSITION_MAX_COLUMN>* const GetPositionTable() const;
+        StoryTable<POSITION_MAX_COLUMN>* GetPositionTable();
+
+        const StoryTable<ROTATION_MAX_COLUMN>* const GetRotationTable() const;
+        StoryTable<ROTATION_MAX_COLUMN>* GetRotationTable();
+
     protected:
     private:
 
@@ -64,8 +70,6 @@ namespace HeavenGateEditor {
         StoryTable<FONT_SIZE_MAX_COLUMN>* m_fontSizeTable;
         StoryTable<TIP_MAX_COLUMN, TIP_TABLE_MAX_CONTENT>* m_tipTable;
         StoryTable<TACHIE_MOVE_MAX_COLUMN>* m_paintMovetable;
-        //StoryTable<CHAPTER_COLUMN>* m_chapterTable;
-        //StoryTable<SCENE_COLUMN>* m_sceneTable;
         StoryTable<CHARACTER_COLUMN>* m_characterTable;
         StoryTable<PAUSE_MAX_COLUMN>* m_pauseTable;
         StoryTable<EXHIBIT_COLUMN, EXHIBIT_TABLE_MAX_CONTENT>* m_exhibitTable;
@@ -73,6 +77,8 @@ namespace HeavenGateEditor {
         StoryTable<BGM_MAX_COLUMN>* m_bgmTable;
         StoryTable<TACHIE_MAX_COLUMN>* m_tachieTable;
         StoryTable<TACHIE_POSITION_MAX_COLUMN>* m_tachiePositionTable;
+        StoryTable<POSITION_MAX_COLUMN>* m_positionTable;
+        StoryTable<ROTATION_MAX_COLUMN>* m_rotationTable;
     };
 
 

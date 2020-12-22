@@ -14,8 +14,6 @@ namespace HeavenGateEditor {
     class HeavenGateWindowColorTable;
     class HeavenGateWindowTipTable;
     class HeavenGateWindowTachieMoveTable;
-    //class HeavenGateWindowChapterTable;
-    //class HeavenGateWindowSceneTable;
     class HeavenGateWindowCharacterTable;
     class HeavenGateWindowPauseTable;
     class HeavenGateWindowExhibitTable;
@@ -24,6 +22,8 @@ namespace HeavenGateEditor {
     class HeavenGateWindowTachieTable;
     class HeavenGateEditorNodeGraphExample;
     class HeavenGateWindowTachiePositionTable;
+    class HeavenGateWindowPositionTable;
+    class HeavenGateWindowRotationTable;
 
     class HeavenGateWindowCenter : public HeavenGateEditorBaseWindow
     {
@@ -47,8 +47,6 @@ namespace HeavenGateEditor {
         HeavenGateWindowColorTable*             m_colorTable;
         HeavenGateWindowTipTable*               m_tipTable;
         HeavenGateWindowTachieMoveTable*         m_heavenGateWindowPaintMoveTable;
-        //HeavenGateWindowChapterTable*       m_chapterTable;
-        //HeavenGateWindowSceneTable*         m_sceneTable;
         HeavenGateWindowCharacterTable*         m_characterTable;
         HeavenGateWindowPauseTable*             m_pauseTable;
         HeavenGateWindowExhibitTable*           m_exhibitTable;
@@ -57,14 +55,14 @@ namespace HeavenGateEditor {
         HeavenGateWindowTachieTable*            m_tachieTable;
         HeavenGateEditorNodeGraphExample*       m_nodeGraphExample;
         HeavenGateWindowTachiePositionTable*    m_tachiePositionTable;
+        HeavenGateWindowPositionTable*          m_positionTable;
+        HeavenGateWindowRotationTable*          m_rotationTable;
 
 //        bool* show_editor_window;
         bool* show_font_size_table_window;
         bool* show_color_table_window;
         bool* show_tip_table_window;
         bool* show_heaven_gate_window_paint_move_table;
-        //bool* show_chapter_table;
-        //bool* show_scene_table;
         bool* show_character_table;
         bool* show_pause_table;
         bool* show_exhibit_table;
@@ -73,6 +71,8 @@ namespace HeavenGateEditor {
         bool* show_tachie_table;
         bool* show_node_graph_example;
         bool* show_tachie_poisition_table;
+        bool* show_poisition_table;
+        bool* show_rotation_table;
     };
 }
 
