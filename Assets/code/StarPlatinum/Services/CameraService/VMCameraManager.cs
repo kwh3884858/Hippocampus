@@ -24,6 +24,11 @@ public class VMCameraManager : MonoSingleton<VMCameraManager>
 
     }
 
+    public void SetLookAtRotation(float x, float y, float z)
+    {
+        m_VMCameraController.SetLookRotation(x,y,z);
+    }
+
     public void SetCameraRotate(bool brotate)
     {
         m_VMCameraController.SetCameraRotation(brotate);
