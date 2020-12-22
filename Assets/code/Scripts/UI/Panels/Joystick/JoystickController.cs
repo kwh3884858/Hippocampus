@@ -1,4 +1,5 @@
 ﻿using GamePlay.Player;
+using StarPlatinum.Services;
 using System.Collections;
 using System.Collections.Generic;
 using UI.Panels;
@@ -15,6 +16,9 @@ public class JoystickController : UIPanel<UIDataProviderGameScene, TalkDataProvi
     }
     /// <summary>控制虚拟摇杆的位置</summary>
     public ETCJoystick joystick;
+    /// <summary>摇杆的移动控制</summary>
+    [SerializeField]
+    private UnityEngine.InputSystem.OnScreen.OnScreenStick screenStick = null;
     /// <summary>自身位置</summary>
     private RectTransform myPostionRectTrans = null;
 
@@ -30,39 +34,57 @@ public class JoystickController : UIPanel<UIDataProviderGameScene, TalkDataProvi
         {
             myPostionRectTrans = joystick.transform as RectTransform;
         }
-
+        //InputService.Instance.Input.PlayerControls.Move.canceled += Move_canceled;
         //Now use the new input system, all value should enter unity input system.
         //joystick.onMove.AddListener(PlayerController.Instance().JoystickMoveEvent);
         //joystick.onMoveEnd.AddListener(PlayerController.Instance().JoystickMoveEndEvent);
 
     }
 
+    //private void Move_canceled(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    //{
+    //    throw new System.NotImplementedException();
+    //}
+
     #region UI Callback
     public void OnBeginDrag(PointerEventData eventData)
     {
-        ((IBeginDragHandler)joystick).OnBeginDrag(eventData);
+        //((IBeginDragHandler)joystick).OnBeginDrag(eventData);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        ((IDragHandler)joystick).OnDrag(eventData);
+        if (screenStick != null)
+        {
+            screenStick.OnDrag(eventData);
+        }
+        //((IDragHandler)joystick).OnDrag(eventData);
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         myPostionRectTrans.anchoredPosition = eventData.position;
         //joystick.transform.position = eventData.position;
-        joystick.OnPointerDown(eventData);
+        //joystick.SetisNoReturnThumb();
+        if(screenStick != null)
+        {
+            screenStick.OnPointerDown(eventData);
+        }
+        //joystick.OnPointerDown(eventData);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        ((IPointerEnterHandler)joystick).OnPointerEnter(eventData);
+        //((IPointerEnterHandler)joystick).OnPointerEnter(eventData);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        ((IPointerUpHandler)joystick).OnPointerUp(eventData);
+        if (screenStick != null)
+        {
+            screenStick.OnPointerUp(eventData);
+        }
+        //((IPointerUpHandler)joystick).OnPointerUp(eventData);
     }
     #endregion
 }

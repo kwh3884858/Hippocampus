@@ -115,9 +115,7 @@ namespace UI.Panels
 
 		public void UpdateButtonVisiable(bool isVisiable)
         {
-            if (Application.platform == RuntimePlatform.Android ||
-				Application.platform == RuntimePlatform.IPhonePlayer ||
-				GamePlay.Global.SingletonGlobalDataContainer.Instance.MOBILE_MODE)
+            if (GamePlay.Global.SingletonGlobalDataContainer.Instance.PlatformCtrl.IsMobile)
             {
 				m_Btn_Interact_Image.gameObject.SetActive(isVisiable);
 			}
