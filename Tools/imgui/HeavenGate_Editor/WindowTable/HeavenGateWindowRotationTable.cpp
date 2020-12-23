@@ -31,7 +31,6 @@ namespace HeavenGateEditor {
 
     void HeavenGateWindowRotationTable::Initialize()
     {
-
         StoryTable<ROTATION_MAX_COLUMN>* const rotationTable = StoryTableManager::Instance().GetRotationTable();
 
         memset(m_fullPath, 0, sizeof(m_fullPath));

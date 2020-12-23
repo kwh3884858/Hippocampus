@@ -22,7 +22,7 @@ namespace HeavenGateEditor {
     class HeavenGateWindowSelectStory;
     class HeavenGatePopupInputFileName;
     class HeavenGatePopupMessageBox;
-class HeavenGateWindowPreview;
+    class HeavenGateWindowPreview;
 
     //Story node family
     class StoryJson;
