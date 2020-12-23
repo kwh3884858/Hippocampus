@@ -40,10 +40,11 @@ namespace UI.Panels
         {
             //			UiDataProvider.StaticBoard.ShowTalk ("9", OnTalkEnd);
             //GamePlay.Player.PlayerController.Instance().SetMoveEnable(true);
-            if (GamePlay.Global.SingletonGlobalDataContainer.Instance.PlatformCtrl.IsMobile)
-            {
-                UIManager.Instance().ShowPanel(UIPanelType.JoystickPanel);// 显示摇杆UI
-            }
+            //if (GamePlay.Global.SingletonGlobalDataContainer.Instance.PlatformCtrl.IsMobile)
+            //{
+            //    UIManager.Instance().ShowPanel(UIPanelType.JoystickPanel);// 显示摇杆UI
+            //    UIManager.Instance().ShowPanel(UIPanelType.UIExplorationCameraviewpointPanel);// 显示摄像机控制UI
+            //}
         }
 
         public void HidSelef()

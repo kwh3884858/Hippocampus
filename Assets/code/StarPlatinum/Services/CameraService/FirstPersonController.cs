@@ -62,6 +62,12 @@ namespace Assets.code.StarPlatinum.Services.CameraService
         void Start()
         {
             // Make the rigid body not change rotation
+            if (GamePlay.Global.SingletonGlobalDataContainer.Instance.PlatformCtrl.IsMobile)
+            {
+                // 移动平台的摄像头移动灵敏度
+                sensitivityX = 5f;
+                sensitivityY = 5f;
+            }
         }
     }
 }
