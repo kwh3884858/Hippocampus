@@ -75,13 +75,12 @@ namespace UI.Panels
             {
                 Debug.LogError("历史记录获取错误!!!");
             }
-            return m_logInfo[index];
+            return m_logInfo[m_logInfo.Count - index - 1];
         }
         
         private void RefreshLogInfos()
         {
             m_logInfo = UiDataProvider.Data.ControllerManager.LogController.GetLogInfos();
-            m_logInfo.Reverse();
         }
         
         #region Member
