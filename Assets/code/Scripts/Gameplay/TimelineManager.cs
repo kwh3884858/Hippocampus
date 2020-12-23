@@ -111,6 +111,11 @@ namespace Gameplay.Manager
             CameraService.Instance.SwitchRaycastState(false);
             UI.UIManager.Instance().HideStaticPanel(UIPanelType.UICommonGameplayPanel);
             UI.UIManager.Instance().HideStaticPanel(UIPanelType.UICommonBookmarkPanel);
+            if (GamePlay.Global.SingletonGlobalDataContainer.Instance.PlatformCtrl.IsMobile)
+            {
+                UI.UIManager.Instance().HidePanel(UIPanelType.JoystickPanel);// 关闭摇杆UI
+                UI.UIManager.Instance().HidePanel(UIPanelType.UIExplorationCameraviewpointPanel);// 关闭摄像机控制UI
+            }
         }
 
         private void ExitCinemaState()
@@ -120,6 +125,11 @@ namespace Gameplay.Manager
             CameraService.Instance.SwitchRaycastState(true);
             UI.UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonGameplayPanel);
             UI.UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonBookmarkPanel);
+            if (GamePlay.Global.SingletonGlobalDataContainer.Instance.PlatformCtrl.IsMobile)
+            {
+                UI.UIManager.Instance().ShowPanel(UIPanelType.JoystickPanel);// 显示摇杆UI
+                UI.UIManager.Instance().ShowPanel(UIPanelType.UIExplorationCameraviewpointPanel);// 显示摄像机控制UI
+            }
         }
 
         private PlayableDirector m_TimelinePlayer;
