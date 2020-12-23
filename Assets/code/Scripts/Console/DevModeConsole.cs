@@ -76,6 +76,10 @@ namespace StarPlatinum.Development
 				isActive = !isActive;
 				m_parentPanel.SetActive (isActive);
 				PlayerController.Instance().SetMoveEnable(!isActive);
+                if (isActive == true)
+                {
+					m_inputFiled.ActivateInputField();
+                }
 			}
 
 			if (m_inputFiled.text != "" && InputService.Instance.Input.Console.Enter.triggered) {
