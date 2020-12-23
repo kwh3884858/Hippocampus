@@ -134,5 +134,13 @@
 		"mediatorPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonOptionsPanel.cs",
 		"modelPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonOptionsModel.cs",
 		"GUID":"40631b7b6a2577b4ca50ed31d68bed97"
+	},
+	"8537d81869ce42d4088c49b576fffc76":{
+		"type":3,
+		"prefabPath":"Assets/data/graphics/UI/Exploration/CameraViewpoint/Prefabs/UI_Exploration_CameraViewpoint_Panel.prefab",
+		"codePath":"Assets/code/Scripts/UI/Panels/AutoCreate/ExplorationCameraViewpointPanel.cs",
+		"mediatorPath":"Assets/code/Scripts/UI/Panels/CameraViewPoint/ExplorationCameraViewpointPanel.cs",
+		"modelPath":"Assets/code/Scripts/UI/Panels/CameraViewPoint/ExplorationCameraViewpointModel.cs",
+		"GUID":"8537d81869ce42d4088c49b576fffc76"
 	}
 }
