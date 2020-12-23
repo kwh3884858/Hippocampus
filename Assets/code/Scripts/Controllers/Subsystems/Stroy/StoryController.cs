@@ -54,6 +54,8 @@ namespace Controllers.Subsystems.Story
         AddEvidence,
         AddTip,
         RemoveEvidence,
+        Position,
+        Rotation
     }
 
     public class StoryController : ControllerBase
@@ -232,6 +234,10 @@ namespace Controllers.Subsystems.Story
                                 container.PlayAnimation(eventName);
                                 break;
 
+                            case StoryReader.EventType.PlayTimeline:
+                                container.PushTimeLine(eventName);
+                                break;
+
                             case StoryReader.EventType.LoadFrontground:
                                 container.PushFrontImg(eventName);
                                 break;
@@ -246,6 +252,9 @@ namespace Controllers.Subsystems.Story
                             case StoryReader.EventType.SwitchTalkUIType:
                                 int UIPanelType = int.Parse(eventName);
                                 container.PushChangePanelType(UIPanelType);
+                                break;
+                            case StoryReader.EventType.RemoveSpecificExhibit:
+                                container.PushRemoveEvidence(eventName);
                                 break;
                             case StoryReader.EventType.RemoveAllExhibit:
                                 container.RemoveAllExhibit();

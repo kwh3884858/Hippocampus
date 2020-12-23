@@ -22,14 +22,14 @@ namespace StarPlatinum.StoryCompile
 			color,
 			tip,
 			tachieMove,
-			//chapter,
-			//scene,
 			character,
 			pause,
 			exhibit,
 			effect,
 			bgm,
-			tachie
+			tachie,
+			position,
+			rotation
 		};
 
 		enum TachieMoveParameter
@@ -47,12 +47,12 @@ namespace StarPlatinum.StoryCompile
 			Volume
 		};
 
-		enum PositionParameter
+		enum Vector3Parameter
 		{
 			x,
-			y
+			y,
+			z
 		};
-
 
 		public StoryVirtualMachine ()
 		{
@@ -120,6 +120,10 @@ namespace StarPlatinum.StoryCompile
 							break;
 						case TableType.tachie:
 							break;
+						case TableType.position:
+							break;
+						case TableType.rotation:
+							break;
 						default:
 							break;
 						}
@@ -152,6 +156,12 @@ namespace StarPlatinum.StoryCompile
 						if (token.m_content == TableType.tachie.ToString ()) {
 							editorState.Push (TableType.tachie);
 						}
+                        if (token.m_content == TableType.position.ToString()) {
+							editorState.Push(TableType.position);
+                        }
+						if (token.m_content == TableType.rotation.ToString()) {
+							editorState.Push(TableType.rotation);
+						}
 					}
 				} else if (token.m_tokeType == StoryCompiler.TokenType.TokenIdentity) {
 					if (editorState.Count == 0) {
@@ -175,7 +185,8 @@ namespace StarPlatinum.StoryCompile
 					case TableType.tip:
 						//TODO: Add Tip
 						//m_tipManager.addTip(token.m_content);
-						Tips.TipsManager.Instance.UnlockTip (token.m_content, Tips.TipsManager.ConvertDateTimeToLong (System.DateTime.Now));// 添加tip 数据
+						m_container.PushAddTip(token.m_content);
+						//Tips.TipsManager.Instance.UnlockTip (token.m_content, Tips.TipsManager.ConvertDateTimeToLong (System.DateTime.Now));// 添加tip 数据
 						break;
 					case TableType.tachieMove:
 						{
@@ -186,10 +197,10 @@ namespace StarPlatinum.StoryCompile
 							bool isSuccess = Enum.TryParse<Ease> (parameters [(int)TachieMoveParameter.CurveType], true, out easeType);
 							m_container.PushPicMove (
 								parameters [(int)TachieMoveParameter.tachieName],
-								Int32.Parse (startPos [(int)PositionParameter.x]) + POSITION_OFFSET,
-								Int32.Parse (startPos [(int)PositionParameter.y]) + POSITION_OFFSET,
-								Int32.Parse (endPos [(int)PositionParameter.x]) + POSITION_OFFSET,
-								Int32.Parse (endPos [(int)PositionParameter.y]) + POSITION_OFFSET,
+								Int32.Parse (startPos [(int)Vector3Parameter.x]) + POSITION_OFFSET,
+								Int32.Parse (startPos [(int)Vector3Parameter.y]) + POSITION_OFFSET,
+								Int32.Parse (endPos [(int)Vector3Parameter.x]) + POSITION_OFFSET,
+								Int32.Parse (endPos [(int)Vector3Parameter.y]) + POSITION_OFFSET,
 								easeType,
 								Int32.Parse (parameters [(int)TachieMoveParameter.Duation])
 								);
@@ -200,12 +211,12 @@ namespace StarPlatinum.StoryCompile
 						m_container.PushTypeWriterInterval (m_currentTypeWriterInterval);
 						break;
 					case TableType.exhibit:
-						EvidenceDataManager.Instance.AddEvidence (token.m_content);
+						m_container.PushAddEvidence(token.m_content);
+						//EvidenceDataManager.Instance.AddEvidence (token.m_content);
 						break;
 					case TableType.bgm:
 						{
 							string [] parameters = token.m_content.Split ('+');
-
 							m_container.PushChangeBGM (parameters[(int)BgmParameter.fileName]);
 						}
 						break;
@@ -213,9 +224,33 @@ namespace StarPlatinum.StoryCompile
 						m_container.PushPlayerEffectMusic (token.m_content);
 						break;
 					case TableType.tachie:
-						string [] words = token.m_content.Split ('+');
-						string [] pos = words [1].Split (',');
-						m_container.PushPicture (words [0], Int32.Parse (pos [(int)PositionParameter.x]) + POSITION_OFFSET, Int32.Parse (pos [(int)PositionParameter.y]) + POSITION_OFFSET);
+                        {
+							string[] words = token.m_content.Split('+');
+							string[] pos = words[1].Split(',');
+							m_container.PushPicture(words[0], Int32.Parse(pos[(int)Vector3Parameter.x]) + POSITION_OFFSET, Int32.Parse(pos[(int)Vector3Parameter.y]) + POSITION_OFFSET);
+						}
+						break;
+					case TableType.position:
+						{
+							string[] position = token.m_content.Split(',');
+							Vector3 positionParam = new Vector3(
+								Int32.Parse(position[(int)Vector3Parameter.x]),
+								Int32.Parse(position[(int)Vector3Parameter.y]),
+								Int32.Parse(position[(int)Vector3Parameter.z])
+							);
+							m_container.PushPlayerPosition(positionParam);
+						}
+						break;
+					case TableType.rotation:
+						{
+							string[] rotation = token.m_content.Split(',');
+							Vector3 rotationParam = new Vector3(
+								Int32.Parse(rotation[(int)Vector3Parameter.x]),
+								Int32.Parse(rotation[(int)Vector3Parameter.y]),
+								Int32.Parse(rotation[(int)Vector3Parameter.z])
+								);
+							m_container.PushPlayerRotation(rotationParam);
+						}
 						break;
 					default:
 						break;

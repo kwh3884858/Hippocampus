@@ -61,6 +61,11 @@ namespace Controllers.Subsystems.Story
         public SkyboxEnum m_skyEnum;
     }
 
+    public class StoryVector3Action : StoryAction
+    {
+        public Vector3 m_vector;
+    }
+
     public class StoryActionContainer
     {
         public StoryActionContainer()
@@ -243,6 +248,16 @@ namespace Controllers.Subsystems.Story
         public void PushRemoveEvidence(string key)
         {
             m_actions.Enqueue(new StoryAction(){Type = StoryActionType.RemoveEvidence,Content = key});
+        }
+
+        public void PushPlayerPosition(Vector3 position)
+        {
+            m_actions.Enqueue(new StoryVector3Action() { Type = StoryActionType.Position, m_vector = position });
+        }
+
+        public void PushPlayerRotation(Vector3 rotation)
+        {
+            m_actions.Enqueue(new StoryVector3Action() { Type = StoryActionType.Rotation, m_vector = rotation });
         }
 
         private int ProcessPicPos(int pos)

@@ -63,16 +63,14 @@ namespace StarPlatinum.StoryReader
 			PlayCutIn,
 			PlayInteractionAnimation,
 			playAnimation,
-            LoadFrontground,
+			PlayTimeline,
+			LoadFrontground,
             LoadBackground,
 			LoadSkybox,
 			SwitchTalkUIType,
+			RemoveSpecificExhibit,
 			RemoveAllExhibit
 		};
-		//public List<StoryBasicData> GetSotry()
-		//{
-		//    return m_story;
-		//}
 
 		public string GetName ()
 		{
