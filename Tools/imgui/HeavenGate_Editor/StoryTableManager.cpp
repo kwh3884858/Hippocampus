@@ -87,6 +87,12 @@ namespace HeavenGateEditor {
 //        m_tachiePositionTable->PushName("Pos X");
 //        m_tachiePositionTable->PushName("Pos Y");
 
+        m_positionTable = new StoryTable<POSITION_MAX_COLUMN>;
+        m_positionTable->SetTableType(TableType::Position);
+
+        m_rotationTable = new StoryTable<ROTATION_MAX_COLUMN>;
+        m_rotationTable->SetTableType(TableType::Rotation);
+
         return true;
 
     }
@@ -275,5 +281,24 @@ namespace HeavenGateEditor {
     StoryTable<TACHIE_POSITION_MAX_COLUMN>*  StoryTableManager::GetTachiePositionTable()
     {
         return const_cast<StoryTable<TACHIE_POSITION_MAX_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetTachiePositionTable());
+    }
+
+    const StoryTable<POSITION_MAX_COLUMN>* const StoryTableManager::GetPositionTable() const
+    {
+        return m_positionTable;
+    }
+
+    StoryTable<POSITION_MAX_COLUMN>* StoryTableManager::GetPositionTable()
+    {
+        return const_cast<StoryTable<POSITION_MAX_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetPositionTable());
+    }
+
+    const StoryTable<ROTATION_MAX_COLUMN>* const StoryTableManager::GetRotationTable() const
+    {
+        return m_rotationTable;
+    }
+    StoryTable<ROTATION_MAX_COLUMN>* StoryTableManager::GetRotationTable()
+    {
+        return const_cast<StoryTable<ROTATION_MAX_COLUMN>*>(const_cast<const StoryTableManager*>(this)->GetRotationTable());
     }
 }

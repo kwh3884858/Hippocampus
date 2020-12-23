@@ -35,6 +35,10 @@ namespace HeavenGateEditor {
             return (const char *)tachieTableString;
         case TableType::Tachie_Position:
             return (const char *)tachiePositionTableString;
+        case TableType::Position:
+            return (const char*)positionTableString;
+        case TableType::Rotation:
+            return (const char*)rotationTableString;
         default:
             return nullptr;
         }
@@ -68,6 +72,10 @@ namespace HeavenGateEditor {
             return (int)TachieTableLayout::Amount;
         case TableType::Tachie_Position:
             return (int)TachiePositionTableLayout::Amount;
+        case TableType::Position:
+            return (int)PositionTableLayout::Amount;
+        case TableType::Rotation:
+            return (int)RotationTableLayout::Amount;
         default:
             return -1;
         }

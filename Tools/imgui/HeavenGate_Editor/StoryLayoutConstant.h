@@ -18,7 +18,9 @@ namespace HeavenGateEditor
         Effect,
         Bgm,
         Tachie,
-        Tachie_Position
+        Tachie_Position,
+        Position,
+        Rotation
     };
 
     constexpr int MappingLayoutToArrayIndex(int layout) {
@@ -162,6 +164,28 @@ namespace HeavenGateEditor
         Amount
     };
 
+    enum class PositionTableLayout :int
+    {
+        Type = 0,
+        PositionAlias,
+        X,
+        Y,
+        Z,
+
+        Amount
+    };
+
+    enum class RotationTableLayout :int
+    {
+        Type = 0,
+        RotationAlias,
+        X,
+        Y,
+        Z,
+
+        Amount
+    };
+
     const char TableTypeString[][MAX_ENUM_LENGTH] = {
         "None",
         "Font_Size",
@@ -260,6 +284,21 @@ namespace HeavenGateEditor
         "positionX",
         "positionY"};
 
+    const char positionTableString[][MAX_ENUM_LENGTH] = {
+        "position",
+        "positionAlias",
+        "x",
+        "y",
+        "z"
+    };
+
+    const char rotationTableString[][MAX_ENUM_LENGTH] = {
+        "rotation",
+        "rotationAlias",
+        "x",
+        "y",
+        "z"
+    };
 
 } // namespace HeavenGateEditor
 

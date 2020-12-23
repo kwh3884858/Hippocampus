@@ -6,8 +6,6 @@
 #include "HeavenGateWindowColorTable.h"
 #include "HeavenGateWindowTipTable.h"
 #include "HeavenGateWindowTachieMoveTable.h"
-//#include "HeavenGateWindowChapterTable.h"
-//#include "HeavenGateWindowSceneTable.h"
 #include "HeavenGateWindowCharacterTable.h"
 #include "HeavenGateWindowPauseTable.h"
 #include "HeavenGateWindowExhibitTable.h"
@@ -17,6 +15,8 @@
 #include "HeavenGateEditorNodeGraphExample.h"
 #include "HeavenGatePopupMessageBox.h"
 #include "HeavenGateWindowTachiePositionTable.h"
+#include "HeavenGateWindowPositionTable.h"
+#include "HeavenGateWindowRotationTable.h"
 
 #include "StoryJsonManager.h"
 #include "StoryTableManager.h"
@@ -55,14 +55,10 @@ namespace HeavenGateEditor {
         StoryJsonContentCompiler::Instance().Initialize();
         StoryJsonChecker::Instance().Initialize();
 
-
-//        m_heavenGateEditor = new HeavenGateWindowStoryEditor;
         m_fontSizeTable = new HeavenGateEditorFontSizeTable;
         m_colorTable = new HeavenGateWindowColorTable;
         m_tipTable = new HeavenGateWindowTipTable;
         m_heavenGateWindowPaintMoveTable = new HeavenGateWindowTachieMoveTable;
-        //m_chapterTable = new HeavenGateWindowChapterTable;
-        //m_sceneTable = new HeavenGateWindowSceneTable;
         m_characterTable = new HeavenGateWindowCharacterTable;
         m_pauseTable = new HeavenGateWindowPauseTable;
         m_exhibitTable = new HeavenGateWindowExhibitTable;
@@ -71,14 +67,13 @@ namespace HeavenGateEditor {
         m_tachieTable = new HeavenGateWindowTachieTable;
         m_nodeGraphExample = new HeavenGateEditorNodeGraphExample;
         m_tachiePositionTable = new HeavenGateWindowTachiePositionTable;
+        m_positionTable = new HeavenGateWindowPositionTable;
+        m_rotationTable = new HeavenGateWindowRotationTable;
 
-//        m_heavenGateEditor->Initialize();
         m_fontSizeTable->Initialize();
         m_colorTable->Initialize();
         m_tipTable->Initialize();
         m_heavenGateWindowPaintMoveTable->Initialize();
-        //m_chapterTable->Initialize();
-        //m_sceneTable->Initialize();
         m_characterTable->Initialize();
         m_pauseTable->Initialize();
         m_exhibitTable->Initialize();
@@ -87,14 +82,13 @@ namespace HeavenGateEditor {
         m_tachieTable->Initialize();
         m_nodeGraphExample->Initialize();
         m_tachiePositionTable->Initialize();
+        m_positionTable->Initialize();
+        m_rotationTable->Initialize();
 
-//        show_editor_window = m_heavenGateEditor->GetHandle();
         show_font_size_table_window = m_fontSizeTable->GetHandle();
         show_color_table_window = m_colorTable->GetHandle();
         show_tip_table_window = m_tipTable->GetHandle();
         show_heaven_gate_window_paint_move_table = m_heavenGateWindowPaintMoveTable->GetHandle();
-        //show_chapter_table = m_chapterTable->GetHandle();
-        //show_scene_table = m_sceneTable->GetHandle();
         show_character_table = m_characterTable->GetHandle();
         show_pause_table = m_pauseTable->GetHandle();
         show_exhibit_table = m_exhibitTable->GetHandle();
@@ -103,17 +97,17 @@ namespace HeavenGateEditor {
         show_tachie_table = m_tachieTable->GetHandle();
         show_node_graph_example = m_nodeGraphExample->GetHandle();
         show_tachie_poisition_table = m_tachiePositionTable->GetHandle();
+        show_poisition_table = m_positionTable->GetHandle();
+        show_rotation_table = m_rotationTable->GetHandle();
     }
 
     void HeavenGateWindowCenter::Shutdown()
     {
-//        *show_editor_window = false;
+
         *show_font_size_table_window = false;
         *show_color_table_window = false;
         *show_tip_table_window = false;
         *show_heaven_gate_window_paint_move_table = false;
-        //*show_chapter_table = false;
-        //*show_scene_table = false;
         *show_character_table = false;
         *show_pause_table = false;
         *show_exhibit_table = false;
@@ -122,14 +116,13 @@ namespace HeavenGateEditor {
         *show_tachie_table = false;
         *show_node_graph_example = false;
         *show_tachie_poisition_table = false;
+        *show_poisition_table = false;
+        *show_rotation_table = false;
 
-//        show_editor_window = nullptr;
         show_font_size_table_window = nullptr;
         show_color_table_window = nullptr;
         show_tip_table_window = nullptr;
         show_heaven_gate_window_paint_move_table = nullptr;
-        //show_chapter_table = nullptr;
-        //show_scene_table = nullptr;
         show_character_table = nullptr;
         show_pause_table = nullptr;
         show_exhibit_table = nullptr;
@@ -138,19 +131,18 @@ namespace HeavenGateEditor {
         show_tachie_table = nullptr;
         show_node_graph_example = nullptr;
         show_tachie_poisition_table = nullptr;
+        show_poisition_table = nullptr;
+        show_rotation_table = nullptr;
 
         for (auto iter = m_heavenGateEditor.begin(); iter != m_heavenGateEditor.end(); iter++) {
             (*iter)->Shutdown();
             delete *iter;
             *iter = nullptr;
         }
-//        m_heavenGateEditor->Shutdown();
         m_fontSizeTable->Shutdown();
         m_colorTable->Shutdown();
         m_tipTable->Shutdown();
         m_heavenGateWindowPaintMoveTable->Shutdown();
-        //m_chapterTable->Shutdown();
-        //m_sceneTable->Shutdown();
         m_characterTable->Shutdown();
         m_pauseTable->Shutdown();
         m_exhibitTable->Shutdown();
@@ -159,6 +151,8 @@ namespace HeavenGateEditor {
         m_tachieTable->Shutdown();
         m_nodeGraphExample->Shutdown();
         m_tachiePositionTable->Shutdown();
+        m_positionTable->Shutdown();
+        m_rotationTable->Shutdown();
 
         //Delete Windows
         m_heavenGateEditor.clear();
@@ -166,8 +160,6 @@ namespace HeavenGateEditor {
         delete m_colorTable;
         delete m_tipTable;
         delete m_heavenGateWindowPaintMoveTable;
-        //delete m_chapterTable;
-        //delete m_sceneTable;
         delete m_characterTable;
         delete m_pauseTable;
         delete m_exhibitTable;
@@ -176,14 +168,14 @@ namespace HeavenGateEditor {
         delete m_tachieTable;
         delete m_nodeGraphExample;
         delete m_tachiePositionTable;
+        delete m_positionTable;
+        delete m_rotationTable;
 
 //        m_heavenGateEditor = nullptr;
         m_fontSizeTable = nullptr;
         m_colorTable = nullptr;
         m_tipTable = nullptr;
         m_heavenGateWindowPaintMoveTable = nullptr;
-        //m_chapterTable = nullptr;
-        //m_sceneTable = nullptr;
         m_characterTable = nullptr;
         m_pauseTable = nullptr;
         m_exhibitTable = nullptr;
@@ -192,6 +184,8 @@ namespace HeavenGateEditor {
         m_tachieTable = nullptr;
         m_nodeGraphExample = nullptr;
         m_tachiePositionTable = nullptr;
+        m_positionTable = nullptr;
+        m_rotationTable = nullptr;
 
         //Delete Data
         StoryTableManager::Instance().Shutdown();
@@ -234,8 +228,6 @@ namespace HeavenGateEditor {
         ImGui::Checkbox("Font Size Table", show_font_size_table_window);
         ImGui::Checkbox("Color Table", show_color_table_window);
         ImGui::Checkbox("Tip Table", show_tip_table_window);
-        //ImGui::Checkbox("Chapter Table", show_chapter_table);
-        //ImGui::Checkbox("Scene Table", show_scene_table);
         ImGui::Checkbox("Character Table", show_character_table);
         ImGui::Checkbox("Pause Table", show_pause_table);
         ImGui::Checkbox("Exhibit Table", show_exhibit_table);
@@ -245,6 +237,8 @@ namespace HeavenGateEditor {
         ImGui::Checkbox("Tachie Position Table", show_tachie_poisition_table);
         ImGui::Checkbox("Node Graph Example", show_node_graph_example);
         ImGui::Checkbox("Tachie Move Table", show_heaven_gate_window_paint_move_table);
+        ImGui::Checkbox("Position Table", show_poisition_table);
+        ImGui::Checkbox("Rotation Table", show_rotation_table);
 
 
         if (show_font_size_table_window && *show_font_size_table_window)
@@ -266,16 +260,6 @@ namespace HeavenGateEditor {
         {
             m_heavenGateWindowPaintMoveTable->Update();
         };
-
-        //if (show_chapter_table && *show_chapter_table)
-        //{
-        //    m_chapterTable->Update();
-        //};
-
-        //if (show_scene_table && *show_scene_table)
-        //{
-        //    m_sceneTable->Update();
-        //};
 
         if (show_character_table && *show_character_table)
         {
@@ -315,6 +299,16 @@ namespace HeavenGateEditor {
         if (show_tachie_poisition_table && *show_tachie_poisition_table)
         {
             m_tachiePositionTable->Update();
+        }
+
+        if (show_poisition_table && *show_poisition_table)
+        {
+            m_positionTable->Update();
+        }
+
+        if (show_rotation_table && *show_rotation_table)
+        {
+            m_rotationTable->Update();
         }
 
 #ifdef _WIN32

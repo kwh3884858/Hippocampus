@@ -53,11 +53,6 @@ namespace GamePlay.Stage
 			m_player.SetActive (false);
 		}
 
-		public void SetPlayerPosition (Vector3 pos)
-		{
-			m_player.transform.position = pos;
-		}
-
         public void SetCharacterSpeed(float speedArgument)
         {
             m_monoMoveController.SetCharacterSpeed(speedArgument);
@@ -197,7 +192,12 @@ namespace GamePlay.Stage
             return m_player.transform.position;
         }
 
-		private SceneSlot m_containerScene;
+        public void SetPlayerPosition(Vector3 pos)
+        {
+            m_player.transform.position = pos;
+        }
+
+        private SceneSlot m_containerScene;
 
 		private GameObject m_player;
         private MonoMoveController m_monoMoveController;

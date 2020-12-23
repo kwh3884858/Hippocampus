@@ -11,6 +11,7 @@ using Controllers.Subsystems.Story;
 using DG.Tweening;
 using Evidence;
 using Gameplay.Manager;
+using GamePlay;
 using GamePlay.Stage;
 using StarPlatinum;
 using StarPlatinum.EventManager;
@@ -491,6 +492,20 @@ namespace UI.Panels
                 case StoryActionType.AddTip:
                     Tips.TipsManager.Instance.UnlockTip (m_curAction.Content, Tips.TipsManager.ConvertDateTimeToLong (System.DateTime.Now));// 添加tip 数据
                     SetActionState(ActionState.End);
+                    break;
+                case StoryActionType.Position:
+                    {
+                        StoryVector3Action vector3Action = m_curAction as StoryVector3Action;
+                        CoreContainer.Instance.SetPlayerPosition(vector3Action.m_vector);
+                        SetActionState(ActionState.End);
+                    }
+                    break;
+                case StoryActionType.Rotation:
+                    {
+                        StoryVector3Action vector3Action = m_curAction as StoryVector3Action;
+                        VMCameraManager.Instance().SetLookAtRotation(vector3Action.m_vector.x, vector3Action.m_vector.y, vector3Action.m_vector.z);
+                        SetActionState(ActionState.End);
+                    }
                     break;
                 default:
                     Debug.LogError($"未处理对话行为:{storyAction.Type}");

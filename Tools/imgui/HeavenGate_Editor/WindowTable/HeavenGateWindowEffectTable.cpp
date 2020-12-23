@@ -1,7 +1,7 @@
 //
 //Copyright (c) 2019 Star Platinum
 //
-//Created by Wen Yang Wei, 2019-12-25
+//Created by Wen Yang Wei, 2020-02-05
 //example_win32_directx11, HeavenGateEditor
 //
 //Add Description
@@ -9,7 +9,7 @@
 
 #include "imgui.h"
 
-#include "HeavenGateWindowSceneTable.h"
+#include "HeavenGateWindowEffectTable.h"
 #include "HeavenGateEditorUtility.h"
 
 #include "StoryTableManager.h"
@@ -19,84 +19,67 @@ namespace HeavenGateEditor {
 
 
 
-    HeavenGateWindowSceneTable::HeavenGateWindowSceneTable()
+    HeavenGateWindowEffectTable::HeavenGateWindowEffectTable()
     {
-     
-     
-
-
     }
 
-    HeavenGateWindowSceneTable::~HeavenGateWindowSceneTable()
+    HeavenGateWindowEffectTable::~HeavenGateWindowEffectTable()
     {
-
-        //if (m_fileManager)
-        //{
-        //    delete m_fileManager;
-        //}
-        //m_fileManager = nullptr;
-
-        //if (sceneTable)
-        //{
-        //    delete sceneTable;
-        //}
-        //sceneTable = nullptr;
-
     }
 
-    void HeavenGateWindowSceneTable::Initialize()
+    void HeavenGateWindowEffectTable::Initialize()
     {
-        StoryTable<SCENE_COLUMN>* const sceneTable = StoryTableManager::Instance().GetSceneTable();
+        StoryTable<EFFECT_MAX_COLUMN>* const effectTable = StoryTableManager::Instance().GetEffectTable();
 
 
         memset(m_fullPath, 0, sizeof(m_fullPath));
 
         HeavenGateEditorUtility::GetStoryPath(m_fullPath);
-        strcat(m_fullPath, SCENE_TABLE_NAME);
+        strcat(m_fullPath, EFFECT_TABLE_NAME);
 
-        bool result = StoryFileManager::Instance().LoadTableFile(m_fullPath, sceneTable);
+        bool result = StoryFileManager::Instance().LoadTableFile(m_fullPath, effectTable);
         if (result == false)
         {
-            sceneTable->UpdateName();
-            StoryFileManager::Instance().SaveTableFile(m_fullPath, sceneTable);
-            StoryFileManager::Instance().LoadTableFile(m_fullPath, sceneTable);
+            effectTable->UpdateName();
+            StoryFileManager::Instance().SaveTableFile(m_fullPath, effectTable);
+            StoryFileManager::Instance().LoadTableFile(m_fullPath, effectTable);
         }
     }
 
-    void HeavenGateWindowSceneTable::Shutdown()
+    void HeavenGateWindowEffectTable::Shutdown()
     {
 
     }
 
-    void HeavenGateWindowSceneTable::UpdateMainWindow()
+    void HeavenGateWindowEffectTable::UpdateMainWindow()
     {
-        StoryTable<SCENE_COLUMN>* const sceneTable = StoryTableManager::Instance().GetSceneTable();
+        StoryTable<EFFECT_MAX_COLUMN>* const effectTable = StoryTableManager::Instance().GetEffectTable();
 
-        if (sceneTable == nullptr)
+        if (effectTable == nullptr)
         {
             return;
         }
 
         ImGui::Separator();
 
-        ImGui::Text("Scene Table");
+        ImGui::Text("Effect Table");
 
         if (ImGui::Button("Add New Row"))
         {
-            sceneTable->AddRow();
+            effectTable->AddRow();
         }
         ImGui::SameLine();
         if (ImGui::Button("Remove Row"))
         {
-            sceneTable->RemoveRow();
+            effectTable->RemoveRow();
         }
 
-        ImGui::Columns(SCENE_COLUMN + 1, "Scene"); // 4-ways, with border
+        ImGui::Columns(EFFECT_MAX_COLUMN + 1, "Effect"); // 4-ways, with border
         ImGui::Separator();
         ImGui::Text("Index");    ImGui::NextColumn();
-        for (int i = 0; i < SCENE_COLUMN; i++)
+        for (int i = 0; i < EFFECT_MAX_COLUMN; i++)
         {
-            ImGui::Text(sceneTable->GetName(i));   ImGui::NextColumn();
+            ImGui::Text(effectTable->GetName(i));   ImGui::NextColumn();
         }
 
         //ImGui::Text("ID"); ImGui::NextColumn();
@@ -110,7 +93,7 @@ namespace HeavenGateEditor {
 
 
         char order[8] = "";
-        for (int i = 0; i < sceneTable->GetSize(); i++)
+        for (int i = 0; i < effectTable->GetSize(); i++)
         {
             char label[32];
             sprintf(label, "%04d", i);
@@ -124,18 +107,18 @@ namespace HeavenGateEditor {
             //ImGui::Text(paths[i]); ImGui::NextColumn();
             //ImGui::Text("%d", hovered); ImGui::NextColumn();
 
-            for (int j = 0; j < SCENE_COLUMN; j++)
+            for (int j = 0; j < EFFECT_MAX_COLUMN; j++)
             {
-                char * content = sceneTable->GetContent(i, j);
+                char * content = effectTable->GetContent(i, j);
 
                 char constant[16];
                 switch (j)
                 {
                     case 0:
-                        strcpy(constant, "scene ");
+                        strcpy(constant, "effect ");
                         break;
                     case 1:
-                        strcpy(constant, "description ");
+                        strcpy(constant, "fileName ");
                         break;
                         break;
                 default:
@@ -163,7 +146,7 @@ namespace HeavenGateEditor {
         ImGui::Separator();
     }
 
-    void HeavenGateWindowSceneTable::UpdateMenu()
+    void HeavenGateWindowEffectTable::UpdateMenu()
     {
         //   ImGui::MenuItem("(dummy menu)", NULL, false, false);
         if (ImGui::MenuItem("New")) {
@@ -175,9 +158,9 @@ namespace HeavenGateEditor {
         }
 
         if (ImGui::MenuItem("Save", "Ctrl+S")) {
-            StoryTable<SCENE_COLUMN>* const sceneTable = StoryTableManager::Instance().GetSceneTable();
+            StoryTable<EFFECT_MAX_COLUMN>* const effectTable = StoryTableManager::Instance().GetEffectTable();
 
-            StoryFileManager::Instance().SaveTableFile(m_fullPath, sceneTable);
+            StoryFileManager::Instance().SaveTableFile(m_fullPath, effectTable);
         }
 
     }

@@ -13,7 +13,7 @@
 
 namespace HeavenGateEditor {
     const char* const   EDITOR_VERSION = "0.0.26";
-    const char* const   RELEASE_NOTE = "version 26 : Add new event Remove All Exhibit";
+    const char* const   RELEASE_NOTE = "version 28 : Add new command: position & rotaion, and related tables.\n Fix preview window bug: now it will display color content in the same line";
     const int     MAX_FOLDER_PATH = 265;
 
     const int     MAX_FILE_NAME = 64;
@@ -42,6 +42,8 @@ namespace HeavenGateEditor {
     const int     BGM_MAX_COLUMN = MappingLayoutToArrayIndex((int)BgmTableLayout::Amount);
     const int     TACHIE_MAX_COLUMN = MappingLayoutToArrayIndex((int)TachieTableLayout::Amount);
     const int     TACHIE_POSITION_MAX_COLUMN = MappingLayoutToArrayIndex((int)TachiePositionTableLayout::Amount);
+    const int     POSITION_MAX_COLUMN = MappingLayoutToArrayIndex((int)PositionTableLayout::Amount);
+    const int     ROTATION_MAX_COLUMN = MappingLayoutToArrayIndex((int)RotationTableLayout::Amount);
 
     //ID
     //Max ID must be (part + 1) * count, which means the total number of each part then plus the number of parts.
@@ -241,6 +243,25 @@ const char* const TableSuffix = "Table";
 #else
         "/TachiePositionTable.json";
 #endif
+
+    //Relative path from story folder to position table
+
+    const char* const POSITION_TABLE_NAME =
+#ifdef _WIN32
+        "\\PositionTable.json";
+#else
+        "/PositionTable.json";
+#endif
+
+    //Relative path from story folder to rotation table
+
+    const char* const ROTATION_TABLE_NAME =
+#ifdef _WIN32
+        "\\RotationTable.json";
+#else
+        "/RotationTable.json";
+#endif
+
 
     const char* const PATH_FROM_PROJECT_ROOT_TO_FONT_FOLDER =
 #ifdef _WIN32

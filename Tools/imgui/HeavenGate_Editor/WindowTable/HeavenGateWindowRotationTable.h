@@ -7,8 +7,8 @@
 //Add Description
 //
 #pragma once
-#ifndef HeavenGateWindowChapterTable_h
-#define HeavenGateWindowChapterTable_h
+#ifndef HeavenGateWindowRotationTable_h
+#define HeavenGateWindowRotationTable_h
 
 #include "HeavenGateEditorConstant.h"
 #include "HeavenGateEditorBaseWindow.h"
@@ -16,12 +16,12 @@
 namespace HeavenGateEditor {
 
 
-    class HeavenGateWindowChapterTable : public HeavenGateEditorBaseWindow {
-        WINDOW_DECLARE("HeavenGateWindowChapterTable", Window_Type::MainWindow)
+    class HeavenGateWindowRotationTable : public HeavenGateEditorBaseWindow {
+        WINDOW_DECLARE("HeavenGateWindowCharacterTable", Window_Type::MainWindow)
 
     public:
-        HeavenGateWindowChapterTable();
-        ~HeavenGateWindowChapterTable();
+        HeavenGateWindowRotationTable();
+        ~HeavenGateWindowRotationTable();
         virtual void Initialize() override;
         virtual void Shutdown() override;
 
@@ -36,4 +36,4 @@ namespace HeavenGateEditor {
     };
 }
 
-#endif /* HeavenGateWindowChapterTable_h */
+#endif /* HeavenGateWindowRotationTable_h */
