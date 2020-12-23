@@ -15,7 +15,7 @@ public class JoystickController : UIPanel<UIDataProviderGameScene, TalkDataProvi
         base.Initialize(uiDataProvider, settings);
     }
     /// <summary>控制虚拟摇杆的位置</summary>
-    public ETCJoystick joystick;
+    public Transform joystick;
     /// <summary>摇杆的移动控制</summary>
     [SerializeField]
     private UnityEngine.InputSystem.OnScreen.OnScreenStick screenStick = null;
@@ -32,7 +32,7 @@ public class JoystickController : UIPanel<UIDataProviderGameScene, TalkDataProvi
         //}
         if(joystick != null)
         {
-            myPostionRectTrans = joystick.transform as RectTransform;
+            myPostionRectTrans = joystick as RectTransform;
         }
         //InputService.Instance.Input.PlayerControls.Move.canceled += Move_canceled;
         //Now use the new input system, all value should enter unity input system.
@@ -63,7 +63,7 @@ public class JoystickController : UIPanel<UIDataProviderGameScene, TalkDataProvi
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        myPostionRectTrans.anchoredPosition = eventData.position;
+        //myPostionRectTrans.anchoredPosition = eventData.position;
         //joystick.transform.position = eventData.position;
         //joystick.SetisNoReturnThumb();
         if(screenStick != null)
