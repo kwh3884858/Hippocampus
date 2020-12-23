@@ -29,9 +29,10 @@ namespace Assets.code.StarPlatinum.Services.CameraService
             base.SetCameraRotation(brotate);
         }
 
-        void Update()
+        public override void Update()
         {
-            if (bDisableRotation)
+            base.Update();
+            if (bDisableRotation||isLookAt)
             {
                 return;
             }

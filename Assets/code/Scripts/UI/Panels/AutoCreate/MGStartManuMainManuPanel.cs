@@ -40,9 +40,10 @@ namespace UI.Panels
         {
             //			UiDataProvider.StaticBoard.ShowTalk ("9", OnTalkEnd);
             //GamePlay.Player.PlayerController.Instance().SetMoveEnable(true);
-#if UNITY_ANDROID || UNITY_IPHONE
-            UIManager.Instance().ShowPanel(UIPanelType.JoystickPanel);// 显示摇杆UI，wywtsest
-#endif
+            if (GamePlay.Global.SingletonGlobalDataContainer.Instance.PlatformCtrl.IsMobile)
+            {
+                UIManager.Instance().ShowPanel(UIPanelType.JoystickPanel);// 显示摇杆UI
+            }
         }
 
         public void HidSelef()

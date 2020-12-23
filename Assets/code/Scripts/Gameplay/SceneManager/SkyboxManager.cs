@@ -31,6 +31,7 @@ public class SkyboxManager : MonoSingleton<SkyboxManager>
     }
     public void UpdateSkybox(SkyboxEnum skyEnum)
     {
+        Debug.Log("Update Skybox:  " + skyEnum);
         m_skyboxAssetDic.TryGetValue(skyEnum, out var skyboxMaterial);
         if (skyboxMaterial)
         {
@@ -52,9 +53,20 @@ public class SkyboxManager : MonoSingleton<SkyboxManager>
     public void RefreshSkyboxSettingAfterNewGameSceneIsLoaded(Material skyboxMaterial)
     {
         m_originalSkybox = skyboxMaterial;
+        foreach (var material in m_skyboxAssetDic)
+        {
+            if (m_originalSkybox==material.Value)
+            {
+                m_currentSkybox = material.Key;
+            }
+        }
         if (m_currentSkybox != SkyboxEnum.None)
         {
             UpdateSkybox(m_currentSkybox);
+        }
+        else
+        {
+            Debug.LogError("can not find the correct skybox when loading the scene");
         }
     }
 
