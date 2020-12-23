@@ -43,6 +43,7 @@ namespace UI.Panels
             if (GamePlay.Global.SingletonGlobalDataContainer.Instance.PlatformCtrl.IsMobile)
             {
                 UIManager.Instance().ShowPanel(UIPanelType.JoystickPanel);// 显示摇杆UI
+                UIManager.Instance().ShowPanel(UIPanelType.UIExplorationCameraviewpointPanel);// 显示摄像机控制UI
             }
         }
 

@@ -93,6 +93,7 @@ namespace UI.Panels
             new UIPanelSettings(UIPanelType.UIGameplayPromptwidgetPanel,UIPanelUnLoadMode.Disabled, false, UIPanelLayer.Layer3, true),
             new UIPanelSettings(UIPanelType.UICommonGameplayTransitionPanel,UIPanelUnLoadMode.Disabled,false,UIPanelLayer.Layer5),
             new UIPanelSettings(UIPanelType.UIJudgmentControversyPanel,UIPanelUnLoadMode.Destroy,false, UIPanelLayer.Layer4),
+            new UIPanelSettings(UIPanelType.UIExplorationCameraviewpointPanel,UIPanelUnLoadMode.Destroy,false,UIPanelLayer.Layer2,true),
         };
         //Switch MainMenuPanel
         public static List<UIPanelSettings> MenuInfo = new List<UIPanelSettings>()
