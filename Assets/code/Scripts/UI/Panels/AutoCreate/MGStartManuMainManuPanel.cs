@@ -23,10 +23,35 @@ namespace UI.Panels
 {
     public class MGStartManuMainManuPanel : UIPanel<UIDataProvider, DataProvider>
     {
+
+        [SerializeField]
+        private bool isShowLogo;
+        [SerializeField]
+        private UnityEngine.Animation anim = null;
+        /// <summary>logo显示的整体</summary>
+        [SerializeField]
+        private LogoAnimCtrl logoAnimCtrl = null;
+
         public override void ShowData(DataProvider data)
         {
             base.ShowData(data);
             EventManager.Instance.AddEventListener<PlayerLoadArchiveEvent>(OnPlayerLoadArchive);
+            if (isShowLogo)
+            {
+                if(anim != null)
+                {
+                    anim.playAutomatically = false;
+                }
+                if(logoAnimCtrl != null)
+                {
+                    logoAnimCtrl.Show(()=> {
+                        if (anim != null)
+                        {
+                            anim.Play();
+                        }
+                    });
+                }
+            }
         }
 
         public override void Hide()
