@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using StarPlatinum.EventManager;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace UI.Utils
@@ -29,6 +30,14 @@ namespace UI.Utils
             if (locked)
             {
                 VMCameraManager.Instance().SetCameraRotate(true);
+                //Hack!!!
+                //TODO: Please change to comply with the existing UI code style.
+                //Using event callback to handle cursor event.
+                if (GamePlay.Global.SingletonGlobalDataContainer.Instance.PlatformCtrl.IsMobile)
+                {
+                    UI.UIManager.Instance().ShowPanel(UIPanelType.JoystickPanel);// 显示摇杆UI
+                    UI.UIManager.Instance().ShowPanel(UIPanelType.UIExplorationCameraviewpointPanel);// 显示摄像机控制UI
+                }
 
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
@@ -36,12 +45,25 @@ namespace UI.Utils
             else
             {
                 VMCameraManager.Instance().SetCameraRotate(false);
+                //Hack!!!
+                //TODO: Please change to comply with the existing UI code style.
+                //Using event callback to handle cursor event.
+                if (GamePlay.Global.SingletonGlobalDataContainer.Instance.PlatformCtrl.IsMobile)
+                {
+                    UI.UIManager.Instance().HidePanel(UIPanelType.JoystickPanel);// 关闭摇杆UI
+                    UI.UIManager.Instance().HidePanel(UIPanelType.UIExplorationCameraviewpointPanel);// 关闭摄像机控制UI
+                }
 
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
             }
         }
         private static List<UIPanelType> m_unlockCursorPanelList= new List<UIPanelType>();
+        
+        public class CursorEvent : System.EventArgs
+        {
+            public bool m_isCameraCanMove;
+        }
         public static void AddUnlockPanel(UIPanelType panelType)
         {
             if (!m_unlockCursorPanelList.Contains(panelType))
@@ -50,6 +72,7 @@ namespace UI.Utils
                 if (m_unlockCursorPanelList.Count > 0 && IsCursorLocked())
                 {
                     LockCursor(false);
+                    EventManager.Instance.SendEvent(new CursorEvent { m_isCameraCanMove = true});
                     return;
                 }
             }
@@ -63,6 +86,7 @@ namespace UI.Utils
                 if (m_unlockCursorPanelList.Count == 0 && !IsCursorLocked())
                 {
                     LockCursor(true);
+                    EventManager.Instance.SendEvent(new CursorEvent { m_isCameraCanMove = false });
                 }
             }
         }

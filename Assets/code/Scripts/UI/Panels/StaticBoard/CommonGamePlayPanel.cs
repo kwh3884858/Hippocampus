@@ -5,6 +5,9 @@ using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
 using GamePlay.Stage;
 using UnityEngine.UI;
+using StarPlatinum.EventManager;
+using static UI.Utils.UIHelper;
+using System;
 
 namespace UI.Panels
 {
@@ -14,16 +17,23 @@ namespace UI.Panels
 		public override void Initialize (UIDataProvider uiDataProvider, UIPanelSettings settings)
 		{
 			base.Initialize (uiDataProvider, settings);
-			m_model.Initialize(this);	
+			m_model.Initialize(this);
+			EventManager.Instance.AddEventListener<CursorEvent>(OnCursorEvent);
 		}
 
-		public override void DeInitialize()
+        public override void DeInitialize()
 		{
 			m_model.Deactivate();
 			base.DeInitialize();
+			EventManager.Instance.RemoveEventListener<CursorEvent>(OnCursorEvent);
 		}
 
-		public override void Hide()
+        private void OnCursorEvent(object sender, CursorEvent e)
+        {
+            UpdateButtonVisiable(!e.m_isCameraCanMove);
+        }
+
+        public override void Hide()
 		{
 			m_model.Hide();
 			base.Hide();
