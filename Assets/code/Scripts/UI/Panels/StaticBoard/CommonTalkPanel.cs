@@ -175,7 +175,7 @@ namespace UI.Panels
 
         private void OnSkip(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
-            ClickSkip();
+            Skip();
         }
 
         private void OnAuto(UnityEngine.InputSystem.InputAction.CallbackContext obj)
