@@ -30,6 +30,7 @@ namespace Config.Data
         public static void Init(Dictionary<int,TalkPanelConfig> configCache)
         {
             _configCache = configCache;
+            Preload();
         }
 
         public static void Dispose()
