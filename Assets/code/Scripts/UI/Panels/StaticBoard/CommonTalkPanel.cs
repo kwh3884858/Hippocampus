@@ -210,11 +210,11 @@ namespace UI.Panels
 
             if (Application.isEditor || GamePlay.Global.SingletonGlobalDataContainer.Instance.SHOW_SKIP)
             {
-                m_skip_button_Button.gameObject.SetActive(true);
+                m_btn_skip_Button.gameObject.SetActive(true);
             }
             else
             {
-                m_skip_button_Button.gameObject.SetActive(false);
+                m_btn_skip_Button.gameObject.SetActive(false);
             }
         }
 
