@@ -55,7 +55,8 @@ namespace Controllers.Subsystems.Story
         AddTip,
         RemoveEvidence,
         Position,
-        Rotation
+        Rotation,
+        GameEvent,
     }
 
     public class StoryController : ControllerBase
