@@ -30,6 +30,8 @@ public class EvidenceIntroController : MonoBehaviour
         {
             m_showBtn.SetActive(isShowSelectBtn);
         }
+
+        m_intro.text = "";
     }
 
     public void RefreshView(Evidence.SingleEvidenceData data)
