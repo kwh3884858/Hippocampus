@@ -689,7 +689,7 @@ namespace UI.Panels
                     PlayerTypewriterSound();
                     if (i + 1 < content.Length)
                     {
-                        yield return new WaitForSeconds(m_highSpeed ? 0 : m_textHelp.TypewriterInterval);
+                        yield return new WaitForSeconds(m_highSpeed? 0:m_textHelp.TypewriterInterval);
                     }
                 }
             }

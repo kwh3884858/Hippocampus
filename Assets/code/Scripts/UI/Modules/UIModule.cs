@@ -141,7 +141,6 @@ namespace UI.Modules
             m_panels.Clear();
             m_subpanels.Clear();
             m_loadingPanels.Clear();
-            m_deactivatedPanels.Clear();
 
             if (m_operationCoroutine != null)
             {
@@ -166,23 +165,12 @@ namespace UI.Modules
         public void Activate()
         {
             Log("Activate");
-            if (m_deactivatedPanels.Count > 0)
+            foreach (var settings in m_panelsSettings)
             {
-                foreach (var deactivatedPanel in m_deactivatedPanels)
+                if (settings.ShowOnStart)
                 {
-                    ShowPanel(deactivatedPanel);
-                }
-                m_deactivatedPanels.Clear();
-            }
-            else
-            {
-                foreach (var settings in m_panelsSettings)
-                {
-                    if (settings.ShowOnStart)
-                    {
-                        Assert.IsTrue(m_panelsSettings.Find(c => c.ShowOnStart) != null, "Start panel " + settings.PanelType + " not found in Panels Settings");
-                        StartCoroutine(ShowPanelAsync(UIPanelType.None, settings.PanelType));
-                    }
+                    Assert.IsTrue(m_panelsSettings.Find(c => c.ShowOnStart) != null, "Start panel " + settings.PanelType + " not found in Panels Settings");
+                    StartCoroutine(ShowPanelAsync(UIPanelType.None, settings.PanelType));
                 }
             }
         }
@@ -197,14 +185,11 @@ namespace UI.Modules
                 {
                     continue;
                 }
-                if (loadingPanel.Value.PanelState == UIPanelState.Show)
-                {
-                    types.Add(loadingPanel.Key);
-                }
+                types.Add(loadingPanel.Key);
             }
+
             foreach (var type in types)
             {
-                m_deactivatedPanels.Add(type);
                 HidePanel(type);
             }
         }
@@ -551,10 +536,6 @@ namespace UI.Modules
             {
                 var panel = m_panels[type];
                 panel.gameObject.SetActive(true);
-                if (m_deactivatedPanels.Contains(type))
-                {
-                    m_deactivatedPanels.Remove(type);
-                }
                 if (panel.PanelState == UIPanelState.Deactivate || panel.PanelState == UIPanelState.Show)
                 {
                     if (panel.PanelState == UIPanelState.Deactivate)
@@ -745,11 +726,7 @@ namespace UI.Modules
         {
             var panel = m_panels[type];
             panel.gameObject.SetActive(true);
-            if (m_deactivatedPanels.Contains(type))
-            {
-                m_deactivatedPanels.Remove(type);
-            }
-            
+
             if (panel.PanelState == UIPanelState.Deactivate ||
                 panel.PanelState == UIPanelState.Show)
             {
@@ -808,11 +785,7 @@ namespace UI.Modules
             var panel = m_panels[type];
             OnPanelHide?.Invoke(panel);
             panel.Hide();
-
-            if (m_deactivatedPanels.Contains(type))
-            {
-                m_deactivatedPanels.Remove(type);
-            }
+            
             if (m_subpanels.ContainsKey(type))
             {
                 var subpanel = m_subpanels[type];
@@ -894,7 +867,6 @@ namespace UI.Modules
         protected List<UIPanelSettings> m_panelsSettings ;
 
         protected Dictionary<UIPanelType, UIPanel> m_panels = new Dictionary<UIPanelType, UIPanel>();
-        protected List<UIPanelType> m_deactivatedPanels = new List<UIPanelType>();
 
         protected Dictionary<UIPanelType, UIPanelType> m_subpanels = new Dictionary<UIPanelType, UIPanelType>();
         private Dictionary<UIPanelLayer, Transform> m_layers = new Dictionary<UIPanelLayer, Transform>();

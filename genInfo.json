@@ -142,5 +142,21 @@
 		"mediatorPath":"Assets/code/Scripts/UI/Panels/CameraViewPoint/ExplorationCameraViewpointPanel.cs",
 		"modelPath":"Assets/code/Scripts/UI/Panels/CameraViewPoint/ExplorationCameraViewpointModel.cs",
 		"GUID":"8537d81869ce42d4088c49b576fffc76"
+	},
+	"ee6f1aecbb9ae9c49815ba3da830eee8":{
+		"type":3,
+		"prefabPath":"Assets/data/graphics/UI/Common/GameEnd/Prefabs/UI_Common_End_Panel.prefab",
+		"codePath":"Assets/code/Scripts/UI/Panels/AutoCreate/CommonEndPanel.cs",
+		"mediatorPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonEndPanel.cs",
+		"modelPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonEndModel.cs",
+		"GUID":"ee6f1aecbb9ae9c49815ba3da830eee8"
+	},
+	"dfd8778dfc03d0a42a12a77a4890e87d":{
+		"type":3,
+		"prefabPath":"Assets/data/graphics/UI/Common/MainInterface/Prefabs/UI_Common_MainInterface_Panel.prefab",
+		"codePath":"Assets/code/Scripts/UI/Panels/AutoCreate/CommonMainInterfacePanel.cs",
+		"mediatorPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonMainInterfacePanel.cs",
+		"modelPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonMainInterfaceModel.cs",
+		"GUID":"dfd8778dfc03d0a42a12a77a4890e87d"
 	}
 }

@@ -94,7 +94,7 @@ namespace UI.Panels
             //});
 
             CallbackTime(1, ShowHud);
-            UIManager.Instance().ActivatState(GameState.Battle);// 设置当前状态,wywtsest
+            UiDataProvider.Data.Data.ChangeGameState(GameState.Battle);
             UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonGameplayPanel);// 显示助手UI
             UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonBookmarkPanel);// 显示书签
 

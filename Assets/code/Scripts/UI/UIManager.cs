@@ -124,16 +124,18 @@ namespace UI
                 return;
             }
             m_activeModule.Activate();
+            m_uiModuleStaticBoard.Activate();
             OnActiveModuleActivated?.Invoke();
         }
 
-        public void OnDeactivated(GameState state)
+        public void Deactivated(GameState state)
         {
             if (m_activeModule == m_uiModules[state])
             {
                 m_activeModule = null;
             }
             m_uiModules[state].Deactivate();
+            m_uiModuleStaticBoard.Deactivate();
         }
 
         public bool IsPanelShow(UIPanelType type)

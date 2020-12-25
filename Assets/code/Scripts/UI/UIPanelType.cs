@@ -28,4 +28,6 @@ public enum UIPanelType
     [AssetPath("UI_Common_Setting_Panel")] UICommonSettingPanel = 25,
     [AssetPath("MG_StartManu_MainManu_Panel")] MGStartmanuMainmanuPanel = 26,
     [AssetPath("UI_Exploration_CameraViewpoint_Panel")] UIExplorationCameraviewpointPanel = 27,
+    [AssetPath("UI_Common_End_Panel")] UICommonEndPanel = 28,
+    [AssetPath("UI_Common_MainInterface_Panel")] UICommonMaininterfacePanel = 29,
 }

@@ -10,20 +10,20 @@ using StarPlatinum;
 public class GameRunTimeData 
 {
     public GameState State { get; set; }
-    public ControllerManager ControllerManager => m_data.ControllerManager;
-    public ConfigProvider ConfigProvider  => m_data.ConfigProvider;
-    public SoundService SoundService => m_data.SoundService;
+    public ControllerManager ControllerManager => Data.ControllerManager;
+    public ConfigProvider ConfigProvider  => Data.ConfigProvider;
+    public SoundService SoundService => Data.SoundService;
 
-    public ConfigDataProvider ConfigDataProvider => m_data.ConfigDataProvider;
+    public ConfigDataProvider ConfigDataProvider => Data.ConfigDataProvider;
 
-    public LocalCacheManager LocalCacheManager => m_data.LocalCacheManager;
+    public LocalCacheManager LocalCacheManager => Data.LocalCacheManager;
 
-    public ColorProvider ColorProvider => m_data.ColorProvider;
+    public ColorProvider ColorProvider => Data.ColorProvider;
     
-    private IGameRuntimeData m_data;
+    public IGameRuntimeData Data;
     public GameRunTimeData(IGameRuntimeData data)
     {
-        m_data = data;
+        Data = data;
     }
 
     public static GameRunTimeData Instance;

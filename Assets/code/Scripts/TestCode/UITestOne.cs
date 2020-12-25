@@ -19,6 +19,15 @@ public class UITestOne : MonoBehaviour,IGameRuntimeData
 	public ConfigDataProvider ConfigDataProvider => m_configDataProvider;
 	public LocalCacheManager LocalCacheManager { get; private set; }
 	public ColorProvider ColorProvider { get; private set; }
+	public void RestartGame()
+	{
+		ChangeGameState(m_startState);
+	}
+
+	public void ChangeGameState(GameState state)
+	{
+		StartCoroutine(LoadGameStateAsync(state));
+	}
 
 	public GameState State { get; private set; }
 
@@ -39,11 +48,16 @@ public class UITestOne : MonoBehaviour,IGameRuntimeData
 		m_gameRunTimeData.State = State;
 		m_uiManager.Initialize(m_gameRunTimeData);
 		StartCoroutine(InitializeControllerByArgs());
-		StartCoroutine(LoadGameStateAsync(m_startState));
+		ChangeGameState(m_startState);
 	}
 
 	private IEnumerator LoadGameStateAsync(GameState state)
 	{
+		Debug.Log("LoadGameState Begin");
+		if (State != GameState.Invalid)
+		{
+			m_uiManager.Deactivated(State);
+		}
 		State = state;
 		m_uiManager.ActivatState(State);
 		yield break;

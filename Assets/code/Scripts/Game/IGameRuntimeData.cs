@@ -15,5 +15,9 @@ namespace Game
         ConfigDataProvider ConfigDataProvider { get; }
         LocalCacheManager LocalCacheManager { get; }
         ColorProvider ColorProvider { get; }
+
+        void RestartGame();
+
+        void ChangeGameState(GameState state);
     }
 }
