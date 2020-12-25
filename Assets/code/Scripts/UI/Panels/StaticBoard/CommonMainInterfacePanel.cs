@@ -16,7 +16,7 @@ namespace UI.Panels
 			base.Initialize (uiDataProvider, settings);
 			m_model.Initialize(this);
 			
-			EventManager.Instance.AddEventListener<GameEndEvent>(GameEnd);
+			EventManager.Instance.AddEventListener<GameEvent>(GameEnd);
 			
 		}
 
@@ -24,7 +24,7 @@ namespace UI.Panels
 		{
 			m_model.Deactivate();
 			base.DeInitialize();
-			EventManager.Instance.RemoveEventListener<GameEndEvent>(GameEnd);
+			EventManager.Instance.RemoveEventListener<GameEvent>(GameEnd);
 
 		}
 
@@ -77,9 +77,14 @@ namespace UI.Panels
 		}
 		#endregion
 
-		private void GameEnd(object sender, GameEndEvent e)
+		private void GameEnd(object sender, GameEvent e)
 		{
-			InvokeShowPanel(UIPanelType.UICommonEndPanel);
+			switch (e.EventName)
+			{
+				case "GameEnd":
+					InvokeShowPanel(UIPanelType.UICommonEndPanel);
+					break;
+			}
 		}
 		
 		#region Member

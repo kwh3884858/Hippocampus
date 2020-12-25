@@ -2,8 +2,8 @@
 
 namespace StarPlatinum
 {
-    public class GameEndEvent: EventArgs
+    public class GameEvent: EventArgs
     {
-        
+        public string EventName;
     }
 }
