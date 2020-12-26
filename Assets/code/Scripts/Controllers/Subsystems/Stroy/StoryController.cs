@@ -14,10 +14,8 @@ using UI.Panels;
 using UI.Panels.StaticBoard;
 using UnityEngine;
 
-namespace Controllers.Subsystems.Story
-{
-    public enum StoryActionType
-    {
+namespace Controllers.Subsystems.Story {
+    public enum StoryActionType {
         WaitClick,
         Name,
         Content,
@@ -59,14 +57,12 @@ namespace Controllers.Subsystems.Story
         GameEvent,
     }
 
-    public class StoryController : ControllerBase
-    {
+    public class StoryController : ControllerBase {
         public readonly string STORY_FOLDER = "Storys_Export/";
-        public override void Initialize(IControllerProvider args)
-        {
-            base.Initialize(args);
+        public override void Initialize (IControllerProvider args) {
+            base.Initialize (args);
             State = SubsystemState.Initialization;
-            StartCoroutine(LoadStoryInfo());
+            StartCoroutine (LoadStoryInfo ());
         }
 
         //public bool LoadStoryByItem (string itemId)
@@ -87,81 +83,65 @@ namespace Controllers.Subsystems.Story
         //	return result;
         //}
 
-
-
-        private IEnumerator LoadStoryInfo()
-        {
-            while (Data.ConfigProvider.StoryConfig == null)
-            {
+        private IEnumerator LoadStoryInfo () {
+            while (Data.ConfigProvider.StoryConfig == null) {
                 yield return null;
             }
             m_config = Data.ConfigProvider.StoryConfig;
-            LoadStoryFileByName(m_config.StoryPath);
+            LoadStoryFileByName (m_config.StoryPath);
             State = SubsystemState.Initialized;
         }
 
-        public void LoadStoryFileByName(string storyFileName)
-        {
-            if (m_storyFileName == storyFileName)
-            {
+        public void LoadStoryFileByName (string storyFileName) {
+            if (m_storyFileName == storyFileName) {
                 return;
             }
 
             //Assets/Resources/STORY_FOLDER + storyFileName
 
-            StoryReader storyReader = new StoryReader(STORY_FOLDER + storyFileName);
-            if (storyReader != null)
-            {
+            StoryReader storyReader = new StoryReader (STORY_FOLDER + storyFileName);
+            if (storyReader != null) {
                 m_storys = storyReader;
             }
-            bool result = m_storys.GetLoadResult();
-            if (result == true)
-            {
+            bool result = m_storys.GetLoadResult ();
+            if (result == true) {
                 m_storyFileName = storyFileName;
             }
 
         }
 
-        public bool IsLabelExist(string label)
-        {
-            return m_storys.RequestLabel(label);
+        public bool IsLabelExist (string label) {
+            return m_storys.RequestLabel (label);
         }
 
-        public StoryActionContainer GetStory(string labelId)
-        {
-            StoryActionContainer container = new StoryActionContainer();
+        public StoryActionContainer GetStory (string labelId) {
+            StoryActionContainer container = new StoryActionContainer ();
 
-            StoryVirtualMachine.Instance.SetStoryActionContainer(container);
-            if (m_storys == null)
-            {
-                Debug.LogError("Story doesn`t exist.");
+            StoryVirtualMachine.Instance.SetStoryActionContainer (container);
+            if (m_storys == null) {
+                Debug.LogError ("Story doesn`t exist.");
                 return null;
             }
-            if (!m_storys.RequestLabel(labelId))
-            {
-                Debug.LogError($"Label {labelId} doesn`t exist");
+            if (!m_storys.RequestLabel (labelId)) {
+                Debug.LogError ($"Label {labelId} doesn`t exist");
+            } else {
+                m_storys.JumpToWordAfterLabel (labelId);
             }
-            else
-            {
-                m_storys.JumpToWordAfterLabel(labelId);
-            }
-            
-//            container.PushChangePanelType(1);
-//            container.PushJump(new List<Option>(){new Option("1","这是一个不知道什么内容的选项"),new Option("2","这是一个不知道什么内容的选项")});
-//            container.PushFrontImg("MG_TalkType1_TalkBGVignetee");
-            while (!m_storys.IsDone())
-            {
-                switch (m_storys.GetNodeType())
-                {
+
+            //            container.PushChangePanelType(1);
+            //            container.PushJump(new List<Option>(){new Option("1","这是一个不知道什么内容的选项"),new Option("2","这是一个不知道什么内容的选项")});
+            //            container.PushFrontImg("MG_TalkType1_TalkBGVignetee");
+            while (!m_storys.IsDone ()) {
+                switch (m_storys.GetNodeType ()) {
 
                     case StoryReader.NodeType.word:
-                        container.PushName(m_storys.GetName());
-                        StoryVirtualMachine.Instance.Run(m_storys.GetContent());
-                        m_storys.NextStory();
+                        container.PushName (m_storys.GetName ());
+                        StoryVirtualMachine.Instance.Run (m_storys.GetContent ());
+                        m_storys.NextStory ();
                         break;
 
                     case StoryReader.NodeType.jump:
-                        container.PushJump(m_storys.GetJump());
+                        container.PushJump (m_storys.GetJump ());
                         //						m_storys.NextStory ();
                         //Test
                         return container;
@@ -169,128 +149,120 @@ namespace Controllers.Subsystems.Story
 
                     case StoryReader.NodeType.label:
                         //m_storys.NextStory ();
-                        m_storys.NextStory();
+                        m_storys.NextStory ();
                         break;
                         break;
 
                     case StoryReader.NodeType.end:
-                        m_storys.NextStory();
+                        m_storys.NextStory ();
                         return container;
                         break;
 
                     case StoryReader.NodeType.exhibit:
-                        container.PushShowEvidence(m_storys.GetExhibit(), m_storys.GetExhibitPrefix());
-                        m_storys.NextStory();
+                        container.PushShowEvidence (m_storys.GetExhibit (), m_storys.GetExhibitPrefix ());
+                        m_storys.NextStory ();
                         //return container;
                         break;
 
                     case StoryReader.NodeType.raiseEvent:
-                        string eventName = m_storys.GetEventName();
+                        string eventName = m_storys.GetEventName ();
 
-                        switch (m_storys.GetEventType())
-                        {
+                        switch (m_storys.GetEventType ()) {
                             case StoryReader.EventType.loadScene:
-                                container.PushLoadGameScene(eventName);
+                                container.PushLoadGameScene (eventName);
                                 break;
-                                
+
                             case StoryReader.EventType.loadMission:
                                 {
-                                    MissionEnum needLoadMission = MissionSceneManager.Instance.GetMissionEnumBy(eventName, false);
-                                    if (needLoadMission == MissionEnum.None)
-                                    {
-                                        Debug.LogError(eventName + " is not exist.");
+                                    MissionEnum needLoadMission = MissionSceneManager.Instance.GetMissionEnumBy (eventName, false);
+                                    if (needLoadMission == MissionEnum.None) {
+                                        Debug.LogError (eventName + " is not exist.");
                                     }
-                                    container.LoadMission(needLoadMission);
+                                    container.LoadMission (needLoadMission);
                                     //m_storys.NextStory();
                                     //return container;
                                 }
                                 break;
                             case StoryReader.EventType.LoadCgScene:
-                                container.LoadCGScene(eventName);
+                                container.LoadCGScene (eventName);
                                 break;
                             case StoryReader.EventType.CloseCgScene:
-                                container.CloseCGScene(eventName);
+                                container.CloseCGScene (eventName);
                                 break;
                             case StoryReader.EventType.LoadControversy:
-                                container.PushEnterControversy(eventName);
+                                container.PushEnterControversy (eventName);
                                 break;
                             case StoryReader.EventType.PlayCutIn:
-                                container.PushCutIn(eventName);
+                                container.PushCutIn (eventName);
                                 break;
                             case StoryReader.EventType.PlayInteractionAnimation:
                                 string cleanItemName = eventName;
-                                if (cleanItemName.Contains("_"))
-                                {
-                                    cleanItemName = eventName.Substring(0, eventName.IndexOf('_'));
+                                if (cleanItemName.Contains ("_")) {
+                                    cleanItemName = eventName.Substring (0, eventName.IndexOf ('_'));
                                 }
-                                container.PlayInteractionAnimation(cleanItemName);
+                                container.PlayInteractionAnimation (cleanItemName);
                                 break;
                             case StoryReader.EventType.invokeEvent:
-                                container.TriggerEvent(new StarPlatinum.EventManager.RaiseEvent(
+                                container.TriggerEvent (new StarPlatinum.EventManager.RaiseEvent (
                                     StoryReader.EventType.invokeEvent,
                                     eventName));
                                 break;
 
                             case StoryReader.EventType.playAnimation:
-                                container.PlayAnimation(eventName);
+                                container.PlayAnimation (eventName);
                                 break;
 
                             case StoryReader.EventType.PlayTimeline:
-                                container.PushTimeLine(eventName);
+                                container.PushTimeLine (eventName);
                                 break;
 
                             case StoryReader.EventType.LoadFrontground:
-                                container.PushFrontImg(eventName);
+                                container.PushFrontImg (eventName);
                                 break;
 
                             case StoryReader.EventType.LoadBackground:
-                                container.ChangeBackground(eventName);
+                                container.ChangeBackground (eventName);
                                 break;
                             case StoryReader.EventType.LoadSkybox:
-                                SkyboxEnum skyboxEnum =(SkyboxEnum)Enum.Parse(typeof(SkyboxEnum), eventName);
-                                container.LoadSkybox(skyboxEnum);
+                                SkyboxEnum skyboxEnum = (SkyboxEnum) Enum.Parse (typeof (SkyboxEnum), eventName);
+                                container.LoadSkybox (skyboxEnum);
                                 break;
                             case StoryReader.EventType.SwitchTalkUIType:
-                                int UIPanelType = int.Parse(eventName);
-                                container.PushChangePanelType(UIPanelType);
+                                int UIPanelType = int.Parse (eventName);
+                                container.PushChangePanelType (UIPanelType);
                                 break;
                             case StoryReader.EventType.RemoveSpecificExhibit:
-                                container.PushRemoveEvidence(eventName);
+                                container.PushRemoveEvidence (eventName);
                                 break;
                             case StoryReader.EventType.RemoveAllExhibit:
-                                container.RemoveAllExhibit();
+                                container.RemoveAllExhibit ();
                                 break;
                             case StoryReader.EventType.GameOver:
-                                //Todo
+                                container.PushGameEvent ("GameEnd");
                                 break;
 
                             default:
                                 break;
                         }
-                        m_storys.NextStory();
+                        m_storys.NextStory ();
                         break;
 
                     default:
-                        Debug.LogError("Unknown Node Type");
+                        Debug.LogError ("Unknown Node Type");
                         break;
                 }
-
 
             }
             return container;
         }
 
-        public void SetTalkPanelType(int type)
-        {
+        public void SetTalkPanelType (int type) {
             m_talkPanelType = type;
         }
 
-        public int GetTalkPanelType()
-        {
+        public int GetTalkPanelType () {
             return m_talkPanelType;
         }
-        
-        
 
         private StoryReader m_storys;
         private StoryConfig m_config;

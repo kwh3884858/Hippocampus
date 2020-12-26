@@ -72,7 +72,7 @@ namespace Config.Data
             yield return req.SendWebRequest();
 
             if (req.isHttpError||req.isNetworkError)
-                Debug.Log($"获取配置资源错误! {filePath}");
+                Debug.LogError($"获取配置资源错误! {filePath}");
             else
             {
                 fileStr =Encoding.GetEncoding("GB2312").GetString(req.downloadHandler.data);

@@ -51,6 +51,11 @@ namespace UI.Panels
 		{
 			m_model.Tick();
 			base.Tick();
+			
+			if (StarPlatinum.Services.InputService.Instance.Input.StoryPlayer.Next.triggered)
+			{
+				ClickClose();
+			}
 		}
 
 		public override void LateTick()

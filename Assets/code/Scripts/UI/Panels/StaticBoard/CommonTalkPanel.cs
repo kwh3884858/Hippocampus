@@ -483,9 +483,17 @@ namespace UI.Panels
                     {
                         if (res.status != RequestStatus.FAIL)
                         {
-                            TimelineManager.Instance().PlayTimeline(res.result as TimelineAsset);
+                            gameObject.SetActive(false);
+                            TimelineManager.Instance().PlayTimeline(res.result as TimelineAsset, null, () =>
+                            {
+                                gameObject.SetActive(true);
+                                SetActionState(ActionState.End);
+                            });
                         }
-                        SetActionState(ActionState.End);
+                        else
+                        {
+                            SetActionState(ActionState.End);
+                        }
                     });
                     break;
                 case StoryActionType.AddEvidence:
@@ -632,7 +640,8 @@ namespace UI.Panels
             {
                 artNameKey = m_curRoleInfo.artNameKey;
             }
-            if (!string.IsNullOrEmpty(artNameKey))
+            //TODO:注释艺术字监狱岛记得改回来
+            if (false)
             {
                 m_img_artName_Image.enabled = true;
                 PrefabManager.Instance.SetImage(m_img_artName_Image,artNameKey, () =>
