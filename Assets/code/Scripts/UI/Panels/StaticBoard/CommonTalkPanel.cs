@@ -476,9 +476,17 @@ namespace UI.Panels
                     {
                         if (res.status != RequestStatus.FAIL)
                         {
-                            TimelineManager.Instance().PlayTimeline(res.result as TimelineAsset);
+                            gameObject.SetActive(false);
+                            TimelineManager.Instance().PlayTimeline(res.result as TimelineAsset, null, () =>
+                            {
+                                gameObject.SetActive(true);
+                                SetActionState(ActionState.End);
+                            });
                         }
-                        SetActionState(ActionState.End);
+                        else
+                        {
+                            SetActionState(ActionState.End);
+                        }
                     });
                     break;
                 case StoryActionType.AddEvidence:
