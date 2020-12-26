@@ -161,11 +161,6 @@ namespace UI.Panels
             base.Initialize(uiDataProvider, settings);
             m_textHelp = new TextHelp();
 
-            StarPlatinum.Services.InputService.Instance.Input.StoryPlayer.Next.started += OnNext;
-            StarPlatinum.Services.InputService.Instance.Input.StoryPlayer.Auto.started += OnAuto;
-            StarPlatinum.Services.InputService.Instance.Input.StoryPlayer.Skip.started += OnSkip;
-            StarPlatinum.Services.InputService.Instance.Input.StoryPlayer.History.started += OnHistory; 
-
         }
 
         private void OnHistory(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -197,6 +192,12 @@ namespace UI.Panels
             {
                 GamePlay.Player.PlayerController.Instance().SetMoveEnable(true);
             }
+
+            StarPlatinum.Services.InputService.Instance.Input.StoryPlayer.Next.started -= OnNext;
+            StarPlatinum.Services.InputService.Instance.Input.StoryPlayer.Auto.started -= OnAuto;
+            StarPlatinum.Services.InputService.Instance.Input.StoryPlayer.Skip.started -= OnSkip;
+            StarPlatinum.Services.InputService.Instance.Input.StoryPlayer.History.started -= OnHistory;
+
         }
 
         public override void ShowData(DataProvider data)
@@ -216,6 +217,12 @@ namespace UI.Panels
             {
                 m_btn_skip_Button.gameObject.SetActive(false);
             }
+
+            StarPlatinum.Services.InputService.Instance.Input.StoryPlayer.Next.started += OnNext;
+            StarPlatinum.Services.InputService.Instance.Input.StoryPlayer.Auto.started += OnAuto;
+            StarPlatinum.Services.InputService.Instance.Input.StoryPlayer.Skip.started += OnSkip;
+            StarPlatinum.Services.InputService.Instance.Input.StoryPlayer.History.started += OnHistory;
+
         }
 
         public override void UpdateData(DataProvider data)
