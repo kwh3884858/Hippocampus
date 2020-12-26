@@ -74,11 +74,12 @@ namespace Gameplay.Manager
 
             if (m_shouldAbortCurrentTimeline)
             {
-                m_shouldAbortCurrentTimeline = false;
+				callback?.Invoke ();
+				m_shouldAbortCurrentTimeline = false;
                 yield break;
             }
-            callback();
-            ExitCinemaState();
+            callback?.Invoke ();
+            ExitCinemaState ();
 
             yield break;
         }
