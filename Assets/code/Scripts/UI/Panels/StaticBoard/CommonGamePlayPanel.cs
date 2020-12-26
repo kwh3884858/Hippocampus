@@ -30,7 +30,7 @@ namespace UI.Panels
 
         private void OnCursorEvent(object sender, CursorEvent e)
         {
-            UpdateButtonVisiable(!e.m_isCameraCanMove);
+			m_model.m_isInteractButtonVisiable = true;
         }
 
         public override void Hide()
