@@ -28,8 +28,8 @@ namespace UI.Panels
 
          private void UIFinder()
          {
-			m_btn_close_Image = FindUI<Image>(transform ,"btn_close");
-			m_btn_close_Button = FindUI<Button>(transform ,"btn_close");
+			m_btn_close_Image = FindUI<Image>(transform ,"bg/btn_close");
+			m_btn_close_Button = FindUI<Button>(transform ,"bg/btn_close");
 
 
 m_model = new CommonEndModel ();
