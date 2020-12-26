@@ -35,6 +35,7 @@ namespace HeavenGateEditor {
         SwitchTalkUIType,
         RemoveSpecificExhibit,
         RemoveAllExhibit,
+        GameOver,
         Amount
     };
 
@@ -54,7 +55,8 @@ namespace HeavenGateEditor {
         "LoadSkybox",
         "SwitchTalkUIType",
         "RemoveSpecificExhibit",
-        "RemoveAllExhibit"
+        "RemoveAllExhibit",
+        "GameOver"
     };
 
     extern int EventTypeAmount = (int)EventType::Amount;
@@ -134,6 +136,9 @@ namespace HeavenGateEditor {
         }
         else if (strcmp(tmpEventType, eventTypeString[(int)EventType::RemoveAllExhibit]) == 0){
             p.m_eventType = EventType::RemoveAllExhibit;
+        }
+        else if (strcmp(tmpEventType, eventTypeString[(int)EventType::GameOver]) == 0){
+            p.m_eventType = EventType::GameOver;
         }
     }
 
