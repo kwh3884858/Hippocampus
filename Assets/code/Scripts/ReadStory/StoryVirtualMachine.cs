@@ -234,9 +234,9 @@ namespace StarPlatinum.StoryCompile
 						{
 							string[] position = token.m_content.Split(',');
 							Vector3 positionParam = new Vector3(
-								Int32.Parse(position[(int)Vector3Parameter.x]),
-								Int32.Parse(position[(int)Vector3Parameter.y]),
-								Int32.Parse(position[(int)Vector3Parameter.z])
+								float.Parse(position[(int)Vector3Parameter.x]),
+								float.Parse(position[(int)Vector3Parameter.y]),
+								float.Parse(position[(int)Vector3Parameter.z])
 							);
 							m_container.PushPlayerPosition(positionParam);
 						}
@@ -245,9 +245,9 @@ namespace StarPlatinum.StoryCompile
 						{
 							string[] rotation = token.m_content.Split(',');
 							Vector3 rotationParam = new Vector3(
-								Int32.Parse(rotation[(int)Vector3Parameter.x]),
-								Int32.Parse(rotation[(int)Vector3Parameter.y]),
-								Int32.Parse(rotation[(int)Vector3Parameter.z])
+								float.Parse(rotation[(int)Vector3Parameter.x]),
+								float.Parse(rotation[(int)Vector3Parameter.y]),
+								float.Parse(rotation[(int)Vector3Parameter.z])
 								);
 							m_container.PushPlayerRotation(rotationParam);
 						}
