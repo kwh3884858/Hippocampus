@@ -259,6 +259,9 @@ namespace Controllers.Subsystems.Story
                             case StoryReader.EventType.RemoveAllExhibit:
                                 container.RemoveAllExhibit();
                                 break;
+                            case StoryReader.EventType.GameOver:
+                                //Todo
+                                break;
 
                             default:
                                 break;

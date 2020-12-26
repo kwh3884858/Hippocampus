@@ -69,7 +69,8 @@ namespace StarPlatinum.StoryReader
 			LoadSkybox,
 			SwitchTalkUIType,
 			RemoveSpecificExhibit,
-			RemoveAllExhibit
+			RemoveAllExhibit,
+			GameOver
 		};
 
 		public string GetName ()
