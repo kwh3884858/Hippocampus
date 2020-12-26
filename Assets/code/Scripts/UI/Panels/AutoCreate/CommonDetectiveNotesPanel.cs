@@ -57,7 +57,6 @@ namespace UI.Panels
 
 		[HideInInspector] public Text m_Text_Intro_Text;
 
-		[HideInInspector] public UI_Common_Tip_Item_SubView m_UI_Common_Tip_Item;
 		[HideInInspector] public Image m_Image_Detial_Image;
 		[HideInInspector] public TipDetailController m_Image_Detial_TipDetailController;
 
