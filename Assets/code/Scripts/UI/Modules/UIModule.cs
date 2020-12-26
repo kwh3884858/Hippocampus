@@ -383,6 +383,11 @@ namespace UI.Modules
 
         public virtual void ShowPanel(UIPanelType type, DataProvider data = null)
         {
+            if (m_panelsSettings.SingleOrDefault(p => p.PanelType == type) == null)
+            {
+                return;
+            }
+
             m_operationQueue.Add(new UIPanelOperation(UIPanelOperation.OperationType.ShowPanel, type, data));
             Log("Add queue " + m_operationQueue.Last());
             if (!IsQueue)

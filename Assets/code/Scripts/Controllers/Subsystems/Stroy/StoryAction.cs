@@ -260,6 +260,11 @@ namespace Controllers.Subsystems.Story
             m_actions.Enqueue(new StoryVector3Action() { Type = StoryActionType.Rotation, m_vector = rotation });
         }
 
+        public void PushGameEvent(string eventName)
+        {
+            m_actions.Enqueue(new StoryAction(){Type = StoryActionType.GameEvent,Content = eventName});
+        }
+
         private int ProcessPicPos(int pos)
         {
             return pos - 100;

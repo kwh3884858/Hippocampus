@@ -507,6 +507,12 @@ namespace UI.Panels
                         SetActionState(ActionState.End);
                     }
                     break;
+                case StoryActionType.GameEvent:
+                    {
+                        EventManager.Instance.SendEvent(new GameEvent(){EventName = m_curAction.Content});
+                        SetActionState(ActionState.End);
+                    }
+                    break;
                 default:
                     Debug.LogError($"未处理对话行为:{storyAction.Type}");
                     break;
