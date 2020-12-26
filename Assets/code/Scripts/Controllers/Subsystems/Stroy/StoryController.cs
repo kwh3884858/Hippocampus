@@ -260,6 +260,9 @@ namespace Controllers.Subsystems.Story
                             case StoryReader.EventType.RemoveAllExhibit:
                                 container.RemoveAllExhibit();
                                 break;
+                            case StoryReader.EventType.GameOver:
+                                container.PushGameEvent("GameEnd");
+                                break;
 
                             default:
                                 break;
