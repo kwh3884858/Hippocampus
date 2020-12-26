@@ -43,7 +43,7 @@ namespace Gameplay.Manager
             }
         }
 
-        public void PlayTimeline(TimelineAsset timelineAsset, Transform PlayerPosition = null)
+        public void PlayTimeline(TimelineAsset timelineAsset, Transform PlayerPosition = null, Action callback = null)
         {
             if (!m_TimelinePlayer)
             {
@@ -61,10 +61,10 @@ namespace Gameplay.Manager
             EnterCinemaState();
 
             //callback
-            StartCoroutine(PlayedCallBack(m_TimelinePlayer.duration - m_TimelinePlayer.time, PlayerPosition));
+            StartCoroutine(PlayedCallBack(m_TimelinePlayer.duration - m_TimelinePlayer.time, PlayerPosition, callback));
         }
 
-        IEnumerator PlayedCallBack(double time, Transform playerPosition)
+        IEnumerator PlayedCallBack(double time, Transform playerPosition, Action callback)
         {
             if (playerPosition != null)
             {
@@ -77,7 +77,7 @@ namespace Gameplay.Manager
                 m_shouldAbortCurrentTimeline = false;
                 yield break;
             }
-
+            callback();
             ExitCinemaState();
 
             yield break;
