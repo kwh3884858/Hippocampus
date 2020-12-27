@@ -49,6 +49,13 @@ namespace Assets.code.StarPlatinum.Services.CameraService
 
         public virtual void SetLookRotation(float x,float y, float z)
         {
+            //Hack !!!!
+            //last corridor will cause a bug the player cannot look at the correct rotation angle.
+            //So I wrote the template code to hack function.
+            //TODO: Fix camera rotation bug.
+            transform.rotation = Quaternion.Euler(new Vector3(x, y, z));
+            return;
+
             SetCameraRotation(false);
             Vector3 elurVector3 = new Vector3(x,y,z);
             m_desRotation = elurVector3 == Vector3.zero ? Quaternion.identity : Quaternion.Euler(elurVector3);
