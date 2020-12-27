@@ -86,12 +86,15 @@ namespace UI
 
         public void ShowPanel(UIPanelType type, DataProvider dataProvider = null)
         {
-            m_activeModule.ShowPanel(type,dataProvider);
+            if (m_activeModule != null)
+            {
+                m_activeModule.ShowPanel(type, dataProvider);
+            }
         }
 
         public void HidePanel(UIPanelType type)
 		{
-            if (m_activeModule.IsPanelShow (type)) {
+            if (m_activeModule!=null && m_activeModule.IsPanelShow (type)) {
                 m_activeModule.HidePanel (type);
             }
 		}
@@ -130,12 +133,12 @@ namespace UI
 
         public void Deactivated(GameState state)
         {
+            m_uiModules[state].Deactivate();
+            m_uiModuleStaticBoard.Deactivate();
             if (m_activeModule == m_uiModules[state])
             {
                 m_activeModule = null;
             }
-            m_uiModules[state].Deactivate();
-            m_uiModuleStaticBoard.Deactivate();
         }
 
         public bool IsPanelShow(UIPanelType type)
