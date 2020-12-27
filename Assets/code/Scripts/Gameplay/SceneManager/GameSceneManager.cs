@@ -43,7 +43,7 @@ namespace GamePlay.Stage
                 if (result)
                 {
                     UnityEngine.SceneManagement.SceneManager.SetActiveScene(loadedScene);
-                    SkyboxManager.Instance().RefreshSkyboxSettingAfterNewGameSceneIsLoaded(RenderSettings.skybox);
+                    SkyboxManager.Instance().RefreshSkyboxSettingAfterNewGameSceneIsLoaded(RenderSettings.skybox, RenderSettings.ambientLight);
 
                 }
             });
