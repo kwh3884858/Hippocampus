@@ -28,7 +28,7 @@ namespace GamePlay.EventTrigger
         {
 #if UNITY_EDITOR
             //Debug 3D Text
-            Utility.WorldDebug3DTextManager.Instance.AddTextToGameobject(debugText, gameObject);
+            //Utility.WorldDebug3DTextManager.Instance.AddTextToGameobject(debugText, gameObject);
 #endif
         }
 
