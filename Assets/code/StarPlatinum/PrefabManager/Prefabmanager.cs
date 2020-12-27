@@ -164,7 +164,10 @@ namespace StarPlatinum
 			{
 				if (result.status == RequestStatus.SUCCESS)
 				{
-					objs.Add(result.key,result.result as T);
+					if (!objs.ContainsKey(result.key))
+					{
+						objs.Add(result.key,result.result as T);
+					}
 				}
 			}, () => { onLoadFinish?.Invoke(objs); });
 		}

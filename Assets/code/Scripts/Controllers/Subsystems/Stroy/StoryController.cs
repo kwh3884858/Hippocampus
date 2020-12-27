@@ -267,7 +267,7 @@ namespace Controllers.Subsystems.Story {
         private StoryReader m_storys;
         private StoryConfig m_config;
         private string m_storyFileName;
-        private int m_talkPanelType = 0;
+        private int m_talkPanelType = 2;
 
     }
 }
