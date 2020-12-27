@@ -14,6 +14,9 @@ namespace Config.Data
         public string historyBtnBG;
         public string contentEndImg;
         public string talkBG;
+        public string optionSelectedBG;
+        public string optionUnSelectedBG;
+        public string optionTextColor;
 
         public static TalkPanelConfig GetConfigByKey(int key)
         {
@@ -52,6 +55,8 @@ namespace Config.Data
                     list.Add(config.Value.talkBG);
                 }
                 list.Add(config.Value.nameBG);
+                list.Add(config.Value.optionSelectedBG);
+                list.Add(config.Value.optionUnSelectedBG);
             }
             PrefabManager.Instance.LoadAssetsAsync<Sprite>(list,null);
         }
