@@ -67,14 +67,19 @@ namespace UI.Panels
 			for (int i = 0; i < m_options.Count; i++)
 			{
 				m_optionItems[i].gameObject.SetActive(true);
-				m_optionItems[i].Init(m_options[i].ID,m_options[i].Content);
+				m_optionItems[i].Init(m_options[i].ID,m_options[i].Content,m_uiType);
 			}
 		}
 
 		private void SetTalkPanelType()
 		{
 			var type = UiDataProvider.ControllerManager.StoryController.GetTalkPanelType();
+			if (m_uiType == type)
+			{
+				return;
+			}
 			
+			m_uiType = type;
 			var config = TalkPanelConfig.GetConfigByKey(type);
 			if (config == null)
 			{
@@ -115,5 +120,6 @@ namespace UI.Panels
 		private Action<string> m_currentCallback;
 		private List<Option> m_options;
 		private List<OptionItem> m_optionItems;
+		private int m_uiType;
 	}
 }
