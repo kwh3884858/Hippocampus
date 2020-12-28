@@ -15,10 +15,10 @@ public class ReporterGUI : MonoBehaviour
 	{
 		reporter.OnGUIDraw();
 #if !UNITY_EDITOR
-		if (GUI.Button(new Rect(0, 150, 100, 50), "ShowLog"))
-		{
-			reporter.show = !reporter.show; 
-		}
+		//if (GUI.Button(new Rect(0, 150, 100, 50), "ShowLog"))
+		//{
+		//	reporter.show = !reporter.show; 
+		//}
 #endif
 		#if UNITY_EDITOR
 		if (GUI.Button(new Rect(0, 150, 100, 50), "争锋相对"))

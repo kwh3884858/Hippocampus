@@ -98,10 +98,13 @@ namespace Gameplay.Manager
 
         void OnGUI()
         {
-            if (GUI.Button(new Rect(0, 100, 200, 50), "Skip Timeline(F4)")||  UnityEngine.InputSystem.Keyboard.current.f4Key.wasPressedThisFrame)
+            if (Application.isEditor)
             {
-                Debug.Log("skip timeline");
-                Gameplay.Manager.TimelineManager.Instance().AbortTimeline();
+                if (GUI.Button(new Rect(0, 100, 200, 50), "Skip Timeline(F4)") || UnityEngine.InputSystem.Keyboard.current.f4Key.wasPressedThisFrame)
+                {
+                    Debug.Log("skip timeline");
+                    Gameplay.Manager.TimelineManager.Instance().AbortTimeline();
+                }
             }
         }
 
