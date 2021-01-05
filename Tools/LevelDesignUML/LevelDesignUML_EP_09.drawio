@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-01-05T12:24:33.131Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="q0t58x8RSDo81Og7AMhW" version="14.1.8" type="github" pages="2">
+<mxfile host="app.diagrams.net" modified="2021-01-05T12:25:52.526Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36" etag="hE27Pgexoz1-xlYj73yb" version="14.1.8" type="github" pages="2">
   <diagram name="关卡流程图" id="0783ab3e-0a74-02c8-0abd-f7b4e66b4bec">
     <mxGraphModel dx="1038" dy="547" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="#ffffff" math="0" shadow="0">
       <root>
@@ -24,7 +24,7 @@
             <mxPoint x="80" y="70" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="soN0B9OmbE9krU4sowRZ-1" value="special" style="shape=note;whiteSpace=wrap;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;size=20;" vertex="1" parent="1c1d494c118603dd-2">
+        <mxCell id="soN0B9OmbE9krU4sowRZ-1" value="special" style="shape=note;whiteSpace=wrap;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;size=20;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1c1d494c118603dd-2">
           <mxGeometry x="42.5" y="170" width="75" height="44" as="geometry" />
         </mxCell>
         <mxCell id="soN0B9OmbE9krU4sowRZ-3" value="" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1c1d494c118603dd-2">
@@ -33,7 +33,7 @@
         <mxCell id="soN0B9OmbE9krU4sowRZ-13" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;startArrow=oval;startFill=0;" edge="1" parent="1c1d494c118603dd-2" source="soN0B9OmbE9krU4sowRZ-12" target="60571a20871a0731-8">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="soN0B9OmbE9krU4sowRZ-12" value="出生点" style="shape=card;whiteSpace=wrap;html=1;size=20;" vertex="1" parent="1c1d494c118603dd-2">
+        <mxCell id="soN0B9OmbE9krU4sowRZ-12" value="出生点" style="shape=card;whiteSpace=wrap;html=1;size=20;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1c1d494c118603dd-2">
           <mxGeometry x="140" y="160" width="80" height="40" as="geometry" />
         </mxCell>
         <mxCell id="soN0B9OmbE9krU4sowRZ-38" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.25;entryDx=0;entryDy=0;startArrow=oval;startFill=0;" edge="1" parent="1c1d494c118603dd-2" source="soN0B9OmbE9krU4sowRZ-37" target="60571a20871a0731-8">
@@ -64,7 +64,7 @@
         <mxCell id="soN0B9OmbE9krU4sowRZ-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1c1d494c118603dd-3" source="1c1d494c118603dd-10" target="1c1d494c118603dd-7">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="1c1d494c118603dd-10" value="医生房间CG场景" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;arcSize=50;" parent="1c1d494c118603dd-3" vertex="1">
+        <mxCell id="1c1d494c118603dd-10" value="医生房间CG场景" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;arcSize=50;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1c1d494c118603dd-3" vertex="1">
           <mxGeometry x="131.88" y="280" width="96.5" height="50" as="geometry" />
         </mxCell>
         <mxCell id="1c1d494c118603dd-46" style="edgeStyle=none;rounded=0;html=1;labelBackgroundColor=none;startArrow=none;startFill=0;startSize=5;endArrow=oval;endFill=0;endSize=5;jettySize=auto;orthogonalLoop=1;strokeWidth=1;fontFamily=Verdana;fontSize=12;dashed=1;" parent="1c1d494c118603dd-3" target="1c1d494c118603dd-6" edge="1">
@@ -81,13 +81,13 @@
         <mxCell id="soN0B9OmbE9krU4sowRZ-23" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=oval;startFill=0;" edge="1" parent="1c1d494c118603dd-3" source="1c1d494c118603dd-14" target="soN0B9OmbE9krU4sowRZ-10">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="1c1d494c118603dd-14" value="监狱长房间CG场景" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;arcSize=50;" parent="1c1d494c118603dd-3" vertex="1">
+        <mxCell id="1c1d494c118603dd-14" value="监狱长房间CG场景" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;arcSize=50;fillColor=#ffe6cc;strokeColor=#d79b00;" parent="1c1d494c118603dd-3" vertex="1">
           <mxGeometry x="68.25" y="430" width="91.5" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="1c1d494c118603dd-21" value="EP09-03" style="shape=note;whiteSpace=wrap;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;size=20;" parent="1c1d494c118603dd-3" vertex="1">
+        <mxCell id="1c1d494c118603dd-21" value="EP09-03" style="shape=note;whiteSpace=wrap;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;size=20;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1c1d494c118603dd-3" vertex="1">
           <mxGeometry x="6.880000000000003" y="240" width="85" height="42" as="geometry" />
         </mxCell>
-        <mxCell id="soN0B9OmbE9krU4sowRZ-7" value="EP09-05" style="shape=note;whiteSpace=wrap;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;size=20;" vertex="1" parent="1c1d494c118603dd-3">
+        <mxCell id="soN0B9OmbE9krU4sowRZ-7" value="EP09-05" style="shape=note;whiteSpace=wrap;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;size=20;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1c1d494c118603dd-3">
           <mxGeometry x="20" y="340" width="85" height="42" as="geometry" />
         </mxCell>
         <mxCell id="soN0B9OmbE9krU4sowRZ-9" style="edgeStyle=none;rounded=0;html=1;labelBackgroundColor=none;startArrow=none;startFill=0;startSize=5;endArrow=oval;endFill=0;endSize=5;jettySize=auto;orthogonalLoop=1;strokeWidth=1;fontFamily=Verdana;fontSize=12;dashed=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1c1d494c118603dd-3" target="1c1d494c118603dd-7">
@@ -105,25 +105,25 @@
         <mxCell id="soN0B9OmbE9krU4sowRZ-15" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;startArrow=oval;startFill=0;" edge="1" parent="1c1d494c118603dd-3" source="soN0B9OmbE9krU4sowRZ-14" target="1c1d494c118603dd-6">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="soN0B9OmbE9krU4sowRZ-14" value="医生房间门口" style="shape=card;whiteSpace=wrap;html=1;size=20;" vertex="1" parent="1c1d494c118603dd-3">
+        <mxCell id="soN0B9OmbE9krU4sowRZ-14" value="医生房间门口" style="shape=card;whiteSpace=wrap;html=1;size=20;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1c1d494c118603dd-3">
           <mxGeometry x="210" y="220" width="70" height="40" as="geometry" />
         </mxCell>
         <mxCell id="soN0B9OmbE9krU4sowRZ-17" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=1;entryDx=0;entryDy=0;dashed=1;startArrow=oval;startFill=0;" edge="1" parent="1c1d494c118603dd-3" source="soN0B9OmbE9krU4sowRZ-16" target="1c1d494c118603dd-7">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="soN0B9OmbE9krU4sowRZ-16" value="典狱长房间门口" style="shape=card;whiteSpace=wrap;html=1;size=20;" vertex="1" parent="1c1d494c118603dd-3">
+        <mxCell id="soN0B9OmbE9krU4sowRZ-16" value="典狱长房间门口" style="shape=card;whiteSpace=wrap;html=1;size=20;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1c1d494c118603dd-3">
           <mxGeometry x="191.88" y="430" width="70" height="40" as="geometry" />
         </mxCell>
         <mxCell id="soN0B9OmbE9krU4sowRZ-20" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.75;entryDx=0;entryDy=0;dashed=1;startArrow=oval;startFill=0;" edge="1" parent="1c1d494c118603dd-3" source="soN0B9OmbE9krU4sowRZ-19" target="soN0B9OmbE9krU4sowRZ-10">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="soN0B9OmbE9krU4sowRZ-19" value="典狱长房间门口" style="shape=card;whiteSpace=wrap;html=1;size=20;" vertex="1" parent="1c1d494c118603dd-3">
+        <mxCell id="soN0B9OmbE9krU4sowRZ-19" value="典狱长房间门口" style="shape=card;whiteSpace=wrap;html=1;size=20;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1c1d494c118603dd-3">
           <mxGeometry x="181.88" y="580" width="70" height="40" as="geometry" />
         </mxCell>
         <mxCell id="soN0B9OmbE9krU4sowRZ-22" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;dashed=1;startArrow=oval;startFill=0;" edge="1" parent="1c1d494c118603dd-3" source="soN0B9OmbE9krU4sowRZ-21" target="soN0B9OmbE9krU4sowRZ-10">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="soN0B9OmbE9krU4sowRZ-21" value="EP09-09" style="shape=note;whiteSpace=wrap;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;size=20;" vertex="1" parent="1c1d494c118603dd-3">
+        <mxCell id="soN0B9OmbE9krU4sowRZ-21" value="EP09-09" style="shape=note;whiteSpace=wrap;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fontFamily=Verdana;fontSize=12;align=center;size=20;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1c1d494c118603dd-3">
           <mxGeometry x="-3.1200000000000045" y="580" width="85" height="42" as="geometry" />
         </mxCell>
         <mxCell id="soN0B9OmbE9krU4sowRZ-32" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.397;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=oval;startFill=0;" edge="1" parent="1c1d494c118603dd-3" source="soN0B9OmbE9krU4sowRZ-25" target="soN0B9OmbE9krU4sowRZ-31">
