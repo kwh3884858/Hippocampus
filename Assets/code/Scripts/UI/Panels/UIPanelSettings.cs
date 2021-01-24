@@ -98,8 +98,8 @@ namespace UI.Panels
         //Switch MainMenuPanel
         public static List<UIPanelSettings> MenuInfo = new List<UIPanelSettings>()
         {
-            //new UIPanelSettings(UIPanelType.MainManuPanel,UIPanelUnLoadMode.Destroy,true),
-            new UIPanelSettings(UIPanelType.MGStartmanuMainmanuPanel,UIPanelUnLoadMode.Destroy,true),
+            new UIPanelSettings(UIPanelType.MainManuPanel,UIPanelUnLoadMode.Destroy,true),
+            //new UIPanelSettings(UIPanelType.MGStartmanuMainmanuPanel,UIPanelUnLoadMode.Destroy,true),
                   };
         public static List<UIPanelSettings> StaticBoardInfo = new List<UIPanelSettings>()
         {

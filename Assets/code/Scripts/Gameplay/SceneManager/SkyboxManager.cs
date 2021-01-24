@@ -118,7 +118,7 @@ public class SkyboxManager : MonoSingleton<SkyboxManager>
         }
         else
         {
-            Debug.LogError("can not find the correct skybox when loading the scene");
+            Debug.LogError("can not find the correct skybox "+skyboxMaterial.name+" when loading the scene");
         }
     }
 
