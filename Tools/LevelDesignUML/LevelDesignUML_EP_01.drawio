@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-01-24T03:06:25.748Z" agent="5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36" etag="P93LWLuu6Tf2VFWvDCgu" version="14.2.7" type="github" pages="2">
+<mxfile host="app.diagrams.net" modified="2021-01-24T03:06:47.535Z" agent="5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36" etag="iX_HDZEU1_gGYBKXiS3P" version="14.2.7" type="github" pages="2">
   <diagram name="关卡流程图" id="0783ab3e-0a74-02c8-0abd-f7b4e66b4bec">
     <mxGraphModel dx="1422" dy="1862" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="#ffffff" math="0" shadow="0">
       <root>
@@ -173,7 +173,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="dmDB2ZcVdiuMjPRwZuYF" name="关卡平面图">
-    <mxGraphModel dx="331" dy="177" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="ojgNweESeSlG1wubFBOF-0" />
         <mxCell id="ojgNweESeSlG1wubFBOF-1" parent="ojgNweESeSlG1wubFBOF-0" />
@@ -182,12 +182,6 @@
         </mxCell>
         <mxCell id="32pKdByRdfm2AMbjOZ1x-1" value="&lt;span style=&quot;font-size: 20px&quot;&gt;码头木栈道&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="ojgNweESeSlG1wubFBOF-1" vertex="1">
           <mxGeometry x="90" y="420" width="290" height="53.75" as="geometry" />
-        </mxCell>
-        <mxCell id="32pKdByRdfm2AMbjOZ1x-8" value="&lt;span style=&quot;font-size: 20px&quot;&gt;客房1&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="ojgNweESeSlG1wubFBOF-1" vertex="1">
-          <mxGeometry x="730" y="175" width="220" height="110" as="geometry" />
-        </mxCell>
-        <mxCell id="32pKdByRdfm2AMbjOZ1x-9" value="" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;rotation=90;" parent="ojgNweESeSlG1wubFBOF-1" vertex="1">
-          <mxGeometry x="700" y="222.5" width="60" height="15" as="geometry" />
         </mxCell>
         <mxCell id="32pKdByRdfm2AMbjOZ1x-10" value="&lt;span style=&quot;font-size: 20px&quot;&gt;检查站&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="ojgNweESeSlG1wubFBOF-1" vertex="1">
           <mxGeometry x="380" y="330" width="360" height="240" as="geometry" />
@@ -198,26 +192,8 @@
         <mxCell id="32pKdByRdfm2AMbjOZ1x-12" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="ojgNweESeSlG1wubFBOF-1" vertex="1">
           <mxGeometry x="380" y="400" width="100" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="32pKdByRdfm2AMbjOZ1x-16" value="&lt;h1&gt;指挥所二楼&lt;/h1&gt;&lt;p&gt;剧情简介&lt;/p&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="ojgNweESeSlG1wubFBOF-1" vertex="1">
+        <mxCell id="32pKdByRdfm2AMbjOZ1x-16" value="&lt;h1&gt;岛上码头&lt;/h1&gt;" style="text;html=1;strokeColor=none;fillColor=none;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="ojgNweESeSlG1wubFBOF-1" vertex="1">
           <mxGeometry x="40" y="30" width="190" height="120" as="geometry" />
-        </mxCell>
-        <mxCell id="32pKdByRdfm2AMbjOZ1x-17" value="" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;" parent="ojgNweESeSlG1wubFBOF-1" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="59" y="237.5" as="sourcePoint" />
-            <mxPoint x="109" y="187.5" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="32pKdByRdfm2AMbjOZ1x-18" value="指挥所1F" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="ojgNweESeSlG1wubFBOF-1" vertex="1">
-          <mxGeometry x="54" y="240" width="70" height="20" as="geometry" />
-        </mxCell>
-        <mxCell id="32pKdByRdfm2AMbjOZ1x-19" value="" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;" parent="ojgNweESeSlG1wubFBOF-1" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="905" y="660" as="sourcePoint" />
-            <mxPoint x="955" y="610" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="32pKdByRdfm2AMbjOZ1x-20" value="指挥所1F" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="ojgNweESeSlG1wubFBOF-1" vertex="1">
-          <mxGeometry x="900" y="662.5" width="70" height="20" as="geometry" />
         </mxCell>
         <mxCell id="2-35yjRWeZZgqv3ZDKaf-1" value="" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="ojgNweESeSlG1wubFBOF-1" vertex="1">
           <mxGeometry x="310" y="416.88" width="30" height="60" as="geometry" />
