@@ -40,6 +40,7 @@ namespace HeavenGateEditor {
         StoryJson(StoryJson&& storyJson)noexcept;
         ~StoryJson();
 
+        StoryJson& operator=(const storyJson& storyJson);
         StoryJson& operator=(StoryJson&& storyJson)noexcept;
 
         int AddNode(StoryNode* const node);

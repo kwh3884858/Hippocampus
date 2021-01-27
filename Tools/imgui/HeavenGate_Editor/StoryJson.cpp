@@ -310,12 +310,6 @@ StoryJson::StoryJson(const StoryJson& storyJson)
     m_uniqueId = new StoryJsonUniqueId;
     *m_uniqueId = *storyJson.m_uniqueId;
 
-    //memset(m_chapter, '\0', sizeof(m_chapter));
-    //strcpy(m_chapter, storyJson.m_chapter);
-
-    //memset(m_scene, '\0', sizeof(m_scene));
-    //strcpy(m_scene, storyJson.m_scene);
-
     for (auto iter = storyJson.m_nodes.cbegin(); iter != storyJson.m_nodes.cend(); iter++) {
         if ((*iter)->m_nodeType == NodeType::Word)
         {
@@ -379,6 +373,54 @@ StoryJson::~StoryJson()
 }
 
 
+
+HeavenGateEditor::StoryJson& StoryJson::operator=(const storyJson& storyJson)
+{
+    if (this == &storyJson) {
+        return *this;
+    }
+
+    m_uniqueId = new StoryJsonUniqueId;
+    *m_uniqueId = *storyJson.m_uniqueId;
+
+    for (auto iter = storyJson.m_nodes.cbegin(); iter != storyJson.m_nodes.cend(); iter++) {
+        if ((*iter)->m_nodeType == NodeType::Word)
+        {
+            const StoryNode* node = *iter;
+            StoryWord* word = new StoryWord(static_cast<const StoryWord&>(*node));
+            m_nodes.push_back(word);
+        }
+        else if ((*iter)->m_nodeType == NodeType::Jump)
+        {
+            const StoryNode* node = *iter;
+            StoryJump* jump = new StoryJump(static_cast<const StoryJump&>(*node));
+            m_nodes.push_back(jump);
+        }
+        else if ((*iter)->m_nodeType == NodeType::Label)
+        {
+            const StoryNode* node = *iter;
+            StoryLabel* label = new StoryLabel(static_cast<const StoryLabel&>(*node));
+            m_nodes.push_back(label);
+        }
+        else if ((*iter)->m_nodeType == NodeType::Exhibit)
+        {
+            const StoryNode* node = *iter;
+            StoryExhibit* exhibit = new StoryExhibit(static_cast<const StoryExhibit&>(*node));
+            m_nodes.push_back(exhibit);
+        }
+        else if ((*iter)->m_nodeType == NodeType::raiseEvent) {
+            const StoryNode* node = *iter;
+            StoryEvent* event = new StoryEvent(static_cast<const StoryEvent&>(*node));
+            m_nodes.push_back(event);
+        }
+        else if ((*iter)->m_nodeType == NodeType::End)
+        {
+            const StoryNode* node = *iter;
+            StoryEnd* end = new StoryEnd(static_cast<const StoryEnd&>(*node));
+            m_nodes.push_back(end);
+        }
+    }
+}
 
 StoryJson& StoryJson::operator=(StoryJson&& storyJson) noexcept
 {
