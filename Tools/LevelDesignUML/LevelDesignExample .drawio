@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-01-27T05:55:00.202Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36" etag="VjykosZIuATRIN9lA1sk" version="14.2.7" type="github" pages="3">
+<mxfile host="app.diagrams.net" modified="2021-03-15T13:09:27.203Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36" etag="RmlcBR7j8ZZpfWe5YJLU" version="14.4.3" type="github" pages="3">
   <diagram id="GbZ1ZwChNBxgJ4C_-Y3V" name="UML示例图">
-    <mxGraphModel dx="1038" dy="547" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1038" dy="548" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -28,8 +28,8 @@
         <mxCell id="fm39pIIFy_Z-lrLezSjA-9" value="&lt;font style=&quot;font-size: 17px&quot;&gt;玩家&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
           <mxGeometry x="90" y="140" width="50" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="fm39pIIFy_Z-lrLezSjA-10" value="&lt;span style=&quot;font-size: 17px&quot;&gt;剧情节点&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
-          <mxGeometry x="370" y="142" width="80" height="20" as="geometry" />
+        <mxCell id="fm39pIIFy_Z-lrLezSjA-10" value="&lt;span style=&quot;font-size: 17px&quot;&gt;剧情节点label名&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="340" y="142" width="140" height="20" as="geometry" />
         </mxCell>
         <mxCell id="fm39pIIFy_Z-lrLezSjA-11" value="&lt;span style=&quot;font-size: 17px&quot;&gt;剧情节点文档名&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
           <mxGeometry x="205" y="142" width="130" height="20" as="geometry" />
