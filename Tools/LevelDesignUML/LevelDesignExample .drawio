@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-03-15T13:09:27.203Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36" etag="RmlcBR7j8ZZpfWe5YJLU" version="14.4.3" type="github" pages="3">
+<mxfile host="app.diagrams.net" modified="2021-03-17T13:43:15.087Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36" etag="3TkepVWdUxvHAa1IthzJ" version="14.4.8" type="github" pages="3">
   <diagram id="GbZ1ZwChNBxgJ4C_-Y3V" name="UML示例图">
     <mxGraphModel dx="1038" dy="548" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -64,11 +64,17 @@
         <mxCell id="kn6Z-zRhNiEJqK1csQy6-3" value="&lt;font style=&quot;font-size: 17px&quot;&gt;传送点&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
           <mxGeometry x="414" y="370" width="70" height="20" as="geometry" />
         </mxCell>
+        <mxCell id="qJB3sXkXTQzUKpplLbgC-1" value="通缉令" style="rhombus;whiteSpace=wrap;html=1;align=center;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="555" y="260" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="qJB3sXkXTQzUKpplLbgC-2" value="&lt;font style=&quot;font-size: 17px&quot;&gt;交互物品&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="370" width="80" height="20" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
   <diagram id="WgZ2JB18ooaytrucD8LY" name="指挥所1楼平面图">
-    <mxGraphModel dx="1038" dy="1716" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1038" dy="1717" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="hEAx2sPkmhx9yD9YSmCt-0" />
         <mxCell id="hEAx2sPkmhx9yD9YSmCt-1" parent="hEAx2sPkmhx9yD9YSmCt-0" />
