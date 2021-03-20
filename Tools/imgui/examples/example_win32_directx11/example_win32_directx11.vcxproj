@@ -223,6 +223,7 @@
     <ClInclude Include="..\..\nlohmann\json.hpp" />
     <ClInclude Include="..\imgui_impl_dx11.h" />
     <ClInclude Include="..\imgui_impl_win32.h" />
+    <ClInclude Include="Fonts_Data.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
@@ -297,6 +298,7 @@
     <ClCompile Include="..\..\imnodes\imnodes.cpp" />
     <ClCompile Include="..\imgui_impl_dx11.cpp" />
     <ClCompile Include="..\imgui_impl_win32.cpp" />
+    <ClCompile Include="Fonts_Data.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

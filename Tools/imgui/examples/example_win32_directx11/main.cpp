@@ -17,7 +17,7 @@
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
 #include <tchar.h>
-
+#include "Fonts_Data.h"
 
 
 // Data
@@ -31,6 +31,8 @@ bool CreateDeviceD3D(HWND hWnd);
 void CleanupDeviceD3D();
 void CreateRenderTarget();
 void CleanupRenderTarget();
+
+
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 // Main code
@@ -70,8 +72,12 @@ int main(int, char**)
         static_cast<int>(strlen(HeavenGateEditor::ASSET_FOLDER_NAME)));
     if (pos != -1) {
         strcpy(exePath + pos, HeavenGateEditor::PATH_FROM_PROJECT_ROOT_TO_FONT_FOLDER);
-        io.Fonts->AddFontFromFileTTF(exePath, 18.0f, NULL, io.Fonts->GetGlyphRangesChineseFull());
+        //io.Fonts->AddFontFromFileTTF(exePath, 18.0f, NULL, io.Fonts->GetGlyphRangesChineseFull());
 
+		//new way load font data from static const variant
+        ImFontConfig font_cfg_template;
+        font_cfg_template.FontDataOwnedByAtlas = false;
+        io.Fonts->AddFontFromMemoryTTF((void*)Fonts_Data::CN_Font_data, Fonts_Data::CN_Font_size, 18.0f,&font_cfg_template, io.Fonts->GetGlyphRangesChineseSimplifiedCommon());
     }
 
 #ifdef _WIN32
@@ -150,7 +156,7 @@ int main(int, char**)
             ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
             ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
             ImGui::Checkbox("Another Window", &show_another_window);
-            ImGui::Checkbox("Heaven Gate Center", show_heaven_gate_center);
+            ImGui::Checkbox(u8"ÃÏÃ√÷Æ√≈-Heaven Gate Center", show_heaven_gate_center);
 
 
             ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
