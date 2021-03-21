@@ -36,7 +36,7 @@ namespace UI.Panels
 			m_model.Hide();
 			base.Hide();
 			EventManager.Instance.AddEventListener<ControversyBarrageSlashEvent>(OnSlashed);
-			if (!UIManager.Instance().IsPanelShow(UIPanelType.UICommonCgscenePanel)&&!UIManager.Instance().IsPanelShow(UIPanelType.TalkPanel))
+			if (!UIManager.Instance().IsPanelShow(UIPanelType.UICommonCgscenePanel)&&!UIManager.Instance().IsPanelShow(UIPanelType.UICommonTalkPanel))
 			{
 				GamePlay.Player.PlayerController.Instance().SetMoveEnable(true);
 			}
@@ -54,7 +54,7 @@ namespace UI.Panels
 			base.ShowData(data);
 			EventManager.Instance.AddEventListener<ControversyBarrageSlashEvent>(OnSlashed);
 			SetInfo();
-			if (!UIManager.Instance().IsPanelShow(UIPanelType.UICommonCgscenePanel)&&!UIManager.Instance().IsPanelShow(UIPanelType.TalkPanel))
+			if (!UIManager.Instance().IsPanelShow(UIPanelType.UICommonCgscenePanel)&&!UIManager.Instance().IsPanelShow(UIPanelType.UICommonTalkPanel))
 			{
 				GamePlay.Player.PlayerController.Instance().SetMoveEnable(false);
 			}
@@ -219,7 +219,7 @@ namespace UI.Panels
 		{
 			if (GameRunTimeData.Instance.ControllerManager.StoryController.IsLabelExist(id))
 			{
-				UIManager.Instance().ShowStaticPanel(UIPanelType.TalkPanel,new TalkDataProvider(){ID = id, OnTalkEnd = TalkCallback});
+				UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonTalkPanel,new TalkDataProvider(){ID = id, OnTalkEnd = TalkCallback});
 			}
 			else
 			{
