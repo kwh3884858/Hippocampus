@@ -12,8 +12,9 @@
 #include "StoryLayoutConstant.h"
 
 namespace HeavenGateEditor {
-    const char* const   EDITOR_VERSION = "0.0.26";
-    const char* const   RELEASE_NOTE = "version 28 : Add new command: position & rotaion, and related tables.\n Fix preview window bug: now it will display color content in the same line";
+    const char* const   EDITOR_VERSION = "0.0.30";
+    const char* const   RELEASE_NOTE = "version 30 : -optimize the memory usage(175->80) of loading chinese font by loading fonts data from class static member and load font atlas selectly\n - add Tool project Binary_to_Compressed that can compress font file(ttf) to static array";
+
     const int     MAX_FOLDER_PATH = 265;
 
     const int     MAX_FILE_NAME = 64;

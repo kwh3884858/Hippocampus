@@ -7,6 +7,9 @@
     <Filter Include="sources">
       <UniqueIdentifier>{08e36723-ce4f-4cff-9662-c40801cf1acf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="StaticFonts">
+      <UniqueIdentifier>{f69d3773-4522-4eb2-b1b7-5547c00c374c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\imconfig.h">
@@ -96,6 +99,9 @@
     <ClInclude Include="..\..\HeavenGate_Editor\WindowTable\HeavenGateWindowTipTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\WindowTable\HeavenGateWindowPositionTable.h" />
     <ClInclude Include="..\..\HeavenGate_Editor\WindowTable\HeavenGateWindowRotationTable.h" />
+    <ClInclude Include="Fonts_Data.h">
+      <Filter>StaticFonts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\imgui.cpp">
@@ -184,6 +190,9 @@
     <ClCompile Include="..\..\HeavenGate_Editor\WindowTable\HeavenGateWindowTipTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\WindowTable\HeavenGateWindowPositionTable.cpp" />
     <ClCompile Include="..\..\HeavenGate_Editor\WindowTable\HeavenGateWindowRotationTable.cpp" />
+    <ClCompile Include="Fonts_Data.cpp">
+      <Filter>StaticFonts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.txt" />
