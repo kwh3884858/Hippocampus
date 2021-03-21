@@ -158,7 +158,7 @@ public class MonoMoveController : MonoBehaviour
                 }
                 UIManager.Instance().UpdateData(UIPanelType.UICommonGameplayPanel, new CommonGamePlayDataProvider { m_interactButtonShouldVisiable = true, m_itemName = itemName });
             }
-            if (!UIManager.Instance().IsPanelShow(UIPanelType.TalkPanel))
+            if (!UIManager.Instance().IsPanelShow(UIPanelType.UICommonTalkPanel))
             {
                 if (InputService.Instance.Input.PlayerControls.Interact.triggered || m_isInteractByUI )
                 {
@@ -172,16 +172,19 @@ public class MonoMoveController : MonoBehaviour
         }
         else
         {
+            if (m_isInteractByUI)
+            {
+                if (UIManager.Instance().IsPanelShow(UIPanelType.UIGameplayPromptwidgetPanel))
+                {
+                    UIManager.Instance().HidePanel(UIPanelType.UIGameplayPromptwidgetPanel);
+                    UIManager.Instance().UpdateData(UIPanelType.UICommonGameplayPanel, new CommonGamePlayDataProvider { m_interactButtonShouldVisiable = false });
+                }
+                if (UIManager.Instance().IsPanelShow(UIPanelType.UICommonGameplayPanel))
+                {
+                    UIManager.Instance().UpdateData(UIPanelType.UICommonGameplayPanel, new CommonGamePlayDataProvider { m_interactButtonShouldVisiable = false });
+                }
+            }
             m_isInteractByUI = false;
-            if (UIManager.Instance().IsPanelShow(UIPanelType.UIGameplayPromptwidgetPanel))
-            {
-                UIManager.Instance().HidePanel(UIPanelType.UIGameplayPromptwidgetPanel);
-                UIManager.Instance().UpdateData(UIPanelType.UICommonGameplayPanel, new CommonGamePlayDataProvider { m_interactButtonShouldVisiable = false });
-            }
-            if (UIManager.Instance().IsPanelShow(UIPanelType.UICommonGameplayPanel))
-            {
-                UIManager.Instance().UpdateData(UIPanelType.UICommonGameplayPanel, new CommonGamePlayDataProvider { m_interactButtonShouldVisiable = false });
-            }
         }
     }
 

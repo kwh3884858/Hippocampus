@@ -152,7 +152,7 @@ namespace GamePlay
                     // Test fail
                     if (storyController.IsLabelExist(m_testFailureStoryLabel))
                     {
-                        UI.UIManager.Instance().ShowStaticPanel(UIPanelType.TalkPanel, new TalkDataProvider() { ID = m_testFailureStoryLabel });
+                        UI.UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonTalkPanel, new TalkDataProvider() { ID = m_testFailureStoryLabel });
                     }
                 }
             }
@@ -175,7 +175,7 @@ namespace GamePlay
                     string jumpLabel = m_objectName + "_" + outCounterValue;
                     if (storyController.IsLabelExist(jumpLabel))
                     {
-                        UI.UIManager.Instance().ShowStaticPanel(UIPanelType.TalkPanel, new TalkDataProvider() { ID = jumpLabel });
+                        UI.UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonTalkPanel, new TalkDataProvider() { ID = jumpLabel });
                         SingletonGlobalDataContainer.Instance.ModifyCounterValue(m_objectName, 1);
                     }
                     else
@@ -184,12 +184,12 @@ namespace GamePlay
                         SingletonGlobalDataContainer.Instance.GetObjectCounter(m_objectName, out outCounterValue);
 
                         jumpLabel = m_objectName + "_" + outCounterValue;
-                        UI.UIManager.Instance().ShowStaticPanel(UIPanelType.TalkPanel, new TalkDataProvider() { ID = jumpLabel });
+                        UI.UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonTalkPanel, new TalkDataProvider() { ID = jumpLabel });
                     }
                 }
                 else
                 {
-                    UI.UIManager.Instance().ShowStaticPanel(UIPanelType.TalkPanel, new TalkDataProvider() { ID = m_objectName });
+                    UI.UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonTalkPanel, new TalkDataProvider() { ID = m_objectName });
                 }
             }
 

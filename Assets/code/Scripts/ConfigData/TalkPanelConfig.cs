@@ -14,6 +14,7 @@ namespace Config.Data
         public string historyBtnBG;
         public string contentEndImg;
         public string talkBG;
+        public string optionHoverBG;
         public string optionSelectedBG;
         public string optionUnSelectedBG;
         public string optionTextColor;
@@ -55,6 +56,7 @@ namespace Config.Data
                     list.Add(config.Value.talkBG);
                 }
                 list.Add(config.Value.nameBG);
+                list.Add(config.Value.optionHoverBG);
                 list.Add(config.Value.optionSelectedBG);
                 list.Add(config.Value.optionUnSelectedBG);
             }

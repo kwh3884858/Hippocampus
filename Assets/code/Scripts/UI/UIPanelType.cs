@@ -5,7 +5,6 @@ public enum UIPanelType
     [AssetPath("Options_Panel")] OptionsPanel = 1,
     [AssetPath("StartManu_MainManu_Panel")] MainManuPanel = 3,
     [AssetPath("Exploration_Joystick_Panel")] JoystickPanel = 4,
-    [AssetPath("Talk_Panel")] TalkPanel = 5,
     [AssetPath("Evidence_Panel")] Evidencepanel = 6,
     [AssetPath("Single_Evidence_Select_Panel")] Singleevidenceselectpanel = 7,
     [AssetPath("Load_Game_Panel")] LoadGamePanel = 8,
@@ -30,4 +29,5 @@ public enum UIPanelType
     [AssetPath("UI_Exploration_CameraViewpoint_Panel")] UIExplorationCameraviewpointPanel = 27,
     [AssetPath("UI_Common_End_Panel")] UICommonEndPanel = 28,
     [AssetPath("UI_Common_MainInterface_Panel")] UICommonMaininterfacePanel = 29,
+    [AssetPath("UI_Common_Talk_Panel")] UICommonTalkPanel = 30,
 }

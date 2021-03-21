@@ -183,6 +183,7 @@ namespace StarPlatinum
 				}
 				if (m_loadingCallback.ContainsKey (key)) {
 					m_loadingCallback [key] += callBack;
+					continue;
 				}
 				else
 				{
@@ -192,9 +193,12 @@ namespace StarPlatinum
 				loadNum++;
 				Addressables.LoadAsset<T> (key).Completed += operation => {
 					var result = GetResult (key, operation);
-					m_loadingCallback [key]?.Invoke (result);
-					m_loadingCallback.Remove (key);
-					m_objects[key] = result.result;
+					if (m_loadingCallback.ContainsKey(key))
+					{
+						m_loadingCallback[key]?.Invoke(result);
+						m_loadingCallback.Remove(key);
+						m_objects[key] = result.result;
+					}
 					loadNum--;
 					if (loadNum <= 0)
 					{

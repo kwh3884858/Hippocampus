@@ -57,15 +57,15 @@ namespace GamePlay.EventTrigger
 					//Need auto generate story
 					string jumpLabel = m_jumpToLabel + "_" + m_triggerCounter;
 					if (storyController.IsLabelExist (jumpLabel)) {
-						UI.UIManager.Instance ().ShowStaticPanel (UIPanelType.TalkPanel, new TalkDataProvider () { ID = jumpLabel });
+						UI.UIManager.Instance ().ShowStaticPanel (UIPanelType.UICommonTalkPanel, new TalkDataProvider () { ID = jumpLabel });
 						m_triggerCounter++;
 					} else {
 						m_triggerCounter = --m_triggerCounter < 0 ? 0 : m_triggerCounter;
 						jumpLabel = m_jumpToLabel + "_" + m_triggerCounter;
-						UI.UIManager.Instance ().ShowStaticPanel (UIPanelType.TalkPanel, new TalkDataProvider () { ID = jumpLabel });
+						UI.UIManager.Instance ().ShowStaticPanel (UIPanelType.UICommonTalkPanel, new TalkDataProvider () { ID = jumpLabel });
 					}
 				} else {
-					UI.UIManager.Instance ().ShowStaticPanel (UIPanelType.TalkPanel, new TalkDataProvider () { ID = m_jumpToLabel });
+					UI.UIManager.Instance ().ShowStaticPanel (UIPanelType.UICommonTalkPanel, new TalkDataProvider () { ID = m_jumpToLabel });
 				}
 			}
 

@@ -14,6 +14,7 @@ using UI.Panels.Providers.DataProviders.StaticBoard;
 using UnityEngine;
 using UnityEngine.UI;
 using UI.UIComponent;
+using UnityEngine.InputSystem.OnScreen;
 
 namespace UI.Panels
 {
@@ -27,6 +28,7 @@ namespace UI.Panels
 		[HideInInspector] public RectTransform m_pl_charactor;
 		[HideInInspector] public Image m_skip_button_Image;
 		[HideInInspector] public Button m_skip_button_Button;
+		[HideInInspector] public OnScreenButton m_skip_button_OnScreenButton;
 
 		[HideInInspector] public Image m_img_content_Image;
 
@@ -34,12 +36,15 @@ namespace UI.Panels
 
 		[HideInInspector] public Image m_btn_auto_Image;
 		[HideInInspector] public Button m_btn_auto_Button;
+		[HideInInspector] public OnScreenButton m_btn_auto_OnScreenButton;
 
 		[HideInInspector] public Image m_btn_skip_Image;
 		[HideInInspector] public Button m_btn_skip_Button;
+		[HideInInspector] public OnScreenButton m_btn_skip_OnScreenButton;
 
 		[HideInInspector] public Image m_btn_history_Image;
 		[HideInInspector] public Button m_btn_history_Button;
+		[HideInInspector] public OnScreenButton m_btn_history_OnScreenButton;
 
 		[HideInInspector] public Image m_img_nameBG_Image;
 
@@ -64,6 +69,7 @@ namespace UI.Panels
 			m_pl_charactor = FindUI<RectTransform>(transform ,"pl_charactor");
 			m_skip_button_Image = FindUI<Image>(transform ,"button/skip_button");
 			m_skip_button_Button = FindUI<Button>(transform ,"button/skip_button");
+			m_skip_button_OnScreenButton = FindUI<OnScreenButton>(transform ,"button/skip_button");
 
 			m_img_content_Image = FindUI<Image>(transform ,"img_content");
 
@@ -71,12 +77,15 @@ namespace UI.Panels
 
 			m_btn_auto_Image = FindUI<Image>(transform ,"img_content/btn_auto");
 			m_btn_auto_Button = FindUI<Button>(transform ,"img_content/btn_auto");
+			m_btn_auto_OnScreenButton = FindUI<OnScreenButton>(transform ,"img_content/btn_auto");
 
 			m_btn_skip_Image = FindUI<Image>(transform ,"img_content/btn_skip");
 			m_btn_skip_Button = FindUI<Button>(transform ,"img_content/btn_skip");
+			m_btn_skip_OnScreenButton = FindUI<OnScreenButton>(transform ,"img_content/btn_skip");
 
 			m_btn_history_Image = FindUI<Image>(transform ,"img_content/btn_history");
 			m_btn_history_Button = FindUI<Button>(transform ,"img_content/btn_history");
+			m_btn_history_OnScreenButton = FindUI<OnScreenButton>(transform ,"img_content/btn_history");
 
 			m_img_nameBG_Image = FindUI<Image>(transform ,"img_content/img_nameBG");
 

@@ -41,8 +41,21 @@ namespace UI.Panels.StaticBoard.Element
 				if (result.status != RequestStatus.FAIL)
 				{
 					var sprite = result.result as Sprite;
-					m_btn.spriteState = new SpriteState(){highlightedSprite = sprite,pressedSprite = sprite,selectedSprite = sprite};
+					SpriteState spriteState = m_btn.spriteState;
+					spriteState.pressedSprite = sprite;
+					m_btn.spriteState = spriteState;
 
+				}
+			});
+			PrefabManager.Instance.LoadAssetAsync<Sprite>(config.optionHoverBG, (result) =>
+			{
+				if (result.status != RequestStatus.FAIL)
+				{
+					var sprite = result.result as Sprite;
+					SpriteState spriteState = m_btn.spriteState;
+					spriteState.selectedSprite = sprite;
+					spriteState.highlightedSprite = sprite;
+					m_btn.spriteState = spriteState;
 				}
 			});
 			Color newColor;

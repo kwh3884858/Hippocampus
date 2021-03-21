@@ -220,7 +220,7 @@ namespace UI.Panels
 				RefreshInfo();
 				return;
 			}
-			InvokeShowPanel(UIPanelType.TalkPanel,new TalkDataProvider(){ID = config.Parameter});
+			InvokeShowPanel(UIPanelType.UICommonTalkPanel,new TalkDataProvider(){ID = config.Parameter});
 		}
 
 		#region Member

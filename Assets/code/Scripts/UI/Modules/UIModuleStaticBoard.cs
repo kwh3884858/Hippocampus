@@ -17,7 +17,7 @@ namespace UI.Modules
         }
         public void ShowTalk(string talkID, Action onTalkEnd = null)
         {
-            ShowPanel(UIPanelType.TalkPanel, new TalkDataProvider() { ID = talkID, OnTalkEnd = onTalkEnd });
+            ShowPanel(UIPanelType.UICommonTalkPanel, new TalkDataProvider() { ID = talkID, OnTalkEnd = onTalkEnd });
         }
     }
 }

@@ -104,7 +104,7 @@ namespace UI.Panels
         public static List<UIPanelSettings> StaticBoardInfo = new List<UIPanelSettings>()
         {
             new UIPanelSettings(UIPanelType.UICommonGameplayPanel,UIPanelUnLoadMode.Disabled, false, UIPanelLayer.Layer3,true),
-            new UIPanelSettings(UIPanelType.TalkPanel,UIPanelUnLoadMode.Disabled,false,UIPanelLayer.Layer4),
+            new UIPanelSettings(UIPanelType.UICommonTalkPanel,UIPanelUnLoadMode.Disabled,false,UIPanelLayer.Layer4),
             new UIPanelSettings(UIPanelType.Tipspanel,UIPanelUnLoadMode.Disabled){IsLockCursor = true},
             new UIPanelSettings(UIPanelType.Evidencepanel,UIPanelUnLoadMode.Destroy),
             new UIPanelSettings(UIPanelType.UIMapcanvasPanel,UIPanelUnLoadMode.Destroy),

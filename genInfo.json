@@ -144,7 +144,7 @@
 		"GUID":"8537d81869ce42d4088c49b576fffc76"
 	},
 	"ee6f1aecbb9ae9c49815ba3da830eee8":{
-		"type":3,
+		"type":1,
 		"prefabPath":"Assets/data/graphics/UI/Common/GameEnd/Prefabs/UI_Common_End_Panel.prefab",
 		"codePath":"Assets/code/Scripts/UI/Panels/AutoCreate/CommonEndPanel.cs",
 		"mediatorPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonEndPanel.cs",

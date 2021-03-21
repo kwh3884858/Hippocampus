@@ -34,7 +34,7 @@ public class Mission : MonoBehaviour
             }
             if (m_storyLabelId != "")
             {
-                UI.UIManager.Instance().ShowStaticPanel(UIPanelType.TalkPanel, new TalkDataProvider() { ID = m_storyLabelId });
+                UI.UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonTalkPanel, new TalkDataProvider() { ID = m_storyLabelId });
             }
         }
     }
