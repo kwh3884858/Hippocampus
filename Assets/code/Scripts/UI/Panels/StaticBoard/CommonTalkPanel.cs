@@ -243,10 +243,6 @@ namespace UI.Panels
         public override void Tick()
         {
             base.Tick();
-            if (StarPlatinum.Services.InputService.Instance.Input.StoryPlayer.Next.triggered)
-            {
-                ClickSkip();
-            }
             if (string.IsNullOrEmpty(m_currentID)&&m_nextIDQueue.Count>0)
             {
                 SetInfo(m_nextIDQueue.Dequeue());
@@ -698,6 +694,7 @@ namespace UI.Panels
 
         IEnumerator Typewriter(string content)
         {
+            float m_lastTime = Time.time;
             for (int i = 0; i < content.Length; i++)
             {
                 m_txtPro_content_TextMeshProUGUI.text += m_textHelp.GetContent(content[i].ToString());
@@ -709,9 +706,14 @@ namespace UI.Panels
                 if (m_skip == false)
                 {
                     PlayerTypewriterSound();
-                    if (i + 1 < content.Length)
+                    if (Time.time - m_lastTime > m_textHelp.TypewriterInterval*1.5f)
                     {
-                        yield return new WaitForSeconds(m_highSpeed? 0:m_textHelp.TypewriterInterval);
+                        continue;
+                    }
+                    if (i + 1 < content.Length&&!m_highSpeed)
+                    {
+                        m_lastTime = Time.time;
+                        yield return new WaitForSeconds(m_textHelp.TypewriterInterval);
                     }
                 }
             }
@@ -848,6 +850,11 @@ namespace UI.Panels
 
         public void ClickSkip()
         {
+            if (m_skip)
+            {
+                m_skip = false;
+                return;
+            }
             if (m_characterTalkEnd && !m_autoPlay)
             {
                 EndCharacterTalk();
