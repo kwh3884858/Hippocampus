@@ -243,6 +243,16 @@ namespace UI.Panels
         public override void Tick()
         {
             base.Tick();
+            if (StarPlatinum.Services.InputService.Instance.Input.StoryPlayer.Next.triggered)
+            {
+                ClickSkip();
+            }
+            
+            if (StarPlatinum.Services.InputService.Instance.Input.StoryPlayer.Skip.triggered)
+            {
+                Skip();
+            }
+            
             if (string.IsNullOrEmpty(m_currentID)&&m_nextIDQueue.Count>0)
             {
                 SetInfo(m_nextIDQueue.Dequeue());
