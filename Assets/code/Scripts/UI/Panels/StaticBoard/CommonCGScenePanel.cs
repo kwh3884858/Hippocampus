@@ -13,6 +13,7 @@ using UI.Panels.Providers;
 using UI.Panels.Providers.DataProviders;
 using UI.Panels.Providers.DataProviders.StaticBoard;
 using System;
+using Evidence;
 
 namespace UI.Panels
 {
@@ -33,6 +34,8 @@ namespace UI.Panels
 			EventManager.Instance.AddEventListener<CGScenePointInfoChangeEvent>(OnCGScenePointInfoChange);
 			EventManager.Instance.AddEventListener<CGSceneCloseEvent>(OnCGSceneClose);
             EventManager.Instance.AddEventListener<PlayerPreSaveArchiveEvent>(OnPlayerPreSaveArchive);
+            EventManager.Instance.AddEventListener(EventKey.EventStoryTrigger,OnEvidenceStoryTrigger);
+
 
         }
 
@@ -47,6 +50,8 @@ namespace UI.Panels
 			base.DeInitialize();
 			EventManager.Instance.RemoveEventListener<CGScenePointInfoChangeEvent>(OnCGScenePointInfoChange);
             EventManager.Instance.RemoveEventListener<PlayerPreSaveArchiveEvent>(OnPlayerPreSaveArchive);
+            EventManager.Instance.RemoveEventListener<CGSceneCloseEvent>(OnCGSceneClose);
+            EventManager.Instance.RemoveEventListener(EventKey.EventStoryTrigger,OnEvidenceStoryTrigger);
 
         }
 
@@ -105,6 +110,7 @@ namespace UI.Panels
 
 		private void RefreshInfo()
 		{
+			GetTriggeredEvidenceStory();
 			var config = m_model.SceneInfo;
 			if (!string.IsNullOrEmpty(config.StoryFileName))
 			{
@@ -189,14 +195,43 @@ namespace UI.Panels
         private void CloseCGScene()
         {
             var config = m_model.SceneInfo;
-            if (!string.IsNullOrEmpty(config.LoadSceneNameOnEnd))
+
+            string sceneName = null;
+            string missionName = null;
+            
+            if (m_storyInfo != null)
             {
-                GameSceneManager.Instance.LoadScene(SceneLookup.GetEnum(config.LoadSceneNameOnEnd, false));
+	            if (!m_isShowStory && !string.IsNullOrEmpty(m_storyInfo.config.StoryId))
+	            {
+		            m_isShowStory = true;
+		            InvokeShowPanel(UIPanelType.UICommonTalkPanel,
+			            new TalkDataProvider() {ID = m_storyInfo.config.StoryId, OnTalkEnd = CloseCGScene});
+		            return;
+	            }
+
+	            sceneName = m_storyInfo.config.LoadSceneNameOnEnd;
+	            missionName = m_storyInfo.config.LoadMissionIDOnEnd;
+	            EvidenceDataManager.Instance.RemoveEvidenceStory(m_storyInfo);
+	            m_storyInfo = null;
             }
 
+            if (!string.IsNullOrEmpty(config.LoadSceneNameOnEnd))
+            {
+	            sceneName = config.LoadSceneNameOnEnd;
+            }
             if (!string.IsNullOrEmpty(config.LoadMissionIDOnEnd))
             {
-                MissionSceneManager.Instance.LoadMissionScene(MissionSceneManager.Instance.GetMissionEnumBy(config.LoadMissionIDOnEnd, false));
+	            missionName = config.LoadMissionIDOnEnd;
+            }
+
+            if (!string.IsNullOrEmpty(sceneName))
+            {
+                GameSceneManager.Instance.LoadScene(SceneLookup.GetEnum(sceneName, false));
+            }
+
+            if (!string.IsNullOrEmpty(missionName))
+            {
+                MissionSceneManager.Instance.LoadMissionScene(MissionSceneManager.Instance.GetMissionEnumBy(missionName, false));
                 InvokeHidePanel();
                 return;
             }
@@ -223,10 +258,34 @@ namespace UI.Panels
 			InvokeShowPanel(UIPanelType.UICommonTalkPanel,new TalkDataProvider(){ID = config.Parameter});
 		}
 
+        #region 证物剧情触发
+
+        private void OnEvidenceStoryTrigger(object data)
+        {
+	        EvidenceStoryInfo info = data as EvidenceStoryInfo;
+	        AddEvidenceStory(info);
+        }
+
+        private void GetTriggeredEvidenceStory()
+        {
+	        AddEvidenceStory(EvidenceDataManager.Instance.GetTriggeredEvidenceStory());
+        }
+
+        private void AddEvidenceStory(EvidenceStoryInfo info)
+        {
+	        m_storyInfo = info;
+	        m_isShowStory = false;
+        }
+
+        #endregion
+
 		#region Member
 
 		public CGSceneController CgSceneController => UiDataProvider.ControllerManager.CGSceneController;
 		private Dictionary<string, UI_Common_CGscene_Item_SubView> m_cgItems = new Dictionary<string, UI_Common_CGscene_Item_SubView>();
+
+		private EvidenceStoryInfo m_storyInfo;
+		private bool m_isShowStory = false;
 
 		#endregion
 	}

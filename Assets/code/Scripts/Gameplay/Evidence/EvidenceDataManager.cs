@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Config.Data;
 using Controllers.Subsystems.Story;
 using Newtonsoft.Json;
 using StarPlatinum;
@@ -79,6 +80,7 @@ namespace Evidence
                 EvidenceConfig.Detail data = m_evidenceConfig[exhibitID];
                 m_data.evidenceList.Add(exhibitID, new SingleEvidenceData(data.exhibitID,data.exhibit, data.description, data.exhibitImageName));
                 MyEvidenceDic.Add(exhibitID, new SingleEvidenceData(data.exhibitID, data.exhibit, data.description, data.exhibitImageName));
+                AfterGetEvidence(exhibitID);
                 return true;
                 //SaveData();
             }
@@ -174,16 +176,93 @@ namespace Evidence
         private void OnPlayerPreSaveArchive(object sender, PlayerPreSaveArchiveEvent e)
         {
             GlobalManager.GetControllerManager().PlayerArchiveController.CurrentArchiveData.EvidenceArchiveData.EvidenceList = MyEvidenceDic;
+            GlobalManager.GetControllerManager().PlayerArchiveController.CurrentArchiveData.EvidenceArchiveData.RemovedEvidenceStory = m_removedEvidenceStoryId;
         }
 
         private void OnPlayerLoadArchive(object sender, PlayerLoadArchiveEvent e)
         {
-            MyEvidenceDic = GlobalManager.GetControllerManager().PlayerArchiveController.CurrentArchiveData.EvidenceArchiveData.EvidenceList;
+            var data = GlobalManager.GetControllerManager().PlayerArchiveController.CurrentArchiveData
+                .EvidenceArchiveData;
+            MyEvidenceDic = data.EvidenceList;
+            m_removedEvidenceStoryId = data.RemovedEvidenceStory;
             if(MyEvidenceDic == null)
             {
                 MyEvidenceDic = new Dictionary<string, SingleEvidenceData>();
             }
+            if (m_removedEvidenceStoryId == null)
+            {
+                m_removedEvidenceStoryId = new List<string>();
+            }
+            InitEvidenceStoryInfo();
         }
+
+
+        #region 证物剧情
+
+        private List<string> m_removedEvidenceStoryId;
+        private Dictionary<string,EvidenceStoryInfo> m_evidenceStoryInfos = new Dictionary<string, EvidenceStoryInfo>();
+        private List<EvidenceStoryInfo> m_triggerEvidenceStory = new List<EvidenceStoryInfo>();
+        private void InitEvidenceStoryInfo()
+        {
+            m_evidenceStoryInfos.Clear();
+            var configs = EvidenceStoryConfig.GetAllConfig();
+            foreach (var evidenceStoryConfig in configs)
+            {
+                if (m_removedEvidenceStoryId.Contains(evidenceStoryConfig.Key))
+                {
+                    continue;
+                }
+
+                var info = new EvidenceStoryInfo(evidenceStoryConfig.Value);
+                if (info.lackEvidenceID.Count == 0)
+                {
+                    m_triggerEvidenceStory.Add(info);
+                    continue;
+                }
+                m_evidenceStoryInfos.Add(evidenceStoryConfig.Key,info);
+            }
+        }
+
+        /// <summary>
+        /// 获取证物后检测是否激活剧情
+        /// </summary>
+        /// <param name="evidenceId"></param>
+        private void AfterGetEvidence(string evidenceId)
+        {
+            List<string> removeEvidenceStoryInfos = new List<string>();
+            foreach (var info in m_evidenceStoryInfos)
+            {
+                if (info.Value.lackEvidenceID.Remove(evidenceId)&& info.Value.lackEvidenceID.Count==0)
+                {
+                    removeEvidenceStoryInfos.Add(info.Key);
+                }
+            }
+
+            foreach (var info in removeEvidenceStoryInfos)
+            {
+                m_triggerEvidenceStory.Add(m_evidenceStoryInfos[info]);
+                EventManager.Instance.SendEvent(EventKey.EventStoryTrigger,m_evidenceStoryInfos[info]);
+                m_evidenceStoryInfos.Remove(info);
+            }
+        }
+
+        public EvidenceStoryInfo GetTriggeredEvidenceStory()
+        {
+            EvidenceStoryInfo info = null;
+            if (m_triggerEvidenceStory.Count > 0)
+            {
+                info = m_triggerEvidenceStory[0];
+                m_triggerEvidenceStory.RemoveAt(0);
+            }
+            return info;
+        }
+
+        public void RemoveEvidenceStory(EvidenceStoryInfo storyInfo)
+        {
+            m_triggerEvidenceStory.Remove(storyInfo);
+        }
+
+        #endregion
         
 
         /// <summary>保存本地的名称</summary>

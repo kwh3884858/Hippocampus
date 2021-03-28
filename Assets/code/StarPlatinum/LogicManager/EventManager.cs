@@ -18,6 +18,8 @@ namespace StarPlatinum.EventManager
 	{
 		//LogicBase m_currentLogic;
 		private Dictionary<Type, Delegate> m_allEvent = new Dictionary<Type, Delegate> ();
+		private Dictionary<EventKey, Action<object>> m_allStrEvent = new Dictionary<EventKey, Action<object>>();
+		
 		public void AddEventListener<T> (EventHandler<T> handler) where T : EventArgs
 		{
 			Delegate d;
@@ -27,6 +29,20 @@ namespace StarPlatinum.EventManager
 				m_allEvent [typeof (T)] = handler;
 			}
 		}
+		
+		public void AddEventListener(EventKey eventKey,Action<object> handler)
+		{
+			if (m_allStrEvent.ContainsKey(eventKey))
+			{
+				m_allStrEvent[eventKey] +=  handler;
+			}
+			else
+			{
+				m_allStrEvent[eventKey] = handler;
+			}
+
+		}
+		
 		public void RemoveEventListener<T> (EventHandler<T> handler) where T : EventArgs
 		{
 			Delegate d;
@@ -38,6 +54,15 @@ namespace StarPlatinum.EventManager
 				} else {
 					m_allEvent [typeof (T)] = currentDel;
 				}
+			}
+		}
+		
+		public void RemoveEventListener(EventKey eventKey,Action<object> handler)
+		{
+			if (m_allStrEvent.ContainsKey(eventKey)&&Array.IndexOf(m_allStrEvent[eventKey].GetInvocationList(),handler)>=0)
+			{
+				// ReSharper disable once DelegateSubtraction
+				m_allStrEvent[eventKey] -= handler;
 			}
 		}
 
@@ -52,6 +77,14 @@ namespace StarPlatinum.EventManager
 			Delegate d;
 			if (m_allEvent.TryGetValue (typeof (T), out d)) {
 				(d as EventHandler<T>)?.Invoke (this, message);
+			}
+		}
+		
+		public void SendEvent (EventKey eventKey,object data =null)
+		{
+			Action<object> action;
+			if (m_allStrEvent.TryGetValue (eventKey, out action)) {
+				action?.Invoke(data);
 			}
 		}
 

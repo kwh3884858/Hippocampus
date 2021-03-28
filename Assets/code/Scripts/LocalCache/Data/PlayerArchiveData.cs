@@ -46,6 +46,8 @@ namespace LocalCache
     public class EvidenceArchiveData : LocalCacheBase
     {
         public Dictionary<string, Evidence.SingleEvidenceData> EvidenceList { get; set; }
+        
+        public List<string> RemovedEvidenceStory { get; set; }
     }
 
     public class TipsArchiveData : LocalCacheBase

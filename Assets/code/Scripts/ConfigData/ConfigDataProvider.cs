@@ -61,6 +61,10 @@ namespace Config.Data
             {
                 TalkPanelConfig.Init(JsonConvert.DeserializeObject<Dictionary<int, TalkPanelConfig>>(file));
             }));
+            yield return StartCoroutine(LoadConfig<EvidenceStoryConfig>((file) =>
+            {
+                EvidenceStoryConfig.Init(JsonConvert.DeserializeObject<Dictionary<string, EvidenceStoryConfig>>(file));
+            }));
         }
 
         private IEnumerator LoadConfig<T>(Action<string> callback) where T : BaseConfig

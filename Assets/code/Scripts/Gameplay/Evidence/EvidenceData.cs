@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Config.Data;
 using UnityEngine;
+using UnityScript.Scripting.Pipeline;
 
 namespace Evidence
 {
@@ -41,6 +43,26 @@ namespace Evidence
             exhibit = vExhibit;
             description = vDescription;
             this.exhibitImageName = exhibitImageName;
+        }
+    }
+
+    public class EvidenceStoryInfo
+    {
+        public List<string> lackEvidenceID;
+        public EvidenceStoryConfig config;
+
+        public EvidenceStoryInfo(EvidenceStoryConfig config)
+        {
+            lackEvidenceID = new List<string>();
+            config = config;
+            var evidences = config.ID.Split(new[] {'|'});
+            for (int i = 0; i < evidences.Length; i++)
+            {
+                if(!EvidenceDataManager.Instance.IsEvidenceExist(evidences[i]))
+                {
+                    lackEvidenceID.Add(evidences[i]);
+                }
+            }
         }
     }
 }
