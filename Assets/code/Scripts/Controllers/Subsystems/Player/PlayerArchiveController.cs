@@ -53,6 +53,7 @@ namespace Controllers.Subsystems.Role
                 CurrentArchiveData.EvidenceArchiveData = new EvidenceArchiveData();
                 CurrentArchiveData.TipsArchiveData = new TipsArchiveData();
                 CurrentArchiveData.SoundServiceArchiveData = new SoundServiceArchiveData();
+                CurrentArchiveData.StoryArchiveData = new StoryArchiveData();
                 m_playTime = 0;
                 CurrentSaveIndex = 0;
                 m_localCacheManager = null;

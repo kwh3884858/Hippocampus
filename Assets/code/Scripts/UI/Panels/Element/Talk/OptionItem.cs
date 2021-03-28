@@ -1,8 +1,10 @@
 ﻿using System;
 using Config.Data;
+using Controllers.Subsystems.Story;
 using StarPlatinum;
 using TMPro;
 using UI.Panels.Element;
+using UI.Panels.Providers.DataProviders;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +19,7 @@ namespace UI.Panels.StaticBoard.Element
 			content =  content.Replace("…", "...");
 			m_content.text = content;
 			m_id = id;
-			
+			m_alreadyRead.gameObject.SetActive(GameRunTimeData.Instance.ControllerManager.StoryController.IsLabelRead(m_id));
 			RefreshUIType(uiType);
 		}
 
@@ -29,7 +31,6 @@ namespace UI.Panels.StaticBoard.Element
 				return;
 			}
 			m_type = uiType;
-
 			var config = TalkPanelConfig.GetConfigByKey(uiType);
 			if (config == null)
 			{
@@ -74,6 +75,9 @@ namespace UI.Panels.StaticBoard.Element
 		private TMP_Text m_content;
 		[SerializeField] 
 		private Image m_bg;
+		[SerializeField] 
+		private Image m_alreadyRead;
+		
 
 		[SerializeField] private Button m_btn;
 

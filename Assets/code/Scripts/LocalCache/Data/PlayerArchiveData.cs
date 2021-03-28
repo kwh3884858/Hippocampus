@@ -8,15 +8,16 @@ namespace LocalCache
 {
     public class PlayerArchiveData : LocalCacheBase
     {
-        public PlayerBaiscInfoData PlayerBaiscInfoData { get; set; }
+        public PlayerBasicInfoData PlayerBasicInfoData { get; set; }
         public CGSceneArchiveData CgSceneArchiveData { get; set; }
         public MissionArchiveData MissionArchieData { get; set; }
         public EvidenceArchiveData EvidenceArchiveData { get; set; }
         public TipsArchiveData TipsArchiveData { get; set; }
         public SoundServiceArchiveData SoundServiceArchiveData { get; set; }
+        public StoryArchiveData StoryArchiveData { get; set; }
     }
 
-    public class PlayerBaiscInfoData : LocalCacheBase
+    public class PlayerBasicInfoData : LocalCacheBase
     {
     }
 
@@ -61,4 +62,10 @@ namespace LocalCache
         public string effectName { get; set; }
     }
 
+    public class StoryArchiveData : LocalCacheBase
+    {
+        public Dictionary<string,List<string>> ReadLabels { get; set; }
+        
+        public List<LogInfo> LogInfos { get; set; }
+    }
 }

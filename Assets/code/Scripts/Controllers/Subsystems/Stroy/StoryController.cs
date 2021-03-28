@@ -7,6 +7,7 @@ using Evidence;
 using GamePlay.Global;
 using GamePlay.Stage;
 using StarPlatinum;
+using StarPlatinum.EventManager;
 using StarPlatinum.Manager;
 using StarPlatinum.StoryCompile;
 using StarPlatinum.StoryReader;
@@ -63,6 +64,16 @@ namespace Controllers.Subsystems.Story {
             base.Initialize (args);
             State = SubsystemState.Initialization;
             StartCoroutine (LoadStoryInfo ());
+            
+            EventManager.Instance.AddEventListener<PlayerPreSaveArchiveEvent>(OnPlayerPreSaveArchive);
+            EventManager.Instance.AddEventListener<PlayerLoadArchiveEvent>(OnPlayerLoadArchive);
+        }
+
+        public override void Terminate()
+        {
+            base.Terminate();
+            EventManager.Instance.RemoveEventListener<PlayerPreSaveArchiveEvent>(OnPlayerPreSaveArchive);
+            EventManager.Instance.RemoveEventListener<PlayerLoadArchiveEvent>(OnPlayerLoadArchive);
         }
 
         //public bool LoadStoryByItem (string itemId)
@@ -88,7 +99,6 @@ namespace Controllers.Subsystems.Story {
                 yield return null;
             }
             m_config = Data.ConfigProvider.StoryConfig;
-            LoadStoryFileByName (m_config.StoryPath);
             State = SubsystemState.Initialized;
         }
 
@@ -106,12 +116,26 @@ namespace Controllers.Subsystems.Story {
             bool result = m_storys.GetLoadResult ();
             if (result == true) {
                 m_storyFileName = storyFileName;
+                if (!m_readLabel.ContainsKey(m_storyFileName))
+                {
+                    m_readLabel.Add(m_storyFileName,new List<string>());
+                }
             }
 
         }
 
         public bool IsLabelExist (string label) {
             return m_storys.RequestLabel (label);
+        }
+
+        public bool IsLabelRead(string labelId)
+        {
+            return m_readLabel[m_storyFileName].Contains(labelId);
+        }
+
+        private void AddReadLabel(string labelId)
+        {
+            m_readLabel[m_storyFileName].Add(labelId);
         }
 
         public StoryActionContainer GetStory (string labelId) {
@@ -126,6 +150,11 @@ namespace Controllers.Subsystems.Story {
                 Debug.LogError ($"Label {labelId} doesn`t exist");
             } else {
                 m_storys.JumpToWordAfterLabel (labelId);
+            }
+
+            if (!IsLabelRead(labelId))
+            {
+                AddReadLabel(labelId);
             }
 
             //            container.PushChangePanelType(1);
@@ -150,7 +179,6 @@ namespace Controllers.Subsystems.Story {
                     case StoryReader.NodeType.label:
                         //m_storys.NextStory ();
                         m_storys.NextStory ();
-                        break;
                         break;
 
                     case StoryReader.NodeType.end:
@@ -264,10 +292,32 @@ namespace Controllers.Subsystems.Story {
             return m_talkPanelType;
         }
 
+        #region 存档相关
+        
+        private void OnPlayerPreSaveArchive(object sender, PlayerPreSaveArchiveEvent e)
+        {
+            GlobalManager.GetControllerManager().PlayerArchiveController.CurrentArchiveData.StoryArchiveData.ReadLabels = m_readLabel;
+        }
+
+        private void OnPlayerLoadArchive(object sender, PlayerLoadArchiveEvent e)
+        {
+            var data = GlobalManager.GetControllerManager().PlayerArchiveController.CurrentArchiveData
+                .StoryArchiveData;
+            m_readLabel = data.ReadLabels;
+            if (m_readLabel == null)
+            {
+                m_readLabel = new Dictionary<string, List<string>>();
+            }
+        }
+
+
+        #endregion
+        
         private StoryReader m_storys;
         private StoryConfig m_config;
         private string m_storyFileName;
         private int m_talkPanelType = 2;
 
+        private Dictionary<string, List<string>> m_readLabel;
     }
 }

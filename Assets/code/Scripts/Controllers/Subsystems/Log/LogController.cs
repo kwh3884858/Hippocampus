@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Controllers.Subsystems.Story;
+using StarPlatinum;
+using StarPlatinum.EventManager;
 
 namespace Controllers.Subsystems
 {
@@ -18,6 +21,21 @@ namespace Controllers.Subsystems
     
     public class LogController: ControllerBase
     {
+        public override void Initialize(IControllerProvider args)
+        {
+            base.Initialize(args);
+            EventManager.Instance.AddEventListener<PlayerPreSaveArchiveEvent>(OnPlayerPreSaveArchive);
+            EventManager.Instance.AddEventListener<PlayerLoadArchiveEvent>(OnPlayerLoadArchive);
+        }
+
+        public override void Terminate()
+        {
+            base.Terminate();
+            EventManager.Instance.RemoveEventListener<PlayerPreSaveArchiveEvent>(OnPlayerPreSaveArchive);
+            EventManager.Instance.RemoveEventListener<PlayerLoadArchiveEvent>(OnPlayerLoadArchive);
+        }
+
+
         public void PushLog(StoryAction action,string selectID =null)
         {
             if (m_logInfos.Count >= MAXLogNum && action.Type!= StoryActionType.Content)
@@ -92,6 +110,28 @@ namespace Controllers.Subsystems
         {
             
         }
+        
+        
+        #region 存档相关
+        
+        private void OnPlayerPreSaveArchive(object sender, PlayerPreSaveArchiveEvent e)
+        {
+            GlobalManager.GetControllerManager().PlayerArchiveController.CurrentArchiveData.StoryArchiveData.LogInfos = m_logInfos;
+        }
+
+        private void OnPlayerLoadArchive(object sender, PlayerLoadArchiveEvent e)
+        {
+            var data = GlobalManager.GetControllerManager().PlayerArchiveController.CurrentArchiveData
+                .StoryArchiveData;
+            m_logInfos = data.LogInfos;
+            if (m_logInfos == null)
+            {
+                m_logInfos = new List<LogInfo>();
+            }
+        }
+
+
+        #endregion
 
         private int MAXLogNum = 300;
         private List<LogInfo> m_logInfos = new List<LogInfo>();
