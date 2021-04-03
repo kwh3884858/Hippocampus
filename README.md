@@ -1,6 +1,8 @@
 # Ground Zero
 原爆点
 
+[![Sync Github Repo to Gitee Repo](https://github.com/kwh3884858/Hippocampus/actions/workflows/gitee_sync.yml/badge.svg?branch=master)](https://github.com/kwh3884858/Hippocampus/actions/workflows/gitee_sync.yml)
+
 <sub>Hippocampus是一个过去的项目，我们直接在这个项目框架上开发。</sub>
 
 ## Introduction 
