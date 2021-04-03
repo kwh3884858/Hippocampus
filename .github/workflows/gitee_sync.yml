@@ -31,12 +31,12 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Mirror Github to Gitee with white list
-        uses: Yikun/gitee-mirror-action@v0.01
+        uses: Yikun/hub-mirror-action@master
         with: 
           src: github/kwh3884858
           dst: gitee/CookieK
           dst_key: ${{ secrets.GITEE_PRIVATE_KEY }} 
           dst_token: ${{ secrets.GITEE_TOKEN }} 
           force_update: true
-#           static_list: 'Hippocampus' 
+          static_list: 'Hippocampus'
 
