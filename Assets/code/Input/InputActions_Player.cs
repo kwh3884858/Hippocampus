@@ -1170,6 +1170,17 @@ public class @InputActions_Player : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""884b7bbc-36b1-46e1-a4fe-7b394e16b718"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard And Mouse"",
+                    ""action"": ""Skip"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""b3ac1672-0ba9-4d94-bdba-4fa60ab79fbc"",
                     ""path"": ""<DualShockGamepad>/start"",
                     ""interactions"": """",
