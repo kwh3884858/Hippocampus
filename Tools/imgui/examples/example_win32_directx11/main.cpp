@@ -77,7 +77,7 @@ int main(int, char**)
 		//new way load font data from static const variant
         ImFontConfig font_cfg_template;
         font_cfg_template.FontDataOwnedByAtlas = false;
-        io.Fonts->AddFontFromMemoryTTF((void*)Fonts_Data::CN_Font_data, Fonts_Data::CN_Font_size, 18.0f,&font_cfg_template, io.Fonts->GetGlyphRangesChineseSimplifiedCommon());
+        io.Fonts->AddFontFromMemoryTTF((void*)Fonts_Data::CN_Font_data, Fonts_Data::CN_Font_size, 18.0f,&font_cfg_template, io.Fonts->GetGlyphRangesChineseSimplifiedOfficial());
     }
 
 #ifdef _WIN32
