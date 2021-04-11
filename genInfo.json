@@ -158,5 +158,13 @@
 		"mediatorPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonMainInterfacePanel.cs",
 		"modelPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonMainInterfaceModel.cs",
 		"GUID":"dfd8778dfc03d0a42a12a77a4890e87d"
+	},
+	"32081633a7b492f449b43ab559b9f1be":{
+		"type":1,
+		"prefabPath":"Assets/data/graphics/UI/Common/UIEffect/Prefabs/UI_Common_UIEffect_Panel.prefab",
+		"codePath":"Assets/code/Scripts/UI/Panels/AutoCreate/CommonEffectPanel.cs",
+		"mediatorPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonEffectPanel.cs",
+		"modelPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonEffectModel.cs",
+		"GUID":"32081633a7b492f449b43ab559b9f1be"
 	}
 }

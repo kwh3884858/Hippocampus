@@ -30,12 +30,13 @@ namespace UI.Panels
 				Application.Quit();
 			});
 			m_btn_back_Button.onClick.AddListener(CloseCGScene);
+			m_btn_showImg_Button.onClick.AddListener(OnClickShowImg);
 
 			EventManager.Instance.AddEventListener<CGScenePointInfoChangeEvent>(OnCGScenePointInfoChange);
 			EventManager.Instance.AddEventListener<CGSceneCloseEvent>(OnCGSceneClose);
             EventManager.Instance.AddEventListener<PlayerPreSaveArchiveEvent>(OnPlayerPreSaveArchive);
             EventManager.Instance.AddEventListener(EventKey.EventStoryTrigger,OnEvidenceStoryTrigger);
-
+	
 
         }
 
@@ -246,17 +247,43 @@ namespace UI.Panels
             }
         }
 
+        private void ClickPointAction(CGScenePointTouchConfig config)
+        {
+	        if (config.touchType == (int)CGScenePointTouchType.DeathBody)
+	        {
+		        m_model.PushSceneID(config.Parameter);
+		        RefreshInfo();
+		        return;
+	        }
+	        InvokeShowPanel(UIPanelType.UICommonTalkPanel,new TalkDataProvider(){ID = config.Parameter});
+        }
+
+        private CGScenePointTouchConfig m_curClickPointConfig;
         private void OnClickPoint(int pointID,CGScenePointTouchConfig config)
 		{
+			SoundService.Instance.PlayEffect(CommonConfig.Data.CGSceneClickSoundEffect);
 			CgSceneController.TouchPoint(pointID);
-			if (config.touchType == (int)CGScenePointTouchType.DeathBody)
+			if (!string.IsNullOrEmpty(config.showImgKey))
 			{
-				m_model.PushSceneID(config.Parameter);
-				RefreshInfo();
-				return;
+				EventManager.Instance.SendEvent(EventKey.ShowUIEffect,new UIEffectData(){ Type = EnumUIEffectType.Flash, EndCallback =
+					() =>
+					{
+						m_btn_showImg_Button.gameObject.SetActive(true);
+						PrefabManager.Instance.SetImage(m_img_showImg_Image,config.showImgKey);
+						m_curClickPointConfig = config;
+					}});
 			}
-			InvokeShowPanel(UIPanelType.UICommonTalkPanel,new TalkDataProvider(){ID = config.Parameter});
+			else
+			{
+				ClickPointAction(config);
+			}
 		}
+
+        private void OnClickShowImg()
+        {
+	        m_btn_showImg_Button.gameObject.SetActive(false);
+	        ClickPointAction(m_curClickPointConfig);
+        }
 
         #region 证物剧情触发
 
