@@ -114,6 +114,8 @@ namespace UI.Panels
 
         public void OnClickSetting()
         {
+            //MaskFadeManager.Instance.ShowMask(MaskType.FenceShape);
+            //return;
             if (isStop)
             {
                 return;
