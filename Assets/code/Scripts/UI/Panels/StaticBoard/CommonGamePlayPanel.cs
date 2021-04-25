@@ -8,9 +8,17 @@ using UnityEngine.UI;
 using StarPlatinum.EventManager;
 using static UI.Utils.UIHelper;
 using System;
+using Config.GameRoot;
+using StarPlatinum.Services;
 
 namespace UI.Panels
 {
+	public class CommonGamePlayPanelUpdateDataEvent : EventArgs
+	{
+		public bool m_interactButtonShouldVisiable = false;
+		public string m_itemName = null;
+	}
+
 	public partial class CommonGamePlayPanel : UIPanel<UIDataProvider, DataProvider>
 	{
 		#region UI template method
@@ -19,6 +27,7 @@ namespace UI.Panels
 			base.Initialize (uiDataProvider, settings);
 			m_model.Initialize(this);
 			EventManager.Instance.AddEventListener<CursorEvent>(OnCursorEvent);
+			EventManager.Instance.AddEventListener<CommonGamePlayPanelUpdateDataEvent>(OnDataUpdateEvent);
 		}
 
         public override void DeInitialize()
@@ -33,7 +42,13 @@ namespace UI.Panels
 			m_model.m_isInteractButtonVisiable = true;
         }
 
-        public override void Hide()
+		private void OnDataUpdateEvent(object sender, CommonGamePlayPanelUpdateDataEvent e)
+		{
+			m_model.m_isInteractButtonVisiable = e.m_interactButtonShouldVisiable;
+			m_model.m_itemName = e.m_itemName;
+		}
+
+		public override void Hide()
 		{
 			m_model.Hide();
 			base.Hide();
@@ -67,14 +82,13 @@ namespace UI.Panels
 
         private void UpdateUIInteractButtonVisiable()
         {
-            if (m_isNowInteractButtonIsVisiableCache != m_model.m_isInteractButtonVisiable)
-            {
-                UpdateButtonVisiable(m_model.m_isInteractButtonVisiable);
-                m_isNowInteractButtonIsVisiableCache = m_model.m_isInteractButtonVisiable;
+			if (m_model.m_isNowInteractButtonIsVisiableCache != m_model.m_isInteractButtonVisiable)
+			{
+				UpdateButtonVisiable(m_model.m_isInteractButtonVisiable);
+				m_model.m_isNowInteractButtonIsVisiableCache = m_model.m_isInteractButtonVisiable;
 				m_Text_ItemName_Text.text = m_model.m_itemName;
-
 			}
-        }
+		}
 
         public override void LateTick()
 		{
@@ -123,7 +137,34 @@ namespace UI.Panels
 			//CoreContainer.Instance.EnablePlayerInteractability ();
 		}
 
-		public void UpdateButtonVisiable(bool isVisiable)
+		public void OnSearch() 
+		{
+			
+			List<Collider > interactions = m_model.m_findColliderDetection.OverlapSphereDetectionFindCollider(
+				CoreContainer.Instance.GetPlayerPosition(), 
+				ConfigPlayer.Instance.interactableRadius, 
+				ConfigPlayer.Instance.interactableLayer, 
+				ConfigPlayer.Instance.maxColliders);
+            foreach (var item in interactions)
+            {
+				Vector3 screenPos = CameraService.Instance.GetMainCamera().GetComponent<Camera>().WorldToScreenPoint(item.transform.position);
+				GameObject tag = Instantiate(m_Img_Dialog_Tag_Image.gameObject);
+				tag.transform.position = screenPos;
+				tag.transform.SetParent(gameObject.transform);
+				StartCoroutine(CloseTagAfterTime(5.0f, tag));
+			}
+		}
+
+		IEnumerator CloseTagAfterTime(float deltaTime, GameObject tag)
+        {
+			if (deltaTime > 0)
+			{
+				yield return new WaitForSeconds(deltaTime);
+			}
+			Destroy(tag);
+        }
+
+        public void UpdateButtonVisiable(bool isVisiable)
         {
             if (GamePlay.Global.SingletonGlobalDataContainer.Instance.PlatformCtrl.IsMobile)
             {
@@ -131,8 +172,6 @@ namespace UI.Panels
 			}
 			m_Img_ItemName_Image.gameObject.SetActive(isVisiable);
         }
-
-		private bool m_isNowInteractButtonIsVisiableCache = false;
 		#endregion
 	}
 }

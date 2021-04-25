@@ -8,6 +8,8 @@ namespace UI.Panels
         public override void Initialize(IUiPanel uiPanel )
         {
             base.Initialize(uiPanel);
+
+            m_findColliderDetection = new FindColliderDetection();
         }
 
         public override void DeInitialize()
@@ -33,16 +35,6 @@ namespace UI.Panels
         public override void UpdateData(DataProvider data)
         {
             base.UpdateData(data);
-
-            if (data != null)
-            {
-                if (data is CommonGamePlayDataProvider)
-                {
-                    CommonGamePlayDataProvider commonGamePlayDataProvider = data as CommonGamePlayDataProvider;
-                    m_isInteractButtonVisiable = commonGamePlayDataProvider.m_interactButtonShouldVisiable;
-                    m_itemName = commonGamePlayDataProvider.m_itemName;
-                }
-            }
         }
 
         public override void Tick()
@@ -68,7 +60,9 @@ namespace UI.Panels
 
         #region Member
         public bool m_isInteractButtonVisiable = false;
+        public bool m_isNowInteractButtonIsVisiableCache = false;
         public string m_itemName;
+        public FindColliderDetection m_findColliderDetection;
         #endregion
     }
 }
