@@ -19,23 +19,6 @@ namespace StarPlatinum.Services
     /// </summary>
     public class CameraService : Singleton<CameraService>
     {
-        public enum SceneCameraType
-        {
-            None,
-            Fixed,
-            Moveable
-        }
-
-        [SerializeField]
-        private GameObject m_mainCamera;
-
-        private Camera m_uiCamera;
-        private Camera m_realCamera;
-
-        [SerializeField]
-        private CameraController m_cameraController;
-
-
         public void SetMainCamera(GameObject mainCamera)
         {
             if (m_mainCamera != null)
@@ -45,6 +28,7 @@ namespace StarPlatinum.Services
             m_mainCamera = mainCamera;
             SetUICamera();
             SetRealCamera();
+
         }
         public GameObject GetMainCamera()
         {
@@ -100,32 +84,20 @@ namespace StarPlatinum.Services
             //SceneLookupEnum sceneEnum = GameSceneManager.Instance.GetCurrentSceneEnum ();
             //SceneCameraType cameraType = ConfigRoot.Instance.GetCameraTypeBySceneName (sceneEnum.ToString ());
 
-            //The camera type is now only movable
-            SceneCameraType cameraType = SceneCameraType.Moveable;
-
-            if (cameraType == SceneCameraType.Moveable)
+            m_cameraController = m_mainCamera.GetComponent<CameraController>();
+            if (m_cameraController == null)
             {
-                m_cameraController = m_mainCamera.GetComponent<CameraController>();
-                if (m_cameraController == null)
-                {
-                    m_cameraController = m_mainCamera.AddComponent<CameraController>();
+                m_cameraController = m_mainCamera.AddComponent<CameraController>();
 
-                }
-
-                m_cameraController.Refresh();
             }
 
-            if (cameraType == SceneCameraType.Fixed)
-            {
-                m_cameraController = m_mainCamera.GetComponent<CameraController>();
-                if (m_cameraController != null)
-                {
-                    GameObject.Destroy(m_cameraController);
-                }
-            }
+            m_cameraController.Refresh();
+
 
             return true;
         }
+
+        public Camera GetUICamera() { return m_uiCamera; }
 
         public void SetTarget(GameObject target)
         {
@@ -134,6 +106,8 @@ namespace StarPlatinum.Services
                 m_cameraController.SetTarget(target);
             }
         }
+
+        public SceneCameraType GetSceneCameraType() { return m_sceneCameraType; }
 
         private void CloseAllCamera()
         {
@@ -150,54 +124,44 @@ namespace StarPlatinum.Services
             }
         }
 
-        //public override void SingletonInit ()
+        //private GameObject GetCamera ()
         //{
 
-        //      }
+        //	Camera [] cameras = Camera.allCameras;
+        //	Debug.Log ("Camera Length:" + cameras.Length);
 
-        private GameObject GetCamera()
-        {
+        //	if (Camera.allCamerasCount == 0) {
+        //		Debug.Log ("This scene does`t contain a camera!");
 
-            Camera[] cameras = Camera.allCameras;
-            Debug.Log("Camera Length:" + cameras.Length);
+        //		return null;
+        //	}
 
-            if (Camera.allCamerasCount == 0)
-            {
-                Debug.Log("This scene does`t contain a camera!");
+        //	if (cameras.Length > 1) {
+        //		for (int i = 1; i < cameras.Length; i++) {
+        //			cameras [i].gameObject.SetActive (false);
+        //			GameObject.Destroy (cameras [i].gameObject);
+        //		}
+        //	}
 
-                return null;
-            }
+        //	return cameras [0].gameObject;
+        //}
 
-            if (cameras.Length > 1)
-            {
-                for (int i = 1; i < cameras.Length; i++)
-                {
-                    cameras[i].gameObject.SetActive(false);
-                    GameObject.Destroy(cameras[i].gameObject);
-                }
-            }
+        //private GameObject CreateCamera ()
+        //{
+        //	GameObject root = GameObject.Find ("GameRoot");
+        //	if (root == null) return null;
 
-            return cameras[0].gameObject;
-        }
+        //	PrefabManager.Instance.InstantiateAsync<GameObject> ("MainCamera", (result) => {
+        //		GameObject cameraGameObject = result.result as GameObject;
 
-        private GameObject CreateCamera()
-        {
-            GameObject root = GameObject.Find("GameRoot");
-            if (root == null) return null;
-
-            PrefabManager.Instance.InstantiateAsync<GameObject>("MainCamera", (result) =>
-            {
-                GameObject cameraGameObject = result.result as GameObject;
-
-                Camera camera = cameraGameObject.GetComponent<Camera>();
-                if (camera == null)
-                {
-                    cameraGameObject.AddComponent<Camera>();
-                    cameraGameObject.transform.SetParent(root.transform);
-                }
-            });
-            return camera;
-        }
+        //		Camera camera = cameraGameObject.GetComponent<Camera> ();
+        //		if (camera == null) {
+        //			cameraGameObject.AddComponent<Camera> ();
+        //			cameraGameObject.transform.SetParent (root.transform);
+        //		}
+        //	});
+        //	return camera;
+        //}
 
         private void SetUICamera()
         {
@@ -224,6 +188,21 @@ namespace StarPlatinum.Services
                 m_realCamera = realCamera.GetComponent<Camera>();
             }
         }
+
+        public enum SceneCameraType
+        {
+            FirstPerson,
+            ThirdPerson
+        }
+
+        [SerializeField]
+        private GameObject m_mainCamera;
+        private Camera m_uiCamera;
+        private Camera m_realCamera;
+        [SerializeField]
+        private CameraController m_cameraController;
+
+        private SceneCameraType m_sceneCameraType = SceneCameraType.ThirdPerson;
 
         private GameObject camera;
         private RayCastDetection m_rayCastDetection;

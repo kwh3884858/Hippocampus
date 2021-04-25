@@ -39,6 +39,13 @@ namespace UI.Panels
 
 		[HideInInspector] public Text m_Text_ItemName_Text;
 
+		[HideInInspector] public Image m_Btn_Search_Image;
+		[HideInInspector] public Button m_Btn_Search_Button;
+
+		[HideInInspector] public Image m_Img_Interactable_Tag_Image;
+
+		[HideInInspector] public Image m_Img_Dialog_Tag_Image;
+
 
          private CommonGamePlayModel m_model;
 
@@ -62,6 +69,13 @@ namespace UI.Panels
 			m_Img_ItemName_Image = FindUI<Image>(transform ,"Img_ItemName");
 
 			m_Text_ItemName_Text = FindUI<Text>(transform ,"Img_ItemName/Text_ItemName");
+
+			m_Btn_Search_Image = FindUI<Image>(transform ,"Btn_Search");
+			m_Btn_Search_Button = FindUI<Button>(transform ,"Btn_Search");
+
+			m_Img_Interactable_Tag_Image = FindUI<Image>(transform ,"Img_Interactable_Tag");
+
+			m_Img_Dialog_Tag_Image = FindUI<Image>(transform ,"Img_Dialog_Tag");
 
 
 m_model = new CommonGamePlayModel ();

@@ -50,7 +50,6 @@ namespace StarPlatinum.Base
 			} else
 			{
 #if UNITY_EDITOR
-				//var path = $"Assets/code/StarPlatinum/Config/{typeof(T).Name}.asset";
 				m_isLoading = true;
 				m_instance = AssetDatabase.LoadAssetAtPath<T> (LOADPATH);
 				if (m_instance == null) { Debug.LogError ($"{LOADPATH} doesn`t exist {typeof (T).Name}"); return null; }

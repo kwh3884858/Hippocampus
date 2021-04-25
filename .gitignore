@@ -23,7 +23,7 @@ Assets/StreamingAssets/build_info.meta
 
 Assets/AssetStoreTools*
 Assets/Resources/Storys/AutoSave~
-Config/
+/Config
 
 # Spine
 spine-unity.csproj

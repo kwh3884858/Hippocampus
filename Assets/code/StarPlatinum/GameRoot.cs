@@ -53,8 +53,10 @@ namespace StarPlatinum
             //Load Config Root and Config Mission
             bool isLoadRoot = false;
             bool isLoadMission = false;
+			bool isLoadPlayer = false;
 			ConfigRoot rootConfig = null;
             ConfigMission missionConfig = null;
+			ConfigPlayer configPlayer = null;
 
             while (rootConfig == null && isLoadRoot == false) {
 				rootConfig = ConfigRoot.Instance;
@@ -67,8 +69,14 @@ namespace StarPlatinum
                 missionConfig = ConfigMission.Instance;
                 isLoadMission = true;
                 yield return null;
-
             }
+
+			while (configPlayer == null && isLoadPlayer == false)
+			{
+				configPlayer = ConfigPlayer.Instance;
+				isLoadPlayer = true;
+				yield return null;
+			}
 #if DevMode
 			//add console
 			GameObject console = GameObject.Find (m_consolePrefabName);
