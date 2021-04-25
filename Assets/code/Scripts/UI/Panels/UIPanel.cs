@@ -163,6 +163,7 @@ namespace UI.Panels
         {
             UiDataProvider.SoundService.PlayEffect(SoundNameConst.UIClickName+num);
         }
+        
 
         public void ShowInMaxLayer()
         {

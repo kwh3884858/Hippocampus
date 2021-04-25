@@ -28,6 +28,11 @@ namespace UI.Panels
 		[HideInInspector] public Button m_btn_back_Button;
 		[HideInInspector] public Flashing m_btn_back_Flashing;
 
+		[HideInInspector] public Image m_btn_showImg_Image;
+		[HideInInspector] public Button m_btn_showImg_Button;
+
+		[HideInInspector] public Image m_img_showImg_Image;
+
 
          private CommonCGSceneModel m_model;
 
@@ -40,6 +45,11 @@ namespace UI.Panels
 			m_btn_back_Image = FindUI<Image>(transform ,"btn_back");
 			m_btn_back_Button = FindUI<Button>(transform ,"btn_back");
 			m_btn_back_Flashing = FindUI<Flashing>(transform ,"btn_back");
+
+			m_btn_showImg_Image = FindUI<Image>(transform ,"btn_showImg");
+			m_btn_showImg_Button = FindUI<Button>(transform ,"btn_showImg");
+
+			m_img_showImg_Image = FindUI<Image>(transform ,"btn_showImg/img_showImg");
 
 
 m_model = new CommonCGSceneModel ();

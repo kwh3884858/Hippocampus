@@ -20,6 +20,22 @@ namespace UI.Utils
             return hour.ToString("00")+":"+min.ToString("00");
         }
 
+        private static float GetAnimationTime(Animator animator, string animationName)
+        {
+            float length = 0;
+            AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
+            foreach(AnimationClip clip in clips)
+            {
+                if(clip.name.Equals(animationName))
+                {
+                    length = clip.length;
+                    break;
+                }
+            }
+
+            return length;
+        }
+
         public static bool IsCursorLocked()
         {
             return Cursor.lockState == CursorLockMode.Locked;
@@ -27,6 +43,7 @@ namespace UI.Utils
         
         public static void LockCursor(bool locked)
         {
+            return;
             if (locked)
             {
                 VMCameraManager.Instance().SetCameraRotate(true);

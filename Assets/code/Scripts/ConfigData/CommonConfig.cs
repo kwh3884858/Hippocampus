@@ -15,6 +15,7 @@ namespace Config.Data
         public float ControversyNormalAttackInterval;
         public float ControversyHeavyAttackInterval;
         public float ControversyHeavyAttackRecover;
+        public string CGSceneClickSoundEffect;
         
         public static CommonConfig GetConfigByKey(int key)
         {
