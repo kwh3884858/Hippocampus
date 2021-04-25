@@ -19,38 +19,22 @@ namespace StarPlatinum.Services
 	/// </summary>
 	public class CameraService : Singleton<CameraService>
 	{
-		public enum SceneCameraType
+		public void SetMainCamera(GameObject mainCamera)
 		{
-			None,
-			Fixed,
-			Moveable
+			if (m_mainCamera != null)
+			{
+				GameObject.Destroy(m_mainCamera);
+			}
+			m_mainCamera = mainCamera;
+			SetUICamera();
 		}
-
-		[SerializeField]
-		private GameObject m_mainCamera;
-
-		private Camera m_uiCamera;
-
-		[SerializeField]
-		private CameraController m_cameraController;
-
-
-        public void SetMainCamera(GameObject mainCamera)
-        {
-            if (m_mainCamera != null)
-            {
-                GameObject.Destroy(m_mainCamera);
-            }
-            m_mainCamera = mainCamera;
-            SetUICamera();
-        }
 		public GameObject GetMainCamera()
 		{
 			if (m_mainCamera == null || m_mainCamera.activeInHierarchy == false) {
-				Debug.LogError ("Camera is expired");
+				Debug.LogError("Camera is expired");
 			}
 
-			bool result = UpdateCurrentCamera ();
+			bool result = UpdateCurrentCamera();
 			if (!result) {
 				return null;
 			}
@@ -69,62 +53,55 @@ namespace StarPlatinum.Services
 			return mainCamera.GetComponent<Camera>();
 		}
 
-        public void InitializeRaycast()
-        {
-            if (m_mainCamera)
-            {
+		public void InitializeRaycast()
+		{
+			if (m_mainCamera)
+			{
 				m_rayCastDetection = m_mainCamera.GetComponent<RayCastDetection>();
-            }
-            else
-            {
+			}
+			else
+			{
 				Debug.LogError("Raycast detection is not initialized");
-            }
-        }
+			}
+		}
 
 		public void SwitchRaycastState(bool state)
-        {
-			m_rayCastDetection.SwitchDetection(state);	
-        }
+		{
+			m_rayCastDetection.SwitchDetection(state);
+		}
 
-        public bool UpdateCurrentCamera ()
+		public bool UpdateCurrentCamera()
 		{
 			m_cameraController = null;
 
-            CloseAllCamera();
+			CloseAllCamera();
 
-            
+
 			//SceneLookupEnum sceneEnum = GameSceneManager.Instance.GetCurrentSceneEnum ();
 			//SceneCameraType cameraType = ConfigRoot.Instance.GetCameraTypeBySceneName (sceneEnum.ToString ());
-			
-			//The camera type is now only movable
-			SceneCameraType cameraType = SceneCameraType.Moveable;
 
-			if (cameraType == SceneCameraType.Moveable) {
-				m_cameraController = m_mainCamera.GetComponent<CameraController> ();
-				if (m_cameraController == null) {
-					m_cameraController = m_mainCamera.AddComponent<CameraController> ();
+			m_cameraController = m_mainCamera.GetComponent<CameraController>();
+			if (m_cameraController == null) {
+				m_cameraController = m_mainCamera.AddComponent<CameraController>();
 
-				}
-
-				m_cameraController.Refresh ();
 			}
 
-			if (cameraType == SceneCameraType.Fixed) {
-				m_cameraController = m_mainCamera.GetComponent<CameraController> ();
-				if (m_cameraController != null) {
-					GameObject.Destroy (m_cameraController);
-				}
-			}
+			m_cameraController.Refresh();
+
 
 			return true;
 		}
 
-		public void SetTarget (GameObject target)
+		public Camera GetUICamera() { return m_uiCamera; }
+
+		public void SetTarget(GameObject target)
 		{
 			if (m_cameraController != null) {
-				m_cameraController.SetTarget (target);
+				m_cameraController.SetTarget(target);
 			}
 		}
+
+		public SceneCameraType GetSceneCameraType() {return m_sceneCameraType;}
 
 		private void CloseAllCamera ()
 		{
@@ -140,49 +117,44 @@ namespace StarPlatinum.Services
 			}
 		}
 
-		//public override void SingletonInit ()
+		//private GameObject GetCamera ()
 		//{
 
-		//      }
+		//	Camera [] cameras = Camera.allCameras;
+		//	Debug.Log ("Camera Length:" + cameras.Length);
 
-		private GameObject GetCamera ()
-		{
+		//	if (Camera.allCamerasCount == 0) {
+		//		Debug.Log ("This scene does`t contain a camera!");
 
-			Camera [] cameras = Camera.allCameras;
-			Debug.Log ("Camera Length:" + cameras.Length);
+		//		return null;
+		//	}
 
-			if (Camera.allCamerasCount == 0) {
-				Debug.Log ("This scene does`t contain a camera!");
+		//	if (cameras.Length > 1) {
+		//		for (int i = 1; i < cameras.Length; i++) {
+		//			cameras [i].gameObject.SetActive (false);
+		//			GameObject.Destroy (cameras [i].gameObject);
+		//		}
+		//	}
 
-				return null;
-			}
+		//	return cameras [0].gameObject;
+		//}
 
-			if (cameras.Length > 1) {
-				for (int i = 1; i < cameras.Length; i++) {
-					cameras [i].gameObject.SetActive (false);
-					GameObject.Destroy (cameras [i].gameObject);
-				}
-			}
+		//private GameObject CreateCamera ()
+		//{
+		//	GameObject root = GameObject.Find ("GameRoot");
+		//	if (root == null) return null;
 
-			return cameras [0].gameObject;
-		}
+		//	PrefabManager.Instance.InstantiateAsync<GameObject> ("MainCamera", (result) => {
+		//		GameObject cameraGameObject = result.result as GameObject;
 
-		private GameObject CreateCamera ()
-		{
-			GameObject root = GameObject.Find ("GameRoot");
-			if (root == null) return null;
-
-			PrefabManager.Instance.InstantiateAsync<GameObject> ("MainCamera", (result) => {
-				GameObject cameraGameObject = result.result as GameObject;
-
-				Camera camera = cameraGameObject.GetComponent<Camera> ();
-				if (camera == null) {
-					cameraGameObject.AddComponent<Camera> ();
-					cameraGameObject.transform.SetParent (root.transform);
-				}
-			});
-			return camera;
-		}
+		//		Camera camera = cameraGameObject.GetComponent<Camera> ();
+		//		if (camera == null) {
+		//			cameraGameObject.AddComponent<Camera> ();
+		//			cameraGameObject.transform.SetParent (root.transform);
+		//		}
+		//	});
+		//	return camera;
+		//}
 
 		private void SetUICamera()
 		{
@@ -200,6 +172,19 @@ namespace StarPlatinum.Services
 			m_uiCamera = camera;
 
 		}
+		public enum SceneCameraType
+		{
+			FirstPerson,
+			ThirdPerson
+		}
+
+		[SerializeField]
+		private GameObject m_mainCamera;
+		private Camera m_uiCamera;
+		[SerializeField]
+		private CameraController m_cameraController;
+
+		private SceneCameraType m_sceneCameraType = SceneCameraType.ThirdPerson;
 
 		private GameObject camera;
 		private RayCastDetection m_rayCastDetection;

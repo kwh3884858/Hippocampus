@@ -12,14 +12,10 @@ using UI.Panels.GameScene.MainManu;
 using UI;
 using UI.Panels;
 using UI.Panels.Providers.DataProviders;
+using StarPlatinum.EventManager;
 
 public class MonoMoveController : MonoBehaviour
 {
-
-    //   public LayerMask m_layerMask;
-    //   public LayerMask m_enemyLayerMask;
-
-
     public void SetMoveEnable(bool isEnable)
     {
         m_isMove = isEnable;
@@ -70,78 +66,48 @@ public class MonoMoveController : MonoBehaviour
         CameraService.Instance.SetTarget(gameObject);
         count = 0;
 
+        m_findColliderDetection = new FindColliderDetection();
     }
     // Update is called once per frame
     void Update()
     {
-        //// tips库测试
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    // 显示tips库
-        //UIManager.Instance().ShowPanel(UIPanelType.Tipspanel);// 显示UI
-        //UIManager.Instance().ShowStaticPanel(UIPanelType.Tipspanel);// 显示UI
-        //}
-        //if (Input.GetKeyDown(KeyCode.W))
-        //{
-        //    Tips.TipsManager.Instance.UnlockTip("Assassin's Creed ", Tips.TipsManager.ConvertDateTimeToLong(System.DateTime.Now));// 添加tip 数据
-        //}
-        //if(Input.GetKeyDown(KeyCode.W))
-        //{ 
-        //    var data = new Tips.TipData("测试", "www");
-        //    UIManager.Instance().ShowPanel(UIPanelType.Tipgetpanel, new UI.Panels.Providers.DataProviders.TipDataProvider() { Data = data });// 显示UI
-        //}
-
         if (!m_isEnable)
         {
             return;
         }
+
         if (InputService.Instance.Input.PlayerControls.TogglePause.triggered)
-        //if (Input.GetKeyDown(KeyCode.Escape))
         {
             //UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonESCMainMenuPanel);// 显示UI
             StarPlatinum.EventManager.EventManager.Instance.SendEvent(new StarPlatinum.SettingStateEvent() { IsShow = true });
             UIManager.Instance().ShowStaticPanel(UIPanelType.UICommonSettingPanel);// 显示UI
         }
 
-        Collider interactCollider = PhysicsDetectionAndFindBestCollider();
-        InteractWithCollider(interactCollider);
+        switch (CameraService.Instance.GetSceneCameraType())
+        {
+            case CameraService.SceneCameraType.ThirdPerson:
+                {
+                    Collider interactCollider = m_findColliderDetection.OverlapSphereDetectionFindNearestCollider(transform, m_interactableRadius, m_interactableMask);
+                    InteractWithCollider(interactCollider);
+                }
+                break;
+
+            case CameraService.SceneCameraType.FirstPerson:
+                {
+                    //TODO
+                }
+                break;
+        }
+     
     }
 
-    private Collider PhysicsDetectionAndFindBestCollider()
-    {
-        Collider interactCollider = null;
 
-        const int maxColliders = 10;
-        Collider[] hitColliders = new Collider[maxColliders];
-        Dictionary<Collider, float> colliders = new Dictionary<Collider, float>();
-
-        float smallestLength = Default_Max_Distance;
-
-        int numColliders = Physics.OverlapSphereNonAlloc(transform.position, m_interactableRadius, hitColliders, m_interactableLayer.value);
-        //Debug.Log ("Num of Collisions: " + numColliders);
-        for (int i = 0; i < numColliders; i++)
-        {
-            if (hitColliders[i].CompareTag(InteractiveObject.INTERACTABLE_TAG))
-            {
-                colliders.Add(hitColliders[i], Vector3.SqrMagnitude(hitColliders[i].transform.position - transform.position));
-            }
-        }
-        foreach (var pair in colliders)
-        {
-            if (pair.Value < smallestLength)
-            {
-                smallestLength = pair.Value;
-                interactCollider = pair.Key;
-            }
-        }
-
-        return interactCollider;
-    }
 
     private void InteractWithCollider(Collider collider)
     {
         if (collider != null)
         {
+            // Show Interaction Button
             if (!UIManager.Instance().IsPanelShow(UIPanelType.UIGameplayPromptwidgetPanel))
             {
                 UIManager.Instance().ShowPanel(UIPanelType.UIGameplayPromptwidgetPanel, new PromptWidgetDataProvider { m_interactiableObject = collider.gameObject });
@@ -156,8 +122,10 @@ public class MonoMoveController : MonoBehaviour
                         itemName = Error_Interactive_Object_Name;
                     }
                 }
-                UIManager.Instance().UpdateData(UIPanelType.UICommonGameplayPanel, new CommonGamePlayDataProvider { m_interactButtonShouldVisiable = true, m_itemName = itemName });
+                EventManager.Instance.SendEvent(new CommonGamePlayPanelUpdateDataEvent { m_interactButtonShouldVisiable = true, m_itemName = itemName }) ;
             }
+
+            // Do Interaction
             if (!UIManager.Instance().IsPanelShow(UIPanelType.UICommonTalkPanel))
             {
                 if (InputService.Instance.Input.PlayerControls.Interact.triggered || m_isInteractByUI )
@@ -177,11 +145,11 @@ public class MonoMoveController : MonoBehaviour
                 if (UIManager.Instance().IsPanelShow(UIPanelType.UIGameplayPromptwidgetPanel))
                 {
                     UIManager.Instance().HidePanel(UIPanelType.UIGameplayPromptwidgetPanel);
-                    UIManager.Instance().UpdateData(UIPanelType.UICommonGameplayPanel, new CommonGamePlayDataProvider { m_interactButtonShouldVisiable = false });
                 }
+                // Common gameplay may need to show others icon, which is only should make interact button invisiable. 
                 if (UIManager.Instance().IsPanelShow(UIPanelType.UICommonGameplayPanel))
                 {
-                    UIManager.Instance().UpdateData(UIPanelType.UICommonGameplayPanel, new CommonGamePlayDataProvider { m_interactButtonShouldVisiable = false });
+                    EventManager.Instance.SendEvent(new CommonGamePlayPanelUpdateDataEvent { m_interactButtonShouldVisiable = false});
                 }
             }
             m_isInteractByUI = false;
@@ -225,7 +193,6 @@ public class MonoMoveController : MonoBehaviour
         }
 
         Vector2 moveAxis = StarPlatinum.Services.InputService.Instance.Input.PlayerControls.Move.ReadValue<Vector2>();
-        //float verticalAxis = StarPlatinum.Services.InputService.Instance().GetAxis(StarPlatinum.KeyMap.Vertical);
         float horizontalStepLength = 0;
         float verticalStepLength = 0;
 
@@ -279,8 +246,10 @@ public class MonoMoveController : MonoBehaviour
         }
     }
 
-    const float Default_Max_Distance = 10000;
-    const string Error_Interactive_Object_Name = "!!!No Item Name!!!";
+    private FindColliderDetection m_findColliderDetection;
+
+    private const string Error_Interactive_Object_Name = "!!!No Item Name!!!";
+    private const float Default_Max_Distance = 10000;
 
     [Header("Third Person Controller")]
     public bool m_isEnable = true;
@@ -291,11 +260,15 @@ public class MonoMoveController : MonoBehaviour
     public float m_rayDistance = 2f;
 
     [Header("Public, Third Person Interactive Property")]
-    public float m_showInteractiveUIRadius = 1.0f;
     public float m_interactableRadius = 0.5f;
+    public float m_showInteractiveUIRadius = 1.0f;
     public float m_interactableRaycastAngle = 90;
     public float m_interactableRaycastAngleInterval = 10;
-    public LayerMask m_interactableLayer;
+    public LayerMask m_interactableMask;
+
+    [Header("Public, First Person Interactive Property")]
+    public float raycastLength = 2.0f;
+    public LayerMask m_raycastMask;
 
     [Header("Private, Third Person Physics Data")]
     [SerializeField]
@@ -306,7 +279,6 @@ public class MonoMoveController : MonoBehaviour
     private Animator m_animator;
     [SerializeField]
     private SpriteRenderer m_spriteRender;
-    //private Rigidbody2D m_rigidbody2D;
     [SerializeField]
     private CapsuleCollider m_capsuleCollider;
 
