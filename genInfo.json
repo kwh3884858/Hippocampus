@@ -166,5 +166,13 @@
 		"mediatorPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonEffectPanel.cs",
 		"modelPath":"Assets/code/Scripts/UI/Panels/StaticBoard/CommonEffectModel.cs",
 		"GUID":"32081633a7b492f449b43ab559b9f1be"
+	},
+	"c2bae3a158441d04f8513cd5a8551730":{
+		"type":3,
+		"prefabPath":"Assets/data/graphics/UI/Common/Mask/Prefabs/UI_Common_Mask_Panel.prefab",
+		"codePath":"Assets/code/Scripts/UI/Panels/AutoCreate/CommonMaskPanel.cs",
+		"mediatorPath":"Assets/code/Scripts/UI/Panels/Mask/CommonMaskPanel.cs",
+		"modelPath":"Assets/code/Scripts/UI/Panels/Mask/CommonMaskModel.cs",
+		"GUID":"c2bae3a158441d04f8513cd5a8551730"
 	}
 }

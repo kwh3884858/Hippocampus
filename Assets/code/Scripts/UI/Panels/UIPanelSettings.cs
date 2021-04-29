@@ -125,6 +125,7 @@ namespace UI.Panels
             new UIPanelSettings(UIPanelType.UICommonEndPanel,UIPanelUnLoadMode.Destroy,false,UIPanelLayer.Layer9),
             new UIPanelSettings(UIPanelType.UICommonMaininterfacePanel,UIPanelUnLoadMode.Disabled,true,UIPanelLayer.Layer5,true),
             new UIPanelSettings(UIPanelType.UICommonUieffectPanel,UIPanelUnLoadMode.Disabled,true,UIPanelLayer.Layer9,false),
+            new UIPanelSettings(UIPanelType.UICommonMaskPanel,UIPanelUnLoadMode.Destroy,false,UIPanelLayer.Layer9,false),
         };
 
     }

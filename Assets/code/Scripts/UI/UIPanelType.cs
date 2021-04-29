@@ -31,4 +31,5 @@ public enum UIPanelType
     [AssetPath("UI_Common_MainInterface_Panel")] UICommonMaininterfacePanel = 29,
     [AssetPath("UI_Common_Talk_Panel")] UICommonTalkPanel = 30,
     [AssetPath("UI_Common_UIEffect_Panel")] UICommonUieffectPanel = 31,
+    [AssetPath("UI_Common_Mask_Panel")] UICommonMaskPanel = 32,
 }

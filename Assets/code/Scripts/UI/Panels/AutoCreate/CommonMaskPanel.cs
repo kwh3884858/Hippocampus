@@ -17,28 +17,22 @@ using UI.UIComponent;
 
 namespace UI.Panels
 {
-    public partial class CommonEffectPanel : UIPanel<UIDataProvider, DataProvider>
+    public partial class CommonMaskPanel : UIPanel<UIDataProvider, DataProvider>
     {
          #region gen ui code 
-		[HideInInspector] public Animator m_pl_root_Animator;
 
-		[HideInInspector] public RectTransform m_pl_flash;
-
-         private CommonEffectModel m_model;
+         private CommonMaskModel m_model;
 
          private void UIFinder()
          {
-			m_pl_root_Animator = FindUI<Animator>(transform ,"pl_root");
 
-			m_pl_flash = FindUI<RectTransform>(transform ,"pl_root/pl_flash");
-
-m_model = new CommonEffectModel ();
+m_model = new CommonMaskModel ();
 
          }
          #endregion
    	
          public void Start () {
                UIFinder();
-        }
+         }
     }
 }
