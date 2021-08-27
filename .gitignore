@@ -25,6 +25,9 @@ Assets/AssetStoreTools*
 Assets/Resources/Storys/AutoSave~
 /Config
 
+# NuGet Packages Directory
+Tools/UnitySceneLookupGenerator/packages/*
+
 # Spine
 spine-unity.csproj
 spine-unity-editor.csproj
@@ -110,3 +113,4 @@ Assets/StreamingAssets/com.unity.addressables
 Assets/StreamingAssets/build_info
 Tools/Open Unity Hub With Proxy.cmd
 AmplifyShaderEditor.csproj
+
