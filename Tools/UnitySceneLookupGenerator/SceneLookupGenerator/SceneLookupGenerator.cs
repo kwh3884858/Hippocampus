@@ -49,6 +49,7 @@ namespace SceneLookupGenerator
 
 			//Find template
 			if (!Directory.Exists (m_worldRootPath)) {
+				Console.WriteLine("Path is not exist: "+ m_worldRootPath);
 				return ErrorType.NoSceneRootPath;
 			}
 

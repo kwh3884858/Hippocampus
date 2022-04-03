@@ -22,7 +22,7 @@ namespace SceneLookupGenerator
             Release
         }
 
-        private static DevMode DEV_MODE = DevMode.Debug;
+        private static DevMode DEV_MODE = DevMode.Release;
         //Length of "\\Assets"
         private static readonly int PATH_ASSETS_LENGTH = 7;
 
@@ -200,25 +200,26 @@ Generated scene lookup file will put in this path.
 
         static void CheckError(ErrorType error)
         {
+            if (error == ErrorType.NoError)
+            {
+                return;
+            }
 
             switch (error)
             {
-                case ErrorType.NoError:
-                    break;
-
                 case ErrorType.NoTemplateFile:
                     Console.WriteLine("Template file is not exist.");
-                    return;
+                    break;
 
                 case ErrorType.NoSceneRootPath:
                     Console.WriteLine("Scene root is not exist.");
-                    return;
+                    break;
 
                 case ErrorType.NoOutputPath:
                     Console.WriteLine("Output path is not exist.");
-
-                    return;
+                    break;
             }
+            Console.ReadLine();
         }
     }
 }
