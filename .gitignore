@@ -25,6 +25,9 @@ Assets/AssetStoreTools*
 Assets/Resources/Storys/AutoSave~
 /Config
 
+# Auto Generation
+EditorBuildSettings.asset
+
 # NuGet Packages Directory
 Tools/UnitySceneLookupGenerator/packages/*
 
