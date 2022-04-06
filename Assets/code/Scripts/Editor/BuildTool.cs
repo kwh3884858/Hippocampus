@@ -13,12 +13,14 @@ namespace code.Scripts.Editor
         [MenuItem("Tools/Build/Windows")]
         public static void BuildWindowsWithBundle()
         {
+            EdtorSceneAutomaticOperatioin.UpdateSceneBuildSetting();
             AddressableAssetSettings.BuildPlayerContent();
             BuildWindows();
         }
         [MenuItem("Tools/Build/Android")]
         public static void BuildAndroidWithBundle()
         {
+            EdtorSceneAutomaticOperatioin.UpdateSceneBuildSetting();
             AddressableAssetSettings.BuildPlayerContent();
             BuildAndroid();
         }
