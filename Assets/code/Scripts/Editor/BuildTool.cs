@@ -17,6 +17,13 @@ namespace code.Scripts.Editor
             AddressableAssetSettings.BuildPlayerContent();
             BuildWindows();
         }
+        [MenuItem("Tools/Build/Windows DebugVersion")]
+        public static void BuildWindowsDebugVersionWithBundle()
+        {
+            EdtorSceneAutomaticOperatioin.UpdateSceneBuildSetting();
+            AddressableAssetSettings.BuildPlayerContent();
+            BuildWindows();
+        }
         [MenuItem("Tools/Build/Android")]
         public static void BuildAndroidWithBundle()
         {
@@ -36,7 +43,20 @@ namespace code.Scripts.Editor
             };
             BuildPipeline.BuildPlayer(ops);
         }
-        
+
+        [MenuItem("Tools/Build/WindowsNoBundle DebugVersion")]
+        public static void BuildWindowsDebugVersion()
+        {
+            BuildPlayerOptions ops = new BuildPlayerOptions
+            {
+                locationPathName = GetBuildPath() + "Windows/Windows.exe",
+                scenes = GetBuildScenes(),
+                target = BuildTarget.StandaloneWindows64,
+                options = BuildOptions.Development | BuildOptions.AllowDebugging
+            };
+            BuildPipeline.BuildPlayer(ops);
+        }
+
         [MenuItem("Tools/Build/AndroidNoBundle")]
         public static void BuildAndroid()
         {
