@@ -36,10 +36,9 @@ public class ToolBoxEditorWindow : EditorWindow
 		// Get existing open window or if none, make a new one:
 		ToolBoxEditorWindow window = (ToolBoxEditorWindow)EditorWindow.GetWindow (typeof (ToolBoxEditorWindow));
 		window.Show ();
-
 	}
 
-	void OnGUI ()
+    void OnGUI ()
 	{
 		if (Application.isPlaying) {
 			return;
@@ -122,6 +121,7 @@ public class ToolBoxEditorWindow : EditorWindow
 			if (m_currentMissionEnum != MissionEnum.None) {
 				RemoveCurrentMissionSceneInternal ();
 				CreateMissionSceneInternal (m_currentMissionEnum);
+				UpdateLookupAndSceneEnum();
 			} else {
 				EditorUtility.DisplayDialog ("Select A Mission", "Select a valid mission for edit", "Ok");
 			}
@@ -136,12 +136,13 @@ public class ToolBoxEditorWindow : EditorWindow
 			}
 		}
 
-		if (GUILayout.Button ("Remove Mission Scene")) {
+		if (GUILayout.Button ("Unload Mission Scene")) {
 			RemoveCurrentMissionSceneInternal ();
-		}
+            UpdateLookupAndSceneEnum();
+        }
 
-		////////////////////////////////////////////////////
-		GUILayout.Label ("Add Gameobject to Game Scene", EditorStyles.boldLabel);
+        ////////////////////////////////////////////////////
+        GUILayout.Label ("Add Gameobject to Game Scene", EditorStyles.boldLabel);
 
 		if (GUILayout.Button ("Create Interactable Object")) {
 			//if (IsMissionSceneValid ()) {
@@ -198,6 +199,7 @@ public class ToolBoxEditorWindow : EditorWindow
 				EditorUtility.DisplayDialog ("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
 			}
 		}
+
 		if (GUILayout.Button ("Create Event Trigger With [Prefab: Load New Story]")) {
 			if (IsMissionSceneValid ()) {
 				GameObject loadNewStory = CreateEventTrigger (m_currentMissionScene);
@@ -207,6 +209,7 @@ public class ToolBoxEditorWindow : EditorWindow
 				EditorUtility.DisplayDialog ("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
 			}
 		}
+
         if (GUILayout.Button("Create Audio Trigger With [Prefab: AudioTrigger]"))
         {
             if (IsMissionSceneValid())
@@ -220,6 +223,7 @@ public class ToolBoxEditorWindow : EditorWindow
                 EditorUtility.DisplayDialog("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
             }
         }
+
         if (GUILayout.Button ("Create Event Trigger With [Prefab: Create New Teleport Point]")) {
 			if (IsGameSceneValid ()) {
 				GameObject loadNewStory = CreateEventTrigger (m_currentGameScene);
@@ -229,6 +233,7 @@ public class ToolBoxEditorWindow : EditorWindow
 				EditorUtility.DisplayDialog ("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
 			}
 		}
+
         if (GUILayout.Button("Create Event Trigger With [Prefab: Play Timeline]"))
         {
 			if (IsMissionSceneValid())
@@ -242,34 +247,10 @@ public class ToolBoxEditorWindow : EditorWindow
 				EditorUtility.DisplayDialog("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
 			}
 		}
+
         if (GUILayout.Button("Update Lookup"))
         {
-            try
-            {
-                // Create a process
-                System.Diagnostics.Process process = new System.Diagnostics.Process();
-
-				string exePath = Application.dataPath + "/data/tools/SceneLookupGenerator/SceneLookupGenerator.exe";
-				// Set the StartInfo of process
-				process.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
-				process.StartInfo.FileName = exePath;
-                process.StartInfo.UseShellExecute = false;
-                process.StartInfo.CreateNoWindow = true;
-                //process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                process.StartInfo.ErrorDialog = false;
-                process.StartInfo.RedirectStandardInput = true;
-                process.StartInfo.RedirectStandardOutput = true;
-                process.StartInfo.RedirectStandardError = true;
-                process.EnableRaisingEvents = true;
-                // Start the process
-                process.Start();
-				process.WaitForExit();
-				int ExitCode = process.ExitCode;
-			} catch (Exception e) {
-				EditorUtility.DisplayDialog("Cannot Update Lookup", $"Error Code: {e}, Please contact with tool programmer", "Ok");
-
-            }
-
+            UpdateLookupAndSceneEnum();
         }
         EditorGUILayout.EndVertical ();
 
@@ -395,8 +376,40 @@ public class ToolBoxEditorWindow : EditorWindow
 			}
 		}
 	}
+    private void UpdateLookupAndSceneEnum()
+    {
+        try
+        {
+            // Create a process
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
 
-	private void CreateMissionFolder (string folder)
+            string exePath = Application.dataPath + "/data/tools/SceneLookupGenerator/SceneLookupGenerator.exe";
+            // Set the StartInfo of process
+            process.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+            process.StartInfo.FileName = exePath;
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.CreateNoWindow = true;
+            //process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            process.StartInfo.ErrorDialog = false;
+            process.StartInfo.RedirectStandardInput = true;
+            process.StartInfo.RedirectStandardOutput = true;
+            process.StartInfo.RedirectStandardError = true;
+            process.EnableRaisingEvents = true;
+            // Start the process
+            process.Start();
+            process.WaitForExit();
+            int ExitCode = process.ExitCode;
+
+            AssetDatabase.Refresh();
+        }
+        catch (Exception e)
+        {
+            EditorUtility.DisplayDialog("Cannot Update Lookup", $"Error Code: {e}, Please contact with tool programmer", "Ok");
+
+        }
+    }
+
+    private void CreateMissionFolder (string folder)
 	{
 		string pathToSceneFolder = MissionSceneManager.Instance.GenerateFullSceneFolderPath (folder);
 		if (!AssetDatabase.IsValidFolder (pathToSceneFolder)) {
