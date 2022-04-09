@@ -12,37 +12,6 @@ using UnityEngine.SceneManagement;
 
 namespace GamePlay.Stage
 {
-
-    [System.Serializable]
-    public enum MissionEnum
-    {
-        None,
-        Programmer_DockByPier,
-        Designer_GreyBox,
-        EP01_01,
-        EP01_02,
-        EP01_03,
-        EP01_04,
-        EP09_03,
-        EP09_05_06_07_08,
-        EP09_09,
-        EP10_01,
-        special,
-        TachieTest,
-        MG_Prologue,
-        MG_Level_01,
-        MG_Level_01_Routine_01,
-        MG_Level_01_Routine_02,
-        MG_Level_02,
-        MG_Level_02_Routine_Sun,
-        MG_Level_02_Routine_Family,
-        MG_Level_02_Routine_Stranger,
-        MG_Level_03,
-
-
-
-    };
-
     public class MissionSceneManager : Singleton<MissionSceneManager>
     {
         public enum LoadMissionBy
@@ -271,28 +240,27 @@ namespace GamePlay.Stage
         private readonly string ANONYMOUS_MISSION = "World_Mission_Anonymous";
         private MissionEnum[] ALL_MISSION = {
         MissionEnum.None,
-        MissionEnum.Programmer_DockByPier,
-        MissionEnum.Designer_GreyBox,
-        MissionEnum.EP01_01,
-        MissionEnum.EP01_02,
-        MissionEnum.EP01_03,
-        MissionEnum.EP01_04,
-        MissionEnum.EP09_03,
-        MissionEnum.EP09_05_06_07_08,
-        MissionEnum.EP09_09,
-        MissionEnum.EP10_01,
-        MissionEnum.special,
-        MissionEnum.TachieTest,
-        MissionEnum.MG_Prologue,
-        MissionEnum.MG_Level_01,
-        MissionEnum.MG_Level_01_Routine_01,
-        MissionEnum.MG_Level_01_Routine_02,
-        MissionEnum.MG_Level_02,
-        MissionEnum.MG_Level_02_Routine_Sun,
-        MissionEnum.MG_Level_02_Routine_Family,
-        MissionEnum.MG_Level_02_Routine_Stranger,
-        MissionEnum.MG_Level_03,
+//[All Mission Enum Variable Auto Generated Code Begin]
+MissionEnum.Programmer_DockByPier,  
+MissionEnum.Designer_GreyBox,  
+MissionEnum.MIS0000,  
+MissionEnum.MIS0100,  
+MissionEnum.MIS0105,  
+//[All Mission Enum Variable Auto Generated Code End]
         };
 
     }
+
+    [System.Serializable]
+    public enum MissionEnum
+    {
+        None,
+//[Mission Enum Auto Generated Code Begin]
+Programmer_DockByPier,  
+Designer_GreyBox,  
+MIS0000,  
+MIS0100,  
+MIS0105,  
+//[Mission Enum Auto Generated Code End]
+    };
 }
