@@ -81,14 +81,6 @@ public class ToolBoxEditorWindow : EditorWindow
             AssetDatabase.Refresh();
         }
 
-		//if (GUILayout.Button ("Save Start Info")) {
-		//	ConfigRoot.Instance.StartScene = m_enumStartScene;
-		//	ConfigRoot.Instance.StartMission = m_enumStartMission;
-		//	Debug.Log ($"Set {m_enumStartScene.ToString ()} as Start Scene");
-		//	Debug.Log ($"Set {m_enumStartMission.ToString ()} as Start Mission");
-		//	AssetDatabase.SaveAssets ();
-		//}
-
 		GUILayout.Label ("Prefab Object Name", EditorStyles.boldLabel);
 		ConfigMission.Instance.Text_Spawn_Point_Name =
 			EditorGUILayout.TextField ("Spawn Point Name", ConfigMission.Instance.Text_Spawn_Point_Name);
@@ -250,8 +242,36 @@ public class ToolBoxEditorWindow : EditorWindow
 				EditorUtility.DisplayDialog("Not Valid Mission Scene", "Load or Create a valid mission scene", "Ok");
 			}
 		}
+        if (GUILayout.Button("Update Lookup"))
+        {
+            try
+            {
+                // Create a process
+                System.Diagnostics.Process process = new System.Diagnostics.Process();
 
-		EditorGUILayout.EndVertical ();
+				string exePath = Application.dataPath + "/data/tools/SceneLookupGenerator/SceneLookupGenerator.exe";
+				// Set the StartInfo of process
+				process.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
+				process.StartInfo.FileName = exePath;
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.CreateNoWindow = true;
+                //process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                process.StartInfo.ErrorDialog = false;
+                process.StartInfo.RedirectStandardInput = true;
+                process.StartInfo.RedirectStandardOutput = true;
+                process.StartInfo.RedirectStandardError = true;
+                process.EnableRaisingEvents = true;
+                // Start the process
+                process.Start();
+				process.WaitForExit();
+				int ExitCode = process.ExitCode;
+			} catch (Exception e) {
+				EditorUtility.DisplayDialog("Cannot Update Lookup", $"Error Code: {e}, Please contact with tool programmer", "Ok");
+
+            }
+
+        }
+        EditorGUILayout.EndVertical ();
 
 		GUI.EndScrollView ();
 
