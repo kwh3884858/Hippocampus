@@ -96,8 +96,11 @@ namespace GamePlay.Stage
                     {
                         if (m_player != null)
                         {
-                            m_player.transform.position =
+                            //m_player.transform.position =
+                            //    new Vector3(go.transform.position.x, go.transform.position.y + 0.5f, go.transform.position.z);
+                            Vector3 new_pos =
                                 new Vector3(go.transform.position.x, go.transform.position.y + 0.5f, go.transform.position.z);
+                            m_player.transform.SetPositionAndRotation(new_pos, go.transform.rotation);
                             m_player.SetActive(true);
                             return;
                         }
