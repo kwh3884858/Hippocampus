@@ -128,6 +128,12 @@ namespace SceneLookupGenerator
             CheckError(error);
             Console.WriteLine("Generate Lookup Successful!");
 
+            // Scene Manager
+            //lookup template folder "Assets\code\Scripts\Gameplay\SceneManager\MissionSceneManager.cs"
+            string sceneManager = configFath + config.Path_To_Mission_Scene_Manager;
+            MissionEnumGenerator missionEnumGenerator = new MissionEnumGenerator(sceneManager, config.Mission_Enum);
+            missionEnumGenerator.Execute();
+
             return;
         }
 
