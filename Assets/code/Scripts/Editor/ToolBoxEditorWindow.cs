@@ -388,7 +388,7 @@ public class ToolBoxEditorWindow : EditorWindow
             process.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
             process.StartInfo.FileName = exePath;
             process.StartInfo.UseShellExecute = false;
-            process.StartInfo.CreateNoWindow = true;
+            //process.StartInfo.CreateNoWindow = true;
             //process.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
             process.StartInfo.ErrorDialog = false;
             process.StartInfo.RedirectStandardInput = true;
