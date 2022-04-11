@@ -73,10 +73,14 @@ namespace SceneLookupGenerator
                     Array.Clear(b, 0, b.Length);
                 }
             }
-            IDeserializer deserializer = new DeserializerBuilder()
-                .Build();
+            IDeserializer deserializer = new DeserializerBuilder().Build();
 
             GeneratorPathConfig config = deserializer.Deserialize<GeneratorPathConfig>(content.ToString());
+            string executionPath = Environment.CurrentDirectory;
+            if(executionPath.IndexOf(config.Path_Assets) < 0)
+            {
+                executionPath += config.Path_Assets;
+            }
 
             Console.WriteLine("Use -h for help info");
 
@@ -84,6 +88,7 @@ namespace SceneLookupGenerator
                 Environment.OSVersion.Platform == PlatformID.MacOSX)
             {
                 config.ForamtForUnixLikeSystem();
+                executionPath = executionPath.Replace('\\', '/');
             }
 
             //Argument:
@@ -97,7 +102,7 @@ namespace SceneLookupGenerator
 
             m_sceneLookupGenerator.SetSceneLookupOutputName(config.Scene_Lookup_OutputName);
 
-            int pos = config.Execution_Path.LastIndexOf(config.Path_Assets);
+            int pos = executionPath.LastIndexOf(config.Path_Assets);
             if (pos < 0)
             {
                 Console.WriteLine("Cannot find Assets folder from execution path.");
@@ -105,7 +110,7 @@ namespace SceneLookupGenerator
                 return;
             }
             //sub string to "../Assets"
-            string configFath = config.Execution_Path.Substring(0, pos + PATH_ASSETS_LENGTH);
+            string configFath = executionPath.Substring(0, pos + PATH_ASSETS_LENGTH);
 
             //scene root folder "Assets\\data\\graphics\\World"
             string worldRootPath = configFath + config.Path_Data_To_World;

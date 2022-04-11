@@ -8,7 +8,6 @@ namespace SceneLookupGenerator
 {
     class GeneratorPathConfig
     {
-        public string Execution_Path { get; set; }
         public string Path_Assets /*= "\\Assets"*/ { get; set; }
         //Scene Lookup
         public string Path_Data_To_World /*= "\\data\\graphics\\World";*/{ get; set; }
@@ -20,7 +19,6 @@ namespace SceneLookupGenerator
 
         public void ForamtForUnixLikeSystem()
         {
-            Execution_Path = Execution_Path.Replace('\\', '/');
             Path_Assets = Path_Assets.Replace('\\', '/');
             Path_Data_To_World = Path_Data_To_World.Replace('\\', '/');
             Path_Data_To_SceneLookupGenerator = Path_Data_To_SceneLookupGenerator.Replace('\\', '/');
