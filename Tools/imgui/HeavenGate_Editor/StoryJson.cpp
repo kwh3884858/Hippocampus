@@ -374,7 +374,7 @@ StoryJson::~StoryJson()
 
 
 
-HeavenGateEditor::StoryJson& StoryJson::operator=(const storyJson& storyJson)
+HeavenGateEditor::StoryJson& StoryJson::operator=(const StoryJson& storyJson)
 {
     if (this == &storyJson) {
         return *this;
