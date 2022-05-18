@@ -246,6 +246,9 @@ MissionEnum.Designer_GreyBox,
 MissionEnum.MIS0000,  
 MissionEnum.MIS0100,  
 MissionEnum.MIS0105,  
+MissionEnum.MIS0200,  
+MissionEnum.MIS0205,  
+MissionEnum.MIS0210,  
 //[All Mission Enum Variable Auto Generated Code End]
         };
 
@@ -261,6 +264,9 @@ Designer_GreyBox,
 MIS0000,  
 MIS0100,  
 MIS0105,  
+MIS0200,  
+MIS0205,  
+MIS0210,  
 //[Mission Enum Auto Generated Code End]
     };
 }
