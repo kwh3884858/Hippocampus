@@ -79,7 +79,7 @@ namespace Config.Data
                 Debug.LogError($"获取配置资源错误! {filePath}");
             else
             {
-                fileStr =Encoding.GetEncoding("GB2312").GetString(req.downloadHandler.data);
+                fileStr =Encoding.GetEncoding("utf-8").GetString(req.downloadHandler.data);
             }
             callback?.Invoke(fileStr);
             yield break;

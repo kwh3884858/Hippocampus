@@ -28,9 +28,9 @@ namespace code.Scripts.Editor
                     string jsonName = files[i].Name.Replace(".csv", ".json");
                     FileStream fs = new FileStream(m_jsonPath+jsonName, FileMode.Create);
                     //存储时时二进制,所以这里需要把我们的字符串转成二进制
-                    Encoding gb2312;
-                    gb2312 = Encoding.GetEncoding("GB2312");
-                    byte[] bytes = gb2312.GetBytes(json);
+                    Encoding utf8;
+                    utf8 = Encoding.GetEncoding("utf-8");
+                    byte[] bytes = utf8.GetBytes(json);
                     fs.Write(bytes, 0, bytes.Length);
                     //每次读取文件后都要记得关闭文件
                     fs.Close();
@@ -48,7 +48,7 @@ namespace code.Scripts.Editor
 //            FileStream fs = new FileStream(filePath, FileMode.Open, System.IO.FileAccess.Read, FileShare.ReadWrite);
 //            UTF8Encoding utf8 = new UTF8Encoding();
 //            StreamReader reader = new StreamReader(fs, utf8);
-            StreamReader reader = new StreamReader(filePath, System.Text.Encoding.GetEncoding(936));
+            StreamReader reader = new StreamReader(filePath, System.Text.Encoding.GetEncoding("utf-8"));
 
             List<Type> types = new List<Type>();
             int i = 0, m = 0;
