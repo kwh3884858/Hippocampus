@@ -11,6 +11,8 @@ namespace Config.Data
         public string StoryFileName;
         public string LoadSceneNameOnEnd;
         public string LoadMissionIDOnEnd;
+        public string ShowLabelOnEndStoryFileName;
+        public string ShowLabelOnEnd;
 
         public static CGSceneConfig GetConfigByKey(string key)
         {

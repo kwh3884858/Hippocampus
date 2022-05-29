@@ -199,6 +199,7 @@ namespace UI.Panels
 
             string sceneName = null;
             string missionName = null;
+            string showLabel = null;
             
             if (m_storyInfo != null)
             {
@@ -225,9 +226,24 @@ namespace UI.Panels
 	            missionName = config.LoadMissionIDOnEnd;
             }
 
+            if (!string.IsNullOrEmpty(config.ShowLabelOnEnd))
+            {
+	            showLabel = config.ShowLabelOnEnd;
+            }
+
             if (!string.IsNullOrEmpty(sceneName))
             {
                 GameSceneManager.Instance.LoadScene(SceneLookup.GetEnum(sceneName, false));
+            }
+            
+            if (!string.IsNullOrEmpty(config.ShowLabelOnEndStoryFileName))
+            {
+	            UiDataProvider.ControllerManager.StoryController.LoadStoryFileByName(config.ShowLabelOnEndStoryFileName);
+            }
+            if (!string.IsNullOrEmpty(showLabel))
+            {
+	            InvokeShowPanel(UIPanelType.UICommonTalkPanel,
+		            new TalkDataProvider() {ID = showLabel});
             }
 
             if (!string.IsNullOrEmpty(missionName))
