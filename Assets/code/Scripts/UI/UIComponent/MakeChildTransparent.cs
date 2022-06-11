@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Net.Mime;
-using Boo.Lang;
+//using Boo.Lang; // compiler error, unity upgrade to 2021.3.4
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace UI.UIComponent
 {
