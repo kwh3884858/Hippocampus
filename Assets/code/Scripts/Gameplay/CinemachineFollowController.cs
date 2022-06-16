@@ -41,19 +41,21 @@ public class CinemachineFollowController : MonoBehaviour
 
     private void LoadCameraRange()
     {
-        string[] sceneList = SceneLookup.GetAllSceneString();
+        sceneList = SceneLookup.GetAllSceneString();
         string scene = "";
-        GameObject cameraRange;
+        Transform cameraRange;
         Collider collider;
         for (int i = 0; i < sceneList.Length; i++)
         {
             scene = sceneList[i];
-            cameraRange = GameObject.Find(scene);
+            Transform CameraMoveRange = transform.Find("CameraMoveRange");
+            cameraRange = CameraMoveRange.Find(scene);
             if (cameraRange != null)
             {
-                collider = cameraRange.GetComponent<Collider>();
+                collider = cameraRange.gameObject.GetComponent<Collider>();
                 m_moveRangeDic.Add(scene, collider);
-            }
+                Debug.LogWarning(cameraRange);
+    }
             else
             {
                 m_moveRangeDic.Add(scene, null);
@@ -61,6 +63,9 @@ public class CinemachineFollowController : MonoBehaviour
         }
     }
 
+    string[] sceneList;
+
     private CinemachineConfiner m_confiner = null;
+
     private Dictionary<string, Collider> m_moveRangeDic = new Dictionary<string, Collider>();
 }
