@@ -249,6 +249,12 @@ MissionEnum.MIS0105,
 MissionEnum.MIS0200,  
 MissionEnum.MIS0205,  
 MissionEnum.MIS0210,  
+MissionEnum.MIS0500,  
+MissionEnum.MIS0505,  
+MissionEnum.MIS0510,  
+MissionEnum.MIS0600,  
+MissionEnum.MIS0605,  
+MissionEnum.MIS0610,  
 //[All Mission Enum Variable Auto Generated Code End]
         };
 
@@ -258,7 +264,7 @@ MissionEnum.MIS0210,
     public enum MissionEnum
     {
         None,
-//[Mission Enum Auto Generated Code Begin]
+        //[Mission Enum Auto Generated Code Begin]
 Programmer_DockByPier,  
 Designer_GreyBox,  
 MIS0000,  
@@ -267,6 +273,12 @@ MIS0105,
 MIS0200,  
 MIS0205,  
 MIS0210,  
+MIS0500,  
+MIS0505,  
+MIS0510,  
+MIS0600,  
+MIS0605,  
+MIS0610,  
 //[Mission Enum Auto Generated Code End]
     };
 }
