@@ -48,7 +48,6 @@ public class CinemachineFollowController : MonoBehaviour
         for (int i = 0; i < sceneList.Length; i++)
         {
             scene = sceneList[i];
-            Transform CameraMoveRange = transform.Find("CameraMoveRange");
             cameraRange = CameraMoveRange.Find(scene);
             if (cameraRange != null)
             {
@@ -64,6 +63,9 @@ public class CinemachineFollowController : MonoBehaviour
     }
 
     string[] sceneList;
+
+    [SerializeField]
+    public Transform CameraMoveRange;
 
     private CinemachineConfiner m_confiner = null;
 
