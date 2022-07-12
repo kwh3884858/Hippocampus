@@ -204,7 +204,7 @@ namespace GamePlay.Stage
         public bool IsFileMissionSceneExistInAssets(string folder, string sceneName)
         {
             string pathToScene = GenerateFullSceneFolderPath(folder);
-            string[] missionAssets = AssetDatabase.FindAssets(sceneName, new string[] { pathToScene });
+            string[] missionAssets = AssetDatabase.FindAssets("t:Scene " + sceneName, new string[] { pathToScene });
             if (missionAssets.Length < 1)
             {
                 Debug.Log("Cant Find Scene Assets in: " + pathToScene);
@@ -215,7 +215,7 @@ namespace GamePlay.Stage
                 Debug.LogError("Scene Assets more than one: " + pathToScene);
                 foreach (var sceneFile in missionAssets)
                 {
-                    Debug.LogError(sceneFile);
+                    Debug.LogError(AssetDatabase.GUIDToAssetPath(sceneFile));
                 }
                 return false;
             }
